@@ -1,0 +1,445 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Brother1816-Regular";
+}
+
+@font-face {
+  font-family: "Brother1816-Thin";
+  src: url(../font/01-Brother1816-Thin.otf);
+}
+@font-face {
+  font-family: "Brother1816-Light";
+  src: url(../font/03-Brother1816-Light.otf);
+}
+@font-face {
+  font-family: "Brother1816-Regular";
+  src: url(../font/07-Brother1816-Regular.otf);
+}
+@font-face {
+  font-family: "Brother1816-Medium";
+  src: url(../font/09-Brother1816-Medium.otf);
+}
+@font-face {
+  font-family: "Brother1816-Bold";
+  src: url(../font/11-Brother1816-Bold.otf);
+}
+@font-face {
+  font-family: "Brother1816-ExtraBold";
+  src: url(../font/13-Brother1816-ExtraBold.otf);
+}
+@font-face {
+  font-family: "Brother1816-Black";
+  src: url(../font/15-Brother1816-Black.otf);
+}
+h1 {
+  font-size: 60px;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 40px;
+  margin-bottom: 0;
+  font-family: "Brother1816-Regular";
+}
+
+h3 {
+  font-size: 30px;
+  margin-bottom: 0;
+}
+
+h4 {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+h5 {
+  font-size: 22px;
+  margin-bottom: 0;
+}
+
+h6 {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+ul li {
+  font-size: 14px;
+  line-height: 30px;
+  text-decoration: none;
+  list-style: none;
+  font-weight: 300;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 0;
+  line-height: 30px;
+  color: #676767;
+  font-weight: 300;
+}
+
+i {
+  -o-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+}
+
+a {
+  font-size: 14px;
+  text-decoration: none;
+  color: #000000;
+  -o-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  font-weight: 400;
+}
+a:hover {
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  color: #D72536;
+}
+
+form .form-group {
+  margin-bottom: 20px;
+}
+form .form-group .form-control {
+  margin-bottom: 0;
+  border-radius: 0;
+  font-weight: 400;
+}
+form .form-group .form-control:focus {
+  box-shadow: none;
+}
+
+select option {
+  font-family: "Brother1816-Light";
+  font-family: helvetica, arial, verdana;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.btn:focus {
+  box-shadow: none;
+  outline: none;
+}
+.btn:hover {
+  box-shadow: none;
+  outline: none;
+}
+
+.primary_btn {
+  color: #ffffff;
+  padding: 13px 30px;
+  display: inline-block;
+  background-image: linear-gradient(180deg, #d72536, #161616);
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: ease-in all 0.5s;
+}
+.primary_btn:hover {
+  color: #ffffff;
+  background-image: linear-gradient(180deg, #161616, #d72536);
+}
+
+.pt-30 {
+  padding-top: 30px;
+}
+
+.pt-40 {
+  padding-top: 40px;
+}
+
+.pt-50 {
+  padding-top: 50px;
+}
+
+.pt-60 {
+  padding-top: 60px;
+}
+
+.pt-70 {
+  padding-top: 70px;
+}
+
+.pt-80 {
+  padding-top: 80px;
+}
+
+.pt-90 {
+  padding-top: 90px;
+}
+
+.pt-100 {
+  padding-top: 100px;
+}
+
+.subHeading {
+  color: #D72536;
+  letter-spacing: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-bottom: 7px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+}
+.subHeading::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 70px;
+  height: 2px;
+  left: -90px;
+  background: #D72536;
+}
+
+.subHeading2 {
+  letter-spacing: 5px;
+}
+
+.mainHeading {
+  margin-top: 15px;
+  font-weight: 400;
+}
+.mainHeading strong {
+  font-weight: 700;
+}
+
+.textArea {
+  margin-bottom: 30px;
+}
+.textArea p {
+  margin-bottom: 20px;
+}
+.textArea ul li {
+  font-size: 14px;
+  font-weight: 300;
+  color: #676767;
+  position: relative;
+  margin-bottom: 15px;
+}
+.textArea ul li:last-child {
+  margin-bottom: 0;
+}
+.textArea ul li i {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: #d72536;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+@media (max-width: 1399.98px) {
+  h1 {
+    font-size: 40px;
+    margin-bottom: 0;
+  }
+  h2 {
+    font-size: 30px;
+    margin-bottom: 0;
+  }
+  h3 {
+    font-size: 25px;
+    margin-bottom: 0;
+  }
+  h4 {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+  h5 {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+  h6 {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 991.98px) {
+  .subHeading {
+    font-size: 14px;
+    margin-bottom: 0px;
+  }
+  .mainHeading {
+    margin-top: 10px;
+  }
+  .primary_btn {
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 0px;
+  }
+}
+@media (max-width: 767.98px) {
+  p {
+    font-size: 13px;
+    line-height: 22px;
+  }
+  a {
+    font-size: 13px;
+  }
+}
+.topHeader {
+  padding: 20px 0;
+}
+.topHeader .hamburgerMenuArea {
+  display: flex;
+  align-items: center;
+}
+.topHeader .hamburgerMenuArea img {
+  width: 30px;
+}
+.topHeader .artemyst {
+  display: flex;
+  justify-content: center;
+}
+.topHeader .artemyst .artemystLogo {
+  width: 300px;
+  margin: 0 auto;
+  display: inline-block;
+}
+.topHeader .topRightArea {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.topHeader .topRightArea .topRightAreaUl {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.topHeader .topRightArea .topRightAreaUl li {
+  display: flex;
+  align-items: center;
+  border-right: 2px solid #E4E4E4;
+  padding: 0px 20px 0px 0;
+  margin-right: 20px;
+  min-height: 30px;
+}
+.topHeader .topRightArea .topRightAreaUl li img {
+  width: 20px;
+}
+.topHeader .topRightArea .topRightAreaUl li:last-child {
+  margin-right: 0;
+  padding-right: 0;
+  border: 0;
+}
+.topHeader .topRightArea .topRightAreaUl .currency img {
+  margin-right: 10px;
+  border-radius: 100%;
+}
+.topHeader .topRightArea .topRightAreaUl .currency select {
+  background: transparent;
+  border: 0;
+  font-size: 12px;
+  font-family: "Brother1816-Light";
+  outline: none;
+  box-shadow: inherit;
+  line-height: 18px;
+}
+.topHeader .topRightArea .topRightAreaUl .currency select option {
+  padding: 5px;
+  font-size: 14px;
+}
+.topHeader .topRightArea .topRightAreaUl .cart img {
+  height: 20px;
+}
+.topHeader .topRightArea .topRightAreaUl .cart .badge {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 9px;
+  font-family: helvetica, arial, verdana;
+  left: 60% !important;
+  top: -20% !important;
+}
+.topHeader .topRightArea .topRightAreaUl .login .userBox {
+  width: 30px;
+  height: 30px;
+  background: #E4E4E4;
+  border-radius: 100%;
+  display: flex;
+  justify-items: left;
+  align-items: center;
+}
+.topHeader .topRightArea .topRightAreaUl .login .userBox .icon {
+  width: 13px;
+  margin: 0 auto;
+  display: inline-block;
+}
+.topHeader .topRightArea .topRightAreaUl .login .dropdown .dropdown-toggle::after {
+  display: none;
+}
+.topHeader .topRightArea .topRightAreaUl .login .dropdown-menu {
+  margin: 0 !important;
+  padding: 0 0 !important;
+  min-width: 100px !important;
+  transform: translate(-62px, 32px) !important;
+}
+.topHeader .topRightArea .topRightAreaUl .login .dropdown-menu li {
+  padding: 0;
+  margin-right: 0;
+  border: 0;
+}
+.topHeader .topRightArea .topRightAreaUl .login .dropdown-menu .dropdown-item {
+  font-size: 12px;
+  font-family: "Brother1816-Light";
+  display: flex;
+  align-items: center;
+  height: 35px;
+  padding: 0 8px;
+}
+.topHeader .topRightArea .topRightAreaUl .login .dropdown-menu .dropdown-item:hover {
+  color: #1e2125;
+  background-color: #E4E4E4;
+}
+
+@media (max-width: 1199.98px) {
+  .topHeader .hamburgerMenuArea img {
+    width: 25px;
+  }
+  .topHeader .artemyst .artemystLogo {
+    width: 220px;
+  }
+  .topHeader .topRightArea .topRightAreaUl li {
+    padding: 0 10px 0 0;
+    margin-right: 10px;
+  }
+  .topHeader .topRightArea .topRightAreaUl .cart .badge {
+    left: 30% !important;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
