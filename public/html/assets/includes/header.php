@@ -25,9 +25,7 @@
 
     <link rel="stylesheet" href="assets/css/star-rating-svg.min.css">
 
-    <!--    <link rel="stylesheet" href="assets/owlcarousel/assets/owl.carousel.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <!--    <link rel="stylesheet" href="assets/owlcarousel/assets/owl.theme.default.min.css">-->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
@@ -41,18 +39,18 @@
 <section class="topHeader">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 hamburgerMenuArea">
+            <div class="col-lg-4 col-3 hamburgerMenuArea">
                 <a class="" data-bs-toggle="offcanvas" href="#hamburgerMenu" role="button"
                    aria-controls="offcanvasExample">
                     <img class="img-fluid" src="assets/images/hamburgerMenuIcon.png" alt="">
                 </a>
             </div>
-            <div class="col-lg-4 artemyst">
+            <div class="col-lg-4 col-6 artemyst">
                 <a href="">
                     <img class="img-fluid artemystLogo" src="assets/images/artemystLogo.png" alt="">
                 </a>
             </div>
-            <div class="col-lg-4 topRightArea">
+            <div class="col-lg-4 col-3 topRightArea">
                 <ul class="topRightAreaUl">
                     <li>
                         <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop"
@@ -72,7 +70,8 @@
                         </select>
                     </li>
                     <li class="cart">
-                        <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                        <a class="position-relative" type="button" data-bs-toggle="offcanvas"
+                           data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                             <img class="img-fluid" src="assets/images/bag.png" alt="">
                             <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
                                 23
@@ -80,13 +79,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="index.php">
                             <img class="img-fluid" src="assets/images/wishlist.png" alt="">
                         </a>
                     </li>
                     <li class="login">
                         <div class="dropdown">
-                            <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1"
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="img-fluid icon" src="assets/images/user.png" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
@@ -94,9 +94,6 @@
                                 <li><a class="dropdown-item" href="#">Register</a></li>
                             </ul>
                         </div>
-<!--                        <a class="userBox" href="">-->
-<!--                            <img class="img-fluid icon" src="assets/images/user.png" alt="">-->
-<!--                        </a>-->
                     </li>
                 </ul>
             </div>
@@ -105,6 +102,35 @@
 </section>
 
 <!--Top Header End-->
+
+<!--Main Menu Start-->
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.php">Shop All </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Best seller </a></li>
+<!--                    <li class="nav-item dropdown ">-->
+<!--                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Media </a>-->
+<!--                        <ul class="dropdown-menu dropdown-menu-end single_drop">-->
+<!--                            <li><a class="dropdown-item" href="blog.php"> Blog</a></li>-->
+<!--                            <li><a class="dropdown-item" href="portfolio.php"> Portfolio </a></li>-->
+<!--                            <li><a class="dropdown-item" href="errorPage.php"> Videos </a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
+                    <li class="nav-item"><a class="nav-link" href="index.php"> New arrivals </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!--Main Menu End-->
 
 
 <!-- Hamburger Menu Start -->

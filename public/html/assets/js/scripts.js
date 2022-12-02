@@ -8,6 +8,76 @@ $('#language-selector').on('change', function() {
 
 
 
+//Home Banner Slider
+$('.homeSliderDetails').slick({
+    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: false,
+    dots: false,
+    // draggable: false,
+    pauseOnHover: true,
+    pauseOnFocus: false,
+    cssEase: 'ease-in-out',
+    autoplaySpeed: 3000,
+    asNavFor: '.homeSliderImages',
+    adaptiveHeight: false,
+    arrows: false,
+});
+
+$('.homeSliderImages').slick({
+    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: false,
+    dots: false,
+    draggable: true,
+    pauseOnHover: true,
+    pauseOnFocus: false,
+    cssEase: 'ease-in-out',
+    focusOnSelect: true,
+    autoplaySpeed: 3000,
+    centerMode: false,
+    asNavFor: '.homeSliderDetails',
+    arrows: true,
+    fade: true,
+});
+
+//Home Banner Slider
+
+
+//Testimonials slider
+$('.testimonialsSlider').slick({
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+    autoplay:true,
+    infinite: true,
+    focusOnSelect: true,
+    draggable: true,
+    dots: false,
+    arrows: true,
+    pauseOnHover:false,
+    responsive: [
+        {
+            breakpoint: 1199.98,
+            settings: {slidesToShow: 2,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 991.98,
+            settings: {slidesToShow: 1,}
+        },
+        {
+            breakpoint: 575,
+            settings: {slidesToShow: 1,}
+        },
+    ]
+});
+//Testimonials slider
+
+
+
+
+
+
+
+
+
+
 
 //Our Experts Slider
 $('.expertsSlider').slick({
@@ -140,35 +210,7 @@ $(document).ready(function() {
 })
 //Home Blog Slider Slider
 
-//Testimonials slider
-$('.testimonials_slider').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    focusOnSelect: true,
-    autoplay:true,
-    infinite: true,
-    appendArrows: $('.slick-slider-xzoom'),
-    focusOnSelect: true,
-    vertical: true,
-    verticalSwiping: true,
-    draggable: true,
-    dots: true,
-    responsive: [
-        {
-            breakpoint: 1199.98,
-            settings: {slidesToShow: 3,slidesToScroll: 1,}
-        },
-        {
-            breakpoint: 991.98,
-            settings: {slidesToShow: 1,}
-        },
-        {
-            breakpoint: 575,
-            settings: {slidesToShow: 1,}
-        },
-    ]
-});
-//Testimonials slider
+
 
 //History Slider
 $(document).ready(function() {

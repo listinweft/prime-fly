@@ -1,5 +1,93 @@
 
-
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <a class="logo" href="index.php">
+                        <img class="img-fluid" src="assets/images/artemyst-logoWhite.png" alt="">
+                    </a>
+                    <ul class="list">
+                        <li>
+                            <a href="">Our Story</a>
+                        </li>
+                        <li>
+                            <a href="">Sustainability</a>
+                        </li>
+                        <li>
+                            <a href="">Art for Business</a>
+                        </li>
+                        <li>
+                            <a class="strong" href="">My Account</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Help</h6>
+                    <ul class="list">
+                        <li>
+                            <a href="">FAQ's</a>
+                        </li>
+                        <li>
+                            <a href="">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a href="">Terms & Conditions</a>
+                        </li>
+                        <li>
+                            <a href="">Return & Refund Policy</a>
+                        </li>
+                        <li>
+                            <a href="">Payment</a>
+                        </li>
+                        <li>
+                            <a href="">Support Center</a>
+                        </li>
+                    </ul>
+                    <img class="img-fluid paymentImg" src="assets/images/securepayment.png" alt="">
+                </div>
+                <div class="col-lg-3">
+                    <h6>Discover</h6>
+                    <ul class="list">
+                        <li>
+                            <a href="">Art Prints</a>
+                        </li>
+                        <li>
+                            <a href="">Prints with Wooden Frame</a>
+                        </li>
+                        <li>
+                            <a href="">Prints with Aluminium Frame</a>
+                        </li>
+                        <li>
+                            <a href="">Canvas Prints</a>
+                        </li>
+                        <li>
+                            <a href="">Framed Canvas Prints</a>
+                        </li>
+                        <li>
+                            <a href="">Need Something Printed?</a>
+                        </li>
+                        <img class="img-fluid googleImg" src="assets/images/googleFooter.png" alt="">
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Contact</h6>
+                    <ul class="list">
+                        <li>
+                            Artemyst<br>
+                            Address. Box No.
+                            64014, Dubai, UAE
+                        </li>
+                        <li>
+                            <a href="tel:+971000000000"><span>Ph</span>: 00970-000000000</a>
+                        </li>
+                        <li>
+                            <a href="mailto:someone@gmail.com"><span>Mail</span>: someone@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
