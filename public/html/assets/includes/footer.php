@@ -2,7 +2,7 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6 order-1">
                     <a class="logo" href="index.php">
                         <img class="img-fluid" src="assets/images/artemyst-logoWhite.png" alt="">
                     </a>
@@ -20,8 +20,18 @@
                             <a class="strong" href="">My Account</a>
                         </li>
                     </ul>
+
+                    <div class="socialArea">
+                        <h6>Connect With Us</h6>
+                        <div class="iconBox">
+                            <a href=""><i class="fa-brands fa-instagram"></i></a>
+                            <a href=""><i class="fa-brands fa-facebook"></i></a>
+                            <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                            <a href=""><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6 order-lg-2 mt-lg-0 mt-5 order-3">
                     <h6>Help</h6>
                     <ul class="list">
                         <li>
@@ -45,7 +55,7 @@
                     </ul>
                     <img class="img-fluid paymentImg" src="assets/images/securepayment.png" alt="">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6 mt-lg-0 mt-5 order-lg-3 order-4">
                     <h6>Discover</h6>
                     <ul class="list">
                         <li>
@@ -69,7 +79,7 @@
                         <img class="img-fluid googleImg" src="assets/images/googleFooter.png" alt="">
                     </ul>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6 order-lg-4 order-lg-2 order-2">
                     <h6>Contact</h6>
                     <ul class="list">
                         <li>
@@ -84,6 +94,22 @@
                             <a href="mailto:someone@gmail.com"><span>Mail</span>: someone@gmail.com</a>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copy">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul>
+                            <li>
+                                All Rights Reserved by ARTEMYST 2022
+                            </li>
+                            <li>
+                                Designed By <a href=""><img class="img-fluid" src="assets/images/pentacodeLogo.png" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

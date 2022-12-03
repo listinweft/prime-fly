@@ -1,5 +1,7 @@
 <?php include('assets/includes/header.php') ?>
 
+
+<!--Home Slider Start-->
     <section class="homeSlider">
         <div class="container">
             <div class="row justify-content-between">
@@ -65,8 +67,9 @@
             </div>
         </div>
     </section>
+<!--Home Slider End-->
 
-
+<!--Home Collection Start-->
     <section class="collectionsArea">
         <div class="collectionsBgback">
         </div>
@@ -172,7 +175,9 @@
             </div>
         </div>
     </section>
+<!--Home Collection End-->
 
+<!--Home Shop By Theme Start-->
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
@@ -352,7 +357,9 @@
             </div>
         </div>
     </div>
+<!--Home Shop By Theme End-->
 
+<!--Home Services Start-->
     <section class="serviceHome">
         <div class="container">
             <div class="row">
@@ -371,7 +378,9 @@
             </div>
         </div>
     </section>
+<!--Home Services End-->
 
+<!--Home Testimonial Start-->
     <section class="testimonialSection">
         <div class="container">
             <div class="row">
@@ -466,6 +475,7 @@
             </div>
         </div>
     </section>
+<!--Home Testimonial End-->
 
 <?php include('assets/includes/footer.php') ?>
 

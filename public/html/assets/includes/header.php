@@ -46,7 +46,7 @@
                 </a>
             </div>
             <div class="col-lg-4 col-6 artemyst">
-                <a href="">
+                <a href="index.php">
                     <img class="img-fluid artemystLogo" src="assets/images/artemystLogo.png" alt="">
                 </a>
             </div>
@@ -114,7 +114,7 @@
                     <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Best seller </a></li>
+                    <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
 <!--                    <li class="nav-item dropdown ">-->
 <!--                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Media </a>-->
 <!--                        <ul class="dropdown-menu dropdown-menu-end single_drop">-->
@@ -123,7 +123,7 @@
 <!--                            <li><a class="dropdown-item" href="errorPage.php"> Videos </a></li>-->
 <!--                        </ul>-->
 <!--                    </li>-->
-                    <li class="nav-item"><a class="nav-link" href="index.php"> New arrivals </a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
                 </ul>
             </div>
         </div>
