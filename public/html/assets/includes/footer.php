@@ -8,16 +8,16 @@
                     </a>
                     <ul class="list">
                         <li>
-                            <a href="">Our Story</a>
+                            <a href="aboutUs.php">Our Story</a>
                         </li>
                         <li>
-                            <a href="">Sustainability</a>
+                            <a href="errorPage.php">Sustainability</a>
                         </li>
                         <li>
-                            <a href="">Art for Business</a>
+                            <a href="errorPage.php">Art for Business</a>
                         </li>
                         <li>
-                            <a class="strong" href="">My Account</a>
+                            <a class="strong" href="login.php">My Account</a>
                         </li>
                     </ul>
 
@@ -38,19 +38,19 @@
                             <a href="">FAQ's</a>
                         </li>
                         <li>
-                            <a href="">Privacy Policy</a>
+                            <a href="privacy-policy.php">Privacy Policy</a>
                         </li>
                         <li>
-                            <a href="">Terms & Conditions</a>
+                            <a href="terms-and-conditions.php">Terms & Conditions</a>
                         </li>
                         <li>
                             <a href="">Return & Refund Policy</a>
                         </li>
                         <li>
-                            <a href="">Payment</a>
+                            <a href="errorPage.php">Payment</a>
                         </li>
                         <li>
-                            <a href="">Support Center</a>
+                            <a href="contactUs.php">Support Center</a>
                         </li>
                     </ul>
                     <img class="img-fluid paymentImg" src="assets/images/securepayment.png" alt="">

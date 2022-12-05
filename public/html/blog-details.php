@@ -28,7 +28,7 @@
 <!--Blog Listing Page Start-->
     <section class="blogListingPage blogDetailsPage">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-start">
                 <div class="col-lg-8">
                     <h6 class="subHeading">Blog Details</h6>
                     <h2 class="mainHeading">Lorem Ipsum is simply dummy text</h2>
@@ -90,6 +90,103 @@
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                             </li>
                         </ul>
+                    </div>
+                    <div class="share_navigation_area">
+                        <div class="share">
+                            <p>Share</p>
+                            <div>
+                                <a href="" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                        <div class="prev_next">
+                            <a class="primary_btn" href="">Previous</a>
+                            <a class="primary_btn" href="">Next</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 ps-lg-5 sticky-lg-top">
+                    <div class="recentBlog">
+                        <h4>Recent Blog</h4>
+                        <div class="blogRecentSlider">
+                            <div class="recentBlogCard">
+                                <div class="blogImage">
+                                    <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">
+                                </div>
+                                <div class="recentBlogDetails">
+                                    <h6>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, vel.
+                                    </h6>
+                                    <div class="timeDate">
+                                        <div class="date">08.08.2021</div>
+                                        <div class="time">4 minutes</div>
+                                    </div>
+                                    <a href="">Read More</a>
+                                </div>
+                            </div>
+                            <div class="recentBlogCard">
+                                <div class="blogImage">
+                                    <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">
+                                </div>
+                                <div class="recentBlogDetails">
+                                    <h6>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, vel.
+                                    </h6>
+                                    <div class="timeDate">
+                                        <div class="date">08.08.2021</div>
+                                        <div class="time">4 minutes</div>
+                                    </div>
+                                    <a href="">Read More</a>
+                                </div>
+                            </div>
+                            <div class="recentBlogCard">
+                                <div class="blogImage">
+                                    <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">
+                                </div>
+                                <div class="recentBlogDetails">
+                                    <h6>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, vel.
+                                    </h6>
+                                    <div class="timeDate">
+                                        <div class="date">08.08.2021</div>
+                                        <div class="time">4 minutes</div>
+                                    </div>
+                                    <a href="">Read More</a>
+                                </div>
+                            </div>
+                            <div class="recentBlogCard">
+                                <div class="blogImage">
+                                    <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">
+                                </div>
+                                <div class="recentBlogDetails">
+                                    <h6>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, vel.
+                                    </h6>
+                                    <div class="timeDate">
+                                        <div class="date">08.08.2021</div>
+                                        <div class="time">4 minutes</div>
+                                    </div>
+                                    <a href="">Read More</a>
+                                </div>
+                            </div>
+                            <div class="recentBlogCard">
+                                <div class="blogImage">
+                                    <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">
+                                </div>
+                                <div class="recentBlogDetails">
+                                    <h6>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, vel.
+                                    </h6>
+                                    <div class="timeDate">
+                                        <div class="date">08.08.2021</div>
+                                        <div class="time">4 minutes</div>
+                                    </div>
+                                    <a href="">Read More</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -40,7 +40,7 @@
             </div>
             <div class="row pt-60 position-relative">
                 <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCrad">
+                    <div class="blogCard">
                         <div class="blogImage">
                             <img class="img-fluid" src="assets/images/blog/blog-01.jpg" alt="">
                         </div>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCrad">
+                    <div class="blogCard">
                         <div class="blogImage">
                             <img class="img-fluid" src="assets/images/blog/blog-02.jpg" alt="">
                         </div>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCrad">
+                    <div class="blogCard">
                         <div class="blogImage">
                             <img class="img-fluid" src="assets/images/blog/blog-03.jpg" alt="">
                         </div>
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCrad">
+                    <div class="blogCard">
                         <div class="blogImage">
                             <img class="img-fluid" src="assets/images/blog/blog-04.jpg" alt="">
                         </div>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCrad">
+                    <div class="blogCard">
                         <div class="blogImage">
                             <img class="img-fluid" src="assets/images/blog/blog-05.jpg" alt="">
                         </div>
@@ -170,7 +170,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCrad">
+                    <div class="blogCard">
                         <div class="blogImage">
                             <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">
                         </div>
