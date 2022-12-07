@@ -3766,12 +3766,435 @@ footer{
 
 .productListingPage{
   padding: 70px 0;
-  .productFilterArea{
-    padding: 20px;
-    background-color: #D8E2EB;
+
+  .sticky-lg-top{
+    top: 68px;
   }
+
+  .category_canvas{
+    padding: 0;
+    border-right: 0px;
+    .offcanvas-body{
+      padding: 0;
+    }
+  }
+
+  .desk_filter_box{
+    .primary_btn_mb{
+      display: inline-block;
+      img{
+        width: 20px;
+        margin: 0 10px 0 0;
+      }
+      font-family: Brother1816-Regular;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+  }
+
+  .category_area{
+    .heading{
+      display: block;
+      padding: 15px 20px;
+      color: $dark_color;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Brother1816-Regular;
+      letter-spacing: 1px;
+      font-size: 20px;
+      .btn-close {
+        box-sizing: content-box;
+        width: .3em;
+        height: .3em;
+        box-shadow: none;
+      }
+    }
+    .ProductListCategory{
+      padding: 0px 0px;
+
+      .form-check {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        .form-check-input[type="checkbox"] {
+          border-radius: 0;
+        }
+
+        .form-check-input {
+          width: 17px;
+          height: 17px;
+          &:checked {
+            background-color: transparent;
+            border-color: $dark_color
+          }
+
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        .form-check-input[type=checkbox] {
+          border: 1px solid #CECEC4;
+          margin: 0 0px 0 0 ;
+          margin-left: 20px;
+        }
+
+        .form-check-input:checked[type="checkbox"]{
+          background-image: url("../images/tick-02.png");
+          background-position: center;
+          background-size: 11px;
+        }
+
+
+        .form-check-label {
+          color: $dark_color;
+          font-size: 16px;
+          padding: 2px 0;
+          padding-left: 10px;
+          width: 90%;
+          position: relative;
+          z-index: 2;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+
+        .label_bold{
+        }
+      }
+
+      .accordion {
+         padding: 0 20px;
+        padding: 0 0px;
+        .accordion-item {
+          background-color: transparent;
+          border: none;
+          padding: 0px 0px;
+          .accordion-header {
+            background-color: #CFCFC4;
+            .form-check {
+              .form-check-input[type="checkbox"]{
+                border: 1px solid #CECEC4;
+              }
+              .form-check-input:checked[type="checkbox"]{
+                background-image: url("../images/tick-01.png");
+                background-position: center;
+                background-size: 11px;
+              }
+            }
+            .accordion-button {
+              margin: 0px 0px;
+              padding: 0px 0px;
+              margin: 0px 0px;
+              padding: 0px 0px;
+              background-color: transparent;
+              box-shadow: none;
+              outline: none;
+              border-top: 1px solid #D9D9D9;
+              border-left: 1px solid #D9D9D9;
+              border-right: 1px solid #D9D9D9;
+              &:hover{
+                cursor: pointer;
+              }
+              .form-check-label {
+                position: relative;
+                z-index: 1;
+                padding: 20px 0 20px 30px;
+                font-family: Brother1816-Regular;
+                font-size: 16px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+              }
+              &::after{
+                z-index: 0;
+                position: absolute;
+                right: 20px;
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+              }
+            }
+
+            .accordion-button:not(.collapsed) {
+              background-color: transparent;
+              box-shadow: none;
+              outline: none;
+              &:hover{
+                cursor: pointer;
+              }
+            }
+
+          }
+
+          .accordion-body {
+            margin-top: 0px;
+            padding: 0 0px;
+            ul{
+              li{
+
+                border-top: 1px solid #D9D9D9;
+                border-left: 1px solid #D9D9D9;
+                border-right: 1px solid #D9D9D9;
+
+                padding: 10px 15px;
+                font-family: Brother1816-Light;
+                font-size: 14px;
+                &:first-child{
+                  padding-top: 0px;
+                }
+                .form-check{
+                  .form-check-label{
+                    font-family: Brother1816-Light;
+                    font-size: 14px;
+                    color: #676767;
+                  }
+                }
+              }
+            }
+            .accordion-header{
+              padding-left: 0px;
+            }
+            .accordion-body{
+              margin-top: 0px;
+              padding-left: 0px;
+              ul {
+                li {
+                  &:first-child{
+                    padding-top: 10px;
+                  }
+                  .form-check{
+                    .form-check-input{
+                      margin-left: 35px;
+                    }
+                    .form-check-label{
+                      padding-left: 15px;
+                    }
+                  }
+                }
+              }
+            }
+
+            .accordion-item{
+              .accordion-header{
+                background-color: transparent;
+                .form-check-input{
+                  margin: 0 0 0 30px;
+                }
+                .form-check-label{
+                  text-transform: inherit;
+                  font-family: Brother1816-Light;
+                  font-size: 14px;
+                  padding-left: 20px;
+                }
+              }
+
+              .accordion-button:not(.collapsed) {
+                color: #fff;
+                background-color: #252525;
+                box-shadow: none;
+                .form-check-label{
+                  color: #fff !important;
+                }
+              }
+
+              .accordion-button:not(.collapsed)::after {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+                transform: rotate(-180deg);
+              }
+            }
+          }
+          &:last-child{
+            border-bottom: 0px;
+            .accordion-body {
+              .accordion-item{
+                &:last-child{
+                  border-bottom: 1px solid #D9D9D9;
+                }
+                .accordion-header{
+                  .form-check-label{
+                  }
+                }
+              }
+            }
+          }
+          .colorWrapper{
+            display: flex;
+            grid-gap: 15px;
+            flex-wrap: wrap;
+            padding-left: 30px;
+            padding-top: 30px;
+            padding-bottom: 20px;
+            padding-right: 15px;
+            border-bottom: 1px solid #A0A0A0;
+            .colorItem{
+              min-height: 55px;
+              .form-check{
+                position: relative;
+                padding-right: 10px;
+                .form-check-input[type="checkbox"]{
+                  margin: 0 0 0 0px;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  width: 16px;
+                  height: 16px;
+                  border: 1px solid #A0A0A0;
+                  border-radius: 5px;
+                  background-color: #252525;
+                }
+                .form-check-input:checked[type="checkbox"]{
+                  background-image: url("../images/tick-01.png");
+                  background-position: center;
+                  background-size: 7px;
+                }
+                .colorBox{
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 100%;
+                  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+                }
+              }
+            }
+          }
+
+          .priceRagerArea{
+            padding: 30px 0px 30px 30px;
+            padding-right: 15px;
+            border-bottom: 1px solid #A0A0A0;
+          }
+
+          .shapeArea{
+            padding: 30px 0px 30px 30px;
+            padding-right: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            flex-wrap: wrap;
+            grid-gap: 20px;
+            width: 100%;
+            border-bottom: 1px solid #A0A0A0;
+            .shapeItem{
+              label{
+                width: 100%;
+                img{
+                  width: 100%;
+                }
+              }
+              .form-check{
+                position: relative;
+                .form-check-input[type="checkbox"]{
+                  margin: 0 0 0 0px;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  width: 16px;
+                  height: 16px;
+                  border: 1px solid #cecec4;
+                  border-radius: 5px;
+                  background-color: #FFFFFF;
+                }
+                .form-check-input:checked[type="checkbox"]{
+                  background-image: url("../images/tick-02.png");
+                  background-position: center;
+                  background-size: 7px;
+                }
+                .colorBox{
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 100%;
+                  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+                }
+              }
+
+              h6{
+                padding-top: 8px;
+                font-family: Brother1816-Book;
+                font-size: 14px;
+                letter-spacing: 1px;
+                text-align: center;
+              }
+            }
+          }
+
+          .productTagArea{
+            display: flex;
+            align-items: flex-start;
+            grid-gap: 15px;
+            padding: 30px 0px 30px 30px;
+            padding-right: 15px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #A0A0A0;
+            .tag{
+
+              background-color: #FFFFFF;
+              box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+              border-radius: 5px;
+              border: 1px solid #CECEC4;
+              .form-check{
+                padding: 8px 25px 8px 12px;
+                position: relative;
+                label{
+                  font-size: 14px;
+                  font-family: Brother1816-Book;
+                }
+                .form-check-input[type="checkbox"]{
+                  margin: 0 0 0 0px;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  width: 16px;
+                  height: 16px;
+                  border: 1px solid #A0A0A0;
+                  border-radius: 5px;
+                  background-color: #252525;
+                }
+                .form-check-input:checked[type="checkbox"]{
+                  background-image: url("../images/tick-01.png");
+                  background-position: center;
+                  background-size: 7px;
+                }
+                .colorBox{
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 100%;
+                  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+                }
+              }
+            }
+          }
+
+        }
+      }
+
+      .accordion-item:first-of-type .accordion-button {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      .accordion-item:last-of-type {
+        border-bottom-right-radius: 0rem;
+        border-bottom-left-radius: 0rem;
+      }
+
+      .accordion-item:last-of-type .accordion-button.collapsed {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+
+      .title{
+        padding: 0px;
+        border-bottom: 1px solid rgb(112, 112, 112, 0.22);
+      }
+
+    }
+  }
+
+
+
   .productListingArea{
-    padding: 0px 20px;
+    padding: 0 20px;
     .topSortDetails{
       padding-bottom: 10px;
       border-bottom: 1px solid #A0A0A0;
@@ -4005,6 +4428,114 @@ footer{
   }
 }
 
+//@media (min-width: 1550px){
+//  .productListingPage .container {
+//      max-width: 100%;
+//    }
+//}
+//
+//@media (max-width: 1549.98px){
+//  .productListingPage .container {
+//    max-width: 100% !important;
+//  }
+//}
+
+@media (min-width: 1500px){
+  .productListingPage {
+    .desk_filter_box{
+      width: 20%;
+    }
+    .productListingArea{
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 1399.98px) {
+  .productListingPage {
+    .category_area {
+      .ProductListCategory {
+        .accordion {
+          .accordion-item {
+            .shapeArea{
+              padding-right: 15px;
+              grid-template-columns: 1fr 1fr;
+              .shapeItem {
+                h6 {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1250.98px) {
+  .productListingPage {
+    .category_area {
+      .ProductListCategory {
+        .accordion {
+          .accordion-item {
+            .shapeArea{
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width:992px) {
+
+  .productListingPage .category_area .heading{
+    display: none;
+  }
+  .primary_btn_mb{
+    display: none;
+  }
+
+  .desk_filter_box{
+    overflow-y: scroll;
+    overflow-x: visible;
+    height: 90vh;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #000;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color:#F5F5F5;
+      opacity: 1;
+    }
+
+    .offcanvas-start{
+      width: 100%;
+    }
+
+    .btn-close{
+      display: none;
+    }
+    .offcanvas{
+      position: relative; visibility: visible;
+    }
+    .offcanvas-start{
+      transform: none;
+    }
+
+    .category_area .heading div {
+      font-size: 18px;
+      font-family: "Quadran-Black";
+    }
+  }
+}
+
 @media (max-width: 1499.98px) {
   .productListingPage{
     .productListingWrapper{
@@ -4015,6 +4546,26 @@ footer{
 
 @media (max-width: 1199.98px){
   .productListingPage{
+
+    .category_area{
+      .ProductListCategory{
+        .accordion{
+          .accordion-item{
+            .productTagArea{
+              .tag{
+                .form-check{
+                  padding: 5px 25px 5px 8px;
+                  label{
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     .productListingArea{
       .tagArea{
         h6{
@@ -4035,21 +4586,124 @@ footer{
       }
     }
   }
-}
 
-@media (max-width: 949.98px) {
   .productListingPage{
     .productListingWrapper{
       grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 10px;
     }
   }
+
+}
+
+@media (max-width: 991.98px){
+
+
+
+  .productListingPage{
+
+    .category_area{
+      .ProductListCategory{
+        .accordion{
+          .accordion-item{
+            .accordion-header{
+              .accordion-button{
+                .form-check-label{
+                  padding: 20px 0 20px 20px;
+                  font-size: 14px;
+                }
+              }
+            }
+            .accordion-body{
+              .accordion-item{
+                .accordion-header{
+                  .form-check-input {
+                    margin: 0 0 0 20px;
+                  }
+                }
+              }
+            }
+            .accordion-body{
+              .accordion-body{
+                ul{
+                  li{
+                    .form-check{
+                      .form-check-input {
+                        margin-left: 25px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .colorWrapper{
+              padding-left: 20px;
+            }
+            .shapeArea{
+              padding-left: 20px;
+              grid-template-columns: 1fr 1fr 1fr;
+            }
+          }
+        }
+      }
+    }
+
+    .productListingArea{
+
+      .topSortDetails{
+        .sortSearchBox{
+          padding: 10px;
+          background-color: #FFFFFF;
+          position: fixed;
+          width: 100%;
+          bottom: 0;
+          left: 0;
+          z-index: 999;
+          display: flex;
+          justify-content: space-between;
+          .primary_btn_mb{
+            margin-top: 0 !important;
+            display: inline-block;
+            img{
+              width: 20px;
+              margin: 0 10px 0 0;
+            }
+            font-family: Brother1816-Regular;
+            letter-spacing: 1px;
+            font-size: 16px;
+          }
+        }
+      }
+
+      .tagArea{
+        flex-direction: column;
+        .tagWrapper{
+          width: 100%;
+          margin-left: 0px;
+          .fltr{
+            margin-bottom: 0;
+            margin-top: 10px;
+            padding: 5px 7px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 949.98px) {
+
 }
 
 @media (max-width: 766.98px) {
   .productListingPage{
     .productListingArea{
       padding: 0 12px;
+      .topSortDetails{
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
     .productListingWrapper{
       grid-template-columns: 1fr 1fr ;
