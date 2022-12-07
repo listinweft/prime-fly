@@ -108,7 +108,7 @@
                             <div class=" col-12">
                                 <div class="form-group">
                                     <label for="">Full Name</label>
-                                    <img src="assets/images/icon-user.png" alt="">
+                                    <img src="assets/images/loginUser.png" alt="">
                                     <input type="text" class="form-control" placeholder="Full Name">
                                 </div>
                             </div>

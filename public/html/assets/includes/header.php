@@ -90,8 +90,8 @@
                                 <img class="img-fluid icon" src="assets/images/user.png" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Login</a></li>
-                                <li><a class="dropdown-item" href="#">Register</a></li>
+                                <li><a class="dropdown-item" href="login.php">Login</a></li>
+                                <li><a class="dropdown-item" href="register.php">Register</a></li>
                             </ul>
                         </div>
                     </li>
@@ -110,7 +110,7 @@
         <div class="container">
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item active"><a class="nav-link" href="index.php">Shop All </a></li>
+                    <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
