@@ -321,7 +321,14 @@
                                     </h2>
                                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
                                         <div class="priceRagerArea">
-
+                                            <div class="slider-range-wrap">
+                                                <div class="currencyBox">AED</div>
+                                                <div id="slider-range"></div>
+                                                <div class="d-flex align-items-center justify-content-between w-100">
+                                                    <span class="min-range">100</span>
+                                                    <span class="max-range">1,000</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -531,16 +538,44 @@
             <div class="productListingWrapper">
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
+
                             <div class="product-image-container w-100">
                                 <div class="product-image-wrapper">
-                                    <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
+                                    <a href="product-details.php" tabindex="-1">
+                                        <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
+                                    </a>
+                                </div>
+                                <div class="cartWishlistBox">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)" class="my_wishlist">
+                                                <div class="textIcon">
+                                                    Wishlist
+                                                </div>
+                                                <div class="iconBox">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="my_wishlist">
+                                                <div class="iconBox">
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                </div>
+                                                <div class="textIcon">
+                                                    Add to Cart
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="logoArea mt-auto">
+                                        <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                    </div>
                                 </div>
                             </div>
-                        </a>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -565,16 +600,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product02.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -599,16 +661,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -633,16 +722,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product04.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -667,16 +783,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -701,13 +844,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product06.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -735,13 +905,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -769,13 +966,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product08.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -803,16 +1027,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product09.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -837,13 +1088,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product010.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -871,13 +1149,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -905,13 +1210,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product04.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -939,13 +1271,40 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
                         <a href="">
@@ -973,16 +1332,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
                                     <img class="product-image-photo" src="assets/images/product/product06.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>
@@ -1007,16 +1393,43 @@
                 </div>
                 <div class="product-item-info">
                     <div class="product-photo ">
-                        <a href="" tabindex="-1">
-                            <div class="product-image-container w-100">
-                                <div class="product-image-wrapper">
-                                    <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy" alt="">
+                        <div class="product-image-container w-100">
+                            <div class="product-image-wrapper">
+                                <a href="product-details.php" tabindex="-1">
+                                <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy" alt="">
+                                </a>
+                            </div>
+                            <div class="cartWishlistBox">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="textIcon">
+                                                Wishlist
+                                            </div>
+                                            <div class="iconBox">
+                                                <i class="fa-regular fa-heart"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="my_wishlist">
+                                            <div class="iconBox">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </div>
+                                            <div class="textIcon">
+                                                Add to Cart
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="logoArea mt-auto">
+                                    <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                     <div class="product-details">
-                        <a href="">
+                        <a href="product-details.php">
                             <div class="pro-name">
                                 Lorem Ipsum is simply dummy text of the printing
                             </div>

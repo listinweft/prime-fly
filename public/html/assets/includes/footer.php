@@ -139,6 +139,8 @@
 <!--    <script src="assets/owlcarousel/owl.carousel.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 
+
+
     <script src="assets/js/counter/jquery.waypoints.min.js"></script>
     <script src="assets/js/counter/jquery.countup.js"></script>
     <script>
@@ -152,6 +154,10 @@
 
     <script src="assets/js/scripts.min.js"></script>
     <script src="assets/js/custom.min.js"></script>
+
+
+<!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 
 </body>

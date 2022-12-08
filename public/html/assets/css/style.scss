@@ -158,6 +158,10 @@ form {
   z-index: 10501;
 }
 
+.offcanvas{
+  z-index: 10500;
+}
+
 .invalid-feedback{
   color: red;
   margin-top: 8px;
@@ -4060,9 +4064,89 @@ footer{
           }
 
           .priceRagerArea{
-            padding: 30px 0px 30px 30px;
+            padding: 30px 0px 40px 30px;
             padding-right: 15px;
             border-bottom: 1px solid #A0A0A0;
+            .ui-widget-header {
+              height: 5px !important;
+              background: #252525;
+            }
+            .ui-state-default,
+            .ui-widget-content .ui-state-default,
+            .ui-widget-header .ui-state-default {
+              border: 0px;
+              border-radius: 3px;
+              background: #252525;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              &::after{
+                content: '';display: inline-block;
+                width: 10px;
+                height: 10px;
+                background-color: #FFFFFF;
+                border-radius: 100%;
+              }
+            }
+            .ui-widget-content {
+              height: 5px !important;
+              border: 0;
+              background: #CECEC5;
+            }
+            .ui-slider-horizontal .ui-slider-range {
+              top: -0px;
+            }
+            .ui-slider-horizontal .ui-slider-handle {
+              top: -10px;
+              cursor: pointer;
+            }
+            .ui-slider-handle {
+              outline: none;
+            }
+            .ui-slider-handle .amount {
+              position: absolute;
+              top: 35px;
+              display: none;
+              width: auto;
+              padding: 0px 0;
+              text-align: center;
+              font-weight: normal;
+              font-size: 15px;
+              font-family: Brother1816-Regular;
+              color: #252525;
+            }
+
+            .min-range {
+              //float: left;
+              position: relative;
+              left: -10px;
+              padding-top: 10px;
+              font-size: 12px;
+              color: #676767;
+            }
+            .max-range {
+              //float: right;
+              position: relative;
+              right: -10px;
+              padding-top: 10px;
+              font-size: 12px;
+              color: #676767;
+            }
+            .slider-range-wrap {
+              position: relative;
+              width: 100%;
+              min-height: 40px;
+              padding: 0px 20px 0;
+              .currencyBox{
+                font-family: Brother1816-Regular;
+                font-size: 16px;
+                color: #000000;
+                margin-bottom: 20px;
+                position: relative;
+                left: -10px;
+              }
+            }
+
           }
 
           .shapeArea{
@@ -4346,6 +4430,7 @@ footer{
       background: #F5F5F5;
       display: inline-block;
       max-width: 100%;
+      position: relative;
       .product-image-wrapper {
         display: block;
         height: 0;
@@ -4365,6 +4450,95 @@ footer{
           position: absolute;
           right: 0;
           top: 0;
+        }
+      }
+      .cartWishlistBox{
+        width: 50px;
+        height: 100%;
+        background-color: #747474;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        right: -80px;
+        transition: ease all 0.5s;
+        ul{
+          width: 100%;
+          padding-top: 20px;
+          li{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            a{
+              display: inline-block;
+              .textIcon{
+                white-space: nowrap;
+                -webkit-writing-mode: vertical-rl;
+                writing-mode: vertical-rl;
+                -webkit-transform: rotate(180deg);
+                transform: rotate(180deg);
+                font-size: 12px;
+                color: #fff;
+                line-height: 26px;
+              }
+              .iconBox{
+                margin-top: 10px;
+                width: 30px;
+                height: 30px;
+                border-radius: 7px;
+                background: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                i{
+                  font-size: 16px;
+                }
+              }
+              &:hover{
+                .iconBox{
+                  background: #252525;
+                  i{
+                    color: #FFFFFF;
+                  }
+                }
+              }
+            }
+            .fill{
+              .iconBox{
+                background: #252525;
+                i{
+                  color: #FFFFFF;
+                }
+              }
+            }
+            &:last-child{
+              margin-bottom: 0;
+              a{
+                .iconBox{
+                  margin-top: 0px;
+                  margin-bottom: 10px;
+                }
+              }
+            }
+          }
+        }
+        .logoArea{
+          background: #CECEC5;
+          padding: 10px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img{
+            width: 80%;
+            margin: 0 auto;
+            display: inline-block;
+          }
         }
       }
     }
@@ -4425,6 +4599,14 @@ footer{
   &:hover{
     border: 1px solid #676767;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    .product-photo{
+      .product-image-container{
+        .cartWishlistBox{
+          opacity: 1;
+          right: 0px;
+        }
+      }
+    }
   }
 }
 
@@ -4451,6 +4633,28 @@ footer{
   }
 }
 
+@media (max-width: 1465px){
+  .product-item-info{
+    .product-photo{
+      .product-image-container{
+        .cartWishlistBox{
+          ul{
+            padding-top: 15px;
+            li{
+              a{
+                .textIcon{
+                  font-size: 10px;
+                  font-family: Brother1816-Light;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 1399.98px) {
   .productListingPage {
     .category_area {
@@ -4466,6 +4670,25 @@ footer{
                 }
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1320px){
+  .product-item-info{
+    .product-photo{
+      .product-image-container{
+        .cartWishlistBox{
+          align-items: center;
+          justify-content: center;
+          ul{
+            padding-top: 0px;
+          }
+          .logoArea{
+            display: none;
           }
         }
       }
@@ -4598,10 +4821,18 @@ footer{
 
 @media (max-width: 991.98px){
 
+  .topHeader {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 9991;
+    padding: 10px 0;
+    top: -1px;
+  }
 
 
   .productListingPage{
-
+    padding: 50px 0;
     .category_area{
       .ProductListCategory{
         .accordion{
@@ -4661,9 +4892,26 @@ footer{
           z-index: 999;
           display: flex;
           justify-content: space-between;
+          border-top: 1px solid #D9D9D9;
+          ul{
+            li{
+              &:first-child{
+                display: none;
+              }
+              img{
+                display: none;
+              }
+              .formSelect{
+                font-size: 12px;
+                letter-spacing: 0;
+                width: 150px;
+              }
+            }
+          }
           .primary_btn_mb{
             margin-top: 0 !important;
             display: inline-block;
+            padding: 7px 15px;
             img{
               width: 20px;
               margin: 0 10px 0 0;
@@ -4735,6 +4983,45 @@ footer{
 
 @media (max-width: 500.98px) {
 
+  .productListingPage{
+    .productListingArea{
+      .topSortDetails{
+        .sortSearchBox{
+          .primary_btn_mb{
+            padding: 7px 10px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            color: #000;
+            font-family: Brother1816-Medium;
+            img{
+              width: 15px;
+              margin-right: 10px;
+            }
+            &::before{
+              display: none;
+            }
+          }
+          ul{
+            li{
+              p {
+                font-size: 12px;
+                margin-left: 0;
+              }
+              .formSelect{
+                margin-left: 8px;
+                width: 140px;
+                font-size: 10px;
+                letter-spacing: 1px;
+                padding: 10px 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   .product-item-info{
     .product-details{
       .pro-name{
@@ -4776,6 +5063,21 @@ footer{
 @media (max-width: 380.98px) {
 
   .product-item-info{
+    .product-photo{
+      .product-image-container{
+        .cartWishlistBox{
+          ul{
+            li{
+              a{
+                .textIcon{
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     .product-details{
       .pro-name{
         font-size: 12px;

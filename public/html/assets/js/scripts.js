@@ -1,3 +1,8 @@
+$(".my_wishlist").click(function(){
+    $(this).toggleClass("fill") ;
+})
+
+
 //currency changing
 $('#language-selector').on('change', function () {
     $("html").attr("lang", this.value);
@@ -117,6 +122,49 @@ $('.shopCategorySlider').slick({
 //Testimonials slider
 
 
+//Price Ranger Start
+
+function numberWithCommas(x) {
+    if (x !== null) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+}
+
+$(function() {
+    //slider range init set
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 100,
+        max: 1000,
+        values: [ 100, 1000 ],
+        slide: function( event, ui ) {
+            $( "#min" ).html(numberWithCommas(ui.values[ 0 ]) );
+            $( "#max" ).html(numberWithCommas(ui.values[ 1 ]) );
+        }
+    });
+
+    //slider range data tooltip set
+    var $handler = $("#slider-range .ui-slider-handle");
+
+    $handler.eq(0).append("<b class='amount'><span id='min'>"+numberWithCommas($( "#slider-range" ).slider( "values", 0 )) +"</span></b>");
+    $handler.eq(1).append("<b class='amount'><span id='max'>"+numberWithCommas($( "#slider-range" ).slider( "values", 1 )) +"</span></b>");
+
+    //slider range pointer mousedown event
+    $handler.on("mousedown",function(e){
+        e.preventDefault();
+        $(this).children(".amount").fadeIn(300);
+    });
+
+    //slider range pointer mouseup event
+    $handler.on("mouseup",function(e){
+        e.preventDefault();
+        $(this).children(".amount").fadeOut(300);
+    });
+});
+
+//Price Ranger End
+
+
 
 //sticky header
 $(window).scroll(function () {
@@ -127,6 +175,8 @@ $(window).scroll(function () {
     }
 });
 //sticky header
+
+
 
 
 $(".contactSelect").select2({
