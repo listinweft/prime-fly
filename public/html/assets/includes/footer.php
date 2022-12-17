@@ -139,18 +139,10 @@
 <!--    <script src="assets/owlcarousel/owl.carousel.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
+    <script src="assets/xzoom/js/setup.js"></script>
 
 
-    <script src="assets/js/counter/jquery.waypoints.min.js"></script>
-    <script src="assets/js/counter/jquery.countup.js"></script>
-    <script>
-        $('.counter').countUp(
-            {
-                delay: 5,
-                time: 1500
-            }
-        );
-    </script>
 
     <script src="assets/js/scripts.min.js"></script>
     <script src="assets/js/custom.min.js"></script>

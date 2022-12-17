@@ -73,6 +73,21 @@ $('.testimonialsSlider').slick({
 //Testimonials slider
 
 
+$('.slider-xzoom').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+    autoplay: false,
+    infinite: true,
+    focusOnSelect: true,
+    vertical: true,
+    verticalSwiping: true,
+
+});
+
+
+
+
 //Recent Blog Slider
 $('.blogRecentSlider').slick({
     slidesToShow: 4,
@@ -163,6 +178,39 @@ $(function() {
 });
 
 //Price Ranger End
+
+//QUANTITY COUNTER
+jQuery('.quantity-counter').each(function() {
+    var spinner = jQuery(this),
+        input = spinner.find('input[type="number"]'),
+        btnUp = spinner.find('.btn-quantity-up'),
+        btnDown = spinner.find('.btn-quantity-down'),
+        min = input.attr('min'),
+        max = input.attr('max');
+
+    btnUp.click(function() {
+        var oldValue = parseFloat(input.val());
+        if (oldValue >= max) {
+            var newVal = oldValue;
+        } else {
+            var newVal = oldValue + 1;
+        }
+        spinner.find("input").val(newVal);
+        spinner.find("input").trigger("change");
+    });
+
+    btnDown.click(function() {
+        var oldValue = parseFloat(input.val());
+        if (oldValue <= min) {
+            var newVal = oldValue;
+        } else {
+            var newVal = oldValue - 1;
+        }
+        spinner.find("input").val(newVal);
+        spinner.find("input").trigger("change");
+    });
+
+});
 
 
 

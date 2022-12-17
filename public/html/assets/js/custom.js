@@ -2,20 +2,18 @@ $(document).ready(function () {
 
     $(".my-rating-readonly").starRating({
         totalStars: 5,
-        starSize: 16,
-        emptyColor: '#fff',
+        starShape: 'rounded',
+        starSize: 15,
+        emptyColor: 'lightgray',
         hoverColor: '#FAB63C',
         activeColor: '#FAB63C',
         useGradient: false,
         readOnly: true,
-        strokeColor: '#FFA033',
-        strokeWidth: 40,
     });
 
     $(".my-rating").starRating({
         totalStars: 5,
-        starShape: 'rounded',
-        starSize: 26,
+        starSize: 20,
         emptyColor: 'lightgray',
         hoverColor: '#FAB63C',
         activeColor: 'lightgray',
@@ -23,6 +21,7 @@ $(document).ready(function () {
         disableAfterRate: false,
         ratedColor: '#FAB63C',
         emptyColor: 'lightgray',
+        useFullStars: true,
         callback: function (currentRating, $el) {
             $('#rating').val(currentRating);
             console.log('DOM element ', $el);

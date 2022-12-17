@@ -126,11 +126,11 @@
                                     <input type="number" class="form-control" placeholder="+1 000 000 00">
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 message">
                                 <div class="form-group">
                                     <label for="">Message</label>
                                     <img src="assets/images/icon-pen.png" alt="">
-                                    <input type="text" class="form-control" placeholder="Say Something">
+                                    <textarea class="form-control" placeholder="Say Something"></textarea>
                                 </div>
                             </div>
                             <div class="col-12x ">
