@@ -6232,14 +6232,20 @@ footer{
 
 .my_cart_section{
   padding: 80px 0 80px;
+  .sticky-lg-top{
+    top: 70px;
+  }
   .cart_left{
     .my_cart_list{
       padding: 20px 15px;
       background: #fff;
-      border: 1px solid #E1E1E1;
+      border: 1px solid #D9D9D9;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 20px;
+      border-bottom: 0px;
+      &:last-child{
+        border-bottom: 1px solid #D9D9D9;
+      }
       .my_cart_product_card{
         width: 42%;
         display: flex;
@@ -6251,7 +6257,21 @@ footer{
         .product_name{
           width: 70%;
           h6 {
-            font-size: 16px;
+            font-size: 15px;
+            font-family: Brother1816-Regular;
+          }
+          ul{
+            margin-top: 10px;
+            li{
+              font-size: 13px;
+              padding-bottom: 6px;
+              line-height: 14px;
+              span{
+                color: #A0A0A0;
+                font-family: Brother1816-Light;
+                margin-left: 5px;
+              }
+            }
           }
         }
       }
@@ -6260,42 +6280,62 @@ footer{
         display: flex;
         justify-content: space-between;
         .price_offer_quantity{
-          width: 65%;
+          width: 55%;
           display: flex;
           align-items: center;
           justify-content: space-between;
           .price_area {
-            width: 52%;
+            width: 60%;
             li {
-              font-size: 16px;
-              &:last-child {
-                color: rgba(0, 0, 0, 0.33);
+              font-family: Brother1816-Regular;
+              font-size: 14px;
+              line-height: 18px;
+              &:nth-child(2){
+                font-family: Brother1816-Light;
+                color: #A0A0A0;
                 text-decoration: line-through;
-                font-size: 14px;
+                font-size: 12px;
+                line-height: 18px;
               }
             }
           }
           .quantity-counter{
-            width: 46%;
+            padding: 0 0px;
+            grid-gap: 0px;
+            width: 100px;
+            border: 1px solid #cecec4;
+            align-items: initial;
+            height: 45px;
+            .btn-quantity-down, .btn-quantity-up{
+              width: 80px;
+            }
+          }
+          .quantity-counter input[type="number"]{
+            font-family: Brother1816-Regular;
+            font-size: 14px;
           }
         }
         .total_price_btns{
-          width: 33%;
+          width: 43%;
           display: flex;
           align-items: center;
           justify-content: space-between;
           .total_price{
-            width: 80%;
+            width: 75%;
+            padding-right: 20px;
             h6 {
-
-              font-size: 16px;
+              font-family: Brother1816-Regular;
+              text-align: right;
+              font-size: 14px;
             }
           }
           .btns_area{
-            width: 20%;
+            width: 25%;
             display: flex;
-            grid-gap: 20px;
+            grid-gap: 10px;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             .btn_cart{
               width: 35px;
               height: 35px;
@@ -6317,20 +6357,40 @@ footer{
           }
         }
       }
+      &:nth-child(even){
+        background: #F8F8F8;
+        .right{
+          .total_price_btns{
+            .btns_area{
+              .btn_cart{
+                background: #FFFFFF;
+                &:hover{
+                  background: $primary_color;
+                  color: $white_color;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   .order_summary{
-    background: #F2F2F2;
+    background: #FFFFFF;
     border: 1px solid #E1E1E1;
-    padding: 40px 20px;
-    h4{
-      padding-bottom: 20px;
+    padding: 0px 0px;
+    h5.head{
+      background: #252525;
+      padding:20px 40px;
       border-bottom: 1px solid #E1E1E1;
+      color: #FFFFFF;
+      text-transform: uppercase;
     }
     .calc_area{
-      margin-top: 50px;
+      padding: 0;
       li{
-        margin-bottom: 20px;
+        padding: 25px 40px;
+        border-bottom: 1px solid #D9D9D9;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -6348,63 +6408,209 @@ footer{
             font-size: 18px;
           }
         }
+
+        .coupon_remove_btn {
+          color: #333333;
+          font-size: 12px;
+          display: flex;
+          align-items: center;
+          i{
+            margin-left: 10px;
+            margin-top: 4px;
+          }
+          &:hover{
+            color: red;
+          }
+        }
+
+      }
+      .couponLi{
+        padding: 0px 40px;
+      }
+      .couponDiscount{
+        h6.tableData{
+          font-size: 14px;
+          &:last-child{
+            margin-top: 7px;
+            color: #32AB45;
+          }
+        }
       }
       form{
         margin-top: 10px;
+        margin-bottom: 10px;
         width: 100%;
         display: block;
+        display: flex;
         .form-group{
           border: 1px solid $primary_color;
           display: flex;
-          .form-control{
-            width: 60%;
-            display: flex;
-          }
-          .primary_btn{
-            text-transform: none;
-            width: 40%;
-            padding: 10px 0;
-            border: 0;
+          align-items: center;
+          width: 60%;
+          margin-bottom: 0;
+          .coupon_remove_btn {
+            position: absolute;
+            right: 15px;
+            color: #252525;
             &:hover{
-              background: $dark_color;
+              color: red;
             }
+          }
+          .form-control{
+            display: flex;
+            height: 100%;
+            background: #CECEC4;
+            color: #252525;
+            font-size: 14px;
+            font-family: Brother1816-Light;
+            box-shadow: none;
+            outline: none;
+            border: 0;
+            position: relative;
+          }
+        }
+        .primary_btn{
+          margin-top: 0 !important;
+          text-transform: none;
+          width: 40%;
+          padding: 10px 0;
+          border: 0;
+          border-radius: 0;
+          background: #252525;
+          color: #FFFFFF;
+          border: 1px solid $primary_color;
+          border-left: 0;
+          &::before{
+            display: none;
+          }
+          &:hover{
+            background: #FFFFFF;
+            color: #252525;
           }
         }
       }
     }
     .sub_total{
-      margin-top: 50px;
-      background: linear-gradient(to right, lightgray 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(black 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(to right, lightgray 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(black 50%, rgba(255, 255, 255, 0) 0%);
-      background-position-x: 0%, 0%, 0%, 0%;
-      background-position-y: 0%, 0%, 0%, 0%;
-      background-repeat: repeat, repeat, repeat, repeat;
-      background-size: auto, auto, auto, auto;
-      background-position: top, right, bottom, left;
-      background-repeat: repeat-x, repeat-y;
-      background-size: 15px 1px, 0px 15px;
-      padding: 30px 0;
+      padding: 25px 40px;
       display: flex;
       justify-content: space-between;
+      border-bottom: 1px solid #d9d9d9;
       .sub_left{
         h6{
-          font-size: 18px;
+          font-size: 20px;
+          font-family: Brother1816-Bold;
         }
       }
       .sub_right{
         h5{
           font-size: 20px;
+          font-family: Brother1816-Bold;
         }
       }
     }
-    .checkout_btn{
-      text-transform: none;
-      display: block;
-      margin-top: 50px;
-      text-align: center;
-      letter-spacing: 1px;
-      &:hover{
-        background: $dark_color;
-        border-color: $dark_color;
+    .btnsBox{
+      padding: 20px 40px;
+      .login{
+        background: #CECEC5;
+        display: block;
+        text-align: center;
+        &::before{
+          background: #FFFFFF;
+        }
+        &:hover{
+          background: $dark_color;
+          border-color: $dark_color;
+        }
+      }
+      .checkout_btn{
+        text-transform: none;
+        display: block;
+        margin-top: 0px;
+        text-align: center;
+        letter-spacing: 1px;
+        border: 1px solid #252525;
+        margin-bottom: 20px;
+        &:hover{
+          background: $dark_color;
+          border-color: $dark_color;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1399.98px){
+  .my_cart_section{
+    .order_summary{
+      h5.head{
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+      .calc_area{
+        li{
+          padding: 15px 20px;
+          .left{
+            h6{
+              font-size: 14px;
+            }
+          }
+          .right{
+            h5 {
+              font-size: 14px;
+            }
+          }
+        }
+        .couponLi{
+          padding: 0 20px;
+        }
+        form{
+          .form-group{
+            .form-control{
+              font-size: 12px;
+            }
+          }
+          .primary_btn{
+            font-size: 12px;
+          }
+        }
+      }
+      .btnsBox{
+        padding:  15px 20px;
+      }
+      .sub_total{
+        padding: 15px 20px;
+        .sub_left{
+          h6{
+            font-size: 17px;
+          }
+        }
+        .sub_right {
+          h5{
+            font-size: 17px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1199.98px){
+  .my_cart_section{
+    .cart_left{
+      .my_cart_list{
+        flex-direction: column;
+        .my_cart_product_card{
+          width: 100%;
+          .product_image{
+            width: 15%;
+          }
+          .product_name{
+            width: 85%;
+          }
+        }
+        .right{
+          width: 100%;
+        }
       }
     }
   }
@@ -6413,7 +6619,8 @@ footer{
 @media only screen and (max-width: 991.98px){
 
   .my_cart_section{
-    padding-top: 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
     .cart_left{
       .my_cart_list{
         flex-direction: column;
@@ -6460,8 +6667,17 @@ footer{
             padding-top: 15px;
             border-top: 1px  solid #E1E1E1;
             width: 100%;
+            .total_price{
+              width: 65%;
+              h6{
+                text-align: left;
+                font-size: 14px;
+              }
+            }
             .btns_area{
               width: 130px;
+              flex-direction: row;
+              grid-gap: 15px;
             }
           }
         }
@@ -6511,7 +6727,7 @@ footer{
           }
           .right{
             h5{
-              font-size: 16px;
+              font-size: 14px;
             }
           }
         }
@@ -6536,6 +6752,30 @@ footer{
   }
 }
 
+@media only screen and (max-width: 400.98px){
+  .my_cart_section{
+    .order_summary{
+      .calc_area{
+        .couponLi{
+          form{
+            flex-direction: column;
+            .form-group{
+              width: 100%;
+              .form-control{
+                height: 39px;
+              }
+            }
+            .primary_btn{
+              width: 100%;
+              border: 1px solid #000;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 355.98px){
   .my_cart_section{
     .cart_left{
@@ -6545,6 +6785,7 @@ footer{
           align-items: start;
           .product_image{
             width: 50%;
+            margin-bottom: 7px;
           }
           .product_name{
             width: 100%;
@@ -6565,11 +6806,10 @@ footer{
       }
     }
     .order_summary{
-      padding: 30px 15px;
+      padding: 0px;
       .calc_area{
         form{
           .form-group{
-            flex-direction: column;
             border: 0px;
             .form-control{
               width: 100%;
@@ -6588,6 +6828,1002 @@ footer{
 }
 
 // My Cart End
+
+
+
+// My checkout Start
+
+.my_checkout_section{
+
+  .checkoutDetailsLeft{
+    background: #F5F5F5;
+    border: 1px solid #D9D9D9;
+    overflow: hidden;
+    .headArea{
+      padding: 20px 30px;
+      background: #CECEC4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .right{
+        width: 50%;
+        padding: 0px;
+        display: flex;
+        justify-content: end;
+        .secondary_btn{
+          margin-right: 25px;
+          padding: 2px;
+          padding-right: 15px;
+          text-transform: none;
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+          display: flex;
+          align-items: center;
+          background: #FFFFFF;
+          border-radius: 0;
+          i{
+            height: 100%;
+            margin-right: 10px;
+            background: #D9D9D9;
+            padding: 10px 10px;
+            align-items: center;
+            display: flex;
+          }
+          &:hover{
+          }
+        }
+      }
+    }
+
+    .select_billing_address_slider, .select_shipping_address_slider{
+      margin-top: 40px !important;
+      margin-bottom: 40px !important;
+      padding: 0 30px;
+      .select_address_card{
+        background: #FFFFFF;
+        border: 1px solid #A0A0A0;
+        padding: 25px;
+        height: 100%;
+        position: relative;
+        h6{
+          padding-bottom: 2px;
+          font-family: Brother1816-Medium;
+          color: #252525;
+        }
+        .addressLabel{
+          font-family: Brother1816-Medium;
+          color: #252525;
+        }
+        .add_line{
+          margin-bottom: 2px;
+          p{
+            font-family: Brother1816-Light;
+            color: #676767;
+          }
+        }
+        .phone{
+          font-family: Brother1816-Regular;
+          color: #000000;
+        }
+        .buttons_area{
+          display: flex;
+          margin-top: 18px;
+          justify-content: space-between;
+          a{
+            font-size: 16px;
+            padding: 5px 0;
+            margin-right: 25px;
+
+            i{
+              margin-right: 5px;
+            }
+            &:last-child{
+              margin-right: 0;
+              padding-right: 0;
+            }
+          }
+          .edit_add{
+            color: #04A1F2;
+            &:hover{
+              //color: $primary_color;
+              text-decoration: underline;
+            }
+          }
+          .set_d_add{
+            display: flex;
+            align-items: center;
+            img{
+              width: 17px;
+              margin-right: 10px;
+            }
+          }
+
+        }
+      }
+      .active{
+        &::after {
+          width: 20px;
+          height: 20px;
+          content: "";
+          display: inline-block;
+          position: absolute;
+          top: 25px;
+          right: 25px;
+          background: url(../images/activeSelect.png)center;
+          background-size: auto;
+          background-size: cover;
+        }
+      }
+      .slick-track{
+        display: flex !important;
+        margin-left: 0;
+      }
+      .slick-list{
+        margin: 0 -10px;
+      }
+      .slick-slide{
+        margin: 0 10px;
+        height: inherit;
+        display: flex;
+        div{
+          width: 100%;
+        }
+      }
+    }
+
+    .billingAddressOffcanvas{
+      overflow: hidden;
+      margin-top: 40px;
+      padding: 0 30px;
+      .offcanvas{
+        position: relative !important;
+        display: none;
+        transform: none;
+        z-index: 0;
+        .offcanvas-header{
+          padding: 0;
+          .btn-close{
+            outline: none;
+            border: 0;
+            box-shadow: none;
+          }
+        }
+      }
+      .offcanvas-top{
+        border-bottom: 0px;
+        height: auto !important;
+      }
+      .modal-backdrop{
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 0 !important;
+        width: auto !important;
+        height: auto !important;
+        background-color: transparent !important;
+        display: none;
+      }
+      .offcanvas.show {
+        display: block;
+      }
+    }
+
+    .sameShipping{
+      padding: 30px 30px 0;
+      .form-check{
+        position: relative;
+        padding-left: 0;
+        display: flex;
+        align-items: center;
+        .form-check-input[type="checkbox"]{
+          margin: 0 0 0 0px;
+          width: 20px;
+          height: 20px;
+          border: 1px solid #cecec4;
+          border-radius: 5px;
+          background-color: #FFFFFF;
+          box-shadow: none;
+          border: none;
+          border: 1px solid #000;
+          margin-right: 10px;
+        }
+        .form-check-input:checked[type="checkbox"]{
+          background: #000 url("../images/tick-01.png") center no-repeat;
+          background-position: center;
+          background-size: 10px;
+        }
+        .colorBox{
+          width: 35px;
+          height: 35px;
+          border-radius: 100%;
+          box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+
+
+    .slick-address-nav1, .slick-address-nav2{
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      width: 85px;
+      z-index: 0;
+      .slick-prev,
+      .slick-next{
+        &::before{
+          display: none;
+        }
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        position: relative;
+        top:20px;
+        background: #F2F2F2;
+        border: 2px #DFDFDF solid;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+        &:hover{
+          background-color: $primary_color;
+        }
+      }
+      .slick-prev{
+        left: 0;
+        background: #252525 url(../images/prevWhite.png) center no-repeat;
+        background-size: 10px;
+
+      }
+      .slick-next {
+        right: 0;
+        background: #252525 url(../images/nextWhite.png) center no-repeat;
+        background-size: 10px;
+      }
+
+    }
+    .slick-arrow[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .add_address_form{
+      background: #FFFFFF;
+      padding: 40px 25px 20px;
+      margin-bottom: 40px;
+      h4{
+        margin-bottom: 30px;
+
+      }
+
+      .form-group{
+        label{
+          font-size: 13px;
+          color: #676767;
+        }
+      }
+
+      .form-control {
+        border: 0px;
+        border-bottom: 1px solid #E1E1E1;
+        background-color: transparent;
+        color: #000000;
+        padding: 15px;
+        margin-bottom: 30px;
+        font-family: Brother1816-Light;
+        font-size: 14px;
+
+        &::placeholder {
+          color: $dark_color;
+          opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+          color: $dark_color;
+        }
+
+        &::-ms-input-placeholder {
+          color: $dark_color;
+        }
+      }
+      .form-message{
+        height: 52px;
+        resize: none;
+      }
+      .form-check{
+        label{
+          font-size: 14px;
+        }
+      }
+      .address_label{
+        margin-bottom: 20px;
+        .label_cnt{
+          display: block;
+          margin-bottom: 8px;
+          font-size: 14px;
+          font-family: Brother1816-Light;
+          span{
+            font-family: Brother1816-Medium;
+          }
+        }
+        .form-check{
+          margin-right: 15px;
+          label{
+            font-size: 14px;
+            color: #252525;
+          }
+        }
+        .form-check-input:focus{
+          box-shadow: none;
+        }
+        .form-check-input{
+          box-shadow: none;
+        }
+        .form-check-input:checked {
+          background-color: #252525;
+          border-color: #fff;
+        }
+        .form-check-input:checked[type=radio]{
+          background-size: 10px;
+        }
+
+      }
+
+      .form-switch .form-check-input:focus{
+        box-shadow: none;
+      }
+
+      .form_select{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background:  url(../images/angle-down-solid.svg);
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y: 22px;
+        option{
+          font-family: Helvetica, sans-serif;
+          background: $white_color;
+        }
+      }
+      .secondary_btn{
+        text-transform: none;
+        width: 130px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 30px;
+        &:hover{
+          background: $primary_color;
+          border-color: $primary_color;
+        }
+      }
+      .primary_btn{
+        text-transform: none;
+        width: 130px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          background: $dark_color;
+          border-color: $dark_color;
+        }
+      }
+    }
+
+    .customerNote{
+      padding: 0 30px;
+      label{
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      textarea{
+        font-family: Brother1816-Light;
+        font-size: 14px;
+        resize: none;
+        height: 80px;
+      }
+    }
+
+  }
+
+  .order_summary{
+
+    .orderProductSummary{
+      padding: 15px 0;
+      height: 350px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        overflow: hidden;
+        background: #CECEC5;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #252525;
+        opacity: 1;
+      }
+      .item{
+        padding: 20px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        grid-gap: 10px;
+        border-bottom: 1px solid #D9D9D9;
+        &:nth-child(even){
+          background: #F5F5F5;
+        }
+        .leftImgDetails{
+          width: 73%;
+          display: flex;
+          align-items: center;
+          grid-gap: 10px;
+          .imgBox{
+            width: 25%;
+            background: #F5F5F5;
+          }
+          .details{
+            width: 75%;
+            h5{
+              font-size: 16px;
+              font-family: Brother1816-Regular;
+            }
+            ul{
+              margin-top: 10px;
+              li{
+                font-size: 13px;
+                padding-bottom: 6px;
+                line-height: 14px;
+                span{
+                  color: #A0A0A0;
+                  font-family: Brother1816-Light;
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+        }
+        .price{
+          width: 27%;
+          padding: 10px;
+          ul{
+            li {
+              font-family: Brother1816-Regular;
+              font-size: 14px;
+              line-height: 18px;
+              &:nth-child(2){
+                font-family: Brother1816-Light;
+                color: #A0A0A0;
+                text-decoration: line-through;
+                font-size: 12px;
+                line-height: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .banks{
+      margin-top: 50px;
+      .accordion{
+        .accordion-item{
+          padding: 5px 40px;
+          border: 0;
+          background: #F5F5F5;
+          .bank-radio:checked {
+            background-color: #252525;
+            border-color: #fff;
+          }
+          &:nth-child(even){
+            background: #FFFFFF;
+          }
+        }
+        .accordion-header{
+
+        }
+        .accordion-button{
+          background: transparent;
+          box-shadow: none !important;
+          padding: 0px 0px;
+
+          .bank-radio{
+            padding: 10px;
+          }
+          label{
+            padding: 15px 10px;
+            display: block;
+            width: 100%;
+            font-size: 14px;
+
+          }
+        }
+        .accordion-button:not(.collapsed) {
+          color: $dark_color;
+          background-color: transparent;
+          box-shadow: inset 0 -1px 0 rgba(0,0,0,.125);
+        }
+        .accordion-button:not(.collapsed)::after {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+          transform: rotate(-180deg);
+        }
+        .accordion-body{
+          padding: 0 20px 10px;
+          p{
+            font-size: 14px;
+
+          }
+        }
+        .accordion-item:last-of-type {
+          border-bottom-right-radius: .0rem;
+          border-bottom-left-radius: .0rem;
+        }
+
+        .accordion-item:first-of-type {
+          border-top-left-radius: 0rem;
+          border-top-right-radius: 0rem;
+        }
+      }
+    }
+  }
+
+}
+
+@media (max-width: 1399.98px){
+  .my_checkout_section {
+    .order_summary {
+      .banks {
+        .accordion {
+          .accordion-item{
+            padding: 0 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1199.98px){
+  .my_checkout_section {
+    .order_summary{
+      .orderProductSummary{
+        .item{
+          flex-direction: column;
+          align-items: flex-start;
+          .leftImgDetails{
+            width: 100%;
+          }
+          .price{
+            width: 100%;
+          }
+        }
+      }
+    }
+    .checkoutDetailsLeft {
+      .headArea{
+        h4{
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 991.98px){
+  .my_checkout_section {
+    .order_summary{
+      .orderProductSummary{
+        .item{
+          flex-direction: row;
+          align-items: center;
+          .leftImgDetails{
+            width: 73%;
+          }
+          .price{
+            width: 27%;
+          }
+        }
+      }
+    }
+    .checkoutDetailsLeft {
+      .headArea{
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        h4{
+          font-size: 18px;
+        }
+        .right{
+          margin-top: 15px;
+          width: 100%;
+          justify-content: space-between;
+          .secondary_btn {
+            font-size: 13px;
+            margin-right: 0px;
+            padding: 2px 15px 2px 2px;
+          }
+        }
+      }
+      .select_billing_address_slider, .select_shipping_address_slider{
+        padding: 0 15px;
+      }
+      .sameShipping {
+        padding: 20px 15px 0;
+      }
+      .customerNote{
+        padding: 0 15px;
+      }
+      .billingAddressOffcanvas{
+        padding: 0 15px;
+      }
+      .add_address_form {
+        padding: 25px 15px 20px;
+        h4{
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 420.98px){
+  .my_checkout_section {
+    .order_summary{
+      .orderProductSummary{
+        .item{
+          flex-direction: column;
+          align-items: flex-start;
+          .leftImgDetails{
+            width: 100%;
+          }
+          .price{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+          }
+        }
+      }
+    }
+  }
+}
+
+// My checkout End
+
+//Thanks Page Start
+.thanks_section{
+  padding: 200px 0;
+  position: relative;
+  &::before {
+    display: inline-block;
+    bottom: 300px;
+    left: -55px;
+    width: 104px;
+    height: 225px;
+    background: url(../images/pattern-02.png)center;
+  }
+  &::after {
+    bottom: 0;
+    right: -105px;
+    background: url(../images/pattern-01.png);
+    width: 200px;
+    height: 92px;
+    z-index: -1;
+  }
+  h1{
+    font-family: Brother1816-Bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    span{
+      font-family: Brother1816-Light;
+    }
+  }
+  h5{
+    font-family: Brother1816-Regular;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  ul{
+    li{
+      font-family: Brother1816-Regular;
+      color: #000000;
+      span{
+        color: #676767;
+      }
+    }
+  }
+  .buttons_box{
+    margin-top: 20px;
+  }
+  .primary_btn{
+    background: #CECEC4;
+    color: #000;
+    border: 2px solid #CECEC4;
+    &::before{
+      background: #FFFFFF;
+    }
+    &:hover{
+      background: #252525;
+      border: 2px solid #252525;
+      color: #FFFFFF;
+    }
+  }
+  .primary_btn.details{
+    background: transparent;
+    color: #000;
+    border: 2px solid #252525;
+    &::before{
+      background: #CECEC4;
+    }
+    &:hover{
+      background: #252525;
+      color: #FFFFFF;
+    }
+  }
+  a{
+    margin-right: 20px;
+    width: 180px;
+    &:last-child{
+      margin-right: 0px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .thanks_section{
+    padding: 100px 0;
+    .buttons_box{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      a{
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+//Thanks Page End
+
+
+//Cart Right OffCanvas List Start
+
+.cartListRight{
+  background: #FFFFFF;
+  width: 500px;
+  .offcanvas-header{
+    padding: 15px 25px;
+    background: #CECEC5;
+    .btn-close{
+      box-shadow: none;
+      outline: none;
+      border: 0;
+      opacity: 1;
+      background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+    }
+    h5{
+      font-family: 18px;
+      img{
+        margin-right: 10px;
+        width: 35px;
+      }
+      color: #000;
+      font-family: Brother1816-Regular;
+      span{
+        margin-left: 7px;
+        font-size: 14px;
+        color: #FFFFFF;
+        font-family: Brother1816-Light;
+      }
+    }
+  }
+  .offcanvas-body{
+    overflow-y: scroll;
+    margin: 10px 0;
+    padding: 0;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      overflow: hidden;
+      background: #CECEC5;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #252525;
+      opacity: 1;
+    }
+
+    .orderProductSummary{
+      padding: 0px 0;
+      .item{
+        padding: 20px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        grid-gap: 10px;
+        border-bottom: 1px solid #D9D9D9;
+        &:nth-child(even){
+          background: #F5F5F5;
+        }
+        .leftImgDetails{
+          width: 73%;
+          display: flex;
+          align-items: center;
+          grid-gap: 10px;
+          .imgBox{
+            width: 25%;
+            background: #F5F5F5;
+          }
+          .details{
+            width: 75%;
+            h5{
+              font-size: 16px;
+              font-family: Brother1816-Regular;
+            }
+            ul{
+              margin-top: 10px;
+              li{
+                font-size: 13px;
+                padding-bottom: 6px;
+                line-height: 14px;
+                span{
+                  color: #A0A0A0;
+                  font-family: Brother1816-Light;
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+        }
+        .price{
+          width: 27%;
+          padding: 10px;
+          ul{
+            li {
+              font-family: Brother1816-Regular;
+              font-size: 14px;
+              line-height: 18px;
+              &:nth-child(2){
+                font-family: Brother1816-Light;
+                color: #A0A0A0;
+                text-decoration: line-through;
+                font-size: 12px;
+                line-height: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .offcanvas-footer{
+    .sub_total{
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #d9d9d9;
+      .sub_left{
+        h6{
+          font-size: 20px;
+          font-family: Brother1816-Medium;
+        }
+      }
+      .sub_right{
+        h5{
+          font-size: 20px;
+          font-family: Brother1816-Medium;
+        }
+      }
+    }
+    .btnsBox{
+      padding: 15px 25px;
+      .login{
+        background: #CECEC5;
+        display: block;
+        text-align: center;
+        &::before{
+          background: #FFFFFF;
+        }
+        &:hover{
+          background: $dark_color;
+          border-color: $dark_color;
+        }
+      }
+      .checkout_btn{
+        text-transform: none;
+        display: block;
+        margin-top: 0px;
+        text-align: center;
+        letter-spacing: 1px;
+        border: 1px solid #252525;
+        margin-bottom: 20px;
+        &:hover{
+          background: $dark_color;
+          border-color: $dark_color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 525px){
+  .cartListRight {
+    background: #fff;
+    width: 100%;
+    .offcanvas-footer{
+      .sub_total{
+        .sub_left{
+          h6{
+            font-size: 15px;
+          }
+        }
+        .sub_right{
+          h5{
+            font-size: 17px;
+          }
+        }
+      }
+      .btnsBox{
+      }
+    }
+  }
+}
+
+@media (max-width: 525px){
+  .cartListRight {
+    background: #fff;
+    width: 100%;
+    .offcanvas-header {
+      padding: 15px 10px;
+    }
+    .offcanvas-body{
+      .orderProductSummary{
+        .item{
+          padding: 10px 10px;
+        }
+      }
+    }
+    .offcanvas-footer{
+      .sub_total{
+        padding: 10px 10px;
+      }
+      .btnsBox{
+        padding: 10px 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 420px){
+  .cartListRight {
+    .offcanvas-body{
+      .orderProductSummary{
+        .item{
+          flex-direction: column;
+          align-items: flex-start;
+          .leftImgDetails{
+            width: 100%;
+          }
+          .price{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            .price_area{
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//Cart Right OffCanvas List End
 
 
 

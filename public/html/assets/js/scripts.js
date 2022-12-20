@@ -212,6 +212,52 @@ jQuery('.quantity-counter').each(function() {
 
 });
 
+// Select Billing slider slider
+$('.select_billing_address_slider').slick({
+    infinite: false,slidesToShow: 2,slidesToScroll: 1, autoplay: false,
+    dots: false,
+    appendArrows: $('.slick-address-nav1'),
+    roes:0,
+    responsive: [
+        {
+            breakpoint: 1025,
+            settings: {slidesToShow: 2,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 960,
+            settings: {slidesToShow: 2,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 768,
+            settings: {slidesToShow: 1,}
+        },
+    ]
+});
+// Select Billing slider slider
+
+// Select Billing slider slider
+$('.select_shipping_address_slider').slick({
+    infinite: false,slidesToShow: 2,slidesToScroll: 1, autoplay: false,
+    dots: false,
+    appendArrows: $('.slick-address-nav2'),
+    roes:0,
+    responsive: [
+        {
+            breakpoint: 1025,
+            settings: {slidesToShow: 2,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 960,
+            settings: {slidesToShow: 2,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 768,
+            settings: {slidesToShow: 1,}
+        },
+    ]
+});
+// Select Billing slider slider
+
 
 
 //sticky header
@@ -253,3 +299,30 @@ $(".toggle-password").click(function() {
         input.attr("type", "password");
     }
 });
+
+
+//Add Checkout Bill Address go to
+$(document).on('click', '#add_checkout_bill_address', function () {
+    if ($('#bill_address_list').css('display') === 'block') {
+        // $('#bill_address_list').addClass('d-none');
+        $('#add_bill_address_form').removeClass('d-none');
+    }
+    else {
+        // $('#bill_address_list').removeClass('d-none');
+        $('#add_bill_address_form').addClass('d-none');
+    }
+});
+//Add Checkout Bill Address go to
+
+//Add Checkout Shipping Address go to
+$(document).on('click', '#add_checkout_ship_address', function () {
+    if ($('#bill_address_list').css('display') === 'block') {
+        // $('#bill_address_list').addClass('d-none');
+        $('#add_ship_address_form').removeClass('d-none');
+    }
+    else {
+        // $('#bill_address_list').removeClass('d-none');
+        $('#add_ship_address_form').addClass('d-none');
+    }
+});
+//Add Checkout Shipping Address go to

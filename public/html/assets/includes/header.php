@@ -181,13 +181,238 @@
 
 <!--Cart List Start-->
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end cartListRight" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+        <h5 id="offcanvasRightLabel"><img src="assets/images/cartRight.jpg" alt=""> Your cart <span>( 6 Items )</span></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        ...
+        <div class="orderProductSummary">
+            <div class="item">
+                <div class="leftImgDetails">
+                    <div class="imgBox">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/product/product04.jpg" loading="lazy" alt="">
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div>
+                            <a href="">
+                                <h5>
+                                    Lorem ipsum dolor.
+                                </h5>
+                                <ul>
+                                    <li>
+                                        Shape : <span>Landscape</span>
+                                    </li>
+                                    <li>
+                                        color : <span>Red</span>
+                                    </li>
+                                    <li>
+                                        Size : <span>50 X 50</span>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <ul class="price_area">
+                        <li>AED 250/- </li>
+                        <li>AED 265/-  </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="leftImgDetails">
+                    <div class="imgBox">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/product/product03.jpg" loading="lazy" alt="">
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div>
+                            <a href="">
+                                <h5>
+                                    Lorem ipsum dolor.
+                                </h5>
+                                <ul>
+                                    <li>
+                                        Shape : <span>Landscape</span>
+                                    </li>
+                                    <li>
+                                        color : <span>Red</span>
+                                    </li>
+                                    <li>
+                                        Size : <span>50 X 50</span>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <ul class="price_area">
+                        <li>AED 250/- </li>
+                        <li>AED 265/-  </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="leftImgDetails">
+                    <div class="imgBox">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/product/product01.jpg" loading="lazy" alt="">
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div>
+                            <a href="">
+                                <h5>
+                                    Lorem ipsum dolor.
+                                </h5>
+                                <ul>
+                                    <li>
+                                        Shape : <span>Landscape</span>
+                                    </li>
+                                    <li>
+                                        color : <span>Red</span>
+                                    </li>
+                                    <li>
+                                        Size : <span>50 X 50</span>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <ul class="price_area">
+                        <li>AED 250/- </li>
+                        <li>AED 265/-  </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="leftImgDetails">
+                    <div class="imgBox">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/product/product05.jpg" loading="lazy" alt="">
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div>
+                            <a href="">
+                                <h5>
+                                    Lorem ipsum dolor.
+                                </h5>
+                                <ul>
+                                    <li>
+                                        Shape : <span>Landscape</span>
+                                    </li>
+                                    <li>
+                                        color : <span>Red</span>
+                                    </li>
+                                    <li>
+                                        Size : <span>50 X 50</span>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <ul class="price_area">
+                        <li>AED 250/- </li>
+                        <li>AED 265/-  </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="leftImgDetails">
+                    <div class="imgBox">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/product/product06.jpg" loading="lazy" alt="">
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div>
+                            <a href="">
+                                <h5>
+                                    Lorem ipsum dolor.
+                                </h5>
+                                <ul>
+                                    <li>
+                                        Shape : <span>Landscape</span>
+                                    </li>
+                                    <li>
+                                        color : <span>Red</span>
+                                    </li>
+                                    <li>
+                                        Size : <span>50 X 50</span>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <ul class="price_area">
+                        <li>AED 250/- </li>
+                        <li>AED 265/-  </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="leftImgDetails">
+                    <div class="imgBox">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/product/product02.jpg" loading="lazy" alt="">
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div>
+                            <a href="">
+                                <h5>
+                                    Lorem ipsum dolor.
+                                </h5>
+                                <ul>
+                                    <li>
+                                        Shape : <span>Landscape</span>
+                                    </li>
+                                    <li>
+                                        color : <span>Red</span>
+                                    </li>
+                                    <li>
+                                        Size : <span>50 X 50</span>
+                                    </li>
+                                </ul>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price">
+                    <ul class="price_area">
+                        <li>AED 250/- </li>
+                        <li>AED 265/-  </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas-footer">
+        <div class="sub_total">
+            <div class="sub_left">
+                <h6>Subtotal</h6>
+            </div>
+            <div class="sub_right">
+                <h5>AED 15710.00</h5>
+            </div>
+        </div>
+        <div class="btnsBox">
+            <a href="checkout.php" class="primary_btn checkout_btn">Proceed To Checkout</a>
+            <a href="cart.php" class="primary_btn login">View Cart</a>
+        </div>
     </div>
 </div>
 
