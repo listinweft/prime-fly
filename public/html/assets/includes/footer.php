@@ -17,7 +17,7 @@
                             <a href="errorPage.php">Art for Business</a>
                         </li>
                         <li>
-                            <a class="strong" href="login.php">My Account</a>
+                            <a class="strong" href="my-account.php">My Account</a>
                         </li>
                     </ul>
 
@@ -114,6 +114,64 @@
             </div>
         </div>
     </footer>
+
+    <section class="fixedBottomBar">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="listWrapper">
+                       <li>
+                           <a href="" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                               <img class="img-fluid" src="assets/images/bottom-01.png" alt="">
+                               <p>Cart</p>
+                           </a>
+                       </li>
+                        <li>
+                            <div class="dropdown">
+                                <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="img-fluid " src="assets/images/bottom-02.png" alt="">
+                                    <p>Account</p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="login.php">Login</a></li>
+                                    <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="index.php">
+                                <img class="img-fluid" src="assets/images/bottom-05.png" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="category.php">
+                                <img class="img-fluid" src="assets/images/bottom-03.png" alt="">
+                                <p>Category</p>
+                            </a>
+                        </li>
+                        <li class="chat">
+<!--                            <a href="">-->
+<!--                                <img class="img-fluid" src="assets/images/bottom-04.png" alt="">-->
+<!--                                <p>Chat</p>-->
+<!--                            </a>-->
+                            <div class="dropdown">
+                                <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="img-fluid " src="assets/images/bottom-02.png" alt="">
+                                    <p>Chat</p>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="tel:00970-000000000"><i class="fa-brands fa-whatsapp"></i></a></li>
+                                    <li><a class="dropdown-item" href="https://wa.me/00970-000000000"><i class="fa-solid fa-phone-volume"></i></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

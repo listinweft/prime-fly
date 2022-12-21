@@ -22,13 +22,13 @@
         emptyColor: 'lightgray',
         hoverColor: 'orange',
         activeColor: 'gold',
-        ratedColor: '#FAB63C',
+        ratedColor: '#F3DB01',
         useGradient: true,
         readOnly: false,
         disableAfterRate: true,
         baseUrl: false,
         starGradient: {
-            start: '#FEF7CD', end: '#FF9511'
+            start: '#FEF7CD', end: '#F3DB01'
         },
         strokeWidth: 4,
         strokeColor: 'black',

@@ -73,6 +73,38 @@ $('.testimonialsSlider').slick({
 //Testimonials slider
 
 
+// category Section slider
+$('.categorySliderSmall').slick({
+    infinite: false,slidesToShow: 5,slidesToScroll: 1, autoplay: true,
+    dots: false,
+    roes:0,
+    arrows: false,
+    responsive: [
+        {
+            breakpoint: 1025,
+            settings: {slidesToShow: 5,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 960,
+            settings: {slidesToShow: 6,slidesToScroll: 1,}
+        },
+        {
+            breakpoint: 768,
+            settings: {slidesToShow: 5,}
+        },
+        {
+            breakpoint: 525,
+            settings: {slidesToShow: 4,}
+        },
+        {
+            breakpoint: 330,
+            settings: {slidesToShow: 3,}
+        },
+    ]
+});
+// category Section slider
+
+
 $('.slider-xzoom').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -271,6 +303,37 @@ $(window).scroll(function () {
 //sticky header
 
 
+$(document).ready(function() {
+    $('.our-works-slider').owlCarousel({
+        loop: false,
+        autoplay:false,
+        margin: 15,
+        nav: true,
+        dots:false,
+        autoplayTimeout: 4000,
+        smartSpeed: 1000,
+        autoplayHoverPause:false,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            525: {
+                items: 2,
+            },
+            992: {
+                items: 3,
+            },
+            1200: {
+                items: 3,
+            },
+            1399: {
+                items: 4,
+            }
+        }
+    })
+})
+
 
 
 $(".contactSelect").select2({
@@ -326,3 +389,51 @@ $(document).on('click', '#add_checkout_ship_address', function () {
     }
 });
 //Add Checkout Shipping Address go to
+
+
+//Edit Profile go to
+$(document).on('click', '#edit_profile_go', function () {
+    if ($('#info_box').css('display') === 'block') {
+        $('#info_box').addClass('d-none');
+        $('#info_box_edit').removeClass('d-none');
+    }
+    else {
+        $('#info_box').removeClass('d-none');
+        $('#info_box_edit').addClass('d-none');
+    }
+});
+//Edit Profile go to
+
+
+
+//Add Bill Address go to
+$(document).on('click', '#add_address_go', function () {
+    if ($('#my_address_list').css('display') === 'block') {
+        $('#my_address_list').addClass('d-none');
+        $('#my_address_add_form').removeClass('d-none');
+    }
+    else {
+        $('#my_address_list').removeClass('d-none');
+        $('#my_address_add_form').addClass('d-none');
+    }
+});
+//Add Address go to
+
+//Add Ship Address go to
+$(document).on('click', '#add_address_ship_go', function () {
+    if ($('#my_address_list_ship').css('display') === 'block') {
+        $('#my_address_list_ship').addClass('d-none');
+        $('#my_address_add_form_2').removeClass('d-none');
+    }
+    else {
+        $('#my_address_list_ship').removeClass('d-none');
+        $('#my_address_add_form_2').addClass('d-none');
+    }
+});
+//Order Ship Address go to
+
+
+
+$(window).on('load', function () {
+    $('#loading').hide();
+})

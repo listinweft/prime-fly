@@ -2,7 +2,7 @@
 
 <section class="my_cart_section my_checkout_section">
     <section class="mb-3">
-        <div class="container">
+        <div class="container position-relative">
             <div class="row">
                 <div class="col-12">
                     <nav aria-label="breadcrumb">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </section>
-    <div class="container">
+    <div class="container position-relative">
         <div class="row align-items-start">
             <div class="col-lg-8">
                 <div class="checkoutDetailsLeft">

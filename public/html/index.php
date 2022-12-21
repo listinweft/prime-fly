@@ -1,5 +1,68 @@
 <?php include('assets/includes/header.php') ?>
 
+<div id="loading">
+    <img id="loading-image" src="assets/images//loading.gif" alt="Loading..."/>
+</div>
+
+<section class="categorySection">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="categorySliderSmall">
+                    <div class="itemCard">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/category/category-01.png" alt="">
+                            <p>
+                                Contemporary
+                            </p>
+                        </a>
+                    </div>
+                    <div class="itemCard">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/category/category-02.png" alt="">
+                            <p>
+                                Still Life
+                            </p>
+                        </a>
+                    </div>
+                    <div class="itemCard">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/category/category-03.png" alt="">
+                            <p>
+                                Landscape
+                            </p>
+                        </a>
+                    </div>
+                    <div class="itemCard">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/category/category-04.png" alt="">
+                            <p>
+                                Cityscape
+                            </p>
+                        </a>
+                    </div>
+                    <div class="itemCard">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/category/category-05.png" alt="">
+                            <p>
+                                Portrait
+                            </p>
+                        </a>
+                    </div>
+                    <div class="itemCard">
+                        <a href="">
+                            <img class="img-fluid" src="assets/images/category/category-06.png" alt="">
+                            <p>
+                                Category
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!--Home Slider Start-->
     <section class="homeSlider">
@@ -373,7 +436,184 @@
                     </div>
                 </div>
                 <div class="col-12 pt-60">
-
+                    <div class="selectionWrapper">
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product03.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 10055</li>
+                                                    <li>$ 80000</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product01.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product02.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product04.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product05.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product06.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product07.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-image-wrapper">
+                                <img class="img-fluid" src="assets/images/product/product02.jpg" alt="">
+                            </div>
+                            <div class="cntOverlay">
+                                <div class="w-100">
+                                    <a href="">
+                                        <h6>Contemporary Art</h6>
+                                        <p>Poster Art</p>
+                                        <div class="starPrice">
+                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            <div class="price">
+                                                <ul>
+                                                    <li class="offer">$ 1055</li>
+                                                    <li>$ 800</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
                 </ul>
                 <div class="buttons_box">
                     <a class="primary_btn" href="my-account.php">My Account</a>
-                    <a class="primary_btn details" href="my-account.php">Order Details</a>
+                    <a class="primary_btn details" href="order-detials.php">Order Details</a>
                     <a class="primary_btn" href="index.php">Home</a>
                 </div>
             </div>
