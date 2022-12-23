@@ -1,6 +1,20 @@
 $(".my_wishlist").click(function(){
     $(this).toggleClass("fill") ;
-})
+});
+
+$(".colorItemFilterClick").click(function(){
+    $(this).toggleClass("active") ;
+});
+
+$(".shapeFilterClick").click(function(){
+    $(this).toggleClass("active") ;
+});
+
+$(".tagFilterClick").click(function(){
+    $(this).toggleClass("active") ;
+});
+
+
 
 
 //currency changing
@@ -52,6 +66,7 @@ $('.testimonialsSlider').slick({
     infinite: true,
     focusOnSelect: true,
     draggable: true,
+    swipeToSlide: true,
     dots: false,
     arrows: true,
     pauseOnHover: false,
@@ -75,9 +90,12 @@ $('.testimonialsSlider').slick({
 
 // category Section slider
 $('.categorySliderSmall').slick({
-    infinite: false,slidesToShow: 5,slidesToScroll: 1, autoplay: true,
+    infinite: true,slidesToShow: 5,slidesToScroll: 1, autoplay: true,
     dots: false,
     roes:0,
+    focusOnSelect: true,
+    draggable: true,
+    swipeToSlide: true,
     arrows: false,
     responsive: [
         {
@@ -103,6 +121,39 @@ $('.categorySliderSmall').slick({
     ]
 });
 // category Section slider
+
+// Related Product slider
+$(document).ready(function() {
+    $('.relatedSlider').owlCarousel({
+        loop: true,
+        autoplay:true,
+        margin: 15,
+        nav: true,
+        dots:false,
+        autoplayTimeout: 4000,
+        smartSpeed: 1000,
+        autoplayHoverPause:false,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 2,
+            },
+            525: {
+                items: 2,
+            },
+            992: {
+                items: 3,
+            },
+            1200: {
+                items: 4,
+            },
+            1399: {
+                items: 5,
+            }
+        }
+    })
+})
+// Related Product slider
 
 
 $('.slider-xzoom').slick({
@@ -134,7 +185,7 @@ $('.blogRecentSlider').slick({
 //Recent Blog Slider
 
 
-//Testimonials slider
+//Shop Category slider
 $('.shopCategorySlider').slick({
     slidesToShow: 6,
     slidesToScroll: 1,
@@ -166,7 +217,7 @@ $('.shopCategorySlider').slick({
         },
     ]
 });
-//Testimonials slider
+//Shop Category slider
 
 
 //Price Ranger Start
@@ -302,6 +353,16 @@ $(window).scroll(function () {
 });
 //sticky header
 
+//sticky header
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 800) {
+        $('.bottomStickyBar').addClass('d-block');
+    } else {
+        $('.bottomStickyBar').removeClass('d-block')
+    }
+});
+//sticky header
+
 
 $(document).ready(function() {
     $('.our-works-slider').owlCarousel({
@@ -316,7 +377,7 @@ $(document).ready(function() {
         responsiveClass: true,
         responsive: {
             0: {
-                items: 1,
+                items: 2,
             },
             525: {
                 items: 2,
@@ -336,19 +397,6 @@ $(document).ready(function() {
 
 
 
-$(".contactSelect").select2({
-    placeholder: "Select your service",
-    allowClear: true
-});
-
-
-$(window).scroll(function () {
-    if ($(".go-top").offset().top > 1050) {
-        $(".go-top").addClass("go-top-no");
-    } else {
-        $(".go-top").removeClass("go-top-no");
-    }
-});
 
 
 

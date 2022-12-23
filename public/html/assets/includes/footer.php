@@ -158,7 +158,7 @@
                             <div class="dropdown">
                                 <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="img-fluid " src="assets/images/bottom-02.png" alt="">
+                                    <img class="img-fluid " src="assets/images/bottom-04.png" alt="">
                                     <p>Chat</p>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">

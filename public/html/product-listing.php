@@ -220,91 +220,54 @@
                                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
                                         <div class="accordion-body">
                                             <div class="colorWrapper">
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10200">
-                                                        <label class="colorBox" style="background: #292929" for="flexCheckDefault10200">
-                                                        </label>
+                                                <a href="javascript:void(0)" class="colorItem colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #292929">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10300">
-                                                        <label class="colorBox" style="background: #FFFFFF" for="flexCheckDefault10300">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #FFFFFF">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10400">
-                                                        <label class="colorBox" style="background: #71A9BA" for="flexCheckDefault10400">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #71A9BA">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10500">
-                                                        <label class="colorBox" style="background: #637372" for="flexCheckDefault10500">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #637372">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10600">
-                                                        <label class="colorBox" style="background: #F5F4DF" for="flexCheckDefault10600">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #F5F4DF">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10700">
-                                                        <label class="colorBox" style="background: #75829D" for="flexCheckDefault10700">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #75829D">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10800">
-                                                        <label class="colorBox" style="background: #BDB8CE" for="flexCheckDefault10800">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #BDB8CE">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10900">
-                                                        <label class="colorBox" style="background: #FBC9CC" for="flexCheckDefault10900">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #FBC9CC">
                                                     </div>
-                                                </div>
-
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101000">
-                                                        <label class="colorBox" style="background: #EF7F55" for="flexCheckDefault101000">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #EF7F55">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101100">
-                                                        <label class="colorBox" style="background: #BDC39F" for="flexCheckDefault101100">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #BDC39F">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101200">
-                                                        <label class="colorBox" style="background: #E1C564" for="flexCheckDefault101200">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #E1C564">
                                                     </div>
-                                                </div>
-                                                <div class="colorItem">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101300">
-                                                        <label class="colorBox" style="background: #C4CACE" for="flexCheckDefault101300">
-                                                        </label>
+                                                </a>
+                                                <a href="javascript:void(0)" class="colorItemFilterClick">
+                                                    <div class="colorBox" style="background: #C4CACE">
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -344,33 +307,18 @@
                                     </h2>
                                     <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
                                         <div class="shapeArea">
-                                            <div class="shapeItem">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2100">
-                                                    <label for="flexCheckDefault2100">
-                                                        <img class="Img-fluid" src="assets/images/shapePortrait.jpg" alt="">
-                                                        <h6>Portrait</h6>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="shapeItem">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2200">
-                                                    <label for="flexCheckDefault2200">
-                                                        <img class="Img-fluid" src="assets/images/shapeLandscape.jpg" alt="">
-                                                        <h6>Landscape</h6>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="shapeItem">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2300">
-                                                    <label for="flexCheckDefault2300">
-                                                        <img class="Img-fluid" src="assets/images/shapeSquare.jpg" alt="">
-                                                        <h6>Square</h6>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <a href="javascript:void(0)" class="shapeFilterClick">
+                                                <img class="Img-fluid" src="assets/images/shapePortrait.jpg" alt="">
+                                                <h6>Portrait</h6>
+                                            </a>
+                                            <a href="javascript:void(0)" class="shapeFilterClick">
+                                                <img class="Img-fluid" src="assets/images/shapeLandscape.jpg" alt="">
+                                                <h6>Landscape</h6>
+                                            </a>
+                                            <a href="javascript:void(0)" class="shapeFilterClick">
+                                                <img class="Img-fluid" src="assets/images/shapeSquare.jpg" alt="">
+                                                <h6>Square</h6>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -386,78 +334,33 @@
                                     </h2>
                                     <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
                                         <div class="productTagArea">
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3100">
-                                                    <label for="flexCheckDefault3100">
-                                                        Seascape
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3200">
-                                                    <label for="flexCheckDefault3200">
-                                                        Canvas
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3300">
-                                                    <label for="flexCheckDefault3300">
-                                                        Acrylic
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3400">
-                                                    <label for="flexCheckDefault3400">
-                                                        Art
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3500">
-                                                    <label for="flexCheckDefault3500">
-                                                        Abstract
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3600">
-                                                    <label for="flexCheckDefault3600">
-                                                        Contemporary
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3700">
-                                                    <label for="flexCheckDefault3700">
-                                                        Texture
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3800">
-                                                    <label for="flexCheckDefault3800">
-                                                        Illustration
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="tag">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3900">
-                                                    <label for="flexCheckDefault3900">
-                                                        Gestural
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Seascape
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Canvas
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Acrylic
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Art
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Abstract
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Contemporary
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Texture
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Illustration
+                                            </a>
+                                            <a href="javascript:void(0)" class="tagFilterClick">
+                                                Gestural
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

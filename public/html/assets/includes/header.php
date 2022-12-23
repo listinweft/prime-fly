@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="http:////code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https:////code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
     <link rel="stylesheet" href="assets/css/style.min.css">
 </head>
@@ -120,16 +120,41 @@
                     <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
                     <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
-<!--                    <li class="nav-item dropdown ">-->
-<!--                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown"> Media </a>-->
-<!--                        <ul class="dropdown-menu dropdown-menu-end single_drop">-->
-<!--                            <li><a class="dropdown-item" href="blog.php"> Blog</a></li>-->
-<!--                            <li><a class="dropdown-item" href="portfolio.php"> Portfolio </a></li>-->
-<!--                            <li><a class="dropdown-item" href="errorPage.php"> Videos </a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
                     <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
                 </ul>
+                <div class="topRightArea">
+                    <ul class="topRightAreaUl">
+                        <li>
+                            <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop" aria-controls="offcanvasTop">
+                                <img class="img-fluid" src="assets/images/search.png" alt="">
+                            </a>
+                        </li>
+                        <li class="cart">
+                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                                <img class="img-fluid" src="assets/images/bag.png" alt="">
+                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
+                                23
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php">
+                                <img class="img-fluid" src="assets/images/wishlist.png" alt="">
+                            </a>
+                        </li>
+                        <li class="login">
+                            <div class="dropdown">
+                                <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="img-fluid icon" src="assets/images/user.png" alt="">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="login.php">Login</a></li>
+                                    <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -194,91 +219,54 @@
                         </a>
                         <ul class="dropdown-menu">
                             <div class="colorWrapper">
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10200">
-                                        <label class="colorBox" style="background: #292929" for="flexCheckDefault10200">
-                                        </label>
+                                <a href="product-listing.php" class="colorItem colorItemFilterClick">
+                                    <div class="colorBox" style="background: #292929">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10300">
-                                        <label class="colorBox" style="background: #FFFFFF" for="flexCheckDefault10300">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #FFFFFF">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10400">
-                                        <label class="colorBox" style="background: #71A9BA" for="flexCheckDefault10400">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #71A9BA">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10500">
-                                        <label class="colorBox" style="background: #637372" for="flexCheckDefault10500">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #637372">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10600">
-                                        <label class="colorBox" style="background: #F5F4DF" for="flexCheckDefault10600">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #F5F4DF">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10700">
-                                        <label class="colorBox" style="background: #75829D" for="flexCheckDefault10700">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #75829D">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10800">
-                                        <label class="colorBox" style="background: #BDB8CE" for="flexCheckDefault10800">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #BDB8CE">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10900">
-                                        <label class="colorBox" style="background: #FBC9CC" for="flexCheckDefault10900">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #FBC9CC">
                                     </div>
-                                </div>
-
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101000">
-                                        <label class="colorBox" style="background: #EF7F55" for="flexCheckDefault101000">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #EF7F55">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101100">
-                                        <label class="colorBox" style="background: #BDC39F" for="flexCheckDefault101100">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #BDC39F">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101200">
-                                        <label class="colorBox" style="background: #E1C564" for="flexCheckDefault101200">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #E1C564">
                                     </div>
-                                </div>
-                                <div class="colorItem">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault101300">
-                                        <label class="colorBox" style="background: #C4CACE" for="flexCheckDefault101300">
-                                        </label>
+                                </a>
+                                <a href="product-listing.php" class="colorItemFilterClick">
+                                    <div class="colorBox" style="background: #C4CACE">
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </ul>
                     </li>

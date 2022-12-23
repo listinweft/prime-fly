@@ -530,5 +530,501 @@
 </section>
 <!-- Testimonial End-->
 
+<div class="relatedProducts">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Related Products</h3>
+                <section id="demos">
+                    <div class="relatedSlider owl-carousel owl-theme ">
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product02.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
+
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="product-details.php" tabindex="-1">
+                                                <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="product-details.php">
+                                        <div class="pro-name">
+                                            Lorem Ipsum is simply dummy text of the printing
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                                AED 10055
+                                            </li>
+                                            <li>
+                                                AED 8000
+                                            </li>
+                                        </ul>
+                                        <ul class="type-review">
+                                            <li>
+                                                Landscape
+                                            </li>
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i> 4.5
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="bottomStickyBar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="bottomItemWrapper">
+                    <div class="imageName">
+                        <div class="imgBox">
+                            <img class="img-fluid" src="assets/images/product/product02.jpg" alt="">
+                        </div>
+                        <div class="name">
+                            <p>
+                                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="qntyAddBtn">
+                        <div class="quantity-counter">
+                            <button class="btn btn-quantity-down">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </button>
+                            <input type="number" disabled class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
+                            <button class="btn btn-quantity-up">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </button>
+                        </div>
+                        <a class="primary_btn" href="">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <?php include('assets/includes/footer.php') ?>
