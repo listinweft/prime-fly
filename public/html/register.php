@@ -16,6 +16,7 @@
                                         <label for="">First Name</label>
                                         <img src="assets/images/loginUser.png" alt="">
                                         <input type="text" class="form-control" placeholder="Enter First Name">
+                                        <span class="invalidMessage"> Given Data Error </span>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -23,6 +24,7 @@
                                         <label for="">Last Name</label>
                                         <img src="assets/images/loginUserName.png" alt="">
                                         <input type="text" class="form-control" placeholder="Enter Last Name">
+                                        <span class="invalidMessage"> Given Data Error </span>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -30,6 +32,7 @@
                                         <label for="">Email address</label>
                                         <img src="assets/images/icon-email.png" alt="">
                                         <input type="email" class="form-control" placeholder="Enter Email">
+                                        <span class="invalidMessage"> Given Data Error </span>
                                     </div>
                                 </div>
                                 <div class=" col-12">

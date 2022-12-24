@@ -131,6 +131,7 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="John George">
+                                                    <span class="invalidMessage"> Given Data Error </span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -780,6 +781,7 @@
                                                         <div class="form-group">
                                                             <label for="">First Name</label>
                                                             <input type="text" class="form-control" placeholder="First Name*">
+                                                            <span class="invalidMessage"> Given Data Error </span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6">

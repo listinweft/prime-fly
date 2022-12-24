@@ -16,6 +16,7 @@
                                         <label for="">Username</label>
                                         <img src="assets/images/loginUser.png" alt="">
                                         <input type="text" class="form-control" placeholder="Enter Username">
+                                        <span class="invalidMessage"> Given Data Error </span>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -25,6 +26,7 @@
                                             <img src="assets/images/loginPassword.png" alt="">
                                             <input id="password-field" type="password" class="form-control" placeholder="Enter Password" name="password" value="Password">
                                             <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                            <span class="invalidMessage"> Given Data Error </span>
                                         </div>
                                     </div>
                                 </div>

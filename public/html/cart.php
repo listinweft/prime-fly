@@ -212,6 +212,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control" placeholder="Coupon Code">
                                     <a class="coupon_remove_btn" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
+                                    <span class="invalidMessage"> Given Data Error </span>
                                 </div>
                                 <button class="btn primary_btn">Apply Coupon</button>
                             </form>

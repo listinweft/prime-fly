@@ -206,7 +206,7 @@
                     </div>
                     <div class="btnsArea">
                         <a class="primary_btn" href="">Add to Cart</a>
-                        <a class="primary_btn secondary_btn" href="">Bulk Enquiry</a>
+                        <a class="primary_btn secondary_btn" href="" data-bs-target="#bulk_order_form_pop" data-bs-toggle="modal" data-bs-dismiss="modal" >Bulk Enquiry</a>
                     </div>
                 </div>
 

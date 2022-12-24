@@ -151,10 +151,6 @@
                             </a>
                         </li>
                         <li class="chat">
-<!--                            <a href="">-->
-<!--                                <img class="img-fluid" src="assets/images/bottom-04.png" alt="">-->
-<!--                                <p>Chat</p>-->
-<!--                            </a>-->
                             <div class="dropdown">
                                 <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
                                    data-bs-toggle="dropdown" aria-expanded="false">

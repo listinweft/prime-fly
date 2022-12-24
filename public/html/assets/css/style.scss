@@ -4197,6 +4197,12 @@ footer{
         bottom: 10px;
         width: 20px;
       }
+      .invalidMessage{
+        color: red;
+        font-size: 11px;
+        position: absolute;
+        bottom: -20px;
+      }
     }
 
     label{
@@ -4299,6 +4305,13 @@ footer{
         left: 15px;
         bottom: 10px;
         width: 22px;
+      }
+      .invalidMessage{
+        color: red;
+        font-size: 11px;
+        position: absolute;
+        bottom: -20px;
+        letter-spacing: 1px;
       }
     }
 
@@ -7363,7 +7376,7 @@ footer{
 
       }
       .couponLi{
-        padding: 0px 40px;
+        padding: 10px 40px 20px;
       }
       .couponDiscount{
         h6.tableData{
@@ -7405,6 +7418,12 @@ footer{
             outline: none;
             border: 0;
             position: relative;
+          }
+          .invalidMessage{
+            color: red;
+            font-size: 11px;
+            position: absolute;
+            bottom: -25px;
           }
         }
         .primary_btn{
@@ -7499,7 +7518,7 @@ footer{
           }
         }
         .couponLi{
-          padding: 0 20px;
+          padding: 10px 20px 20px;
         }
         form{
           .form-group{
@@ -7703,12 +7722,20 @@ footer{
     .order_summary{
       .calc_area{
         .couponLi{
+          padding: 20px 20px 10px;
           form{
             flex-direction: column;
             .form-group{
               width: 100%;
               .form-control{
                 height: 39px;
+              }
+              .invalidMessage {
+                color: red;
+                font-size: 11px;
+                position: absolute;
+                bottom: inherit;
+                top: -20px;
               }
             }
             .primary_btn{
@@ -8074,6 +8101,15 @@ footer{
       .form-message{
         height: 52px;
         resize: none;
+      }
+      .form-group{
+        position: relative;
+      }
+      .invalidMessage{
+        color: red;
+        font-size: 11px;
+        position: absolute;
+        bottom: -20px;
       }
       .form-check{
         label{
@@ -9080,6 +9116,9 @@ footer{
               font-size: 13px;
 
             }
+            .form-group{
+              position: relative;
+            }
             .form-control {
               border: 0px;
               border-bottom: 1px solid #707070;
@@ -9101,6 +9140,14 @@ footer{
                 color: $dark_color;
               }
             }
+
+            .invalidMessage{
+              color: red;
+              font-size: 11px;
+              position: absolute;
+              bottom: -20px;
+            }
+
             .form-message{
               height: 52px;
               resize: none;
@@ -10720,3 +10767,116 @@ footer{
   height: 100px;
 }
 
+// Login Modal Start
+
+.login_create{
+  background-color: rgb(0, 0, 0, 0.45);
+  z-index: 99999;
+  .modal-content{
+    padding: 30px 30px;
+    border-radius: 20px;
+    .modal-header{
+      border-bottom: 0px;
+      h5{
+        font-size: 30px;
+
+        i{
+          margin-right: 10px;
+        }
+      }
+      .btn{
+        background: transparent;
+        filter:none;
+        width: 1em;
+        height: 1em;
+        padding: 0;
+        img{
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          padding: 0;
+          position: relative;
+          top: -5px;
+        }
+      }
+    }
+    .modal-body{
+      .form-control{
+        border: 0px;
+        border-bottom: 1px solid #707070;
+        background-color: transparent;
+        color: $dark_color;
+        padding: 15px;
+        font-size: 14px;
+        font-family: Brother1816-Light;
+
+
+        &::placeholder {
+          color: $dark_color;
+          opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+          color: $dark_color;
+        }
+
+        &::-ms-input-placeholder {
+          color: $dark_color;
+        }
+      }
+      .invalidMessage{
+        color: red;
+        font-size: 11px;
+        position: relative;
+        top: 5px;
+      }
+      .form-group{
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .form-message{
+        height: 95px;
+        resize: none;
+      }
+      h6{
+        padding: 25px 0;
+        text-align: center;
+
+      }
+      .primary_btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+        border-radius: 0px;
+        &:hover{
+          background: #cecec4;
+          border: 1px solid #cecec4;
+          &::before{
+            background: #000;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 766.98px){
+  .login_create .modal-content{
+    .modal-header h5 {
+      font-size: 18px;
+    }
+    padding: 30px 20px;
+    .modal-body{
+      padding: 0;
+    }
+    .modal-header {
+      padding: 0;
+    }
+  }
+}
+
+// Login Modal End
