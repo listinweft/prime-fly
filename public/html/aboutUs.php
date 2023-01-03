@@ -61,7 +61,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-12 mt-4">
+                <div class="col-lg-6 mt-4">
                     <div class="textArea">
                         <p>
                             Our clients are our prime priority and we always strive to provide exceptional service
@@ -71,6 +71,30 @@
                             with the passion to create highly personalized experiences and be confident that your vehicle
                             is in the best possible hands.
                         </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-4">
+                    <div class="textArea">
+                        <p>
+                            Our clients are our prime priority and we always strive to provide exceptional service
+                            quality beyond customer expectations. Whether it’s a simple audio upgrade or a complete
+                            custom fabricated system upgrade, we take great care in providing our clients with exactly
+                            what they want. Discover the unique blend of high proficiency in the installations combined
+                            with the passion to create highly personalized experiences and be confident that your vehicle
+                            is in the best possible hands.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="textArea">
+<!--                        <p>-->
+<!--                            Our clients are our prime priority and we always strive to provide exceptional service-->
+<!--                            quality beyond customer expectations. Whether it’s a simple audio upgrade or a complete-->
+<!--                            custom fabricated system upgrade, we take great care in providing our clients with exactly-->
+<!--                            what they want. Discover the unique blend of high proficiency in the installations combined-->
+<!--                            with the passion to create highly personalized experiences and be confident that your vehicle-->
+<!--                            is in the best possible hands.-->
+<!--                        </p>-->
                         <ul>
                             <li>
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
