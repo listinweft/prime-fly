@@ -114,6 +114,9 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <div class="collapse navbar-collapse" id="main_nav">
+                <a href="index.php">
+                    <img class="img-fluid headerArtemystLogo" src="assets/images/artemystLogo.png" alt="">
+                </a>
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>

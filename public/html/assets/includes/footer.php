@@ -53,7 +53,19 @@
                             <a href="contactUs.php">Support Center</a>
                         </li>
                     </ul>
-                    <img class="img-fluid paymentImg" src="assets/images/securepayment.png" alt="">
+                    <div class="paymentAreaBox">
+                        <h6>
+                            Secure Payment
+                        </h6>
+                        <div class="imgBox">
+                            <img class="img-fluid" src="assets/images/icon-02.png" alt="">
+                            <img class="img-fluid" src="assets/images/icon-03.png" alt="">
+                            <img class="img-fluid" src="assets/images/icon-04.png" alt="">
+                            <img class="img-fluid" src="assets/images/icon-05.png" alt="">
+                            <img class="img-fluid" src="assets/images/icon-06.png" alt="">
+                        </div>
+                    </div>
+<!--                    <img class="img-fluid paymentImg" src="assets/images/securepayment.png" alt="">-->
                 </div>
                 <div class="col-lg-3 col-6 mt-lg-0 mt-5 order-lg-3 order-4">
                     <h6>Discover</h6>

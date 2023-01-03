@@ -308,7 +308,7 @@
                             <h6>30 Items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg7">
+                    <div class="shopSectionItem shopSectionItemBg1">
                         <div class="wrapper">
                             <div class="imgBox">
                                 <img class="img-fluid" src="assets/images/themes/themes-06.jpg" alt="">
@@ -317,7 +317,7 @@
                             <h6>30 Items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg8">
+                    <div class="shopSectionItem shopSectionItemBg2">
                         <div class="wrapper">
                             <div class="imgBox">
                                 <img class="img-fluid" src="assets/images/themes/themes-04.jpg" alt="">
@@ -326,7 +326,7 @@
                             <h6>32 Items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg9">
+                    <div class="shopSectionItem shopSectionItemBg3">
                         <div class="wrapper">
                             <div class="imgBox">
                                 <img class="img-fluid" src="assets/images/themes/themes-01.jpg" alt="">
@@ -335,7 +335,7 @@
                             <h6>17 Items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg10">
+                    <div class="shopSectionItem shopSectionItemBg4">
                         <div class="wrapper">
                             <div class="imgBox">
                                 <img class="img-fluid" src="assets/images/themes/themes-02.jpg" alt="">
@@ -344,7 +344,7 @@
                             <h6>23 Items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg11">
+                    <div class="shopSectionItem shopSectionItemBg5">
                         <div class="wrapper">
                             <div class="imgBox">
                                 <img class="img-fluid" src="assets/images/themes/themes-03.jpg" alt="">
@@ -353,7 +353,7 @@
                             <h6>27 Items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg12">
+                    <div class="shopSectionItem shopSectionItemBg6">
                         <div class="wrapper">
                             <div class="imgBox">
                                 <img class="img-fluid" src="assets/images/themes/themes-05.jpg" alt="">

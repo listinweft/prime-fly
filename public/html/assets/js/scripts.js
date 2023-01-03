@@ -187,7 +187,7 @@ $('.blogRecentSlider').slick({
 
 //Shop Category slider
 $('.shopCategorySlider').slick({
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     focusOnSelect: true,
     autoplay: true,
@@ -201,11 +201,11 @@ $('.shopCategorySlider').slick({
     responsive: [
         {
             breakpoint: 1199.98,
-            settings: {slidesToShow: 5, slidesToScroll: 1,}
+            settings: {slidesToShow: 4, slidesToScroll: 1,}
         },
         {
             breakpoint: 991.98,
-            settings: {slidesToShow: 4,}
+            settings: {slidesToShow: 3,}
         },
         {
             breakpoint: 766.98,

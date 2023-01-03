@@ -22,14 +22,18 @@
                 <div class="my_cart_list">
                     <div class="my_cart_product_card">
                         <div class="product_image">
-                            <picture>
-                                <img class="img-fluid" src="assets/images/product/product04.jpg" loading="lazy" alt="">
-                            </picture>
+                            <a href="">
+                                <picture>
+                                    <img class="img-fluid" src="assets/images/product/product04.jpg" loading="lazy" alt="">
+                                </picture>
+                            </a>
                         </div>
                         <div class="product_name">
-                            <h6>
-                                Lorem ipsum dolor.
-                            </h6>
+                            <a href="">
+                                <h6>
+                                    Lorem ipsum dolor.
+                                </h6>
+                            </a>
                             <ul>
                                 <li>
                                     Shape : <span>Landscape</span>
@@ -128,14 +132,18 @@
                 <div class="my_cart_list">
                     <div class="my_cart_product_card">
                         <div class="product_image">
-                            <picture>
-                                <img class="img-fluid" src="assets/images/product/product01.jpg" loading="lazy" alt="">
-                            </picture>
+                            <a href="">
+                                <picture>
+                                    <img class="img-fluid" src="assets/images/product/product01.jpg" loading="lazy" alt="">
+                                </picture>
+                            </a>
                         </div>
                         <div class="product_name">
-                            <h6>
-                                Lorem ipsum dolor sit.
-                            </h6>
+                            <a href="">
+                                <h6>
+                                    Lorem ipsum dolor sit.
+                                </h6>
+                            </a>
                             <ul>
                                 <li>
                                     Shape : Landscape

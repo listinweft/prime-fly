@@ -123,7 +123,6 @@
                 </div>
                 <div class="col-lg-12 sliderClass position-relative">
                     <div class="sliderNavShopCategory">
-
                     </div>
                     <div class="shopCategorySlider">
                         <div class="shopSectionItem shopSectionItemBg1">
