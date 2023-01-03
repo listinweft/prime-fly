@@ -61,7 +61,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-6 mt-4">
+                <div class="col-lg-6">
                     <div class="textArea">
                         <p>
                             Our clients are our prime priority and we always strive to provide exceptional service
@@ -73,7 +73,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-6 mt-4">
+                <div class="col-lg-6">
                     <div class="textArea">
                         <p>
                             Our clients are our prime priority and we always strive to provide exceptional service
