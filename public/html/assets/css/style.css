@@ -911,6 +911,9 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
 .hamburgerMenu .offcanvas-body .mobile-menubar .navbar-nav .nav-item:hover .nav-link {
   background: #CECEC5 !important;
 }
+.hamburgerMenu .offcanvas-body .mobile-menubar .navbar-nav .nav-item:hover .nav-link:after {
+  filter: brightness(0) invert(0) !important;
+}
 .hamburgerMenu .offcanvas-body .mobile-menubar .navbar-nav .nav-item:hover .nav-link .iconBox {
   background: #fff;
 }

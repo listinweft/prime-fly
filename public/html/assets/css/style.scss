@@ -1143,6 +1143,9 @@ header.sticky {
           &:hover{
             .nav-link{
               background: #CECEC5 !important;
+              &:after{
+                filter: brightness(0) invert(0) !important;
+              }
               .iconBox {
                 background: #fff;
                 img{
