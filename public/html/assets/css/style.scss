@@ -298,12 +298,18 @@ html{
   p {
     margin-bottom: 20px;
     color: $text_color;
+    a{
+      color: $primary_color;
+    }
   }
   ul{
     li{
       color: #676767;
       position: relative;
       margin-bottom: 15px;
+      a{
+        color: $primary_color;
+      }
       &:last-child{
         margin-bottom: 0;
       }
