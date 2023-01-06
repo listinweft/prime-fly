@@ -300,6 +300,7 @@ html{
     color: $text_color;
     a{
       color: $primary_color;
+      display: contents;
     }
   }
   ul{
@@ -309,6 +310,7 @@ html{
       margin-bottom: 15px;
       a{
         color: $primary_color;
+        display: contents;
       }
       &:last-child{
         margin-bottom: 0;

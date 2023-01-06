@@ -263,6 +263,7 @@ html::-webkit-scrollbar-thumb {
 }
 .textArea p a {
   color: #000000;
+  display: contents;
 }
 .textArea ul li {
   color: #676767;
@@ -271,6 +272,7 @@ html::-webkit-scrollbar-thumb {
 }
 .textArea ul li a {
   color: #000000;
+  display: contents;
 }
 .textArea ul li:last-child {
   margin-bottom: 0;
