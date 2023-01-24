@@ -339,6 +339,9 @@ $('.select_shipping_address_slider').slick({
         },
     ]
 });
+
+// $('.address-slider').slick('refresh');
+
 // Select Billing slider slider
 
 
