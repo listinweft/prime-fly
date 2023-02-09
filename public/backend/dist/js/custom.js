@@ -25,7 +25,7 @@ $(document).ready(function () {
     });
 
     if ($('.placeholder-cls').val() == '' || $('.placeholder-cls').val() == null) {
-        $('.placeholder-cls').val('alt="MEBASHI"');
+        $('.placeholder-cls').val('alt="ARTEMYST"');
     }
 
     if ($('.fancy').length > 0) {
