@@ -14,7 +14,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product01.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
@@ -78,7 +78,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product02.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
@@ -142,7 +142,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product03.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -176,7 +176,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
@@ -206,7 +206,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product05.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -240,7 +240,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
@@ -270,7 +270,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product07.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -304,7 +304,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
@@ -334,7 +334,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product03.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -368,7 +368,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
@@ -398,7 +398,7 @@
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
+                                            <a href="{{url('product-details')}}" tabindex="-1">
                                                 <img class="product-image-photo"src="{{ asset('frontend/images/product/product05.jpg')}}" loading="lazy"  alt="">
                                             </a>
                                         </div>
@@ -432,7 +432,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="product-details.php">
+                                    <a href="{{url('product-details')}}">
                                         <div class="pro-name">
                                             Lorem Ipsum is simply dummy text of the printing
                                         </div>
