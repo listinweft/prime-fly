@@ -50,16 +50,17 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Category</th>
-                                        <th>Overview</th>
+{{--                                        <th>Overview</th>--}}
                                         <th>Key Features</th>
                                         <th>Specification</th>
                                         <th>Gallery</th>
                                         <th>Offer</th>
                                         <th>Status</th>
-                                        <th hidden>Display to Home</th>
+{{--                                        <th>Display to Home</th>--}}
                                         <th>Featured</th>
                                         <th>New Arrival</th>
                                         <th>Best Seller</th>
+                                        <th>Is Organic</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -75,14 +76,16 @@
                                                     {{ !$loop->last ? ',': ''}}
                                                 @endforeach
                                             </td>
-                                            <td><a href="{{url(Helper::sitePrefix().'product/overview/'.$product->id)}}"
-                                                   class="btn btn-sm btn-success mr-2 tooltips" title="Add Overview">Overview</a>
-                                            </td>
+{{--                                            <td><a href="{{url(Helper::sitePrefix().'product/overview/'.$product->id)}}"--}}
+{{--                                                   class="btn btn-sm btn-success mr-2 tooltips" title="Add Overview">Overview</a>--}}
+{{--                                            </td>--}}
+
                                             <td>
                                                 <a href="{{url(Helper::sitePrefix().'product/key-feature/'.$product->id)}}"
                                                    class="btn btn-sm btn-info mr-2 tooltips"
                                                    title="Add KeyFeature">KeyFeature</a>
                                             </td>
+
                                             <td>
                                                 <a href="{{url(Helper::sitePrefix().'product/specification/'.$product->id)}}"
                                                    class="btn btn-sm btn-danger mr-2 tooltips"
@@ -103,15 +106,15 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td hidden>
-                                                <label class="switch">
-                                                    <input type="checkbox" class="bool_status"
-                                                           data-url='change-bool-status' data-table="Product"
-                                                           data-id="{{$product->id}}" data-field="display_to_home"
-                                                        {{($product->display_to_home == "Yes")?'checked':''}}>
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
+{{--                                            <td>--}}
+{{--                                                <label class="switch">--}}
+{{--                                                    <input type="checkbox" class="bool_status"--}}
+{{--                                                           data-url='change-bool-status' data-table="Product"--}}
+{{--                                                           data-id="{{$product->id}}" data-field="display_to_home"--}}
+{{--                                                        {{($product->display_to_home == "Yes")?'checked':''}}>--}}
+{{--                                                    <span class="slider"></span>--}}
+{{--                                                </label>--}}
+{{--                                            </td>--}}
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="bool_status"
@@ -139,13 +142,23 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" class="bool_status"
+                                                           data-url='change-bool-status' data-table="Product"
+                                                           data-id="{{$product->id}}" data-field="is_organic"
+                                                        {{($product->is_organic == "Yes")?'checked':''}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
                                             <td>{{ date("d-M-Y", strtotime($product->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
                                                     <a href="{{url(Helper::sitePrefix().'product/edit/'.$product->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Product"><i
                                                             class="fas fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-primary mr-2 product_replica tooltips"
+                                                    <a href="{{url(Helper::sitePrefix().'product/copy/'.$product->id)}}"
+                                                       class="btn btn-primary mr-2 product_replica tooltips"
                                                        data-id="{{$product->id}}" title="Copy this product"><i
                                                             class="fas fa-copy"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"

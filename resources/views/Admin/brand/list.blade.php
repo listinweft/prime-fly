@@ -33,7 +33,9 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        @include('Admin.includes._heading_form',['type'=>'brand'])
+                            {{--
+                            @include('Admin.includes._heading_form',['type'=>'brand'])
+                            --}}
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'product/brand/create')}}"

@@ -11,7 +11,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'home/feature')}}">About
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'about/feature')}}">About
                                     Feature</a></li>
                             <li class="breadcrumb-item active">{{$title}}</li>
                         </ol>
@@ -56,13 +56,12 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Image</label>
-                                    <div class="file-loading">
-                                        <input id="image" name="image" type="file">
-                                    </div>
-                                    <span class="caption_note">Note: Image dimension must be 90 x 85 PX and Size must
-                                        be less than 512 KB</span>
-                                    @error('image')
+                                    <label for="number"> Number*</label>
+                                    <input type="number" class="form-control required" min="0"
+                                           id="number" name="number" placeholder="Number"
+                                           value="{{ isset($aboutFeature)?$aboutFeature->number:'' }}">
+                                    <div class="help-block with-errors" id="number_error"></div>
+                                    @error('number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -80,30 +79,4 @@
             </div>
         </section>
     </div>
-    <script type="text/javascript">
-        $("#image").fileinput({
-            'theme': 'explorer-fas',
-            validateInitialCount: true,
-            overwriteInitial: false,
-            autoReplace: true,
-            layoutTemplates: {actionDelete: ''},
-            removeLabel: "Remove",
-            initialPreviewAsData: true,
-            dropZoneEnabled: false,
-            required: true,
-            allowedFileTypes: ['image'],
-            minImageWidth: 90,
-            minImageHeight: 85,
-            maxImageWidth: 90,
-            maxImageHeight: 85,
-            showRemove: false,
-            @if(isset($aboutFeature) && $aboutFeature->image!=NULL)
-            initialPreview: ["{{asset($aboutFeature->image)}}",],
-            initialPreviewConfig: [{
-                caption: "{{ ($aboutFeature->image!=NULL)?last(explode('/',$aboutFeature->image)):''}}",
-                width: "120px"
-            }]
-            @endif
-        });
-    </script>
 @endsection

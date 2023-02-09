@@ -57,20 +57,20 @@
                                                     @endphp
                                                     @php
                                                         $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                                                        $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
+                                                        $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['codCharge'];
                                                     @endphp
                                                     <tr>
                                                         <td>
-                                                            <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}">{{ 'TOS#'.$order->order_code }}</a>
+                                                            <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}">{{ 'PP#'.$order->order_code }}</a>
                                                         </td>
                                                         @if(@$order->orderCustomer->user_type=="User")
-                                                            <td>{{ $order->orderCustomer->shippingAddress->first_name.' '.$order->orderCustomer->shippingAddress->last_name }}</td>
+                                                            <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                         @else
-                                                            <td>{{ @$order->orderCustomer->shippingAddress->first_name.' '.@$order->orderCustomer->shippingAddress->last_name}}</td>
+                                                            <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
                                                         @endif
                                                         <td>{{ $orderTotal }}</td>
                                                         <td>{{ ($order->orderCoupons)?$order->orderCoupons->sum('coupon_value'):'0' }}</td>
-                                                        <td>{{ $returnAmount }}</td>
+                                                        <td>{{ number_format($returnAmount,2) }}</td>
                                                         <td>{{ $order->payment_method }}</td>
                                                         <td>{{ date("d-M-Y", strtotime($order->created_at))  }}</td>
                                                     </tr>
@@ -94,9 +94,9 @@
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                 <i class="fas fa-minus"></i>
                                             </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                            {{--                                            <button type="button" class="btn btn-tool" data-card-widget="remove">--}}
+                                            {{--                                                <i class="fas fa-times"></i>--}}
+                                            {{--                                            </button>--}}
                                         </div>
                                     </div>
                                     <div class="card-body p-0">
@@ -136,9 +136,9 @@
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                 <i class="fas fa-minus"></i>
                                             </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                            {{--                                            <button type="button" class="btn btn-tool" data-card-widget="remove">--}}
+                                            {{--                                                <i class="fas fa-times"></i>--}}
+                                            {{--                                            </button>--}}
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -265,9 +265,9 @@
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                 <i class="fas fa-minus"></i>
                                             </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                <i class="fas fa-times"></i>
-                                            </button>
+                                            {{--                                            <button type="button" class="btn btn-tool" data-card-widget="remove">--}}
+                                            {{--                                                <i class="fas fa-times"></i>--}}
+                                            {{--                                            </button>--}}
                                         </div>
                                     </div>
                                     <div class="card-body">

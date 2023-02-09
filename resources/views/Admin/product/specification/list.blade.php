@@ -61,7 +61,7 @@
                                                 <div class="file-loading">
                                                     <input id="image" name="image" type="file">
                                                 </div>
-                                                <span class="caption_note">Note: Image dimension must be 1021 x 531 PX and Size must be
+                                                <span class="caption_note">Note: Image dimension must be 738 x 472 PX and Size must be
                                                     lessthan 512KB</span>
                                                 @error('image')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -101,10 +101,8 @@
                             <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'product/specification/create/'.$product_id)}}"
-                                   class="btn btn-success pull-right">Add Specification 
-                                   {{-- <i
-                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i> --}}
-                                    </a>
+                                   class="btn btn-success pull-right">Add Specification <i
+                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
@@ -119,8 +117,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @php $i=1 @endphp
-                                    @foreach($productSpecificationHeads as $specification)
+                                    @php $i=1@endphp@foreach($productSpecificationHeads as $specification)
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td>{{ $specification->title }}</td>
@@ -134,10 +131,8 @@
                                                        style="width:25%" value="{{ $specification->sort_order }}">
                                             </td>
                                             <td>
-                                                
                                                 <label class="switch">
-                                                    <input type="checkbox" class="status_check"    data-url="/status-change" data-table="ProductSpecificationHead"
-                                                    data-field="status" data-pk="{{ $specification->id}}"
+                                                    <input type="checkbox" class="status_check"
                                                            {{($specification->status=="Active")?'checked':''}} title="ProductSpecificationHead"
                                                            ref="{{ $specification->id}}">
                                                     <span class="slider"></span>
@@ -181,12 +176,12 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 1021,
-                minImageHeight: 531,
-                maxImageWidth: 1021,
-                maxImageHeight: 531,
+                minImageWidth: 738,
+                minImageHeight: 472,
+                maxImageWidth: 738,
+                maxImageHeight: 472,
                 maxFileSize: 512,
-                showRemove: false,
+                showRemove: true,
                 @if(isset($product) && $product->specification_image!=NULL)
                 initialPreview: ["{{asset($product->specification_image)}}",],
                 initialPreviewConfig: [{

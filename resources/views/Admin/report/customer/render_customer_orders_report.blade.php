@@ -16,7 +16,7 @@
     @foreach($orderList as $order)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $order['order']->order_code}}</td>
+            <td>{{ 'PP#'.$order['order']->order_code}}</td>
             <td>{{ $order['OrderProducts'] }}</td>
             <td>{{ $order['order']->payment_method }}</td>
             <td>{{ $order['order']->remarks }}</td>

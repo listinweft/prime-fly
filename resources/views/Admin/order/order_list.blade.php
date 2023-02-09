@@ -67,20 +67,15 @@
                                                 $orderTotal = App\Models\Order::getOrderTotal($order->id);
                                                 $cancelledTotal = App\Models\Order::getCancelledProductTotal($order->id);
                                                 $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                                                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
+                                                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['codCharge'];
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ 'TOS'.$order->order_code }}</td>
-                                                @if(@$order->orderCustomer->user_type=="User")
+                                                <td>{{ 'PP'.$order->order_code }}</td>
+                                                @if($order->orderCustomer->user_type=="User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
-                                                @if (@$order->orderCustomer->billingAddress)
-                                                    
-                                                <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
-                                                @else
-                                                <td></td>
-                                                @endif
+                                                    <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
                                                 @endif
                                                 <td>{{ number_format($productTotal,2) }}</td>
                                                 <td>{{ $order->tax_amount }}</td>

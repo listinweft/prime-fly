@@ -54,7 +54,7 @@
                                             <select class="form-control seelct2" id="order_report_status"
                                                     name="order_report_status">
                                                 <option value="">Select Status</option>
-                                                @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out for Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)
+                                                @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out For Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)
                                                     <option value="{{ $status }}"
                                                         {{ (old("order_report_status") == $status)? "selected" : "" }}>
                                                         {{ $status }}</option>
@@ -92,8 +92,8 @@
                                         <div class="col-sm-2">
                                             <button class="btn btn-primary" id="order-detail-search-result">Search
                                             </button>
-                                            <button class="btn btn-danger" id="clear-search-result" disabled>Clear
-                                            </button>
+                                            <a href="" class="btn btn-danger" id="clear-search-result" disabled>Clear
+                                            </a>
                                         </div>
                                     </div>
                                 </form>

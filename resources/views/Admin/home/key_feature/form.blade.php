@@ -59,9 +59,29 @@
                                     <label for="title"> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
-                                           value="{{ isset($keyFeature)?$keyFeature->title:'' }}">
+                                           value="{{ old('title',isset($keyFeature)?$keyFeature->title:'') }}">
                                     <div class="help-block with-errors" id="title_error"></div>
                                     @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="number"> Number</label>
+                                    <input type="number" class="form-control" min="0"
+                                           id="number" name="number" placeholder="Number"
+                                           value="{{ old('number',isset($keyFeature)?$keyFeature->number:'') }}">
+                                    <div class="help-block with-errors" id="number_error"></div>
+                                    @error('number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="image"> Image</label>
+                                    <div class="file-loading">
+                                        <input id="image" name="image" type="file" accept="image/*">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be 100 x 100 PX and Size must be less than 512 KB</span>
+                                    @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -75,15 +95,6 @@
                                     @error('image_attribute')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="image"> Image*</label>
-                                    <div class="file-loading">
-                                        <input id="image" name="image" type="file" accept="image/*">
-                                    </div>
-                                    <span class="caption_note">Note: Image size must be .svg and 100x100</span>
                                 </div>
                             </div>
                         </div>
@@ -109,18 +120,19 @@
                 initialPreviewShowDelete: false,
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
                 minImageWidth: 100,
                 minImageHeight: 100,
                 maxImageWidth: 100,
                 maxImageHeight: 100,
-                showRemove: true,
+                showRemove: false,
                 @if(isset($keyFeature) && $keyFeature->image!=NULL)
                 initialPreview: ["{{asset($keyFeature->image)}}"],
                 initialPreviewConfig: [{
                     caption: "{{ ($keyFeature->image!=NULL)?last(explode('/',$keyFeature->image)):''}}",
-                    width: "120px"
+                    width: "120px",
+                    key: "{{'KeyFeature/image/'.$keyFeature->id.'/' }}"
                 }]
                 @endif
             });

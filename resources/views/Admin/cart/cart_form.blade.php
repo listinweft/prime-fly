@@ -11,7 +11,7 @@
                         Home
                     </a>
                 </li>
-                <li class="active"><a href="{{url('Admin/mail/list/')}}">Mail Template</a></li>
+                <li class="active"><a href="{{url(Helper::sitePrefix().'mail/list/')}}">Mail Template</a></li>
                 <li class="active">{{$key}} Template</li>
             </ol>
         </section>

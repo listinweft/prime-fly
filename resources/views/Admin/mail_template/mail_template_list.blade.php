@@ -55,9 +55,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @php $i=1@endphp@foreach($itemList as $item)
+                                    @foreach($itemList as $item)
                                         <tr>
-                                            <td>{{ $i }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->title }}</td>
                                             @if(strlen($item->description)>30)
                                                 <td class="tooltips"
@@ -67,10 +67,10 @@
                                             @endif
                                             <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" class="status_set"
-                                                           data-url="mail/set_default"
-                                                           data-id="{{ $item->id}}"
-                                                           @if ($item->is_default == "Yes") checked="checked" @endif>
+                                                    <input type="checkbox" class="status_check"
+                                                           data-url="/mail/set_default" data-table="MailTemplate"
+                                                           data-field="is_default" data-pk="{{ $item->id}}"
+                                                        {{($item->is_default=="Yes")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
@@ -86,7 +86,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @php $i++@endphp
                                     @endforeach
                                     </tbody>
                                 </table>

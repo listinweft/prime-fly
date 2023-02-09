@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'/dashboard')}}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'deal')}}">Deal</a></li>
                             <li class="breadcrumb-item active">{{$title}}</li>
@@ -70,39 +70,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label> Deal Type*</label>
-                                    <select class="form-control required" name="offer_type" id="offer_type">
-                                        <option value="">Select Option</option>
-                                        @foreach(['Fixed','Bogo','Normal','Percentage'] as $offer_type)
-                                            <option
-                                                value="{{ $offer_type }}" {{(@$deal->offer_type==$offer_type)?'selected':''}}>{{ $offer_type }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="offer_type_error"></div>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label> Offer Type*</label>
-                                    <select class="form-control select2 productGetDropOffer" name="offer_option"
-                                            id="offer_option" data-deal_id="{{isset($deal)?$deal->id:'0'}}">
-                                        @foreach(['Offer','No Offer','Both'] as $offer_option)
-                                            <option value="{{ $offer_option }}"
-                                                {{(@$deal->offer_option==$offer_option)?'selected':''}}
-                                            >{{ $offer_option }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="offer_option_error"></div>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label> Deal Amount*</label>
-                                    <input type="number" min="0" name="offer_value" id="offer_value"
-                                           placeholder="Deal Amount" class="form-control required" autocomplete="off"
-                                           value="{{ isset($deal)?$deal->offer_value:'' }}">
-                                    <div class="help-block with-errors" id="offer_value_error"></div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label> Start Date*</label>
                                     <input type="date" max="2999-12-31" name="start_date" id="start_date"
                                            placeholder="Start Date"
@@ -110,13 +78,33 @@
                                            value="{{ isset($deal)?$deal->start_date:'' }}">
                                     <div class="help-block with-errors" id="start_date_error"></div>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label> End Date*</label>
                                     <input type="date" max="2999-12-31" name="end_date" id="end_date"
                                            placeholder="Start Date"
                                            class="form-control required" autocomplete="off"
                                            value="{{ isset($deal)?$deal->end_date:'' }}">
                                     <div class="help-block with-errors" id="end_date_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label> Deal Type*</label>
+                                    <select class="form-control required" name="offer_type" id="offer_type">
+                                        <option value="">Select Option</option>
+                                        @foreach(['Fixed','Normal','Percentage'] as $offer_type)
+                                            <option
+                                                value="{{ $offer_type }}" {{(@$deal->offer_type==$offer_type)?'selected':''}}>{{ $offer_type }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="help-block with-errors" id="offer_type_error"></div>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label> Deal Amount*</label>
+                                    <input type="number" min="0" name="offer_value" id="offer_value"
+                                           placeholder="Deal Amount" class="form-control required" autocomplete="off"
+                                           value="{{ isset($deal)?$deal->offer_value:'' }}">
+                                    <div class="help-block with-errors" id="offer_value_error"></div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label> Product List Type*</label>
@@ -171,6 +159,20 @@
                                         @endforeach
                                     </select>
                                     <div class="help-block with-errors" id="type_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Offer Type*</label>
+                                    <select class="form-control select2 productGetDropOffer" name="offer_option"
+                                            id="offer_option" data-deal_id="{{isset($deal)?$deal->id:'0'}}">
+                                        @foreach(['Offer','No Offer','Both'] as $offer_option)
+                                            <option value="{{ $offer_option }}"
+                                                {{(@$deal->offer_option==$offer_option)?'selected':''}}
+                                            >{{ $offer_option }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="help-block with-errors" id="offer_option_error"></div>
                                 </div>
                             </div>
                             <div class="form-row">

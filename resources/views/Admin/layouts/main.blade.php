@@ -130,21 +130,7 @@
         src="https://louisameline.github.io/tooltipster-follower/dist/js/tooltipster-follower.min.js"></script>
 <script type="text/javascript"
         src="https://louisameline.github.io/tooltipster-discovery/tooltipster-discovery.min.js"></script>
-        <script>
-               @if (session('success'))
-               swal({
-                            title: 'Success !',
-                            text: '{{ session('success') }}',
-                            type: 'success',
-                            showConfirmButton: false,
-                            timer: 2000,
-                        });
-                @endif
-        
-        </script>
 @yield('scripts')
 <script src="{{asset('backend/dist/js/custom.js?v=1.3')}}"></script>
-
-
 </body>
 </html>

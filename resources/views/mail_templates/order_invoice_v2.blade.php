@@ -496,7 +496,7 @@
                                                                             Order ID #:
                                                                         </td>
                                                                         <td style="padding:0;Margin:0"><strong><span
-                                                                                    style="font-size:14px;line-height:21px">{{'TOS'.$order->order_code}}</span></strong>
+                                                                                    style="font-size:14px;line-height:21px">{{'PP'.$order->order_code}}</span></strong>
                                                                         </td>
                                                                     </tr>
                                                                     <tr style="border-collapse:collapse">

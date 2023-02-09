@@ -52,13 +52,22 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label> Location*</label>
-                                    <input type="text" name="location" id="location" placeholder="Location"
+                                <div class="form-group col-md-6">
+                                    <label> Title*</label>
+                                    <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
-                                           value="{{ !empty($contact)?$contact->location: old('location') }}"
+                                           value="{{ !empty($contact)?$contact->contact_page_title:'' }}"
                                            maxlength="230">
-                                    <div class="help-block with-errors" id="location_error"></div>
+                                    <div class="help-block with-errors" id="title_error"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Contact Request Title*</label>
+                                    <input type="text" name="contact_request_title" id="contact_request_title"
+                                           placeholder="Contact Request Title"
+                                           class="form-control required" autocomplete="off"
+                                           value="{{ !empty($contact)?$contact->contact_request_title:'' }}"
+                                           maxlength="230">
+                                    <div class="help-block with-errors" id="contact_request_title_error"></div>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -69,19 +78,52 @@
                                               autocomplete="off">{{ @$contact->address }}</textarea>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label> Working Time</label>
+                                    <label> Working Hours</label>
                                     <textarea name="working_hours" id="working_hours" placeholder="Working Hours"
                                               class="form-control tinyeditor" autocomplete="off"
-                                    >{{ !empty($contact)?$contact->working_time: old('working_time') }}</textarea>
+                                    >{{ !empty($contact)?$contact->working_hours:'' }}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
+                                    <label> Phone Number</label>
+                                    <input type="text" name="phone" id="phone"
+                                           placeholder="Phone Number" class="form-control" autocomplete="off"
+                                           value="{{ !empty($contact)?$contact->phone:'' }}" minlength="7"
+                                           maxlength="15">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Alternate Phone Number</label>
+                                    <input type="text" name="alternate_phone" id="alternate_phone"
+                                           placeholder="Alternate Phone Number" class="form-control"
+                                           autocomplete="off"
+                                           value="{{ !empty($contact)?$contact->alternate_phone:'' }}" minlength="7"
+                                           maxlength="15">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Whatsapp Number</label>
+                                    <input type="text" name="whatsapp_number" id="whatsapp_number"
+                                           class="form-control" placeholder="Whatsapp Number"
+                                           value="{{ !empty($contact)?$contact->whatsapp_number:'' }}" minlength="7"
+                                           maxlength="15">
+                                    <div class="help-block with-errors" id="whatsapp_number_error"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="form-group">
+                                        <label for="google_review"> Google Review URL</label>
+                                        <input type="text" name="google_review_url" id="google_review_url"
+                                               class="form-control" placeholder="Google Review URL"
+                                               value="{{ !empty($contact)?$contact->google_review_url:'' }}"></div>
+                                    <div class="help-block with-errors" id="google_review_url_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label> Email*</label>
                                     <input type="email" name="email" id="email" class="form-control required"
                                            placeholder="Email"
-                                           value="{{ !empty($contact)?$contact->email:old('email') }}"
+                                           value="{{ !empty($contact)?$contact->email:'' }}"
                                            maxlength="230">
                                     <div class="help-block with-errors" id="email_error"></div>
                                 </div>
@@ -89,7 +131,7 @@
                                     <label> Alternate Email</label>
                                     <input type="email" name="alternate_email" id="alternate_email"
                                            class="form-control" placeholder="Alternate Email"
-                                           value="{{ !empty($contact)?$contact->alternate_email:old('alternate_email') }}"
+                                           value="{{ !empty($contact)?$contact->alternate_email:'' }}"
                                            maxlength="230">
                                 </div>
                             </div>
@@ -99,50 +141,30 @@
                                     <input type="text" name="email_recipient" id="email_recipient"
                                            class="form-control required"
                                            placeholder="Email Recipient Name"
-                                           value="{{ !empty($contact)?$contact->email_recipient:old('email_recipient') }}"
+                                           value="{{ !empty($contact)?$contact->email_recipient:'' }}"
                                            maxlength="230">
                                     <div class="help-block with-errors" id="email_recipient_error"></div>
                                 </div>
-                            <div class="form-group col-md-6">
-                                <label> Whatsapp Number</label>
-                                <input type="text" name="whatsapp_number" id="whatsapp_number"
-                                       class="form-control phoneField" placeholder="Whatsapp Number"
-                                       value="{{ !empty($contact)?$contact->whatsapp_number:old('whatsapp_number') }}" minlength="7"
-                                       maxlength="15">
-                                <div class="help-block with-errors" id="whatsapp_number_error"></div>
-                            </div>
-                            </div>
-
-                            <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label> Phone Number</label>
-                                    <input type="text" name="phone" id="phone"
-                                           placeholder="Phone Number" class="form-control phoneField" autocomplete="off"
-                                           value="{{ !empty($contact)?$contact->phone:old('phone') }}" minlength="7"
-                                           maxlength="15">
+                                    <label>Follow Us Title</label>
+                                    <input type="text" name="follow_title" id="follow_title"
+                                           class="form-control" placeholder="Follow Us Title"
+                                           value="{{ !empty($contact)?$contact->follow_title:'' }}"
+                                           maxlength="230">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Alternate Phone Number</label>
-                                    <input type="text" name="alternate_phone" id="alternate_phone"
-                                           placeholder="Alternate Phone Number" class="form-control phoneField"
-                                           autocomplete="off"
-                                           value="{{ !empty($contact)?$contact->alternate_phone:old('alternate_phone') }}" minlength="7"
-                                           maxlength="15">
-                                </div>
-
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Facebook</label>
                                     <input type="text" name="facebook_url" id="facebook_url" class="form-control"
                                            placeholder="Facebook"
-                                           value="{{ !empty($contact)?$contact->facebook_url:old('facebook_url') }}" maxlength="230">
+                                           value="{{ !empty($contact)?$contact->facebook_url:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label> Instagram</label>
                                     <input type="text" name="instagram_url" id="instagram_url" class="form-control"
                                            placeholder="Instagram"
-                                           value="{{ !empty($contact)?$contact->instagram_url:old('instagram_url') }}"
+                                           value="{{ !empty($contact)?$contact->instagram_url:'' }}"
                                            maxlength="230">
                                 </div>
                             </div>
@@ -151,14 +173,14 @@
                                     <label> Twitter</label>
                                     <input type="text" name="twitter_url" id="twitter_url" class="form-control"
                                            placeholder="Twitter"
-                                           value="{{ !empty($contact)?$contact->twitter_url:old('twitter_url') }}"
+                                           value="{{ !empty($contact)?$contact->twitter_url:'' }}"
                                            maxlength="230">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label> Linkedin</label>
                                     <input type="text" name="linkedin_url" id="linkedin_url" class="form-control"
                                            placeholder="Linkedin"
-                                           value="{{ !empty($contact)?$contact->linkedin_url:old('linkedin_url') }}" maxlength="230">
+                                           value="{{ !empty($contact)?$contact->linkedin_url:'' }}" maxlength="230">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -166,14 +188,14 @@
                                     <label> Youtube</label>
                                     <input type="text" name="youtube_url" id="youtube_url" class="form-control"
                                            placeholder="Youtube"
-                                           value="{{ !empty($contact)?$contact->youtube_url:old('youtube_url') }}"
+                                           value="{{ !empty($contact)?$contact->youtube_url:'' }}"
                                            maxlength="230">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label> Pinterest</label>
                                     <input type="text" name="pinterest_url" id="pinterest_url" class="form-control"
                                            placeholder="Pinterest"
-                                           value="{{ !empty($contact)?$contact->pinterest_url:old('pinterest_url') }}"
+                                           value="{{ !empty($contact)?$contact->pinterest_url:'' }}"
                                            maxlength="230">
                                 </div>
                             </div>
@@ -182,13 +204,22 @@
                                     <label> Snapchat</label>
                                     <input type="text" name="snapchat_url" id="snapchat_url" class="form-control"
                                            placeholder="Snapchat"
-                                           value="{{ !empty($contact)?$contact->snapchat_url: old('snapchat_url')}}" maxlength="230">
+                                           value="{{ !empty($contact)?$contact->snapchat_url:'' }}" maxlength="230">
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label> Career EMail</label>
+                                    <input type="email" name="career_email" id="career_email" class="form-control"
+                                           placeholder="Career EMail"
+                                           value="{{ !empty($contact)?$contact->career_email:'' }}" maxlength="230">
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                            <div class="form-group col-md-12">
                                     <label> Google Map</label>
                                     <input type="text" name="google_map" id="google_map" class="form-control"
                                            placeholder="Google Map"
-                                           value="{{ !empty($contact)?$contact->google_map:old('google_map') }}">
+                                           value="{{ !empty($contact)?$contact->google_map:'' }}">
                                     <span
                                         style='color:green;font-size:14px;'>Note: src from google map iframe</span>
                                 </div>

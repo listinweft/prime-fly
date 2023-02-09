@@ -6,13 +6,6 @@ $(document).ready(function () {
         });
     }
 
-    $(".phoneField").keypress(function (e) {
-        var key = e.keyCode;
-        if (!((key >= 48 && key <= 57) ||(key == 43))) {
-            e.preventDefault();
-        }
-    });
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -25,7 +18,7 @@ $(document).ready(function () {
     });
 
     if ($('.placeholder-cls').val() == '' || $('.placeholder-cls').val() == null) {
-        $('.placeholder-cls').val('alt="ARTEMYST"');
+        $('.placeholder-cls').val('alt="PET PAVILION"');
     }
 
     if ($('.fancy').length > 0) {
@@ -72,7 +65,6 @@ $(document).ready(function () {
 
     $(document).on('click', '#order-detail-search-result', function (e) {
         e.preventDefault();
-        var _token = token;
         $.ajax({
             type: 'POST', dataType: 'html', data: $('#order-detail-filter-form').serialize(), headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -276,16 +268,11 @@ $(document).ready(function () {
 
     function load_table() {
         var table = $(".dataTable").DataTable({
-            "columnDefs": [ {
-                "targets": 'no-sort',
-                "orderable": false,
-          } ],
             "fnDrawCallback": function () {
                 if ($(".deal_status_check").length) {
                     $(".deal_status_check").bootstrapSwitch();
                 }
-            }
-            , "responsive": true, "lengthChange": true, "autoWidth": false, "stateSave": true,
+            }, "responsive": true, "lengthChange": true, "autoWidth": false, "stateSave": true,
         });
         //todo:  clear datatable state after creation//
         // if (document.referrer.split('/').pop() == 'create') {
@@ -705,55 +692,6 @@ $(document).ready(function () {
         });
     });
 
-    /*********************** Delete file while editing time ********************************/
-    // to delete an uploaded file
-    $(document).on('click', '.kv-file-remove', function (e) {
-        e.preventDefault();
-        var type = $(this).data('key');
-      
-        if (type) {
-            swal({
-                title: "Are you sure?",
-                text: "You will be able to revert this!",
-                type: "warning",
-                showCancelButton: true,     
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Delete",
-                cancelButtonText: "Cancel",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            }, function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'POST',
-                        dataType: 'json',
-                        url: base_url + '/home/delete-file',
-                        data: {type},
-                        success: function (data) {
-                            if (data.status == false) {
-                                swal('Error !', data.message, 'error');
-                            } else {
-                                swal({title: "Success", 
-                                text: "Entry has been deleted!", 
-                                showConfirmButton: false,
-                                type: "success"}, function () {
-                                    location.reload();
-                                    
-                                });
-                            }
-                        }
-                    })
-                } else {
-                    swal("Cancelled", "Entry remain safe", "error");
-                }
-            });
-        } else {
-            swal('Error !', 'Entry not found', 'error');
-        }
-    });     
     $(document).on('click', '.reply_modal', function () {
         var enquiry = $(this).data('enquiry');
         var id = $(this).data('id');
@@ -764,11 +702,9 @@ $(document).ready(function () {
             $('#id').val(id);
             $('#reply').html('');
             $('#reply_to_enquiry').show();
-            $('#reply').prop('readonly', false);
         } else {
             $('#reply').html(reply);
             $('#reply_to_enquiry').hide();
-            $('#rep').prop('readonly', true);
         }
     });
 
@@ -874,7 +810,6 @@ $(document).ready(function () {
         $(".alert-success, .alert-danger").alert('close');
     });
 
-
     $(document).on('change', '.status_check', function () {
         $this = $(this);
         var state = $this.is(':checked');
@@ -902,6 +837,9 @@ $(document).ready(function () {
                 } else {
                     $this.prop('checked', false);
                     swal('Error !', response.message, 'error');
+                }
+                if (response.reload == true) {
+                    window.location.reload();
                 }
             }
         });
@@ -939,7 +877,10 @@ $(document).ready(function () {
     $('#headingSubmit').on('click', function () {
         var type = $(this).data('type');
         var homeTitle = $('#home_title').val();
-        var homeDescription = tinymce.get($('#home_description').attr('id')).getContent();
+        var description = $('#is_description').val();
+        if(description){
+            var homeDescription = tinymce.get($('#home_description').attr('id')).getContent();
+        }
         var buttonHtml = $('#headingSubmit').val();
         var _token = token;
         var url = $(this).data('url');
@@ -962,7 +903,7 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: 'json',
                 url: base_url + url,
-                data: {_token, type, homeTitle, homeDescription},
+                data: {_token, type, homeTitle,homeDescription},
                 success: function (response) {
                     if (response.status == true) {
                         swal({
@@ -981,10 +922,9 @@ $(document).ready(function () {
     /***************************** Validating form submission **********************************/
 
     $('#formWizard').on('submit', function (e) {
-        // e.preventDefault();
-        var buttonHtml = $('.').val();
+        var buttonHtml = $('.submitBtn').val();
         $('.loadingImg').show();
-        $('.').attr('disabled', true).val('Please wait...!');
+        $('.submitBtn').attr('disabled', true).val('Please wait...!');
         var required = [];
         $('.required').each(function () {
             var id = $(this).attr('id');
@@ -1015,18 +955,17 @@ $(document).ready(function () {
         if (required.length == 0) {
             if ($('.file-error-message').is(":visible")) {
                 e.preventDefault();
-                $('.').attr('disabled', false).val(buttonHtml);
+                $('.submitBtn').attr('disabled', false).val(buttonHtml);
                 $('.loadingImg').hide();
             } else {
-                $('.').attr('disabled', true).val('Please wait...!');
+                $('.submitBtn').attr('disabled', true).val('Please wait...!');
                 $('.loadingImg').show();
                 $('#formWizard').submit();
             }
         } else {
-            // swal('Warning !', 'Please fill all the mandatory fields', 'warning');
             e.preventDefault();
             $('.loadingImg').hide();
-            $('.').attr('disabled', false).val(buttonHtml);
+            $('.submitBtn').attr('disabled', false).val(buttonHtml);
         }
     });
 
@@ -1041,7 +980,7 @@ $(document).ready(function () {
 
     /********************* Product Overviews clone menu *****************************/
     $(document).on('click', '.add_overview_row', function () {
-        $('.').val('Please wait..!').attr('disabled', true);
+        $('.submitBtn').val('Please wait..!').attr('disabled', true);
         var unique_id = $(this).attr('id');
         var plus_unique = parseFloat(unique_id) + 1;
         var _token = token;
@@ -1052,16 +991,16 @@ $(document).ready(function () {
             success: function (response) {
                 $('.add_overview_row').hide();
                 $(response).hide().insertAfter("#append_result_" + unique_id).fadeIn(500);
-                $('.').val('Submit').attr('disabled', false);
+                $('.submitBtn').val('Submit').attr('disabled', false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 swal('Error !', 'Some error occurred', 'error');
-                $('.').val('Submit').attr('disabled', false);
+                $('.submitBtn').val('Submit').attr('disabled', false);
             }
         });
     });
     $(document).on('click', '.remove_overview_row', function () {
-        $('.').val('Please wait...').attr('disabled', true);
+        $('.submitBtn').val('Please wait...').attr('disabled', true);
         var primary_key = $(this).attr('id');
         var data_key = $(this).attr('ref');
         var _token = token;
@@ -1070,7 +1009,7 @@ $(document).ready(function () {
                 $(this).remove();
                 $('.add_overview_row').hide();
                 $('.add_overview_row:last').show();
-                $('.').val('Submit').attr('disabled', false);
+                $('.submitBtn').val('Submit').attr('disabled', false);
             });
         } else {
             swal({
@@ -1099,7 +1038,7 @@ $(document).ready(function () {
                                     $('#append_result_' + primary_key).remove();
                                     $('.add_overview_row').hide();
                                     $('.add_overview_row:last').show();
-                                    $('.').val('Submit').attr('disabled', false);
+                                    $('.submitBtn').val('Submit').attr('disabled', false);
                                     if ($('.add_overview_row').length == 0) {
                                         location.reload();
                                     }
@@ -1109,12 +1048,14 @@ $(document).ready(function () {
                     })
                 } else {
                     swal("Cancelled", "Entry remain safe :)", "error");
-                    $('.').val('Submit').attr('disabled', false);
+                    $('.submitBtn').val('Submit').attr('disabled', false);
                 }
             });
         }
     });
     /********************* Product Overviews clone menu ends *************************/
+
+
 
     /************ Product Specification clone menu ***********/
     $(document).on('click', '.add_specification_row', function () {
@@ -1127,7 +1068,7 @@ $(document).ready(function () {
             data: {unique_id: unique_id, _token: _token, product_id: product_id},
             url: base_url + '/product/specification/specification/extra_row',
             success: function (response) {
-                $('.add_product_row').hide();
+                $('.add_specification_row').hide();
                 $(response).hide().insertAfter("#append_result_" + unique_id).fadeIn(500);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1180,8 +1121,6 @@ $(document).ready(function () {
         }
     });
     /********************* Product Specification clone menu ends *************************/
-
-
     // product form availability
     $('#availability').on('change', function () {
         var availability = $(this).val();
@@ -1222,7 +1161,6 @@ $(document).ready(function () {
     $('#refresh_code').on('click', function () {
         passwordGenerate();
     });
-    // passwordGenerate();
 
 
     /*********************** Coupon ********************************/
@@ -1386,17 +1324,19 @@ $(document).ready(function () {
             closeOnCancel: false
         }, function (isConfirm) {
             if (isConfirm) {
+                $('.confirm').prop('disabled', true);
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: base_url + '/mail/send_multi_contact',
+                    url: base_url + '/mail/send-multi-cart-notification',
                     data: {id: id, _token: _token},
                     success: function (data) {
+                        $('.confirm').prop('disabled', false);
                         if (data.status == false) {
                             swal('Error !', data.message, 'error');
                         } else {
                             swal({
-                                title: "Success", text: "Notification has been sent succesfully!", type: "success"
+                                title: "Success", text: "Notification has been sent successfully!", type: "success"
                             }, function () {
                                 location.reload();
                             });
@@ -1445,12 +1385,14 @@ $(document).ready(function () {
             closeOnCancel: false
         }, function (isConfirm) {
             if (isConfirm) {
+                $('.confirm').prop('disabled', true);
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
                     url: base_url + '/order/invoice_resend',
                     data: {_token: _token, order_id: order_id},
                     success: function (data) {
+                        $('.confirm').prop('disabled', false);
                         if (data.status == false) {
                             swal('Error !', data.message, 'error');
                         } else {
@@ -1481,7 +1423,7 @@ $(document).ready(function () {
         var url = '/order/order_status';
         if (status == "Cancelled" || status == "Refunded" || status == "Failed") {
             if (parseFloat(coupon_min) > parseFloat((order_total - price))) {
-                if (all_product_statuses.includes('Shipped') || all_product_statuses.includes('Out for Delivery') || all_product_statuses.includes('Delivered') || all_product_statuses.includes('Completed') || all_product_statuses.includes('Returned') || all_product_statuses.includes('Refunded')) {
+                if (all_product_statuses.includes('Shipped') || all_product_statuses.includes('Out For Delivery') || all_product_statuses.includes('Delivered') || all_product_statuses.includes('Completed') || all_product_statuses.includes('Returned') || all_product_statuses.includes('Refunded')) {
                     message = "Changing status of this product to " + status + " may break the coupon conditions.";
                 } else {
                     message = "Changing status of this product to " + status + " may lead to cancellation of all products, as new price will be less than applied coupon minimum spend.";
@@ -1568,6 +1510,27 @@ $(document).ready(function () {
         });
     });
 
+    $('#report_order_id').on('change', function () {
+        var order_id = $(this).val();
+        var _token = token;
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            data: {order_id: order_id, _token: _token},
+            url: base_url + '/report/order-offer',
+            success: function (response) {
+                if (response != '0') {
+                    $('#result-offer-table').html(response);
+                    load_table();
+                } else {
+                    swal('Error !', 'Error while filter the element', 'error');
+                }
+            }, error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
     $('#filter-customer-report').on('click', function (e) {
         e.preventDefault();
         var customer = $('#order_customer_id').val();
@@ -1596,6 +1559,63 @@ $(document).ready(function () {
             swal('Error !', 'Please select any customer', 'error');
         }
     });
+
+
+    $(document).on('change', '#banner_type', function () {
+        if ($(this).val() == 'video') {
+            $('#video-div').show();
+            $('#thumbnail_div').show();
+            $('#slider-div').hide();
+        } else {
+            $('#video-div').hide();
+            $('#thumbnail_div').hide();
+            $('#slider-div').show();
+        }
+    });
+
+
+    $('#bannertypeSubmit').on('click', function () {
+        var type = $(this).data('type');
+        var bannerType = $('#banner_type').val();
+        var buttonHtml = $('#bannertypeSubmit').val();
+        var _token = token;
+        var url = $(this).data('url');
+        var required = [];
+        $('.required').each(function () {
+            var id = $(this).attr('id');
+            if ($('#' + id).val() == '') {
+                required.push($('#' + id).val());
+                $('#' + id + '_error').html('This field is required').css({
+                    'color': '#FF0000', 'font-size': '14px'
+                });
+            } else {
+                $('#' + id + '_error').html('');
+            }
+        });
+        if (required.length == 0) {
+            $('.loadingImg').show();
+            $('#bannertypeSubmit').attr('disabled', true).val('Please wait...!');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: base_url + url,
+                data: {_token, type, bannerType},
+                success: function (response) {
+                    if (response.status == true) {
+                        swal({
+                            title: "Done it!", text: response.message, type: "success"
+                        });
+                        $('.loadingImg').hide();
+                        $('#bannertypeSubmit').attr('disabled', false).val(buttonHtml);
+                    } else {
+                        swal('Error !', 'Error while updating the heading', 'error');
+                    }
+                }
+            });
+        }
+    });
+
+
 });
 
 function passwordGenerate() {
@@ -1698,3 +1718,53 @@ function initTinyMceEditor() {
         },
     });
 }
+
+
+/*********************** Delete file while editing time ********************************/
+// to delete an uploaded file
+$(document).on('click', '.kv-file-remove', function (e) {
+    e.preventDefault();
+    var type = $(this).data('key');
+    if (type) {
+        swal({
+                title: "Are you sure?",
+                text: "You will be able to revert this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Delete",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        url: base_url + '/kv-delete-file',
+                        data: {type},
+                        success: function (data) {
+                            if(data.status==false){
+                                swal( 'Error !', data.message, 'error' );
+                            }else{
+                                swal({title: "Success", text: "Entry has been deleted!", type: "success"},
+                                    function(){
+                                        location.reload();
+                                    }
+                                );
+                            }
+                        }
+                    })
+                } else {
+                    swal("Cancelled", "Entry remain safe", "error");
+                }
+            });
+    }else{
+        swal( 'Error !', 'Entry not found', 'error' );
+    }
+});
+

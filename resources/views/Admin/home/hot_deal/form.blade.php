@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'/dashboard')}}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'home/hot-deal')}}">
                                     Hot deal</a>
@@ -51,13 +51,19 @@
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
-                                           value="{{ @$hot_deal->title }}">
+                                           value="{{ old('title', @$hot_deal->title) }}">
                                     <div class="help-block with-errors" id="title_error"></div>
+                                    @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label> URL</label>
                                     <input type="text" class="form-control" placeholder="URL" id="url" name="url"
-                                           value="{{ @$hot_deal->url }}">
+                                           value="{{ old('title', @$hot_deal->url) }}">
+                                    @error('url')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                                 <div class="form-row">
@@ -67,6 +73,9 @@
                                             <input id="image" name="image" type="file" accept="image/*">
                                         </div>
                                         <span class="caption_note">Note: Image size must be 800x440 px</span>
+                                        @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label> Image Attribute *</label>
@@ -75,6 +84,9 @@
                                                name="image_attribute" placeholder="Image attribute"
                                                value="{{ @$hot_deal->image_attribute }}">
                                     <div class="help-block with-errors" id="image_attribute_error"></div>
+                                        @error('image_attribute')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                         </div>
@@ -106,7 +118,7 @@
                 minImageHeight: 440,
                 maxImageWidth: 800,
                 maxImageHeight: 440,
-                showRemove: true,
+                showRemove: false,
                 @if(isset($hot_deal) && $hot_deal->image!=NULL)
                 initialPreview: ["{{asset($hot_deal->image)}}",],
                 initialPreviewConfig: [

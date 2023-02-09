@@ -11,6 +11,8 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'menu')}}">Menu</a>
+                            </li>
                             <li class="breadcrumb-item active">{{$title}}</li>
                         </ol>
                     </div>
@@ -57,7 +59,7 @@
                                     </select>
                                     <div class="help-block with-errors" id="menu_type_error"></div>
                                 </div>
-                                {{-- <div class="form-group col-md-6 static"
+                                <div class="form-group col-md-6 static"
                                      style="display: {{ (@$menu->menu_type=='category')?'none':'block' }}">
                                     <label> Static Links*</label>
                                     <select name="static_link" id="static_link" class="form-control"
@@ -67,7 +69,7 @@
                                         </option>
                                     </select>
                                     <div class="help-block with-errors" id="static_link_error"></div>
-                                </div> --}}
+                                </div>
                                 <div class="form-group col-md-6 category"
                                      style="display: {{ (@$menu->menu_type=='category')?'block':'none' }}">
                                     <label> Categories*</label>

@@ -21,6 +21,15 @@
         </section>
         <section class="content">
             <div class="container-fluid">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @if (session('success'))
                     <div class="alert alert-success" role="alert">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -49,9 +58,12 @@
                                     <div class="form-row" id="append_result_{{$loop->iteration}}">
                                         <div class="form-group col-md-10">
                                             <label for="inputPassword4">Title</label>
-                                            <input type="text" class="form-control" name="extra_key[]"
+                                            <input type="text" maxlength="180" class="form-control" name="extra_key[]"
                                                    id="extra_key_{{$loop->iteration}}" placeholder="Key"
                                                    value="{{ $overview->title }}">
+                                            @error('extra_key')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-md-2" style="margin-top: 10px">
                                             <a href="javascript:void(0);"
@@ -73,7 +85,10 @@
                                     <div class="form-group col-md-10">
                                         <label for="inputPassword4">Title</label>
                                         <input type="text" class="form-control" name="extra_key[]" id="extra_key_1"
-                                               placeholder="Title" maxlength="230">
+                                               placeholder="Title" maxlength="180">
+                                        @error('extra_key')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group col-md-2" style="margin-top: 10px">
                                         <a href="javascript:void(0);"

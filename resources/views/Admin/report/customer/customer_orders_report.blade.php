@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-control" id="order_status" name="order_status">
-                                            @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out for Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)
+                                            @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out For Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)
                                                 <option value="{{ $status }}"
                                                     {{ (old("order_status") == $status)? "selected" : "" }}>
                                                     {{ $status }}</option>

@@ -51,11 +51,20 @@
                                     <input type="text" name="title" id="title"
                                            placeholder="Title"
                                            class="form-control required" autocomplete="off"
-                                           value="{{ isset($specificationHead)?$specificationHead->title:'' }}"
+                                           value="{{ @$specificationHead->title }}"
                                            maxlength="230">
                                     <div class="help-block with-errors" id="title_error"></div>
                                 </div>
-
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control required tinyeditor" id="description"
+                                              name="description"
+                                              placeholder="Description">{{@$specificationHead->description}}</textarea>
+                                    <div class="help-block with-errors" id="description_error"></div>
+                                    @error('description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,20 +137,6 @@
                                         <input type="number" class="form-control" name="sort_order[]"
                                                id="sort_order_1" value="1">
                                     </div>
-                                    {{--                                    <div class="form-group col-md-5">--}}
-                                    {{--                                        <label for="inputPassword4">Accordion Description (English)*</label>--}}
-                                    {{--                                        <input type="text" class="form-control required" name="description_en[]"--}}
-                                    {{--                                               id="description_en_1" placeholder="Description (English)"--}}
-                                    {{--                                               maxlength="230">--}}
-                                    {{--                                        <div class="help-block with-errors" id="description_en_1_error"></div>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                    <div class="form-group col-md-5">--}}
-                                    {{--                                        <label for="inputPassword4">Accordion Description (Arabic)*</label>--}}
-                                    {{--                                        <input type="text" class="form-control" name="description_ar[]"--}}
-                                    {{--                                               id="description_ar_1" placeholder="Description (English)"--}}
-                                    {{--                                               maxlength="230">--}}
-                                    {{--                                        <div class="help-block with-errors" id="description_ar_1_error"></div>--}}
-                                    {{--                                    </div>--}}
                                     <div class="form-group col-md-1" style="margin-top: 10px">
                                         <a href="javascript:void(0);"
                                            class="btn btn-success mt-4 add_specification_row btn-sm add_1" id="1"><i

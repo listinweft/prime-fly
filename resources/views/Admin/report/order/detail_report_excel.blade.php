@@ -35,12 +35,12 @@
                 $orderTotal = Order::getOrderTotal($order->id);
                 $cancelledTotal = Order::getCancelledProductTotal($order->id);
                 $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
+                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['codCharge'];
                 $orderStatus = OrderLog::where('order_product_id',$products[0]->id)->latest()->first();
             @endphp
             <tr>
                 <td colspan="1" rowspan="{{count($products)}}">{{ $i }}</td>
-                <td colspan="1" rowspan="{{count($products)}}">{{ 'TOS'.$order->order_code }}</td>
+                <td colspan="1" rowspan="{{count($products)}}">{{ 'PP'.$order->order_code }}</td>
                 @if($order->orderCustomer->user_type=="User")
                     <td colspan="1"
                         rowspan="{{count($products)}}">{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>

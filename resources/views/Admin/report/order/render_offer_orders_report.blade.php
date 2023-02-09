@@ -3,8 +3,8 @@
     <tr>
         <th>#</th>
         <th>Order Code</th>
-        <th>Customer</th>
         <th>Product</th>
+        <th>Customer</th>
         <th>Cost</th>
         <th>Offer Amount</th>
         <th>Qty</th>
@@ -13,11 +13,11 @@
     </tr>
     </thead>
     <tbody>
-    @php $i=1 @endphp @foreach($orderList['products'] as $product)
+    @foreach($orderList['products'] as $product)
         <tr>
-            <td>{{ $i }}</td>
+            <td>{{ $loop->iteration }}</td>
             <td>
-                <a href="{{url('Admin/order/view/'.$orderList['orderData']->id)}}">{{ 'MH'.$orderList['orderData']->order_code}}</a>
+                <a href="{{url(Helper::sitePrefix().'order/view/'.$orderList['orderData']->id)}}">{{ 'PP'.$orderList['orderData']->order_code}}</a>
             </td>
             <td>{{ ($product->productData)?$product->productData->title:'' }}</td>
             @if($orderList['orderData']->orderCustomer->user_type=="User")
@@ -31,7 +31,6 @@
             <td>{{ $product->total }}</td>
             <td>{{ date("d-M-Y", strtotime($product->created_at))  }}</td>
         </tr>
-        @php $i++;@endphp
     @endforeach
     </tbody>
 </table>

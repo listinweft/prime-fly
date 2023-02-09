@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'/dashboard')}}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Key Feature</li>
                         </ol>
@@ -46,6 +46,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
+                                        <th>Number</th>
                                         <th>Sort Order</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -57,6 +58,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $keyFeature->title }}</td>
+                                            <td>{{ $keyFeature->number }}</td>
                                             <td>
                                                 <input type="text" name="slider_order"
                                                        id="slider_order_{{$loop->iteration}}"
@@ -69,7 +71,6 @@
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="KeyFeature"
                                                            data-field="status" data-pk="{{ $keyFeature->id}}"
-                                                           data-limit="4"
                                                         {{($keyFeature->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>

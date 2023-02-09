@@ -138,6 +138,16 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label> Zipcode*</label>
+                                    <input type="number" class="form-control required" id="zipcode"
+                                           name="zipcode" placeholder="Zipcode"
+                                           value="{{ old('zipcode', @$address->zipcode) }}">
+                                    <div class="help-block with-errors" id="zipcode_error"></div>
+                                    @error('zipcode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">

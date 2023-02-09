@@ -89,7 +89,7 @@
 {{--                                        <div class="file-loading">--}}
 {{--                                            <input id="icon" name="icon" type="file">--}}
 {{--                                        </div>--}}
-{{--                                        <span class="caption_note">Note: Image dimension must be 480 x 614 PX and Size must be less than 512 KB</span>--}}
+{{--                                        <span class="caption_note">Note: Icon must be png and 100x100 px</span>--}}
 {{--                                        @error('icon')--}}
 {{--                                        <div class="invalid-feedback">{{ $message }}</div>--}}
 {{--                                        @enderror--}}
@@ -99,7 +99,7 @@
                                         <div class="file-loading">
                                             <input id="image" name="image" type="file">
                                         </div>
-                                        <span class="caption_note">Note: Image dimension must be 480 x 614 PX and Size must be less than 512 KB</span>
+                                        <span class="caption_note">Note: Image size must be 200x200px</span>
                                         @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -114,64 +114,64 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label> Banner Title</label>
-                                        <input type="text" name="banner_title" id="banner_title"
-                                               placeholder="Banner Title"
-                                               class="form-control" autocomplete="off"
-                                               value="{{ isset($category)?$category->banner_title:'' }}">
-                                        <div class="help-block with-errors" id="banner_title_error"></div>
-                                        @error('banner_title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label> Banner Sub Title</label>
-                                        <input type="text" name="banner_sub_title" id="banner_sub_title"
-                                               placeholder="Banner Sub Title"
-                                               class="form-control" autocomplete="off"
-                                               value="{{ isset($category)?$category->banner_sub_title:'' }}">
-                                        <div class="help-block with-errors" id="banner_sub_title_error"></div>
-                                        @error('banner_sub_title')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label> Desktop Banner*</label>
-                                        <div class="file-loading">
-                                            <input id="desktop_banner" name="desktop_banner" type="file"
-                                                   accept="image/*">
-                                        </div>
-                                        <span
-                                            class="caption_note">Note: Image dimension must be 1920 x 420 PX and Size must be less than 512 KB</span>
-                                        @error('desktop_banner')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label> Mobile Banner*</label>
-                                        <div class="file-loading">
-                                            <input id="mobile_banner" name="mobile_banner" type="file" accept="image/*">
-                                        </div>
-                                        <span
-                                            class="caption_note">Note: Image size should be minimum of 960 x 450</span>
-                                        @error('mobile_banner')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label> Banner Attribute</label>
-                                        <input type="text" class="form-control placeholder-cls" id="banner_attribute"
-                                               name="banner_attribute" placeholder="Alt='Banner Attribute'"
-                                               value="{{ isset($category)?$category->banner_attribute:'' }}">
-                                        @error('banner_attribute')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+{{--                                <div class="form-row">--}}
+{{--                                    <div class="form-group col-md-6">--}}
+{{--                                        <label> Banner Title</label>--}}
+{{--                                        <input type="text" name="banner_title" id="banner_title"--}}
+{{--                                               placeholder="Banner Title"--}}
+{{--                                               class="form-control" autocomplete="off"--}}
+{{--                                               value="{{ isset($category)?$category->banner_title:'' }}">--}}
+{{--                                        <div class="help-block with-errors" id="banner_title_error"></div>--}}
+{{--                                        @error('banner_title')--}}
+{{--                                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group col-md-6">--}}
+{{--                                        <label> Banner Sub Title</label>--}}
+{{--                                        <input type="text" name="banner_sub_title" id="banner_sub_title"--}}
+{{--                                               placeholder="Banner Sub Title"--}}
+{{--                                               class="form-control" autocomplete="off"--}}
+{{--                                               value="{{ isset($category)?$category->banner_sub_title:'' }}">--}}
+{{--                                        <div class="help-block with-errors" id="banner_sub_title_error"></div>--}}
+{{--                                        @error('banner_sub_title')--}}
+{{--                                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-row">--}}
+{{--                                    <div class="form-group col-md-4">--}}
+{{--                                        <label> Desktop Banner*</label>--}}
+{{--                                        <div class="file-loading">--}}
+{{--                                            <input id="desktop_banner" name="desktop_banner" type="file"--}}
+{{--                                                   accept="image/*">--}}
+{{--                                        </div>--}}
+{{--                                        <span--}}
+{{--                                            class="caption_note">Note: Image size should be minimum of 1920 x 340</span>--}}
+{{--                                        @error('desktop_banner')--}}
+{{--                                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group col-md-4">--}}
+{{--                                        <label> Mobile Banner*</label>--}}
+{{--                                        <div class="file-loading">--}}
+{{--                                            <input id="mobile_banner" name="mobile_banner" type="file" accept="image/*">--}}
+{{--                                        </div>--}}
+{{--                                        <span--}}
+{{--                                            class="caption_note">Note: Image size should be minimum of 960 x 450</span>--}}
+{{--                                        @error('mobile_banner')--}}
+{{--                                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group col-md-4">--}}
+{{--                                        <label> Banner Attribute</label>--}}
+{{--                                        <input type="text" class="form-control placeholder-cls" id="banner_attribute"--}}
+{{--                                               name="banner_attribute" placeholder="Alt='Banner Attribute'"--}}
+{{--                                               value="{{ isset($category)?$category->banner_attribute:'' }}">--}}
+{{--                                        @error('banner_attribute')--}}
+{{--                                        <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label> Meta Title</label>
@@ -223,30 +223,6 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            {{--$("#icon").fileinput({--}}
-            {{--    'theme': 'explorer-fas',--}}
-            {{--    validateInitialCount: true,--}}
-            {{--    overwriteInitial: false,--}}
-            {{--    autoReplace: true,--}}
-            {{--    layoutTemplates: {actionDelete: ''},--}}
-            {{--    removeLabel: "Remove",--}}
-            {{--    initialPreviewAsData: true,--}}
-            {{--    dropZoneEnabled: false,--}}
-            {{--    required: false,--}}
-            {{--    allowedFileTypes: ['image'],--}}
-            {{--    minImageWidth: 100,--}}
-            {{--    minImageHeight: 100,--}}
-            {{--    maxImageWidth: 100,--}}
-            {{--    maxImageHeight: 100,--}}
-            {{--    showRemove: true,--}}
-            {{--    @if(isset($category) && $category->icon!=NULL)--}}
-            {{--    initialPreview: ["{{asset($category->icon)}}",],--}}
-            {{--    initialPreviewConfig: [{--}}
-            {{--        caption: "{{ ($category->icon!=NULL)?last(explode('/',$category->icon)):''}}",--}}
-            {{--        width: "120px"--}}
-            {{--    }]--}}
-            {{--    @endif--}}
-            {{--});--}}
             $("#image").fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
@@ -256,13 +232,14 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 480,
-                minImageHeight: 614,
-                maxImageWidth: 480,
-                maxImageHeight: 614,
-                showRemove: false,
+                minImageWidth: 200,
+                minImageHeight: 200,
+                maxImageWidth: 200,
+                maxImageHeight: 200,
+                maxFileSize: 512,
+                showRemove: true,
                 @if(isset($category) && $category->image!=NULL)
                 initialPreview: ["{{asset($category->image)}}",],
                 initialPreviewConfig: [{
@@ -272,55 +249,6 @@
                 @endif
             });
 
-            $("#desktop_banner").fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: true,
-                allowedFileTypes: ['image'],
-                minImageWidth: 1920,
-                minImageHeight: 420,
-                maxImageWidth: 1920,
-                maxImageHeight: 420,
-                showRemove: false,
-                @if(isset($category) && $category->desktop_banner!=NULL)
-                initialPreview: ["{{asset($category->desktop_banner)}}",],
-                initialPreviewConfig: [{
-                    caption: "{{ ($category->desktop_banner!=NULL)?last(explode('/',$category->desktop_banner)):''}}",
-                    width: "120px"
-                }]
-                @endif
-            });
-
-            $("#mobile_banner").fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: true,
-                allowedFileTypes: ['image'],
-                minImageWidth: 960,
-                minImageHeight: 450,
-                maxImageWidth: 960,
-                maxImageHeight: 450,
-                showRemove: false,
-                @if(isset($category) && $category->mobile_banner!=NULL)
-                initialPreview: ["{{asset($category->mobile_banner)}}",],
-                initialPreviewConfig: [{
-                    caption: "{{ ($category->mobile_banner!=NULL)?last(explode('/',$category->mobile_banner)):''}}",
-                    width: "120px"
-                }]
-                @endif
-            });
         });
     </script>
 @endsection

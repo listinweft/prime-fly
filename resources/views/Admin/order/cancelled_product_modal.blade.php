@@ -2,7 +2,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">{{'MH#'.$order->order_code}} - Cancelled details</h4>
+        <h4 class="modal-title">{{'PP#'.$order->order_code}} - Cancelled details</h4>
     </div>
     <div class="modal-body">
         <div class="box-body">
@@ -45,18 +45,9 @@
                                autocomplete="off" disabled value="{{ $cancelledTotal['shippingCharge'] }}">
                     </div>
                 </div>
-                @if($cancelledTotal['otherCouponCharge']!='0.00')
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Other Coupon Amount </label>
-                            <input type="text" id="code" placeholder="Shipping Charge" class="form-control"
-                                   autocomplete="off" disabled value="{{ $cancelledTotal['otherCouponCharge'] }}">
-                        </div>
-                    </div>
-                @endif
                 @php
                     $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                    $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
+                    $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['codCharge'];
                 @endphp
                 <div class="col-md-12">
                     <div class="form-group">

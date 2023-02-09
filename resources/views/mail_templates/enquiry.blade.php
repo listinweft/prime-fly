@@ -74,7 +74,7 @@
                 <tr align="left" valign="top">
                     <td valign="middle" colspan="5">
                         <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear Admin, <br/>
-                            You have a new {type} ,<br/><br/></p>
+                            You have a new contact request ,<br/><br/></p>
                     </td>
                 </tr>
                 <tr align="left" valign="top">

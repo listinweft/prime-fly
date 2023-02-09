@@ -52,19 +52,19 @@
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
                                     <thead>
-                                    <tr >
-                                        <th class="no-sort"># <input type="checkbox" class="mt-2 ml-3" name="check_all" id="check_all">
+                                    <tr>
+                                        <th># <input type="checkbox" class="mt-2 ml-3" name="check_all" id="check_all">
                                         </th>
                                         <th>Email</th>
                                         <th>Status</th>
-                                        <th class="no-sort" >Created Date</th>
-                                        <th class="no-sort"> Delete</th>
+                                        <th>Created Date</th>
+                                        <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($newsletterList as $newsletter)
                                         <tr>
-                                            <td>
+                                            <td>{{ $loop->iteration }}
                                                 <input type="checkbox" class="single_box mt-2 ml-3"
                                                        name="single_box" id="{{ $newsletter->id }}" readonly
                                                        value="{{ $newsletter->id }}"></td>

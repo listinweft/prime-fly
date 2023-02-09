@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{url(Helper::sitePrefix().'dashboard')}}" class="brand-link">
-        {!! Helper::printImage($siteInformation, 'logo','logo_webp','logo_attribute','brand-image','opacity: .8') !!}
-        <span class="brand-text font-weight-light">&nbsp;</span>
+        {!! Helper::printImage(@$siteInformation, 'logo','logo_webp','logo_attribute','brand-image','opacity: .8') !!}
+        <span class="brand-text font-weight-light">{{ @$siteInformation->brand_name }}</span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">

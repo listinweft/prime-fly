@@ -11,7 +11,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'product/product_list')}}">Products</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'product')}}">Products</a>
                             </li>
                             <li class="breadcrumb-item"><a
                                     href="{{url(Helper::sitePrefix().'product/key-feature/'.$product_id)}}">Key
@@ -49,7 +49,7 @@
                                 </div>
                             @endif
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
@@ -59,55 +59,45 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label> Video URL</label>
-                                    <input type="text" name="video_url" id="video_url" placeholder="Video URL"
-                                           class="form-control" autocomplete="off"
-                                           value="{{ isset($feature)?$feature->video_url:'' }}">
-                                    <div class="help-block with-errors" id="video_url_error"></div>
-                                    @error('video_url')
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label> Description*</label>
+                                    <textarea name="description" id="description"
+                                              placeholder="Description" class="form-control required tinyeditor"
+                                              autocomplete="off">{{ isset($feature)?$feature->description:'' }}</textarea>
+                                    <div class="help-block with-errors" id="description_error"></div>
+                                    @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-
                             </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label> Description*</label>
-                                        <textarea name="description" id="description"
-                                                  placeholder="Description" class="form-control required tinyeditor"
-                                                  autocomplete="off">{{ isset($feature)?$feature->description:'' }}</textarea>
-                                        <div class="help-block with-errors" id="description_error"></div>
-                                        @error('description')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Image</label>
+                                    <div class="file-loading">
+                                        <input id="image" name="image" type="file">
                                     </div>
+                                    <span class="caption_note">Note: Image dimension must be 738 x 472 PX and Size must be less than 512 KB</span>
+                                    @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label>Image*</label>
-                                        <div class="file-loading">
-                                            <input id="image" name="image" type="file">
-                                        </div>
-                                        <span class="caption_note">Note: Image dimension must be 430 x 400 PX and Size must be less than 512 KB</span>
-                                        @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label> Image Attribute</label>
-                                        <input type="text" class="form-control placeholder-cls" id="image_attribute"
-                                               name="image_attribute" placeholder="Alt='Banner Attribute'"
-                                               value="{{ isset($feature)?$feature->image_attribute:'' }}">
-                                        @error('image_attribute')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label> Image Attribute</label>
+                                    <input type="text" class="form-control placeholder-cls" id="image_attribute"
+                                           name="image_attribute" placeholder="Alt='Banner Attribute'"
+                                           value="{{ isset($feature)?$feature->image_attribute:'' }}">
+                                    @error('image_attribute')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
+                            </div>
 
 
-                                                    </div>
+                        </div>
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
@@ -132,12 +122,12 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: true,
+                required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 430,
-                minImageHeight: 400,
-                maxImageWidth: 430,
-                maxImageHeight: 400,
+                minImageWidth: 738,
+                minImageHeight: 472,
+                maxImageWidth: 738,
+                maxImageHeight: 472,
                 maxFilesize: 10240,
                 showRemove: true,
                 @if(isset($feature) && $feature->image!=NULL)

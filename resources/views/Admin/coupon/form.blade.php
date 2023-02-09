@@ -68,47 +68,48 @@
                                     <div class="help-block with-errors" id="title_error"></div>
                                 </div>
                             </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label> Type*</label>
-                                        <select class="form-control required coupon_type" name="type" id="type">
-                                            <option value="">Select Type</option>
-                                            <option value="Fixed" {{ (@$coupon->type=='Fixed')?'selected':'' }}>Fixed
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label> Type*</label>
+                                    <select class="form-control required coupon_type" name="type" id="type">
+                                        <option value="">Select Type</option>
+                                        <option value="Fixed" {{ (@$coupon->type=='Fixed')?'selected':'' }}>Fixed
                                         </option>
                                         <option value="Percentage" {{ (@$coupon->type=='Percentage')?'selected':'' }}>
                                             Percentage
                                         </option>
-                                        </select>
-                                        <div class="help-block with-errors" id="type_error"></div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label> Coupon Value*</label>
-                                        <input type="number" min="0" name="coupon_value" id="coupon_value"
-                                               placeholder="Coupon Value" class="form-control required"
-                                               autocomplete="off"
-                                               value="{{ isset($coupon)?$coupon->coupon_value:'' }}">
-                                        <div class="help-block with-errors" id="coupon_value_error"></div>
-                                    </div>
-                                    <div class="form-group col-md-4 couponValueLimit"
-                                         style="display:{{ (@$coupon->type=='Percentage')?'block':'none' }};">
-                                        <label> Coupon Value Limit*</label>
-                                        <input type="number" min="0" name="coupon_value_limit" id="coupon_value_limit"
-                                               placeholder="Coupon Value Limit" class="form-control required"
-                                               autocomplete="off" {{ (@$coupon->type=='Percentage')?'':'disabled' }}
-                                               value="{{ isset($coupon)?$coupon->coupon_value_limit:'' }}">
-                                        <div class="help-block with-errors" id="coupon_value_limit_error"></div>
-                                    </div>
+                                    </select>
+                                    <div class="help-block with-errors" id="type_error"></div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label> Free Shipping*</label>
-                                        <select class="form-control required" name="is_free_shipping"
-                                                id="is_free_shipping">
-                                            <option value="">Select Option</option>
-                                            <option value="Yes" {{ (@$coupon->is_free_shipping=='Yes')?'selected':'' }}>
-                                                Yes
-                                            </option>
-                                            <option value="No" {{ (@$coupon->is_free_shipping=='No')?'selected':'' }}>No
+                                <div class="form-group col-md-4">
+                                    <label> Coupon Value*</label>
+                                    <input type="number" min="0" name="coupon_value" id="coupon_value"
+                                           placeholder="Coupon Value" class="form-control required"
+                                           autocomplete="off"
+                                           value="{{ isset($coupon)?$coupon->coupon_value:'' }}">
+                                    <div class="help-block with-errors" id="coupon_value_error"></div>
+                                </div>
+                                <div class="form-group col-md-4 couponValueLimit"
+                                     style="display:{{ (@$coupon->type=='Percentage')?'block':'none' }};">
+                                    <label> Coupon Value Limit*</label>
+                                    <input type="number" min="0" name="coupon_value_limit" id="coupon_value_limit"
+                                           placeholder="Coupon Value Limit"
+                                           class="form-control {{ (@$coupon->type=='Percentage')?'required':'' }}"
+                                           autocomplete="off" {{ (@$coupon->type=='Percentage')?'':'disabled' }}
+                                           value="{{ isset($coupon)?$coupon->coupon_value_limit:'' }}">
+                                    <div class="help-block with-errors" id="coupon_value_limit_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Free Shipping*</label>
+                                    <select class="form-control required" name="is_free_shipping"
+                                            id="is_free_shipping">
+                                        <option value="">Select Option</option>
+                                        <option value="Yes" {{ (@$coupon->is_free_shipping=='Yes')?'selected':'' }}>
+                                            Yes
+                                        </option>
+                                        <option value="No" {{ (@$coupon->is_free_shipping=='No')?'selected':'' }}>No
                                         </option>
                                     </select>
                                     <div class="help-block with-errors" id="is_free_shipping_error"></div>

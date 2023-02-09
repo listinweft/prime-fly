@@ -58071,7 +58071,7 @@ module.exports = {
     //  * Windows CP 950: Microsoft variant of Big5. Canonical: http://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/CP950.TXT
     //  * Windows CP 951: Microsoft variant of Big5-HKSCS-2001. Seems to be never public. http://me.abelcheung.org/articles/research/what-is-cp951/
     //  * Big5-2003 (Taiwan standard) almost superset of cp950.
-    //  * Unicode-at-on (UAO) / Mozilla 1.8. Falling out of use on the web. Not supported by other browsers.
+    //  * Unicode-at-on (UAO) / Mozilla 1.8. Falling out of use on the Web. Not supported by other browsers.
     //  * Big5-HKSCS (-2001, -2004, -2008). Hong Kong standard. 
     //    many unicode code points moved from PUA to Supplementary plane (U+2XXXX) over the years.
     //    Plus, it has 4 combining sequences.

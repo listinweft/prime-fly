@@ -32,7 +32,7 @@
                                         <th>Phone Number</th>
                                         <th>Address</th>
                                         <th>Email</th>
-                                        <th>Username</th>
+                                        {{--<th>Username</th>--}}
                                         <th>Status</th>
                                         <th>Signed Date</th>
                                     </tr>
@@ -55,7 +55,7 @@
                                                 @endforeach
                                             </td>
                                             <td>{{ $customer->user->email }}</td>
-                                            <td>{{ $customer->user->username }}</td>
+                                            {{--<td>{{ $customer->user->username }}</td>--}}
                                             <td><span
                                                     style="color:{{ ($customer->status=='Active')?'green':'red' }}">{{ $customer->user->status }}</span>
                                             </td>

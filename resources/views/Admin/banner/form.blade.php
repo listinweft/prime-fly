@@ -43,47 +43,13 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-{{--                                <div class="form-group col-md-4">--}}
-{{--                                    <label> Banner Title*</label>--}}
-{{--                                    <input type="text" name="banner_title" id="banner_title"--}}
-{{--                                           placeholder="Banner Title"--}}
-{{--                                           class="form-control required" autocomplete="off"--}}
-{{--                                           value="{{ isset($banner)?$banner->banner_title:'' }}">--}}
-{{--                                    <div class="help-block with-errors" id="banner_title_error"></div>--}}
-{{--                                    @error('banner_title')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group col-md-4">--}}
-{{--                                    <label> Banner Sub Title</label>--}}
-{{--                                    <input type="text" name="banner_sub_title" id="banner_sub_title"--}}
-{{--                                           placeholder="Banner Sub Title"--}}
-{{--                                           class="form-control" autocomplete="off"--}}
-{{--                                           value="{{ isset($banner)?$banner->banner_sub_title:'' }}">--}}
-{{--                                    <div class="help-block with-errors" id="banner_sub_title_error"></div>--}}
-{{--                                    @error('banner_sub_title')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label> Desktop Banner</label>
+                                    <label> Banner*</label>
                                     <div class="file-loading">
                                         <input id="desktop_banner" name="desktop_banner" type="file" accept="image/*">
                                     </div>
-                                    <span class="caption_note">Note: Image size should be minimum of 1920 x 420</span>
+                                    <span class="caption_note">Note: Image dimension must be 1920 x 340 PX and Size must be less than 512 KB</span>
                                     @error('desktop_banner')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Mobile Banner</label>
-                                    <div class="file-loading">
-                                        <input id="mobile_banner" name="mobile_banner" type="file" accept="image/*">
-                                    </div>
-                                    <span class="caption_note">Note: Image size should be minimum of 960 x 450</span>
-                                    @error('mobile_banner')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -97,16 +63,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="card-footer">
+                                <input type="hidden" name="id" id="id" value="{{ isset($banner)?$banner->id:'0' }}">
+                                <input type="hidden" name="type" id="type" value="{{ $type }}">
+                                <input type="submit" name="btn_save" value="Submit"
+                                       class="btn btn-primary pull-left submitBtn">
+                                <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                                     style="display:none;">
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <input type="hidden" name="id" id="id" value="{{ isset($banner)?$banner->id:'0' }}">
-                            <input type="hidden" name="type" id="type" value="{{ $type }}">
-                            <input type="submit" name="btn_save" value="Submit"
-                                   class="btn btn-primary pull-left submitBtn">
-                            <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
-                                 style="display:none;">
-                        </div>
-                    </div>
                 </form>
             </div>
         </section>
@@ -125,9 +90,9 @@
                 required: true,
                 showRemove: false,
                 minImageWidth: 1920,
-                minImageHeight: 420,
+                minImageHeight: 340,
                 maxImageWidth: 1920,
-                maxImageHeight: 421,
+                maxImageHeight: 340,
                 maxFileSize: 512,
                 @if(isset($banner) && $banner->desktop_banner != NULL)
                 initialPreview: ["{{asset($banner->desktop_banner)}}"],
@@ -135,32 +100,6 @@
                     caption: "{{ last(explode('/',$banner->desktop_banner))}}",
                     width: "120px",
                     key: "{{($banner->desktop_banner)}}",
-                }]
-                @endif
-            });
-
-            $("#mobile_banner").fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: true,
-                showRemove: false,
-                minImageWidth: 960,
-                minImageHeight: 450,
-                maxImageWidth: 960,
-                maxImageHeight: 450,
-                maxFileSize: 512,
-                @if(isset($banner) && $banner->mobile_banner != NULL)
-                initialPreview: ["{{asset($banner->mobile_banner)}}"],
-                initialPreviewConfig: [{
-                    caption: "{{ last(explode('/',$banner->desktop_banner))}}",
-                    width: "120px",
-                    key: "{{($banner->mobile_banner)}}",
                 }]
                 @endif
             });

@@ -91,7 +91,7 @@
                 <tr align="left" valign="top">
                     <td valign="middle" colspan="5">
                         <h2 style="font-size:14px;line-height:22px;padding-top:5px;text-transform:uppercase;">Product
-                            status update on Order : TOS#{{$code}} </h2><br/>
+                            status update on Order : PP#{{$code}} </h2><br/>
                         <br/>
                         <br/>
                         <p>Product : <b>{{$product}}</b> status has been changed to <b>"{{$status}}"</b></p>

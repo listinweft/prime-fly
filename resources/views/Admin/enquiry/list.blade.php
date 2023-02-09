@@ -54,10 +54,10 @@
                                 <table id="recordsListView" class="table table-bordered table-hover dataTable">
                                     <thead>
                                     <tr>
-                                        <th class="no-sort"># <input type="checkbox" class="mt-2 ml-3" name="check_all" id="check_all"/> &nbsp;
+                                        <th># <input type="checkbox" class="mt-2 ml-3" name="check_all" id="check_all">
                                         </th>
                                         <th>Name</th>
-                                      @if($type == "bulk" || $type=="product")
+                                        @if($type == "bulk")
                                             <th>Product</th>
                                         @endif
                                         <th>Email</th>
@@ -66,24 +66,24 @@
                                         <th>Message</th>
                                         <th>Reply</th>
                                         <th>Request URL</th>
-                                        <th  class="no-sort" >Created Date</th>
-                                        <th  class="no-sort" >Action</th>
+                                        <th>Created Date</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($enquiryList as $enquiry)
                                         <tr>
-                                            <td>
+                                            <td>{{ $loop->iteration }}
                                                 <input type="checkbox" class="single_box mt-2 ml-3" name="single_box"
                                                        id="{{ $enquiry->id }}" value="{{ $enquiry->id }}"></td>
                                             <td>{{ $enquiry->name}}</td>
-                                           @if($type == "bulk"|| $type=="product")
-                                                <td>{{ @$enquiry->product->title}}</td>
+                                            @if($type == "bulk")
+                                                <td>{{ $enquiry->product->title}}</td>
                                             @endif
                                             <td>{{ $enquiry->email}}</td>
                                             <td>{{ $enquiry->phone }}</td>
                                             <td>{{ $enquiry->subject }}</td>
-                                            <td>{{ \Illuminate\Support\Str::limit($enquiry->message, 100, $end='...') }}</td>
+                                            <td>{{ $enquiry->message }}</td>
                                             <td>{{ $enquiry->reply }}</td>
                                             <td>{{ $enquiry->request_url }}</td>
                                             <td>{{ date("d-M-Y", strtotime($enquiry->created_at))  }}</td>
@@ -132,7 +132,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label> Reply*</label>
-                                            <textarea class="form-control" required id="reply" name="reply" 
+                                            <textarea class="form-control" required id="reply" name="reply"
                                                       placeholder="Reply to request"></textarea>
                                         </div>
                                     </div>

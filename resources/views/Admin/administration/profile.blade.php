@@ -10,11 +10,11 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'/dashboard')}}">Home</a>
+                                <a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             @if(isset($title))
                                 <li class="breadcrumb-item">
-                                    <a href="{{url(Helper::sitePrefix().'/administration')}}">Admin list</a>
+                                    <a href="{{url(Helper::sitePrefix().'administration')}}">Admin list</a>
                                 </li>
                             @endif
                             <li class="breadcrumb-item active">{{$adminData->role}} - Profile</li>

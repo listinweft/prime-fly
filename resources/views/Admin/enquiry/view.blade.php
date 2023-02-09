@@ -44,24 +44,11 @@
                                                 {{$enquiry->name}}
                                             </p>
                                             <hr>
-                                            <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
+                                            <strong><i class="fas fa-pencil-alt mr-1"></i> Email</strong>
                                             <p class="text-muted">{{$enquiry->email}}</p>
                                             <hr>
-                                            @if($enquiry->product_id)
-                                            <strong><i class="fas fa-info mr-1"></i> Product</strong>
-                                            <p class="text-muted">{{@$enquiry->product->title}}</p>
-                                            <hr>
-                                            @endif
-                                            <strong><i class="fas fa-phone-alt mr-1"></i> Phone Number</strong>
+                                            <strong><i class="fas fa-pencil-alt mr-1"></i> Phone Number</strong>
                                             <p class="text-muted">{{$enquiry->phone}}</p>
-                                            <hr>
-
-                                            <strong><i class="fas fa-pencil-alt mr-1"></i> Subject</strong>
-                                            <p class="text-muted">{{$enquiry->subject}}</p>
-                                            <hr>
-
-                                            <strong><i class="fas fa-pencil-alt mr-1"></i> Message</strong>
-                                            <p class="text-muted">{{$enquiry->message}}</p>
                                             <hr>
 
                                             <strong><i class="fas fa-address-book mr-1"></i> Contact Request</strong>

@@ -57,6 +57,8 @@
                                             >{{$country->title}}</option>
                                         @endforeach
                                     </select>
+                                    <div class="help-block with-errors" id="country_error"></div>
+
                                     @error('country')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -65,7 +67,7 @@
                                     <label> State*</label>
                                     @if(isset($shipping))
                                         <select name="state" id="state" class="form-control required">
-                                            <option value="">Select State</option>
+                                            <option value=" ">Select State</option>
                                             @foreach($states as $state)
                                                 <option value="{{ $state->id }}"
                                                     {{ (old('state',@$shipping->state_id)==$state->id)?'selected':'' }}
@@ -74,9 +76,11 @@
                                         </select>
                                     @else
                                         <select name="state" id="state" class="form-control required">
-                                            <option value="">Select State</option>
+                                            <option value=" ">Select State</option>
                                         </select>
                                     @endif
+                                    <div class="help-block with-errors" id="state_error"></div>
+
                                     @error('state')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

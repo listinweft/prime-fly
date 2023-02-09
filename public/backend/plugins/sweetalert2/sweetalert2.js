@@ -1768,7 +1768,7 @@
     allowEnterKey: true,
     stopKeydownPropagation: true,
     keydownListenerCapture: false,
-    showConfirmButton: false,
+    showConfirmButton: true,
     showDenyButton: false,
     showCancelButton: false,
     preConfirm: undefined,

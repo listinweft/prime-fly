@@ -15,7 +15,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'order')}}">Orders</a></li>
-                            <li class="breadcrumb-item active">Order View - {{'TOS'.$order->order_code}}</li>
+                            <li class="breadcrumb-item active">Order View - {{'PP'.$order->order_code}}</li>
                         </ol>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                                     </address>
                                 </div>
                                 <div class="col-sm-4 invoice-col">
-                                    <b>Invoice {{'TOS#'.$order->order_code}}</b><br>
+                                    <b>Invoice {{'PP#'.$order->order_code}}</b><br>
                                 </div>
                             </div>
                             <div class="row">
@@ -86,8 +86,9 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Product</th>
-                                            <th>Currency</th>
-                                            {{--<th>Color</th>--}}
+                                            <th>Cost</th>
+                                            <th>Size / Pieces</th>
+                                            <th>Color</th>
                                             <th>Quantity</th>
                                             <th>Status</th>
                                             <th>Price</th>
@@ -96,12 +97,17 @@
                                         <tbody>
                                         @php
                                             $shoppingTotal = [];
+                                        $refundStatus = $refundStatusPrevious = null;
                                         @endphp
                                         @foreach($order->orderProducts as $product)
                                             @php
                                                 $shoppingTotal[] = $product->total;
                                                 $orderStatus = App\Models\OrderLog::where('order_product_id','=',$product->id)->orderBy('created_at','DESC')->first();
                                                 $orderStatusPrevious = App\Models\OrderLog::where('order_product_id',$product->id)->orderBy('id','DESC')->skip(1)->take(1)->first();
+                                                if ($orderStatus->status == 'Refunded'){
+                                                $refundStatus = $orderStatus;
+                                                $refundStatusPrevious = $orderStatusPrevious;
+                                            }
                                             @endphp
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
@@ -109,7 +115,8 @@
                                                     {{$product->productData->title}}
                                                 </td>
                                                 <td>{{$order->currency}} {{$product->cost}}</td>
-                                                {{--<td>{{($product->colorData)?ucfirst($product->colorData->title):''}}</td>--}}
+                                                <td>{{$product->measurement_unit}}</td>
+                                                <td>{{($product->colorData)?ucfirst($product->colorData->title):''}}</td>
                                                 <td>{{$product->qty}}</td>
                                                 <td>
                                                     <select name="status" id="orderStatus" class="form-control"
@@ -118,10 +125,10 @@
                                                             data-order_total="{{ $orderTotal }}"
                                                             data-price="{{ $product->total }}"
                                                             data-all_product_statuses="{{ implode(',',array_unique($order->orderLogs->pluck(['status'])->toArray())) }}">
-                                                        {{-- @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out for Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)--}}
-                                                        @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out for Delivery','Delivered','Completed','Refunded','Failed'] AS $status)
-                                                            <option value="{{ $status }}"
-                                                                {{ (old("status", @$orderStatus->status) == $status)? "selected" : "" }}>
+                                                        {{-- @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out For Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)--}}
+                                                        @foreach(['Pending'=>'Payment Pending','Processing'=>'Processing','On Hold'=>'On Hold','Cancelled'=>'Cancelled','Packed'=>'Packed','Shipped'=>'Shipped','Out For Delivery'=>'Out For Delivery','Delivered'=>'Delivered','Completed'=>'Completed','Refunded'=>'Refunded','Failed'=>'Failed'] AS $statusKey => $status)
+                                                            <option value="{{ $statusKey }}"
+                                                                {{ (old("status", @$orderStatus->status) == $statusKey)? "selected" : "" }}>
                                                                 {{ $status }}</option>
                                                         @endforeach
                                                     </select>
@@ -160,22 +167,22 @@
                                     </p>
                                     <p>
                                     <hr>
-                                    @if($orderStatus->status=="Refunded")
+                                    @if($refundStatus)
                                         <p class="lead">Return/Refund:</p>
-                                        @if($orderStatusPrevious->remarks!=NULL)
-                                            <p>Remarks: {!!$orderStatusPrevious->remarks!!}</p>
+                                        @if($refundStatusPrevious->remarks!=NULL)
+                                            <p>Remarks: {!!$refundStatusPrevious->remarks!!}</p>
                                         @endif
-                                        <p>Refund Method: {{$orderStatusPrevious->refund_type}}</p>
-                                        @if($orderStatusPrevious->refund_type=="Bank Account")
-                                            <p> Account Holder: {{$orderStatusPrevious->account_holder_name}}</p>
-                                            <p> Account Number: {{$orderStatusPrevious->account_number}}</p>
-                                            <p> IFSC Code {{$orderStatusPrevious->ifsc_code}}</p>
-                                        @elseif($orderStatusPrevious->refund_type=="Credit Point")
+                                        <p>Refund Method: {{$refundStatusPrevious->refund_type}}</p>
+                                        @if($refundStatusPrevious->refund_type=="Bank Account")
+                                            <p> Account Holder: {{$refundStatusPrevious->account_holder_name}}</p>
+                                            <p> Account Number: {{$refundStatusPrevious->account_number}}</p>
+                                            <p> IFSC Code {{$refundStatusPrevious->ifsc_code}}</p>
+                                        @elseif($refundStatusPrevious->refund_type=="Credit Point")
                                             @php
                                                 $pointAgainstOrder = App\Models\CreditPoint::where([['order_id',$order->id],['type','Backend'],['status','Active']])->first();
                                             @endphp
                                             <p> Credit Point: {{$pointAgainstOrder->earned_points}} (pts)</p>
-                                        @elseif($orderStatusPrevious->refund_type=="Voucher")
+                                        @elseif($refundStatusPrevious->refund_type=="Voucher")
                                             @php
                                                 $couponAgainstOrder = App\Models\VoucherCoupon::where([['order_id',$order->id],['status','Active']])->first();
                                             @endphp
@@ -198,17 +205,14 @@
                                                 </th>
                                                 <td>{{$order->currency.' '.$orderTotal}}</td>
                                             </tr>
-                                            @if($order->tax_type == 'Outside')
-                                                <tr>
-                                                    <th>Tax ({{$order->tax}}%)</th>
+                                            <tr>
+                                                <th>Tax ({{$order->tax}}%)</th>
+                                                @if($order->tax_type == 'Outside')
                                                     <td>{{$order->currency.' '.$order->tax_amount}}</td>
-                                                </tr>
-                                            @else
-                                                <tr>
-                                                    <th>Tax ({{$order->tax}}%)</th>
-                                                    <td>{{$order->currency.' '.(($orderTotal-$order->orderCoupons->sum('coupon_value'))*$order->tax/100)}}</td>
-                                                </tr>
-                                            @endif
+                                                @else
+                                                    <td>{{$order->currency.' '.(($orderTotal-$order->orderCoupons->sum('coupon_value'))*$order->tax/(100+$order->tax))}}</td>
+                                                @endif
+                                            </tr>
                                             <tr>
                                                 <th>Shipping:</th>
                                                 <td>{{$order->currency.' '.$order->shipping_charge}}</td>
@@ -223,7 +227,7 @@
                                                 @foreach($order->orderCoupons as $orderCoupon)
                                                     <tr>
                                                         <th>Coupon ({{$orderCoupon->coupon->code}}):</th>
-                                                        <td>{{$order->currency.' '.$orderCoupon->coupon_value}}</td>
+                                                        <td>- {{$order->currency.' '.$orderCoupon->coupon_value}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -231,7 +235,7 @@
                                                 <th>Total:</th>
                                                 <td>{{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?$orderGrandTotal['orderGrandTotal']:'0',2)}}</td>
                                             </tr>
-                                            @if($orderStatus->status=="Refunded")
+                                            @if($refundStatus)
                                                 <tr>
                                                     <th>Return/Refund:</th>
                                                     <td>{{$order->currency}} {{number_format($orderGrandTotal['returnAmount'],2)}}</td>

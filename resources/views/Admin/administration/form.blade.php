@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="phone">Phone Number</label>
-                                    <input type="text" class="form-control required" id="phone" pattern="[0-9]+"
+                                    <input type="number" class="form-control required" id="phone"
                                            name="phone" placeholder="Phone Number" minlength="7" maxlength="15"
                                            value="{{ old('phone',@$admin->user->phone) }}">
                                     <div class="help-block with-errors" id="phone_error"></div>
@@ -195,6 +195,9 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            passwordGenerate();
+
             $("#profile_image").fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
@@ -211,7 +214,7 @@
                 maxImageWidth: 300,
                 maxImageHeight: 300,
                 maxFilesize: 512,
-                showRemove: false,
+                showRemove: true,
                 @if(isset($admin) && $admin->user->profile_image!=NULL)
                 initialPreview: ["{{asset($admin->user->profile_image)}}",],
                 initialPreviewConfig: [{

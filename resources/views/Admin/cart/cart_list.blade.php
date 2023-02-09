@@ -21,7 +21,6 @@
             </div>
         </section>
 
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -120,10 +119,10 @@
                                         @endphp
                                         @if($customerData!=NULL)
                                             <tr>
-                                                <td>{{ $loop->iteration }} <input type="checkbox"
-                                                                                  class="single_box mt-2 ml-3"
-                                                                                  name="single_box" id="{{ $item->id }}"
-                                                                                  value="{{ $item->id }}"></td>
+                                                <td>{{ $loop->iteration }}
+                                                    <input type="checkbox" class="single_box mt-2 ml-3"
+                                                           name="single_box" id="{{ $item->id }}"
+                                                           value="{{ $item->id }}"></td>
                                                 <td>
                                                     {{ $customerData->first_name." ".$customerData->last_name }}
                                                 </td>

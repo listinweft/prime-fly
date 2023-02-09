@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title">Order #TOS{{$order->order_code}}</h4>
+        <h4 class="modal-title">Order #PP{{$order->order_code}}</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

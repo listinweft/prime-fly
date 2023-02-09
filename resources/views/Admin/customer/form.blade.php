@@ -59,7 +59,7 @@
                                     <label> First Name*</label>
                                     <input type="text" name="first_name" id="first_name" placeholder="First Name"
                                            class="form-control required" autocomplete="off" maxlength="60"
-                                           value="{{ @$customer->first_name }}">
+                                           value="{{ old('first_name', @$customer->first_name) }}">
                                     <div class="help-block with-errors" id="first_name_error"></div>
                                     @error('first_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -69,25 +69,23 @@
                                     <label> Last Name</label>
                                     <input type="text" name="last_name" id="last_name" placeholder="Last Name"
                                            class="form-control" autocomplete="off" maxlength="60"
-                                           value="{{ @$customer->last_name }}">
+                                           value="{{ old('last_name', @$customer->last_name) }}">
                                     @error('last_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{--
                                 <div class="col-md-6">
                                     <div class="form-group @if ($errors->has('username')) has-error @endIf">
                                         <label> Username*</label>
                                         <input type="text" name="username" id="username" placeholder="Username"
                                                class="form-control required" autocomplete="off"
-                                               value="{{ @$customer->user->username }}">
+                                               value="{{ old('last_name', @$customer->user->username) }}">
                                         <div class="help-block with-errors" id="username_error"></div>
                                         @error('username')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                --}}
                                 @if(!isset($customer))
                                     <div class="col-md-6">
                                         <div class="form-group @if ($errors->has('password')) has-error @endIf">
@@ -105,7 +103,7 @@
                                     <label> Email ID*</label>
                                     <input type="email" name="email" id="email" placeholder="Email ID"
                                            class="form-control required" autocomplete="off" maxlength="70"
-                                           value="{{ @$customer->user->email }}">
+                                           value="{{ old('email', @$customer->user->email) }}">
                                     <div class="help-block with-errors" id="email_error"></div>
                                     @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -115,7 +113,7 @@
                                     <label> Phone Number*</label>
                                     <input type="number" name="phone" id="phone"
                                            placeholder="Phone Number" class="form-control required" autocomplete="off"
-                                           minlength="7" maxlength="15" value="{{ @$customer->user->phone }}">
+                                           minlength="7" maxlength="15" value="{{ old('phone', @$customer->user->phone) }}">
                                     <div class="help-block with-errors" id="phone_error"></div>
                                     @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>

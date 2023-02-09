@@ -31,7 +31,7 @@
                                         <th>Product</th>
                                         <th>SKU</th>
                                         <th>Status</th>
-                                        <th>Color</th>
+                                        {{--<th>Color</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,7 +46,7 @@
                                             <td><span
                                                     style="color:{{ ($product->status=='Active')?'green':'red' }}">{{ $product->status }}</span>
                                             </td>
-                                            <td>{{ ($colorData)?$colorData->title:'' }}</td>
+                                            {{--<td>{{ ($colorData)?$colorData->title:'' }}</td>--}}
                                         </tr>
                                         @php $i++;@endphp
                                     @endforeach
