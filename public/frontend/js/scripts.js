@@ -169,6 +169,29 @@ $('.slider-xzoom').slick({
 });
 
 
+$('.productDetailsThumbs').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+    autoplay: false,
+    infinite: true,
+    vertical: true,
+    verticalSwiping: true,
+    asNavFor: '.productDetailsLargeImages',
+});
+
+$('.productDetailsLargeImages').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    focusOnSelect: true,
+    autoplay: false,
+    infinite: true,
+    nav: false,
+    dots:false,
+    asNavFor: '.productDetailsThumbs',
+});
+
+
 
 
 //Recent Blog Slider
