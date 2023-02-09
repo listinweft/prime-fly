@@ -31,50 +31,32 @@
     <div class="container">
         <div class="row justify-content-between align-items-start">
             <div class="col-xxl-5  col-lg-5 product_details_gallery">
-                <div class="row sliderWrapperArea ">
+                <div class="row slider_zomm_box ">
                     <div class=" col-9 productDetailsLeftSecond " >
-                        <div class="productDetailsLargeImages">
-                            <div class="item position-relative">
-                                <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
-                                    <div class="fotorama__html">
-                                        <img class=" fotorama__img" src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" aria-hidden="false">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="itemImgBox">
-                                <img class="img-fluid" src="assets/images/product/product02.jpg">
-                            </div>
-                            <div class="itemImgBox">
-                                <img class="img-fluid" src="assets/images/product/product05.jpg">
-                            </div>
-                            <div class="itemImgBox">
-                                <img class="img-fluid" src="assets/images/frame/wooden-frame_th.jpg">
-                            </div>
+                        <div class="xzoomBoxXzoom">
+                            <img class="xzoom img-fluid" id="xzoom-default" src="assets/images/product/product02.jpg" xoriginal="assets/images/product/product02.jpg"/>
                         </div>
                     </div>
                     <div class="col-3 productDetailsLeftFirst" >
-                        <div class="productDetailsThumbs">
-                            <div class="fotorama__nav__frame">
-                                <div class="fotorama__thumb fotorama_horizontal_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" class="fotorama__img">
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="assets/images/product/product02.jpg" class="fotorama__img">
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="assets/images/product/product05.jpg" class="fotorama__img">
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="assets/images/frame/wooden-frame_th.jpg" class="fotorama__img">
-                                </div>
-                            </div>
+                        <div class="slider-xzoom nav xzoom-thumbs">
+                            <a class="xzoomBox" href="assets/images/product/product02.jpg">
+                                <img class="xzoom-gallery img-fluid" src="assets/images/product/product02.jpg"   >
+                            </a>
+                            <a class="xzoomBox" href="assets/images/product/product01.jpg">
+                                <img class="xzoom-gallery img-fluid" src="assets/images/product/product01.jpg"   >
+                            </a>
+                            <a class="xzoomBox" href="assets/images/product/product03.jpg">
+                                <img class="xzoom-gallery img-fluid" src="assets/images/product/product03.jpg"   >
+                            </a>
+                            <a class="xzoomBox" href="assets/images/product/product04.jpg">
+                                <img class="xzoom-gallery img-fluid" src="assets/images/product/product04.jpg"   >
+                            </a>
+                            <a class="xzoomBox" href="assets/images/product/product05.jpg">
+                                <img class="xzoom-gallery img-fluid" src="assets/images/product/product05.jpg"   >
+                            </a>
+                            <a class="xzoomBox" href="assets/images/product/product06.jpg">
+                                <img class="xzoom-gallery img-fluid" src="assets/images/product/product06.jpg"   >
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -187,25 +169,25 @@
                     </div>
                 </div>
 
-<!--                <div class="relatedProductsTypesSelect">-->
-<!--                    <h5>-->
-<!--                        Select Frame Color-->
-<!--                    </h5>-->
-<!--                    <div class="relatedProductsTypesWrapper">-->
-<!--                        <div class="item active">-->
-<!--                            <div class="colorBox" style="background: #FFFFFF">-->
-<!---->
-<!--                            </div>-->
-<!--                            <p>White</p>-->
-<!--                        </div>-->
-<!--                        <div class="item ">-->
-<!--                            <div class="colorBox" style="background: #000000">-->
-<!---->
-<!--                            </div>-->
-<!--                            <p>Black</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="relatedProductsTypesSelect">
+                    <h5>
+                        Select Frame Color
+                    </h5>
+                    <div class="relatedProductsTypesWrapper">
+                        <div class="item active">
+                            <div class="colorBox" style="background: #FFFFFF">
+
+                            </div>
+                            <p>White</p>
+                        </div>
+                        <div class="item ">
+                            <div class="colorBox" style="background: #000000">
+
+                            </div>
+                            <p>Black</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="totalBox">
                     <h5>

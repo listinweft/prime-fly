@@ -30,14 +30,14 @@
 <section class="productDetailsPage">
     <div class="container">
         <div class="row justify-content-between align-items-start">
-            <div class="col-xxl-5  col-lg-5 product_details_gallery">
+            <div class="col-xxl-5  col-lg-5 product_details_gallery framed-canvas">
                 <div class="row sliderWrapperArea ">
                     <div class=" col-9 productDetailsLeftSecond " >
                         <div class="productDetailsLargeImages">
                             <div class="item position-relative">
                                 <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
                                     <div class="fotorama__html">
-                                        <img class=" fotorama__img" src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" aria-hidden="false">
+                                        <img class="framed-canvas fotorama__img" src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" aria-hidden="false">
                                     </div>
                                 </div>
                             </div>
@@ -128,13 +128,13 @@
                         Select Product Type
                     </h5>
                     <div class="relatedProductsTypesWrapper">
-                        <div class="item active">
+                        <div class="item ">
                             <a href="product-details.php">
                                 <img class="img-fluid" src="assets/images/productTypes/type-00.jpg" alt="">
                                 <p>Print Only</p>
                             </a>
                         </div>
-                        <div class="item">
+                        <div class="item active">
                             <a href="product-details-canvas.php">
                                 <img class="img-fluid" src="assets/images/productTypes/type-01.jpg" alt="">
                                 <p>Canvas</p>
@@ -187,25 +187,25 @@
                     </div>
                 </div>
 
-<!--                <div class="relatedProductsTypesSelect">-->
-<!--                    <h5>-->
-<!--                        Select Frame Color-->
-<!--                    </h5>-->
-<!--                    <div class="relatedProductsTypesWrapper">-->
-<!--                        <div class="item active">-->
-<!--                            <div class="colorBox" style="background: #FFFFFF">-->
-<!---->
-<!--                            </div>-->
-<!--                            <p>White</p>-->
-<!--                        </div>-->
-<!--                        <div class="item ">-->
-<!--                            <div class="colorBox" style="background: #000000">-->
-<!---->
-<!--                            </div>-->
-<!--                            <p>Black</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="relatedProductsTypesSelect">
+                    <h5>
+                        Select Frame Color
+                    </h5>
+                    <div class="relatedProductsTypesWrapper">
+                        <div class="item active">
+                            <div class="colorBox" style="background: #FFFFFF">
+
+                            </div>
+                            <p>White</p>
+                        </div>
+                        <div class="item ">
+                            <div class="colorBox" style="background: #000000">
+
+                            </div>
+                            <p>Black</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="totalBox">
                     <h5>

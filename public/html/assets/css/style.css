@@ -2388,6 +2388,16 @@ footer .copy ul li img {
   display: none;
 }
 
+.innerBannerProducts {
+  min-height: 65px;
+}
+.innerBannerProducts .innerBannerImageArea {
+  display: none;
+}
+.innerBannerProducts .innerBannerDetails h1 {
+  display: none;
+}
+
 @media (max-width: 1500px) {
   .innerBanner {
     min-height: 200px;
@@ -4973,6 +4983,7 @@ footer .copy ul li img {
 .productDetailsPage .product_details_gallery .slider_zomm_box .productDetailsLeftSecond {
   width: 80%;
   padding-right: 0;
+  background: red;
 }
 .productDetailsPage .product_details_gallery .slider_zomm_box .productDetailsLeftFirst {
   width: 20%;
@@ -4980,6 +4991,9 @@ footer .copy ul li img {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: green;
+  padding-top: 0px;
+  padding-bottom: 80px;
 }
 .productDetailsPage .product_details_gallery .slider_zomm_box .productDetailsLeftFirst .slider-xzoom .slick-arrow {
   width: 25px;
@@ -5027,6 +5041,24 @@ footer .copy ul li img {
   top: 0;
   box-shadow: inherit;
 }
+.productDetailsPage .product_details_gallery .slider_zomm_box .itemImgBox {
+  display: block;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  background: #F5F5F5;
+  border: 1px solid #A0A0A0;
+  margin-bottom: 10px;
+}
+.productDetailsPage .product_details_gallery .slider_zomm_box .itemImgBox img {
+  position: absolute;
+  background: red;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .productDetailsPage .product_details_gallery .slider_zomm_box .xzoomBox {
   display: block;
   height: 0;
@@ -5036,7 +5068,6 @@ footer .copy ul li img {
   z-index: 1;
   background: #F5F5F5;
   border: 1px solid #A0A0A0;
-  margin-bottom: 10px;
 }
 .productDetailsPage .product_details_gallery .slider_zomm_box .xzoom-gallery {
   margin-left: 0px;
@@ -5053,6 +5084,131 @@ footer .copy ul li img {
   right: 0;
   top: 0;
   box-shadow: inherit;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea {
+  display: flex;
+  flex-direction: row-reverse;
+  border: 1px solid #A0A0A0;
+  padding: 15px;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond {
+  width: 80%;
+  padding-right: 0;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__stage__frame {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 600px;
+  width: 98%;
+  text-align: center;
+  border-radius: 8px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  background-color: red;
+  overflow: hidden;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__html {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  transform: translateZ(0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__img {
+  max-width: 80%;
+  opacity: 1;
+  max-height: 80%;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst {
+  width: 20%;
+  background: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0px;
+  padding-bottom: 80px;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-arrow {
+  width: 25px;
+  height: 25px;
+  background: #252525;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-arrow::before {
+  display: none;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-prev {
+  background: #252525 url("../images/topArrow.png") center no-repeat;
+  background-size: 12px;
+  left: 0px;
+  top: inherit;
+  bottom: -50px;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-next {
+  background: #252525 url("../images/downArrow.png") center no-repeat;
+  background-size: 12px;
+  right: inherit;
+  left: 0px;
+  top: inherit;
+  bottom: -80px;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-slide {
+  border: 0;
+  line-height: 0;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-slide div {
+  line-height: 0 !important;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-list {
+  margin-bottom: -10px;
+  margin-top: -10px;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama__nav__frame {
+  padding: 0 !important;
+  border: 1px solid #A0A0A0;
+  box-sizing: border-box;
+  position: relative;
+  height: 100px;
+  display: block;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama__thumb {
+  background-color: #f5f5f5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama_horizontal_ratio .fotorama__img {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama_vertical_ratio .fotorama__img {
+  height: 100%;
+  width: auto;
+}
+.productDetailsPage .framed-canvas .fotorama__html img.framed-canvas {
+  border: 15px solid #f5f5f5 !important;
+}
+.productDetailsPage .frame_color__Black .fotorama__html img.framed-canvas {
+  border: 15px solid #000 !important;
+  box-shadow: 0 0 10px 3px #ccc;
 }
 .productDetailsPage .productDetailsInfo .productNameStock {
   display: flex;
@@ -5197,6 +5353,9 @@ footer .copy ul li img {
   font-family: Brother1816-Light;
   color: #676767;
   line-height: 17px;
+}
+.productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .item:hover {
+  cursor: pointer;
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .item:hover img {
   border: 1px solid #252525;
