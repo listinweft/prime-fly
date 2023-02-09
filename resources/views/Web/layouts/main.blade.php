@@ -26,88 +26,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="https:////code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick-theme.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('frontend/vendor/fontawesome/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css')}}">
-    <!-- <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.min.js')}}"></script> -->
-<script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick-theme.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/fontawesome/css/all.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css')}}"> --}}
+    <script type="text/javascript">
+        var base_url = "{{ url('/') }}";
+    </script>
+  
 </head>
 
 <body id="go-to-top">
 
 
-
-<!--Top Header Start-->
-
-<section class="topHeader">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-3 hamburgerMenuArea">
-                <a class="" data-bs-toggle="offcanvas" href="#hamburgerMenu" role="button"
-                   aria-controls="offcanvasExample">
-                    <img class="img-fluid" src="{{ asset('frontend/images/hamburgerMenuIcon.png')}}" alt="">
-                </a>
-            </div>
-            <div class="col-lg-4 col-6 artemyst">
-                <a href="index.php">
-                    <img class="img-fluid artemystLogo" src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
-                </a>
-            </div>
-            <div class="col-lg-4 col-3 topRightArea">
-                <ul class="topRightAreaUl">
-                    <li>
-                        <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop"
-                           aria-controls="offcanvasTop">
-                            <img class="img-fluid" src="{{ asset('frontend/images/search.png')}}" alt="">
-                        </a>
-                    </li>
-                    <li class="currency">
-                        <img class="img-fluid language-flag" src="{{ asset('frontend/images/currency/aed.png')}}" alt="">
-                        <select id="language-selector">
-                            <option data-img="{{ asset('frontend/images/currency/aed.png')}}">
-                                AED
-                            </option>
-                            <option data-img="{{ asset('frontend/images/currency/usd.png')}}">
-                                USD
-                            </option>
-                        </select>
-                    </li>
-                    <li class="cart">
-                        <a class="position-relative" type="button" data-bs-toggle="offcanvas"
-                           data-bs-target="#cartListRight" aria-controls="offcanvasRight">
-                            <img class="img-fluid" src="{{ asset('frontend/images/bag.png')}}" alt="">
-                            <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
-                                23
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="index.php">
-                            <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
-                        </a>
-                    </li>
-                    <li class="login">
-                        <div class="dropdown">
-                            <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="img-fluid icon" src="{{ asset('frontend/images/user.png')}}" alt="">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="login.php">Login</a></li>
-                                <li><a class="dropdown-item" href="register.php">Register</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-<!--Top Header End-->
+    {!! @$siteInformation->body_tag !!}
 <!-- Hamburger Menu End -->
 @include('web.layouts.header')
-
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="main_nav">
+                <a href="index.php">
+                    <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
+                </a>
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
+                    <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
+                </ul>
+                <div class="topRightArea">
+                    <ul class="topRightAreaUl">
+                        <li>
+                            <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop" aria-controls="offcanvasTop">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/search.png')}}" alt="">
+                            </a>
+                        </li>
+                        <li class="cart">
+                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/bag.png')}}" alt="">
+                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
+                                23
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/wishlist.png')}}" alt="">
+                            </a>
+                        </li>
+                        <li class="login">
+                            <div class="dropdown">
+                                <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="img-fluid icon"  src="{{ asset('frontend/images/user.png')}}" alt="">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="login.php">Login</a></li>
+                                    <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
 <!-- Hamburger Menu Start -->
 @include('web.includes.cart')
 @include('web.includes.login')
@@ -117,3 +103,24 @@
 </div>
 @yield('content')
 @include('web.layouts.footer')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function goToByScroll(id){
+        $('html,body').animate({scrollTop: $("#"+id).offset().top-0},'slow');
+    }
+</script>
+<script src="https://kit.fontawesome.com/99358fb784.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
+<script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+<script  src="{{ asset('frontend/js/form-select2_new.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
+<script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
+<script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
+<script  src="{{ asset('frontend/js/custom.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+</body>
+</html>

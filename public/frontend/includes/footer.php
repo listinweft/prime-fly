@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6 order-1">
                     <a class="logo" href="index.php">
-                        <img class="img-fluid" src="assets/images/artemyst-logoWhite.png" alt="">
+                        <img class="img-fluid"  src="{{ asset('frontend/images/artemyst-logoWhite.png')}}" alt="">
                     </a>
                     <ul class="list">
                         <li>
@@ -58,14 +58,14 @@
                             Secure Payment
                         </h6>
                         <div class="imgBox">
-                            <img class="img-fluid" src="assets/images/icon-02.png" alt="">
-                            <img class="img-fluid" src="assets/images/icon-03.png" alt="">
-                            <img class="img-fluid" src="assets/images/icon-04.png" alt="">
-                            <img class="img-fluid" src="assets/images/icon-05.png" alt="">
-                            <img class="img-fluid" src="assets/images/icon-06.png" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/icon-02.png')}}" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/icon-03.png')}}" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/icon-04.png')}}" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/icon-05.png')}}" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/icon-06.png')}}" alt="">
                         </div>
                     </div>
-<!--                    <img class="img-fluid paymentImg" src="assets/images/securepayment.png" alt="">-->
+<!--                    <img class="img-fluid paymentImg"  src="{{ asset('frontend/images/securepayment.png')}}" alt="">-->
                 </div>
                 <div class="col-lg-3 col-6 mt-lg-0 mt-5 order-lg-3 order-4">
                     <h6>Discover</h6>
@@ -88,7 +88,7 @@
                         <li>
                             <a href="">Need Something Printed?</a>
                         </li>
-                        <img class="img-fluid googleImg" src="assets/images/googleFooter.png" alt="">
+                        <img class="img-fluid googleImg"  src="{{ asset('frontend/images/googleFooter.png')}}" alt="">
                     </ul>
                 </div>
                 <div class="col-lg-3 col-6 order-lg-4 order-lg-2 order-2">
@@ -118,7 +118,7 @@
                                 All Rights Reserved by ARTEMYST 2022
                             </li>
                             <li>
-                                Designed By <a href=""><img class="img-fluid" src="assets/images/pentacodeLogo.png" alt=""></a>
+                                Designed By <a href=""><img class="img-fluid"  src="{{ asset('frontend/images/pentacodeLogo.png')}}" alt=""></a>
                             </li>
                         </ul>
                     </div>
@@ -134,7 +134,7 @@
                     <ul class="listWrapper">
                        <li>
                            <a href="" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
-                               <img class="img-fluid" src="assets/images/bottom-01.png" alt="">
+                               <img class="img-fluid"  src="{{ asset('frontend/images/bottom-01.png')}}" alt="">
                                <p>Cart</p>
                            </a>
                        </li>
@@ -142,7 +142,7 @@
                             <div class="dropdown">
                                 <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="img-fluid " src="assets/images/bottom-02.png" alt="">
+                                    <img class="img-fluid "  src="{{ asset('frontend/images/bottom-02.png')}}" alt="">
                                     <p>Account</p>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
@@ -153,12 +153,12 @@
                         </li>
                         <li>
                             <a href="index.php">
-                                <img class="img-fluid" src="assets/images/bottom-05.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/bottom-05.png')}}" alt="">
                             </a>
                         </li>
                         <li>
                             <a href="category.php">
-                                <img class="img-fluid" src="assets/images/bottom-03.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/bottom-03.png')}}" alt="">
                                 <p>Category</p>
                             </a>
                         </li>
@@ -166,7 +166,7 @@
                             <div class="dropdown">
                                 <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="img-fluid " src="assets/images/bottom-04.png" alt="">
+                                    <img class="img-fluid "  src="{{ asset('frontend/images/bottom-04.png')}}" alt="">
                                     <p>Chat</p>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">

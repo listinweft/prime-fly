@@ -48,6 +48,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', [WebController::class, 'home']);
+
+Route::get('product-details',function(){
+    return view('web.product-details');
+});
+
+Route::get('product-details-framed-canvas',function(){
+    return view('web.product-details-framed-canvas');
+});
+
+Route::get('product-details-canvas',function(){
+    return view('web.product-details-canvas');
+});
+Route::get('product-details-stretched-canvas',function(){
+    return view('web.product-details-stretched-canvas');
+});
+
 Route::get('about', [WebController::class, 'about']);
 Route::get('testimonials', [WebController::class, 'testimonials']);
 Route::post('testimonial-load-more', [WebController::class, 'testimonialLoadMore']);

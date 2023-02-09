@@ -1,56 +1,73 @@
 
-<header>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="main_nav">
-                <a href="index.php">
-                    <img class="img-fluid headerArtemystLogo" src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
+
+<!--Top Header Start-->
+
+<section class="topHeader">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-3 hamburgerMenuArea">
+                <a class="" data-bs-toggle="offcanvas" href="#hamburgerMenu" role="button"
+                   aria-controls="offcanvasExample">
+                    <img class="img-fluid" src="{{ asset('frontend/images/hamburgerMenuIcon.png')}}" alt="">
                 </a>
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
-                    <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
-                </ul>
-                <div class="topRightArea">
-                    <ul class="topRightAreaUl">
-                        <li>
-                            <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop" aria-controls="offcanvasTop">
-                                <img class="img-fluid" src="{{ asset('frontend/images/search.png')}}" alt="">
-                            </a>
-                        </li>
-                        <li class="cart">
-                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
-                                <img class="img-fluid" src="{{ asset('frontend/images/bag.png')}}" alt="">
-                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
+            </div>
+            <div class="col-lg-4 col-6 artemyst">
+                <a href="{{url('/')}}">
+                    {{-- {!! Helper::printImage(@$siteInformation, 'logo','logo_webp','logo_attribute','img-fluid artemystLogo') !!} --}}
+                    <img class="img-fluid artemystLogo" src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-3 topRightArea">
+                <ul class="topRightAreaUl">
+                    <li>
+                        <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop"
+                           aria-controls="offcanvasTop">
+                            <img class="img-fluid" src="{{ asset('frontend/images/search.png')}}" alt="">
+                        </a>
+                    </li>
+                    <li class="currency">
+                        <img class="img-fluid language-flag" src="{{ asset('frontend/images/currency/aed.png')}}" alt="">
+                        <select id="language-selector">
+                            <option data-img="{{ asset('frontend/images/currency/aed.png')}}">
+                                AED
+                            </option>
+                            <option data-img="{{ asset('frontend/images/currency/usd.png')}}">
+                                USD
+                            </option>
+                        </select>
+                    </li>
+                    <li class="cart">
+                        <a class="position-relative" type="button" data-bs-toggle="offcanvas"
+                           data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                            <img class="img-fluid" src="{{ asset('frontend/images/bag.png')}}" alt="">
+                            <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
                                 23
                             </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.php">
+                            <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
+                        </a>
+                    </li>
+                    <li class="login">
+                        <div class="dropdown">
+                            <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="img-fluid icon" src="{{ asset('frontend/images/user.png')}}" alt="">
                             </a>
-                        </li>
-                        <li>
-                            <a href="index.php">
-                                <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
-                            </a>
-                        </li>
-                        <li class="login">
-                            <div class="dropdown">
-                                <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="img-fluid icon" src="{{ asset('frontend/images/user.png')}}" alt="">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="login.php">Login</a></li>
-                                    <li><a class="dropdown-item" href="register.php">Register</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="login.php">Login</a></li>
+                                <li><a class="dropdown-item" href="register.php">Register</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-    </nav>
-</header>
+    </div>
+</section>
+<!--Top Header End-->
 <div class="offcanvas offcanvas-start hamburgerMenu" tabindex="-1" id="hamburgerMenu" aria-labelledby="offcanvasExampleLabel"
      data-bs-backdrop="true">
     <div class="offcanvas-header">

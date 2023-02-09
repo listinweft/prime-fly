@@ -251,60 +251,9 @@
                 <p>Contact Page</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'enquiry/newsletter')}}"
-               class="nav-link {{ (Request::segment(3)=='newsletter')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Newsletter</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'enquiry/bulk')}}"
-               class="nav-link {{ (Request::segment(3)=='bulk')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Bulk Enquiry</p>
-            </a>
-        </li>
     </ul>
 </li>
-<li class="nav-item {{ (Request::segment(2)=='bookings')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='bookings')?'active':'' }}">
-        <i class="nav-icon fas fa-th-list"></i>
-        <p>Bookings
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='bookings')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'bookings')}}"
-               class="nav-link {{ (Request::segment(2)=='bookings' && Request::is(Helper::sitePrefix().'bookings'))?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Bookings</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'bookings/holidays')}}"
-               class="nav-link {{ (Request::segment(3)=='holidays')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Holidays</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'bookings/time-slots')}}"
-               class="nav-link {{ (Request::segment(3)=='time-slots')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Time Slots</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'bookings/questions')}}"
-               class="nav-link {{ (Request::segment(3)=='questions')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Questions</p>
-            </a>
-        </li>
-    </ul>
-</li>
+
 <li class="nav-item menu-faq hide-menu">
     <a href="{{url(Helper::sitePrefix().'faq')}}" class="nav-link {{ (Request::segment(2)=='faq')?'active':''}}">
         <i class="nav-icon fas fa-question"></i>
@@ -340,6 +289,13 @@
        class="nav-link {{ (Request::segment(2)=='country') && (Request::segment(3)!='shipping-charge')?'active':'' }}">
         <i class="nav-icon fas fa-globe"></i>
         <p>Country</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'currency')}}"
+       class="nav-link {{ (Request::segment(2)=='currency') && (Request::segment(3)!='shipping-charge')?'active':'' }}">
+       <i class="nav-icon fas fa-money-check"></i>
+        <p>Currency</p>
     </a>
 </li>
 <li class="nav-item">
