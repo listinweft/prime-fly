@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DealController;
 use App\Http\Controllers\Admin\EnquiryController;
+use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\MenuController;
@@ -25,32 +27,38 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\SiteInformationController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Web\Auth\LoginController as CustomerLoginController;
 use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CustomerController as CustomerWebController;
 use App\Http\Controllers\Web\PaymentController;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Support\Facades\Route;
-use LDAP\Result;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| Here is where you can register web routes for your application. These| routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [WebController::class, 'home']);
 Route::get('about', [WebController::class, 'about']);
+Route::get('testimonials', [WebController::class, 'testimonials']);
+Route::post('testimonial-load-more', [WebController::class, 'testimonialLoadMore']);
 Route::get('blogs', [WebController::class, 'blogs']);
 Route::post('blog-load-more', [WebController::class, 'blogLoadMore']);
 Route::get('blog/{short_url}', [WebController::class, 'blog_detail']);
+Route::post('booking', [WebController::class, 'booking']);
 Route::get('contact', [WebController::class, 'contact']);
-Route::post('enquiry', [WebController::class, 'enquiry_store']);
+Route::post('contact', [WebController::class, 'contact_store']);
+Route::get('faq', [WebController::class, 'faq']);
+Route::get('brand/{url}', [WebController::class, 'brand']);
 Route::get('deal/{url}', [WebController::class, 'deal']);
 Route::get('products', [WebController::class, 'products']);
 Route::get('product/{short_url}', [WebController::class, 'product_detail']);
@@ -62,8 +70,12 @@ Route::post('review-load-more', [WebController::class, 'reviewLoadMore']);
 Route::post('main-search', [WebController::class, 'main_search']);
 Route::get('search/{search_param}', [WebController::class, 'main_search_products']);
 Route::post('submit-review', [WebController::class, 'submit_review']);
-Route::post('add-compare-product', [WebController::class, 'add_compare_product']);
-Route::get('compare-products', [WebController::class, 'compare_products']);
+Route::get('service/{short_url}', [WebController::class, 'service_detail']);
+Route::get('team', [WebController::class, 'team']);
+Route::post('team-load-more', [WebController::class, 'teamLoadMore']);
+Route::get('team-detail/{id}', [WebController::class, 'teamDetail']);
+Route::get('events', [WebController::class, 'events']);
+
 /********************* Policies *******************/
 Route::get('disclaimer', [WebController::class, 'disclaimer']);
 Route::get('privacy-policy', [WebController::class, 'privacy_policy']);
@@ -95,27 +107,25 @@ Route::post('add-wishlist', [CartController::class, 'add_to_wish_list']);
 Route::post('add-cart', [CartController::class, 'add_to_cart']);
 Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);
 Route::post('update-item-quantity', [CartController::class, 'update_item_quantity']);
-Route::post('get-calc-value', [CartController::class, 'get_calc_value']);
 Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
 Route::get('checkout', [CartController::class, 'checkout']);
 Route::post('select-customer-address', [CartController::class, 'select_customer_address']);
-Route::post('select-customer-billing-address', [CartController::class,'select_customer_billing_address']);
+Route::post('different-shipping-address', [CartController::class, 'different_shipping_address']);
 Route::post('add-order-remarks', [CartController::class, 'add_order_remarks']);
 Route::post('change-location', [CartController::class, 'change_location']);
 Route::post('remove-cart-item', [CartController::class, 'remove_cart_item']);
-Route::post('different-shipping-address', [CartController::class, 'different_shipping_address']);
+Route::post('cancel_all', [OrderController::class, 'cancel_all']);
+
 Route::post('state-list', [CartController::class, 'state_list']);
-Route::post('update-customer-shipping-address',[CartController::class,'update_customer_shipping_address']);
-Route::post('choose-customer-billing-address',[CartController::class,'choose_customer_billing_address']);
+
 Route::post('submit-order', [CartController::class, 'submit_order']);
 Route::post('cod-charge-apply', [CartController::class, 'cod_charge_apply']);
 Route::post('cancel-order', [CartController::class, 'cancel_order']);
 Route::post('return-order', [CartController::class, 'return_order']);
+Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
 Route::post('remove-coupon', [CartController::class, 'remove_coupon']);
 Route::get('response/{order_id}', [CartController::class, 'response']);
 Route::get('order/{order_code}', [CartController::class, 'order_detail']);
-Route::post('billing-address-store', [CartController::class, 'billing_address_store']);
-Route::post('customer/state-list', [CountryController::class,'state_list']);
 /******************************* Cart functions *************************************/
 
 
@@ -131,6 +141,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
     Route::post('delete-address', [CustomerWebController::class, 'delete_address']);
     Route::post('set-default-address', [CustomerWebController::class, 'set_default_address']);
 
+
 });
 Route::group(['prefix' => 'customer'], function () {
     Route::post('add-address', [CustomerWebController::class, 'createAddress']);
@@ -142,17 +153,19 @@ Route::group(['prefix' => 'payment'], function () {
     Route::post('/process/{order}', [PaymentController::class, 'processPayment'])->name('processPayment');
 });
 
-/********************* Google Login *******************/
-
-Route::get('auth/google', [CustomerLoginController::class, 'redirectToGoogle']);
-Route::get('auth/google/callback', [CustomerLoginController::class, 'handleGoogleCallback']);
-Route::get('auth/facebook', [CustomerLoginController::class, 'redirectToFacebook']);
-Route::get('auth/facebook/callback', [CustomerLoginController::class, 'handleFacebookCallback']);
-
-
-
 /******************************** Admin Panel Routes ************************************/
+
+//if route is admin redirect to external website admin panel
+Route::get('admin', function () {
+    return redirect('http://admin.example.com');
+});
+
+
 Route::prefix('admin')->group(function () {
+
+
+    //redirect to another website
+
     Route::get('/', [LoginController::class, 'showLoginForm'])->middleware('guest')->name('login');
     Route::post('/', [LoginController::class, 'login']);
     Route::post('forgot-password', [LoginController::class, 'forgot_password']);
@@ -160,10 +173,8 @@ Route::prefix('admin')->group(function () {
     Route::post('reset-password/{token}', [LoginController::class, 'reset_password_store']);
 });
 
-//redirect to another website admin page
+
 Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
-    
-    
     Route::get('dashboard', [HomeController::class, 'admin_dashboard']);
     Route::get('logout', [LoginController::class, 'logout']);
 
@@ -174,7 +185,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('change-bool-status', [HomeController::class, 'change_bool_status']);
     Route::post('sort_order/', [HomeController::class, 'sort_order']);
     Route::post('sub-category', [HomeController::class, 'sub_categories']);
-    Route::post('sort-order-with-field', [HomeController::class, 'sort_order_with_field']);
+    Route::post('kv-delete-file', [HomeController::class, 'delete_file']);
 
 
     Route::prefix('about')->group(function () {
@@ -188,15 +199,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('edit/{id}', [AboutController::class, 'feature_edit']);
             Route::post('edit/{id}', [AboutController::class, 'feature_update']);
             Route::post('delete', [AboutController::class, 'delete_feature']);
-        });
-
-        Route::prefix('history')->group(function () {
-            Route::get('/', [AboutController::class, 'history']);
-            Route::get('create', [AboutController::class, 'history_create']);
-            Route::post('create', [AboutController::class, 'history_store']);
-            Route::get('edit/{id}', [AboutController::class, 'history_edit']);
-            Route::post('edit/{id}', [AboutController::class, 'history_update']);
-            Route::post('delete', [AboutController::class, 'delete_history']);
         });
     });
 
@@ -236,15 +238,44 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('delete', [BlogController::class, 'delete_blog']);
     });
 
-    Route::group(['prefix' => 'contact-address'], function () {
-        Route::get('/', [ContactController::class, 'contact_address']);
-        Route::post('/', [ContactController::class, 'contact_address_update']);
-        Route::get('create', [ContactController::class, 'contact_address_create']);
-        Route::post('create', [ContactController::class, 'contact_address_store']);
-        Route::get('edit/{id}', [ContactController::class, 'contact_address_edit']);
-        Route::post('delete', [ContactController::class, 'delete_contact_address']);
-        
+    Route::prefix('bookings')->group(function () {
+        Route::get('/', [BookingController::class, 'bookings']);
+        Route::get('view/{id}', [BookingController::class, 'bookings_view']);
 
+        Route::prefix('holidays')->group(function () {
+            Route::get('/', [BookingController::class, 'holiday_list']);
+            Route::get('create', [BookingController::class, 'holiday_create']);
+            Route::post('create', [BookingController::class, 'holiday_store']);
+            Route::get('edit/{id}', [BookingController::class, 'holiday_edit']);
+            Route::post('edit/{id}', [BookingController::class, 'holiday_update']);
+            Route::post('delete', [BookingController::class, 'delete_holiday']);
+        });
+
+        Route::prefix('questions')->group(function () {
+            Route::get('/', [BookingController::class, 'questions_list']);
+            Route::get('create', [BookingController::class, 'questions_create']);
+            Route::post('create', [BookingController::class, 'questions_store']);
+            Route::get('edit/{id}', [BookingController::class, 'questions_edit']);
+            Route::post('edit/{id}', [BookingController::class, 'questions_update']);
+            Route::post('delete', [BookingController::class, 'delete_questions']);
+            Route::post('choice/extra_row', [BookingController::class, 'choice_row']);
+            Route::post('choice/remove_extra_row', [BookingController::class, 'remove_choice_row']);
+
+        });
+
+        Route::prefix('time-slots')->group(function () {
+            Route::get('/', [BookingController::class, 'time_slot_list']);
+            Route::get('create', [BookingController::class, 'time_slot_create']);
+            Route::post('create', [BookingController::class, 'time_slot_store']);
+            Route::get('edit/{id}', [BookingController::class, 'time_slot_edit']);
+            Route::post('edit/{id}', [BookingController::class, 'time_slot_update']);
+            Route::post('delete', [BookingController::class, 'delete_time_slot']);
+        });
+    });
+
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('/', [ContactController::class, 'contact_page']);
+        Route::post('/', [ContactController::class, 'contact_page_store']);
     });
 
     Route::prefix('country')->group(function () {
@@ -344,23 +375,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_bulk']);
         });
 
-        Route::prefix('get-quote')->group(function () {
-            Route::get('/', [EnquiryController::class, 'get_quote_list']);
-            Route::get('view/{id}', [EnquiryController::class, 'get_quote_view']);
-            Route::post('reply', [EnquiryController::class, 'reply_to_get_quote']);
-            Route::post('delete', [EnquiryController::class, 'delete_get_quote']);
-            Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_get_quote']);
-        });
-
-        Route::prefix('product')->group(function () {
-            Route::get('/', [EnquiryController::class, 'product_list']);
-           
-            Route::get('view/{id}', [EnquiryController::class, 'product_view']);
-            Route::post('reply', [EnquiryController::class, 'reply_to_product']);
-            Route::post('delete', [EnquiryController::class, 'delete_product']);
-            Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_product']);
-        });
-
         Route::prefix('newsletter')->group(function () {
             Route::get('/', [EnquiryController::class, 'newsletter']);
             Route::post('delete', [EnquiryController::class, 'delete_newsletter']);
@@ -368,8 +382,47 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         });
     });
 
-    Route::prefix('home-corporate')->group(function () {
-        Route::post('delete-file', [HomeController::class, 'delete_file']);
+
+    Route::prefix('event')->group(function () {
+
+        Route::get('/', [EventController::class, 'event']);
+        Route::get('create', [EventController::class, 'event_create']);
+        Route::post('create', [EventController::class, 'event_store']);
+        Route::get('edit/{id}', [EventController::class, 'event_edit']);
+        Route::post('edit/{id}', [EventController::class, 'event_update']);
+        Route::post('delete/', [EventController::class, 'delete_event']);
+
+        Route::prefix('type')->group(function () {
+            Route::get('/', [EventController::class, 'event_type']);
+            Route::get('create', [EventController::class, 'event_type_create']);
+            Route::post('create', [EventController::class, 'event_type_store']);
+            Route::get('edit/{id}', [EventController::class, 'event_type_edit']);
+            Route::post('edit/{id}', [EventController::class, 'event_type_update']);
+            Route::post('delete', [EventController::class, 'delete_event_type']);
+        });
+
+    });
+
+
+    Route::prefix('faq')->group(function () {
+        Route::get('/', [FAQController::class, 'faq']);
+        Route::get('create', [FAQController::class, 'faq_create']);
+        Route::post('create', [FAQController::class, 'faq_store']);
+        Route::get('edit/{id}', [FAQController::class, 'faq_edit']);
+        Route::post('edit/{id}', [FAQController::class, 'faq_update']);
+        Route::post('delete/', [FAQController::class, 'delete_faq']);
+        Route::post('delete_multiple', [FAQController::class, 'delete_multiple_faq']);
+    });
+
+    Route::prefix('guests')->group(function () {
+        Route::get('/', [CustomerController::class, 'guests']);
+    });
+
+    Route::prefix('home')->group(function () {
+
+        Route::get('/about-us', [AboutController::class, 'home_about_us']);
+        Route::post('/about-us', [AboutController::class, 'home_about_us_store']);
+
         Route::prefix('banner')->group(function () {
             Route::get('/', [HomeController::class, 'banner']);
             Route::get('create', [HomeController::class, 'banner_create']);
@@ -377,18 +430,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('edit/{id}', [HomeController::class, 'banner_edit']);
             Route::post('edit/{id}', [HomeController::class, 'banner_update']);
             Route::post('delete', [HomeController::class, 'delete_banner']);
-        });
-
-        Route::get('/get-a-quote', [HomeController::class, 'home_get_quote']);
-        Route::post('/get-a-quote', [HomeController::class, 'home_get_quote_store']);
-
-        Route::prefix('advertisement')->group(function () {
-            Route::get('/', [HomeController::class, 'advertisement']);
-            Route::get('create', [HomeController::class, 'advertisement_create']);
-            Route::post('create', [HomeController::class, 'advertisement_store']);
-            Route::get('edit/{id}', [HomeController::class, 'advertisement_edit']);
-            Route::post('edit/{id}', [HomeController::class, 'advertisement_update']);
-            Route::post('delete', [HomeController::class, 'delete_advertisement']);
+            Route::post('banner-type-store', [HomeController::class, 'banner_type_store']);
         });
 
         Route::prefix('hot-deal')->group(function () {
@@ -408,49 +450,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [HomeController::class, 'key_feature_update']);
             Route::post('delete', [HomeController::class, 'delete_key_feature']);
         });
-
-        Route::prefix('testimonial')->group(function () {
-            Route::get('/', [HomeController::class, 'testimonial']);
-            Route::get('create', [HomeController::class, 'testimonial_create']);
-            Route::post('create', [HomeController::class, 'testimonial_store']);
-            Route::get('edit/{id}', [HomeController::class, 'testimonial_edit']);
-            Route::post('edit/{id}', [HomeController::class, 'testimonial_update']);
-            Route::post('delete', [HomeController::class, 'delete_testimonial']);
-        });
-    });
-
-    Route::prefix('home-ecommerce')->group(function () {
-        Route::post('delete-file', [HomeController::class, 'delete_file']);
-        Route::prefix('banner')->group(function () {
-            Route::get('/', [HomeController::class, 'banner2']);
-            Route::get('create', [HomeController::class, 'banner_create2']);
-            Route::post('create', [HomeController::class, 'banner_store2']);
-            Route::get('edit/{id}', [HomeController::class, 'banner_edit2']);
-            Route::post('edit/{id}', [HomeController::class, 'banner_update2']);
-            Route::post('delete', [HomeController::class, 'delete_banner2']);
-        });
-
-        Route::get('/get-a-quote', [HomeController::class, 'home_get_quote2']);
-        Route::post('/get-a-quote', [HomeController::class, 'home_get_quote_store2']);
-
-        Route::prefix('advertisement')->group(function () {
-            Route::get('/', [HomeController::class, 'advertisement2']);
-            Route::get('create', [HomeController::class, 'advertisement_create2']);
-            Route::post('create', [HomeController::class, 'advertisement_store2']);
-            Route::get('edit/{id}', [HomeController::class, 'advertisement_edit2']);
-            Route::post('edit/{id}', [HomeController::class, 'advertisement_update2']);
-            Route::post('delete', [HomeController::class, 'delete_advertisement2']);
-        });
-        Route::prefix('latest')->group(function () {
-            Route::get('/', [HomeController::class, 'latest_product']);
-             Route::get('create', [HomeController::class, 'latest_create']);
-            //  Route::post('create', [HomeController::class, 'latest_store']);
-            //  Route::get('edit/{id}', [HomeController::class, 'latest_edit']);
-            //  Route::post('edit/{id}', [HomeController::class, 'latest_update']);
-             Route::post('update', [HomeController::class, 'latest_update2'])->name('latest.update');
-            // Route::post('delete', [HomeController::class, 'delete_latest']);
-        });
-
     });
 
     Route::prefix('mail')->group(function () {
@@ -463,7 +462,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('delete', [MailController::class, 'delete']);
         Route::get('cart', [MailController::class, 'cart']);
         Route::post('cart_notify', [MailController::class, 'cart_notify']);
-        Route::post('send_multi_contact', [MailController::class, 'send_multi_contact']);
+        Route::post('send-multi-cart-notification', [MailController::class, 'send_multi_cart_notification']);
         Route::post('cart_list_filter', [MailController::class, 'cart_list_filter']);
     });
 
@@ -510,13 +509,13 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::prefix('product')->group(function () {
 
         Route::get('/', [ProductController::class, 'product']);
-        Route::get('export', [ReportController::class, 'product_export'])->name('export');
         Route::get('create', [ProductController::class, 'product_create']);
         Route::post('create', [ProductController::class, 'product_store']);
         Route::get('edit/{id}', [ProductController::class, 'product_edit']);
         Route::post('edit/{id}', [ProductController::class, 'product_update']);
         Route::post('delete', [ProductController::class, 'delete_product']);
-
+        Route::get('export', [ProductController::class, 'product_export']);
+        Route::get('copy/{id}', [ProductController::class, 'copy_product']);
 
         Route::prefix('brand')->group(function () {
             Route::get('/', [BrandController::class, 'brand']);
@@ -535,6 +534,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [CategoryController::class, 'category_update']);
             Route::post('delete', [CategoryController::class, 'delete_category']);
         });
+
+
         Route::prefix('sub-category')->group(function () {
             Route::get('/', [CategoryController::class, 'sub_category_list']);
             Route::get('create', [CategoryController::class, 'sub_category_create']);
@@ -543,6 +544,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [CategoryController::class, 'sub_category_update']);
             Route::post('delete', [CategoryController::class, 'delete_sub_category']);
         });
+
 
         Route::prefix('color')->group(function () {
             Route::get('/', [AttributeController::class, 'color']);
@@ -560,16 +562,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('edit/{id}', [ProductController::class, 'gallery_edit']);
             Route::post('edit/{id}', [ProductController::class, 'gallery_update']);
             Route::post('delete', [ProductController::class, 'delete_gallery']);
-        });
-
-
-        Route::prefix('key-feature')->group(function () {
-            Route::get('/{product_id}', [ProductController::class, 'key_feature']);
-            Route::get('create/{product_id}', [ProductController::class, 'key_feature_create']);
-            Route::post('create/{product_id}', [ProductController::class, 'key_feature_store']);
-            Route::get('edit/{id}', [ProductController::class, 'key_feature_edit']);
-            Route::post('edit/{id}', [ProductController::class, 'key_feature_update']);
-            Route::post('delete', [ProductController::class, 'delete_key_feature']);
         });
 
         Route::prefix('measurement-unit')->group(function () {
@@ -595,6 +587,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('remove_row', [ProductController::class, 'overview_remove_row']);
             Route::get('/{id}', [ProductController::class, 'overview']);
             Route::post('/{id}', [ProductController::class, 'overview_store']);
+        });
+
+        Route::prefix('pet-type')->group(function () {
+            Route::get('/', [AttributeController::class, 'pet_type']);
+            Route::get('create', [AttributeController::class, 'pet_type_create']);
+            Route::post('create', [AttributeController::class, 'pet_type_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'pet_type_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'pet_type_update']);
+            Route::post('delete', [AttributeController::class, 'delete_pet_type']);
         });
 
         Route::prefix('review')->group(function () {
@@ -623,6 +624,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [AttributeController::class, 'tag_update']);
             Route::post('delete', [AttributeController::class, 'delete_tag']);
         });
+
+        Route::prefix('key-feature')->group(function () {
+            Route::get('/{product_id}', [ProductController::class, 'key_feature']);
+            Route::get('create/{product_id}', [ProductController::class, 'key_feature_create']);
+            Route::post('create/{product_id}', [ProductController::class, 'key_feature_store']);
+            Route::get('edit/{id}', [ProductController::class, 'key_feature_edit']);
+            Route::post('edit/{id}', [ProductController::class, 'key_feature_update']);
+            Route::post('delete', [ProductController::class, 'delete_key_feature']);
+        });
     });
 
     Route::prefix('report')->group(function () {
@@ -641,6 +651,16 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('customer/order-report/', [ReportController::class, 'render_customer_order']);
     });
 
+    Route::prefix('service')->group(function () {
+        Route::get('/', [ServiceController::class, 'service']);
+        Route::get('create', [ServiceController::class, 'service_create']);
+        Route::post('create', [ServiceController::class, 'service_store']);
+        Route::get('edit/{id}', [ServiceController::class, 'service_edit']);
+        Route::post('edit/{id}', [ServiceController::class, 'service_update']);
+        Route::post('delete', [ServiceController::class, 'delete_service']);
+    });
+
+
     Route::group(['prefix' => 'site-information'], function () {
         Route::get('/', [SiteInformationController::class, 'siteInformation']);
         Route::post('/', [SiteInformationController::class, 'siteInformationStore']);
@@ -654,4 +674,36 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/{type}', [SeoController::class, 'seo']);
         Route::post('/{type}', [SeoController::class, 'seo_store']);
     });
+
+
+    Route::prefix('team')->group(function () {
+
+        Route::get('/', [TeamController::class, 'team']);
+        Route::get('create', [TeamController::class, 'team_create']);
+        Route::post('create', [TeamController::class, 'team_store']);
+        Route::get('edit/{id}', [TeamController::class, 'team_edit']);
+        Route::post('edit/{id}', [TeamController::class, 'team_update']);
+        Route::post('delete/', [TeamController::class, 'delete_team']);
+
+        Route::prefix('designation')->group(function () {
+            Route::get('/', [TeamController::class, 'designation']);
+            Route::get('create', [TeamController::class, 'designation_create']);
+            Route::post('create', [TeamController::class, 'designation_store']);
+            Route::get('edit/{id}', [TeamController::class, 'designation_edit']);
+            Route::post('edit/{id}', [TeamController::class, 'designation_update']);
+            Route::post('delete', [TeamController::class, 'delete_designation']);
+        });
+
+    });
+
+    Route::prefix('testimonial')->group(function () {
+        Route::get('/', [TestimonialController::class, 'testimonial']);
+        Route::get('create', [TestimonialController::class, 'testimonial_create']);
+        Route::post('create', [TestimonialController::class, 'testimonial_store']);
+        Route::get('edit/{id}', [TestimonialController::class, 'testimonial_edit']);
+        Route::post('edit/{id}', [TestimonialController::class, 'testimonial_update']);
+        Route::post('delete', [TestimonialController::class, 'delete_testimonial']);
+    });
+
+
 });

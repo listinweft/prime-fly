@@ -319,13 +319,7 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{url(Helper::sitePrefix().'service')}}"
-       class="nav-link {{ (Request::segment(2)=='service')?'active':''}}">
-        <i class="nav-icon fas fa-rss"></i>
-        <p>Service</p>
-    </a>
-</li>
+
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'blog')}}"
        class="nav-link {{ (Request::segment(2)=='blog')?'active':''}}">
@@ -340,68 +334,7 @@
         <p>Testimonial</p>
     </a>
 </li>
-<li class="nav-item {{ (Request::segment(2)=='team')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='team')?'active':'' }}">
-        <i class="nav-icon fas fa-user-friends"></i>
-        <p>Team
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='team')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'team/')}}"
-               class="nav-link {{ (Request::segment(3)=='members')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Team</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'team/designation')}}"
-               class="nav-link {{ (Request::segment(3)=='designation')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Designation </p>
-            </a>
-        </li>
 
-    </ul>
-</li>
-
-
-<li class="nav-item {{ (Request::segment(2)=='event')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='event')?'active':'' }}">
-        <i class="nav-icon fas fa-user-friends"></i>
-        <p>Event
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='event')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'event/')}}"
-               class="nav-link {{ (Request::segment(3)=='event')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Events</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'event/type')}}"
-               class="nav-link {{ (Request::segment(3)=='type')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Event Type </p>
-            </a>
-        </li>
-    </ul>
-</li>
-
-
-{{--
-<li class="nav-item">
-    <a href="{{url(Helper::sitePrefix().'currency')}}"
-       class="nav-link {{ (Request::segment(2)=='currency')?'active':'' }}">
-        <i class="nav-icon fas fa-money-check"></i>
-        <p>Currency</p>
-    </a>
-</li>
---}}
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'country')}}"
        class="nav-link {{ (Request::segment(2)=='country') && (Request::segment(3)!='shipping-charge')?'active':'' }}">
