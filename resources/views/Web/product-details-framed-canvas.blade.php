@@ -128,25 +128,25 @@
                     </h5>
                     <div class="relatedProductsTypesWrapper">
                         <div class="item ">
-                            <a href="product-details.php">
+                            <a href="{{url('product-details')}}">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-00.jpg')}}" alt="">
                                 <p>Print Only</p>
                             </a>
                         </div>
                         <div class="item">
-                            <a href="product-details-canvas.php">
+                            <a href="{{url('product-details-canvas')}}">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-01.jpg')}}" alt="">
                                 <p>Canvas</p>
                             </a>
                         </div>
                         <div class="item">
-                            <a href="product-details-stretched-canvas.php">
+                            <a href="{{url('product-details-stretched-canvas')}}">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-02.jpg')}}" alt="">
                                 <p>Stretched Canvas</p>
                             </a>
                         </div>
                         <div class="item active">
-                            <a href="product-details-framed-canvas.php">
+                            <a href="{{url('product-details-framed-canvas')}}">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-03.jpg')}}" alt="">
                                 <p>Framed Canvas</p>
                             </a>
