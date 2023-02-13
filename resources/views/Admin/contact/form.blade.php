@@ -78,10 +78,10 @@
                                               autocomplete="off">{{ @$contact->address }}</textarea>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label> Working Hours</label>
-                                    <textarea name="working_hours" id="working_hours" placeholder="Working Hours"
+                                    <label> Description</label>
+                                    <textarea name="description" id="description" placeholder="description"
                                               class="form-control tinyeditor" autocomplete="off"
-                                    >{{ !empty($contact)?$contact->working_hours:'' }}</textarea>
+                                    >{{ $contact->description }}</textarea>
                                 </div>
                             </div>
 
@@ -135,7 +135,7 @@
                                            maxlength="230">
                                 </div>
                             </div>
-                            {{-- <div class="form-row">
+                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Email Recipient Name*</label>
                                     <input type="text" name="email_recipient" id="email_recipient"
@@ -152,7 +152,7 @@
                                            value="{{ !empty($contact)?$contact->follow_title:'' }}"
                                            maxlength="230">
                                 </div>
-                            </div> --}}
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Facebook</label>
@@ -168,7 +168,7 @@
                                            maxlength="230">
                                 </div>
                             </div>
-                            {{-- <div class="form-row">
+                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Twitter</label>
                                     <input type="text" name="twitter_url" id="twitter_url" class="form-control"
@@ -198,24 +198,24 @@
                                            value="{{ !empty($contact)?$contact->pinterest_url:'' }}"
                                            maxlength="230">
                                 </div>
-                            </div> --}}
-                            {{-- <div class="form-row">
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Snapchat</label>
                                     <input type="text" name="snapchat_url" id="snapchat_url" class="form-control"
                                            placeholder="Snapchat"
                                            value="{{ !empty($contact)?$contact->snapchat_url:'' }}" maxlength="230">
                                 </div>
-                                <div class="form-group col-md-6">
+                                {{-- <div class="form-group col-md-6">
                                     <label> Career EMail</label>
                                     <input type="email" name="career_email" id="career_email" class="form-control"
                                            placeholder="Career EMail"
                                            value="{{ !empty($contact)?$contact->career_email:'' }}" maxlength="230">
                                 </div>
                             </div> --}}
-                            <div class="form-row">
+                            {{-- <div class="form-row"> --}}
 
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                     <label> Google Map</label>
                                     <input type="text" name="google_map" id="google_map" class="form-control"
                                            placeholder="Google Map"

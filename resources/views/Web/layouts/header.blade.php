@@ -200,7 +200,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="aboutUs.php">
+                        <a class="nav-link" href="{{url('about')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-09.png')}}" alt="">
                             </div>
@@ -224,7 +224,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contactUs.php">
+                        <a class="nav-link" href="{{url('contact')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-012.png')}}" alt="">
                             </div>
