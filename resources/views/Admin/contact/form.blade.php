@@ -135,7 +135,7 @@
                                            maxlength="230">
                                 </div>
                             </div>
-                            <div class="form-row">
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Email Recipient Name*</label>
                                     <input type="text" name="email_recipient" id="email_recipient"
@@ -152,7 +152,7 @@
                                            value="{{ !empty($contact)?$contact->follow_title:'' }}"
                                            maxlength="230">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Facebook</label>
@@ -168,7 +168,7 @@
                                            maxlength="230">
                                 </div>
                             </div>
-                            <div class="form-row">
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Twitter</label>
                                     <input type="text" name="twitter_url" id="twitter_url" class="form-control"
@@ -198,8 +198,8 @@
                                            value="{{ !empty($contact)?$contact->pinterest_url:'' }}"
                                            maxlength="230">
                                 </div>
-                            </div>
-                            <div class="form-row">
+                            </div> --}}
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Snapchat</label>
                                     <input type="text" name="snapchat_url" id="snapchat_url" class="form-control"
@@ -212,7 +212,7 @@
                                            placeholder="Career EMail"
                                            value="{{ !empty($contact)?$contact->career_email:'' }}" maxlength="230">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-row">
 
                             <div class="form-group col-md-12">
