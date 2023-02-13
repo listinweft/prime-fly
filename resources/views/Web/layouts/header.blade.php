@@ -13,8 +13,8 @@
             </div>
             <div class="col-lg-4 col-6 artemyst">
                 <a href="{{url('/')}}">
-                    {{-- {!! Helper::printImage(@$siteInformation, 'logo','logo_webp','logo_attribute','img-fluid artemystLogo') !!} --}}
-                    <img class="img-fluid artemystLogo" src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
+                    {!! Helper::printImage(@$siteInformation, 'logo','logo_webp','logo_attribute','img-fluid artemystLogo') !!}
+                    {{-- <img class="img-fluid artemystLogo" src="{{ asset('frontend/images/artemystLogo.png')}}" alt=""> --}}
                 </a>
             </div>
             <div class="col-lg-4 col-3 topRightArea">
@@ -289,3 +289,55 @@
 </div>
 
 <!--Search End-->
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="main_nav">
+                <a href="index.php">
+                    <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
+                </a>
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
+                    <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
+                </ul>
+                <div class="topRightArea">
+                    <ul class="topRightAreaUl">
+                        <li>
+                            <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop" aria-controls="offcanvasTop">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/search.png')}}" alt="">
+                            </a>
+                        </li>
+                        <li class="cart">
+                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/bag.png')}}" alt="">
+                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
+                                23
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/wishlist.png')}}" alt="">
+                            </a>
+                        </li>
+                        <li class="login">
+                            <div class="dropdown">
+                                <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="img-fluid icon"  src="{{ asset('frontend/images/user.png')}}" alt="">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="login.php">Login</a></li>
+                                    <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
