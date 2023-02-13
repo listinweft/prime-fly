@@ -471,17 +471,17 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <h6 class="subHeading">Our Collections</h6>
-                    <h2 class="mainHeading">Make Your Walls Speak</h2>
+                    <h2 class="mainHeading"> {!! $ourcollection->title !!} </h2>
                     <div class="headingText">
                         <p>
-                            Excited to inject life into your walls? We have hundreds of artworks in our collection, all waiting to be discovered.
+                        {!! $ourcollection->description !!}
                         </p>
                     </div>
                 </div>
                 <div class="col-12 pt-60">
                     <div class="collectionsAreaWrapper">
                         <div class="collectionsAreaItems">
-                            <img class="img-fluid"src="{{ asset('frontend/images/collection/collection-01.jpg')}}" alt="">
+                        {!! Helper::printImage($ourcollection, 'mobile_image', 'mobile_image_webp', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem ipsum dolor sit.</h5>
@@ -495,7 +495,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                            <img class="img-fluid"src="{{ asset('frontend/images/collection/collection-02.jpg')}}" alt="">
+                        {!! Helper::printImage($ourcollection, 'mobile_image1', 'mobile_image_webp1', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -509,7 +509,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                            <img class="img-fluid"src="{{ asset('frontend/images/collection/collection-03.png')}}" alt="">
+                        {!! Helper::printImage($ourcollection, 'mobile_image2', 'mobile_image_webp2', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -523,7 +523,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                            <img class="img-fluid"src="{{ asset('frontend/images/collection/collection-04.png')}}" alt="">
+                        {!! Helper::printImage($ourcollection, 'mobile_image3', 'mobile_image_webp3', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -537,7 +537,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                            <img class="img-fluid"src="{{ asset('frontend/images/collection/collection-05.png')}}" alt="">
+                        {!! Helper::printImage($ourcollection, 'mobile_image4', 'mobile_image_webp4', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -551,7 +551,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                            <img class="img-fluid"src="{{ asset('frontend/images/collection/collection-06.png')}}" alt="">
+                        {!! Helper::printImage($ourcollection, 'mobile_image5', 'mobile_image_webp5', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>

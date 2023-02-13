@@ -422,6 +422,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
         Route::get('/about-us', [AboutController::class, 'home_about_us']);
         Route::post('/about-us', [AboutController::class, 'home_about_us_store']);
+        Route::get('/our-collection/create', [HomeController::class, 'ourcollection_create']);
+        Route::post('/our-collection/create', [HomeController::class, 'ourcollection_store']);
 
         Route::prefix('banner')->group(function () {
             Route::get('/', [HomeController::class, 'banner']);
