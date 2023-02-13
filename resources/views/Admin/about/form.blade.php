@@ -78,6 +78,17 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label> Description*</label>
+                                        <textarea name="description" id="description"
+                                                  class="form-control required tinyeditor" placeholder="Description"
+                                        >{{ old('description', isset($about)?$about->description:'') }}</textarea>
+                                        <div class="help-block with-errors" id="description_error"></div>
+                                        @error('description')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -91,7 +102,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
+                                {{-- <div class="form-group col-md-6">
                                     <label> Image Attribute</label>
                                     <input type="text" class="form-control placeholder-cls" id="image_attribute"
                                            name="image_attribute" placeholder="Alt='Image Attribute'"
@@ -99,9 +110,9 @@
                                     @error('image_attribute')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="form-row">
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Story Title</label>
                                     <input type="text" name="story_title" id="story_title" placeholder="Story Title"
@@ -124,7 +135,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="card-footer">
                             <input type="hidden" name="id" id="id" value="{{isset($about)?$about->id:'0'}}">
                             <input type="submit" name="btn_save" value="Submit"
