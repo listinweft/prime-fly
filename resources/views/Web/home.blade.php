@@ -956,26 +956,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h6 class="subHeading">Spread The Love</h6>
-                    <h2 class="mainHeading">Testimonials</h2>
+                    <h6 class="subHeading">{{$homeHeadings->title}}</h6>
+                    <h2 class="mainHeading">{{$homeHeadings->subtitle}}</h2>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-12 pt-60">
+               
                     <div class="testimonialsSlider">
+                    @foreach( $testimonials as $blog)
                         <div class="testimonialsCard">
                             <div class="testimonialsProfile">
                                 <div class="leftPhoto">
-                                    <img class="img-fluid"src="{{ asset('frontend/images/testimonail.png')}}" alt="">
+                                {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
                                 </div>
                                 <div class="rightDetails">
-                                    <h3>Daisy Welch</h3>
-                                    <h6>Chief Branding Producer</h6>
+                                    <h3>{{ $blog->name }}</h3>
+                                    <h6>{{ $blog->designation }}</h6>
                                     <div class="reviewIconStar">
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
-                                        <div class="my-rating-readonly" data-rating="5"></div>
+                                        <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>
                             </div>
@@ -989,56 +991,11 @@
                                 a type specimen book  industry's standard dummy text ever since the 1500s.
                             </p>
                         </div>
-                        <div class="testimonialsCard">
-                            <div class="testimonialsProfile">
-                                <div class="leftPhoto">
-                                    <img class="img-fluid"src="{{ asset('frontend/images/testimonail.png')}}" alt="">
-                                </div>
-                                <div class="rightDetails">
-                                    <h3>Ishan Ali</h3>
-                                    <h6>Business Analyst</h6>
-                                    <div class="reviewIconStar">
-                                        <div class="my-rating-readonly" data-rating="5"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
-                        </div>
-                        <div class="testimonialsCard">
-                            <div class="testimonialsProfile">
-                                <div class="leftPhoto">
-                                    <img class="img-fluid"src="{{ asset('frontend/images/testimonail.png')}}" alt="">
-                                </div>
-                                <div class="rightDetails">
-                                    <h3>Daisy Welch</h3>
-                                    <h6>Chief Branding Producer</h6>
-                                    <div class="reviewIconStar">
-                                        <div class="icon">
-                                            <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
-                                        </div>
-                                        <div class="my-rating-readonly" data-rating="5"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
-                        </div>
+                        @endforeach
+                        
+                       
                     </div>
+                    
                 </div>
                 <div class="col-12 text-center mt-md-5">
                     <a href="" class="primary_btn">Add Your Review</a>

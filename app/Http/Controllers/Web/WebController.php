@@ -55,9 +55,11 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Home');
        
         $ourcollection = Homecollection::active()->first();
+      $homeHeadings = HomeHeading::where('type','testimonial')->first();
     
-       
-        return view('web.home', compact('seo_data', 'ourcollection'));
+        $testimonials = Testimonial::active()->take(10)->get();
+      $homeHeadings = HomeHeading::where('type','testimonial')->first();
+        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings'));
     }
 
 

@@ -87,6 +87,8 @@ class HomeController extends Controller
 
     public function update_home_heading(Request $request)
     {
+
+       
         if (isset($request->type)) {
             $home_heading = HomeHeading::type($request->type)->first();
             if (!$home_heading) {
@@ -94,6 +96,7 @@ class HomeController extends Controller
             }
             $home_heading->type = $request->type;
             $home_heading->title = $request->homeTitle;
+            $home_heading->subtitle = $request->subtitle;
             $home_heading->description = $request->homeDescription;
             if ($home_heading->save()) {
                 return response()->json(['status' => true, 'message' => 'Home heading for ' . $request->type . ' saved successfully']);
@@ -821,6 +824,7 @@ class HomeController extends Controller
 
     public function testimonial_edit(Request $request, $id)
     {
+        
         $key = "Update";
         $title = "Update Testimonial";
         $testimonial = Testimonial::find($id);
@@ -1580,4 +1584,6 @@ class HomeController extends Controller
         }
         return $this->combinationArrays($chars, $size - 1, $new_combinations);
     }
+
+    
 }
