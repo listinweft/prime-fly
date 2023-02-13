@@ -91,7 +91,7 @@
                                     </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label>Image*</label>
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
@@ -123,8 +123,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="form-row">
+                            </div> --}}
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Story Description</label>
                                     <textarea name="story_description" id="story_description"
@@ -134,8 +134,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                        </div> --}}
+                            </div> --}}
+                        </div>
                         <div class="card-footer">
                             <input type="hidden" name="id" id="id" value="{{isset($about)?$about->id:'0'}}">
                             <input type="submit" name="btn_save" value="Submit"
