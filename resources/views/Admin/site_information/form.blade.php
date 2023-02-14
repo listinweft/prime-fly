@@ -158,6 +158,13 @@
                                         {{ old('return_policy', !empty($siteInformation)?$siteInformation->return_policy:'') }}</textarea>
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label for="privacy_policy">Contact Detail</label>
+                                    <textarea name="contact" id="contact"
+                                              placeholder="Contact Detail"
+                                              class="form-control tinyeditor" autocomplete="off">
+                                        {{ old('contact', !empty($siteInformation)?$siteInformation->contact:'') }}</textarea>
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label for="privacy_policy">Shipping Policy</label>
                                     <textarea name="shipping_policy" id="shipping_policy"
                                               placeholder="Shipping Policy"

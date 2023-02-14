@@ -530,7 +530,8 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Return Policy');
         $banner = Banner::type('return-policy')->first();
         $field = 'return_policy';
-        return view('web.policy', compact('banner', 'seo_data', 'field'));
+        $title = 'return policy';
+        return view('web.policy', compact('banner', 'seo_data', 'field','title'));
     }
 
     public function shipping_policy()

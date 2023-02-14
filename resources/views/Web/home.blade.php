@@ -471,17 +471,17 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <h6 class="subHeading">Our Collections</h6>
-                    <h2 class="mainHeading"> {!! $ourcollection->title !!} </h2>
+                    <h2 class="mainHeading"> {!! @$ourcollection->title !!} </h2>
                     <div class="headingText">
                         <p>
-                        {!! $ourcollection->description !!}
+                        {!! @$ourcollection->description !!}
                         </p>
                     </div>
                 </div>
                 <div class="col-12 pt-60">
                     <div class="collectionsAreaWrapper">
                         <div class="collectionsAreaItems">
-                        {!! Helper::printImage($ourcollection, 'mobile_image', 'mobile_image_webp', '', 'img-fluid') !!}
+                        {!! Helper::printImage(@$ourcollection, 'mobile_image', 'mobile_image_webp', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem ipsum dolor sit.</h5>
@@ -495,7 +495,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                        {!! Helper::printImage($ourcollection, 'mobile_image1', 'mobile_image_webp1', '', 'img-fluid') !!}
+                        {!! Helper::printImage(@$ourcollection, 'mobile_image1', 'mobile_image_webp1', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -509,7 +509,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                        {!! Helper::printImage($ourcollection, 'mobile_image2', 'mobile_image_webp2', '', 'img-fluid') !!}
+                        {!! Helper::printImage(@$ourcollection, 'mobile_image2', 'mobile_image_webp2', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -523,7 +523,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                        {!! Helper::printImage($ourcollection, 'mobile_image3', 'mobile_image_webp3', '', 'img-fluid') !!}
+                        {!! Helper::printImage(@$ourcollection, 'mobile_image3', 'mobile_image_webp3', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -537,7 +537,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                        {!! Helper::printImage($ourcollection, 'mobile_image4', 'mobile_image_webp4', '', 'img-fluid') !!}
+                        {!! Helper::printImage(@$ourcollection, 'mobile_image4', 'mobile_image_webp4', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -551,7 +551,7 @@
                             </div>
                         </div>
                         <div class="collectionsAreaItems">
-                        {!! Helper::printImage($ourcollection, 'mobile_image5', 'mobile_image_webp5', '', 'img-fluid') !!}
+                        {!! Helper::printImage(@$ourcollection, 'mobile_image5', 'mobile_image_webp5', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
                                     <h5>Lorem Ipsum</h5>
@@ -964,6 +964,7 @@
                 <div class="col-xl-10 col-12 pt-60">
                
                     <div class="testimonialsSlider">
+                    @if($testimonials->isNotEmpty())
                     @foreach( $testimonials as $blog)
                         <div class="testimonialsCard">
                             <div class="testimonialsProfile">
@@ -992,7 +993,7 @@
                             </p>
                         </div>
                         @endforeach
-                        
+                        @endif
                        
                     </div>
                     
