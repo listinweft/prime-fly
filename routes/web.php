@@ -85,8 +85,10 @@ Route::get('terms-and-conditions', [WebController::class, 'terms_and_conditions'
 
 
 /********************* Authentication URLs *******************/
+Route::get('login', [CustomerLoginController::class, 'login_form']);
 Route::post('login', [CustomerLoginController::class, 'login']);
 Route::get('logout', [CustomerLoginController::class, 'logout']);
+Route::get('register', [CustomerLoginController::class, 'register_form']);
 Route::post('register', [CustomerLoginController::class, 'register']);
 Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
 Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);

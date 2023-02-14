@@ -2,7 +2,7 @@
 
 <div class="offcanvas offcanvas-end cartListRight" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""> Your cart <span>( 6 Items )</span></h5>
+        <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""><span>( 6 Items )</span></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">

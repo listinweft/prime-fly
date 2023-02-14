@@ -206,12 +206,25 @@
 
 
 <script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
-<script  src="{{ asset('frontend/js/custom.min.js')}}"></script>
+<script  src="{{ asset('frontend/js/custom.js')}}"></script>
 
 
 <!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js')}}"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.js"></script>
 
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+    var swal = Swal.mixin({
+        backdrop: true, showConfirmButton: true,
+    });
+    var Toast = Swal.mixin({
+        toast: true, position: 'top-end', showConfirmButton: false, timer: 3000
+    });
+</script>
 </body>
 </html>
