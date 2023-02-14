@@ -9,6 +9,7 @@ use App\Models\AboutFeature;
 use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Homecollection;
 use App\Models\Color;
 use App\Models\Latest;
 use App\Models\ContactAddress;
@@ -52,27 +53,11 @@ class WebController extends Controller
     public function home()
     {
         $seo_data = $this->seo_content('Home');
-        $homeBanners = HomeBanner::active()->oldest('sort_order')->where('type','=','ecommerce')->get();
-        $getQuote = HomeGetQuote::first();
-        $latest = Latest::first();
-        $advertisements = HomeAdvertisement::active()->orderBy('sort_order')->get();
-        $latestProducts = Product::active()->where('latest', 'Yes')->latest()->take(4)->get();
-        $featuredProducts = Product::active()->where('is_featured', 'Yes')->latest()->take(4)->get();
-        $categories = Category::active()->where('display_to_home', 'Yes')->get();
-        $homeHeadings = HomeHeading::get();
-
-//        dd($homeHeadings);
-
-        $offerStrip = OfferStrip::active()->first();
-        $hot_deals = HotDeal::active()->latest()->get();
-        // todo: limit to site settings
-        $bestSellers = Product::active()->where('best_seller', 'Yes')->latest()->take(10)->get();
-        $keyFeatures = KeyFeature::active()->take(4)->oldest('sort_order')->get();
-        $testimonials = Testimonial::active()->take(10)->get();
-        $blogs = Blog::active()->latest()->take(2)->get();
        
-        return view('web.home', compact('seo_data', 'homeBanners', 'offerStrip', 'homeHeadings',
-            'categories', 'hot_deals', 'latestProducts','latest', 'bestSellers', 'keyFeatures', 'testimonials', 'blogs', 'getQuote', 'advertisements', 'featuredProducts'));
+        $ourcollection = Homecollection::active()->first();
+    
+       
+        return view('web.home', compact('seo_data', 'ourcollection'));
     }
 
 
