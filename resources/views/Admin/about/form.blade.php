@@ -46,7 +46,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
@@ -56,19 +56,19 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-{{--                                <div class="form-group col-md-6">--}}
-{{--                                    <label> Sub Title</label>--}}
-{{--                                    <input type="text" name="sub_title" id="sub_title" placeholder="Sub Title"--}}
-{{--                                           class="form-control " autocomplete="off"--}}
-{{--                                           value="{{ isset($about)?$about->sub_title:'' }}">--}}
-{{--                                    <div class="help-block with-errors" id="sub_title_error"></div>--}}
-{{--                                    @error('sub_title')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
+                               <div class="form-group col-md-6">
+                                   <label> Sub Title</label>
+                                   <input type="text" name="sub_title" id="sub_title" placeholder="Sub Title"
+                                          class="form-control " autocomplete="off"
+                                          value="{{ isset($about)?$about->sub_title:'' }}">
+                                   <div class="help-block with-errors" id="sub_title_error"></div>
+                                   @error('sub_title')
+                                   <div class="invalid-feedback">{{ $message }}</div>
+                                   @enderror
+                               </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label> Description*</label>
                                     <textarea name="description" id="description"
                                               class="form-control required tinyeditor" placeholder="Description"
@@ -78,8 +78,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
+                                {{-- <div class="form-row"> --}}
+                                    <div class="form-group col-md-6">
                                         <label> Description*</label>
                                         <textarea name="description" id="description"
                                                   class="form-control required tinyeditor" placeholder="Description"
@@ -91,7 +91,7 @@
                                     </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label>Image*</label>
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
@@ -123,8 +123,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="form-row">
+                            </div> --}}
+                            {{-- <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Story Description</label>
                                     <textarea name="story_description" id="story_description"
@@ -134,8 +134,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
-                        </div> --}}
+                            </div> --}}
+                        </div>
                         <div class="card-footer">
                             <input type="hidden" name="id" id="id" value="{{isset($about)?$about->id:'0'}}">
                             <input type="submit" name="btn_save" value="Submit"

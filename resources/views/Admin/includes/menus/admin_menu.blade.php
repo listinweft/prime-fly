@@ -204,21 +204,20 @@
     </a>
 </li>
 --}}
-<li class="nav-item {{ (Request::segment(2)=='about')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='about')?'active':'' }}">
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'about')}}"
+        class="nav-link {{ (Request::segment(2)=='about')?'active':'' }}">
         <i class="nav-icon fas fa-th-list"></i>
-        <p>About
-            <i class="right fas fa-angle-left"></i>
-        </p>
+        <p>About</p>
     </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='about')?'block':'none' }}">
-        <li class="nav-item">
+    {{-- <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='about')?'block':'none' }}"> --}}
+        {{-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'about')}}"
                class="nav-link {{ (Request::segment(2)=='about' && Request::is(Helper::sitePrefix().'about'))?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Who We Are</p>
             </a>
-        </li>
+        </li> --}}
         {{--        <li class="nav-item">--}}
         {{--            <a href="{{url(Helper::sitePrefix().'about/feature')}}"--}}
         {{--               class="nav-link {{ (Request::segment(3)=='feature')?'active':'' }}">--}}
@@ -226,7 +225,7 @@
         {{--                <p>About Feature</p>--}}
         {{--            </a>--}}
         {{--        </li>--}}
-    </ul>
+    {{-- </ul> --}}
 </li>
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'contact')}}"
