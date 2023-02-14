@@ -55,9 +55,11 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Home');
        
         $ourcollection = Homecollection::active()->first();
+      $homeHeadings = HomeHeading::where('type','testimonial')->first();
     
-       
-        return view('web.home', compact('seo_data', 'ourcollection'));
+        $testimonials = Testimonial::active()->take(10)->get();
+      $homeHeadings = HomeHeading::where('type','testimonial')->first();
+        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings'));
     }
 
 
@@ -528,7 +530,8 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Return Policy');
         $banner = Banner::type('return-policy')->first();
         $field = 'return_policy';
-        return view('web.policy', compact('banner', 'seo_data', 'field'));
+        $title = 'return policy';
+        return view('web.policy', compact('banner', 'seo_data', 'field','title'));
     }
 
     public function shipping_policy()

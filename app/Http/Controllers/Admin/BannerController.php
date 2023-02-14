@@ -30,27 +30,33 @@ class BannerController extends Controller
 
     public function banner_store(Request $request)
     {
-        $type_array = array('about', 'blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'products', '404','terms-and-conditions','compare');
+
+       
+        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'products', '404','terms-and-conditions','compare');
     //    dd($request->all());
         if (in_array($request->type, $type_array)) {
            
             if ($request->id == 0) {
-                $banner = new Banner;
-                $validatedData = $request->validate([
-//                    'banner_title' => 'required',
-                    'type' => 'required',
-                    'desktop_banner' => 'required|image|mimes:jpeg,png,jpg|max:512',
-                    'mobile_banner' => 'required|image|mimes:jpeg,png,jpg|max:512',
-                    'banner_attribute' => 'required|min:2'
-                ]);
+
+               
+                 $banner = new Banner;
+//                 $validatedData = $request->validate([
+// //                    'banner_title' => 'required',
+//                     'type' => 'required',
+//                     'desktop_banner' => 'required|image|mimes:jpeg,png,jpg|max:512',
+//                     'mobile_banner' => 'required|image|mimes:jpeg,png,jpg|max:512',
+//                     'banner_attribute' => 'required|min:2'
+//                 ]);
+
+                
             } else {
-                $validatedData = $request->validate([
-                    // 'banner_title' => 'required',
-                    'type' => 'required',
-                    'desktop_banner' => 'image|mimes:jpeg,png,jpg|max:512',
-                    'mobile_banner' => 'image|mimes:jpeg,png,jpg|max:512',
-                    'banner_attribute' => 'min:2'
-                ]);
+                // $validatedData = $request->validate([
+                //     // 'banner_title' => 'required',
+                //     'type' => 'required',
+                //     'desktop_banner' => 'image|mimes:jpeg,png,jpg|max:512',
+                //     'mobile_banner' => 'image|mimes:jpeg,png,jpg|max:512',
+                //     'banner_attribute' => 'min:2'
+                // ]);
                 $banner = Banner::find($request->id);
                 $banner->updated_at = now();
           
@@ -79,8 +85,8 @@ class BannerController extends Controller
             }
 //            $banner->banner_title = $validatedData['banner_title'];
 //            $banner->banner_sub_title = $request->banner_sub_title;
-            $banner->type = $validatedData['type'];
-            $banner->banner_attribute = $validatedData['banner_attribute'];
+            $banner->type = $request->type;
+            $banner->banner_attribute =$request->banner_attribute;
         
             if ($banner->save()) {
                 session()->flash('success', $request->type . ' banner has been updated successfully');

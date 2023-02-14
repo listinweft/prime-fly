@@ -38,13 +38,15 @@
                         <a href="">FAQ's</a>
                     </li>
                     <li>
-                        <a href="privacy-policy.php">Privacy Policy</a>
+                    
+                        <a href="{{url('privacy-policy')}}">Privacy policy</a>
                     </li>
                     <li>
-                        <a href="terms-and-conditions.php">Terms & Conditions</a>
+                    <a href="{{url('terms-and-conditions')}}">Terms and condition</a>
                     </li>
                     <li>
-                        <a href="">Return & Refund Policy</a>
+                    <a href="{{url('return-policy')}}">Return & Refund Policy</a>
+                       
                     </li>
                     <li>
                         <a href="errorPage.php">Payment</a>
@@ -95,16 +97,9 @@
                 <h6>Contact</h6>
                 <ul class="list">
                     <li>
-                        Artemyst<br>
-                        Address. Box No.
-                        64014, Dubai, UAE
+                    {!! $siteInformation->contact!!}
                     </li>
-                    <li>
-                        <a href="tel:+971000000000"><span>Ph</span>: 00970-000000000</a>
-                    </li>
-                    <li>
-                        <a href="mailto:someone@gmail.com"><span>Mail</span>: someone@gmail.com</a>
-                    </li>
+                    
                 </ul>
             </div>
         </div>

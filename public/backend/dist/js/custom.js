@@ -877,6 +877,7 @@ $(document).ready(function () {
     $('#headingSubmit').on('click', function () {
         var type = $(this).data('type');
         var homeTitle = $('#home_title').val();
+        var subtitle = $('#subtitle').val();
         var description = $('#is_description').val();
         if(description){
             var homeDescription = tinymce.get($('#home_description').attr('id')).getContent();
@@ -903,7 +904,7 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: 'json',
                 url: base_url + url,
-                data: {_token, type, homeTitle,homeDescription},
+                data: {_token, type, homeTitle,homeDescription,subtitle},
                 success: function (response) {
                     if (response.status == true) {
                         swal({

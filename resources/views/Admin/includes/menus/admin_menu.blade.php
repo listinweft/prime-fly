@@ -44,19 +44,21 @@
         {{--            </a>--}}
         {{--        </li>--}}
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/about-us')}}"
-               class="nav-link {{ (Request::segment(3)=='about-us')?'active':'' }}">
+            <a href="{{url(Helper::sitePrefix().'home/our-collection/create')}}"
+               class="nav-link {{ (Request::segment(3)=='our-collection' && Request::segment(4)=='create')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Who We Are</p>
+                <p>Our Collection</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/key-feature')}}"
-               class="nav-link {{ (Request::segment(3)=='key-feature')?'active':'' }}">
+            <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
+               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Why Choose Us</p>
+                <p>Testimonials</p>
             </a>
         </li>
+
+        
     </ul>
 </li>
 <li class="nav-item {{ (Request::segment(2)=='banner')?'menu-is-opening menu-open':'' }}">
@@ -130,13 +132,7 @@
                 <p>Team </p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'banner/testimonials')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonials')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Testimonials</p>
-            </a>
-        </li>
+       
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/faq')}}"
@@ -275,13 +271,13 @@
         <p>Blog</p>
     </a>
 </li>
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'testimonial')}}"
        class="nav-link {{ (Request::segment(2)=='testimonial')?'active':''}}">
         <i class="nav-icon fas fa-quote-left"></i>
         <p>Testimonial</p>
     </a>
-</li>
+</li> -->
 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'country')}}"

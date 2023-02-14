@@ -468,6 +468,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [HomeController::class, 'key_feature_update']);
             Route::post('delete', [HomeController::class, 'delete_key_feature']);
         });
+
+        Route::prefix('testimonial')->group(function () {
+            Route::get('/', [HomeController::class, 'testimonial']);
+            Route::get('create', [HomeController::class, 'testimonial_create']);
+            Route::post('create', [HomeController::class, 'testimonial_store']);
+            Route::get('edit/{id}', [HomeController::class, 'testimonial_edit']);
+            Route::post('edit/{id}', [HomeController::class, 'testimonial_update']);
+            Route::post('delete', [HomeController::class, 'delete_testimonial']);
+        });
     });
 
     Route::prefix('mail')->group(function () {
@@ -714,14 +723,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     });
 
-    Route::prefix('testimonial')->group(function () {
-        Route::get('/', [TestimonialController::class, 'testimonial']);
-        Route::get('create', [TestimonialController::class, 'testimonial_create']);
-        Route::post('create', [TestimonialController::class, 'testimonial_store']);
-        Route::get('edit/{id}', [TestimonialController::class, 'testimonial_edit']);
-        Route::post('edit/{id}', [TestimonialController::class, 'testimonial_update']);
-        Route::post('delete', [TestimonialController::class, 'delete_testimonial']);
-    });
+   
 
 
 });
