@@ -972,8 +972,8 @@
                                 {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
                                 </div>
                                 <div class="rightDetails">
-                                    <h3>{{ $blog->name }}</h3>
-                                    <h6>{{ $blog->designation }}</h6>
+                                    <h3>{{ @$blog->name }}</h3>
+                                    <h6>{{ @$blog->designation }}</h6>
                                     <div class="reviewIconStar">
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
