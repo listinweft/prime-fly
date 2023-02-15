@@ -44,7 +44,7 @@
                 <div class="contactWrapper">
                     <div class="contactItem text-center">
                         <div class="iconBox">
-                            {!! Helper::uploadFile($file, 'phone_image', 'img-fluid') !!}
+                            {!! Helper::printImage($contact, 'phone_image', '','img-fluid') !!}
                         </div>
                         <h5>Call Us</h5>
                         <ul>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="contactItem text-center">
                         <div class="iconBox">
-                            {!! Helper::uploadFile($file, 'address_image', 'img-fluid') !!}
+                            {!! Helper::printImage($contact, 'address_image', '', 'img-fluid') !!}
                         </div>
                         <h5>Locate Us</h5>
                         <ul>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="contactItem text-center">
                         <div class="iconBox">
-                            {!! Helper::uploadFile($file, 'email_image', 'img-fluid') !!}
+                            {!! Helper::printImage($contact, 'email_image', '', 'img-fluid') !!}
                         </div>
                         <h5>Email Us</h5>
                         <ul>
