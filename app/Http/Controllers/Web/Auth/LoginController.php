@@ -69,6 +69,10 @@ class LoginController extends Controller
         Session::flush();
         return redirect('/')->with('status', 'User has been logged out!');
     }
+    protected function forgot_password_form()
+    {
+        return view('web.forgot_password');
+    }
 
 
     public function forgot_password(Request $request)
@@ -116,7 +120,7 @@ class LoginController extends Controller
 
     public function reset_password($token)
     {
-        info($token);
+      
         $title = 'Reset Password';
         $password_reset = PasswordReset::where('token', $token)->first();
         if ($password_reset) {
@@ -132,7 +136,9 @@ class LoginController extends Controller
     }
 
     public function reset_password_store(Request $request, $token)
+    
     {
+      
         $password_reset = PasswordReset::where('token', $request->token)->first();
         if ($password_reset) {
             $request->validate([
