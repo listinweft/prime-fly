@@ -22,6 +22,7 @@ use App\Models\Latest;
 use App\Models\SiteInformation;
 use App\Models\Testimonial;
 use App\Models\HomeGetQuote;
+use App\Models\Homecollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
@@ -103,6 +104,106 @@ class HomeController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
+    public function ourcollection_create(Request $request)
+    {
+        $key = "Create";
+        $title = "Create Our Collection";
+        $collect = Homecollection::active()->first();
+        return view('Admin.home.collection.form', compact('key', 'title','collect'));
+
+
+    }
+    public function ourcollection_store(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|min:2|max:255',
+            'image_attribute' => 'required',
+            'image_attribute2' => 'required',
+            'image_attribute3' => 'required',
+            'image_attribute4' => 'required',
+            'image_attribute5' => 'required',
+            'image_attribute6' => 'required',
+            'description' => 'required|min:2|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image3' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image4' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image5' => 'nullable|image|mimes:jpeg,png,jpg',
+        ]);
+    //    return  $request->all();
+
+        if ($request->id == 0) {
+            $collection = new Homecollection;
+        } else {
+            $collection = Homecollection::find($request->id);
+            $collection->updated_at = now();
+        }
+        if ($request->hasFile('image')) {
+            Helper::deleteFile($collection, 'image');
+            Helper::deleteFile($collection, 'image_webp');
+
+            $collection->mobile_image_webp = Helper::uploadWebpImage($request->image, 'uploads/home/banner/desktop_image/webp/', $request->title);
+            $collection->mobile_image = Helper::uploadFile($request->image, 'uploads/home/banner/mobile_image/', $request->title);
+        }
+        if ($request->hasFile('image1')) {
+            Helper::deleteFile($collection, 'mobile_image1');
+            Helper::deleteFile($collection, 'mobile_image_webp1');
+
+            $collection->mobile_image_webp1 = Helper::uploadWebpImage($request->image1, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $collection->mobile_image1 = Helper::uploadFile($request->image1, 'uploads/home/banner/mobile_image/', $request->title);
+        }
+        if ($request->hasFile('image2')) {
+            Helper::deleteFile($collection, 'mobile_image2');
+            Helper::deleteFile($collection, 'mobile_image_webp2');
+
+            $collection->mobile_image_webp2 = Helper::uploadWebpImage($request->image2, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $collection->mobile_image2 = Helper::uploadFile($request->image2, 'uploads/home/banner/mobile_image/', $request->title);
+        }
+        if ($request->hasFile('image3')) {
+            Helper::deleteFile($collection, 'mobile_image3');
+            Helper::deleteFile($collection, 'mobile_image_webp3');
+
+            $collection->mobile_image_webp3 = Helper::uploadWebpImage($request->image3, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $collection->mobile_image3 = Helper::uploadFile($request->image3, 'uploads/home/banner/mobile_image/', $request->title);
+        }
+        if ($request->hasFile('image4')) {
+            Helper::deleteFile($collection, 'mobile_image4');
+            Helper::deleteFile($collection, 'mobile_image_webp4');
+
+            $collection->mobile_image_webp4 = Helper::uploadWebpImage($request->image4, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $collection->mobile_image4 = Helper::uploadFile($request->image4, 'uploads/home/banner/mobile_image/', $request->title);
+        }
+        if ($request->hasFile('image5')) {
+            Helper::deleteFile($collection, 'mobile_image5');
+            Helper::deleteFile($collection, 'mobile_image_webp5');
+
+            $collection->mobile_image_webp5 = Helper::uploadWebpImage($request->image5, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $collection->mobile_image5 = Helper::uploadFile($request->image5, 'uploads/home/banner/mobile_image/', $request->title);
+        }
+        $collection->title = $request->title;
+        $collection->description = $request->description;
+        $collection->image_attribute6 = $request->image_attribute6;
+        $collection->image_attribute5 = $request->image_attribute5;
+        $collection->image_attribute4 = $request->image_attribute4;
+        $collection->image_attribute3 = $request->image_attribute3;
+        $collection->image_attribute2 = $request->image_attribute2;
+        $collection->image_attribute = $request->image_attribute;
+      
+      
+        
+        if ($collection->save()) {
+            session()->flash('success', "Our collection image has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'home/our-collection/create');
+        } else {
+            return back()->with('error', 'Error while updating the Our collection');
+        }
+
+
+
+    }
+
+    
 
     public function status_change(Request $request)
     {
