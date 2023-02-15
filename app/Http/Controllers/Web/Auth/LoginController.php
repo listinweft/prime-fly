@@ -164,13 +164,21 @@ class LoginController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Invalid token!']);
         }
     }
+    public function register_form(Request $request)
+    {
+        return view('web.register');
 
+    }
+    public function login_form(Request $request)
+    {
+        return view('web.login');
 
+    }
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|min:2|max:255',
-            // 'last_name' => 'required|string|min:2|max:255',
+            'firstname' => 'required|string|min:2|max:255',
+             'lastname' => 'required|string|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
 //            'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|min:7|max:15|unique:users,phone',
@@ -187,13 +195,13 @@ class LoginController extends Controller
         $user->password = Hash::make($request->password);
         if ($user->save()) {
             $customer = new Customer;
-             $customer->first_name  = $request['name'];
-             $customer->last_name = $request['name'];
+             $customer->first_name  = $request['firstname'];
+             $customer->last_name = $request['lastname'];
             $customer->user_id = $user->id;
             if ($customer->save()) {
                 DB::commit();
                 Auth::guard('customer')->login($user);
-                if (Helper::sendCredentials($user, $customer->first_name, $request->password)) {
+                if (Helper::sendCredentials($user, $customer->first_name. ' ' . ucfirst($customer->last_name), $request->password)) {
                     return response()->json([
                         'status' => 'success-reload',
                         'message' => 'Registration has been completed successfully, credentials has been sent to your registered mail id',

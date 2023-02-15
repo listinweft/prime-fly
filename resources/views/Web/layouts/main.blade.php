@@ -12,6 +12,10 @@
     <title>{{ config('app.name') }} - {!! @$seo_data->meta_title !!}</title>
     {!! @$seo_data->other_meta_tag !!}
     {!! @$siteInformation->header_tag !!}
+
+    <script type="text/javascript">
+        var base_url = "{{ url('/') }}";
+    </script>
     <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.css">
@@ -25,6 +29,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="https:////code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.min.css')}}">
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick.min.css')}}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick-theme.min.css')}}"> --}}
@@ -45,7 +51,8 @@
 
 <!-- Hamburger Menu Start -->
 @include('web.includes.cart')
-@include('web.includes.login')
+
+
 
 <div id="loading">
     <img id="loading-image" src="{{ asset('frontend/images/loading.gif')}}" alt="Loading..."/>
@@ -73,3 +80,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </body>
 </html>
+@stack('scripts')
