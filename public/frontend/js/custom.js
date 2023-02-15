@@ -730,4 +730,42 @@ $(document).ready(function () {
     });
     /***************** cart action end **********************/
 
+    $(window).scroll(function () {
+        $(".load-more-button").each(function () {
+            var WindowTop = $(window).scrollTop();
+            var WindowBottom = WindowTop + $(window).height();
+            var ElementTop = $(this).offset().top;
+            var ElementBottom = ElementTop + $(this).height();
+
+            if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
+                blogLoadMoreData();
+            }
+        });
+    });
+
+    function blogLoadMoreData() {
+        var total_blogs = $('#totalBlogs').val();
+        
+        var offset = $('#blog_loading_offset').val();
+        var loading_limit = $('#blog_loading_limit').val();
+
+        var btnHtml = $('.load-more-product').html();
+        $('.load-more-button').html('Please wait..!');
+        $.ajax({
+            type: 'POST', data: {total_blogs: total_blogs, offset: offset, loading_limit: loading_limit}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/blog-load-more', success: function (response) {
+                if (response != 0) {
+                    $('.appendHere_' + offset).after(response).remove();
+                    $('.more-section-' + offset).remove();
+                    $('.load-more-product').html(btnHtml);
+                } else {
+                    swal.fire({
+                        title: 'Error', text: 'Some error occurred', icon: 'error'
+                    });
+                }
+            }
+        });
+    }
+
 });

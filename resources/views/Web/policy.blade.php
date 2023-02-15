@@ -1,8 +1,8 @@
-<@extends('web.layouts.main')
+@extends('web.layouts.main')
 @section('content')
 
 
-<!--Inner Banner Start-->
+
     <section class="innerBanner">
         <div class="innerBannerImageArea">
         {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
@@ -11,12 +11,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1>Privacy Policy</h1>
+                        <h1>{{ $title }}</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                           
                                 <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/svg/aboutBanner.jpg')}} alt=""></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
                             </ol>
                         </nav>
                     </div>
