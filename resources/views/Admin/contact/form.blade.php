@@ -215,7 +215,7 @@
                             </div> --}}
                             {{-- <div class="form-row"> --}}
 
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label> Google Map</label>
                                     <input type="text" name="google_map" id="google_map" class="form-control"
                                            placeholder="Google Map"
@@ -224,7 +224,44 @@
                                         style='color:green;font-size:14px;'>Note: src from google map iframe</span>
                                 </div>
                             </div>
+
+                        {{-- <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Image*</label>
+                                <div class="file-loading">
+                                    <input id="image" name="image" type="file">
+                                </div> --}}
+                                {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
+                                    less than 512 KB</span> --}}
+                                {{-- @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div> --}}
+                            {{-- <div class="form-group col-md-6">
+                                <label>Image*</label>
+                                <div class="file-loading">
+                                    <input id="image1" name="image1" type="file">
+                                </div> --}}
+                                {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
+                                    less than 512 KB</span> --}}
+                                {{-- @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Image*</label>
+                                <div class="file-loading">
+                                    <input id="image2" name="image2" type="file">
+                                </div> --}}
+                                {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
+                                    less than 512 KB</span> --}}
+                                {{-- @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div> --}}
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
@@ -237,4 +274,80 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#image",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 830,
+                // minImageHeight: 780,
+                // maxImageWidth: 830,
+                // maxImageHeight: 780,
+                showRemove: true,
+                @if(isset($about) && $about->image!=NULL)
+                initialPreview: ["{{asset($about->image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->image!=NULL)?last(explode('/',$about->image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#image1",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 1920,
+                // minImageHeight: 600,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 600,
+                showRemove: true,
+                @if(isset($about) && $about->image1!=NULL)
+                initialPreview: ["{{asset($about->image1)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->image1!=NULL)?last(explode('/',$about->image1)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#image2",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 1920,
+                // minImageHeight: 600,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 600,
+                showRemove: true,
+                @if(isset($about) && $about->image2!=NULL)
+                initialPreview: ["{{asset($about->image2)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->image2!=NULL)?last(explode('/',$about->image2)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+        });
+    </script>
 @endsection

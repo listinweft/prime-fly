@@ -1,13 +1,13 @@
 @extends('web.layouts.main')
 @section('content')
-@include('web.includes.banner')
+{{-- @include('web.includes.banner') --}}
 
 
 
 <!--Inner Banner Start-->
 <section class="innerBanner">
     <div class="innerBannerImageArea">
-        <img class="bannerImg img-fluid" src="assets/images/banner/banner-04.jpg" alt="">
+        <img class="bannerImg img-fluid" src="{{ asset('frontend/images/banner/banner-04.jpg')}}" alt="">
     </div>
     <div class="innerBannerDetails">
         <div class="container">
@@ -16,7 +16,7 @@
                     <h1>Contact Us</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php"><img src="assets/images/home.png" alt=""></a></li>
+                            <li class="breadcrumb-item"><a href="index.php"><img src="{{ asset('frontend/images/home.png')}}" alt=""></a></li>
                             <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
                         </ol>
                     </nav>
@@ -44,7 +44,7 @@
                 <div class="contactWrapper">
                     <div class="contactItem text-center">
                         <div class="iconBox">
-                            <img class="img-fluid" src="assets/images/contact-icon-01.png" alt="">
+                            <img class="img-fluid" src="{{ asset('frontend/images/contact-icon-01.png')}}" alt="">
                         </div>
                         <h5>Call Us</h5>
                         <ul>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="contactItem text-center">
                         <div class="iconBox">
-                            <img class="img-fluid" src="assets/images/contact-icon-02.png" alt="">
+                            <img class="img-fluid" src="{{ asset('frontend/images/contact-icon-02.png')}}" alt="">
                         </div>
                         <h5>Locate Us</h5>
                         <ul>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="contactItem text-center">
                         <div class="iconBox">
-                            <img class="img-fluid" src="assets/images/contact-icon-03.png" alt="">
+                            <img class="img-fluid" src="{{ asset('frontend/images/contact-icon-03.png')}}" alt="">
                         </div>
                         <h5>Email Us</h5>
                         <ul>
