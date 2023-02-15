@@ -282,7 +282,7 @@ class Helper
     {
         $subject = config('app.name') . " - Forgot Password";
         $mail = self::mailConf($subject);
-       
+
         $searchArr = ["{name}", "{link}", "{owner}"];
         $replaceArr = [$name, $link, config('app.name')];
         $body = file_get_contents(resource_path('views/mail_templates/forgot_password.blade.php'));
@@ -346,9 +346,9 @@ class Helper
         $product = $orderLog->orderProduct->productData;
         $common = SiteInformation::first();
         $contactAddress = ContactAddress::where('status', 'Active')->first();
-      
+
         $customerAddress = $order->orderCustomer->billingAddress;
-        
+
         $to = $customerAddress->email;
         $to_name = $customerAddress->first_name . ' ' . $customerAddress->last_name;
         //mail to customer
@@ -766,7 +766,7 @@ class Helper
 
     public static function coupon_application($coupon, $credit_point = 0)
     {
-       
+
         if ($coupon) {
             $currency = Helper::defaultCurrency();
             $currency_rate = Helper::defaultCurrencyRate();
@@ -803,7 +803,7 @@ class Helper
                             $maximum_valid = false;
                         }
                     }
-                    
+
                     if ($minimum_valid == true && $maximum_valid == true) {
                         if (Auth::guard('customer')->check()) {
                             if (Session::has('selected_shipping_address')) {
@@ -1109,7 +1109,7 @@ class Helper
     public static function removeSessionCoupon($coupon_code)
     {
         $coupons = Session::get('coupons');
-    
+
         foreach ($coupons as $key => $session_coupon) {
             if ($session_coupon['code'] == $coupon_code) {
                 array_splice($coupons, $key, 1);
@@ -1136,12 +1136,12 @@ class Helper
                 session(['selected_shipping_address' => Session::get('selected_customer_address')]);
                     }
             $customerAddress = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
-                
+
             if (Session::has('selected_billing_address') && Session::has('selected_shipping_address')) {
-             
+
                 $status = true;
             }
-         
+
         } else {
             if (Session::has('billing_address') && Session::has('shipping_address')) {
                 $status = true;

@@ -225,26 +225,26 @@
                                 </div>
                             </div>
 
-                        {{-- <div class="form-row">
+                        <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Image*</label>
                                 <div class="file-loading">
                                     <input id="image" name="image" type="file">
-                                </div> --}}
+                                </div>
                                 {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
                                     less than 512 KB</span> --}}
-                                {{-- @error('image')
+                                @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div> --}}
-                            {{-- <div class="form-group col-md-6">
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label>Image*</label>
                                 <div class="file-loading">
                                     <input id="image1" name="image1" type="file">
-                                </div> --}}
+                                </div>
                                 {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
                                     less than 512 KB</span> --}}
-                                {{-- @error('image')
+                                @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -254,14 +254,14 @@
                                 <label>Image*</label>
                                 <div class="file-loading">
                                     <input id="image2" name="image2" type="file">
-                                </div> --}}
+                                </div>
                                 {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
                                     less than 512 KB</span> --}}
-                                {{-- @error('image')
+                                @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">

@@ -124,7 +124,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            {{-- </div> --}}
+                            </div>
                             {{-- <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Story Title</label>
