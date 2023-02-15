@@ -91,7 +91,7 @@
                                     </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label>Image*</label>
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
@@ -102,7 +102,20 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                {{-- <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
+                                    <label>Image*</label>
+                                    <div class="file-loading">
+                                        <input id="image_webp" name="image_webp" type="file">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be  1920 x 600 and Size must be
+                                        less than 512 KB</span>
+                                    @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label> Image Attribute</label>
                                     <input type="text" class="form-control placeholder-cls" id="image_attribute"
                                            name="image_attribute" placeholder="Alt='Image Attribute'"
@@ -110,8 +123,8 @@
                                     @error('image_attribute')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div> --}}
-                            </div>
+                                </div>
+                            {{-- </div> --}}
                             {{-- <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label>Story Title</label>
@@ -148,7 +161,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#image").fileinput({
+            $("#image",).fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -168,6 +181,30 @@
                 initialPreview: ["{{asset($about->image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($about->image!=NULL)?last(explode('/',$about->image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#image_webp",).fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                minImageWidth: 1920,
+                minImageHeight: 600,
+                maxImageWidth: 1920,
+                maxImageHeight: 600,
+                showRemove: true,
+                @if(isset($about) && $about->image_webp!=NULL)
+                initialPreview: ["{{asset($about->image_webp)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($about->image_webp!=NULL)?last(explode('/',$about->image_webp)):''}}",
                     width: "120px"
                 }]
                 @endif
