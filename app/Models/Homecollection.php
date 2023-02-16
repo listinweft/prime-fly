@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Homecollection extends Model
 {
     use HasFactory;
-
+    protected $table = 'home_collections';
 
     public function scopeActive($query)
     {

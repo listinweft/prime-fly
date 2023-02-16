@@ -54,12 +54,13 @@ class WebController extends Controller
     {
         $seo_data = $this->seo_content('Home');
        
+        $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
     
         $testimonials = Testimonial::active()->take(10)->get();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
-        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings'));
+        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners'));
     }
 
 

@@ -40,14 +40,14 @@ $('.homeSliderDetails').slick({
 });
 
 $('.homeSliderImages').slick({
-    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: false,
+    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: true,
     dots: false,
     draggable: true,
     pauseOnHover: true,
     pauseOnFocus: false,
     cssEase: 'ease-in-out',
     focusOnSelect: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 1000,
     centerMode: false,
     asNavFor: '.homeSliderDetails',
     arrows: true,

@@ -131,6 +131,6 @@
 <script type="text/javascript"
         src="https://louisameline.github.io/tooltipster-discovery/tooltipster-discovery.min.js"></script>
 @yield('scripts')
-<script src="{{asset('backend/dist/js/custom.js?v=1.3')}}"></script>
+<script src="{{asset('backend/dist/js/custom.js')}}"></script>
 </body>
 </html>

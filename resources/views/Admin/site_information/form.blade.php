@@ -57,6 +57,7 @@
                                     <input type="text" name="brand_name" id="brand_name"
                                            class="form-control required" placeholder="Brand Name" maxlength="230"
                                            value="{{ old('brand_name', !empty($siteInformation)?$siteInformation->brand_name:'') }}">
+                                           
                                     <div class="help-block with-errors" id="brand_name_error"></div>
                                 </div>
                             </div>
@@ -66,6 +67,7 @@
                                     <div class="file-loading">
                                         <input id="logo" name="logo" type="file" accept="image/*">
                                     </div>
+                                    <span class="caption_note">Note: uploaded images have a maximum size of <strong> 441x75</strong> pixels and can't be over 5KB</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="logo_meta_tag"> Logo Attribute *</label>
@@ -74,6 +76,8 @@
                                            placeholder="Alt='Logo Attribute'"
                                            maxlength="230"
                                            value="{{ !empty($siteInformation)?$siteInformation->logo_attribute:'' }}">
+                                       
+                             
                                     <div class="help-block with-errors" id="logo_attribute_error"></div>
                                 </div>
                             </div>
@@ -205,11 +209,11 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                /*minImageWidth: 256,
-                minImageHeight: 256,
-                maxImageWidth: 256,
-                maxImageHeight: 256,*/
-                maxFileSize: 512,
+                minImageWidth: 441,
+                minImageHeight: 75,
+                 maxImageWidth: 441,
+                maxImageHeight: 75,
+                maxFileSize: 5,
                 // showRemove: true,
                 @if(!empty($siteInformation) && $siteInformation->logo!=NULL)
                 initialPreview: ["{{asset($siteInformation->logo)}}",],
