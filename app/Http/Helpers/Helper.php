@@ -302,7 +302,7 @@ class Helper
 
         $searchArr = ["{name}", "{link}", "{owner}"];
         $replaceArr = [$name, $link, config('app.name')];
-        $body = file_get_contents(resource_path('views/mail_templates/forgot_password.blade.php'));
+        $body = file_get_contents(resource_path('views/mail_templates/verify_email.blade.php'));
         $body = str_replace($searchArr, $replaceArr, $body);
         $mail->MsgHTML($body);
         $mail->addAddress($user->email, $name);
