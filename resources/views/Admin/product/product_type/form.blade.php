@@ -108,10 +108,10 @@
                 maxImageHeight: 200,
                 maxFileSize: 512,
                 showRemove: true,
-                @if(isset($category) && $category->image!=NULL)
-                initialPreview: ["{{asset($category->image)}}",],
+                @if(isset($product_type) && $product_type->image!=NULL)
+                initialPreview: ["{{asset($product_type->image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($category->image!=NULL)?last(explode('/',$category->image)):''}}",
+                    caption: "{{ ($product_type->image!=NULL)?last(explode('/',$product_type->image)):''}}",
                     width: "120px"
                 }]
                 @endif
