@@ -7,6 +7,7 @@ use App\Http\Helpers\Helper;
 use App\Models\Customer;
 use App\Models\PasswordReset;
 use App\Models\User;
+Use App\Models\Usersverifie;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,6 +135,50 @@ class LoginController extends Controller
             return view('web.reset_password', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
         }
     }
+    public function email_verification($token)
+    {
+      
+        $title = 'Email Verification';
+        $verify = Usersverifie::where('token', $token)->first();
+        if ($verify) {
+            if ((now()->diffInMinutes($verify->created_at)) > 15) {
+                $link_expired = 'true';
+            } else {
+                $link_expired = 'false';
+            }
+            return view('web.verify', compact('title', 'token', 'link_expired'));
+        } else {
+            return view('web.verify', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
+        }
+    }
+    public function email_verification_store(Request $request, $token)
+    
+    {
+
+        $verificationdata = Usersverifie::where('token', $request->token)->first();
+
+        $user = User::where('email', $verificationdata->email)->first();
+            if ($user) {
+                $verifyaccount = $user->where('id', $user->id)->update([
+                    'is_verified' => 1
+                ]);
+               if($verifyaccount) 
+               {
+                return response()->json([
+                    'status' => 'success-reload',
+                    'message' => 'Your email is  verified, Please sign-in',
+                    'redirect' => url('/')
+                ]);
+            }
+            else {
+                return response()->json(['status' => 'error', 'message' => "Some error occurred, Please try after some time..!"]);
+            }
+
+            }
+            
+
+
+    }
 
     public function reset_password_store(Request $request, $token)
     
@@ -205,19 +250,53 @@ class LoginController extends Controller
              $customer->last_name = $request['lastname'];
             $customer->user_id = $user->id;
             if ($customer->save()) {
+                $token = Str::random(64);
+                $verify = Usersverify::insert([
+                    'email' => $request->email,
+                    'token' => $token,
+                    'created_at' => now()
+                ]);
                 DB::commit();
                 Auth::guard('customer')->login($user);
-                if (Helper::sendCredentials($user, $customer->first_name. ' ' . ucfirst($customer->last_name), $request->password)) {
-                    return response()->json([
-                        'status' => 'success-reload',
-                        'message' => 'Registration has been completed successfully, credentials has been sent to your registered mail id',
-                    ]);
-                } else {
-                    return response()->json([
-                        'status' => 'success-reload',
-                        'message' => "Registration has been done successfully,Can't send the credentials mail right now",
-                    ]);
-                }
+
+
+                // if (Helper::sendCredentials($user, $customer->first_name. ' ' . $customer->last_name, $request->password)) {
+                //     return response()->json([
+                //         'status' => 'success-reload',
+                //         'message' => 'Registration has been completed successfully, credentials has been sent to your registered mail id',
+                //     ]);
+                // }
+                
+                
+                
+                // else {
+                //     return response()->json([
+                //         'status' => 'success-reload',
+                //         'message' => "Registration has been done successfully,Can't send the credentials mail right now",
+                //     ]);
+                // }
+
+
+
+                if ($verify) {
+                    $link = url('email-verification/' . $token);
+                    $name = $user->customer->first_name ;
+                    if (Helper::verifyemail($user, $name, $link)) {
+                       
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'Please click on the link that has just been sent to your email account to verify your Account.'
+                        ]);
+                    }
+    
+    }
+
+ else {
+           return response()->json([
+            'status' => 'success-reload',
+                'message' => "Registration has been done successfully,Can't send the credentials mail right now",
+            ]);
+         }
             } else {
                 DB::rollBack();
                 return response()->json(['status' => 'error', 'message' => 'Error occurred while registration']);
