@@ -961,7 +961,7 @@ class ProductController extends Controller
 
     public function key_feature_store(Request $request)
     {
-        
+
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:230',
             'description' => 'required',
@@ -1028,7 +1028,7 @@ class ProductController extends Controller
             if (File::exists(public_path($feature->image))) {
                 File::delete(public_path($feature->image));
             }
-          
+
             $feature->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/key_fature/webp/', $request->title);
             $feature->image = Helper::uploadFile($request->image, 'uploads/product/key_feature/image/', $request->title);
         }

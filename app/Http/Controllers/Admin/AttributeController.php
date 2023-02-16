@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Helpers\Helper;
+use App\Models\Tag;
+use App\Models\Size;
 use App\Models\Color;
+use App\Models\Shape;
+use App\Models\ProductType;
+use App\Http\Helpers\Helper;
+use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
 use App\Models\SiteInformation;
-use App\Models\Tag;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
 class AttributeController extends Controller
@@ -246,6 +250,257 @@ class AttributeController extends Controller
             $measurement_unit = MeasurementUnit::find($request->id);
             if ($measurement_unit) {
                 if ($measurement_unit->delete()) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
+
+    /************************************* Product Type starts ****************************************/
+    public function product_type()
+    {
+        $title = "Product Type List";
+        $productTypeList = ProductType::get();
+        return view('Admin.product.product_type.list', compact('productTypeList', 'title'));
+    }
+
+    public function product_type_create()
+    {
+        $key = "Create";
+        $title = "Create Product Type";
+        return view('Admin.product.product_type.form', compact('key', 'title'));
+    }
+
+    public function product_type_store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:measurement_units,title',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512'
+        ]);
+        $product_type = new ProductType;
+
+        if ($request->hasFile('image')) {
+            $product_type->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $product_type->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
+        }
+        $product_type->title = $validatedData['title'];
+        if ($product_type->save()) {
+            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/measurement-unit');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+        }
+    }
+
+    public function product_type_edit($id)
+    {
+        $key = "Update";
+        $title = "Update Product Type";
+        $product_type = ProductType::find($id);
+        if ($product_type) {
+            return view('Admin.product.product_type.form', compact('key', 'product_type', 'title'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function product_type_update(Request $request, $id)
+    {
+        $product_type = ProductType::find($id);
+        $validatedData = $request->validate([
+            'title' => 'required|unique:measurement_units,title,' . $id,
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+        ]);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($product_type->image))) {
+                File::delete(public_path($product_type->image));
+            }
+            if (File::exists(public_path($product_type->image_webp))) {
+                File::delete(public_path($product_type->image_webp));
+            }
+            $product_type->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $product_type->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
+        }
+        $product_type = ProductType::find($id);
+        $product_type->title = $validatedData['title'];
+        if ($product_type->save()) {
+            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'product/product-type');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+        }
+    }
+
+    public function delete_product_type(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $product_type = ProductType::find($request->id);
+            if ($product_type) {
+                if ($product_type->delete()) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
+
+    /************************************* Size starts ****************************************/
+    public function size()
+    {
+        $title = "Size List";
+        $sizeList = Size::get();
+        return view('Admin.product.size.list', compact('sizeList', 'title'));
+    }
+
+    public function size_create()
+    {
+        $key = "Create";
+        $title = "Create Size";
+        return view('Admin.product.size.form', compact('key', 'title'));
+    }
+
+    public function size_store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:sizes,title,NULL,id,deleted_at,NULL',
+            'price' => 'required|unique:sizes,price,NULL,id,deleted_at,NULL',
+        ]);
+        $size = new Size;
+        $size->title = $validatedData['title'];
+        $size->price = $validatedData['price'];
+        if ($size->save()) {
+            session()->flash('message', "Size '" . $size->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/size');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the size");
+        }
+    }
+
+    public function size_edit(Request $request, $id)
+    {
+        $key = "Update";
+        $title = "Update Size";
+        $size = Size::find($id);
+        if ($size) {
+            return view('Admin.product.size.form', compact('key', 'size', 'title'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function size_update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:sizes,title,' . $id,
+            'price' => 'required|unique:sizes,price,' . $id,
+        ]);
+        $size = Size::find($id);
+        $size->title = $validatedData['title'];
+        $size->price = $validatedData['price'];
+        $size->updated_at = now();
+        if ($size->save()) {
+            session()->flash('message', "Size '" . $size->title . "' has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'product/size');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the color");
+        }
+    }
+
+    public function delete_size(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $size = Size::find($request->id);
+            if ($size) {
+                $deleted = $size->delete();
+                if ($deleted == true) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
+
+    /************************************* Shape starts ****************************************/
+    public function shape()
+    {
+        $title = "Shape List";
+        $shapeList = Shape::get();
+        return view('Admin.product.shape.list', compact('shapeList', 'title'));
+    }
+
+    public function shape_create()
+    {
+        $key = "Create";
+        $title = "Create Shape";
+        return view('Admin.product.shape.form', compact('key', 'title'));
+    }
+
+    public function shape_store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:shapes,title,NULL,id,deleted_at,NULL',
+        ]);
+        $shape = new Shape;
+        $shape->title = $validatedData['title'];
+        if ($shape->save()) {
+            session()->flash('message', "Shape '" . $shape->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/shape');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the shape");
+        }
+    }
+
+    public function shape_edit(Request $request, $id)
+    {
+        $key = "Update";
+        $title = "Update Shape";
+        $shape = Shape::find($id);
+        if ($shape) {
+            return view('Admin.product.shape.form', compact('key', 'shape', 'title'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function shape_update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:shapes,title,' . $id,
+        ]);
+        $shape = Shape::find($id);
+        $shape->title = $validatedData['title'];
+        $shape->updated_at = now();
+        if ($shape->save()) {
+            session()->flash('message', "Shape '" . $shape->title . "' has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'product/shape');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the shape");
+        }
+    }
+
+    public function delete_shape(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $shape = Shape::find($request->id);
+            if ($shape) {
+                $deleted = $shape->delete();
+                if ($deleted == true) {
                     return response()->json(['status' => true]);
                 } else {
                     return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);

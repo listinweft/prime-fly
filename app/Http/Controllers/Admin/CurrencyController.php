@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Helpers\Helper;
 use App\Models\Currency;
+use App\Http\Helpers\Helper;
 use App\Models\CurrencyRate;
-use App\Models\SiteInformation;
 use Illuminate\Http\Request;
+use App\Models\SiteInformation;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
 class CurrencyController extends Controller
@@ -38,8 +39,15 @@ class CurrencyController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|unique:currencies,title',
             'code' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512'
+
         ]);
         $currency = new Currency;
+
+        if ($request->hasFile('image')) {
+            $currency->image_webp = Helper::uploadWebpImage($request->image, 'uploads/currency/image/webp/', $request->title);
+            $currency->image = Helper::uploadFile($request->image, 'uploads/currency/image/', $request->title);
+        }
         $currency->title = $validatedData['title'];
         $currency->code = $validatedData['code'];
         $currency->symbol = $request->symbol ?? '';
@@ -65,11 +73,22 @@ class CurrencyController extends Controller
 
     public function currency_update(Request $request, $id)
     {
+        $currency = Currency::find($id);
         $validatedData = $request->validate([
             'title' => 'required|unique:currencies,title,' . $id,
             'code' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
         ]);
-        $currency = Currency::find($id);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($currency->image))) {
+                File::delete(public_path($currency->image));
+            }
+            if (File::exists(public_path($currency->image_webp))) {
+                File::delete(public_path($currency->image_webp));
+            }
+            $currency->image_webp = Helper::uploadWebpImage($request->image, 'uploads/currenc/image/webp/', $request->title);
+            $currency->image = Helper::uploadFile($request->image, 'uploads/currency/image/', $request->title);
+        }
         $currency->title = $validatedData['title'];
         $currency->code = $validatedData['code'];
         $currency->symbol = $request->symbol ?? '';
