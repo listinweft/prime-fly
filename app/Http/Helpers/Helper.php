@@ -295,6 +295,23 @@ class Helper
             return false;
         }
     }
+    public static function verifyemail($user, $name, $link)
+    {
+        $subject = config('app.name') . " - Verify Email";
+        $mail = self::mailConf($subject);
+
+        $searchArr = ["{name}", "{link}", "{owner}"];
+        $replaceArr = [$name, $link, config('app.name')];
+        $body = file_get_contents(resource_path('views/mail_templates/forgot_password.blade.php'));
+        $body = str_replace($searchArr, $replaceArr, $body);
+        $mail->MsgHTML($body);
+        $mail->addAddress($user->email, $name);
+        if ($mail->send()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static function sendOrderPlacedMail($order, $flag)
     {

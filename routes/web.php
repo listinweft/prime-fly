@@ -110,6 +110,10 @@ Route::get('forgot-password', [CustomerLoginController::class, 'forgot_password_
 Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
 Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);
 Route::post('reset-password/{token}', [CustomerLoginController::class, 'reset_password_store']);
+Route::get('email-verification/{token}', [CustomerLoginController::class, 'email_verification']);
+Route::post('email-verification/{token}', [CustomerLoginController::class, 'email_verification_store']);
+
+
 
 /********************* Social Authentication URLs *******************/
 Route::prefix('auth')->group(function () {

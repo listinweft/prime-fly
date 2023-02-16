@@ -99,7 +99,7 @@
                                         <div class="file-loading">
                                             <input id="image" name="image" type="file">
                                         </div>
-                                        <span class="caption_note">Note: Image size must be 200x200px</span>
+                                        <span class="caption_note">Note: Image size must be 550x550px</span>
                                         @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -234,10 +234,10 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 200,
-                minImageHeight: 200,
-                maxImageWidth: 200,
-                maxImageHeight: 200,
+                minImageWidth: 550,
+                minImageHeight: 550,
+                maxImageWidth: 550,
+                maxImageHeight: 550,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($category) && $category->image!=NULL)
