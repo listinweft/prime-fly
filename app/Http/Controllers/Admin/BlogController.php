@@ -38,6 +38,7 @@ class BlogController extends Controller
 
     public function blog_store(Request $request)
     {
+      
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:230',
             'short_url'=>'required|unique:blogs,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
