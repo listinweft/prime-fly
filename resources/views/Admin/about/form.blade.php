@@ -96,31 +96,43 @@
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
                                     </div>
-                                    <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
+                                    <span class="caption_note">Note: Image dimension must be  650 x 680 and Size must be
                                         less than 512 KB</span>
                                     @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Image*</label>
-                                    <div class="file-loading">
-                                        <input id="image_webp" name="image_webp" type="file">
-                                    </div>
-                                    <span class="caption_note">Note: Image dimension must be  1920 x 600 and Size must be
-                                        less than 512 KB</span>
-                                    @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Image Attribute</label>
                                     <input type="text" class="form-control placeholder-cls" id="image_attribute"
                                            name="image_attribute" placeholder="Alt='Image Attribute'"
                                            value="{{ isset($about)?$about->image_attribute:'' }}">
                                     @error('image_attribute')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label>Banner Image*</label>
+                                    <div class="file-loading">
+                                        <input id="banner_image" name="banner_image" type="file">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be  1920 x 600 and Size must be
+                                        less than 512 KB</span>
+                                    @error('banner_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Banner Image Attribute</label>
+                                    <input type="text" class="form-control placeholder-cls" id="banner_image_attribute"
+                                           name="banner_image_attribute" placeholder="Alt='Banner Image Attribute'"
+                                           value="{{ isset($about)?$about->banner_image_attribute:'' }}">
+                                    @error('banner_image_attribute')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -172,10 +184,10 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 830,
-                minImageHeight: 780,
-                maxImageWidth: 830,
-                maxImageHeight: 780,
+                minImageWidth: 650,
+                minImageHeight: 680,
+                maxImageWidth: 650,
+                maxImageHeight: 680,
                 showRemove: true,
                 @if(isset($about) && $about->image!=NULL)
                 initialPreview: ["{{asset($about->image)}}",],
@@ -185,7 +197,7 @@
                 }]
                 @endif
             });
-            $("#image_webp",).fileinput({
+            $("#banner_image",).fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -201,10 +213,10 @@
                 maxImageWidth: 1920,
                 maxImageHeight: 600,
                 showRemove: true,
-                @if(isset($about) && $about->image_webp!=NULL)
-                initialPreview: ["{{asset($about->image_webp)}}",],
+                @if(isset($about) && $about->banner_image!=NULL)
+                initialPreview: ["{{asset($about->banner_image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($about->image_webp!=NULL)?last(explode('/',$about->image_webp)):''}}",
+                    caption: "{{ ($about->banner_image!=NULL)?last(explode('/',$about->banner_image)):''}}",
                     width: "120px"
                 }]
                 @endif

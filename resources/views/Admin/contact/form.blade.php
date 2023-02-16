@@ -227,9 +227,9 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Image*</label>
+                                <label>Phone Image*</label>
                                 <div class="file-loading">
-                                    <input id="image" name="image" type="file">
+                                    <input id="phone_image" name="phone_image" type="file">
                                 </div>
                                 {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
                                     less than 512 KB</span> --}}
@@ -238,26 +238,55 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Image*</label>
-                                <div class="file-loading">
-                                    <input id="image1" name="image1" type="file">
-                                </div>
-                                {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
-                                    less than 512 KB</span> --}}
-                                @error('image')
+                                <label> Phone Image Attribute</label>
+                                <input type="text" class="form-control placeholder-cls" id="phone_image_attribute"
+                                       name="phone_image_attribute" placeholder="Alt='Phone Image Attribute'"
+                                       value="{{ isset($contact)?$contact->phone_image_attribute:'' }}">
+                                @error('phone_image_attribute')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Image*</label>
+                                <label>Address Image*</label>
                                 <div class="file-loading">
-                                    <input id="image2" name="image2" type="file">
+                                    <input id="address_image" name="address_image" type="file">
                                 </div>
                                 {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
                                     less than 512 KB</span> --}}
                                 @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Address Image Attribute</label>
+                                <input type="text" class="form-control placeholder-cls" id="address_image_attribute"
+                                       name="address_image_attribute" placeholder="Alt='Address Image Attribute'"
+                                       value="{{ isset($contact)?$contact->banner_image_attribute:'' }}">
+                                @error('address_image_attribute')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Email Image*</label>
+                                <div class="file-loading">
+                                    <input id="email_image" name="email_image" type="file">
+                                </div>
+                                {{-- <span class="caption_note">Note: Image dimension must be  830 x 780 and Size must be
+                                    less than 512 KB</span> --}}
+                                @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Email Image Attribute</label>
+                                <input type="text" class="form-control placeholder-cls" id="email_image_attribute"
+                                       name="email_image_attribute" placeholder="Alt='Email Image Attribute'"
+                                       value="{{ isset($contact)?$contact->email_image_attribute:'' }}">
+                                @error('email_image_attribute')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -276,7 +305,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#image",).fileinput({
+            $("#phone_image",).fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -292,15 +321,15 @@
                 // maxImageWidth: 830,
                 // maxImageHeight: 780,
                 showRemove: true,
-                @if(isset($about) && $about->image!=NULL)
-                initialPreview: ["{{asset($about->image)}}",],
+                @if(isset($contact) && $contact->phone_image!=NULL)
+                initialPreview: ["{{asset($contact->phone_image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($about->image!=NULL)?last(explode('/',$about->image)):''}}",
+                    caption: "{{ ($contact->phone_image!=NULL)?last(explode('/',$contact->phone_image)):''}}",
                     width: "120px"
                 }]
                 @endif
             });
-            $("#image1",).fileinput({
+            $("#address_image",).fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -316,15 +345,15 @@
                 // maxImageWidth: 1920,
                 // maxImageHeight: 600,
                 showRemove: true,
-                @if(isset($about) && $about->image1!=NULL)
-                initialPreview: ["{{asset($about->image1)}}",],
+                @if(isset($contact) && $contact->address_image!=NULL)
+                initialPreview: ["{{asset($contact->address_image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($about->image1!=NULL)?last(explode('/',$about->image1)):''}}",
+                    caption: "{{ ($contact->address_image!=NULL)?last(explode('/',$contact->address_image)):''}}",
                     width: "120px"
                 }]
                 @endif
             });
-            $("#image2",).fileinput({
+            $("#email_image",).fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -340,10 +369,10 @@
                 // maxImageWidth: 1920,
                 // maxImageHeight: 600,
                 showRemove: true,
-                @if(isset($about) && $about->image2!=NULL)
-                initialPreview: ["{{asset($about->image2)}}",],
+                @if(isset($about) && $contact->email_image!=NULL)
+                initialPreview: ["{{asset($contact->email_image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($about->image2!=NULL)?last(explode('/',$about->image2)):''}}",
+                    caption: "{{ ($contact->email_image!=NULL)?last(explode('/',$contact->email_image)):''}}",
                     width: "120px"
                 }]
                 @endif

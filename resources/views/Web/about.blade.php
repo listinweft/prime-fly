@@ -32,14 +32,7 @@
             <div class="row align-items-start">
                 <div class="col-lg-5 position-relative pb-50">
                     <div class="aboutImageBox">
-                        @if (@$about->webp_image != null)
-                            <source type="" src="{{ asset(@$about->webp_image) }}" {!! @$about->image_attribue !!} />
-                        @endif
-                        @if ($about->image != null)
-                            <img class="img-fluid w-100" src="{{ asset(@$about->image) }}" {{ @$about->image_attribute }}>
-                        @else
-                            <img class="img-fluid w-100" src="{{ asset('web/images/aboutImage.jpg') }}">
-                        @endif
+                        {!! Helper::printImage($about, 'image', 'image_webp', '', 'img-fluid') !!}
                     </div>
                     <div class="artLog">
                         <img class="img-fluid artemystLogo" src="{{ asset('frontend/images/artemystLogo.png') }}"
@@ -113,15 +106,7 @@
 
     <section class="aboutAdd">
         <a href="#">
-            @if (@$about->webp_image != null)
-                <source type="" src="{{ asset(@$about->webp_image) }}" {!! @$about->image_attribue !!} />
-            @endif
-            @if ($about->image != null)
-                <img class="img-fluid" src="{{ asset(@$about->image) }}" {{ @$about->image_attribute }}>
-            @else
-                <img class="img-fluid" src="{{ asset('web/images/aboutBanner.jpg') }}" alt="">
-            @endif
-
+            {!! Helper::printImage($about, 'banner_image', 'banner_image_webp', '' , 'img-fluid') !!}
         </a>
     </section>
 
