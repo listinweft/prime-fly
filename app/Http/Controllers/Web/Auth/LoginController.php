@@ -135,26 +135,14 @@ class LoginController extends Controller
             return view('web.reset_password', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
         }
     }
-    public function email_verification($token)
+    public function email_verification(Request $request,$token)
     {
       
         $title = 'Email Verification';
         $verify = Usersverifie::where('token', $token)->first();
         if ($verify) {
-            if ((now()->diffInMinutes($verify->created_at)) > 15) {
-                $link_expired = 'true';
-            } else {
-                $link_expired = 'false';
-            }
-            return view('web.verify', compact('title', 'token', 'link_expired'));
-        } else {
-            return view('web.verify', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
-        }
-    }
-    public function email_verification_store(Request $request, $token)
-    
-    {
-
+            
+        
         $verificationdata = Usersverifie::where('token', $request->token)->first();
 
         $user = User::where('email', $verificationdata->email)->first();
@@ -164,21 +152,48 @@ class LoginController extends Controller
                 ]);
                if($verifyaccount) 
                {
-                return response()->json([
-                    'status' => 'success-reload',
-                    'message' => 'Your email is  verified, Please sign-in',
-                    'redirect' => url('/')
-                ]);
+                return redirect('/')->with('status', 'Your Account is verified');
+                
             }
             else {
-                return response()->json(['status' => 'error', 'message' => "Some error occurred, Please try after some time..!"]);
+                return redirect('/')->with('status', 'Some Error Occured');
             }
 
             }
+
+        }
+        else {
+            return view('web.verify', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
+        }
+    }
+    // public function email_verification_store(Request $request, $token)
+    
+    // {
+
+    //     $verificationdata = Usersverifie::where('token', $request->token)->first();
+
+    //     $user = User::where('email', $verificationdata->email)->first();
+    //         if ($user) {
+    //             $verifyaccount = $user->where('id', $user->id)->update([
+    //                 'is_verified' => 1
+    //             ]);
+    //            if($verifyaccount) 
+    //            {
+    //             return response()->json([
+    //                 'status' => 'success-reload',
+    //                 'message' => 'Your email is  verified, Please sign-in',
+    //                 'redirect' => url('/')
+    //             ]);
+    //         }
+    //         else {
+    //             return response()->json(['status' => 'error', 'message' => "Some error occurred, Please try after some time..!"]);
+    //         }
+
+    //         }
             
 
 
-    }
+    // }
 
     public function reset_password_store(Request $request, $token)
     
@@ -251,7 +266,7 @@ class LoginController extends Controller
             $customer->user_id = $user->id;
             if ($customer->save()) {
                 $token = Str::random(64);
-                $verify = Usersverify::insert([
+                $verify = Usersverifie::insert([
                     'email' => $request->email,
                     'token' => $token,
                     'created_at' => now()
