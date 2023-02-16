@@ -162,4 +162,5 @@ class Product extends Model
     {
         return $this->hasOne(Offer::class)->active();
     }
+
 }

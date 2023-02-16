@@ -563,10 +563,31 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'product/product-type')}}"
+               class="nav-link {{ (Request::segment(3)=='product-type')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Product Type</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/color')}}"
                class="nav-link {{ (Request::segment(3)=='color')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Color</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'product/size')}}"
+               class="nav-link {{ (Request::segment(3)=='size')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Size</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'product/shape')}}"
+               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Shape</p>
             </a>
         </li>
         <li class="nav-item">

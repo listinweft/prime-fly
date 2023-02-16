@@ -651,6 +651,33 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [ProductController::class, 'key_feature_update']);
             Route::post('delete', [ProductController::class, 'delete_key_feature']);
         });
+
+        Route::prefix('product-type')->group(function () {
+            Route::get('/', [AttributeController::class, 'product_type']);
+            Route::get('create', [AttributeController::class, 'product_type_create']);
+            Route::post('create', [AttributeController::class, 'product_type_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'product_type_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'product_type_update']);
+            Route::post('delete', [AttributeController::class, 'delete_product_type']);
+        });
+
+        Route::prefix('size')->group(function () {
+            Route::get('/', [AttributeController::class, 'size']);
+            Route::get('create', [AttributeController::class, 'size_create']);
+            Route::post('create', [AttributeController::class, 'size_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'size_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'size_update']);
+            Route::post('delete', [AttributeController::class, 'delete_size']);
+        });
+
+        Route::prefix('shape')->group(function () {
+            Route::get('/', [AttributeController::class, 'shape']);
+            Route::get('create', [AttributeController::class, 'shape_create']);
+            Route::post('create', [AttributeController::class, 'shape_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'shape_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'shape_update']);
+            Route::post('delete', [AttributeController::class, 'delete_shape']);
+        });
     });
 
     Route::prefix('report')->group(function () {
