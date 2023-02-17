@@ -33,9 +33,9 @@
                                 {{ session('message') }}
                             </div>
                         @endif
-{{--                        @if($type == 'Category')--}}
-{{--                            @include('Admin.includes._heading_form',['type'=>'category'])--}}
-{{--                        @endif--}}
+                       @if($type == 'Category')
+                         @include('Admin.includes.heading_form2',['type'=>'category'])
+                        @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 @if($type=="Category")
