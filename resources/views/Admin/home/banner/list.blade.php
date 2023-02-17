@@ -35,7 +35,7 @@
                         @endif
 
 
-                        <div class="card card-info">
+                        {{-- <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Banner Type</h3>
                                 <div class="card-tools">
@@ -75,7 +75,7 @@
                                          style="display:none;">
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
 
 
                         <div class="card card-success card-outline">
@@ -90,7 +90,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
-                                        <th>Banner Type</th>
+                                        <th>Banner Image</th>
                                         <th>Sort Order</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -101,8 +101,11 @@
                                     @foreach($bannerList as $banner)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $banner->title }}</td>
-                                            <td>{{$banner->banner_type}}</td>
+                                            <td>{{ $banner->title }} {{ $banner->subtitle }}</td>
+                                            <td>
+                                                <img src="{{asset($banner->desktop_image)}}" alt="" height="100">
+                                            </td>
+                                         
                                             <td>
                                                @if($banner->banner_type!='video')
                                                 <input type="text" name="banner_order"

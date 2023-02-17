@@ -784,11 +784,25 @@ $(document).ready(function () {
                         data: {id: id, _token: _token},
                         success: function (data) {
                             if (data.status == false) {
-                                swal('Error !', data.message, 'error');
+                                swal({
+                                    showConfirmButton : false,
+                                   title :  'Error !',
+                                     text : data.message, 
+                                     type : 'error'
+                                     });
+                                     setTimeout(() => {
+                                        location.reload();
+                                     }, 700);
                             } else {
-                                swal({title: "Success", text: "Entry has been deleted!", type: "success"}, function () {
-                                    location.reload();
+                                swal({
+                                    showConfirmButton : false,
+                                    title: "Success", 
+                                    text: "Entry has been deleted!", 
+                                    type: "success"
                                 });
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
                             }
                         }
                     })
@@ -926,6 +940,7 @@ $(document).ready(function () {
         var buttonHtml = $('.submitBtn').val();
         $('.loadingImg').show();
         $('.submitBtn').attr('disabled', true).val('Please wait...!');
+        
         var required = [];
         $('.required').each(function () {
             var id = $(this).attr('id');
@@ -1732,6 +1747,7 @@ $(document).on('click', '.kv-file-remove', function (e) {
                 text: "You will be able to revert this!",
                 type: "warning",
                 showCancelButton: true,
+                
                 confirmButtonClass: "btn-danger",
                 confirmButtonText: "Delete",
                 cancelButtonText: "Cancel",
@@ -1750,13 +1766,24 @@ $(document).on('click', '.kv-file-remove', function (e) {
                         data: {type},
                         success: function (data) {
                             if(data.status==false){
-                                swal( 'Error !', data.message, 'error' );
+                                swal({ 
+                                    showConfirmButton : false,
+                                    title : 'Error !',
+                                    text :  data.message, 
+                                    type :   'error'
+                                });
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
                             }else{
-                                swal({title: "Success", text: "Entry has been deleted!", type: "success"},
+                                swal({showConfirmButton : false, title: "Success", text: "Entry has been deleted!", type: "success"},
                                     function(){
                                         location.reload();
                                     }
                                 );
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
                             }
                         }
                     })

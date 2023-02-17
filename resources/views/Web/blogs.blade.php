@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row pt-60 position-relative">
-    @include('Web._blog_list')
+    @include('web._blog_list')
 
 </section>
     @endsection
