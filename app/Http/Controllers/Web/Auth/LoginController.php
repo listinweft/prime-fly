@@ -45,6 +45,10 @@ class LoginController extends Controller
 //            $field = 'username';
         }
         if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'], $remember)) {
+            if (Auth::guard('customer')->user()->is_verified == 0) {
+               
+                return response()->json(['status' => 'error', 'message' => 'Account not verified, Please register with your email']);
+            }
             if (Auth::guard('customer')->user()->status == 'Inactive') {
                 Auth::guard('customer')->logout();
                 return response()->json(['status' => 'error', 'message' => 'Account is inactive, Please contact your site owner']);
@@ -152,18 +156,22 @@ class LoginController extends Controller
                 ]);
                if($verifyaccount) 
                {
-                return redirect('/')->with('status', 'Your Account is verified');
+
+               
+                 $verificationdata->delete();
+
+                return redirect('/')->with('success', 'Your Account is verified');
                 
             }
             else {
-                return redirect('/')->with('status', 'Some Error Occured');
+                return redirect('/')->with('error', 'Some Error Occured');
             }
 
             }
 
         }
         else {
-            return view('web.verify', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
+            return redirect('/')->with('error', 'Invalid token!');
         }
     }
     // public function email_verification_store(Request $request, $token)

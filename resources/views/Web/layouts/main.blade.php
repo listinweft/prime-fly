@@ -78,6 +78,34 @@
 <script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
 <script  src="{{ asset('frontend/js/custom.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+@if(Session::has('success'))
+<script>
+setTimeout(function () {
+    Toast.fire({title: "Done it!", text: '{{ Session::get('success')}}', icon: 'success'});
+    // toastr['success'](
+    //     'Your Email Verified Successfully',
+    //     {
+    //         closeButton: true,
+    //         tapToDismiss: false
+    //     }
+    // );
+});
+</script>
+@endif
+@if(Session::has('error'))
+<script>
+setTimeout(function () {
+    Toast.fire({title: "Error !", text: '{{ Session::get('error')}}', icon: 'error'});
+    // toastr['success'](
+    //     'Your Email Verified Successfully',
+    //     {
+    //         closeButton: true,
+    //         tapToDismiss: false
+    //     }
+    // );
+});
+</script>
+@endif
 </body>
 </html>
 @stack('scripts')
