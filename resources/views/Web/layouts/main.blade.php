@@ -39,7 +39,7 @@
     <script type="text/javascript">
         var base_url = "{{ url('/') }}";
     </script>
-  
+
 </head>
 
 <body id="go-to-top">
@@ -60,7 +60,7 @@
 @yield('content')
 @include('web.layouts.footer')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>--}}
 <script>
     function goToByScroll(id){
         $('html,body').animate({scrollTop: $("#"+id).offset().top-0},'slow');
