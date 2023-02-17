@@ -220,7 +220,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('blur', '.common_sort_order', function (e) {
+    $(document).on('change', '.common_sort_order', function (e) {
         e.preventDefault();
         $this = $(this)
         var sort_order = $this.val();
@@ -825,6 +825,7 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '.status_check', function () {
+        
         $this = $(this);
         var state = $this.is(':checked');
         var table = $this.data('table');
@@ -846,11 +847,18 @@ $(document).ready(function () {
                         text: response.message,
                         type: "success",
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer : 700
                     });
+
                 } else {
                     $this.prop('checked', false);
-                    swal('Error !', response.message, 'error');
+                    swal({
+                        showConfirmButton: false,
+                        title: 'Error !', 
+                        text: response.message, 
+                        type:  'error',
+                        timer : 700
+                    });
                 }
                 if (response.reload == true) {
                     window.location.reload();
@@ -875,13 +883,14 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        showConfirmButton: false,
+                        title: "Done it!", text: response.message, type: "success", timer : 700,
                     });
                 } else {
                     swal({
-                        title: "Error", text: response.message, type: "error"
-                    }, function () {
-                        window.location.reload();
+                        showConfirmButton: false,
+                        title: "Error", text: response.message, type: "error",
+                        timer : 700,
                     });
                 }
             }

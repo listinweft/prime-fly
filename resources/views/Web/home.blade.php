@@ -15,10 +15,11 @@
                                 </h1>
                             
                                     {!!$banner->description!!}  .
-                                
+                                @if ($banner->button_text == '' || $banner->button_text == null)
                                 <a href="{{$banner->url}}" class="primary_btn">
                                     {{$banner->button_text}}
                                 </a>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -152,6 +153,7 @@
 <!--Home Collection End-->
 
 <!--Home Shop By Theme Start-->
+@if(@$themes)
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
@@ -165,172 +167,35 @@
             </div>
             <div class="col-12 pt-60">
                 <div class="shopSectionWrapper">
-                    <div class="shopSectionItem shopSectionItemBg1">
+                    @php
+                        $n =1;
+                    @endphp
+                    @foreach ($themes as $theme)
+                    <div class="shopSectionItem shopSectionItemBg{{$n}}">
                         <div class="wrapper">
                             <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
+                                {!! Helper::printImage(@$theme, 'image', 'image_webp', '', 'img-fluid') !!}
+                                {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
-                            <h5>Portraits</h5>
-                            <h6>17 Items</h6>
+                            <h5>{{$theme->title}}</h5>
+                            @php
+                                $count = $theme->products ? $theme->products->count():0;
+                            @endphp
+                            <h6>{{@$count }} items</h6>
                         </div>
                     </div>
-                    <div class="shopSectionItem shopSectionItemBg2">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-02.jpg')}}" alt="">
-                            </div>
-                            <h5>Landscapes</h5>
-                            <h6>23 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg3">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-03.jpg')}}" alt="">
-                            </div>
-                            <h5>Seascapes</h5>
-                            <h6>27 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg4">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-04.jpg')}}" alt="">
-                            </div>
-                            <h5>Flowers</h5>
-                            <h6>32 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg5">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-05.jpg')}}" alt="">
-                            </div>
-                            <h5>Animals</h5>
-                            <h6>12 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg6">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-06.jpg')}}" alt="">
-                            </div>
-                            <h5>Birds</h5>
-                            <h6>30 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg1">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-06.jpg')}}" alt="">
-                            </div>
-                            <h5>Birds</h5>
-                            <h6>30 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg2">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-04.jpg')}}" alt="">
-                            </div>
-                            <h5>Flowers</h5>
-                            <h6>32 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg3">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
-                            </div>
-                            <h5>Portraits</h5>
-                            <h6>17 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg4">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-02.jpg')}}" alt="">
-                            </div>
-                            <h5>Landscapes</h5>
-                            <h6>23 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg5">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-03.jpg')}}" alt="">
-                            </div>
-                            <h5>Seascapes</h5>
-                            <h6>27 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg6">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-05.jpg')}}" alt="">
-                            </div>
-                            <h5>Animals</h5>
-                            <h6>12 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg1">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-02.jpg')}}" alt="">
-                            </div>
-                            <h5>Landscapes</h5>
-                            <h6>23 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg2">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
-                            </div>
-                            <h5>Portraits</h5>
-                            <h6>17 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg3">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-06.jpg')}}" alt="">
-                            </div>
-                            <h5>Birds</h5>
-                            <h6>30 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg4">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-04.jpg')}}" alt="">
-                            </div>
-                            <h5>Flowers</h5>
-                            <h6>32 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg5">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-05.jpg')}}" alt="">
-                            </div>
-                            <h5>Animals</h5>
-                            <h6>12 Items</h6>
-                        </div>
-                    </div>
-                    <div class="shopSectionItem shopSectionItemBg6">
-                        <div class="wrapper">
-                            <div class="imgBox">
-                                <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-03.jpg')}}" alt="">
-                            </div>
-                            <h5>Seascapes</h5>
-                            <h6>27 Items</h6>
-                        </div>
-                    </div>
+                    @php
+                        $n++;
+                        if($n==6){
+                            $n=1;
+                        }
+                    @endphp
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+@endif
 <!--Home Shop By Theme End-->
 
 <!--Home Services Start-->
