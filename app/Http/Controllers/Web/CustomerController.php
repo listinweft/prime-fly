@@ -39,6 +39,8 @@ class CustomerController extends Controller
 
     public function account($tab)
     {
+
+       
         if (Auth::guard('customer')->check()) {
             $seo_data = $this->seo_content('My-Account');
             $banner = Banner::type('my-account')->first();
@@ -60,6 +62,7 @@ class CustomerController extends Controller
         }
     }
 
+   
     public function update_profile(Request $request)
     {
         // dd($request->all());
@@ -258,6 +261,7 @@ class CustomerController extends Controller
             $user->password = Hash::make($request->password_confirmation);
             $user->updated_at = now();
             if ($user->save()) {
+              
                 if (Helper::sendCustomerNewpassword($user, $request->password)) {
                     return response()->json(['status' => 'success', 'message' => 'Password has been changed successfully']);
                 } else {
