@@ -50,6 +50,14 @@ class AboutController extends Controller
             $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
         }
 
+        if ($request->hasFile('banner_image')) {
+            Helper::deleteFile($about, 'banner_image');
+            Helper::deleteFile($about, 'banner_image_webp');
+
+            $about->banner_image_webp = Helper::uploadWebpImage($request->banner_image, 'uploads/about/image/webp/', $request->title);
+            $about->banner_image = Helper::uploadFile($request->banner_image, 'uploads/about/image/', $request->title);
+        }
+
         if ($request->hasFile('feature_image')) {
             Helper::deleteFile($about, 'feature_image');
             Helper::deleteFile($about, 'feature_image_webp');
@@ -67,6 +75,7 @@ class AboutController extends Controller
         $about->title = $validatedData['title'];
         $about->description = $validatedData['description'];
         $about->image_attribute = $request->image_attribute ?? '';
+        $about->banner_image_attribute = $request->banner_image_attribute ?? '';
         $about->video_url = $request->video_url ?? '';
         $about->feature_title = $request->feature_title ?? '';
         $about->feature_description = $request->feature_description ?? '';

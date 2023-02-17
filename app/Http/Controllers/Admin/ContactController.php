@@ -44,6 +44,31 @@ class ContactController extends Controller
             $contact = SiteInformation::find($request->id);
             $contact->updated_at = now();
         }
+
+        if ($request->hasFile('phone_image')) {
+            Helper::deleteFile($contact, 'phone_image');
+            Helper::deleteFile($contact, 'phone_image_webp');
+
+            $contact->phone_image_webp = Helper::uploadWebpImage($request->phone_image, 'uploads/image/webp/', $request->title);
+            $contact->phone_image = Helper::uploadFile($request->phone_image, 'uploads/image/', $request->title);
+        }
+
+        if ($request->hasFile('address_image')) {
+            Helper::deleteFile($contact, 'address_image');
+            Helper::deleteFile($contact, 'banner_image_webp');
+
+            $contact->address_image_webp = Helper::uploadWebpImage($request->address_image, 'uploads/about/image/webp/', $request->title);
+            $contact->address_image = Helper::uploadFile($request->address_image, 'uploads/about/image/', $request->title);
+        }
+
+        if ($request->hasFile('email_image')) {
+            Helper::deleteFile($contact, 'email_image');
+            Helper::deleteFile($contact, 'email_image_webp');
+
+            $contact->email_image_webp = Helper::uploadWebpImage($request->email_image, 'uploads/image/webp/', $request->title);
+            $contact->email_image = Helper::uploadFile($request->email_image, 'uploads/image/', $request->title);
+        }
+
         $contact->contact_page_title = $request->title;
         $contact->contact_request_title = $request->contact_request_title;
         $contact->google_map = $request->google_map;
@@ -65,6 +90,9 @@ class ContactController extends Controller
         $contact->linkedin_url = $request->linkedin_url;
         $contact->youtube_url = $request->youtube_url;
         $contact->twitter_url = $request->twitter_url;
+        $contact->phone_image_attribute = $request->phone_image_attribute ?? '';
+        $contact->address_image_attribute = $request->address_image_attribute ?? '';
+        $contact->email_image_attribute = $request->email_image_attribute ?? '';
 
         if ($contact->save()) {
             session()->flash('success', 'Contact page details has been updated successfully');

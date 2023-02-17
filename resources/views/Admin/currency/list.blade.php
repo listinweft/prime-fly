@@ -57,14 +57,15 @@
                                     @foreach($currencyList as $currency)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            @if($currency->code=="AED")
+                                            {{-- @if($currency->code=="AED") --}}
                                                 <td>
                                                     <a href="{{ url(Helper::sitePrefix().'currency/rate/create/'.$currency->id)}}">
                                                         {{ $currency->title }}
                                                         <i class="fa fa-link"></i></a></td>
-                                            @else
+                                            {{-- @else --}}
                                                 <td>{{ $currency->title }}</td>
-                                            @endif
+                                            {{-- @endif --}}
+
                                             <td>{{ $currency->code }}</td>
                                             <td>{{ $currency->symbol }}</td>
                                             <td>
