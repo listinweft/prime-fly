@@ -511,6 +511,23 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [MenuController::class, 'delete_detail_menu']);
         });
     });
+    Route::prefix('side-menu')->group(function () {
+        Route::get('/', [MenuController::class, 'side_menu']);
+        Route::get('create', [MenuController::class, 'side_menu_create']);
+        Route::post('create', [MenuController::class, 'side_menu_store']);
+        Route::get('edit/{id}', [MenuController::class, 'side_menu_edit']);
+        Route::post('edit/{id}', [MenuController::class, 'side_menu_update']);
+        Route::post('delete', [MenuController::class, 'side_delete_menu']);
+
+        Route::prefix('side-menu-detail')->group(function () {
+            Route::get('/', [MenuController::class, 'side_menu_detail']);
+            Route::get('create', [MenuController::class, 'side_menu_detail_create']);
+            Route::post('create', [MenuController::class, 'side_menu_detail_store']);
+            Route::get('edit/{id}', [MenuController::class, 'side_menu_detail_edit']);
+            Route::post('edit/{id}', [MenuController::class, 'side_menu_detail_update']);
+            Route::post('delete', [MenuController::class, 'side_delete_detail_menu']);
+        });
+    });
 
     Route::prefix('order')->group(function () {
         Route::get('/', [OrderController::class, 'list']);

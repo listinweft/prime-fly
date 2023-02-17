@@ -578,6 +578,20 @@
                 <p>Menu Detail</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'side-menu')}}"
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu'))?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Side Menu </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'side-menu/details')}}"
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu-details'))?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Side Menu Detail</p>
+            </a>
+        </li>
     </ul>
 </li>
 <li class="nav-item menu-report hide-menu {{ (Request::segment(2)=='report')?'menu-is-opening menu-open':'' }}">

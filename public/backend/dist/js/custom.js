@@ -307,9 +307,11 @@ $(document).ready(function () {
     $('#menu_type').on('change', function () {
         if ($(this).val() === "category") {
             $('.category').show();
+            $('.static').hide();
             $('#category_id').addClass('required');
         } else {
             $('.category').hide();
+            $('.static').show();
             $('#category_id').removeClass('required');
         }
     });
