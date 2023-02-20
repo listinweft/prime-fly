@@ -180,6 +180,7 @@ $('.productDetailsThumbs').slick({
     asNavFor: '.productDetailsLargeImages',
 });
 
+
 $('.productDetailsLargeImages').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -190,7 +191,6 @@ $('.productDetailsLargeImages').slick({
     dots:false,
     asNavFor: '.productDetailsThumbs',
 });
-
 
 
 

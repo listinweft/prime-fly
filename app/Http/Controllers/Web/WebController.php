@@ -53,7 +53,7 @@ class WebController extends Controller
     public function home()
     {
         $seo_data = $this->seo_content('Home');
-       
+
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
@@ -98,7 +98,7 @@ class WebController extends Controller
 
         $contact = new Enquiry();
        //eturn  $request->type;
-       
+
         $contact->type = $request->type;
         $contact->name = $request->name;
         $contact->email = $request->email;
@@ -116,10 +116,10 @@ class WebController extends Controller
             $type = ' Contact request';
         }
         if ($contact->save()) {
-            
+
             $sendContactMail = Helper::sendContactMail($contact, $type);
             if ($sendContactMail) {
-                
+
                 return response()->json(['status' => 'success',
                     'message' => $type . ' has been submitted successfully']);
             } else {
@@ -144,7 +144,7 @@ class WebController extends Controller
         $condition = Blog::active()->latest('posted_date');
 
 
-     
+
         $blogs = $condition->skip(4)->take(6)->get();
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
@@ -306,7 +306,7 @@ class WebController extends Controller
         $product = Product::active()->shortUrl($short_url)->with('activeGalleries')->first();
         if ($product) {
             Helper::addRecentProduct($product);
-          
+
             $banner = $seo_data = $product;
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
             $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))->latest()->get();
@@ -435,7 +435,7 @@ class WebController extends Controller
         $totalRatings = $reviews->count();
         $reviews = $reviews->skip($review_offset)->take(3);
         $review_offset += $reviews->count();
-        
+
         return view('web.includes._review_inner', compact('reviews', 'totalRatings', 'review_offset'));
     }
 
@@ -459,7 +459,7 @@ class WebController extends Controller
         if (Session::has('compare_products')) {
             $compare_products = Session::get('compare_products');
             $products = Product::whereIn('id', $compare_products)->get();
-            
+
         }
         return view('web.compare-products', compact('seo_data', 'banner', 'products'));
     }
@@ -550,7 +550,7 @@ class WebController extends Controller
     public function terms_and_conditions()
     {
         $seo_data = $this->seo_content('Terms and Conditions');
-      
+
         $banner = Banner::type('terms-and-conditions')->first();
         $field = 'terms_and_conditions';
         $title = 'Terms and Conditions';

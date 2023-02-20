@@ -192,8 +192,6 @@ $('.productDetailsLargeImages').slick({
 });
 
 
-
-
 //Recent Blog Slider
 $('.blogRecentSlider').slick({
     slidesToShow: 4,
@@ -557,7 +555,26 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // Mega Menu End
 
+$(".colorBtn").click(function(){
+    $(".colorBtn").removeClass('active');
+    $(this).addClass('active');
+    var color = $(this).data('color');
+    var img = $(this).data('img');
+    $('.frame_product_detail_img').css('border-color', color);
+    $('.frame_product_border_image').attr('src',img);
+});
 
+$(".mountSpaceBtn").click(function(){
+    if($(this).hasClass('btnMountClass')){
+        $('.frame_product_detail_img').addClass('imageMountClass');
+    }
+    else{
+        $('.frame_product_detail_img').removeClass('imageMountClass');
+    }
+    // $('.frame_product_detail_img').toggleClass('mountClass');
+    $(".mountSpaceBtn").removeClass('active');
+    $(this).addClass('active');
+});
 
 $(window).on('load', function () {
     $('#loading').hide();
