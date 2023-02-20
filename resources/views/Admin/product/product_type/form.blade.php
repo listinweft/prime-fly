@@ -12,7 +12,7 @@
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'product/color')}}">{{$title}}</a></li>
+                                <a href="{{url(Helper::sitePrefix().'product/product-type')}}">{{$title}}</a></li>
                             <li class="breadcrumb-item active">{{$key}}</li>
                         </ol>
                     </div>
@@ -60,7 +60,7 @@
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
                                     </div>
-                                    <span class="caption_note">Note: Image size must be 200x200px</span>
+                                    <span class="caption_note">Note: Image size must be 80 x 80 px</span>
                                     @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -102,10 +102,10 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 200,
-                minImageHeight: 200,
-                maxImageWidth: 200,
-                maxImageHeight: 200,
+                minImageWidth: 80,
+                minImageHeight: 80,
+                maxImageWidth: 80,
+                maxImageHeight: 80,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($product_type) && $product_type->image!=NULL)

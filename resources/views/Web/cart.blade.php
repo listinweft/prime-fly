@@ -247,7 +247,7 @@
                         </div>
                     </div>
                     <div class="btnsBox">
-                        <a href="checkout.php" class="primary_btn checkout_btn">Guest Checkout</a>
+                        <a href="{{url('checkout')}}" class="primary_btn checkout_btn">Guest Checkout</a>
                         <a href="login.php" class="primary_btn login">Login</a>
                     </div>
                 </div>

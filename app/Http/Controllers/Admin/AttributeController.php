@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
 use App\Models\SiteInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Frame;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
@@ -291,8 +292,8 @@ class AttributeController extends Controller
         }
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/measurement-unit');
+            session()->flash('success', "Product Type '" . $product_type->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/product-type');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
         }
@@ -330,7 +331,7 @@ class AttributeController extends Controller
         $product_type = ProductType::find($id);
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been updated successfully");
+            session()->flash('success', "Product Type '" . $product_type->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/product-type');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
@@ -455,8 +456,13 @@ class AttributeController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|unique:shapes,title,NULL,id,deleted_at,NULL',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512'
         ]);
         $shape = new Shape;
+        if ($request->hasFile('image')) {
+            $shape->image_webp = Helper::uploadWebpImage($request->image, 'uploads/shape/image/webp/', $request->title);
+            $shape->image = Helper::uploadFile($request->image, 'uploads/shape/image/', $request->title);
+        }
         $shape->title = $validatedData['title'];
         if ($shape->save()) {
             session()->flash('message', "Shape '" . $shape->title . "' has been added successfully");
@@ -480,10 +486,20 @@ class AttributeController extends Controller
 
     public function shape_update(Request $request, $id)
     {
+        $shape = Shape::find($id);
         $validatedData = $request->validate([
             'title' => 'required|unique:shapes,title,' . $id,
         ]);
-        $shape = Shape::find($id);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($shape->image))) {
+                File::delete(public_path($shape->image));
+            }
+            if (File::exists(public_path($shape->image_webp))) {
+                File::delete(public_path($shape->image_webp));
+            }
+            $shape->image_webp = Helper::uploadWebpImage($request->image, 'uploads/shape/image/webp/', $request->title);
+            $shape->image = Helper::uploadFile($request->image, 'uploads/shape/image/', $request->title);
+        }
         $shape->title = $validatedData['title'];
         $shape->updated_at = now();
         if ($shape->save()) {
@@ -501,6 +517,99 @@ class AttributeController extends Controller
             if ($shape) {
                 $deleted = $shape->delete();
                 if ($deleted == true) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
+
+    /************************************* Frame starts ****************************************/
+    public function frame()
+    {
+        $title = "frame List";
+        $frameList = Frame::get();
+        return view('Admin.product.frame.list', compact('frameList', 'title'));
+    }
+
+    public function frame_create()
+    {
+        $key = "Create";
+        $title = "Create Frame";
+        return view('Admin.product.frame.form', compact('key', 'title'));
+    }
+
+    public function frame_store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|unique:measurement_units,title',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512'
+        ]);
+        $frame = new Frame;
+
+        if ($request->hasFile('image')) {
+            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/frame/image/webp/', $request->title);
+            $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
+        }
+        $frame->title = $validatedData['title'];
+        if ($frame->save()) {
+            session()->flash('success', "Frame '" . $frame->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/frame');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the frame");
+        }
+    }
+
+    public function frame_edit($id)
+    {
+        $key = "Update";
+        $title = "Update Frame";
+        $frame = Frame::find($id);
+        if ($frame) {
+            return view('Admin.product.frame.form', compact('key', 'frame', 'title'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function frame_update(Request $request, $id)
+    {
+        $frame = Frame::find($id);
+        $validatedData = $request->validate([
+            'title' => 'required|unique:measurement_units,title,' . $id,
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+        ]);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($frame->image))) {
+                File::delete(public_path($frame->image));
+            }
+            if (File::exists(public_path($frame->image_webp))) {
+                File::delete(public_path($frame->image_webp));
+            }
+            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/frame/image/webp/', $request->title);
+            $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
+        }
+        $frame = Frame::find($id);
+        $frame->title = $validatedData['title'];
+        if ($frame->save()) {
+            session()->flash('success', "Frame '" . $frame->title . "' has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'product/frame');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+        }
+    }
+
+    public function delete_frame(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $frame = Frame::find($request->id);
+            if ($frame) {
+                if ($frame->delete()) {
                     return response()->json(['status' => true]);
                 } else {
                     return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);

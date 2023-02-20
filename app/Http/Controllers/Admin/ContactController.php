@@ -31,6 +31,7 @@ class ContactController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:230',
             'contact_request_title' => 'required|min:2|max:230',
+            'description' => 'required',
             'email' => 'required|email|min:3|max:50',
             'email_recipient' => 'required|min:3|max:50',
             'phone' => 'regex:/^([0-9\+ ]*)$/|min:7|max:15',
@@ -71,6 +72,7 @@ class ContactController extends Controller
 
         $contact->contact_page_title = $request->title;
         $contact->contact_request_title = $request->contact_request_title;
+        $contact->description = $request->description;
         $contact->google_map = $request->google_map;
         $contact->phone = $request->phone;
         $contact->alternate_phone = $request->alternate_phone;

@@ -34,6 +34,7 @@ class AboutController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
+            'subtitle' => 'required|min:2|max:255',
             'description' => 'required',
         ]);
         if ($request->id == 0) {
@@ -73,6 +74,7 @@ class AboutController extends Controller
         }
 
         $about->title = $validatedData['title'];
+        $about->subtitle = $validatedData['subtitle'];
         $about->description = $validatedData['description'];
         $about->image_attribute = $request->image_attribute ?? '';
         $about->banner_image_attribute = $request->banner_image_attribute ?? '';

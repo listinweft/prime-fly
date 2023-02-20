@@ -678,6 +678,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [AttributeController::class, 'shape_update']);
             Route::post('delete', [AttributeController::class, 'delete_shape']);
         });
+
+        Route::prefix('frame')->group(function () {
+            Route::get('/', [AttributeController::class, 'frame']);
+            Route::get('create', [AttributeController::class, 'frame_create']);
+            Route::post('create', [AttributeController::class, 'frame_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'frame_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'frame_update']);
+            Route::post('delete', [AttributeController::class, 'delete_frame']);
+        });
     });
 
     Route::prefix('report')->group(function () {

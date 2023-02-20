@@ -591,6 +591,13 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'product/frame')}}"
+               class="nav-link {{ (Request::segment(3)=='frame')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Frame</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/pet-type')}}"
                class="nav-link {{ (Request::segment(3)=='pet-type')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
