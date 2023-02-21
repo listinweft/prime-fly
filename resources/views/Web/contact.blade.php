@@ -34,10 +34,10 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <h6 class="subHeading">{{ @$contact->contact_request_title }}</h6>
-                    <h2 class="mainHeading">{{ @$contact->contact_page_title }}</h2>
+                    <h2 class="mainHeading">{{ @$contact->title }}</h2>
                     <div class="headingText">
                         <p>
-                            {!! @$contact->description !!}
+                            {{ @$contact->description }}
                         </p>
                     </div>
                 </div>
@@ -50,10 +50,10 @@
                             <h5>Call Us</h5>
                             <ul>
                                 <li>
-                                    <a href="tel:+971000000000">{!! @$contact->phone !!}</a>
+                                    <a href="tel:+971000000000">{{ @$contact->phone }}</a>
                                 </li>
                                 <li>
-                                    <a href="tel:+971000000000">{!! @$contact->alternate_phone !!}</a>
+                                    <a href="tel:+971000000000">{{ @$contact->alternate_phone }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -64,7 +64,7 @@
                             <h5>Locate Us</h5>
                             <ul>
                                 <li>
-                                    {!! @$contact->address !!}
+                                    {{ @$contact->address }}
                                 </li>
                             </ul>
                         </div>
@@ -105,7 +105,6 @@
                 </div>
 
                 <div class="col-lg-6  ps-0">
-
                     <div class="formArea">
                         <h5>Enquire Now</h5>
                         <form method="POST" id="enquiry" action="{{ url('contact') }}" name="enquiry">
@@ -114,8 +113,8 @@
                                     <div class="form-group">
                                         <label for="">Full Name</label>
                                         <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
-                                        <input type="text" class="form-control nameField required" placeholder="Full Name"
-                                            name="name" required>
+                                        <input type="text" class="form-control nameField required"
+                                            placeholder="Full Name" name="name" required>
                                         <span class="invalidMessage"></span>
                                     </div>
                                 </div>
@@ -132,8 +131,8 @@
                                     <div class="form-group">
                                         <label for="">Phone Number</label>
                                         <img src="{{ asset('frontend/images/icon-phone.png') }}" alt="">
-                                        <input type="number" class="form-control phoneField required" placeholder="+1 000 000 00"
-                                            name="Phone" required>
+                                        <input type="number" class="form-control phoneField required"
+                                            placeholder="+1 000 000 00" name="Phone" required>
                                         <span class="invalidMessage"></span>
 
                                     </div>
@@ -142,8 +141,7 @@
                                     <div class="form-group">
                                         <label for="">Message</label>
                                         <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
-                                        <textarea class="form-control form-message required" placeholder="Say Something"
-                                            name="message" required></textarea>
+                                        <textarea class="form-control form-message required" placeholder="Say Something" name="message" required></textarea>
                                         <span class="invalidMessage"></span>
 
                                     </div>
@@ -152,15 +150,17 @@
                                     <div class="form-group d-flex align-items-end">
                                         <input type="hidden" name="type" value="contact">
                                         <button type="submit" class="primary_btn submit_form_btn"
-                                        data-url="/enquiry">Submit</button>
+                                            data-url="/enquiry">Submit</button>
                                     </div>
                                 </div>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
 
+        </div>
         </div>
     </section>
 @endsection

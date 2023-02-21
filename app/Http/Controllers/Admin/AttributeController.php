@@ -513,6 +513,7 @@ class AttributeController extends Controller
         } else {
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
+
     }
 
     /************************************* Frame starts ****************************************/
