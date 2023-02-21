@@ -17,6 +17,8 @@ use App\Models\ProductReview;
 use App\Models\ProductSpecification;
 use App\Models\SiteInformation;
 use App\Models\Tag;
+
+use App\Models\Frame;
 use App\Models\Size;
 use App\Models\ProductKeyFeature;
 use App\Models\ProductSpecificationHead;
@@ -52,7 +54,8 @@ class ProductController extends Controller
         $sizes = Size::active()->get();
         $productTypes = ProductType::active()->get();
         $products = Product::active()->get();
-        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes'));
+        $frames = Frame::get();
+        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes','frames'));
     }
     public function    product_detail($id)
     {
@@ -60,7 +63,7 @@ class ProductController extends Controller
         $title = "Product Detail";
         $product = Product::find($id);
         if ($product) {
-            $colors = Color::active()->get();
+            $frames = Frame::active()->get();
             $measurement_units = MeasurementUnit::active()->get();
             $brands = Brand::active()->get();
             $tags = Tag::active()->get();
@@ -68,7 +71,7 @@ class ProductController extends Controller
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
             $products = Product::active()->get();
             $sizes = Size::active()->get();
-            return view('Admin.product.detail_form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes'));
+            return view('Admin.product.detail_form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes','frames'));
         } else {
             return view('Admin.error.404');
         }

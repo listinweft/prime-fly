@@ -302,21 +302,53 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6 mount_div">
+                            <div class="form-group col-md-4 mount_div">
                                 <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="mount">
+                                    &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount">
                                     <label class="form-check-label" for="mount">
-                                      With Mount
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="mount" id="mount" >
+                                      With Mount&nbsp; &nbsp;
+                                    </label> &nbsp; &nbsp; &nbsp;
+                                    <input class="form-check-input mount" type="radio" name="mount" id="mount" >
                                     <label class="form-check-label" for="mount">
                                      No Mount
                                     </label>
                                   </div>
+                                  <div class="form-check">
+                                  </div>
                             </div>
+                            <div class="form-group col-md-4 ">
+                                <label> Frame Colour</label>
+                                <select name="frame_color" id="frame_color"  class="form-control select2 required" multiple>
+                                    <option value="">Select Frame Colour </option>
+                                    @foreach($frames as $frame)
+                                        <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
+                                    @endforeach
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <table class="table table-active">
+                                <thead>
+                                    <th>Size </th>
+                                    <th> Price </th>
+                             
+                                </thead>
+                                <tbody>
+                                    @foreach ($sizes as $size)
+                                    <tr>
+                                        <td>
+                                            {{$size->title}}
+                                        </td>
+                                        <td>
+                                            <input type="text" name="size_id[]" id="price" class="form-control" value="{{$size->id}}" hidden>
+                                            <input type="text" name="price[]" id="price" class="form-control" value="">
+                                        </td>
+                                      
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="card-footer">

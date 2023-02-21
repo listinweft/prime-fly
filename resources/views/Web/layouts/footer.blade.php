@@ -97,7 +97,7 @@
                 <h6>Contact</h6>
                 <ul class="list">
                     <li>
-                    {!! $siteInformation->contact!!}
+                    {{-- {!! $siteInformation->contact!!} --}}
                     </li>
 
                 </ul>

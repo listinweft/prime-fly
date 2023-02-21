@@ -1159,7 +1159,18 @@ $(document).ready(function () {
             $('.stock,.alert_quantity').attr('required', false).removeClass('required');
         }
     });
-
+    $('#type').on('change', function () {
+        var type = $(this).val();
+        if (type == 1  || type == 3) {
+            $('.mount_div').hide();
+            $('.mount').attr('required', false).removeClass('required');
+           
+        } else {
+            $('.mount_div').show();
+            $('.mount').attr('required', true).addClass('required');
+           
+        }
+    });
     //offer strip timer
     $('#is_timer_available').on('change', function () {
         if ($(this).val() == "Yes") {
