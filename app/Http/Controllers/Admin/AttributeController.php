@@ -662,10 +662,10 @@ class AttributeController extends Controller
      public function mount_edit($id)
      {
          $key = "Update";
-         $title = "Update Frame";
-         $frame = Frame::find($id);
-         if ($frame) {
-             return view('Admin.product.frame.form', compact('key', 'frame', 'title'));
+         $title = "Update Mount";
+         $mount = Mount::find($id);
+         if ($mount) {
+             return view('Admin.product.mount.form', compact('key', 'mount', 'title'));
          } else {
              return view('Admin.error.404');
          }
@@ -673,7 +673,7 @@ class AttributeController extends Controller
 
      public function mount_update(Request $request, $id)
      {
-         $mount = Frame::find($id);
+         $mount = Mount::find($id);
          $validatedData = $request->validate([
              'title' => 'required|unique:measurement_units,title,' . $id,
              'image' => 'image|mimes:jpeg,png,jpg|max:512',
@@ -688,11 +688,11 @@ class AttributeController extends Controller
              $mount->image_webp = Helper::uploadWebpImage($request->image, 'uploads/mount/image/webp/', $request->title);
              $mount->image = Helper::uploadFile($request->image, 'uploads/mount/image/', $request->title);
          }
-         $frame = Frame::find($id);
-         $frame->title = $validatedData['title'];
-         if ($frame->save()) {
-             session()->flash('success', "Frame '" . $frame->title . "' has been updated successfully");
-             return redirect(Helper::sitePrefix() . 'product/frame');
+         $mount = Mount::find($id);
+         $mount->title = $validatedData['title'];
+         if ($mount->save()) {
+             session()->flash('success', "Mount '" . $mount->title . "' has been updated successfully");
+             return redirect(Helper::sitePrefix() . 'product/mount');
          } else {
              return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
          }
@@ -701,9 +701,9 @@ class AttributeController extends Controller
      public function delete_mount(Request $request)
      {
          if (isset($request->id) && $request->id != NULL) {
-             $frame = Frame::find($request->id);
-             if ($frame) {
-                 if ($frame->delete()) {
+             $mount = Mount::find($request->id);
+             if ($mount) {
+                 if ($mount->delete()) {
                      return response()->json(['status' => true]);
                  } else {
                      return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
