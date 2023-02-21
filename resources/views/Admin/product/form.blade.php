@@ -214,7 +214,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label> Product Thumbnail Attribute</label>
+                                <label> Product Thumbnail Attribute*</label>
                                 <input type="text" name="thumbnail_image_attribute"
                                        id="thumbnail_image_attribute"
                                        placeholder="Alt='Product Thumbnail Attribute'"
@@ -227,7 +227,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Banner Image*</label>
+                                <label>Banner Image</label>
                                 <div class="file-loading">
                                     <input id="desktop_banner" name="desktop_banner" type="file"
                                             accept="image/*">
@@ -245,6 +245,42 @@
                                         class="form-control placeholder-cls" autocomplete="off"
                                         value="{{ isset($product)?$product->banner_attribute:'' }}">
                                 @error('banner_attribute')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label> About This Item</label>
+                                <textarea name="about_this_item" id="about_this_item"
+                                          placeholder="About This Item" class="form-control  tinyeditor"
+                                          autocomplete="off">{{ isset($product)?$product->about_this_item:'' }}</textarea>
+                                <div class="help-block with-errors" id="about_this_item_error"></div>
+                                @error('about_this_item')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Featured Image</label>
+                                <div class="file-loading">
+                                    <input id="featured_image" name="featured_image" type="file"
+                                            accept="image/*">
+                                </div>
+                                <span class="caption_note">Note: uploaded images have a maximum size of <strong> 900x830</strong> pixels and can't be over 512kb</span>
+                                @error('featured_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Featured Attribute</label>
+                                <input type="text" name="featured_image_attribute"
+                                        id="featured_image_attribute"
+                                        placeholder="Alt='Product Thumbnail Attribute'"
+                                        class="form-control placeholder-cls" autocomplete="off"
+                                        value="{{ isset($product)?$product->featured_image_attribute:'' }}">
+                                @error('featured_image_attribute')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -346,6 +382,29 @@
             initialPreview: ["{{asset($product->mobile_banner)}}",],
             initialPreviewConfig: [{
                 caption: "{{ ($product->mobile_banner!=NULL)?last(explode('/',$product->mobile_banner)):''}}",
+                width: "120px"
+            }]
+            @endif
+        });
+        $("#featured_image").fileinput({
+            'theme': 'explorer-fas',
+            validateInitialCount: true,
+            overwriteInitial: false,
+            autoReplace: true,
+            initialPreviewShowDelete: false,
+            initialPreviewAsData: true,
+            dropZoneEnabled: false,
+            required: false,
+            allowedFileTypes: ['image'],
+            minImageWidth: 900,
+            minImageHeight: 830,
+            maxImageWidth: 900,
+            maxImageHeight: 830,
+            showRemove: true,
+            @if(isset($product) && $product->featured_image!=NULL)
+            initialPreview: ["{{asset($product->featured_image)}}",],
+            initialPreviewConfig: [{
+                caption: "{{ ($product->featured_image!=NULL)?last(explode('/',$product->featured_image)):''}}",
                 width: "120px"
             }]
             @endif

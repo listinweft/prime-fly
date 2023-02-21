@@ -13,9 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->string('color')->unique()->after('image_attribute');
-            $table->string('code')->unique()->after('color');
+        Schema::create('frames', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('image')->nullable();
+            $table->string('image_webp')->nullable();
+            $table->string('image_attribute')->nullable();
+            $table->string('color')->nullable();
+            $table->string('code')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

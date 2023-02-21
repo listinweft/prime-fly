@@ -55,7 +55,7 @@ class ProductController extends Controller
     public function    product_detail($id)
     {
         $key = "Update";
-        $title = "Update Product";
+        $title = "Product Detail";
         $product = Product::find($id);
         if ($product) {
             $colors = Color::active()->get();
@@ -66,15 +66,15 @@ class ProductController extends Controller
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
             $products = Product::active()->get();
             $sizes = Size::active()->get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes'));
+            return view('Admin.product.detail_form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes'));
         } else {
             return view('Admin.error.404');
         }
     }
  
-    public function product_store(Request $request, $id)
+    public function product_store(Request $request)
     {
-        dd($request->all());
+       
         DB::beginTransaction();
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
@@ -184,7 +184,8 @@ class ProductController extends Controller
             $categories = Category::active()->whereNull('parent_id')->get();
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
             $products = Product::active()->get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'colors'));
+            $sizes = Size::active()->get();
+            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes'));
         } else {
             return view('Admin.error.404');
         }

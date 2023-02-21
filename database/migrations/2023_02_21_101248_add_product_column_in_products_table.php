@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::table('products', function (Blueprint $table) {
+            $table->text('about_item')->nullable();
+            $table->text('product_type_id')->nullable();
+            $table->text('size_id')->nullable();
+            $table->text('shape_id')->nullable();
         });
     }
 
@@ -25,8 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 };
