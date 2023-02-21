@@ -293,8 +293,8 @@ class AttributeController extends Controller
         }
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Product Type '" . $product_type->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/product-type');
+            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/measurement-unit');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
         }
@@ -332,7 +332,7 @@ class AttributeController extends Controller
         $product_type = ProductType::find($id);
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Product Type '" . $product_type->title . "' has been updated successfully");
+            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/product-type');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
@@ -457,13 +457,8 @@ class AttributeController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|unique:shapes,title,NULL,id,deleted_at,NULL',
-            'image' => 'image|mimes:jpeg,png,jpg|max:512'
         ]);
         $shape = new Shape;
-        if ($request->hasFile('image')) {
-            $shape->image_webp = Helper::uploadWebpImage($request->image, 'uploads/shape/image/webp/', $request->title);
-            $shape->image = Helper::uploadFile($request->image, 'uploads/shape/image/', $request->title);
-        }
         $shape->title = $validatedData['title'];
         if ($shape->save()) {
             session()->flash('message', "Shape '" . $shape->title . "' has been added successfully");
@@ -487,20 +482,10 @@ class AttributeController extends Controller
 
     public function shape_update(Request $request, $id)
     {
-        $shape = Shape::find($id);
         $validatedData = $request->validate([
             'title' => 'required|unique:shapes,title,' . $id,
         ]);
-        if ($request->hasFile('image')) {
-            if (File::exists(public_path($shape->image))) {
-                File::delete(public_path($shape->image));
-            }
-            if (File::exists(public_path($shape->image_webp))) {
-                File::delete(public_path($shape->image_webp));
-            }
-            $shape->image_webp = Helper::uploadWebpImage($request->image, 'uploads/shape/image/webp/', $request->title);
-            $shape->image = Helper::uploadFile($request->image, 'uploads/shape/image/', $request->title);
-        }
+        $shape = Shape::find($id);
         $shape->title = $validatedData['title'];
         $shape->updated_at = now();
         if ($shape->save()) {

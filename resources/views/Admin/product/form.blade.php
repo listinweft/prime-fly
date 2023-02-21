@@ -1,26 +1,26 @@
 @extends('Admin.layouts.main')
 @section('content')
-    <div class="content-wrapper">
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'product/')}}">Product</a>
-                            </li>
-                            <li class="breadcrumb-item active">{{$title}}</li>
-                        </ol>
-                    </div>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{url(Helper::sitePrefix().'product/')}}">Product</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{$title}}</li>
+                    </ol>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <section class="content">
             <div class="container-fluid">
                 @if ($errors->any())
@@ -219,15 +219,7 @@
                                         </select>
                                         <div class="help-block with-errors" id="color_error"></div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label> Pet Types </label>
-                                        <select name="pet_type_id[]" multiple id="pet_type_id"
-                                                class="form-control select2">
-                                            @foreach($pet_types as $pet_type)
-                                                <option value="{{ ($pet_type->id ) }}">{{ $pet_type->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                   
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -281,70 +273,7 @@
                                     @enderror
                                 </div>
                             </div>
-{{--                            <div class="form-row">--}}
-{{--                                <div class="form-group col-md-4">--}}
-{{--                                    <label> Banner Title</label>--}}
-{{--                                    <input type="text" name="banner_title" id="banner_title"--}}
-{{--                                           placeholder="Banner Title"--}}
-{{--                                           class="form-control" autocomplete="off"--}}
-{{--                                           value="{{ isset($product)?$product->banner_title:'' }}">--}}
-{{--                                    <div class="help-block with-errors" id="banner_title_error"></div>--}}
-{{--                                    @error('banner_title')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group col-md-4">--}}
-{{--                                    <label> Banner Sub Title</label>--}}
-{{--                                    <input type="text" name="banner_sub_title" id="banner_sub_title"--}}
-{{--                                           placeholder="Banner Sub Title"--}}
-{{--                                           class="form-control" autocomplete="off"--}}
-{{--                                           value="{{ isset($product)?$product->banner_sub_title:'' }}">--}}
-{{--                                    <div class="help-block with-errors" id="banner_sub_title_error"></div>--}}
-{{--                                    @error('banner_sub_title')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group col-md-4">--}}
-{{--                                    <label> Banner Attribute</label>--}}
-{{--                                    <input type="text" class="form-control placeholder-cls" id="banner_attribute"--}}
-{{--                                           name="banner_attribute" placeholder="Alt='Banner Attribute'"--}}
-{{--                                           value="{{ isset($product)?$product->banner_attribute:'' }}">--}}
-{{--                                    @error('banner_attribute')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Desktop Banner*</label>
-                                    <div class="file-loading">
-                                        <input id="desktop_banner" name="desktop_banner" type="file" accept="image/*">
-                                    </div>
-                                    <span class="caption_note">Note: Image size should be minimum of 1920 x 340</span>
-                                    @error('desktop_banner')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
-                                <div class="form-group col-md-6">
-                                    <label> Banner Attribute</label>
-                                    <input type="text" class="form-control placeholder-cls" id="banner_attribute"
-                                           name="banner_attribute" placeholder="Alt='Banner Attribute'"
-                                           value="{{ isset($product)?$product->banner_attribute:'' }}">
-                                    @error('banner_attribute')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-{{--                                <div class="form-group col-md-6">--}}
-{{--                                    <label> Mobile Banner*</label>--}}
-{{--                                    <div class="file-loading">--}}
-{{--                                        <input id="mobile_banner" name="mobile_banner" type="file" accept="image/*">--}}
-{{--                                    </div>--}}
-{{--                                    <span class="caption_note">Note: Image size should be minimum of 960 x 450</span>--}}
-{{--                                    @error('mobile_banner')--}}
-{{--                                    <div class="invalid-feedback">{{ $message }}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
