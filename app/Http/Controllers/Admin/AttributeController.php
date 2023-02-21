@@ -292,7 +292,7 @@ class AttributeController extends Controller
         }
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been added successfully");
+            session()->flash('success', "Product Type '" . $product_type->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/measurement-unit');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
@@ -376,8 +376,14 @@ class AttributeController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|unique:sizes,title,NULL,id,deleted_at,NULL',
             'price' => 'required|unique:sizes,price,NULL,id,deleted_at,NULL',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512'
+
         ]);
         $size = new Size;
+        if ($request->hasFile('image')) {
+            $size->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $size->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
+        }
         $size->title = $validatedData['title'];
         $size->price = $validatedData['price'];
         if ($size->save()) {
@@ -402,11 +408,23 @@ class AttributeController extends Controller
 
     public function size_update(Request $request, $id)
     {
+        $size = Size::find($id);
         $validatedData = $request->validate([
             'title' => 'required|unique:sizes,title,' . $id,
             'price' => 'required|unique:sizes,price,' . $id,
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+
         ]);
-        $size = Size::find($id);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($size->image))) {
+                File::delete(public_path($size->image));
+            }
+            if (File::exists(public_path($size->image_webp))) {
+                File::delete(public_path($size->image_webp));
+            }
+            $size->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $size->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
+        }
         $size->title = $validatedData['title'];
         $size->price = $validatedData['price'];
         $size->updated_at = now();
@@ -456,8 +474,13 @@ class AttributeController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|unique:shapes,title,NULL,id,deleted_at,NULL',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512'
         ]);
         $shape = new Shape;
+        if ($request->hasFile('image')) {
+            $shape->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $shape->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
+        }
         $shape->title = $validatedData['title'];
         if ($shape->save()) {
             session()->flash('message', "Shape '" . $shape->title . "' has been added successfully");
@@ -481,10 +504,22 @@ class AttributeController extends Controller
 
     public function shape_update(Request $request, $id)
     {
+        $shape = Shape::find($id);
         $validatedData = $request->validate([
             'title' => 'required|unique:shapes,title,' . $id,
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+
         ]);
-        $shape = Shape::find($id);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($shape->image))) {
+                File::delete(public_path($shape->image));
+            }
+            if (File::exists(public_path($shape->image_webp))) {
+                File::delete(public_path($shape->image_webp));
+            }
+            $shape->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $shape->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
+        }
         $shape->title = $validatedData['title'];
         $shape->updated_at = now();
         if ($shape->save()) {
@@ -535,7 +570,7 @@ class AttributeController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|unique:measurement_units,title',
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
-            'color' => 'required|unique:frames,deleted_at,NULL',
+            // 'color' => 'required|unique:frames,deleted_at,NULL',
             'code' => 'required|unique:frames,deleted_at,NULL',
         ]);
         $frame = new Frame;
@@ -545,7 +580,7 @@ class AttributeController extends Controller
             $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
         }
         $frame->title = $validatedData['title'];
-        $frame->color = $validatedData['color'];
+        // $frame->color = $validatedData['color'];
         $frame->code = $validatedData['code'];
         if ($frame->save()) {
             session()->flash('success', "Frame '" . $frame->title . "' has been added successfully");
@@ -573,7 +608,7 @@ class AttributeController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|unique:measurement_units,title,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
-            'color' => 'required|unique:frames,color,' . $id,
+            // 'color' => 'required|unique:frames,color,' . $id,
             'code' => 'required|unique:frames,code,' . $id,
         ]);
         if ($request->hasFile('image')) {
@@ -588,7 +623,7 @@ class AttributeController extends Controller
         }
         $frame = Frame::find($id);
         $frame->title = $validatedData['title'];
-        $frame->title = $validatedData['color'];
+        // $frame->title = $validatedData['color'];
         $frame->code = $validatedData['code'];
         if ($frame->save()) {
             session()->flash('success', "Frame '" . $frame->title . "' has been updated successfully");

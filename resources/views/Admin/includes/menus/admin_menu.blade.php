@@ -502,14 +502,14 @@
         </li> --}}
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/size')}}"
-               class="nav-link {{ (Request::segment(3)=='size')?'active':'' }}">
+               class="nav-link {{ (Request::segment(3)=='size')?:'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Size</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/shape')}}"
-               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
+               class="nav-link {{ (Request::segment(3)=='shape')?:'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Shape</p>
             </a>
@@ -517,7 +517,7 @@
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/frame')}}"
-               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
+               class="nav-link {{ (Request::segment(3)=='shape')?:'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Frame</p>
             </a>

@@ -45,13 +45,34 @@
                                 </div>
                             @endif
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
                                            value="{{ @$shape->title }}">
                                     <div class="help-block with-errors" id="title_error"></div>
                                     @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Image*</label>
+                                    <div class="file-loading">
+                                        <input id="image" name="image" type="file">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 90 x 100px</span>
+                                    @error('image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Image Attribute</label>
+                                    <input type="text" class="form-control placeholder-cls" id="image_attribute"
+                                           name="image_attribute" placeholder="Alt='Image Attribute'"
+                                           value="{{ isset($shape)?$shape->image_attribute:'' }}">
+                                    @error('image_attribute')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -68,5 +89,34 @@
                 </form>
         </section>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 90,
+                minImageHeight: 100,
+                maxImageWidth: 90,
+                maxImageHeight: 100,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($shape) && $shape->image!=NULL)
+                initialPreview: ["{{asset($shape->image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($shape->image!=NULL)?last(explode('/',$shape->image)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
 
+        });
+    </script>
 @endsection

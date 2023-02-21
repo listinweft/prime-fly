@@ -54,7 +54,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Title*</label>
-                                    <input type="text" name="title" id="title" placeholder="Title"
+                                    <input type="text" name="contact_page_title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
                                            value="{{ !empty($contact)?$contact->contact_page_title:'' }}"
                                            maxlength="230">
