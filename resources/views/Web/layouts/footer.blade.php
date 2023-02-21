@@ -38,7 +38,7 @@
                         <a href="">FAQ's</a>
                     </li>
                     <li>
-                    
+
                         <a href="{{url('privacy-policy')}}">Privacy policy</a>
                     </li>
                     <li>
@@ -46,7 +46,7 @@
                     </li>
                     <li>
                     <a href="{{url('return-policy')}}">Return & Refund Policy</a>
-                       
+
                     </li>
                     <li>
                         <a href="errorPage.php">Payment</a>
@@ -99,7 +99,7 @@
                     <li>
                     {!! $siteInformation->contact!!}
                     </li>
-                    
+
                 </ul>
             </div>
         </div>

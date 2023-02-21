@@ -20,7 +20,7 @@
                                 </div>
                                 <div class=" col-12">
                                     <div class="form-group">
-                                        <label for="">Last Name</label> 
+                                        <label for="">Last Name</label>
                                         <img src="assets/images/loginUserName.png" alt="">
                                         <input type="text" name="lastname" id="lastname" class="form-control required" placeholder="Enter Last Name">
                                         <span class="invalidMessage"></span>
@@ -88,7 +88,7 @@
 
     @endsection
 @push('scripts')
-    
+
 @endpush
 
 

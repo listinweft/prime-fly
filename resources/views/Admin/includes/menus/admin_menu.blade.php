@@ -58,7 +58,7 @@
             </a>
         </li>
 
-        
+
     </ul>
 </li>
 <li class="nav-item {{ (Request::segment(2)=='banner')?'menu-is-opening menu-open':'' }}">
@@ -132,7 +132,7 @@
                 <p>Team </p>
             </a>
         </li>
-       
+
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/faq')}}"
@@ -485,7 +485,7 @@
                 <p>Sub Category</p>
             </a>
         </li>
-  
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/product-type')}}"
                class="nav-link {{ (Request::segment(3)=='product-type')?'active':'' }}">
@@ -515,6 +515,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'product/pet-type')}}"
+               class="nav-link {{ (Request::segment(3)=='pet-type')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Pet Type</p>
+            </a>
+        </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/tag')}}"
                class="nav-link {{ (Request::segment(3)=='tag')?'active':'' }}">

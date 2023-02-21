@@ -72,7 +72,7 @@ Route::post('blog-load-more', [WebController::class, 'blogLoadMore']);
 Route::get('blog/{short_url}', [WebController::class, 'blog_detail']);
 Route::post('booking', [WebController::class, 'booking']);
 Route::get('contact', [WebController::class, 'contact']);
-Route::post('contact', [WebController::class, 'contact_store']);
+Route::post('enquiry', [WebController::class, 'enquiry_store']);
 Route::get('faq', [WebController::class, 'faq']);
 Route::get('brand/{url}', [WebController::class, 'brand']);
 Route::get('deal/{url}', [WebController::class, 'deal']);
@@ -318,6 +318,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [CountryController::class, 'delete_state']);
             Route::post('state_list', [CountryController::class, 'state_list']);
         });
+
         Route::prefix('shipping-charge')->group(function () {
             Route::get('/', [CountryController::class, 'shipping_list']);
             Route::get('create', [CountryController::class, 'shipping_create']);
@@ -467,7 +468,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete/', [HomeController::class, 'delete_hot_deal']);
         });
 
-    
+
 
         Route::prefix('testimonial')->group(function () {
             Route::get('/', [HomeController::class, 'testimonial']);
@@ -629,7 +630,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [AttributeController::class, 'delete_tag']);
         });
 
-      
+
 
         Route::prefix('product-type')->group(function () {
             Route::get('/', [AttributeController::class, 'product_type']);
@@ -656,6 +657,24 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('edit/{id}', [AttributeController::class, 'shape_edit']);
             Route::post('edit/{id}', [AttributeController::class, 'shape_update']);
             Route::post('delete', [AttributeController::class, 'delete_shape']);
+        });
+
+        Route::prefix('frame')->group(function () {
+            Route::get('/', [AttributeController::class, 'frame']);
+            Route::get('create', [AttributeController::class, 'frame_create']);
+            Route::post('create', [AttributeController::class, 'frame_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'frame_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'frame_update']);
+            Route::post('delete', [AttributeController::class, 'delete_frame']);
+        });
+
+        Route::prefix('mount')->group(function () {
+            Route::get('/', [AttributeController::class, 'mount']);
+            Route::get('create', [AttributeController::class, 'mount_create']);
+            Route::post('create', [AttributeController::class, 'mount_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'mount_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'mount_update']);
+            Route::post('delete', [AttributeController::class, 'delete_mount']);
         });
     });
 
@@ -720,7 +739,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     });
 
-   
+
 
 
 });

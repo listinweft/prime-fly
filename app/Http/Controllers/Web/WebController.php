@@ -60,7 +60,12 @@ class WebController extends Controller
       $themes = Category::active()->oldest('sort_order')->get();
         $testimonials = Testimonial::active()->take(10)->get();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
-        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
+      
+      $ourcollection = Homecollection::active()->first();
+      return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
+
+
+        return view('web.home', compact('seo_data', 'ourcollection'));
     }
 
 
@@ -142,9 +147,6 @@ class WebController extends Controller
 
         $totalBlog = Blog::active()->count();
         $condition = Blog::active()->latest('posted_date');
-
-
-     
         $blogs = $condition->skip(4)->take(6)->get();
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
