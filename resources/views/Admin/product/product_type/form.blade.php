@@ -25,7 +25,7 @@
                     {{csrf_field()}}
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Basic Information</h3>
+                            <h3 class="card-title">Product type form</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
@@ -47,7 +47,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Title*</label>
-                                    <input type="text" name="title" id="title" placeholder="Title"
+                                    <input type="text" name="title" id="title" placeholder="Title" readonly
                                            class="form-control required" autocomplete="off"
                                            value="{{ @$product_type->title }}">
                                     <div class="help-block with-errors" id="title_error"></div>
@@ -60,7 +60,7 @@
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
                                     </div>
-                                    <span class="caption_note">Note: Image size must be 200x200px</span>
+                                    <span class="caption_note">Note: Image size must be 80x80px</span>
                                     @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

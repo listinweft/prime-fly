@@ -49,7 +49,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label> Title*</label>
-                                    <input type="text" name="title" id="title" placeholder="Title"
+                                    <input type="text" name="title" id="title" placeholder="Title" readonly
                                            class="form-control required" autocomplete="off"
                                            value="{{ @$type->title }}">
                                     <div class="help-block with-errors" id="title_error"></div>

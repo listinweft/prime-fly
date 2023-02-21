@@ -285,6 +285,39 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label> Product Type*</label>
+                                <select name="type" id="type" 
+                                        class="form-control  required">
+                                    <option value="">Select product type </option>
+                                    @foreach($productTypes as $productType)
+                                        <option value="{{$productType->id}}"
+                                            {{ (@$productType->id==@$product->product_type_id)?'selected':'' }}
+                                        >{{$productType->title}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="help-block with-errors" id="category_error"></div>
+                                @error('category')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6 mount_div">
+                                <br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="mount">
+                                    <label class="form-check-label" for="mount">
+                                      With Mount
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="mount" id="mount" >
+                                    <label class="form-check-label" for="mount">
+                                     No Mount
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <input type="submit" id="btn_save" name="btn_save"

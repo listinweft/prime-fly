@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('about_item')->nullable();
             $table->text('product_type_id')->nullable();
             $table->text('size_id')->nullable();
+            $table->enum('mount', ['Yes', 'No','Null'])->default('No');
             $table->text('shape_id')->nullable();
         });
     }

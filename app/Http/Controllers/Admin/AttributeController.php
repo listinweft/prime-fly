@@ -294,10 +294,10 @@ class AttributeController extends Controller
         }
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/measurement-unit');
+            session()->flash('success', "Product Type'" . $product_type->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/product-type');
         } else {
-            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+            return back()->withInput($request->input())->withErrors("Error while updating the Product Type");
         }
     }
 

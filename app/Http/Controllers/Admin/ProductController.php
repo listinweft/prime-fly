@@ -10,6 +10,7 @@ use App\Models\Color;
 use App\Models\MeasurementUnit;
 use App\Models\Offer;
 use App\Models\Product;
+use App\Models\ProductType;
 use App\Models\ProductGallery;
 use App\Models\ProductOverview;
 use App\Models\ProductReview;
@@ -49,8 +50,9 @@ class ProductController extends Controller
         $tags = Tag::active()->get();
         $categories = Category::active()->whereNull('parent_id')->get();
         $sizes = Size::active()->get();
+        $productTypes = ProductType::active()->get();
         $products = Product::active()->get();
-        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes'));
+        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes'));
     }
     public function    product_detail($id)
     {
