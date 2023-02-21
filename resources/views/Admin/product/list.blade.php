@@ -50,17 +50,13 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Category</th>
-{{--                                        <th>Overview</th>--}}
-                                        <th>Key Features</th>
-                                        <th>Specification</th>
                                         <th>Gallery</th>
                                         <th>Offer</th>
                                         <th>Status</th>
-{{--                                        <th>Display to Home</th>--}}
                                         <th>Featured</th>
                                         <th>New Arrival</th>
                                         <th>Best Seller</th>
-                                        <th>Is Organic</th>
+                                        <th >Display to Home</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -76,21 +72,9 @@
                                                     {{ !$loop->last ? ',': ''}}
                                                 @endforeach
                                             </td>
-{{--                                            <td><a href="{{url(Helper::sitePrefix().'product/overview/'.$product->id)}}"--}}
-{{--                                                   class="btn btn-sm btn-success mr-2 tooltips" title="Add Overview">Overview</a>--}}
-{{--                                            </td>--}}
 
-                                            <td>
-                                                <a href="{{url(Helper::sitePrefix().'product/key-feature/'.$product->id)}}"
-                                                   class="btn btn-sm btn-info mr-2 tooltips"
-                                                   title="Add KeyFeature">KeyFeature</a>
-                                            </td>
 
-                                            <td>
-                                                <a href="{{url(Helper::sitePrefix().'product/specification/'.$product->id)}}"
-                                                   class="btn btn-sm btn-danger mr-2 tooltips"
-                                                   title="Add Specification">Specification</a>
-                                            </td>
+                                         
                                             <td><a href="{{url(Helper::sitePrefix().'product/gallery/'.$product->id)}}"
                                                    class="btn btn-sm btn-primary mr-2 tooltips" title="Add Gallery">Gallery</a>
                                             </td>
@@ -106,15 +90,6 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-{{--                                            <td>--}}
-{{--                                                <label class="switch">--}}
-{{--                                                    <input type="checkbox" class="bool_status"--}}
-{{--                                                           data-url='change-bool-status' data-table="Product"--}}
-{{--                                                           data-id="{{$product->id}}" data-field="display_to_home"--}}
-{{--                                                        {{($product->display_to_home == "Yes")?'checked':''}}>--}}
-{{--                                                    <span class="slider"></span>--}}
-{{--                                                </label>--}}
-{{--                                            </td>--}}
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="bool_status"
@@ -142,12 +117,12 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>
+                                            <td >
                                                 <label class="switch">
                                                     <input type="checkbox" class="bool_status"
                                                            data-url='change-bool-status' data-table="Product"
-                                                           data-id="{{$product->id}}" data-field="is_organic"
-                                                        {{($product->is_organic == "Yes")?'checked':''}}>
+                                                           data-id="{{$product->id}}" data-field="display_to_home"
+                                                        {{($product->display_to_home == "Yes")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>

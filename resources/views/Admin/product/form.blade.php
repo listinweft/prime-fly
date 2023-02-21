@@ -186,17 +186,28 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-3">
-                                <label> Size*</label>
-                                <select class="form-control select2 " name="sizes[]" id="sizes" multiple>
-                                    @foreach($sizes as $size)
-                                    <option value="{{$size->id}}"
-                                        {{ (@$size->id==@$product->size_id)?'selected':'' }}
-                                    >{{$size->title}} - {{$size->price}}</option>
-                                @endforeach
+                           
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Quantity*</label>
+                                <input type="text" name="quantity" id="quantity" placeholder="Quantity"
+                                       class="form-control required"
+                                       value="{{ isset($product)?$product->quantity:'' }}">
+                                <div class="help-block with-errors" id="quantity_error"></div>
+                                @error('quantity')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Related products </label>
+                                <select name="related_product_id[]" multiple id="related_product_id"
+                                        class="form-control select2">
+                                    @foreach($products as $related)
+                                        <option value="{{ $related->id }}">{{ $related->title }}</option>
+                                    @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="availability_error"></div>
-                                @error('availability')
+                                @error('related_product_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -286,7 +297,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label> Product Type*</label>
                                 <select name="type" id="type" 
                                         class="form-control  required">
@@ -302,7 +313,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-4 mount_div">
+                            <div class="form-group col-md-3 mount_div">
                                 <br>
                                 <div class="form-check">
                                     &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount">
@@ -317,14 +328,23 @@
                                   <div class="form-check">
                                   </div>
                             </div>
-                            <div class="form-group col-md-4 ">
+                            <div class="form-group col-md-3 ">
                                 <label> Frame Colour</label>
                                 <select name="frame_color" id="frame_color"  class="form-control select2 required" multiple>
                                     <option value="">Select Frame Colour </option>
                                     @foreach($frames as $frame)
                                         <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
                                     @endforeach
-                            </select>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 ">
+                                <label> Shapes</label>
+                                <select name="shapes[]" id="shapes"  class="form-control select2 required" multiple>
+                                    <option value="">Select Shapes </option>
+                                    @foreach($shapes as $shape)
+                                        <option value="{{$shape->id}}"  {{ (@$shape->id==@$product->shape_id)?'selected':'' }} >{{$shape->title}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-row">
@@ -334,6 +354,7 @@
                                     <th> Price </th>
                              
                                 </thead>
+                                @if (!isset($product))
                                 <tbody>
                                     @foreach ($sizes as $size)
                                     <tr>
@@ -341,13 +362,29 @@
                                             {{$size->title}}
                                         </td>
                                         <td>
-                                            <input type="text" name="size_id[]" id="price" class="form-control" value="{{$size->id}}" hidden>
-                                            <input type="text" name="price[]" id="price" class="form-control" value="">
+                                            <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($product)?$product->price:''}}">
+
                                         </td>
                                       
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                    @else
+                                    <tbody>
+                                        @foreach ($productWithPrice as $size)
+                                        <tr>
+                                            @php
+                                                $sizes = App\Models\Size::where('id',$size->size_id)->first();
+
+                                            @endphp
+                                            <td>{{ $sizes->title }}</td>
+                                            <td>w
+                                                <input type="text" name="price[{{$size->size_id}}]" id="price" class="form-control" value="{{isset($size)?$size->price:''}}">
+                                            </td>
+                                        </tr>
+
+                                        @endforeach
+                                @endif
                             </table>
                         </div>
                     </div>

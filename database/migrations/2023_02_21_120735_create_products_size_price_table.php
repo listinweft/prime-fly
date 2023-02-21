@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            // $table->string('color')->unique()->after('image_attribute')->nullable();
+        Schema::create('products_size_price', function (Blueprint $table) {
+            $table->id();
+            $table->integer('product_id');
+            $table->integer('size_id');
+            $table->integer('price');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->dropColumn('color');
-        });
+        Schema::dropIfExists('products_size_price');
     }
 };

@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            // $table->string('color')->unique()->after('image_attribute')->nullable();
+        Schema::table('products', function (Blueprint $table) {
+            $table->text('frame_color')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->dropColumn('color');
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 };
