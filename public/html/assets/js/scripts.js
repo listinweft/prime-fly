@@ -192,6 +192,8 @@ $('.productDetailsLargeImages').slick({
 });
 
 
+
+
 //Recent Blog Slider
 $('.blogRecentSlider').slick({
     slidesToShow: 4,
@@ -505,76 +507,6 @@ $(document).on('click', '#add_address_ship_go', function () {
 //Order Ship Address go to
 
 
-
-// Mega Menu Start
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    /////// Prevent closing from click inside dropdown
-    document.querySelectorAll('.dropdown-menu').forEach(function(element){
-        element.addEventListener('click', function (e) {
-            if(!$(this).hasClass('product-list-dropdown-menu'))
-                e.stopPropagation();
-        });
-    });
-
-    // make it as accordion for smaller screens
-    if (window.innerWidth < 992) {
-
-        // close all inner dropdowns when parent is closed
-        document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
-            everydropdown.addEventListener('hidden.bs.dropdown', function () {
-                // after dropdown is hidden, then find all submenus
-                this.querySelectorAll('.megasubmenu').forEach(function(everysubmenu){
-                    // hide every submenu as well
-                    everysubmenu.style.display = 'none';
-                });
-            })
-        });
-
-        document.querySelectorAll('.has-megasubmenu a').forEach(function(element){
-            element.addEventListener('click', function (e) {
-
-                let nextEl = this.nextElementSibling;
-                if(nextEl && nextEl.classList.contains('megasubmenu')) {
-                    // prevent opening link if link needs to open dropdown
-                    e.preventDefault();
-
-                    if(nextEl.style.display == 'block'){
-                        nextEl.style.display = 'none';
-                    } else {
-                        nextEl.style.display = 'block';
-                    }
-
-                }
-            });
-        })
-    }
-    // end if innerWidth
-});
-
-// Mega Menu End
-
-$(".colorBtn").click(function(){
-    $(".colorBtn").removeClass('active');
-    $(this).addClass('active');
-    var color = $(this).data('color');
-    var img = $(this).data('img');
-    $('.frame_product_detail_img').css('border-color', color);
-    $('.frame_product_border_image').attr('src',img);
-});
-
-$(".mountSpaceBtn").click(function(){
-    if($(this).hasClass('btnMountClass')){
-        $('.frame_product_detail_img').addClass('imageMountClass');
-    }
-    else{
-        $('.frame_product_detail_img').removeClass('imageMountClass');
-    }
-    // $('.frame_product_detail_img').toggleClass('mountClass');
-    $(".mountSpaceBtn").removeClass('active');
-    $(this).addClass('active');
-});
 
 $(window).on('load', function () {
     $('#loading').hide();
