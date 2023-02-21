@@ -155,6 +155,7 @@ Route::get('order/{order_code}', [CartController::class, 'order_detail']);
 /******************************** Customer Routes ************************************/
 Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function () {
     Route::get('account/{tab}', [CustomerWebController::class, 'account']);
+   
     Route::post('update-profile', [CustomerWebController::class, 'update_profile']);
     Route::post('change-password', [CustomerWebController::class, 'change_password_store']);
     Route::post('profile-image', [CustomerWebController::class, 'profile_image_upload']);
