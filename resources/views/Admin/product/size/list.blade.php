@@ -45,7 +45,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
-                                        <th>Price</th>
+                                        <th>Mesurement</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>

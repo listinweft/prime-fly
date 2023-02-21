@@ -640,7 +640,6 @@ $(document).ready(function () {
         }
     });
     $(document).on('click', '.form_submit_btn', function (e) {
-
       
         e.preventDefault();
         $this = $(this);
@@ -693,8 +692,12 @@ $(document).ready(function () {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url: base_url + url,
+
+              
             })
                 .done(function (response) {
+
+                   
                     console.log(response);
                     $this.html(buttonText);
                     $("#" + form_id)[0].reset();
@@ -826,6 +829,120 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('click', '.address-form', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
 
+       
+        $.ajax({
+            type: 'POST', dataType: 'html', data: {id}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/customer/address-form', success: function (response) {
+                if (response != '0') {
+
+                    $('#my_address_add_form').html(response);
+                    $('#my_address_list').addClass('d-none');
+                    $('#my_address_add_form').removeClass('d-none');
+                    
+                } else {
+                    swal.fire({
+                        title: "Error", text: "Error while load the form", icon: 'error'
+                    });
+                }
+            }
+        });
+    });
+
+
+    $(document).on('click', '#add_address_gos', function () {
+
+        // alert("nn");
+       
+        $('#my_address_add_form_')[0].reset();
+        if ($('#my_address_list').css('display') === 'block') {
+            $('#my_address_list').addClass('d-none');
+            $('#my_address_add_form').removeClass('d-none');
+        }
+        else {
+            $('#my_address_list').removeClass('d-none');
+            $('#my_address_add_form').addClass('d-none');
+        }
+    });
+
+    $(document).on('change', '#country', function (e) {
+        
+        e.preventDefault();
+        var country_id = $(this).val();
+        var form = $(this).closest("form");
+       
+        var form_id = form.attr('id');
+      
+       
+        if (country_id) {
+            $.ajax({
+                type: 'POST', dataType: 'json', url: base_url + '/state-list', data: {country_id}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, success: function (data) {
+                    
+                    if (data.status == 'error') {
+                        swal.fire('Error !', data.message, 'error');
+                    } else {
+                        alert("nnc");
+                        var resp = data.message;
+                        var len = resp.length;
+                        $("#" + form_id + " #state").empty().append("<option value=''>Select Emirate</option>");
+                        for (var i = 0; i < len; i++) {
+                            $("#" + form_id + " #state").append("<option value='" + resp[i]['id'] + "'>" + resp[i]['title'] + "</option>");
+                        }
+                    }
+                }
+            })
+        } else {
+            $("#" + form_id + " #state").empty().append("<option value=''>Select Country First</option>");
+        }
+    });
+
+    $(document).on('click', '.remove-address', function () {
+
+      
+      
+        var address_id = $(this).data('id');
+        swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST', dataType: 'json', headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }, url: base_url + '/customer/delete-address', data: {address_id}, success: function (data) {
+                        if (data.status == 'error') {
+                            swal.fire('Error !', data.message, 'error');
+                        } else {
+                            $('#address' + address_id).remove();
+                            Toast.fire({
+                                title: "Success", text: data.message, icon: "success"
+                            });
+                            setTimeout(() => {
+
+                               //redirect url
+                               window.location.href = base_url + '/customer/account/address';
+                            }, 1000);
+                        }
+                    }
+                });
+            } else {
+                Toast.fire("Cancelled", "Entry remain safe :)", "warning");
+            }
+        });
+    });
 
 });

@@ -1152,11 +1152,11 @@ $(document).ready(function () {
     $('#availability').on('change', function () {
         var availability = $(this).val();
         if (availability == "In Stock") {
-            $('#availability_div').show();
-            $('#stock,#alert_quantity').attr('required', true).addClass('required');
+            $('.availability_div').show();
+            $('.stock,.alert_quantity').attr('required', true).addClass('required');
         } else {
-            $('#availability_div').hide();
-            $('#stock,#alert_quantity').attr('required', false).removeClass('required');
+            $('.availability_div').hide();
+            $('.stock,.alert_quantity').attr('required', false).removeClass('required');
         }
     });
 
