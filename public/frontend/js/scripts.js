@@ -193,7 +193,6 @@ $('.productDetailsLargeImages').slick({
 });
 
 
-
 //Recent Blog Slider
 $('.blogRecentSlider').slick({
     slidesToShow: 4,

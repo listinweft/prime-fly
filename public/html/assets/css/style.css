@@ -5269,7 +5269,6 @@ footer .copy ul li img {
   display: flex !important;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
   overflow: hidden;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__html {
@@ -5364,7 +5363,7 @@ footer .copy ul li img {
 }
 .productDetailsPage .framed-canvas img.framed-canvas {
   background: #f9f9f9;
-  background: #cecec4;
+  box-shadow: 0 0 10px 3px #ccc;
 }
 .productDetailsPage .framed-canvas img.framed-canvas.imageMountClass {
   padding: 25px;

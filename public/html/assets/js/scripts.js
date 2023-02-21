@@ -179,6 +179,16 @@ $('.productDetailsThumbs').slick({
     verticalSwiping: true,
     asNavFor: '.productDetailsLargeImages',
 });
+// $('.productDetailsThumbs').slick('refresh');
+
+$(".productDetailsThumbs").on('click', function(e) {
+
+    e.preventDefault();
+    $slider.slick('refresh');
+
+
+});
+
 
 $('.productDetailsLargeImages').slick({
     slidesToShow: 1,
@@ -575,6 +585,7 @@ $(".mountSpaceBtn").click(function(){
     $(".mountSpaceBtn").removeClass('active');
     $(this).addClass('active');
 });
+
 
 $(window).on('load', function () {
     $('#loading').hide();

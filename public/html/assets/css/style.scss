@@ -6403,7 +6403,7 @@ footer{
         .productDetailsLargeImages{
           .fotorama__stage__frame {
             //position: absolute;
-              position: relative;
+            position: relative;
             right: 0;
             top: 0;
             height: 600px;
@@ -6413,8 +6413,7 @@ footer{
             display: flex !important;
             align-items: center;
             justify-content: center;
-            background-color: #fafafa;
-            //background-color: red;
+            //background-color: #fafafa;
             overflow: hidden;
           }
           .fotorama__html {
@@ -6528,8 +6527,8 @@ footer{
   .framed-canvas{
     img.framed-canvas {
         background: #f9f9f9;
-        background: #cecec4;
-      //border: 15px solid #f5f5f5 !important;
+        //background: #cecec4;
+        box-shadow: 0 0 10px 3px #ccc;
     }
     img.framed-canvas.imageMountClass{
         padding: 25px;
