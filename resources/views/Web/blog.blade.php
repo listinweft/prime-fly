@@ -61,7 +61,7 @@
                             @if($blog->video_url !='' || $blog->video_url != null)
                         <a href="{{ $blog->video_url }}" data-fancybox="group">
                             <button type="button" class="video-btn">
-                                <img class="img-fluid" src="{{asset('images/videoPlay.png')}}" alt="">
+                                <img class="img-fluid" src="{{asset('frontend/images/videoPlay.png')}}" alt="">
                             </button>
                         </a>
                         @endif
@@ -116,172 +116,14 @@
                                     <a href="{{ url('blog/'.$blog->short_url) }}">Read More</a>
                                 </div>
                             </div>
-                           
-                        </div>
                         @endforeach
+                        </div>
                     </div>
                 </div>
 
                 @endif
             </div>
-<!--            <div class="row pt-60 position-relative">-->
-<!--                <div class="col-lg-4 col-md-6 marginBottom">-->
-<!--                    <div class="blogCrad">-->
-<!--                        <div class="blogImage">-->
-<!--                            <img class="img-fluid" src="assets/images/blog/blog-01.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="blogDetails">-->
-<!--                            <h6>-->
-<!--                                Lorem Ipsum is simply dummy text of the printing and typesetting-->
-<!--                            </h6>-->
-<!--                            <div class="textArea">-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry-->
-<!--                                </p>-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry...-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="btnDateWrapper">-->
-<!--                                <a class="primary_btn" href="">Read More</a>-->
-<!--                                <div class="date">-->
-<!--                                    08.08.2021-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 marginBottom">-->
-<!--                    <div class="blogCrad">-->
-<!--                        <div class="blogImage">-->
-<!--                            <img class="img-fluid" src="assets/images/blog/blog-02.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="blogDetails">-->
-<!--                            <h6>-->
-<!--                                Lorem Ipsum is simply dummy-->
-<!--                            </h6>-->
-<!--                            <div class="textArea">-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry-->
-<!--                                </p>-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry...-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="btnDateWrapper">-->
-<!--                                <a class="primary_btn" href="">Read More</a>-->
-<!--                                <div class="date">-->
-<!--                                    08.08.2021-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 marginBottom">-->
-<!--                    <div class="blogCrad">-->
-<!--                        <div class="blogImage">-->
-<!--                            <img class="img-fluid" src="assets/images/blog/blog-03.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="blogDetails">-->
-<!--                            <h6>-->
-<!--                                Lorem Ipsum is simply dummy text of the printing and typesetting typesetting industry. Lorem Ipsum has been the industry dummy-->
-<!--                            </h6>-->
-<!--                            <div class="textArea">-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry-->
-<!--                                </p>-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry...-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="btnDateWrapper">-->
-<!--                                <a class="primary_btn" href="">Read More</a>-->
-<!--                                <div class="date">-->
-<!--                                    08.08.2021-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 marginBottom">-->
-<!--                    <div class="blogCrad">-->
-<!--                        <div class="blogImage">-->
-<!--                            <img class="img-fluid" src="assets/images/blog/blog-04.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="blogDetails">-->
-<!--                            <h6>-->
-<!--                                Lorem Ipsum is simply dummy text of the printing and typesetting-->
-<!--                            </h6>-->
-<!--                            <div class="textArea">-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry-->
-<!--                                </p>-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry...-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="btnDateWrapper">-->
-<!--                                <a class="primary_btn" href="">Read More</a>-->
-<!--                                <div class="date">-->
-<!--                                    08.08.2021-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 marginBottom">-->
-<!--                    <div class="blogCrad">-->
-<!--                        <div class="blogImage">-->
-<!--                            <img class="img-fluid" src="assets/images/blog/blog-05.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="blogDetails">-->
-<!--                            <h6>-->
-<!--                                Lorem Ipsum is simply dummy text of the printing and typesetting-->
-<!--                            </h6>-->
-<!--                            <div class="textArea">-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry-->
-<!--                                </p>-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry...-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="btnDateWrapper">-->
-<!--                                <a class="primary_btn" href="">Read More</a>-->
-<!--                                <div class="date">-->
-<!--                                    08.08.2021-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-4 col-md-6 marginBottom">-->
-<!--                    <div class="blogCrad">-->
-<!--                        <div class="blogImage">-->
-<!--                            <img class="img-fluid" src="assets/images/blog/blog-06.jpg" alt="">-->
-<!--                        </div>-->
-<!--                        <div class="blogDetails">-->
-<!--                            <h6>-->
-<!--                                Lorem Ipsum is simply dummy text of the printing and typesetting-->
-<!--                            </h6>-->
-<!--                            <div class="textArea">-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry-->
-<!--                                </p>-->
-<!--                                <p>-->
-<!--                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry dummy text of the printing and typesetting industry...-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                            <div class="btnDateWrapper">-->
-<!--                                <a class="primary_btn" href="">Read More</a>-->
-<!--                                <div class="date">-->
-<!--                                    08.08.2021-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+
         </div>
     </section>
     @endsection

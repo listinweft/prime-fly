@@ -856,7 +856,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#add_address_gos', function () {
 
-        // alert("nn");
+    
        
         $('#my_address_add_form_')[0].reset();
         if ($('#my_address_list').css('display') === 'block') {

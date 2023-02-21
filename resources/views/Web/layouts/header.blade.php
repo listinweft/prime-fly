@@ -57,8 +57,8 @@
                                 <img class="img-fluid icon" src="{{ asset('frontend/images/user.png')}}" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="login.php">Login</a></li>
-                                <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                <li><a class="dropdown-item" href="{{ url('login') }}">Login</a></li>
+                                <li><a class="dropdown-item" href="{{ url('register') }}">Register</a></li>
                             </ul>
                         </div>
                     </li>
