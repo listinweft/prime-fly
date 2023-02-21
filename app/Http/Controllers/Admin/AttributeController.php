@@ -13,6 +13,7 @@ use App\Models\MeasurementUnit;
 use App\Models\SiteInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Frame;
+use App\Models\Mount;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
@@ -621,4 +622,97 @@ class AttributeController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
+
+     /************************************* Mount starts ****************************************/
+     public function mount()
+     {
+         $title = "mount List";
+         $mountList = Mount::get();
+         return view('Admin.product.mount.list', compact('mountList', 'title'));
+     }
+
+     public function mount_create()
+     {
+         $key = "Create";
+         $title = "Create Mount";
+         return view('Admin.product.mount.form', compact('key', 'title'));
+     }
+
+     public function mount_store(Request $request)
+     {
+         $validatedData = $request->validate([
+             'title' => 'required|unique:measurement_units,title',
+             'image' => 'image|mimes:jpeg,png,jpg|max:512'
+         ]);
+         $mount = new Mount();
+
+         if ($request->hasFile('image')) {
+             $mount->image_webp = Helper::uploadWebpImage($request->image, 'uploads/mount/image/webp/', $request->title);
+             $mount->image = Helper::uploadFile($request->image, 'uploads/mount/image/', $request->title);
+         }
+         $mount->title = $validatedData['title'];
+         if ($mount->save()) {
+             session()->flash('success', "Frame '" . $mount->title . "' has been added successfully");
+             return redirect(Helper::sitePrefix() . 'product/mount');
+         } else {
+             return back()->withInput($request->input())->withErrors("Error while updating the frame");
+         }
+     }
+
+     public function mount_edit($id)
+     {
+         $key = "Update";
+         $title = "Update Frame";
+         $frame = Frame::find($id);
+         if ($frame) {
+             return view('Admin.product.frame.form', compact('key', 'frame', 'title'));
+         } else {
+             return view('Admin.error.404');
+         }
+     }
+
+     public function mount_update(Request $request, $id)
+     {
+         $mount = Frame::find($id);
+         $validatedData = $request->validate([
+             'title' => 'required|unique:measurement_units,title,' . $id,
+             'image' => 'image|mimes:jpeg,png,jpg|max:512',
+         ]);
+         if ($request->hasFile('image')) {
+             if (File::exists(public_path($mount->image))) {
+                 File::delete(public_path($mount->image));
+             }
+             if (File::exists(public_path($mount->image_webp))) {
+                 File::delete(public_path($mount->image_webp));
+             }
+             $mount->image_webp = Helper::uploadWebpImage($request->image, 'uploads/mount/image/webp/', $request->title);
+             $mount->image = Helper::uploadFile($request->image, 'uploads/mount/image/', $request->title);
+         }
+         $frame = Frame::find($id);
+         $frame->title = $validatedData['title'];
+         if ($frame->save()) {
+             session()->flash('success', "Frame '" . $frame->title . "' has been updated successfully");
+             return redirect(Helper::sitePrefix() . 'product/frame');
+         } else {
+             return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+         }
+     }
+
+     public function delete_mount(Request $request)
+     {
+         if (isset($request->id) && $request->id != NULL) {
+             $frame = Frame::find($request->id);
+             if ($frame) {
+                 if ($frame->delete()) {
+                     return response()->json(['status' => true]);
+                 } else {
+                     return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                 }
+             } else {
+                 return response()->json(['status' => false, 'message' => 'Model class not found']);
+             }
+         } else {
+             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+         }
+     }
 }
