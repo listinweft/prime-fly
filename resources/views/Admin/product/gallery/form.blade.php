@@ -131,7 +131,7 @@
                 minImageHeight: 1000,
                 maxImageWidth: 1000,
                 maxImageHeight: 1000,
-                maxFilesize: 10240,
+                maxFilesize: 1000,
                 showRemove: true,
                 @if(isset($product_gallery) && $product_gallery->image!=NULL)
                 initialPreview: ["{{asset($product_gallery->image)}}",],
