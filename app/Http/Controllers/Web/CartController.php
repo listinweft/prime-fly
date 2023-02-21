@@ -483,12 +483,14 @@ class CartController extends Controller
 
     public function state_list(Request $request)
     {
+
+    
         // session()->forget('state');
         // session()->forget('billing_state');
         // session()->forget('shipping_state_name');
         // session()->forget('shipping_state');
         // session()->forget('shipping_state_name');
-        $statesData = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
+       $statesData = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
         return response()->json(['status' => 'true', 'message' => $statesData]);
     }
     

@@ -482,9 +482,12 @@ $(document).on('click', '#edit_profile_go', function () {
 
 //Add Bill Address go to
 $(document).on('click', '#add_address_go', function () {
+    
+    console.log('yes');
     if ($('#my_address_list').css('display') === 'block') {
         $('#my_address_list').addClass('d-none');
         $('#my_address_add_form').removeClass('d-none');
+        // $('#my_address_add_form_')[0].reset();
     }
     else {
         $('#my_address_list').removeClass('d-none');

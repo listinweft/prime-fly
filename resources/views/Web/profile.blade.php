@@ -99,7 +99,12 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control"  name="first_name" id="profile_first_name" placeholder="John George" value="{{@$customer->first_name}}">
+                                                        <input type="text" class="form-control"  name="first_name" id="profile_first_name" placeholder="" value="{{@$customer->first_name}}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control"  name="last_name" id="profile_last_name" placeholder="" value="{{@$customer->last_name}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
@@ -113,11 +118,11 @@
                                                         <input type="text" value="{{@$customer->user->phone}}"  name="phone_number" id="phone_number" class="form-control" placeholder="+971 12345 6987">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <!-- <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" value="2022-3-23">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </fieldset>
                                         
@@ -135,7 +140,13 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control"  name="first_name" id="profile_first_name" placeholder="John George" value="{{@$customer->first_name}}">
-                                                    <span class="invalidMessage"> Given Data Error </span>
+                                                    <!-- <span class="invalidMessage"> Given Data Error </span> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control"  name="last_name" id="profile_last_name" placeholder="John George" value="{{@$customer->last_name}}">
+                                                    <!-- <span class="invalidMessage"> Given Data Error </span> -->
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -149,15 +160,15 @@
                                                     <input type="text" class="form-control" placeholder="+971 12345 6987"  name="phone_number" id="phone_number"  value="{{@$customer->user->phone}}">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <!-- <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <input type="date" class="form-control" value="2012-3-23">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12 d-flex flex-column flex-sm-row mt-3">
                                                 <a href="javascript:void(0)" class="secondary_btn" id="edit_profile_go">Cancel</a>
                                                 <div class="form-group mb-0" id="button_edit">
-                                                    <button class="btn primary_btn"  id="profile-update">Save</button>
+                                                    <button class="btn primary_btn form_submit_btn" data-url="/customer/update-profile" id="profile-update">Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,291 +211,56 @@
                             </div>
                             <div class="tab-pane-body">
 
-                            
+                            @if($orders->isNotEmpty())
+                                        @foreach($orders as $order)
                                 <div id="my_order_list">
-                                    <div class="my_order_list" >
+                                    <div class="my_order_list my_order_list{{$order->orderData->id}}" >
                                         <div class="order_header">
                                             <ul>
                                                 <li>
-                                                    Order ID : OD22408
+                                                Order ID : MB# {{$order->orderData->order_code}}
                                                 </li>
                                                 <li>
-                                                    Placed Order on 15-05-2022
+                                                Placed Order on {{date('d-m-Y',strtotime($order->orderData->created_at))}}
                                                 </li>
                                                 <li>
-                                                    <a href="order-detials.php" >Order Details <i class="fa-solid fa-arrow-right"></i></a>
+                                                    <a  href="javascript:void(0)" id="my_order_details_go" data-id="{{$order->orderData->id}}" >Order Details <i class="fa-solid fa-arrow-right"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="order_body">
                                             <section id="demos">
                                                 <div class="our-works-slider owl-carousel owl-theme ">
+                                                @php
+                                                                        
+                                                                        $refundStatus = $refundStatusPrevious = null;
+                                                                    @endphp
+                                                                    
+                                                                    @foreach ($order->orderData->orderProducts as $product)
+                                                                        @php
+                                                                            $orderStatus = App\Models\OrderLog::where('order_product_id',$product->id)->latest()->first();
+                                                                            $orderStatusPrevious = App\Models\OrderLog::where('order_product_id',$product->id)->latest()->skip(1)->take(1)->first();
+                                                                            if ($orderStatus->status == 'Refunded'){
+                                                                                $refundStatus = $orderStatus;
+                                                                                $refundStatusPrevious = $orderStatusPrevious;
+                                                                            }
+                                                                        @endphp
+                                                   
+                                                   
+                                                    
+                                                   
                                                     <div class="item">
                                                         <div class="product-item-info">
                                                             <div class="product-photo ">
 
                                                                 <div class="product-image-container w-100">
+                                                                @foreach($product->productData->product_categories as $product_category)
                                                                     <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cartWishlistBox">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="textIcon">
-                                                                                        Wishlist
-                                                                                    </div>
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-regular fa-heart"></i>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                                    </div>
-                                                                                    <div class="textIcon">
-                                                                                        Add to Cart
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-details">
-                                                                <a href="product-details.php">
-                                                                    <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
-                                                                    </div>
-                                                                    <ul class="price-area">
-                                                                        <li class="offer">
-                                                                            AED 10055
-                                                                        </li>
-                                                                        <li>
-                                                                            AED 8000
-                                                                        </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="product-item-info">
-                                                            <div class="product-photo ">
-
-                                                                <div class="product-image-container w-100">
-                                                                    <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product02.jpg" loading="lazy"  alt="">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cartWishlistBox">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="textIcon">
-                                                                                        Wishlist
-                                                                                    </div>
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-regular fa-heart"></i>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                                    </div>
-                                                                                    <div class="textIcon">
-                                                                                        Add to Cart
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-details">
-                                                                <a href="product-details.php">
-                                                                    <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
-                                                                    </div>
-                                                                    <ul class="price-area">
-                                                                        <li class="offer">
-                                                                            AED 10055
-                                                                        </li>
-                                                                        <li>
-                                                                            AED 8000
-                                                                        </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="product-item-info">
-                                                            <div class="product-photo ">
-
-                                                                <div class="product-image-container w-100">
-                                                                    <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cartWishlistBox">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="textIcon">
-                                                                                        Wishlist
-                                                                                    </div>
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-regular fa-heart"></i>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                                    </div>
-                                                                                    <div class="textIcon">
-                                                                                        Add to Cart
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-details">
-                                                                <a href="product-details.php">
-                                                                    <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
-                                                                    </div>
-                                                                    <ul class="price-area">
-                                                                        <li class="offer">
-                                                                            AED 10055
-                                                                        </li>
-                                                                        <li>
-                                                                            AED 8000
-                                                                        </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="product-item-info">
-                                                            <div class="product-photo ">
-
-                                                                <div class="product-image-container w-100">
-                                                                    <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy"  alt="">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cartWishlistBox">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="textIcon">
-                                                                                        Wishlist
-                                                                                    </div>
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-regular fa-heart"></i>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                                    </div>
-                                                                                    <div class="textIcon">
-                                                                                        Add to Cart
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-details">
-                                                                <a href="product-details.php">
-                                                                    <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
-                                                                    </div>
-                                                                    <ul class="price-area">
-                                                                        <li class="offer">
-                                                                            AED 10055
-                                                                        </li>
-                                                                        <li>
-                                                                            AED 8000
-                                                                        </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="product-item-info">
-                                                            <div class="product-photo ">
-
-                                                                <div class="product-image-container w-100">
-                                                                    <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
+                                                                        <a href="{{ url('category/'.$product_category->short_url) }}" tabindex="-1">
                                                                             <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy"  alt="">
                                                                         </a>
                                                                     </div>
+                                                                    @endforeach
                                                                     <div class="cartWishlistBox">
                                                                         <ul>
                                                                             <li>
@@ -509,7 +285,7 @@
                                                                             </li>
                                                                         </ul>
                                                                         <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                                                        {!! Helper::printImage($product->productData, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -517,14 +293,14 @@
                                                             <div class="product-details">
                                                                 <a href="product-details.php">
                                                                     <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
+                                                                    {{ $product->productData->title }}
                                                                     </div>
                                                                     <ul class="price-area">
                                                                         <li class="offer">
-                                                                            AED 10055
+                                                                           {{$order->currency}} {{$product->cost}}
                                                                         </li>
                                                                         <li>
-                                                                            AED 8000
+                                                                        {{$order->currency}} {{$product->cost}}
                                                                         </li>
                                                                     </ul>
                                                                     <ul class="type-review">
@@ -539,162 +315,20 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    @endforeach
                                                 </div>
                                             </section>
                                         </div>
                                     </div>
-                                    <div class="my_order_list" >
-                                        <div class="order_header">
-                                            <ul>
-                                                <li>
-                                                    Order ID : OD22408
-                                                </li>
-                                                <li>
-                                                    Placed Order on 15-05-2022
-                                                </li>
-                                                <li>
-                                                    <a href="order-detials.php" >Order Details <i class="fa-solid fa-arrow-right"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="order_body">
-                                            <section id="demos">
-                                                <div class="our-works-slider owl-carousel owl-theme ">
-                                                    <div class="item">
-                                                        <div class="product-item-info">
-                                                            <div class="product-photo ">
-
-                                                                <div class="product-image-container w-100">
-                                                                    <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cartWishlistBox">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="textIcon">
-                                                                                        Wishlist
-                                                                                    </div>
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-regular fa-heart"></i>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                                    </div>
-                                                                                    <div class="textIcon">
-                                                                                        Add to Cart
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-details">
-                                                                <a href="product-details.php">
-                                                                    <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
-                                                                    </div>
-                                                                    <ul class="price-area">
-                                                                        <li class="offer">
-                                                                            AED 10055
-                                                                        </li>
-                                                                        <li>
-                                                                            AED 8000
-                                                                        </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="product-item-info">
-                                                            <div class="product-photo ">
-
-                                                                <div class="product-image-container w-100">
-                                                                    <div class="product-image-wrapper">
-                                                                        <a href="product-details.php" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cartWishlistBox">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="textIcon">
-                                                                                        Wishlist
-                                                                                    </div>
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-regular fa-heart"></i>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                                    <div class="iconBox">
-                                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                                    </div>
-                                                                                    <div class="textIcon">
-                                                                                        Add to Cart
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="logoArea mt-auto">
-                                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="product-details">
-                                                                <a href="product-details.php">
-                                                                    <div class="pro-name">
-                                                                        Lorem Ipsum is simply dummy text of the printing
-                                                                    </div>
-                                                                    <ul class="price-area">
-                                                                        <li class="offer">
-                                                                            AED 10055
-                                                                        </li>
-                                                                        <li>
-                                                                            AED 8000
-                                                                        </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </section>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
+
+                                @endforeach
+                                        @endif
                             </div>
                         </div>
+
+                      
                         <div class="tab-pane fade" id="v-pills-Address" role="tabpanel" aria-labelledby="v-pills-Address-tab">
                             <div class="tab-pane-header">
                                 <h4>Address</h4>
@@ -703,186 +337,10 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="nav-billing_address" role="tabpanel" aria-labelledby="nav-billing_address-tab">
                                         <div id="my_address_list">
-                                            <a class="btn secondary_btnAdd primary_btn" id="add_address_go">Add Address <i class="fa-solid fa-plus"></i></a>
-                                            <div class="address_wrapper">
-                                                <div class="address_box set_default">
-                                                    <div class="default_icon">
-                                                        <img class="img-fluid" src="assets/images/defaultActive.png" alt="">
-                                                    </div>
-                                                    <h6 class="ads_name">
-                                                        John George
-                                                    </h6>
-                                                    <ul>
-                                                        <li>
-                                                            <p>
-                                                                Work
-                                                            </p>
-                                                        </li>
-                                                        <li class="add_line">
-                                                            <p>
-                                                                consectetur adipiscing elit.
-                                                                nescio, quo modo possit,
-                                                                United Arab Emirates,
-                                                                Dubai United Arab Emirates,
-                                                                Dubai
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                Email : asdf@gmail.com
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p class="phone">
-                                                                Phone Number : +971 12345 6987
-                                                            </p>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="buttons_area">
-                                                        <a class="edit_add" id="add_address_go" href="javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                                        <a class="remove_add" href=""><i class="fa-solid fa-trash-can"></i> Remove</a>
-                                                    </div>
-                                                </div>
-                                                <div class="address_box">
-                                                    <div class="default_icon">
-                                                        <i class="fa-solid fa-circle-check"></i>
-                                                    </div>
-                                                    <h6 class="ads_name">
-                                                        John George
-                                                    </h6>
-                                                    <ul>
-                                                        <li>
-                                                            <p>
-                                                                Home
-                                                            </p>
-                                                        </li>
-                                                        <li class="add_line">
-                                                            <p>
-                                                                consectetur adipiscing elit.
-                                                                nescio, quo modo possit,
-                                                                United Arab Emirates,
-                                                                Dubai
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                Email : asdf@gmail.com
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p class="phone">
-                                                                Phone Number : +971 12345 6987
-                                                            </p>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="buttons_area">
-                                                        <a class="edit_add" id="add_address_go" href="javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                                        <a class="remove_add" href=""><i class="fa-solid fa-trash-can"></i> Remove</a>
-                                                        <a class="set_d_add" href=""> <img class="img-fluid" src="assets/images/defaultActive.png" alt=""> Set as Default</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        @include('web.includes.customer_address')
                                         </div>
-                                        <div id="my_address_add_form" class="d-none">
-                                            <form action="">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="">First Name</label>
-                                                            <input type="text" class="form-control" placeholder="First Name*">
-                                                            <span class="invalidMessage"> Given Data Error </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="">Last Name</label>
-                                                            <input type="text" class="form-control" placeholder="Last Name*">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="">Email</label>
-                                                            <input type="text" class="form-control" placeholder="Email*">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="">Phone Number</label>
-                                                            <input type="text" class="form-control" placeholder="Phone Number*">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group" >
-                                                            <select name="" id="" class="form-control form_select">
-                                                                <option selected disabled value="">Select Country*</option>
-                                                                <option value="UAE">UAE</option>
-                                                                <option value="Bahrain">Bahrain</option>
-                                                                <option value="India">India</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group" >
-                                                            <select name="" id="" class="form-control form_select">
-                                                                <option selected disabled value="">Select Emirate*</option>
-                                                                <option value="Abu Dhabi">Abu Dhabi</option>
-                                                                <option value="Dubai">Dubai</option>
-                                                                <option value="Sharjah">Sharjah</option>
-                                                                <option value="Ajman">Ajman</option>
-                                                                <option value="Umm Al Quwain">Umm Al Quwain</option>
-                                                                <option value="Ras Al Khaimah">Ras Al Khaimah</option>
-                                                                <option value="Fujairah">Fujairah</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Flat Number/Building Name/Gate Number*">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <textarea class="form-control form-message" placeholder="Address*"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                                                <label class="form-check-label" for="flexSwitchCheckDefault">Set as default address</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group address_label">
-                                                            <lable class="label_cnt">
-                                                                <span>Address Label</span>
-                                                                (optional)
-                                                            </lable>
-                                                            <div class="d-flex">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="addressLabel" id="home" value="option1" checked>
-                                                                    <label class="form-check-label" for="home">
-                                                                        Home
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="addressLabel" id="work" value="option2">
-                                                                    <label class="form-check-label" for="work">
-                                                                        Work
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 d-flex flex-column flex-sm-row mt-3">
-                                                        <a href="javascript:void(0)" class="secondary_btn" id="add_address_go">Cancel</a>
-                                                        <div class="form-group mb-0">
-                                                            <button class="btn primary_btn">Save</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                        <div id="my_address_add_form" class="d-none" >
+                                        @include('web.includes.customer_address_form')
                                         </div>
                                     </div>
                                 </div>
@@ -894,20 +352,26 @@
                             </div>
                             <div class="tab-pane-body">
                                 <div class="row">
-                                    <div class="col-md-4 product_card_flex mb-4">
+                                @foreach(app('wishlist')->getContent() as $row)
+                                        @php
+                                            $product = App\Models\Product::find($row->id);
+                                        @endphp
+                                        @if($product!=NULL)
+                                    <div class="col-md-4 product_card_flex mb-4" id="wishlistBox{{$row->id}}">
                                         <div class="product-item-info">
                                             <div class="product-photo ">
 
                                                 <div class="product-image-container w-100">
                                                     <div class="product-image-wrapper">
-                                                        <a href="product-details.php" tabindex="-1">
-                                                            <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
-                                                        </a>
+                                                    <a href="product-details.php" tabindex="-1">
+                                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                                                        </a>
+
                                                     </div>
                                                     <div class="cartWishlistBox">
                                                         <ul>
                                                             <li>
-                                                                <a href="javascript:void(0)" class="my_wishlist">
+                                                                <a data-id="{{$product->id}}"  href="javascript:void(0)" class=" my_wishlist icon_box my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}  {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}" id="wishlist_check_{{$product->id}}"  >
                                                                     <div class="textIcon">
                                                                         Wishlist
                                                                     </div>
@@ -917,7 +381,8 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:void(0)" class="my_wishlist">
+                                                                <a href="javascript:void(0)" data-id="{{$product->id}}"
+                                                             class="my_wishlist icon_box my_wishlist cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}" >
                                                                     <div class="iconBox">
                                                                         <i class="fa-solid fa-cart-shopping"></i>
                                                                     </div>
@@ -928,100 +393,56 @@
                                                             </li>
                                                         </ul>
                                                         <div class="logoArea mt-auto">
-                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
+                                                        <img class="img-fluid" src="{{asset('frontend/images/productListLogo.png')}}" alt="">
                                                         </div>
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
+                                            @foreach($product->product_categories as $product_category)
                                             <div class="product-details">
-                                                <a href="product-details.php">
-                                                    <div class="pro-name">
-                                                        Lorem Ipsum is simply dummy text of the printing
-                                                    </div>
-                                                    <ul class="price-area">
-                                                        <li class="offer">
-                                                            AED 10055
-                                                        </li>
-                                                        <li>
-                                                            AED 8000
-                                                        </li>
-                                                    </ul>
-                                                    <ul class="type-review">
-                                                        <li>
-                                                            Landscape
-                                                        </li>
-                                                        <li class="review">
-                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                        </li>
-                                                    </ul>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 product_card_flex mb-4">
-                                        <div class="product-item-info">
-                                            <div class="product-photo ">
+                                                <a href="{{ url('category/'.$product_category->short_url) }}">
 
-                                                <div class="product-image-container w-100">
-                                                    <div class="product-image-wrapper">
-                                                        <a href="product-details.php" tabindex="-1">
-                                                            <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cartWishlistBox">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                    <div class="textIcon">
-                                                                        Wishlist
-                                                                    </div>
-                                                                    <div class="iconBox">
-                                                                        <i class="fa-regular fa-heart"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0)" class="my_wishlist">
-                                                                    <div class="iconBox">
-                                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                                    </div>
-                                                                    <div class="textIcon">
-                                                                        Add to Cart
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="logoArea mt-auto">
-                                                            <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-details">
-                                                <a href="product-details.php">
                                                     <div class="pro-name">
-                                                        Lorem Ipsum is simply dummy text of the printing
+                                                    {{ $product->title }}
                                                     </div>
+                                                    @endforeach
                                                     <ul class="price-area">
+                                                    @if(Helper::offerPrice($product->id)!='')
                                                         <li class="offer">
-                                                            AED 10055
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                                         </li>
                                                         <li>
-                                                            AED 8000
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                         </li>
+                                                        @else
+                                                                <li>
+                                                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                                </li>
+                                                                <li>
+                                                                   
+                                                                </li>
+                                                                @endif
                                                     </ul>
+                                                    
                                                     <ul class="type-review">
                                                         <li>
                                                             Landscape
                                                         </li>
+                                                        @if(Helper::averageRating($product->id)>0)
                                                         <li class="review">
-                                                            <i class="fa-solid fa-star"></i> 4.5
+                                                            <i class="fa-solid fa-star"></i> {{ Helper::averageRating($product->id) }}   
                                                         </li>
+                                                        @endif
                                                     </ul>
+                                                   
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                        @endforeach
+                                    
                                 </div>
                             </div>
                         </div>
