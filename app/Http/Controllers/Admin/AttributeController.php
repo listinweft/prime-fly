@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Size;
 use App\Models\Color;
+use App\Models\Frame;
 use App\Models\Shape;
 use App\Models\ProductType;
 use App\Http\Helpers\Helper;
@@ -513,4 +514,107 @@ class AttributeController extends Controller
         }
 
     }
+    /************************************* Frame starts ****************************************/
+    public function frame()
+    {
+        $title = "frame List";
+        $frameList = Frame::get();
+        return view('Admin.product.frame.list', compact('frameList', 'title'));
+    }
+
+    public function frame_create()
+    {
+        $key = "Create";
+        $title = "Create Frame";
+        return view('Admin.product.frame.form', compact('key', 'title'));
+    }
+
+    public function frame_store(Request $request)
+    {
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|unique:measurement_units,title',
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            'color' => 'required|unique:frames,deleted_at,NULL',
+            'code' => 'required|unique:frames,deleted_at,NULL',
+        ]);
+        $frame = new Frame;
+
+        if ($request->hasFile('image')) {
+            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/frame/image/webp/', $request->title);
+            $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
+        }
+        $frame->title = $validatedData['title'];
+        $frame->color = $validatedData['color'];
+        $frame->code = $validatedData['code'];
+        if ($frame->save()) {
+            session()->flash('success', "Frame '" . $frame->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/frame');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the frame");
+        }
+    }
+
+    public function frame_edit($id)
+    {
+        $key = "Update";
+        $title = "Update Frame";
+        $frame = Frame::find($id);
+        if ($frame) {
+            return view('Admin.product.frame.form', compact('key', 'frame', 'title'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function frame_update(Request $request, $id)
+    {
+        $frame = Frame::find($id);
+        $validatedData = $request->validate([
+            'title' => 'required|unique:measurement_units,title,' . $id,
+            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            'color' => 'required|unique:frames,color,' . $id,
+            'code' => 'required|unique:frames,code,' . $id,
+        ]);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($frame->image))) {
+                File::delete(public_path($frame->image));
+            }
+            if (File::exists(public_path($frame->image_webp))) {
+                File::delete(public_path($frame->image_webp));
+            }
+            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/frame/image/webp/', $request->title);
+            $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
+        }
+        $frame = Frame::find($id);
+        $frame->title = $validatedData['title'];
+        $frame->title = $validatedData['color'];
+        $frame->code = $validatedData['code'];
+        if ($frame->save()) {
+            session()->flash('success', "Frame '" . $frame->title . "' has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'product/frame');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+        }
+    }
+
+    public function delete_frame(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $frame = Frame::find($request->id);
+            if ($frame) {
+                if ($frame->delete()) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
 }
+
+
