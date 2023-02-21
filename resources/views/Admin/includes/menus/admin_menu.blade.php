@@ -58,7 +58,7 @@
             </a>
         </li>
 
-        
+
     </ul>
 </li>
 <li class="nav-item {{ (Request::segment(2)=='banner')?'menu-is-opening menu-open':'' }}">
@@ -132,7 +132,7 @@
                 <p>Team </p>
             </a>
         </li>
-       
+
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/faq')}}"
@@ -460,67 +460,7 @@
         </li>
     </ul>
 </li>
-{{--
-<li class="nav-item {{ (Request::segment(2)=='advertisement')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='advertisement')?'active':'' }}">
-        <i class="nav-icon fas fa-th-list"></i>
-        <p>Advertisements
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='advertisement')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/home')}}"
-               class="nav-link {{ (Request::segment(3)=='home')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Home</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/blog-detail')}}"
-               class="nav-link {{ (Request::segment(3)=='blog-detail')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Blog Detail</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/cart')}}"
-               class="nav-link {{ (Request::segment(3)=='cart')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Cart</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/checkout')}}"
-               class="nav-link {{ (Request::segment(3)=='checkout')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Checkouts</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/product')}}"
-               class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/product-detail')}}"
-               class="nav-link {{ (Request::segment(3)=='product-detail')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product Detail</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'advertisement/wishlist')}}"
-               class="nav-link {{ (Request::segment(3)=='wishlist')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Wishlist</p>
-            </a>
-        </li>
-    </ul>
-</li>
---}}
+
 <li class="nav-item {{ (Request::segment(2)=='product')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='product')?'active':'' }}">
         <i class="nav-icon fas icon fas fa-info"></i>
@@ -530,13 +470,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='product')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'product/brand')}}"
-               class="nav-link {{ (Request::segment(3)=='brand')?'active':'' }}">
-                <i class="nav-icon fas fa-tag"></i>
-                <p>Brand</p>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/category')}}"
                class="nav-link {{ (Request::segment(3)=='category')?'active':'' }}">
@@ -551,13 +485,7 @@
                 <p>Sub Category</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'product/measurement-unit')}}"
-               class="nav-link {{ (Request::segment(3)=='measurement-unit')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Measurement Unit</p>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/product-type')}}"
                class="nav-link {{ (Request::segment(3)=='product-type')?'active':'' }}">
@@ -565,13 +493,13 @@
                 <p>Product Type</p>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/color')}}"
                class="nav-link {{ (Request::segment(3)=='color')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Color</p>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/size')}}"
                class="nav-link {{ (Request::segment(3)=='size')?'active':'' }}">
@@ -586,13 +514,15 @@
                 <p>Shape</p>
             </a>
         </li>
+
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'product/pet-type')}}"
-               class="nav-link {{ (Request::segment(3)=='pet-type')?'active':'' }}">
+            <a href="{{url(Helper::sitePrefix().'product/frame')}}"
+               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Pet Type</p>
+                <p>Frame</p>
             </a>
         </li>
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/tag')}}"
                class="nav-link {{ (Request::segment(3)=='tag')?'active':'' }}">
@@ -617,14 +547,7 @@
         </li>
     </ul>
 </li>
-{{--
-<li class="nav-item">
-    <a href="{{url(Helper::sitePrefix().'deal')}}" class="nav-link {{ (Request::segment(2)=='deal')?'active':'' }}">
-        <i class="nav-icon fas fa-question-circle"></i>
-        <p>Deal</p>
-    </a>
-</li>
---}}
+
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'coupon')}}" class="nav-link {{ (Request::segment(2)=='coupon')?'active':'' }}">
         {{--        <i class="nav-icon fas fa-asterisk"></i>--}}
@@ -661,6 +584,20 @@
                class="nav-link {{ (Request::segment(3)=='detail')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Menu Detail</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'side-menu')}}"
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu'))?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Side Menu </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'side-menu/details')}}"
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu-details'))?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Side Menu Detail</p>
             </a>
         </li>
     </ul>

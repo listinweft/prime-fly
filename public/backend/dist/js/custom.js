@@ -307,9 +307,11 @@ $(document).ready(function () {
     $('#menu_type').on('change', function () {
         if ($(this).val() === "category") {
             $('.category').show();
+            $('.static').hide();
             $('#category_id').addClass('required');
         } else {
             $('.category').hide();
+            $('.static').show();
             $('#category_id').removeClass('required');
         }
     });
@@ -1150,11 +1152,11 @@ $(document).ready(function () {
     $('#availability').on('change', function () {
         var availability = $(this).val();
         if (availability == "In Stock") {
-            $('#availability_div').show();
-            $('#stock,#alert_quantity').attr('required', true).addClass('required');
+            $('.availability_div').show();
+            $('.stock,.alert_quantity').attr('required', true).addClass('required');
         } else {
-            $('#availability_div').hide();
-            $('#stock,#alert_quantity').attr('required', false).removeClass('required');
+            $('.availability_div').hide();
+            $('.stock,.alert_quantity').attr('required', false).removeClass('required');
         }
     });
 

@@ -27,11 +27,11 @@
                     <input type="text" class="form-control required" id="subtitle" name="subtitle"
                            placeholder="Sub Title" value="{{@$home_heading->subtitle}}">
                     <div class="help-block with-errors" id="subtitle_error"></div>
-                   
+
                 </div>
             </div>
-            
-          
+
+
             <input type="hidden" name="is_description" id="is_description" value="1">
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -39,10 +39,10 @@
                         <textarea class="form-control tinyeditor" id="home_description" name="home_description"
                                   placeholder="Description">{{@$home_heading->description}}</textarea>
                         <div class="help-block with-errors" id="home_description_error"></div>
-                      
+
                     </div>
                 </div>
-          
+
         </div>
         <div class="card-footer">
             <input type="button" id="headingSubmit" data-type="{{ @$home_heading->type ?? $type }}"

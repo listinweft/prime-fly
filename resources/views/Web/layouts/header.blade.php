@@ -298,8 +298,140 @@
                 </a>
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
+                    <li class="nav-item dropdown has-megamenu">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>
+                        <div class="dropdown-menu megamenu" role="menu">
+                            <div class="container bg-green pt-0 pb-0">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="shapeWrapper">
+                                                    <div class="shapeItem">
+                                                        <a href="">
+                                                            <img class="img-fluid" src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
+                                                            <h6>Portraits</h6>
+                                                        </a>
+                                                    </div>
+                                                    <div class="shapeItem">
+                                                        <a href="">
+                                                            <img class="img-fluid" src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
+                                                            <h6>Landscapes</h6>
+                                                        </a>
+                                                    </div>
+                                                    <div class="shapeItem">
+                                                        <a href="">
+                                                            <img class="img-fluid" src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
+                                                            <h6>Square</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown has-megamenu">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Color</a>
+                        <div class="dropdown-menu megamenu" role="menu">
+                            <div class="container bg-green">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="colorWrapper">
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+{{--                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>--}}
+{{--                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>--}}
                     <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
                     <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>

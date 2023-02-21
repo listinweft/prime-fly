@@ -16,6 +16,7 @@ use App\Models\ProductReview;
 use App\Models\ProductSpecification;
 use App\Models\SiteInformation;
 use App\Models\Tag;
+use App\Models\Size;
 use App\Models\ProductKeyFeature;
 use App\Models\ProductSpecificationHead;
 use Illuminate\Http\Request;
@@ -47,14 +48,33 @@ class ProductController extends Controller
         $brands = Brand::active()->get();
         $tags = Tag::active()->get();
         $categories = Category::active()->whereNull('parent_id')->get();
-        $colors = Color::active()->get();
+        $sizes = Size::active()->get();
         $products = Product::active()->get();
-        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'colors'));
+        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes'));
     }
-
-
-    public function product_store(Request $request)
+    public function    product_detail($id)
     {
+        $key = "Update";
+        $title = "Update Product";
+        $product = Product::find($id);
+        if ($product) {
+            $colors = Color::active()->get();
+            $measurement_units = MeasurementUnit::active()->get();
+            $brands = Brand::active()->get();
+            $tags = Tag::active()->get();
+            $categories = Category::active()->whereNull('parent_id')->get();
+            $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
+            $products = Product::active()->get();
+            $sizes = Size::active()->get();
+            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+ 
+    public function product_store(Request $request, $id)
+    {
+        dd($request->all());
         DB::beginTransaction();
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
@@ -66,7 +86,7 @@ class ProductController extends Controller
             'description' => 'required',
 //            'measurement_unit' => 'required',
 //            'quantity' => 'required',
-            'price' => 'required',
+            // 'price' => 'required',
             'thumbnail_image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
         ]);
         $product = new Product;
@@ -95,7 +115,8 @@ class ProductController extends Controller
         $product->sku = $request->sku ?? '';
         $product->category_id = ($request->category) ? implode(',', $request->category) : '';
         $product->sub_category_id = ($request->sub_category) ? implode(',', $request->sub_category) : '';
-
+        $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
+        $product->tag_id = ($request->tags) ? implode(',', $request->tags) : '';
         $product->availability = $request->availability ?? '';
         if ($product->availability == "In Stock") {
             $product->stock = $request->stock;
@@ -104,25 +125,15 @@ class ProductController extends Controller
             $product->stock = 0;
             $product->alert_quantity = 0;
         }
-        $product->color_id = $request->color;
-        $product->type = $request->product_type;
+
         $product->capacity = $request->capacity;
         $product->description = $validatedData['description'];
         $product->quantity = $request->quantity ?? '';
-        $product->price = $request->price ?? '';
+        $product->price = $request->price ?? null;
         $product->thumbnail_image_attribute = $request->image_meta_tag ?? '';
-        $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
-
-//        $product->measurement_unit_id = $request->measurement_unit ?? '';
-//        $product->brand_id = $request->brand ?? '';
-//        $product->tag_id = ($request->tag_id) ? implode(',', $request->tag_id) : '';
-//        $product->add_on_id = ($request->addon_id) ? implode(',', $request->addon_id) : '';
-        $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
-//        $product->banner_title = $request->banner_title ?? '';
+        // $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
+        // $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
         $product->banner_attribute = $request->banner_attribute ?? '';
-        $product->featured_image_attribute = $request->featured_image_attribute ?? '';
-        $product->featured_video_url = $request->featured_video_url ?? '';
-        $product->featured_description = $request->featured_description ?? '';
 
         $product->meta_title = $request->meta_title ?? '';
         $product->meta_description = $request->meta_description ?? '';
@@ -153,7 +164,7 @@ class ProductController extends Controller
                 session()->flash('error', "Error while added the product '" . $product->title . "'");
                 DB::rollBack();
             }
-            return redirect(Helper::sitePrefix() . 'product');
+            return redirect(Helper::sitePrefix() . 'product/detail/' . $product->id);
         } else {
             DB::rollBack();
             return back()->withInput($request->input())->withErrors("Error while updating the product");

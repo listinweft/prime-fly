@@ -56,8 +56,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label> Price*</label>
-                                    <input type="text" name="price" id="price" placeholder="Price"
+                                    <label> Measurment*</label>
+                                    <input type="text" name="price" id="price" placeholder="Measurment"
                                            class="form-control required" autocomplete="off"
                                            value="{{ @$size->price }}">
                                     <div class="help-block with-errors" id="price_error"></div>

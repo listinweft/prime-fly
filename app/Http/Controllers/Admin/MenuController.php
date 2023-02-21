@@ -7,6 +7,8 @@ use App\Http\Helpers\Helper;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\MenuDetail;
+use App\Models\SideMenu;
+use App\Models\SideMenuDetail;
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -188,6 +190,135 @@ class MenuController extends Controller
             return view('Admin.error.404');
         }
     }
+    public function side_menu()
+    {
+        $title = "Side Menu List";
+        $menuList = SideMenu::get();
+        return view('Admin.side_menu.list', compact('menuList', 'title'));
+    }
+
+    public function side_menu_create()
+    {
+        $key = "Create";
+        $title = "Create Side Menu";
+        $categories = Category::active()->whereNull('parent_id')->get();
+        return view('Admin.side_menu.form', compact('key', 'title', 'categories'));
+    }
+
+    public function side_menu_store(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'menu_type' => 'required',
+            'url' => 'required'
+        ]);
+        $menu = new SideMenu;
+        $menu->title = $validatedData['title'];
+        $menu->menu_type = $validatedData['menu_type'];
+        $exist = 0;
+        if ($request->menu_type == "static") {
+            $menu->url = $request->url ?? '';
+ 
+        }
+        if ($request->menu_type == "category") {
+            $menu->url = ($request->url) ? $request->url : '';
+            $menu->category_id = $request->menu_category_id;
+ 
+        }
+        if ($exist == 0) {
+            $sort_order = SideMenu::orderBy('id', 'DESC')->first();
+            if ($sort_order) {
+                $sort_number = ($sort_order->sort_order + 1);
+            } else {
+                $sort_number = 1;
+            }
+
+            $menu->sort_order = $sort_number;
+            if ($menu->save()) {
+                session()->flash('success', 'Menu has been added successfully');
+                return redirect(Helper::sitePrefix() . 'side-menu');
+            } else {
+                return back()->withInput($request->input())->withErrors("Error while updating the menu");
+            }
+        } else {
+            return back()->withInput($request->input())->withErrors($category_name . "' already tagged with another page");
+        }
+    }
+
+    public function side_menu_edit(Request $request, $id)
+    {
+        $key = "Update";
+        $title = "Update menu";
+        $menu = SideMenu::find($id);
+        if ($menu) {
+            $categories = Category::active()->whereNull('parent_id')->get();
+            return view('Admin.menu.form', compact('key', 'menu', 'title', 'categories'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function side_menu_update(Request $request, $id)
+    {
+        $menu = SideMenu::find($id);
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'menu_type' => 'required',
+        ]);
+        $menu->title = $validatedData['title'];
+        $menu->menu_type = $validatedData['menu_type'];
+        $exist = 0;
+        if ($request->menu_type == "static") {
+            if ($request->static_link == "custom") {
+                $menu->url = $request->url ?? '';
+            } else {
+                $menu->url = $request->static_link;
+            }
+            $menu->static_link = $request->static_link;
+            $menu->category_id = NULL;
+     
+        }
+        if ($request->menu_type == "category") {
+            $menu->category_id = $request->menu_category_id;
+            $menu->url = ($request->url) ? $request->url : '';
+        
+        }
+        $menu->updated_at = date('Y-m-d h:i:s');
+        if ($exist == 0) {
+
+            if ($menu->save()) {
+                session()->flash('success', 'Menu has been updated successfully');
+                return redirect(Helper::sitePrefix() . 'menu');
+            } else {
+                return back()->withInput($request->input())->withErrors("Error while updating the menu");
+            }
+        } else {
+            return back()->withInput($request->input())->withErrors($category_name . "' already tagged with another page");
+        }
+    }
+
+    public function side_delete_menu(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $menu = SideMenu::find($request->id);
+            if ($menu) {
+              $delete_menu_details = SideMenuDetail::where('menu_id',$request->id)->delete();
+                $deleted = $menu->delete();
+                if ($deleted == true) {
+                    echo(json_encode(array('status' => true)));
+                } else {
+                    echo(json_encode(array('status' => false, 'message' => 'Some error occured,please try after sometime')));
+                }
+            } else {
+                echo(json_encode(array('status' => false, 'message' => 'Model class not found')));
+            }
+        } else {
+            echo(json_encode(array('status' => false, 'message' => 'Empty value submitted')));
+        }
+    }
+
+
 
     public function menu_detail()
     {
