@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('site_information', function (Blueprint $table) {
-            //
+            $table->longText('description')->change()->after('contact_request_title');
         });
     }
 

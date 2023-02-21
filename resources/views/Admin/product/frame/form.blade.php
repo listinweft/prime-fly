@@ -12,7 +12,7 @@
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'product/shape')}}">{{$title}}</a></li>
+                                <a href="{{url(Helper::sitePrefix().'product/frame')}}">{{$title}}</a></li>
                             <li class="breadcrumb-item active">{{$key}}</li>
                         </ol>
                     </div>
@@ -49,7 +49,7 @@
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
-                                           value="{{ @$shape->title }}">
+                                           value="{{ @$frame->title }}">
                                     <div class="help-block with-errors" id="title_error"></div>
                                     @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -60,7 +60,7 @@
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file">
                                     </div>
-                                    <span class="caption_note">Note: Image size must be 90 x 100 px</span>
+                                    <span class="caption_note">Note: Image size must be 2000 x 2000 px</span>
                                     @error('image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -102,16 +102,16 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 90,
-                minImageHeight: 100,
-                maxImageWidth: 90,
-                maxImageHeight: 100,
+                minImageWidth: 2000,
+                minImageHeight: 2000,
+                maxImageWidth: 2000,
+                maxImageHeight: 2000,
                 maxFileSize: 512,
                 showRemove: true,
-                @if(isset($frame) && $shape->image!=NULL)
-                initialPreview: ["{{asset($shape->image)}}",],
+                @if(isset($frame) && $frame->image!=NULL)
+                initialPreview: ["{{asset($frame->image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($shape->image!=NULL)?last(explode('/',$shape->image)):''}}",
+                    caption: "{{ ($frame->image!=NULL)?last(explode('/',$frame->image)):''}}",
                     width: "120px"
                 }]
                 @endif

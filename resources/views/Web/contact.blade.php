@@ -33,10 +33,10 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h6 class="subHeading">{{@$contact->contact_request_title}}</h6>
-                <h2 class="mainHeading">{{@$contact->title}}</h2>
+                <h2 class="mainHeading">{{@$contact->contact_page_title}}</h2>
                 <div class="headingText">
                     <p>
-                        {{@$contact->description}}
+                        {!! @$contact->description !!}
                     </p>
                 </div>
             </div>
@@ -49,10 +49,10 @@
                         <h5>Call Us</h5>
                         <ul>
                             <li>
-                                <a href="tel:+971000000000">{{@$contact->phone}}</a>
+                                <a href="tel:+971000000000">{!! @$contact->phone !!}</a>
                             </li>
                             <li>
-                                <a href="tel:+971000000000">{{@$contact->alternate_phone}}</a>
+                                <a href="tel:+971000000000">{!!@$contact->alternate_phone !!}</a>
                             </li>
                         </ul>
                     </div>
@@ -63,7 +63,7 @@
                         <h5>Locate Us</h5>
                         <ul>
                             <li>
-                                {{@$contact->address}}
+                                {!! @$contact->address !!}
                             </li>
                         </ul>
                     </div>
@@ -100,7 +100,9 @@
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
+
             <div class="col-lg-6  ps-0">
+                <form method="POST" role="form" id="{{$key}}Form" class="{{$key}}-form">
                 <div class="formArea">
                     <h5>Enquire Now</h5>
                     <div class="row">
@@ -108,29 +110,29 @@
                             <div class="form-group">
                                 <label for="">Full Name</label>
                                 <img src="assets/images/loginUser.png" alt="">
-                                <input type="text" class="form-control" placeholder="Full Name">
-                                <span class="invalidMessage"> Given Data Error </span>
+                                <input type="text" class="form-control" placeholder="Full Name" name="_name">
+                                {{-- <span class="invalidMessage"> Given Data Error </span> --}}
                             </div>
                         </div>
                         <div class=" col-12">
                             <div class="form-group">
                                 <label for="">Email Address</label>
                                 <img src="assets/images/icon-email.png" alt="">
-                                <input type="text" class="form-control" placeholder="Email Address">
+                                <input type="text" class="form-control" placeholder="Email Address" name="email">
                             </div>
                         </div>
                         <div class=" col-12">
                             <div class="form-group">
                                 <label for="">Phone Number</label>
                                 <img src="assets/images/icon-phone.png" alt="">
-                                <input type="number" class="form-control" placeholder="+1 000 000 00">
+                                <input type="number" class="form-control" placeholder="+1 000 000 00" name="phone">
                             </div>
                         </div>
                         <div class="col-12 message">
                             <div class="form-group">
                                 <label for="">Message</label>
                                 <img src="assets/images/icon-pen.png" alt="">
-                                <textarea class="form-control" placeholder="Say Something"></textarea>
+                                <textarea class="form-control" placeholder="Say Something" name="message"></textarea>
                             </div>
                         </div>
                         <div class="col-12x ">
@@ -141,7 +143,9 @@
                     </div>
                 </div>
             </div>
+        </form>
         </div>
+
     </div>
 </section>
 @endsection
