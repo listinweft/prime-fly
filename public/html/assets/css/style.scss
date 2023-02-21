@@ -2552,23 +2552,23 @@ header.sticky {
             }
           }
         }
-        p{
+        .textWrapper{
           padding-right: 20px;
           height: 130px;
           opacity: 1;
           overflow: hidden;
           overflow-y: scroll;
           &::-webkit-scrollbar {
-            width: 7px;
+              width: 7px;
           }
           &::-webkit-scrollbar-track {
-            border-radius: 10px;
-            background: #CECEC5;
+              border-radius: 10px;
+              background: #CECEC5;
           }
           &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: #252525;
-            opacity: 1;
+              border-radius: 10px;
+              background-color: #252525;
+              opacity: 1;
           }
         }
       }
@@ -2715,7 +2715,7 @@ header.sticky {
           }
         }
         padding: 0 20px;
-        p{
+        .textWrapper{
           height: 120px;
         }
       }
@@ -6402,20 +6402,19 @@ footer{
         }
         .productDetailsLargeImages{
           .fotorama__stage__frame {
-            position: absolute;
+            //position: absolute;
+              position: relative;
             right: 0;
             top: 0;
-
-
             height: 600px;
-            width: 98%;
+            width: 100%;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 0px;
             display: flex !important;
             align-items: center;
             justify-content: center;
             background-color: #fafafa;
-            background-color: red;
+            //background-color: red;
             overflow: hidden;
           }
           .fotorama__html {
@@ -6432,16 +6431,9 @@ footer{
             align-items: center;
             justify-content: center;
           }
-          .fotorama__img {
-            max-width: 80%;
-            opacity:1;
-            max-height: 80%;
-            transition: all .2s ease;
-            vertical-align: middle;
+          .fotorama__img{
+              max-width: 100%;
           }
-
-
-
         }
       }
       .productDetailsLeftFirst{
@@ -6453,7 +6445,6 @@ footer{
         padding-top: 0px;
         padding-bottom: 80px;
         .productDetailsThumbs{
-
           .slick-arrow{
             width: 25px;
             height: 25px;
@@ -6483,6 +6474,7 @@ footer{
             margin-bottom: 10px;
             margin-top: 10px;
             div{
+              width:100%;
               line-height: 0 !important;
             }
           }
@@ -6534,14 +6526,74 @@ footer{
   }
 
   .framed-canvas{
-    .fotorama__html img.framed-canvas {
-      border: 15px solid #f5f5f5 !important;
+    img.framed-canvas {
+        background: #f9f9f9;
+        background: #cecec4;
+      //border: 15px solid #f5f5f5 !important;
+    }
+    img.framed-canvas.imageMountClass{
+        padding: 25px;
     }
   }
-  .frame_color__Black .fotorama__html img.framed-canvas {
-    border: 15px solid #000 !important;
-    box-shadow: 0 0 10px 3px #ccc;
+
+  .framed-canvas{
+    img.framed-canvas.fotorama__img {
+        max-width: 80% !important;
+        opacity:1;
+        max-height: 80% !important;
+        transition: all .2s ease;
+        vertical-align: middle;
+    }
   }
+
+    //.frame_color__Black .fotorama__html img.framed-canvas {
+    //    border: 15px solid #000 !important;
+    //    box-shadow: 0 0 10px 3px #ccc;
+    //}
+
+  .frame_color__Black {
+      img.framed-canvas {
+          //border: 15px solid #000 !important;
+          //box-shadow: 0 0 10px 3px #ccc;
+      }
+  }
+
+  .frame_color__Black {
+      img.framed-canvas.fotorama__img {
+          max-width: 80% !important;
+          opacity:1;
+          max-height: 80% !important;
+          transition: all .2s ease;
+          vertical-align: middle;
+      }
+  }
+
+    .art-prints{
+        .fotorama__html img.art-prints  {
+            border: 4px solid #fff;
+            box-shadow: -1px 1px 5px #ccc;
+        }
+        .fotorama__html img.art-prints.fotorama__img {
+            max-width: 80% !important;
+            opacity:1;
+            max-height: 80% !important;
+            transition: all .2s ease;
+            vertical-align: middle;
+        }
+    }
+
+    .canvas{
+        .fotorama__html img.art-canvas  {
+            box-shadow: -1px 1px 5px #ccc;
+        }
+        .fotorama__html .art-canvas.fotorama__img {
+            max-width: 80% !important;
+            opacity:1;
+            max-height: 80% !important;
+            transition: all .2s ease;
+            vertical-align: middle;
+        }
+    }
 
   .productDetailsInfo{
     .productNameStock{
@@ -6675,6 +6727,7 @@ footer{
             -o-transition: .3s;
           }
           .colorBox{
+              border: 1px solid #252525;
             width: 90px;
             height: 90px;
             background: red;
@@ -6715,7 +6768,7 @@ footer{
             background-size: cover;
           }
           img{
-            border: 1px solid #252525;
+            //border: 1px solid #252525;
             box-shadow: 0 3px 10px rgba(0,0,0,.2);
           }
           .colorBox{
@@ -9564,6 +9617,10 @@ footer{
     height: 225px;
     background: url("../images/pattern-02.png") center;
     background-size: cover;
+  }
+
+  .position-relative{
+      z-index: 1;
   }
 
   .sticky-lg-top-110 {

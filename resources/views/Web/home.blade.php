@@ -13,7 +13,7 @@
                                 <h1>
                                     <strong>{{$banner->title}}</strong> {{$banner->subtitle}}
                                 </h1>
-                            
+
                                     {!!$banner->description!!}  .
                                 @if ($banner->button_text == '' || $banner->button_text == null)
                                 <a href="{{$banner->url}}" class="primary_btn">
@@ -407,7 +407,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-12 pt-60">
-               
+
                     <div class="testimonialsSlider">
                     @if($testimonials->isNotEmpty())
                     @foreach( $testimonials as $blog)
@@ -427,21 +427,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
+                            <div class="textWrapper">
+                                <p>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                    has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                                    took a galley of type and scrambled it to make a type specimen book  industry's standard
+                                    dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                    since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                                    a type specimen book  industry's standard dummy text ever since the 1500s.
+                                </p>
+                            </div>
                         </div>
                         @endforeach
                         @endif
-                       
+
                     </div>
-                    
+
                 </div>
                 <div class="col-12 text-center mt-md-5">
                     <a href="" class="primary_btn">Add Your Review</a>
@@ -452,5 +454,5 @@
 <!--Home Testimonial End-->
 @endsection
 @push('scripts')
-    
+
 @endpush

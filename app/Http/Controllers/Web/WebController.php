@@ -53,7 +53,7 @@ class WebController extends Controller
     public function home()
     {
         $seo_data = $this->seo_content('Home');
-       
+
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
@@ -149,7 +149,7 @@ class WebController extends Controller
         $condition = Blog::active()->latest('posted_date');
 
 
-     
+
         $blogs = $condition->skip(4)->take(6)->get();
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
