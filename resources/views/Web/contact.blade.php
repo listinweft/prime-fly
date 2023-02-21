@@ -28,66 +28,66 @@
     </section>
     <!--Inner Banner End-->
 
-    <!--Blog Listing Page Start-->
-    <section class="contactUsPage">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h6 class="subHeading">{{ @$contact->contact_request_title }}</h6>
-                    <h2 class="mainHeading">{{ @$contact->contact_page_title }}</h2>
-                    <div class="headingText">
-                        <p>
-                            {!! @$contact->description !!}
-                        </p>
-                    </div>
+<!--Blog Listing Page Start-->
+<section class="contactUsPage">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h6 class="subHeading">{{@$contact->contact_request_title}}</h6>
+                <h2 class="mainHeading">{{@$contact->title}}</h2>
+                <div class="headingText">
+                    <p>
+                        {{@$contact->description}}
+                    </p>
                 </div>
-                <div class="col-12">
-                    <div class="contactWrapper">
-                        <div class="contactItem text-center">
-                            <div class="iconBox">
-                                {!! Helper::printImage($contact, 'phone_image', '', 'img-fluid') !!}
-                            </div>
-                            <h5>Call Us</h5>
-                            <ul>
-                                <li>
-                                    <a href="tel:+971000000000">{!! @$contact->phone !!}</a>
-                                </li>
-                                <li>
-                                    <a href="tel:+971000000000">{!! @$contact->alternate_phone !!}</a>
-                                </li>
-                            </ul>
+            </div>
+            <div class="col-12">
+                <div class="contactWrapper">
+                    <div class="contactItem text-center">
+                        <div class="iconBox">
+                            {!! Helper::printImage($contact, 'phone_image', '','img-fluid') !!}
                         </div>
-                        <div class="contactItem text-center">
-                            <div class="iconBox">
-                                {!! Helper::printImage($contact, 'address_image', '', 'img-fluid') !!}
-                            </div>
-                            <h5>Locate Us</h5>
-                            <ul>
-                                <li>
-                                    {!! @$contact->address !!}
-                                </li>
-                            </ul>
+                        <h5>Call Us</h5>
+                        <ul>
+                            <li>
+                                <a href="tel:+971000000000">{{@$contact->phone}}</a>
+                            </li>
+                            <li>
+                                <a href="tel:+971000000000">{{@$contact->alternate_phone}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contactItem text-center">
+                        <div class="iconBox">
+                            {!! Helper::printImage($contact, 'address_image', '', 'img-fluid') !!}
                         </div>
-                        <div class="contactItem text-center">
-                            <div class="iconBox">
-                                {!! Helper::printImage($contact, 'email_image', '', 'img-fluid') !!}
-                            </div>
-                            <h5>Email Us</h5>
-                            <ul>
-                                <li>
-                                    <a href="mailto:info@artemyst.com">{{ @$contact->email }}</a>
-                                </li>
-                                <li>
-                                    <a href="mailto:sales@artemyst.com">{{ @$contact->alternate_email }}</a>
-                                </li>
-                            </ul>
+                        <h5>Locate Us</h5>
+                        <ul>
+                            <li>
+                                {{@$contact->address}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contactItem text-center">
+                        <div class="iconBox">
+                            {!! Helper::printImage($contact, 'email_image', '', 'img-fluid') !!}
                         </div>
+                        <h5>Email Us</h5>
+                        <ul>
+                            <li>
+                                <a href="mailto:info@artemyst.com" >{{@$contact->email}}</a>
+                            </li>
+                            <li>
+                                <a href="mailto:sales@artemyst.com" >{{@$contact->alternate_email}}</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--Blog Listing Page End -->
+    </div>
+</section>
+<!--Blog Listing Page End -->
 
 
     <!--Contact Page Start -->
@@ -103,65 +103,50 @@
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
-
-                <div class="col-lg-6  ps-0">
-
-                    <div class="formArea">
-                        <h5>Enquire Now</h5>
-                        <form method="POST" id="enquiry" action="{{ url('contact') }}" name="enquiry">
-                            <div class="row">
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Full Name</label>
-                                        <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
-                                        <input type="text" class="form-control nameField required" placeholder="Full Name"
-                                            name="name" required>
-                                        <span class="invalidMessage"></span>
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Email Address</label>
-                                        <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
-                                        <input type="text" class="form-control required" placeholder="Email Address"
-                                            name="Email" required>
-                                        <span class="invalidMessage"></span>
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Phone Number</label>
-                                        <img src="{{ asset('frontend/images/icon-phone.png') }}" alt="">
-                                        <input type="number" class="form-control phoneField required" placeholder="+1 000 000 00"
-                                            name="Phone" required>
-                                        <span class="invalidMessage"></span>
-
-                                    </div>
-                                </div>
-                                <div class="col-12 message">
-                                    <div class="form-group">
-                                        <label for="">Message</label>
-                                        <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
-                                        <textarea class="form-control form-message required" placeholder="Say Something"
-                                            name="message" required></textarea>
-                                        <span class="invalidMessage"></span>
-
-                                    </div>
-                                </div>
-                                <div class="col-12x ">
-                                    <div class="form-group d-flex align-items-end">
-                                        <input type="hidden" name="type" value="contact">
-                                        <button type="submit" class="primary_btn submit_form_btn"
-                                        data-url="/enquiry">Submit</button>
-                                    </div>
-                                </div>
-                        </form>
+            </div>
+            <div class="col-lg-6  ps-0">
+                <div class="formArea">
+                    <h5>Enquire Now</h5>
+                    <div class="row">
+                        <div class=" col-12">
+                            <div class="form-group">
+                                <label for="">Full Name</label>
+                                <img src="assets/images/loginUser.png" alt="">
+                                <input type="text" class="form-control" placeholder="Full Name">
+                                <span class="invalidMessage"> Given Data Error </span>
+                            </div>
+                        </div>
+                        <div class=" col-12">
+                            <div class="form-group">
+                                <label for="">Email Address</label>
+                                <img src="assets/images/icon-email.png" alt="">
+                                <input type="text" class="form-control" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class=" col-12">
+                            <div class="form-group">
+                                <label for="">Phone Number</label>
+                                <img src="assets/images/icon-phone.png" alt="">
+                                <input type="number" class="form-control" placeholder="+1 000 000 00">
+                            </div>
+                        </div>
+                        <div class="col-12 message">
+                            <div class="form-group">
+                                <label for="">Message</label>
+                                <img src="assets/images/icon-pen.png" alt="">
+                                <textarea class="form-control" placeholder="Say Something"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12x ">
+                            <div class="form-group d-flex align-items-end">
+                                <button type="submit" class="primary_btn ">Submit</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        </div>
-    </section>
+    </div>
+</section>
 @endsection
 <!--Contact Page End -->

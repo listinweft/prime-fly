@@ -58,11 +58,11 @@
                                 </div>
                                <div class="form-group col-md-6">
                                    <label> Sub Title</label>
-                                   <input type="text" name="subtitle" id="subtitle" placeholder="Sub Title"
+                                   <input type="text" name="sub_title" id="sub_title" placeholder="Sub Title"
                                           class="form-control " autocomplete="off"
-                                          value="{{ !empty($about)?$about->subtitle:'' }}">
-                                   <div class="help-block with-errors" id="subtitle_error"></div>
-                                   @error('subtitle')
+                                          value="{{ isset($about)?$about->sub_title:'' }}">
+                                   <div class="help-block with-errors" id="sub_title_error"></div>
+                                   @error('sub_title')
                                    <div class="invalid-feedback">{{ $message }}</div>
                                    @enderror
                                </div>

@@ -12,7 +12,7 @@
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'product/size')}}">{{$title}}</a></li>
+                                <a href="{{url(Helper::sitePrefix().'product/color')}}">{{$title}}</a></li>
                             <li class="breadcrumb-item active">{{$key}}</li>
                         </ol>
                     </div>
