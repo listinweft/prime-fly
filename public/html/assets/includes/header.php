@@ -64,7 +64,7 @@
                         </a>
                     </li>
                     <li class="currency">
-                        <img class="img-fluid language-flag" src="assets/images/currency/aed.png" alt="">
+                        <img class="img-fluid language-flag"  src="assets/images/currency/aed.png" alt="">
                         <select id="language-selector">
                             <option data-img="assets/images/currency/aed.png">
                                 AED
@@ -119,8 +119,140 @@
                 </a>
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>
+                    <li class="nav-item dropdown has-megamenu">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>
+                        <div class="dropdown-menu megamenu" role="menu">
+                            <div class="container bg-green pt-0 pb-0">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="shapeWrapper">
+                                                    <div class="shapeItem">
+                                                        <a href="">
+                                                            <img class="img-fluid" src="assets/images/themes/themes-01.jpg" alt="">
+                                                            <h6>Portraits</h6>
+                                                        </a>
+                                                    </div>
+                                                    <div class="shapeItem">
+                                                        <a href="">
+                                                            <img class="img-fluid" src="assets/images/themes/themes-01.jpg" alt="">
+                                                            <h6>Landscapes</h6>
+                                                        </a>
+                                                    </div>
+                                                    <div class="shapeItem">
+                                                        <a href="">
+                                                            <img class="img-fluid" src="assets/images/themes/themes-01.jpg" alt="">
+                                                            <h6>Square</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown has-megamenu">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Color</a>
+                        <div class="dropdown-menu megamenu" role="menu">
+                            <div class="container bg-green">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="colorWrapper">
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #292929">
+                                                        </div>
+                                                        Color 1
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #FFFFFF">
+                                                        </div>
+                                                        Color Color 2
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #71A9BA">
+                                                        </div>
+                                                        Color 3
+                                                    </a>
+                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background: #637372">
+                                                        </div>
+                                                        Color 4
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+<!--                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>-->
+<!--                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>-->
                     <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
                     <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
                     <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
@@ -173,6 +305,7 @@
     <div class="offcanvas-header">
         <a href="">
             <img class="img-fluid artemystLogo" src="assets/images/artemystLogo.png" alt="">
+            <img class="img-fluid artemystLogo"  src="{{ asset('frontend/images/artemystLogo.png" alt="">
         </a>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -185,6 +318,7 @@
                         <a class="nav-link" href="product-listing.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-01.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-01.png" alt="">
                             </div>
                             Shop All
                         </a>
@@ -193,6 +327,7 @@
                         <a class="nav-link" href="errorPage.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-02.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-02.png" alt="">
                             </div>
                             Objects
                         </a>
@@ -201,6 +336,7 @@
                         <a class="nav-link" href="product-listing.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-03.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-03.png" alt="">
                             </div>
                             Best Seller
                         </a>
@@ -209,6 +345,7 @@
                         <a class="nav-link" href="product-listing.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-04.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-04.png" alt="">
                             </div>
                             New Arrivals
                         </a>
@@ -217,6 +354,7 @@
                         <a class="nav-link dropdown-toggle" href="shop-page.html" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-05.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-05.png" alt="">
                             </div>
                             Colors
                         </a>
@@ -277,6 +415,7 @@
                         <a class="nav-link dropdown-toggle" href="shop-page.html" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-06.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-06.png" alt="">
                             </div>
                             Shapes
                         </a>
@@ -285,6 +424,7 @@
                                 <a class="dropdown-item " href="#" >
                                     <div class="iconBox">
                                         <img class="img-fluid" src="assets/images/menu/menu-07.png" alt="">
+                                        <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-07.png" alt="">
                                     </div>
                                     Portraits
                                 </a>
@@ -293,6 +433,7 @@
                                 <a class="dropdown-item " href="#" >
                                     <div class="iconBox">
                                         <img class="img-fluid" src="assets/images/menu/menu-08.png" alt="">
+                                        <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-08.png" alt="">
                                     </div>
                                     Landscapes
                                 </a>
@@ -303,6 +444,7 @@
                         <a class="nav-link" href="aboutUs.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-09.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-09.png" alt="">
                             </div>
                             About
                         </a>
@@ -311,6 +453,7 @@
                         <a class="nav-link" href="blog.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-010.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-010.png" alt="">
                             </div>
                             Blog
                         </a>
@@ -319,6 +462,7 @@
                         <a class="nav-link" href="my-account.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-011.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-011.png" alt="">
                             </div>
                             Login
                         </a>
@@ -327,6 +471,7 @@
                         <a class="nav-link" href="contactUs.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-012.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-012.png" alt="">
                             </div>
                             Contact us
                         </a>
@@ -335,6 +480,7 @@
                         <a class="nav-link" href="terms-and-conditions.php">
                             <div class="iconBox">
                                 <img class="img-fluid" src="assets/images/menu/menu-013.png" alt="">
+                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-013.png" alt="">
                             </div>
                             Terms and Conditions
                         </a>
@@ -398,6 +544,7 @@
 <div class="offcanvas offcanvas-end cartListRight" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 id="offcanvasRightLabel"><img src="assets/images/cartRight.jpg" alt=""> Your cart <span>( 6 Items )</span></h5>
+        <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""> Your cart <span>( 6 Items )</span></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -407,6 +554,7 @@
                     <div class="imgBox">
                         <a href="">
                             <img class="img-fluid" src="assets/images/product/product04.jpg" loading="lazy" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product04.jpg')}}" loading="lazy" alt="">
                         </a>
                     </div>
                     <div class="details">
@@ -456,6 +604,7 @@
                     <div class="imgBox">
                         <a href="">
                             <img class="img-fluid" src="assets/images/product/product03.jpg" loading="lazy" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product03.jpg')}}" loading="lazy" alt="">
                         </a>
                     </div>
                     <div class="details">
@@ -505,6 +654,7 @@
                     <div class="imgBox">
                         <a href="">
                             <img class="img-fluid" src="assets/images/product/product01.jpg" loading="lazy" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product01.jpg')}}" loading="lazy" alt="">
                         </a>
                     </div>
                     <div class="details">
@@ -554,6 +704,7 @@
                     <div class="imgBox">
                         <a href="">
                             <img class="img-fluid" src="assets/images/product/product05.jpg" loading="lazy" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product05.jpg')}}" loading="lazy" alt="">
                         </a>
                     </div>
                     <div class="details">
@@ -603,6 +754,7 @@
                     <div class="imgBox">
                         <a href="">
                             <img class="img-fluid" src="assets/images/product/product06.jpg" loading="lazy" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product06.jpg')}}" loading="lazy" alt="">
                         </a>
                     </div>
                     <div class="details">
@@ -652,6 +804,7 @@
                     <div class="imgBox">
                         <a href="">
                             <img class="img-fluid" src="assets/images/product/product02.jpg" loading="lazy" alt="">
+                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product02.jpg')}}" loading="lazy" alt="">
                         </a>
                     </div>
                     <div class="details">
@@ -725,6 +878,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"> <i class="fa-solid fa-list"></i> Bulk Enquiry</h5>
                 <button type="button" class="btn " data-bs-dismiss="modal" aria-label="Close"><img class="img-fluid" src="assets/images/colse_login.svg" alt=""></button>
+                <button type="button" class="btn " data-bs-dismiss="modal" aria-label="Close"><img class="img-fluid"  src="{{ asset('frontend/images/colse_login.svg" alt=""></button>
             </div>
             <div class="modal-body">
                 <form action="">

@@ -34,7 +34,6 @@ class AboutController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
-            'subtitle' => 'required|min:2|max:255',
             'description' => 'required',
         ]);
         if ($request->id == 0) {
@@ -49,14 +48,6 @@ class AboutController extends Controller
 
             $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/about/image/webp/', $request->title);
             $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
-        }
-
-        if ($request->hasFile('banner_image')) {
-            Helper::deleteFile($about, 'banner_image');
-            Helper::deleteFile($about, 'banner_image_webp');
-
-            $about->banner_image_webp = Helper::uploadWebpImage($request->banner_image, 'uploads/about/image/webp/', $request->title);
-            $about->banner_image = Helper::uploadFile($request->banner_image, 'uploads/about/image/', $request->title);
         }
 
         if ($request->hasFile('feature_image')) {
@@ -74,10 +65,8 @@ class AboutController extends Controller
         }
 
         $about->title = $validatedData['title'];
-        $about->subtitle = $validatedData['subtitle'];
         $about->description = $validatedData['description'];
         $about->image_attribute = $request->image_attribute ?? '';
-        $about->banner_image_attribute = $request->banner_image_attribute ?? '';
         $about->video_url = $request->video_url ?? '';
         $about->feature_title = $request->feature_title ?? '';
         $about->feature_description = $request->feature_description ?? '';
