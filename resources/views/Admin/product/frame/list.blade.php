@@ -60,7 +60,7 @@
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="Frame"
                                                            data-field="status" data-pk="{{ $frame->id}}"
-                                                        {{($product_type->status=="Active")?'checked':''}}>
+                                                        {{($frame->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>

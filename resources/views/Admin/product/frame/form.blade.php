@@ -49,7 +49,7 @@
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
-                                           value="{{ @$product_type->title }}">
+                                           value="{{ @$frame->title }}">
                                     <div class="help-block with-errors" id="title_error"></div>
                                     @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -71,13 +71,35 @@
                                     <label> Image Attribute</label>
                                     <input type="text" class="form-control placeholder-cls" id="image_attribute"
                                            name="image_attribute" placeholder="Alt='Image Attribute'"
-                                           value="{{ isset($product_type)?$product_type->image_attribute:'' }}">
+                                           value="{{ isset($product_type)?$frame->image_attribute:'' }}">
                                     @error('image_attribute')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Color*</label>
+                                    <input type="text" name="color" id="color" placeholder="Color"
+                                           class="form-control required" autocomplete="off"
+                                           value="{{ @$frame->color }}">
+                                    <div class="help-block with-errors" id="title_error"></div>
+                                    @error('color')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Code*</label>
+                                    <input type="color" name="code" id="code" placeholder="Color Code"
+                                           class="form-control required" autocomplete="off" value="{{ @$frame->code }}">
+                                    <div class="help-block with-errors" id="code_error"></div>
+                                    @error('code')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
@@ -102,10 +124,10 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 200,
-                minImageHeight: 200,
-                maxImageWidth: 200,
-                maxImageHeight: 200,
+                minImageWidth: 2000,
+                minImageHeight: 2000,
+                maxImageWidth: 2000,
+                maxImageHeight: 2000,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($frame) && $frame->image!=NULL)

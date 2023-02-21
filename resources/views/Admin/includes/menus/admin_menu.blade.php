@@ -493,13 +493,13 @@
                 <p>Product Type</p>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/color')}}"
                class="nav-link {{ (Request::segment(3)=='color')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Color</p>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/size')}}"
                class="nav-link {{ (Request::segment(3)=='size')?'active':'' }}">

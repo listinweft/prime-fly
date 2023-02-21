@@ -33,11 +33,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h6 class="subHeading">{{ @$contact->contact_request_title }}</h6>
-                    <h2 class="mainHeading">{{ @$contact->title }}</h2>
+                    <h6 class="subHeading">{!! @$contact->contact_request_title !!}</h6>
+                    <h2 class="mainHeading">{!! @$contact->title !!}</h2>
                     <div class="headingText">
                         <p>
-                            {{ @$contact->description }}
+                            {!! @$contact->description !!}
                         </p>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="contactWrapper">
                         <div class="contactItem text-center">
                             <div class="iconBox">
-                                {!! Helper::printImage($contact, 'phone_image', '', 'img-fluid') !!}
+                                {!! Helper::printImage($contact, 'phone_image', 'phone_image_webp' ,'', 'img-fluid') !!}
                             </div>
                             <h5>Call Us</h5>
                             <ul>
@@ -59,18 +59,18 @@
                         </div>
                         <div class="contactItem text-center">
                             <div class="iconBox">
-                                {!! Helper::printImage($contact, 'address_image', '', 'img-fluid') !!}
+                                {!! Helper::printImage($contact, 'address_image','address_image_webp' ,'', 'img-fluid') !!}
                             </div>
                             <h5>Locate Us</h5>
                             <ul>
                                 <li>
-                                    {{ @$contact->address }}
+                                    {!! @$contact->address !!}
                                 </li>
                             </ul>
                         </div>
                         <div class="contactItem text-center">
                             <div class="iconBox">
-                                {!! Helper::printImage($contact, 'email_image', '', 'img-fluid') !!}
+                                {!! Helper::printImage($contact, 'email_image', 'email_image_webp' ,'', 'img-fluid') !!}
                             </div>
                             <h5>Email Us</h5>
                             <ul>

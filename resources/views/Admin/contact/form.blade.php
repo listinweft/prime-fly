@@ -81,7 +81,7 @@
                                     <label> Description</label>
                                     <textarea name="description" id="description" placeholder="description"
                                               class="form-control tinyeditor" autocomplete="off"
-                                    >{{ $contact->description }}</textarea>
+                                    >{{ @$contact->description }}</textarea>
                                 </div>
                             </div>
 
@@ -369,7 +369,7 @@
                 // maxImageWidth: 1920,
                 // maxImageHeight: 600,
                 showRemove: true,
-                @if(isset($about) && $contact->email_image!=NULL)
+                @if(isset($contact) && $contact->email_image!=NULL)
                 initialPreview: ["{{asset($contact->email_image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($contact->email_image!=NULL)?last(explode('/',$contact->email_image)):''}}",
