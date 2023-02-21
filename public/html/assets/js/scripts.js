@@ -179,6 +179,16 @@ $('.productDetailsThumbs').slick({
     verticalSwiping: true,
     asNavFor: '.productDetailsLargeImages',
 });
+// $('.productDetailsThumbs').slick('refresh');
+
+$(".productDetailsThumbs").on('click', function(e) {
+
+    e.preventDefault();
+    $slider.slick('refresh');
+
+
+});
+
 
 $('.productDetailsLargeImages').slick({
     slidesToShow: 1,
@@ -556,6 +566,7 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 // Mega Menu End
+
 
 
 
