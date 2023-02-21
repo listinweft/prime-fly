@@ -220,7 +220,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('blur', '.common_sort_order', function (e) {
+    $(document).on('change', '.common_sort_order', function (e) {
         e.preventDefault();
         $this = $(this)
         var sort_order = $this.val();
@@ -307,9 +307,11 @@ $(document).ready(function () {
     $('#menu_type').on('change', function () {
         if ($(this).val() === "category") {
             $('.category').show();
+            $('.static').hide();
             $('#category_id').addClass('required');
         } else {
             $('.category').hide();
+            $('.static').show();
             $('#category_id').removeClass('required');
         }
     });
@@ -784,11 +786,25 @@ $(document).ready(function () {
                         data: {id: id, _token: _token},
                         success: function (data) {
                             if (data.status == false) {
-                                swal('Error !', data.message, 'error');
+                                swal({
+                                    showConfirmButton : false,
+                                   title :  'Error !',
+                                     text : data.message, 
+                                     type : 'error'
+                                     });
+                                     setTimeout(() => {
+                                        location.reload();
+                                     }, 700);
                             } else {
-                                swal({title: "Success", text: "Entry has been deleted!", type: "success"}, function () {
-                                    location.reload();
+                                swal({
+                                    showConfirmButton : false,
+                                    title: "Success", 
+                                    text: "Entry has been deleted!", 
+                                    type: "success"
                                 });
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
                             }
                         }
                     })
@@ -811,6 +827,7 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '.status_check', function () {
+        
         $this = $(this);
         var state = $this.is(':checked');
         var table = $this.data('table');
@@ -832,11 +849,18 @@ $(document).ready(function () {
                         text: response.message,
                         type: "success",
                         showConfirmButton: false,
-                        timer: 1000,
+                        timer : 700
                     });
+
                 } else {
                     $this.prop('checked', false);
-                    swal('Error !', response.message, 'error');
+                    swal({
+                        showConfirmButton: false,
+                        title: 'Error !', 
+                        text: response.message, 
+                        type:  'error',
+                        timer : 700
+                    });
                 }
                 if (response.reload == true) {
                     window.location.reload();
@@ -861,13 +885,14 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        showConfirmButton: false,
+                        title: "Done it!", text: response.message, type: "success", timer : 700,
                     });
                 } else {
                     swal({
-                        title: "Error", text: response.message, type: "error"
-                    }, function () {
-                        window.location.reload();
+                        showConfirmButton: false,
+                        title: "Error", text: response.message, type: "error",
+                        timer : 700,
                     });
                 }
             }
@@ -877,6 +902,7 @@ $(document).ready(function () {
     $('#headingSubmit').on('click', function () {
         var type = $(this).data('type');
         var homeTitle = $('#home_title').val();
+        var subtitle = $('#subtitle').val();
         var description = $('#is_description').val();
         if(description){
             var homeDescription = tinymce.get($('#home_description').attr('id')).getContent();
@@ -903,7 +929,7 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: 'json',
                 url: base_url + url,
-                data: {_token, type, homeTitle,homeDescription},
+                data: {_token, type, homeTitle,homeDescription,subtitle},
                 success: function (response) {
                     if (response.status == true) {
                         swal({
@@ -925,6 +951,7 @@ $(document).ready(function () {
         var buttonHtml = $('.submitBtn').val();
         $('.loadingImg').show();
         $('.submitBtn').attr('disabled', true).val('Please wait...!');
+        
         var required = [];
         $('.required').each(function () {
             var id = $(this).attr('id');
@@ -1731,6 +1758,7 @@ $(document).on('click', '.kv-file-remove', function (e) {
                 text: "You will be able to revert this!",
                 type: "warning",
                 showCancelButton: true,
+                
                 confirmButtonClass: "btn-danger",
                 confirmButtonText: "Delete",
                 cancelButtonText: "Cancel",
@@ -1749,13 +1777,24 @@ $(document).on('click', '.kv-file-remove', function (e) {
                         data: {type},
                         success: function (data) {
                             if(data.status==false){
-                                swal( 'Error !', data.message, 'error' );
+                                swal({ 
+                                    showConfirmButton : false,
+                                    title : 'Error !',
+                                    text :  data.message, 
+                                    type :   'error'
+                                });
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
                             }else{
-                                swal({title: "Success", text: "Entry has been deleted!", type: "success"},
+                                swal({showConfirmButton : false, title: "Success", text: "Entry has been deleted!", type: "success"},
                                     function(){
                                         location.reload();
                                     }
                                 );
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
                             }
                         }
                     })

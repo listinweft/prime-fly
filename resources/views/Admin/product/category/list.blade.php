@@ -33,9 +33,9 @@
                                 {{ session('message') }}
                             </div>
                         @endif
-{{--                        @if($type == 'Category')--}}
-{{--                            @include('Admin.includes._heading_form',['type'=>'category'])--}}
-{{--                        @endif--}}
+                       @if($type == 'Category')
+                         @include('Admin.includes.heading_form2',['type'=>'category'])
+                        @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 @if($type=="Category")
@@ -59,6 +59,8 @@
                                         @if($type=="Sub Category")
                                             <th>Category</th>
                                         @endif
+                                        <th>Sort Order</th>
+                                        
                                         <th>Status</th>
                                         <th>Display to home</th>
                                         <th>Created Date</th>
@@ -81,6 +83,15 @@
                                                         {{($category->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="gallery_order"
+                                                       id="gallery_order_{{$loop->iteration}}"
+                                                       data-table="Category" data-id="{{ $category->id }}"
+                                              
+                                                    
+                                                       class="common_sort_order" style="width:25%"
+                                                       value="{{$category->sort_order}}">
                                             </td>
                                             <td>
                                                 <label class="switch">

@@ -40,14 +40,14 @@ $('.homeSliderDetails').slick({
 });
 
 $('.homeSliderImages').slick({
-    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: false,
+    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: true,
     dots: false,
     draggable: true,
     pauseOnHover: true,
     pauseOnFocus: false,
     cssEase: 'ease-in-out',
     focusOnSelect: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 1000,
     centerMode: false,
     asNavFor: '.homeSliderDetails',
     arrows: true,
@@ -506,6 +506,55 @@ $(document).on('click', '#add_address_ship_go', function () {
 });
 //Order Ship Address go to
 
+
+// Mega Menu Start
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    /////// Prevent closing from click inside dropdown
+    document.querySelectorAll('.dropdown-menu').forEach(function(element){
+        element.addEventListener('click', function (e) {
+            if(!$(this).hasClass('product-list-dropdown-menu'))
+                e.stopPropagation();
+        });
+    });
+
+    // make it as accordion for smaller screens
+    if (window.innerWidth < 992) {
+
+        // close all inner dropdowns when parent is closed
+        document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
+            everydropdown.addEventListener('hidden.bs.dropdown', function () {
+                // after dropdown is hidden, then find all submenus
+                this.querySelectorAll('.megasubmenu').forEach(function(everysubmenu){
+                    // hide every submenu as well
+                    everysubmenu.style.display = 'none';
+                });
+            })
+        });
+
+        document.querySelectorAll('.has-megasubmenu a').forEach(function(element){
+            element.addEventListener('click', function (e) {
+
+                let nextEl = this.nextElementSibling;
+                if(nextEl && nextEl.classList.contains('megasubmenu')) {
+                    // prevent opening link if link needs to open dropdown
+                    e.preventDefault();
+
+                    if(nextEl.style.display == 'block'){
+                        nextEl.style.display = 'none';
+                    } else {
+                        nextEl.style.display = 'block';
+                    }
+
+                }
+            });
+        })
+    }
+    // end if innerWidth
+});
+
+// Mega Menu End
 
 
 $(window).on('load', function () {

@@ -639,7 +639,218 @@ $(document).ready(function () {
             $('#confirm-order-error').html('Please accept the terms & condition').css({'color':'red'});
         }
     });
+    $(document).on('click', '.form_submit_btn', function (e) {
+
+
+        e.preventDefault();
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+
+
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
+
+
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+
+
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+            })
+                .done(function (response) {
+                    console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    if (response.status == "success") {
+                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                    } else if (response.status == "success-reload") {
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        swal.fire({
+                            title: response.status, text: response.message, icon: response.status
+                        });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
+    $(document).on('click', '.submit_form_btn', function (e) {
+        e.preventDefault();
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+            })
+                .done(function (response) {
+                    // console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    if (response.status == "success") {
+
+
+                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                    } else if (response.status == "success-reload") {
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        // console.log(response);
+                        if (response.redirect) {
+                             console.log('yes');
+                            window.location.href = response.redirect;
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        swal.fire({
+                            title: response.status, text: response.message, icon: response.status
+                        });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
 
     /***************** cart action end **********************/
+
+    $(window).scroll(function () {
+        $(".load-more-button").each(function () {
+            var WindowTop = $(window).scrollTop();
+            var WindowBottom = WindowTop + $(window).height();
+            var ElementTop = $(this).offset().top;
+            var ElementBottom = ElementTop + $(this).height();
+
+            if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
+                blogLoadMoreData();
+            }
+        });
+    });
+
+    function blogLoadMoreData() {
+        var total_blogs = $('#totalBlogs').val();
+
+        var offset = $('#blog_loading_offset').val();
+        var loading_limit = $('#blog_loading_limit').val();
+
+        var btnHtml = $('.load-more-product').html();
+        $('.load-more-button').html('Please wait..!');
+        $.ajax({
+            type: 'POST', data: {total_blogs: total_blogs, offset: offset, loading_limit: loading_limit}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/blog-load-more', success: function (response) {
+                if (response != 0) {
+                    $('.appendHere_' + offset).after(response).remove();
+                    $('.more-section-' + offset).remove();
+                    $('.load-more-product').html(btnHtml);
+                } else {
+                    swal.fire({
+                        title: 'Error', text: 'Some error occurred', icon: 'error'
+                    });
+                }
+            }
+        });
+    }
 
 });

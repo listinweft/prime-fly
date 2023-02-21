@@ -50,6 +50,7 @@ class SiteInformationController extends Controller
         $siteInformation->privacy_policy = $request->privacy_policy ?? '';
         $siteInformation->terms_and_conditions = $request->terms_and_conditions ?? '';
         $siteInformation->return_policy = $request->return_policy ?? '';
+        $siteInformation->contact = $request->contact ?? '';
         $siteInformation->shipping_policy = $request->shipping_policy ?? '';
         $siteInformation->disclaimer = $request->disclaimer ?? '';
         $siteInformation->default_shipping_charge = $request->default_shipping_charge;

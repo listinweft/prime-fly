@@ -38,13 +38,15 @@
                         <a href="">FAQ's</a>
                     </li>
                     <li>
-                        <a href="privacy-policy.php">Privacy Policy</a>
+
+                        <a href="{{url('privacy-policy')}}">Privacy policy</a>
                     </li>
                     <li>
-                        <a href="terms-and-conditions.php">Terms & Conditions</a>
+                    <a href="{{url('terms-and-conditions')}}">Terms and condition</a>
                     </li>
                     <li>
-                        <a href="">Return & Refund Policy</a>
+                    <a href="{{url('return-policy')}}">Return & Refund Policy</a>
+
                     </li>
                     <li>
                         <a href="errorPage.php">Payment</a>
@@ -95,16 +97,9 @@
                 <h6>Contact</h6>
                 <ul class="list">
                     <li>
-                        Artemyst<br>
-                        Address. Box No.
-                        64014, Dubai, UAE
+                    {!! $siteInformation->contact!!}
                     </li>
-                    <li>
-                        <a href="tel:+971000000000"><span>Ph</span>: 00970-000000000</a>
-                    </li>
-                    <li>
-                        <a href="mailto:someone@gmail.com"><span>Mail</span>: someone@gmail.com</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -181,3 +176,97 @@
     </div>
 </section>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> --}}
+<script>
+    function goToByScroll(id){
+        $('html,body').animate({scrollTop: $("#"+id).offset().top-0},'slow');
+    }
+</script>
+<script src="https://kit.fontawesome.com/99358fb784.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
+<script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+<script  src="{{ asset('frontend/js/form-select2_new.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
+<script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
+<script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
+<script  src="{{ asset('frontend/js/custom.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+@if(Session::has('success'))
+<script>
+setTimeout(function () {
+    Toast.fire({title: "Done it!", text: '{{ Session::get('success')}}', icon: 'success'});
+    // toastr['success'](
+    //     'Your Email Verified Successfully',
+    //     {
+    //         closeButton: true,
+    //         tapToDismiss: false
+    //     }
+    // );
+});
+</script>
+@endif
+@if(Session::has('error'))
+<script>
+setTimeout(function () {
+    Toast.fire({title: "Error !", text: '{{ Session::get('error')}}', icon: 'error'});
+
+});
+</script>
+@endif
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function goToByScroll(id){
+        $('html,body').animate({scrollTop: $("#"+id).offset().top-0},'slow');
+    }
+</script>
+
+<script src="https://kit.fontawesome.com/99358fb784.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.1/jquery.fancybox.min.js"></script>
+
+<script  src="{{ asset('frontend/js/jquery.star-rating-svg.min.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+<script  src="{{ asset('frontend/js/form-select2_new.min.js')}}"></script>
+
+<!--    <script src="assets/owlcarousel/owl.carousel.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
+<script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
+
+
+
+<script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
+<script  src="{{ asset('frontend/js/custom.js')}}"></script>
+
+
+<!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js')}}"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.js"></script>
+
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+    var swal = Swal.mixin({
+        backdrop: true, showConfirmButton: true,
+    });
+    var Toast = Swal.mixin({
+        toast: true, position: 'top-end', showConfirmButton: false, timer: 3000
+    });
+</script>
+</body>
+</html>

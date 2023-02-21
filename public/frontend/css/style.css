@@ -619,7 +619,7 @@ header.sticky .navbar-expand-lg .m-auto .nav-item .nav-link:first-child {
 header.sticky .navbar-expand-lg .headerArtemystLogo {
   display: block;
   width: 180px;
-  margin: 0 15px 0 0;
+  margin: 0 25px 0 0;
   padding: 0;
 }
 header.sticky .navbar-expand-lg .topRightArea {
@@ -729,6 +729,170 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
     font-size: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+}
+@media all and (min-width: 992px) {
+  .navbar .has-megamenu {
+    position: static !important;
+  }
+  .navbar .megamenu {
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 0;
+  }
+  .navbar .megamenu .shapeWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 25px;
+    position: relative;
+  }
+  .navbar .megamenu .shapeWrapper::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    background: #fff;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -12px;
+  }
+  .navbar .megamenu .shapeWrapper .shapeItem {
+    padding: 20px;
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .navbar .megamenu .shapeWrapper .shapeItem a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar .megamenu .shapeWrapper .shapeItem a img {
+    width: 60%;
+    border: 1px solid #000;
+    margin-bottom: 10px;
+  }
+  .navbar .megamenu .shapeWrapper .shapeItem a h6 {
+    color: #373737;
+    font-size: 14px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-family: "Brother1816-Regular";
+    text-transform: uppercase;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .navbar .megamenu .shapeWrapper .shapeItem::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: -12px;
+    width: 1px;
+    height: 100%;
+    background: #cecec5;
+  }
+  .navbar .megamenu .shapeWrapper .shapeItem:hover a img {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  }
+  .navbar .megamenu .colorWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 15px;
+    grid-row-gap: 20px;
+  }
+  .navbar .megamenu .colorWrapper .colorItemFilterClick {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 11px;
+    font-family: "Brother1816-Regular";
+    color: #373737;
+    width: 70px;
+  }
+  .navbar .megamenu .colorWrapper .colorItemFilterClick .colorBox {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    border: 3px solid #ccc;
+  }
+  .navbar .nav-item.has-megamenu:hover .dropdown-menu {
+    display: block;
+    border: 0px;
+  }
+  .navbar .nav-item .megamenu {
+    padding: 0px 0;
+    background-color: transparent !important;
+  }
+  .navbar .nav-item .megamenu .bg-green {
+    background-color: #ffffff;
+    box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.11);
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .navbar .nav-item .megamenu .subMenuList {
+    margin-bottom: 30px;
+  }
+  .navbar .nav-item .megamenu h6 {
+    margin-bottom: 15px;
+  }
+  .navbar .nav-item .megamenu h6 a {
+    font-weight: 700;
+    color: #000000;
+    font-size: 16px;
+  }
+  .navbar .nav-item .megamenu h6 a:hover {
+    padding-left: 8px;
+  }
+  .navbar .nav-item .megamenu ul {
+    height: 175px;
+    overflow-y: scroll;
+    /* width */
+    /* Track */
+    /* Handle */
+  }
+  .navbar .nav-item .megamenu ul li {
+    padding-bottom: 8px;
+  }
+  .navbar .nav-item .megamenu ul li:last-child {
+    padding-bottom: 0;
+  }
+  .navbar .nav-item .megamenu ul li a {
+    color: #252525;
+    font-size: 13px;
+  }
+  .navbar .nav-item .megamenu ul li a:hover {
+    padding-left: 10px;
+    cursor: pointer;
+  }
+  .navbar .nav-item .megamenu ul::-webkit-scrollbar {
+    width: 6px;
+  }
+  .navbar .nav-item .megamenu ul::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #E4E4E4;
+  }
+  .navbar .nav-item .megamenu ul::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #E4E4E4;
+    opacity: 1;
+  }
+}
+@media all and (min-width: 1200px) {
+  .navbar .megamenu .colorWrapper {
+    grid-gap: 20px;
+  }
+  .navbar .megamenu .colorWrapper .colorItemFilterClick {
+    width: 80px;
+  }
+  .navbar .megamenu .colorWrapper .colorItemFilterClick .colorBox {
+    width: 40px;
+    height: 40px;
   }
 }
 .categorySection {

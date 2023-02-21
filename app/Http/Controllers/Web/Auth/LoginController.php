@@ -7,6 +7,7 @@ use App\Http\Helpers\Helper;
 use App\Models\Customer;
 use App\Models\PasswordReset;
 use App\Models\User;
+Use App\Models\Usersverifie;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,10 @@ class LoginController extends Controller
 //            $field = 'username';
         }
         if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'], $remember)) {
+            if (Auth::guard('customer')->user()->is_verified == 0) {
+               
+                return response()->json(['status' => 'error', 'message' => 'Account not verified, Please register with your email']);
+            }
             if (Auth::guard('customer')->user()->status == 'Inactive') {
                 Auth::guard('customer')->logout();
                 return response()->json(['status' => 'error', 'message' => 'Account is inactive, Please contact your site owner']);
@@ -68,6 +73,10 @@ class LoginController extends Controller
         Auth::guard('customer')->logout();
         Session::flush();
         return redirect('/')->with('status', 'User has been logged out!');
+    }
+    protected function forgot_password_form()
+    {
+        return view('web.forgot_password');
     }
 
 
@@ -116,7 +125,7 @@ class LoginController extends Controller
 
     public function reset_password($token)
     {
-        info($token);
+      
         $title = 'Reset Password';
         $password_reset = PasswordReset::where('token', $token)->first();
         if ($password_reset) {
@@ -130,9 +139,74 @@ class LoginController extends Controller
             return view('web.reset_password', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
         }
     }
+    public function email_verification(Request $request,$token)
+    {
+      
+        $title = 'Email Verification';
+        $verify = Usersverifie::where('token', $token)->first();
+        if ($verify) {
+            
+        
+        $verificationdata = Usersverifie::where('token', $request->token)->first();
+
+        $user = User::where('email', $verificationdata->email)->first();
+            if ($user) {
+                $verifyaccount = $user->where('id', $user->id)->update([
+                    'is_verified' => 1
+                ]);
+               if($verifyaccount) 
+               {
+
+               
+                 $verificationdata->delete();
+
+                return redirect('/')->with('success', 'Your Account is verified');
+                
+            }
+            else {
+                return redirect('/')->with('error', 'Some Error Occured');
+            }
+
+            }
+
+        }
+        else {
+            return redirect('/')->with('error', 'Invalid token!');
+        }
+    }
+    // public function email_verification_store(Request $request, $token)
+    
+    // {
+
+    //     $verificationdata = Usersverifie::where('token', $request->token)->first();
+
+    //     $user = User::where('email', $verificationdata->email)->first();
+    //         if ($user) {
+    //             $verifyaccount = $user->where('id', $user->id)->update([
+    //                 'is_verified' => 1
+    //             ]);
+    //            if($verifyaccount) 
+    //            {
+    //             return response()->json([
+    //                 'status' => 'success-reload',
+    //                 'message' => 'Your email is  verified, Please sign-in',
+    //                 'redirect' => url('/')
+    //             ]);
+    //         }
+    //         else {
+    //             return response()->json(['status' => 'error', 'message' => "Some error occurred, Please try after some time..!"]);
+    //         }
+
+    //         }
+            
+
+
+    // }
 
     public function reset_password_store(Request $request, $token)
+    
     {
+      
         $password_reset = PasswordReset::where('token', $request->token)->first();
         if ($password_reset) {
             $request->validate([
@@ -164,13 +238,21 @@ class LoginController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Invalid token!']);
         }
     }
+    public function register_form(Request $request)
+    {
+        return view('web.register');
 
+    }
+    public function login_form(Request $request)
+    {
+        return view('web.login');
 
+    }
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|min:2|max:255',
-            // 'last_name' => 'required|string|min:2|max:255',
+            'firstname' => 'required|string|min:2|max:255',
+             'lastname' => 'required|string|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
 //            'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|min:7|max:15|unique:users,phone',
@@ -187,23 +269,57 @@ class LoginController extends Controller
         $user->password = Hash::make($request->password);
         if ($user->save()) {
             $customer = new Customer;
-             $customer->first_name  = $request['name'];
-             $customer->last_name = $request['name'];
+             $customer->first_name  = $request['firstname'];
+             $customer->last_name = $request['lastname'];
             $customer->user_id = $user->id;
             if ($customer->save()) {
+                $token = Str::random(64);
+                $verify = Usersverifie::insert([
+                    'email' => $request->email,
+                    'token' => $token,
+                    'created_at' => now()
+                ]);
                 DB::commit();
                 Auth::guard('customer')->login($user);
-                if (Helper::sendCredentials($user, $customer->first_name, $request->password)) {
-                    return response()->json([
-                        'status' => 'success-reload',
-                        'message' => 'Registration has been completed successfully, credentials has been sent to your registered mail id',
-                    ]);
-                } else {
-                    return response()->json([
-                        'status' => 'success-reload',
-                        'message' => "Registration has been done successfully,Can't send the credentials mail right now",
-                    ]);
-                }
+
+
+                // if (Helper::sendCredentials($user, $customer->first_name. ' ' . $customer->last_name, $request->password)) {
+                //     return response()->json([
+                //         'status' => 'success-reload',
+                //         'message' => 'Registration has been completed successfully, credentials has been sent to your registered mail id',
+                //     ]);
+                // }
+                
+                
+                
+                // else {
+                //     return response()->json([
+                //         'status' => 'success-reload',
+                //         'message' => "Registration has been done successfully,Can't send the credentials mail right now",
+                //     ]);
+                // }
+
+
+
+                if ($verify) {
+                    $link = url('email-verification/' . $token);
+                    $name = $user->customer->first_name ;
+                    if (Helper::verifyemail($user, $name, $link)) {
+                       
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'Please click on the link that has just been sent to your email account to verify your Account.'
+                        ]);
+                    }
+    
+    }
+
+ else {
+           return response()->json([
+            'status' => 'success-reload',
+                'message' => "Registration has been done successfully,Can't send the credentials mail right now",
+            ]);
+         }
             } else {
                 DB::rollBack();
                 return response()->json(['status' => 'error', 'message' => 'Error occurred while registration']);

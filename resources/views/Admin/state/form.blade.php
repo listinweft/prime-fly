@@ -14,7 +14,7 @@
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'country')}}">Country</a>
                             </li>
                             <li class="breadcrumb-item"><a
-                                    href="{{url(Helper::sitePrefix().'country/state/'.$country_id)}}">State</a></li>
+                                    href="{{url(Helper::sitePrefix().'state/')}}">State</a></li>
                             <li class="breadcrumb-item active">{!! $title !!}</li>
                         </ol>
                     </div>

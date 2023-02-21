@@ -54,94 +54,50 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="title">Title</label>
-                                    <input type="text" name="title" id="title" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($banner)?$banner->title:'' }}" maxlength="230">
+                                    <label for="title">Title *</label>
+                                    <input type="text" name="title" id="title" placeholder="Title" class="form-control required" autocomplete="off" value="{{ isset($banner)?$banner->title:'' }}" maxlength="230">
                                     <div class="help-block with-errors" id="title_error"></div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Banner Type*</label>
-                                    <select class="form-control required" name="banner_type" id="banner_type">
-                                        <option value="slider" {{ (@$banner->banner_type=='slider')?'selected':''}}>Slider</option>
-                                        <option value="video" {{  (@$banner->banner_type=='video')?'selected':'' }}>Video</option>
-                                    </select>
-                                    <div class="help-block with-errors" id="banner_type_error"></div>
+                                    <label for="title">Sub Title *</label>
+                                    <input type="text" name="sub_title" id="sub_title" placeholder="Sub Title" class="form-control required" autocomplete="off" value="{{ isset($banner)?$banner->subtitle:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="sub_title_error"></div>
                                 </div>
-
                             </div>
-
-                            <div class="form-row" id="slider-div" style="display: {{@$banner->banner_type=='video'?'none':''}}">
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Description</label>
+                                    <textarea name="description" id="description" placeholder="Description" class="form-control tinyeditor" autocomplete="off"> {{ old('description', !empty($banner)?$banner->description:'') }}</textarea>
+                                    <div class="help-block with-errors" id="description_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-row" id="slider-div">
                                 <div class="form-group col-md-6">
                                     <label>Image</label>
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file" accept="image/*">
                                     </div>
-                                    <span class="caption_note">Note: Image dimension must be 1545 x 644 PX and Size must be less than 512 KB</span>
+                                    <span class="caption_note">Note: uploaded images have a maximum size of <strong> 618x650</strong> pixels and can't be over 300KB</span>
                                 </div>
-                                <!-- <div class="form-group col-md-6">
-                                  <label> Mobile Image*</label>
-                                  <div class="file-loading">
-                                      <input id="mobile_image" name="mobile_image" type="file" accept="image/*">
-                                  </div>
-                                  <span class="caption_note">Note: Image size must be 747 x 902</span>
-                                </div> -->
                                 <div class="form-group col-md-6">
-                                    <label for="image_meta_tag">Image Meta Tag</label>
-                                    <input type="text" name="image_meta_tag" id="image_meta_tag" placeholder="Image Alternate Text" class="form-control placeholder-cls" required autocomplete="off" value="{{ isset($banner)?$banner->image_meta_tag:'' }}" maxlength="230">
+                                    <label for="image_meta_tag">Image Attribute</label>
+                                    <input type="text" name="image_attribute" id="image_attribute" placeholder="Image Alternate Text" class="form-control placeholder-cls required" required autocomplete="off" value="{{ isset($banner)?$banner->image_attribute:'' }}" maxlength="230">
                                 </div>
 
                             </div>
-
-                            <div class="form-row" id="video-div" style="display:{{@$banner->banner_type=='video'?'':'none'}} ">
-
+                            <div class="form-row" id="slider-div">
                                 <div class="form-group col-md-6">
-                                    <label for="title">Sub Title</label>
-                                    <input type="text" name="sub_title" id="sub_title" placeholder="Sub Title" class="form-control" autocomplete="off" value="{{ isset($banner)?$banner->sub_title:'' }}" maxlength="230">
-                                    <div class="help-block with-errors" id="sub_title_error"></div>
+                                    <label for="title">Button Text</label>
+                                    <input type="text" name="button_text" id="button_text" placeholder="Button Text" class="form-control" autocomplete="off" value="{{ isset($banner)?$banner->button_text:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title_error"></div>
                                 </div>
-
                                 <div class="form-group col-md-6">
-                                    <label> Video</label>
-                                    <div class="file-loading">
-                                        <input id="video_id" name="video" type="file" accept="video/*">
-                                    </div>
-                                    <!-- <div class="form-group col-md-6">
-                                      <label> Mobile Image*</label>
-                                      <div class="file-loading">
-                                          <input id="mobile_image" name="mobile_image" type="file" accept="image/*">
-                                      </div>
-                                      <span class="caption_note">Note: Image size must be 747 x 902</span>
-                                    </div> -->
-
+                                    <label for="title">Button Url</label>
+                                    <input type="text" name="url" id="url" placeholder="Button Url" class="form-control" autocomplete="off" value="{{ isset($banner)?$banner->url:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title_error"></div>
                                 </div>
-
-
                             </div>
-
-
-                            <div class="form-row" id="thumbnail_div" style="display:{{@$banner->banner_type=='video'?'':'none'}} ">
-                                <div class="form-group col-md-6">
-                                    <label>Video Thumbnail Image</label>
-                                    <div class="file-loading">
-                                        <input id="thumbnail_image" name="thumbnail_image" type="file" accept="image/*">
-                                    </div>
-                                    <span class="caption_note">Note: Image dimension must be 1545 x 644 PX and Size must be less than 512 KB</span>
-                                </div>
-                                <!-- <div class="form-group col-md-6">
-                                  <label> Mobile Image*</label>
-                                  <div class="file-loading">
-                                      <input id="mobile_image" name="mobile_image" type="file" accept="image/*">
-                                  </div>
-                                  <span class="caption_note">Note: Image size must be 747 x 902</span>
-                                </div> -->
-                                <div class="form-group col-md-6">
-                                    <label for="thumbnail_meta_tag">Video Thumbnail Meta Tag</label>
-                                    <input type="text" name="thumbnail_meta_tag" id="thumbnail_meta_tag" placeholder="Thumbnail Alternate Text" class="form-control placeholder-cls"  autocomplete="off" value="{{ isset($banner)?$banner->video_thumbnail_image_mata_tag:'' }}" maxlength="230">
-                                </div>
-
-                            </div>
-
-
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <input type="submit" class="btn btn-primary form_submit_btn submitBtn" value="Submit">
@@ -162,88 +118,27 @@
                 validateInitialCount: true,
                 overwriteInitial: false,
                 autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
+               
+                
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 1545,
-                minImageHeight: 644,
-                maxImageWidth: 1545,
-                maxImageHeight: 644,
-                maxFileSize: 512,
+                minImageWidth: 618,
+                minImageHeight: 650,
+                maxImageWidth: 618,
+                maxImageHeight: 650,
+                maxFileSize: 300,
                 showRemove: true,
-                @if(isset($banner) && $banner->banner_image!=NULL)
-                initialPreview: ["{{asset($banner->banner_image)}}",],
+                @if(isset($banner) && $banner->desktop_image!=NULL)
+                initialPreview: ["{{asset($banner->desktop_image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($banner->banner_image!=NULL)?$banner->title:''}}",
+                    caption: "{{ ($banner->desktop_image!=NULL)?$banner->title:''}}",
                     width: "120px",
-                    key: "{{($banner->banner_image)}}",
+                    key: "{{'HomeBanner/desktop_image/'.$banner->id.'/desktop_image_webp' }}",
                 }]
                 @endif
             });
-
-            $("#video_id").fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                // required: true,
-                allowedFileTypes: ['video'],
-                // minImageWidth: 747,
-                // minImageHeight: 902,
-                // maxImageWidth: 747,
-                // maxImageHeight: 902,
-                // maxFileSize: 512,
-                showRemove: true,
-                type: "video",
-                @if(isset($banner) && $banner->video!=NULL)
-                initialPreview: ["{{asset($banner->video)}}"],
-                initialPreviewConfig: [
-                    {
-                        type: "video",
-                        filetype: "video/mp4",
-                        caption: "{{$banner->title}}",
-                        url: "{{asset($banner->video)}}",
-                        key: 3,
-                        filename: '{{$banner->title}}' // override download filename
-                    },
-                ]
-                @endif
-            });
-
-            $("#thumbnail_image").fileinput({
-                'theme': 'explorer-fas',
-                validateInitialCount: true,
-                overwriteInitial: false,
-                autoReplace: true,
-                layoutTemplates: {actionDelete: ''},
-                removeLabel: "Remove",
-                initialPreviewAsData: true,
-                dropZoneEnabled: false,
-                required: false,
-                allowedFileTypes: ['image'],
-                minImageWidth: 1643,
-                minImageHeight: 581,
-                maxImageWidth: 1643,
-                maxImageHeight: 581,
-                maxFileSize: 512,
-                showRemove: true,
-                @if(isset($banner) && $banner->video_thumbnail_image!=NULL)
-                initialPreview: ["{{asset($banner->video_thumbnail_image)}}",],
-                initialPreviewConfig: [{
-                    caption: "{{ ($banner->video_thumbnail_image!=NULL)?$banner->title:''}}",
-                    width: "120px",
-                    key: "{{($banner->video_thumbnail_image)}}",
-                }]
-                @endif
-            });
-
 
         });
     </script>

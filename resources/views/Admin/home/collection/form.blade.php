@@ -53,9 +53,9 @@
                                 </div>
                             @endif
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="title">Title</label>
-                                    <input type="text" class="required" name="title" id="title" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title:'' }}" maxlength="230">
+                                    <input type="text" class="required form-control" name="title" id="title" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title:'' }}" maxlength="230">
                                     <div class="help-block with-errors" id="title_error"></div>
                                 </div>
 
@@ -298,9 +298,9 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 450,
+                minImageWidth: 958,
                 minImageHeight: 600,
-                maxImageWidth: 450,
+                maxImageWidth: 958,
                 maxImageHeight: 600,
                 maxFileSize: 1500,
                 showRemove: true,
@@ -366,65 +366,6 @@
                 @endif
             });
 
-            // $("#video_id").fileinput({
-            //     'theme': 'explorer-fas',
-            //     validateInitialCount: true,
-            //     overwriteInitial: false,
-            //     autoReplace: true,
-            //     layoutTemplates: {actionDelete: ''},
-            //     removeLabel: "Remove",
-            //     initialPreviewAsData: true,
-            //     dropZoneEnabled: false,
-            //     // required: true,
-            //     allowedFileTypes: ['video'],
-            //     // minImageWidth: 747,
-            //     // minImageHeight: 902,
-            //     // maxImageWidth: 747,
-            //     // maxImageHeight: 902,
-            //     // maxFileSize: 512,
-            //     showRemove: true,
-            //     type: "video",
-            //     @if(isset($banner) && $banner->video!=NULL)
-            //     initialPreview: ["{{asset($banner->video)}}"],
-            //     initialPreviewConfig: [
-            //         {
-            //             type: "video",
-            //             filetype: "video/mp4",
-            //             caption: "{{$banner->title}}",
-            //             url: "{{asset($banner->video)}}",
-            //             key: 3,
-            //             filename: '{{$banner->title}}' // override download filename
-            //         },
-            //     ]
-            //     @endif
-            // });
-
-            // $("#thumbnail_image").fileinput({
-            //     'theme': 'explorer-fas',
-            //     validateInitialCount: true,
-            //     overwriteInitial: false,
-            //     autoReplace: true,
-            //     layoutTemplates: {actionDelete: ''},
-            //     removeLabel: "Remove",
-            //     initialPreviewAsData: true,
-            //     dropZoneEnabled: false,
-            //     required: false,
-            //     allowedFileTypes: ['image'],
-            //     minImageWidth: 1643,
-            //     minImageHeight: 581,
-            //     maxImageWidth: 1643,
-            //     maxImageHeight: 581,
-            //     maxFileSize: 512,
-            //     showRemove: true,
-            //     @if(isset($banner) && $banner->video_thumbnail_image!=NULL)
-            //     initialPreview: ["{{asset($banner->video_thumbnail_image)}}",],
-            //     initialPreviewConfig: [{
-            //         caption: "{{ ($banner->video_thumbnail_image!=NULL)?$banner->title:''}}",
-            //         width: "120px",
-            //         key: "{{($banner->video_thumbnail_image)}}",
-            //     }]
-            //     @endif
-            // });
 
 
         });

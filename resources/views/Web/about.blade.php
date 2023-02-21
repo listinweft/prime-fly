@@ -114,12 +114,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h6 class="subHeading">Our Category</h6>
-                    <h2 class="mainHeading">Shop By Category</h2>
+                    {{-- <h6 class="subHeading">{!! @$home_heading->subtitle !!}</h6> --}}
+                    <h6 class="subHeading">{{ @$home_heading->subtitle }} </h6>
+                    <h2 class="mainHeading">{!! @$home_heading->title !!}</h2>
                     <div class="headingText">
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                            the industry's standard
+                            {!! @$home_heading->description !!}
+                            {{-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                            the industry's standard --}}
                         </p>
                     </div>
                 </div>

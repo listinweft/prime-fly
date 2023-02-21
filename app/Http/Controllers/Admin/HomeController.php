@@ -87,6 +87,8 @@ class HomeController extends Controller
 
     public function update_home_heading(Request $request)
     {
+
+       
         if (isset($request->type)) {
             $home_heading = HomeHeading::type($request->type)->first();
             if (!$home_heading) {
@@ -94,6 +96,7 @@ class HomeController extends Controller
             }
             $home_heading->type = $request->type;
             $home_heading->title = $request->homeTitle;
+            $home_heading->subtitle = $request->subtitle;
             $home_heading->description = $request->homeDescription;
             if ($home_heading->save()) {
                 return response()->json(['status' => true, 'message' => 'Home heading for ' . $request->type . ' saved successfully']);
@@ -319,15 +322,10 @@ class HomeController extends Controller
     public function banner()
     {
         $title = "Home Banner List";
-        $bannerList = HomeBanner::where('type','=','corporate')->get();
+        $bannerList = HomeBanner::get();
         return view('Admin.home.banner.list', compact('bannerList', 'title'));
     }
-    public function banner2()
-    {
-        $title = "Home Banner List";
-        $bannerList = HomeBanner::where('type','=','ecommerce')->get();
-        return view('Admin.home.banner.list2', compact('bannerList', 'title'));
-    }
+
 
     public function banner_create()
     {
@@ -335,31 +333,25 @@ class HomeController extends Controller
         $title = "Create Home Banner";
         return view('Admin.home.banner.form', compact('key', 'title'));
     }
-    public function banner_create2()
-    {
-        $key = "Create";
-        $title = "Create Home Banner";
-        return view('Admin.home.banner.form2', compact('key', 'title'));
-    }
 
     public function banner_store(Request $request)
     {
+        
         $validatedData = $request->validate([
 //            'title' => 'required|min:2|max:255',
-            'desktop_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'mobile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'image_attribute' => 'required|min:5',
         ]);
         $banner = new HomeBanner;
-        if ($request->hasFile('desktop_image')) {
-            $banner->desktop_image_webp = Helper::uploadWebpImage($request->desktop_image, 'uploads/home/banner/desktop_image/webp/', $request->title);
-            $banner->desktop_image = Helper::uploadFile($request->desktop_image, 'uploads/home/banner/desktop_image/', $request->title);
+        if ($request->hasFile('image')) {
+            $banner->desktop_image_webp = Helper::uploadWebpImage($request->image, 'uploads/home/banner/desktop_image/webp/', $request->title);
+            $banner->desktop_image = Helper::uploadFile($request->image, 'uploads/home/banner/desktop_image/', $request->title);
         }
-        if ($request->hasFile('mobile_image')) {
-            $banner->mobile_image_webp = Helper::uploadWebpImage($request->mobile_image, 'uploads/home/banner/mobile_image/webp/', $request->title);
-            $banner->mobile_image = Helper::uploadFile($request->mobile_image, 'uploads/home/banner/mobile_image/', $request->title);
-        }
-//        $banner->title = $request->title;
+
+       $banner->title = $request->title;
+       $banner->subtitle = $request->sub_title;
+       $banner->button_text = $request->button_text;
+       $banner->description= $request->description;
         $banner->image_attribute = $validatedData['image_attribute'];
         $banner->url = $request->url;
         $sort_order = HomeBanner::latest('sort_order')->first();
@@ -369,49 +361,15 @@ class HomeController extends Controller
             $sort_number = 1;
         }
         $banner->sort_order = $sort_number;
-        $banner->type= "corporate";
+
         if ($banner->save()) {
             session()->flash('success', "Home Banner image has been added successfully");
-            return redirect(Helper::sitePrefix() . 'home-corporate/banner');
+            return redirect(Helper::sitePrefix() . 'home/banner');
         } else {
             return back()->with('error', 'Error while creating the banner');
         }
     }
-    public function banner_store2(Request $request)
-    {
-        $validatedData = $request->validate([
-//            'title' => 'required|min:2|max:255',
-            'desktop_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'mobile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'image_attribute' => 'required|min:5',
-        ]);
-        $banner = new HomeBanner;
-        if ($request->hasFile('desktop_image')) {
-            $banner->desktop_image_webp = Helper::uploadWebpImage($request->desktop_image, 'uploads/home/banner/desktop_image/webp/', $request->title);
-            $banner->desktop_image = Helper::uploadFile($request->desktop_image, 'uploads/home/banner/desktop_image/', $request->title);
-        }
-        if ($request->hasFile('mobile_image')) {
-            $banner->mobile_image_webp = Helper::uploadWebpImage($request->mobile_image, 'uploads/home/banner/mobile_image/webp/', $request->title);
-            $banner->mobile_image = Helper::uploadFile($request->mobile_image, 'uploads/home/banner/mobile_image/', $request->title);
-        }
-//        $banner->title = $request->title;
-        $banner->image_attribute = $validatedData['image_attribute'];
-        $banner->url = $request->url;
-        $sort_order = HomeBanner::latest('sort_order')->first();
-        if ($sort_order) {
-            $sort_number = ($sort_order->sort_order + 1);
-        } else {
-            $sort_number = 1;
-        }
-        $banner->sort_order = $sort_number;
-        $banner->type= "ecommerce";
-        if ($banner->save()) {
-            session()->flash('success', "Home Banner image has been added successfully");
-            return redirect(Helper::sitePrefix() . 'home-ecommerce/banner');
-        } else {
-            return back()->with('error', 'Error while creating the banner');
-        }
-    }
+    
 
     public function banner_edit(Request $request, $id)
     {
@@ -424,49 +382,34 @@ class HomeController extends Controller
             return view('Admin.error.404');
         }
     }
-    public function banner_edit2(Request $request, $id)
-    {
-        $key = "Update";
-        $title = "Update Home Banner";
-        $banner = HomeBanner::find($id);
-        if ($banner) {
-            return view('Admin.home.banner.form2', compact('key', 'banner', 'title'));
-        } else {
-            return view('Admin.error.404');
-        }
-    }
 
     public function banner_update(Request $request, $id)
     {
         $banner = HomeBanner::find($id);
         $validatedData = $request->validate([
 //            'title' => 'required|min:2|max:255',
-            'desktop_image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'mobile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'image_attribute' => 'required|min:5',
         ]);
-        if ($request->hasFile('desktop_image')) {
+        if ($request->hasFile('image')) {
             Helper::deleteFile($banner, 'desktop_image');
             Helper::deleteFile($banner, 'desktop_image_webp');
 
-            $banner->desktop_image_webp = Helper::uploadWebpImage($request->desktop_image, 'uploads/home/banner/desktop_image/webp/', $request->title);
-            $banner->desktop_image = Helper::uploadFile($request->desktop_image, 'uploads/home/banner/desktop_image/', $request->title);
+            $banner->desktop_image_webp = Helper::uploadWebpImage($request->image, 'uploads/home/banner/desktop_image/webp/', $request->title);
+            $banner->desktop_image = Helper::uploadFile($request->image, 'uploads/home/banner/desktop_image/', $request->title);
         }
-        if ($request->hasFile('mobile_image')) {
-            Helper::deleteFile($banner, 'mobile_image');
-            Helper::deleteFile($banner, 'mobile_image_webp');
-
-            $banner->mobile_image_webp = Helper::uploadWebpImage($request->mobile_image, 'uploads/home/banner/mobile_image/webp/', $request->title);
-            $banner->mobile_image = Helper::uploadFile($request->mobile_image, 'uploads/home/banner/mobile_image/', $request->title);
-        }
-//        $banner->title = $request->title;
+        //        $banner->title = $request->title;
+        $banner->title = $request->title;
+        $banner->subtitle = $request->sub_title;
+        $banner->button_text = $request->button_text;
+        $banner->description= $request->description;
         $banner->image_attribute = $validatedData['image_attribute'];
         $banner->url = $request->url;
-        $banner->type = "ecommerce";
         $banner->updated_at = now();
         if ($banner->save()) {
             session()->flash('success', "Home Banner image has been updated successfully");
-            return redirect(Helper::sitePrefix() . 'home-corporate/banner');
+            return redirect(Helper::sitePrefix() . 'home/banner');
         } else {
             return back()->with('error', 'Error while updating the banner');
         }
@@ -821,6 +764,7 @@ class HomeController extends Controller
 
     public function testimonial_edit(Request $request, $id)
     {
+        
         $key = "Update";
         $title = "Update Testimonial";
         $testimonial = Testimonial::find($id);
@@ -1580,4 +1524,6 @@ class HomeController extends Controller
         }
         return $this->combinationArrays($chars, $size - 1, $new_combinations);
     }
+
+    
 }

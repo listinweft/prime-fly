@@ -21,7 +21,17 @@
                     @enderror
                 </div>
             </div>
-            @if(Request::segment(3)=='type')
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="subtitle">Sub Title*</label>
+                    <input type="text" class="form-control required" id="subtitle" name="subtitle"
+                           placeholder="Sub Title" value="{{@$home_heading->subtitle}}">
+                    <div class="help-block with-errors" id="subtitle_error"></div>
+                   
+                </div>
+            </div>
+            
+            <!-- @if(Request::segment(3)=='type') -->
             <input type="hidden" name="is_description" id="is_description" value="1">
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -34,7 +44,7 @@
                         @enderror
                     </div>
                 </div>
-            @endif
+            <!-- @endif -->
         </div>
         <div class="card-footer">
             <input type="button" id="headingSubmit" data-type="{{ @$home_heading->type ?? $type }}"

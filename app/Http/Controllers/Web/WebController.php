@@ -135,7 +135,7 @@ class WebController extends Controller
         $heading = HomeHeading::type('blog')->first();
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
-        $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
+        // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
 
         $totalBlog = Blog::active()->count();
         $condition = Blog::active()->latest('posted_date');
@@ -143,7 +143,7 @@ class WebController extends Controller
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
-            'latestThreeBlogs', 'blogs', 'totalBlog', 'offset', 'loading_limit'));
+            'blogs', 'totalBlog', 'offset', 'loading_limit'));
     }
 
     public function blogLoadMore(Request $request)
@@ -155,19 +155,20 @@ class WebController extends Controller
         $blogs = $condition->latest('posted_date')->skip($offset)->take($loading_limit)->get();
         $offset += $blogs->count();
 
-        return view('web.includes._blog_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
+        return view('web._blog_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
     }
 
     public function blog_detail($short_url)
     {
-        $blog = Blog::active()->shortUrl($short_url)->first();
+         $blog = Blog::active()->shortUrl($short_url)->first();
         if ($blog) {
             $banner = $seo_data = $blog;
-            $recentBlogs = Blog::active()->latest('posted_date')->limit(3)->where('id', '!=', $blog->id)->get();
+            $type = $short_url;
+            $recentBlogs = Blog::active()->latest('posted_date')->limit(4)->where('id', '!=', $blog->id)->get();
             $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
             $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
-                'previousBlog', 'nextBlog'));
+                'previousBlog', 'nextBlog','type'));
         } else {
             return view('web.404');
         }
@@ -528,7 +529,8 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Return Policy');
         $banner = Banner::type('return-policy')->first();
         $field = 'return_policy';
-        return view('web.policy', compact('banner', 'seo_data', 'field'));
+        $title = 'return policy';
+        return view('web.policy', compact('banner', 'seo_data', 'field','title'));
     }
 
     public function shipping_policy()

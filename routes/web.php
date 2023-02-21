@@ -72,7 +72,7 @@ Route::post('blog-load-more', [WebController::class, 'blogLoadMore']);
 Route::get('blog/{short_url}', [WebController::class, 'blog_detail']);
 Route::post('booking', [WebController::class, 'booking']);
 Route::get('contact', [WebController::class, 'contact']);
-Route::post('contact', [WebController::class, 'contact_store']);
+Route::post('enquiry', [WebController::class, 'enquiry_store']);
 Route::get('faq', [WebController::class, 'faq']);
 Route::get('brand/{url}', [WebController::class, 'brand']);
 Route::get('deal/{url}', [WebController::class, 'deal']);
@@ -101,12 +101,19 @@ Route::get('terms-and-conditions', [WebController::class, 'terms_and_conditions'
 
 
 /********************* Authentication URLs *******************/
+Route::get('login', [CustomerLoginController::class, 'login_form']);
 Route::post('login', [CustomerLoginController::class, 'login']);
 Route::get('logout', [CustomerLoginController::class, 'logout']);
+Route::get('register', [CustomerLoginController::class, 'register_form']);
 Route::post('register', [CustomerLoginController::class, 'register']);
+Route::get('forgot-password', [CustomerLoginController::class, 'forgot_password_form']);
 Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
 Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);
 Route::post('reset-password/{token}', [CustomerLoginController::class, 'reset_password_store']);
+Route::get('email-verification/{token}', [CustomerLoginController::class, 'email_verification']);
+// Route::get('email-verification-success/{token}', [CustomerLoginController::class, 'email_verification_store']);
+
+
 
 /********************* Social Authentication URLs *******************/
 Route::prefix('auth')->group(function () {
@@ -311,6 +318,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [CountryController::class, 'delete_state']);
             Route::post('state_list', [CountryController::class, 'state_list']);
         });
+
         Route::prefix('shipping-charge')->group(function () {
             Route::get('/', [CountryController::class, 'shipping_list']);
             Route::get('create', [CountryController::class, 'shipping_create']);
@@ -460,13 +468,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete/', [HomeController::class, 'delete_hot_deal']);
         });
 
-        Route::prefix('key-feature')->group(function () {
-            Route::get('/', [HomeController::class, 'key_feature']);
-            Route::get('create', [HomeController::class, 'key_feature_create']);
-            Route::post('create', [HomeController::class, 'key_feature_store']);
-            Route::get('edit/{id}', [HomeController::class, 'key_feature_edit']);
-            Route::post('edit/{id}', [HomeController::class, 'key_feature_update']);
-            Route::post('delete', [HomeController::class, 'delete_key_feature']);
+
+
+        Route::prefix('testimonial')->group(function () {
+            Route::get('/', [HomeController::class, 'testimonial']);
+            Route::get('create', [HomeController::class, 'testimonial_create']);
+            Route::post('create', [HomeController::class, 'testimonial_store']);
+            Route::get('edit/{id}', [HomeController::class, 'testimonial_edit']);
+            Route::post('edit/{id}', [HomeController::class, 'testimonial_update']);
+            Route::post('delete', [HomeController::class, 'delete_testimonial']);
         });
     });
 
@@ -502,6 +512,23 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [MenuController::class, 'delete_detail_menu']);
         });
     });
+    Route::prefix('side-menu')->group(function () {
+        Route::get('/', [MenuController::class, 'side_menu']);
+        Route::get('create', [MenuController::class, 'side_menu_create']);
+        Route::post('create', [MenuController::class, 'side_menu_store']);
+        Route::get('edit/{id}', [MenuController::class, 'side_menu_edit']);
+        Route::post('edit/{id}', [MenuController::class, 'side_menu_update']);
+        Route::post('delete', [MenuController::class, 'side_delete_menu']);
+
+        Route::prefix('side-menu-detail')->group(function () {
+            Route::get('/', [MenuController::class, 'side_menu_detail']);
+            Route::get('create', [MenuController::class, 'side_menu_detail_create']);
+            Route::post('create', [MenuController::class, 'side_menu_detail_store']);
+            Route::get('edit/{id}', [MenuController::class, 'side_menu_detail_edit']);
+            Route::post('edit/{id}', [MenuController::class, 'side_menu_detail_update']);
+            Route::post('delete', [MenuController::class, 'side_delete_detail_menu']);
+        });
+    });
 
     Route::prefix('order')->group(function () {
         Route::get('/', [OrderController::class, 'list']);
@@ -535,14 +562,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('export', [ProductController::class, 'product_export']);
         Route::get('copy/{id}', [ProductController::class, 'copy_product']);
 
-        Route::prefix('brand')->group(function () {
-            Route::get('/', [BrandController::class, 'brand']);
-            Route::get('create', [BrandController::class, 'brand_create']);
-            Route::post('create', [BrandController::class, 'brand_store']);
-            Route::get('edit/{id}', [BrandController::class, 'brand_edit']);
-            Route::post('edit/{id}', [BrandController::class, 'brand_update']);
-            Route::post('delete', [BrandController::class, 'delete_brand']);
-        });
 
         Route::prefix('category')->group(function () {
             Route::get('/', [CategoryController::class, 'category_list']);
@@ -582,14 +601,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [ProductController::class, 'delete_gallery']);
         });
 
-        Route::prefix('measurement-unit')->group(function () {
-            Route::get('/', [AttributeController::class, 'measurement_unit']);
-            Route::get('create', [AttributeController::class, 'measurement_unit_create']);
-            Route::post('create', [AttributeController::class, 'measurement_unit_store']);
-            Route::get('edit/{id}', [AttributeController::class, 'measurement_unit_edit']);
-            Route::post('edit/{id}', [AttributeController::class, 'measurement_unit_update']);
-            Route::post('delete', [AttributeController::class, 'delete_measurement_unit']);
-        });
+
 
         Route::prefix('offer')->group(function () {
             Route::get('/{product_id}', [ProductController::class, 'offer']);
@@ -600,21 +612,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [ProductController::class, 'delete_offer']);
         });
 
-        Route::prefix('overview')->group(function () {
-            Route::post('add_row', [ProductController::class, 'overview_add_row']);
-            Route::post('remove_row', [ProductController::class, 'overview_remove_row']);
-            Route::get('/{id}', [ProductController::class, 'overview']);
-            Route::post('/{id}', [ProductController::class, 'overview_store']);
-        });
-
-        Route::prefix('pet-type')->group(function () {
-            Route::get('/', [AttributeController::class, 'pet_type']);
-            Route::get('create', [AttributeController::class, 'pet_type_create']);
-            Route::post('create', [AttributeController::class, 'pet_type_store']);
-            Route::get('edit/{id}', [AttributeController::class, 'pet_type_edit']);
-            Route::post('edit/{id}', [AttributeController::class, 'pet_type_update']);
-            Route::post('delete', [AttributeController::class, 'delete_pet_type']);
-        });
 
         Route::prefix('review')->group(function () {
             Route::get('/', [ProductController::class, 'review_list']);
@@ -622,17 +619,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('/delete/', [ProductController::class, 'delete_review']);
         });
 
-        Route::prefix('specification')->group(function () {
-            Route::post('/information/store', [ProductController::class, 'specificationInformationStore']);
-            Route::get('/{product_id}', [ProductController::class, 'specification']);
-            Route::get('/create/{id}', [ProductController::class, 'specification_create']);
-            Route::get('/edit/{id}', [ProductController::class, 'specification_edit']);
-            Route::post('/edit/{id}', [ProductController::class, 'specification_update']);
-            Route::post('create/{id}', [ProductController::class, 'specification_store']);
-            Route::post('specification/extra_row', [ProductController::class, 'specification_row']);
-            Route::post('specification/remove_extra_row', [ProductController::class, 'remove_specification_row']);
-            Route::post('delete', [ProductController::class, 'delete_specification']);
-        });
+
 
         Route::prefix('tag')->group(function () {
             Route::get('/', [AttributeController::class, 'tag']);
@@ -643,14 +630,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [AttributeController::class, 'delete_tag']);
         });
 
-        Route::prefix('key-feature')->group(function () {
-            Route::get('/{product_id}', [ProductController::class, 'key_feature']);
-            Route::get('create/{product_id}', [ProductController::class, 'key_feature_create']);
-            Route::post('create/{product_id}', [ProductController::class, 'key_feature_store']);
-            Route::get('edit/{id}', [ProductController::class, 'key_feature_edit']);
-            Route::post('edit/{id}', [ProductController::class, 'key_feature_update']);
-            Route::post('delete', [ProductController::class, 'delete_key_feature']);
-        });
+
 
         Route::prefix('product-type')->group(function () {
             Route::get('/', [AttributeController::class, 'product_type']);
@@ -750,14 +730,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     });
 
-    Route::prefix('testimonial')->group(function () {
-        Route::get('/', [TestimonialController::class, 'testimonial']);
-        Route::get('create', [TestimonialController::class, 'testimonial_create']);
-        Route::post('create', [TestimonialController::class, 'testimonial_store']);
-        Route::get('edit/{id}', [TestimonialController::class, 'testimonial_edit']);
-        Route::post('edit/{id}', [TestimonialController::class, 'testimonial_update']);
-        Route::post('delete', [TestimonialController::class, 'delete_testimonial']);
-    });
+
 
 
 });
