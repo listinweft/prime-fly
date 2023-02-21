@@ -771,7 +771,6 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   }
   .navbar .megamenu .shapeWrapper .shapeItem a img {
     width: 60%;
-    max-width: 220px;
     border: 1px solid #000;
     margin-bottom: 10px;
   }
@@ -2073,21 +2072,21 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
 .testimonialSection .testimonialsSlider .testimonialsCard .testimonialsProfile .rightDetails .reviewIconStar .jq-star:last-child {
   margin-right: 0;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper {
+.testimonialSection .testimonialsSlider .testimonialsCard p {
   padding-right: 20px;
   height: 130px;
   opacity: 1;
   overflow: hidden;
   overflow-y: scroll;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar {
+.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar {
   width: 7px;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar-track {
+.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar-track {
   border-radius: 10px;
   background: #CECEC5;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar-thumb {
+.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #252525;
   opacity: 1;
@@ -2206,7 +2205,7 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   .testimonialSection .testimonialsSlider .testimonialsCard .testimonialsProfile .rightDetails h3 {
     font-size: 17px;
   }
-  .testimonialSection .testimonialsSlider .testimonialsCard .textWrapper {
+  .testimonialSection .testimonialsSlider .testimonialsCard p {
     height: 120px;
   }
 }
@@ -7939,9 +7938,6 @@ footer .copy ul li img {
   height: 225px;
   background: url("../images/pattern-02.png") center;
   background-size: cover;
-}
-.myaccount_section .position-relative {
-  z-index: 1;
 }
 .myaccount_section .sticky-lg-top-110 {
   top: 95px;

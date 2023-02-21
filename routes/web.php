@@ -155,7 +155,6 @@ Route::get('order/{order_code}', [CartController::class, 'order_detail']);
 /******************************** Customer Routes ************************************/
 Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function () {
     Route::get('account/{tab}', [CustomerWebController::class, 'account']);
-   
     Route::post('update-profile', [CustomerWebController::class, 'update_profile']);
     Route::post('change-password', [CustomerWebController::class, 'change_password_store']);
     Route::post('profile-image', [CustomerWebController::class, 'profile_image_upload']);
@@ -657,15 +656,6 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('edit/{id}', [AttributeController::class, 'shape_edit']);
             Route::post('edit/{id}', [AttributeController::class, 'shape_update']);
             Route::post('delete', [AttributeController::class, 'delete_shape']);
-        });
-
-        Route::prefix('frame')->group(function () {
-            Route::get('/', [AttributeController::class, 'frame']);
-            Route::get('create', [AttributeController::class, 'frame_create']);
-            Route::post('create', [AttributeController::class, 'frame_store']);
-            Route::get('edit/{id}', [AttributeController::class, 'frame_edit']);
-            Route::post('edit/{id}', [AttributeController::class, 'frame_update']);
-            Route::post('delete', [AttributeController::class, 'delete_frame']);
         });
     });
 

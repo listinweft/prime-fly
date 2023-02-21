@@ -2071,21 +2071,21 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
 .testimonialSection .testimonialsSlider .testimonialsCard .testimonialsProfile .rightDetails .reviewIconStar .jq-star:last-child {
   margin-right: 0;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper {
+.testimonialSection .testimonialsSlider .testimonialsCard p {
   padding-right: 20px;
   height: 130px;
   opacity: 1;
   overflow: hidden;
   overflow-y: scroll;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar {
+.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar {
   width: 7px;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar-track {
+.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar-track {
   border-radius: 10px;
   background: #CECEC5;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar-thumb {
+.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #252525;
   opacity: 1;
@@ -2204,7 +2204,7 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   .testimonialSection .testimonialsSlider .testimonialsCard .testimonialsProfile .rightDetails h3 {
     font-size: 17px;
   }
-  .testimonialSection .testimonialsSlider .testimonialsCard .textWrapper {
+  .testimonialSection .testimonialsSlider .testimonialsCard p {
     height: 120px;
   }
 }
@@ -5259,17 +5259,18 @@ footer .copy ul li img {
   padding-right: 0;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__stage__frame {
-  position: relative;
+  position: absolute;
   right: 0;
   top: 0;
   height: 600px;
-  width: 100%;
+  width: 98%;
   text-align: center;
-  border-radius: 0px;
+  border-radius: 8px;
   display: flex !important;
   align-items: center;
   justify-content: center;
   background-color: #fafafa;
+  background-color: red;
   overflow: hidden;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__html {
@@ -5286,7 +5287,11 @@ footer .copy ul li img {
   justify-content: center;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__img {
-  max-width: 100%;
+  max-width: 80%;
+  opacity: 1;
+  max-height: 80%;
+  transition: all 0.2s ease;
+  vertical-align: middle;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst {
   width: 20%;
@@ -5327,7 +5332,6 @@ footer .copy ul li img {
   margin-top: 10px;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-slide div {
-  width: 100%;
   line-height: 0 !important;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-list {
@@ -5362,47 +5366,12 @@ footer .copy ul li img {
   height: 100%;
   width: auto;
 }
-.productDetailsPage .framed-canvas img.framed-canvas {
-  background: #f9f9f9;
-  background: #cecec4;
+.productDetailsPage .framed-canvas .fotorama__html img.framed-canvas {
+  border: 15px solid #f5f5f5 !important;
 }
-.productDetailsPage .framed-canvas img.framed-canvas.imageMountClass {
-  padding: 25px;
-}
-.productDetailsPage .framed-canvas img.framed-canvas.fotorama__img {
-  max-width: 80% !important;
-  opacity: 1;
-  max-height: 80% !important;
-  transition: all 0.2s ease;
-  vertical-align: middle;
-}
-.productDetailsPage .frame_color__Black img.framed-canvas.fotorama__img {
-  max-width: 80% !important;
-  opacity: 1;
-  max-height: 80% !important;
-  transition: all 0.2s ease;
-  vertical-align: middle;
-}
-.productDetailsPage .art-prints .fotorama__html img.art-prints {
-  border: 4px solid #fff;
-  box-shadow: -1px 1px 5px #ccc;
-}
-.productDetailsPage .art-prints .fotorama__html img.art-prints.fotorama__img {
-  max-width: 80% !important;
-  opacity: 1;
-  max-height: 80% !important;
-  transition: all 0.2s ease;
-  vertical-align: middle;
-}
-.productDetailsPage .canvas .fotorama__html img.art-canvas {
-  box-shadow: -1px 1px 5px #ccc;
-}
-.productDetailsPage .canvas .fotorama__html .art-canvas.fotorama__img {
-  max-width: 80% !important;
-  opacity: 1;
-  max-height: 80% !important;
-  transition: all 0.2s ease;
-  vertical-align: middle;
+.productDetailsPage .frame_color__Black .fotorama__html img.framed-canvas {
+  border: 15px solid #000 !important;
+  box-shadow: 0 0 10px 3px #ccc;
 }
 .productDetailsPage .productDetailsInfo .productNameStock {
   display: flex;
@@ -5533,7 +5502,6 @@ footer .copy ul li img {
   -o-transition: 0.3s;
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .item .colorBox {
-  border: 1px solid #252525;
   width: 90px;
   height: 90px;
   background: red;
@@ -5572,6 +5540,7 @@ footer .copy ul li img {
   background-size: cover;
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .active img {
+  border: 1px solid #252525;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .active .colorBox {
@@ -7968,9 +7937,6 @@ footer .copy ul li img {
   height: 225px;
   background: url("../images/pattern-02.png") center;
   background-size: cover;
-}
-.myaccount_section .position-relative {
-  z-index: 1;
 }
 .myaccount_section .sticky-lg-top-110 {
   top: 95px;

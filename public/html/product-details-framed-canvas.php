@@ -37,23 +37,19 @@
                             <div class="item position-relative">
                                 <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
                                     <div class="fotorama__html">
-                                        <img class="framed-canvas fotorama__img frame_product_detail_img imageMountClass" style="border: 15px solid #ffffff !important;" src="assets/images/product/product01.jpg" aria-hidden="false">
+                                        <img class="framed-canvas fotorama__img" src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" aria-hidden="false">
                                     </div>
                                 </div>
                             </div>
-                            <div class="item position-relative">
-                                <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
-                                    <div class="fotorama__html">
-                                        <img class="fotorama__img" src="assets/images/frame/wooden-frame_th.jpg" aria-hidden="false">
-                                    </div>
-                                </div>
+
+                            <div class="itemImgBox">
+                                <img class="img-fluid" src="assets/images/product/product02.jpg">
                             </div>
-                            <div class="item position-relative">
-                                <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
-                                    <div class="fotorama__html">
-                                        <img class="fotorama__img frame_product_border_image" src="assets/images/frame/wooden-frame-white.jpg" aria-hidden="false">
-                                    </div>
-                                </div>
+                            <div class="itemImgBox">
+                                <img class="img-fluid" src="assets/images/product/product05.jpg">
+                            </div>
+                            <div class="itemImgBox">
+                                <img class="img-fluid" src="assets/images/frame/wooden-frame_th.jpg">
                             </div>
                         </div>
                     </div>
@@ -61,17 +57,22 @@
                         <div class="productDetailsThumbs">
                             <div class="fotorama__nav__frame">
                                 <div class="fotorama__thumb fotorama_horizontal_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="assets/images/product/product01.jpg" class="fotorama__img">
+                                    <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" class="fotorama__img">
+                                </div>
+                            </div>
+                            <div class="fotorama__nav__frame ">
+                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
+                                    <img src="assets/images/product/product02.jpg" class="fotorama__img">
+                                </div>
+                            </div>
+                            <div class="fotorama__nav__frame ">
+                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
+                                    <img src="assets/images/product/product05.jpg" class="fotorama__img">
                                 </div>
                             </div>
                             <div class="fotorama__nav__frame ">
                                 <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
                                     <img src="assets/images/frame/wooden-frame_th.jpg" class="fotorama__img">
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="assets/images/frame/wooden-frame-white.jpg" class="fotorama__img frame_product_border_image">
                                 </div>
                             </div>
                         </div>
@@ -191,37 +192,17 @@
                         Select Frame Color
                     </h5>
                     <div class="relatedProductsTypesWrapper">
-                        <div class="item active colorBtn" data-color="#FFFFFF" data-img="assets/images/frame/wooden-frame-white.jpg">
+                        <div class="item active">
                             <div class="colorBox" style="background: #FFFFFF">
 
                             </div>
                             <p>White</p>
                         </div>
-                        <div class="item colorBtn" data-color="#000000" data-img="assets/images/frame/wooden-frame2.jpg">
+                        <div class="item ">
                             <div class="colorBox" style="background: #000000">
 
                             </div>
                             <p>Black</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relatedProductsTypesSelect">
-                    <h5>
-                        Mount
-                    </h5>
-                    <div class="relatedProductsTypesWrapper">
-                        <div class="item active mountSpaceBtn btnMountClass" >
-                            <div class="colorBox" >
-                                <img class="img-fluid w-100" src="assets/images/frame/wooden-frame-no-mount.jpg" alt="">
-                            </div>
-                            <p>With Mount</p>
-                        </div>
-                        <div class="item mountSpaceBtn">
-                            <div class="colorBox" >
-                                <img class="img-fluid w-100" src="assets/images/frame/wooden-frame-mount.jpg" alt="">
-                            </div>
-                            <p>No Mount</p>
                         </div>
                     </div>
                 </div>
@@ -506,17 +487,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="textWrapper">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
-                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                            took a galley of type and scrambled it to make a type specimen book  industry's standard
+                            dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                            since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book  industry's standard dummy text ever since the 1500s.
+                        </p>
                     </div>
                     <div class="testimonialsCard">
                         <div class="testimonialsProfile">
@@ -531,17 +510,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="textWrapper">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
-                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                            took a galley of type and scrambled it to make a type specimen book  industry's standard
+                            dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                            since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book  industry's standard dummy text ever since the 1500s.
+                        </p>
                     </div>
                     <div class="testimonialsCard">
                         <div class="testimonialsProfile">
@@ -559,17 +536,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="textWrapper">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
-                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                            took a galley of type and scrambled it to make a type specimen book  industry's standard
+                            dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+                            since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book  industry's standard dummy text ever since the 1500s.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -580,468 +555,6 @@
     </div>
 </section>
 <!-- Testimonial End-->
-
-<div class="relatedProducts youMayAlsoLike">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>You May Also Like </h3>
-                <section id="demos">
-                    <div class="relatedSlider owl-carousel owl-theme ">
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product01.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product02.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product03.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="product-details.php" tabindex="-1">
-                                                <img class="product-image-photo" src="assets/images/product/product05.jpg" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid" src="assets/images/productListLogo.png" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="product-details.php">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="relatedProducts">
     <div class="container">

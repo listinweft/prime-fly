@@ -40,30 +40,30 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <h6 class="subHeading">{!! @$about->subtitle !!}</h6>
-                    <h2 class="mainHeading">{!! @$about->title !!}</h2>
+                    <h6 class="subHeading">{{ @$about->subtitle }}</h6>
+                    <h2 class="mainHeading">{{ @$about->title }}</h2>
                     <div class="textArea">
                         <p>
-                            {!! @$about->description !!}
+                            {{ @$about->description }}
                         <h4>
-                            {!! @$about->description !!}
+                            {{ @$about->description }}
                         </h4>
                         <p>
-                            {!! @$about->description !!}
+                            {{ @$about->description }}
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="textArea">
                         <p>
-                            {!! @$about->description !!}
+                            {{ @$about->description }}
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="textArea">
                         <p>
-                            {!! @$about->description !!}
+                            {{ @$about->description }}
                         </p>
                     </div>
                 </div>
@@ -79,23 +79,23 @@
                         <!--                        </p>-->
                         <ul>
                             <li>
-                                {!! @$about->description !!}
+                                {{ @$about->description }}
                             </li>
                             <li>
-                                {!! @$about->description !!}
+                                {{ @$about->description }}
                             </li>
                             <li>
-                                {!! @$about->description !!}
+                                {{ @$about->description }}
                             </li>
                             <li>
-                                {!! @$about->description !!}
+                                {{ @$about->description }}
                             </li>
 
                             <li>
-                                {!! @$about->description !!}
+                                {{ @$about->description }}
                             </li>
                             <li>
-                                {!! @$about->description !!}
+                                {{ @$about->description }}
                             </li>
                         </ul>
                     </div>
