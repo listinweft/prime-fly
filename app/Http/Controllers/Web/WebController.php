@@ -201,7 +201,7 @@ class WebController extends Controller
         $sort_value = 'latest';
         $title = 'Products';
         $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+        return view('web.product_list', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
             'title', 'sort_value'));
     }
