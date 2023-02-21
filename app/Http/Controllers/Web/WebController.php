@@ -95,25 +95,29 @@ class WebController extends Controller
     //enquiry and bulk enquiry storing
     public function enquiry_store(Request $request)
     {
+
+
         $request->validate([
             'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
             'email' => 'required|email|max:255',
             'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
-            'subject' => 'required',
+            // 'subject' => 'required',
             'message' => 'required',
         ]);
 
         $contact = new Enquiry();
-       //eturn  $request->type;
+
 
         $contact->type = $request->type;
         $contact->name = $request->name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
-        $contact->subject = $request->subject;
+        $contact->subject = "jdvjd";
         $contact->message = $request->message;
         $contact->product_id = $request->product_id ?? NULL;
         $contact->request_url = url()->previous();
+
+
         if ($request->type == 'get_a_quote') {
             $type = " Get A Quote";
         } elseif ($request->type == 'product') {

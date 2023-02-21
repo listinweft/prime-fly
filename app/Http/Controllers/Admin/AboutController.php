@@ -64,6 +64,10 @@ class AboutController extends Controller
             $about->products_available_image = Helper::uploadFile($request->products_available_image, 'uploads/about/products_available_image/', $request->title);
         }
 
+        if ($request->hasFile('image')) {
+            $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/about/image/webp/', $request->title);
+            $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
+        }
         $about->title = $validatedData['title'];
         $about->description = $validatedData['description'];
         $about->image_attribute = $request->image_attribute ?? '';

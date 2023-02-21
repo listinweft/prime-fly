@@ -405,7 +405,7 @@ class Helper
             $body = file_get_contents(resource_path('views/mail_templates/enquiry.blade.php'));
         }
         $body = str_replace($searchArr, $replaceArr, $body);
-        $contactAddress = ContactAddress::active()->first();
+        $contactAddress = SiteInformation::active()->first();
 //        dd($contactAddress->email);
 
         $mail->MsgHTML($body);

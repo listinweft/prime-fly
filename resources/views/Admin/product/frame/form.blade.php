@@ -76,7 +76,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
+                                {{-- <div class="form-group col-md-6">
                                     <label> Color*</label>
                                     <input type="text" name="color" id="color" placeholder="Color"
                                            class="form-control required" autocomplete="off"
@@ -85,18 +85,27 @@
                                     @error('color')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
+                                </div> --}}
                                 <div class="form-group col-md-6">
                                     <label> Code*</label>
-                                    <input type="color" name="code" id="code" placeholder="Color Code"
+                                    <input type="text" name="code" id="code" placeholder="Color Code"
                                            class="form-control required" autocomplete="off" value="{{ @$frame->code }}">
                                     <div class="help-block with-errors" id="code_error"></div>
                                     @error('code')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="form-row">
+                                {{-- <div class="form-group col-md-6">
+                                    <label> Code*</label>
+                                    <input type="text" name="code" id="code" placeholder="Color Code"
+                                           class="form-control required" autocomplete="off" value="{{ @$frame->code }}">
+                                    <div class="help-block with-errors" id="code_error"></div>
+                                    @error('code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div> --}}
                             </div>
                         </div>
 

@@ -731,7 +731,7 @@
                     <div class="row">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Name*">
-                            <span class="invalidMessage"> Given Data Error </span>
+                            <!-- <span class="invalidMessage"> Given Data Error </span> -->
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Email*">

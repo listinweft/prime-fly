@@ -29,7 +29,7 @@ class ContactController extends Controller
     public function contact_page_store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|min:2|max:230',
+            'contact_page_title' => 'required|min:2|max:230',
             'contact_request_title' => 'required|min:2|max:230',
             'email' => 'required|email|min:3|max:50',
             'email_recipient' => 'required|min:3|max:50',
@@ -44,8 +44,9 @@ class ContactController extends Controller
             $contact = SiteInformation::find($request->id);
             $contact->updated_at = now();
         }
-        $contact->contact_page_title = $request->title;
+        $contact->contact_page_title = $request->contact_page_title;
         $contact->contact_request_title = $request->contact_request_title;
+        $contact->description = $request->description;
         $contact->google_map = $request->google_map;
         $contact->phone = $request->phone;
         $contact->alternate_phone = $request->alternate_phone;
