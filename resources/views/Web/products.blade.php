@@ -14,7 +14,7 @@
                     <h1>Products</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php"><img src="assets/images/home.png"
+                            <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/home.png')}}"
                                                                                  alt=""></a></li>
                             <li class="breadcrumb-item active" aria-current="page">Products</li>
                         </ol>
@@ -54,18 +54,18 @@
                 </div>
                 <div class="sortSearchBox">
                     <a class="btn primary_btn primary_btn_mb" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                        <img src="assets/images/sort.png" alt="...">
+                        <img src="{{asset('frontend/images/sort.png')}}" alt="...">
                         Filter
                     </a>
                     <ul>
                         <li>
                             <a type="button" data-bs-toggle="offcanvas" data-bs-target="#searchTop"
                                aria-controls="offcanvasTop">
-                                <img class="img-fluid" src="assets/images/search.png" alt="">
+                                <img class="img-fluid" src="{{asset('frontend/images/search.png')}}" alt="">
                             </a>
                         </li>
                         <li>
-                            <img class="img-fluid" src="assets/images/sort.png" alt="">
+                            <img class="img-fluid" src="{{asset('frontend/images/sort.png')}}" alt="">
                             <p>Sort By</p>
                             <select class="formSelect" name="" id="">
                             @foreach(['none'=>'None','new'=>'Latest','best'=>'Popular','featured'=>'Most Relevant','asc'=>'Product: A-Z','desc'=>'Product: Z-A'] as $sortValue => $sortTitle)

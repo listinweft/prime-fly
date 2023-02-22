@@ -16,9 +16,9 @@
     
 @endif
 
-
+@push('scripts')
 <script>
     $('#product_count').html({{ $offset }});
     $('#loading_offset').val({{ $offset }});
 </script>
-    
+@endpush

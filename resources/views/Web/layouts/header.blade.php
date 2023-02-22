@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="index.php">
+                        <a href="{{url('/')}}">
                             <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
                         </a>
                     </li>
@@ -82,39 +82,39 @@
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/products')}}">
+                        <a class="nav-link" href="{{url('products')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-01.png')}}" alt="">
                             </div>
                             Shop All
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="errorPage.php">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-02.png')}}" alt="">
                             </div>
                             Objects
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product-listing.php">
+                    </li> --}}
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{url('products')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-03.png')}}" alt="">
                             </div>
                             Best Seller
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product-listing.php">
+                    </li> --}}
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{url('products')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-04.png')}}" alt="">
                             </div>
                             New Arrivals
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="shop-page.html" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-05.png')}}" alt="">
                             </div>
@@ -122,51 +122,51 @@
                         </a>
                         <ul class="dropdown-menu">
                             <div class="colorWrapper">
-                                <a href="product-listing.php" class="colorItem colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItem colorItemFilterClick">
                                     <div class="colorBox" style="background: #292929">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #FFFFFF">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #71A9BA">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #637372">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #F5F4DF">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #75829D">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #BDB8CE">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #FBC9CC">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #EF7F55">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #BDC39F">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #E1C564">
                                     </div>
                                 </a>
-                                <a href="product-listing.php" class="colorItemFilterClick">
+                                <a href="{{url('products')}}" class="colorItemFilterClick">
                                     <div class="colorBox" style="background: #C4CACE">
                                     </div>
                                 </a>
@@ -174,7 +174,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="shop-page.html" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="{{url('products')}}" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-06.png')}}" alt="">
                             </div>
@@ -208,7 +208,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="blog.php">
+                        <a class="nav-link" href="{{url('blogs')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-010.png')}}" alt="">
                             </div>
@@ -216,7 +216,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="my-account.php">
+                        <a class="nav-link" href="{{url('login')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-011.png')}}" alt="">
                             </div>
@@ -232,7 +232,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="terms-and-conditions.php">
+                        <a class="nav-link" href="{{url('terms-and-conditions')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-013.png')}}" alt="">
                             </div>
@@ -293,7 +293,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <div class="collapse navbar-collapse" id="main_nav">
-                <a href="index.php">
+                <a href="{{url('/')}}">
                     <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
                 </a>
                 <ul class="navbar-nav m-auto">
@@ -432,9 +432,9 @@
                     </li>
 {{--                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>--}}
 {{--                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>--}}
-                    <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
                     <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li> --}}
                 </ul>
                 <div class="topRightArea">
                     <ul class="topRightAreaUl">
@@ -452,7 +452,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="index.php">
+                            <a href="{{url('/')}}">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/wishlist.png')}}" alt="">
                             </a>
                         </li>
@@ -462,8 +462,8 @@
                                     <img class="img-fluid icon"  src="{{ asset('frontend/images/user.png')}}" alt="">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="login.php">Login</a></li>
-                                    <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                    <li><a class="dropdown-item" href="{{url('login')}}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{url('register')}}">Register</a></li>
                                 </ul>
                             </div>
                         </li>
