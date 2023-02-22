@@ -84,7 +84,6 @@ class Category extends Model
     {
         return $this->activeChildren()->with('activeChildrenRecursive');
     }
-    public function products(){
-        return $this->hasMany(Product::class);
-    }
+ 
+ 
 }

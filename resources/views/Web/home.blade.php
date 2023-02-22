@@ -177,11 +177,8 @@
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
-                            {{$theme->id}}
-                            @php
-                                $count = $theme->products ? $theme->products->count():0;
-                            @endphp
-                            <h6>{{@$count }} items</h6>
+                        
+                            {{-- <h6>{{@$count }} items</h6> --}}
                         </div>
                     </div>
                     @php
