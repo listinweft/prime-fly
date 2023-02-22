@@ -5,7 +5,7 @@
 <!--Inner Banner Start-->
 <section class="innerBanner">
     <div class="innerBannerImageArea">
-        <img class="bannerImg img-fluid" src="assets/images/banner/banner-09.jpg" alt="">
+    {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
     </div>
     <div class="innerBannerDetails">
         <div class="container">
@@ -39,8 +39,7 @@
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </h6>
                         <div class="ProductListCategory">
-
-                        @include('web.includes.product_filter')
+                            @include('web.includes.product_filter')
                         </div>
                     </div>
                 </div>
@@ -100,28 +99,17 @@
                     
                 </div>
             </div>
-            <div class="productListingWrapper">
+              <div class="productListingWrapper">
+             
+              @include('web.includes.product_list')
               
-               
-               
-                
-                
-            @include('web.includes.product_list')
-                
-                
-                
-                
-              
-                
-              
-                
-                
-            </div>
+                 </div>
 
            
         </div>
     </div>
 </section>
+
 
 
 

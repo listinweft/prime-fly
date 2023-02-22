@@ -12,7 +12,7 @@
                     <button class="primary_btn d-block m-auto load-more-product">Load More</button>
                 </div>
             </div>
-    
+    </div>
 @endif
 
 @endsection
