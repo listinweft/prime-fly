@@ -82,7 +82,7 @@
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="product-listing.php">
+                        <a class="nav-link" href="{{url('/products')}}">
                             <div class="iconBox">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-01.png')}}" alt="">
                             </div>
@@ -297,7 +297,7 @@
                     <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
                 </a>
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item active"><a class="nav-link" href="product-listing.php">Shop All </a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{url('/products')}}">Shop All </a></li>
                     <li class="nav-item dropdown has-megamenu">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>
                         <div class="dropdown-menu megamenu" role="menu">

@@ -158,12 +158,10 @@
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
-                <h6 class="subHeading">Our Themes</h6>
-                <h2 class="mainHeading">Shop By Themes</h2>
+                <h6 class="subHeading">{{$catHomeHeadings->sub_title}}</h6>
+                <h2 class="mainHeading">{{$catHomeHeadings->title}}</h2>
                 <div class="headingText">
-                    <p>
-                        Artemyst has made it easy to decorate your home with the art you love. We've created a wide range of beautiful designs for all tastes.
-                    </p>
+                   {!! $catHomeHeadings->description !!}
                 </div>
             </div>
             <div class="col-12 pt-60">
@@ -179,6 +177,7 @@
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
+                            {{$theme->id}}
                             @php
                                 $count = $theme->products ? $theme->products->count():0;
                             @endphp

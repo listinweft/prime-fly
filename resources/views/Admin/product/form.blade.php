@@ -496,16 +496,16 @@
     $(document).ready(function () {
 
         @if(isset($product))
-        var type =$('#type').val();
-        if (type == 1  || type == 3) {
-            $('.mount_div').hide();
-            $('.mount').attr('required', false).removeClass('required');
+        // var type =$('#type').val();
+        // if (type == 1  || type == 3) {
+        //     $('.mount_div').hide();
+        //     $('.mount').attr('required', false).removeClass('required');
            
-        } else {
-            $('.mount_div').show();
-            $('.mount').attr('required', true).addClass('required');
+        // } else {
+        //     $('.mount_div').show();
+        //     $('.mount').attr('required', true).addClass('required');
            
-        }
+        // }
         $('#similar_product_id').val([{{@$product->similar_product_id}}]).change();
         $('#shapes').val([{{@$product->shape_id}}]).change();
         $('#tag_id').val([{{@$product->tag_id}}]).change();

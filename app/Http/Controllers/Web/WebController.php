@@ -60,14 +60,14 @@ class WebController extends Controller
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
       $themes = Category::active()->oldest('sort_order')->get();
         $testimonials = Testimonial::active()->take(10)->get();
-      $homeHeadings = HomeHeading::where('type','testimonial')->first();
+      $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','No')->get();
     //   $ourcollection = Homecollection::active()->first();
     //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
 
 
     //     return view('web.home', compact('seo_data', 'ourcollection'));
-        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes','products'));
+        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products'));
     }
 
 
