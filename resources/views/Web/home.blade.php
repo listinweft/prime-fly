@@ -200,6 +200,7 @@
 <!--Home Shop By Theme End-->
 
 <!--Home Services Start-->
+@if(@$products->isNotEmpty())
     <section class="serviceHome">
         <div class="container">
             <div class="row">
@@ -214,21 +215,45 @@
                 </div>
                 <div class="col-12 pt-60">
                     <div class="selectionWrapper">
+                        @foreach ($products as $product)
                         <div class="item">
+                            {{-- {{ Helper::printImage(@$product, 'image', 'image_webp', 'image_attribute', 'img-fluid') }} --}}
                             <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product03.jpg')}}" alt="">
+                                <img class="img-fluid"src="{{ asset($product->thumbnail_image)}}" alt="{{$product->thumbnail_image_attribute}}">
                             </div>
                             <div class="cntOverlay">
                                 <div class="w-100">
                                     <a href="">
-                                        <h6>Contemporary Art</h6>
+                                        <h6>{{ $product->title }}</h6>
+                                        @foreach ($product->product_categories as $category)
+                                            <p>{{ $category->title }}</p>
+                                            
+                                        @endforeach
                                         <p>Poster Art</p>
                                         <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
+                                            {{-- <div class="my-rating-readonly" data-rating="4"></div> --}}
                                             <div class="price">
                                                 <ul>
-                                                    <li class="offer">$ 10055</li>
-                                                    <li>$ 80000</li>
+                                                    @if(Helper::offerPrice($product->id)!='')
+                                                    <li class="offer">
+                                                        @php
+                                                            $price = \ProductPrice::where('product_id',$product->id)->where('')->first();
+                                                        @endphp
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                                    </li>
+                                                    <li>
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                    </li>
+                                                 
+                                                   
+                                                    @else
+                                                    <li>
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                    </li>
+                                                    <li>
+                                                       
+                                                    </li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -236,165 +261,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product01.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product02.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product04.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product05.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product06.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product07.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-image-wrapper">
-                                <img class="img-fluid"src="{{ asset('frontend/images/product/product02.jpg')}}" alt="">
-                            </div>
-                            <div class="cntOverlay">
-                                <div class="w-100">
-                                    <a href="">
-                                        <h6>Contemporary Art</h6>
-                                        <p>Poster Art</p>
-                                        <div class="starPrice">
-                                            <div class="my-rating-readonly" data-rating="4"></div>
-                                            <div class="price">
-                                                <ul>
-                                                    <li class="offer">$ 1055</li>
-                                                    <li>$ 800</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@endif
 <!--Home Services End-->
 
 <!--Home Testimonial Start-->
