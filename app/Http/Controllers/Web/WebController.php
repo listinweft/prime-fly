@@ -62,11 +62,11 @@ class WebController extends Controller
         $testimonials = Testimonial::active()->take(10)->get();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
       
-      $ourcollection = Homecollection::active()->first();
-      return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
+    //   $ourcollection = Homecollection::active()->first();
+    //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
 
 
-        return view('web.home', compact('seo_data', 'ourcollection'));
+    //     return view('web.home', compact('seo_data', 'ourcollection'));
         return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
     }
 
@@ -205,7 +205,7 @@ class WebController extends Controller
         $sort_value = 'latest';
         $title = 'Products';
         $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+        return view('web.product_list', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
             'title', 'sort_value'));
     }

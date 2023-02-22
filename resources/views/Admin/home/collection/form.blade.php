@@ -88,6 +88,35 @@
                                 </div>
 
                             </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="required form-control" name="title1" id="title1" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title1:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title1_error"></div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description1"
+                                              name="description1">{!! @$collect->description1 !!}</textarea>
+                                    <div class="help-block with-errors" id="description1_error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">shorturl</label>
+                                    <input type="text" class="required form-control" name="shorturl1" id="shorturl1" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->short_url1:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="shorturl1_error"></div>
+                                </div>
+
+                                
+
+                            </div>
                             <div class="form-row" id="slider-div" style="display: {{@$banner->banner_type=='video'?'none':''}}">
                                 <div class="form-group col-md-6">
                                     <label>Second Image</label>
@@ -104,6 +133,35 @@
                                            <div class="help-block with-errors" id="image_attribute2_error"></div>
                                 </div>
                              <input type="hidden" value="{!! @$collect->id !!}" name="id" >
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="required form-control" name="title2" id="title2" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title2:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title2_error"></div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description2"
+                                              name="description2">{!! @$collect->description3 !!}</textarea>
+                                    <div class="help-block with-errors" id="description2_error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">shorturl</label>
+                                    <input type="text" class="required form-control" name="shorturl2" id="shorturl2" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->short_url2:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="shorturl2_error"></div>
+                                </div>
+
+                                
 
                             </div>
                             <div class="form-row" id="slider-div" style="display: {{@$banner->banner_type=='video'?'none':''}}">
@@ -126,6 +184,35 @@
                               
 
                             </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="required form-control" name="title3" id="title3" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title3:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title3_error"></div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description3"
+                                              name="description3">{!! @$collect->description3 !!}</textarea>
+                                    <div class="help-block with-errors" id="description3_error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">shorturl</label>
+                                    <input type="text" class="required form-control" name="shorturl3" id="shorturl3" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->short_url3:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="shorturl3_error"></div>
+                                </div>
+
+                                
+
+                            </div>
                             <div class="form-row" id="slider-div" style="display: {{@$banner->banner_type=='video'?'none':''}}">
                                 <div class="form-group col-md-6">
                                     <label>Fourth Image</label>
@@ -144,6 +231,35 @@
                                     
                                 </div>
                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="required form-control" name="title4" id="title4" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title4:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title4_error"></div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description4"
+                                              name="description4">{!! @$collect->description4 !!}</textarea>
+                                    <div class="help-block with-errors" id="description4_error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">shorturl</label>
+                                    <input type="text" class="required form-control" name="shorturl4" id="shorturl4" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->short_url4:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="shorturl4_error"></div>
+                                </div>
+
+                                
 
                             </div>
                             <div class="form-row" id="slider-div" style="display: {{@$banner->banner_type=='video'?'none':''}}">
@@ -166,6 +282,35 @@
                                
 
                             </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="required form-control" name="title5" id="title5" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title5:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title5_error"></div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description5"
+                                              name="description5">{!! @$collect->description5 !!}</textarea>
+                                    <div class="help-block with-errors" id="description5_error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">shorturl</label>
+                                    <input type="text" class="required form-control" name="shorturl5" id="shorturl5" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->short_url5:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="shorturl5_error"></div>
+                                </div>
+
+                                
+
+                            </div>
                             <div class="form-row" id="slider-div" style="display: {{@$banner->banner_type=='video'?'none':''}}">
                                 <div class="form-group col-md-6">
                                     <label>sixth Image</label>
@@ -184,6 +329,35 @@
                                 </div>
                              
                              
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="required form-control" name="title6" id="title6" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->title6:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="title6_error"></div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description6"
+                                              name="description6">{!! @$collect->description6 !!}</textarea>
+                                    <div class="help-block with-errors" id="description6_error"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="title">shorturl</label>
+                                    <input type="text" class="required form-control" name="shorturl6" id="shorturl6" placeholder="Title" class="form-control" autocomplete="off" value="{{ isset($collect)?$collect->short_url6:'' }}" maxlength="230">
+                                    <div class="help-block with-errors" id="shorturl6_error"></div>
+                                </div>
+
+                                
 
                             </div>
                             

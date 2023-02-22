@@ -65,11 +65,11 @@
                         {!! Helper::printImage(@$ourcollection, 'mobile_image', 'mobile_image_webp', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
-                                    <h5>Lorem ipsum dolor sit.</h5>
+                                    <h5> {!! @$ourcollection->title1 !!}</h5>
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing
+                                    {!! @$ourcollection->description1 !!}
                                     </p>
-                                    <a class="primary_btn" href="">
+                                    <a class="primary_btn" href="{{ url(@$ourcollection->short_url1) }}">
                                         Explore More
                                     </a>
                                 </div>
@@ -79,11 +79,11 @@
                         {!! Helper::printImage(@$ourcollection, 'mobile_image1', 'mobile_image_webp1', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
-                                    <h5>Lorem Ipsum</h5>
+                                    <h5> {!! @$ourcollection->title2 !!}</h5>
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing
+                                    {!! @$ourcollection->description2 !!}
                                     </p>
-                                    <a class="primary_btn" href="">
+                                    <a class="primary_btn" href="{{ url(@$ourcollection->short_url2) }}">
                                         Explore More
                                     </a>
                                 </div>
@@ -93,11 +93,11 @@
                         {!! Helper::printImage(@$ourcollection, 'mobile_image2', 'mobile_image_webp2', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
-                                    <h5>Lorem Ipsum</h5>
+                                    <h5>{!! @$ourcollection->title3 !!}</h5>
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing
+                                    {!! @$ourcollection->description3 !!}
                                     </p>
-                                    <a class="primary_btn" href="">
+                                    <a class="primary_btn" href="{{ url(@$ourcollection->short_url3) }}">
                                         Explore More
                                     </a>
                                 </div>
@@ -107,11 +107,11 @@
                         {!! Helper::printImage(@$ourcollection, 'mobile_image3', 'mobile_image_webp3', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
-                                    <h5>Lorem Ipsum</h5>
+                                    <h5>{!! @$ourcollection->title4 !!}</h5>
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing
+                                    {!! @$ourcollection->description4 !!}
                                     </p>
-                                    <a class="primary_btn" href="">
+                                    <a class="primary_btn" href="{{ url(@$ourcollection->short_url4) }}">
                                         Explore More
                                     </a>
                                 </div>
@@ -121,11 +121,11 @@
                         {!! Helper::printImage(@$ourcollection, 'mobile_image4', 'mobile_image_webp4', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
-                                    <h5>Lorem Ipsum</h5>
+                                    <h5>{!! @$ourcollection->title5 !!}</h5>
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing
+                                    {!! @$ourcollection->description5 !!}
                                     </p>
-                                    <a class="primary_btn" href="">
+                                    <a class="primary_btn" href="{{ url(@$ourcollection->short_url5) }}">
                                         Explore More
                                     </a>
                                 </div>
@@ -135,11 +135,11 @@
                         {!! Helper::printImage(@$ourcollection, 'mobile_image5', 'mobile_image_webp5', '', 'img-fluid') !!}
                             <div class="overlayBox">
                                 <div class="wrapperCnt">
-                                    <h5>Lorem Ipsum</h5>
+                                    <h5>{!! @$ourcollection->title6 !!}</h5>
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing
+                                    {!! @$ourcollection->description6 !!}
                                     </p>
-                                    <a class="primary_btn" href="">
+                                    <a class="primary_btn" href="{{ url(@$ourcollection->short_url6) }}">
                                         Explore More
                                     </a>
                                 </div>
