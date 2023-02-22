@@ -108,7 +108,7 @@
                                 @enderror
                             </div>
                             <div class="form-group col-md-3">
-                                <label> Sub Category</label>
+                                <label> Sub Category *</label>
                                 <select class="form-control select2 " name="sub_category[]"
                                         id="sub_category" multiple>
                                     @if(isset($subCategories))
@@ -128,7 +128,7 @@
                             
                             <div class="form-group col-md-3">
                                 <label> Tags *</label>
-                                <select class="form-control select2 " name="tags[]" id="tag_id" multiple>
+                                <select class="form-control select2 required " name="tags[]" id="tag_id" multiple>
                                     @foreach($tags as $tag)
                                     <option value="{{$tag->id}}"
                                        
@@ -136,14 +136,14 @@
                                    >{{$tag->title}}</option>
                                 @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="tags_error"></div>
+                                <div class="help-block with-errors" id="tag_id_error"></div>
                                 @error('tags')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-3">
                                 <label> Colours *</label>
-                                <select class="form-control select2 " name="colors[]" id="color_id" multiple>
+                                <select class="form-control select2 required" name="colors[]" id="color_id" multiple>
                                     @foreach($colors as $color)
                                     <option value="{{$color->id}}"
                                        
@@ -151,8 +151,8 @@
                                    >{{$color->title}}</option>
                                 @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="tags_error"></div>
-                                @error('tags')
+                                <div class="help-block with-errors" id="color_id_error"></div>
+                                @error('colors')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -219,30 +219,100 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label> You May Also Like</label>
-                                <select name="similar_product_id[]" multiple id="similar_product_id"
-                                        class="form-control select2">
-                                    @foreach($products as $similar)
-                                        <option value="{{ $similar->id  }}">{{ $similar->title }}</option>
+                            <div class="form-group col-md-3">
+                                <label> Product Type*</label>
+                                <select name="type" id="type" 
+                                        class="form-control  required">
+                                    <option value="">Select product type </option>
+                                    @foreach($productTypes as $productType)
+                                        <option value="{{$productType->id}}"
+                                            {{ (@$productType->id==@$product->product_type_id)?'selected':'' }}
+                                        >{{$productType->title}}</option>
                                     @endforeach
                                 </select>
-                                @error('similar_product_id')
+                                <div class="help-block with-errors" id="type_error"></div>
+                                @error('type')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-6">
-                                <label> Related products </label>
-                                <select name="related_product_id[]" multiple id="related_product_id"
-                                        class="form-control select2">
-                                    @foreach($products as $related)
-                                        <option value="{{ $related->id }}">{{ $related->title }}</option>
+                            <div class="form-group col-md-3 ">
+                                <br>
+                                <div class="form-check">
+                                    &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount" {{@$product->mount == 'Yes' ? 'checked':''}}>
+                                    <label class="form-check-label" for="mount">
+                                      With Mount&nbsp; &nbsp;
+                                    </label> &nbsp; &nbsp; &nbsp;
+                                    <input class="form-check-input mount" type="radio" name="mount" id="mount"{{@$product->mount == 'No' ? 'checked':''}} >
+                                    <label class="form-check-label" for="mount">
+                                     No Mount
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                  </div>
+                            </div>
+                            <div class="form-group col-md-3 ">
+                                <label> Frame Colour *</label>
+                                <select name="frame_color[]" id="frame_color"  class="form-control select2 required" multiple>
+                                    <option value="">Select Frame Colour </option>
+                                    @foreach($frames as $frame)
+                                        <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
                                     @endforeach
                                 </select>
-                                @error('related_product_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="help-block with-errors" id="frame_color_error"></div>
                             </div>
+                            <div class="form-group col-md-3 ">
+                                <label> Shapes *</label>
+                                <select name="shapes[]" id="shapes"  class="form-control select2 required" multiple>
+                                    <option value="">Select Shapes </option>
+                                    @foreach($shapes as $shape)
+                                        <option value="{{$shape->id}}"  {{ (@$shape->id==@$product->shape_id)?'selected':'' }} >{{$shape->title}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="help-block with-errors" id="shapes_error"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <table class="table table-active">
+                                <thead>
+                                    <th>Size *</th>
+                                    <th> Price *</th>
+                             
+                                </thead>
+                                @if (!isset($product))
+                                <tbody>
+                                    @foreach ($sizes as $size)
+                                    <tr>
+                                        <td>
+                                            {{$size->title}}
+                                        </td>
+                                        <td>
+                                            <input type="text" name="price[{{$size->id}}]" id="price"   class="form-control " value="{{isset($product)?$product->price:''}}">
+                                            
+                                        </td>
+                                      
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                    @else
+                                    <tbody>
+                                        @foreach ($sizes as $size)
+                                        <tr>
+                                            <td>
+                                                {{$size->title}}
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
+                                                @endphp
+                                                <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
+    
+                                            </td>
+                                          
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                @endif
+                            </table>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -271,6 +341,33 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
+                                <label> You May Also Like</label>
+                                <select name="similar_product_id[]" multiple id="similar_product_id"
+                                        class="form-control select2">
+                                    @foreach($products as $similar)
+                                        <option value="{{ $similar->id  }}">{{ $similar->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('similar_product_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> Related products </label>
+                                <select name="related_product_id[]" multiple id="related_product_id"
+                                        class="form-control select2">
+                                    @foreach($products as $related)
+                                        <option value="{{ $related->id }}">{{ $related->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('related_product_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                       
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
                                 <label>Banner Image</label>
                                 <div class="file-loading">
                                     <input id="desktop_banner" name="desktop_banner" type="file"
@@ -297,9 +394,9 @@
                             <div class="form-group col-md-12">
                                 <label> About This Item</label>
                                 <textarea name="about_this_item" id="about_this_item"
-                                          placeholder="About This Item" class="form-control required  tinyeditor"
+                                          placeholder="About This Item" class="form-control   tinyeditor"
                                           autocomplete="off">{{ isset($product)?$product->about_item:'' }}</textarea>
-                                <div class="help-block with-errors" id="about_this_item_error"></div>
+                               
                                 @error('about_this_item')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -332,7 +429,7 @@
                         <div class="form-row">
                             
                             <div class="form-group col-md-12">
-                                <label> Feature Description*</label>
+                                <label> Feature Description</label>
                                 <textarea name="feature_description" id="feature_description"
                                           placeholder="Feture Description" class="form-control  tinyeditor"
                                           autocomplete="off">{{ isset($product)?$product->featured_description:'' }}</textarea>
@@ -343,100 +440,7 @@
                             </div>
                          
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label> Product Type*</label>
-                                <select name="type" id="type" 
-                                        class="form-control  required">
-                                    <option value="">Select product type </option>
-                                    @foreach($productTypes as $productType)
-                                        <option value="{{$productType->id}}"
-                                            {{ (@$productType->id==@$product->product_type_id)?'selected':'' }}
-                                        >{{$productType->title}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="type_error"></div>
-                                @error('type')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3 mount_div">
-                                <br>
-                                <div class="form-check">
-                                    &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount" {{@$product->mount == 'Yes' ? 'checked':''}}>
-                                    <label class="form-check-label" for="mount">
-                                      With Mount&nbsp; &nbsp;
-                                    </label> &nbsp; &nbsp; &nbsp;
-                                    <input class="form-check-input mount" type="radio" name="mount" id="mount"{{@$product->mount == 'No' ? 'checked':''}} >
-                                    <label class="form-check-label" for="mount">
-                                     No Mount
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                  </div>
-                            </div>
-                            <div class="form-group col-md-3 ">
-                                <label> Frame Colour</label>
-                                <select name="frame_color[]" id="frame_color"  class="form-control select2 required" multiple>
-                                    <option value="">Select Frame Colour </option>
-                                    @foreach($frames as $frame)
-                                        <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3 ">
-                                <label> Shapes</label>
-                                <select name="shapes[]" id="shapes"  class="form-control select2 required" multiple>
-                                    <option value="">Select Shapes </option>
-                                    @foreach($shapes as $shape)
-                                        <option value="{{$shape->id}}"  {{ (@$shape->id==@$product->shape_id)?'selected':'' }} >{{$shape->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <table class="table table-active">
-                                <thead>
-                                    <th>Size </th>
-                                    <th> Price </th>
-                             
-                                </thead>
-                                @if (!isset($product))
-                                <tbody>
-                                    @foreach ($sizes as $size)
-                                    <tr>
-                                        <td>
-                                            {{$size->title}}
-                                        </td>
-                                        <td>
-                                            <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($product)?$product->price:''}}">
-
-                                        </td>
-                                      
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                    @else
-                                    <tbody>
-                                        @foreach ($sizes as $size)
-                                        <tr>
-                                            <td>
-                                                {{$size->title}}
-                                            </td>
-                                            <td>
-                                                @php
-                                                    $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
-                                                @endphp
-                                                <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
-    
-                                            </td>
-                                          
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                @endif
-                            </table>
-                        </div>
+                
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label> Meta Title</label>
