@@ -95,25 +95,29 @@ class WebController extends Controller
     //enquiry and bulk enquiry storing
     public function enquiry_store(Request $request)
     {
+
+
         $request->validate([
             'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
             'email' => 'required|email|max:255',
             'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
-            'subject' => 'required',
+            // 'subject' => 'required',
             'message' => 'required',
         ]);
 
         $contact = new Enquiry();
-       //eturn  $request->type;
+
 
         $contact->type = $request->type;
         $contact->name = $request->name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
-        $contact->subject = $request->subject;
+        $contact->subject = "jdvjd";
         $contact->message = $request->message;
         $contact->product_id = $request->product_id ?? NULL;
         $contact->request_url = url()->previous();
+
+
         if ($request->type == 'get_a_quote') {
             $type = " Get A Quote";
         } elseif ($request->type == 'product') {
@@ -190,7 +194,7 @@ class WebController extends Controller
         $banner = Banner::type('products')->first();
         $seo_data = $this->seo_content('Products');
         $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
-        $condition = Product::where('type','Ecommerce')->orWhere('type','All')->active();
+        $condition = Product::active();
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();
@@ -201,7 +205,7 @@ class WebController extends Controller
         $sort_value = 'latest';
         $title = 'Products';
         $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('web.product_list', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+        return view('Web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
             'title', 'sort_value'));
     }

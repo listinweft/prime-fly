@@ -45,6 +45,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
+                                        <th>Sort Order</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -55,6 +56,15 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $frame->title }}</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" class="status_check"
+                                                           data-url="/status-change" data-table="Frame"
+                                                           data-field="status" data-pk="{{ $frame->id}}"
+                                                        {{($frame->status=="Active")?'checked':''}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"

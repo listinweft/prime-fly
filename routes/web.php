@@ -555,6 +555,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
         Route::get('/', [ProductController::class, 'product']);
         Route::get('create', [ProductController::class, 'product_create']);
+        Route::get('detail/{id}', [ProductController::class, 'product_detail']);
         Route::post('create', [ProductController::class, 'product_store']);
         Route::get('edit/{id}', [ProductController::class, 'product_edit']);
         Route::post('edit/{id}', [ProductController::class, 'product_update']);

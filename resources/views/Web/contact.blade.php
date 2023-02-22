@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <h6 class="subHeading">{!! @$contact->contact_request_title !!}</h6>
-                    <h2 class="mainHeading">{!! @$contact->title !!}</h2>
+                    <h2 class="mainHeading">{!! @$contact->contact_page_title !!}</h2>
                     <div class="headingText">
                         <p>
                             {!! @$contact->description !!}
@@ -123,7 +123,7 @@
                                         <label for="">Email Address</label>
                                         <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
                                         <input type="text" class="form-control required" placeholder="Email Address"
-                                            name="Email" required>
+                                            name="email" required>
                                         <span class="invalidMessage"></span>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                         <label for="">Phone Number</label>
                                         <img src="{{ asset('frontend/images/icon-phone.png') }}" alt="">
                                         <input type="number" class="form-control phoneField required"
-                                            placeholder="+1 000 000 00" name="Phone" required>
+                                            placeholder="+1 000 000 00" name="phone" required>
                                         <span class="invalidMessage"></span>
 
                                     </div>

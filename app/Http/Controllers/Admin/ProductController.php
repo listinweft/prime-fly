@@ -10,12 +10,15 @@ use App\Models\Color;
 use App\Models\MeasurementUnit;
 use App\Models\Offer;
 use App\Models\Product;
+use App\Models\ProductType;
 use App\Models\ProductGallery;
 use App\Models\ProductOverview;
 use App\Models\ProductReview;
 use App\Models\ProductSpecification;
 use App\Models\SiteInformation;
 use App\Models\Tag;
+use App\Models\Shape;
+use App\Models\Frame;
 use App\Models\Size;
 use App\Models\ProductKeyFeature;
 use App\Models\ProductSpecificationHead;
@@ -49,16 +52,19 @@ class ProductController extends Controller
         $tags = Tag::active()->get();
         $categories = Category::active()->whereNull('parent_id')->get();
         $sizes = Size::active()->get();
+        $productTypes = ProductType::active()->get();
         $products = Product::active()->get();
-        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes'));
+        $frames = Frame::get();
+        $shapes = Shape::get();
+        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes','frames','shapes'));
     }
     public function    product_detail($id)
     {
         $key = "Update";
-        $title = "Update Product";
+        $title = "Product Detail";
         $product = Product::find($id);
         if ($product) {
-            $colors = Color::active()->get();
+            $frames = Frame::active()->get();
             $measurement_units = MeasurementUnit::active()->get();
             $brands = Brand::active()->get();
             $tags = Tag::active()->get();
@@ -66,15 +72,16 @@ class ProductController extends Controller
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
             $products = Product::active()->get();
             $sizes = Size::active()->get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes'));
+            return view('Admin.product.detail_form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes','frames'));
         } else {
             return view('Admin.error.404');
         }
     }
  
-    public function product_store(Request $request, $id)
+    public function product_store(Request $request)
     {
-        dd($request->all());
+       
+   
         DB::beginTransaction();
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
@@ -87,37 +94,92 @@ class ProductController extends Controller
 //            'measurement_unit' => 'required',
 //            'quantity' => 'required',
             // 'price' => 'required',
-            'thumbnail_image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+            'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
         ]);
         $product = new Product;
         if ($request->hasFile('thumbnail_image')) {
             $product->thumbnail_image_webp = Helper::uploadWebpImage($request->thumbnail_image, 'uploads/product/image/webp/', $request->short_url);
             $product->thumbnail_image = Helper::uploadFile($request->thumbnail_image, 'uploads/product/image/', $request->short_url);
         }
+        elseif ($request->copy == 'Copy') {
+        
+            $copy_product = Product::where('id', $request->copy_product_id)->first();
+            $fileName = last(explode('/', $copy_product->thumbnail_image));
+            // dd($fileName);
+            $sourceFilePathImage = public_path() . "/" . $copy_product->thumbnail_image;
+            $destinationPathImage = public_path() . "/uploads/product/image/" . time() . $fileName;
+            $success = File::copy($sourceFilePathImage, $destinationPathImage);
+            if ($success) {
+                $location = 'uploads/product/image/' . $fileName;
+                $product->thumbnail_image = $location;
+            }
+            $sourceFilePathWebp = public_path() . "/" . $copy_product->thumbnail_image_webp;
+            $destinationPathWebp = public_path() . "/uploads/product/image/webp/" . time() . $fileName;
+            $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
+            if ($successWebp) {
+                $locationWebp = 'uploads/product/image/webp/' . $fileName;
+                $product->thumbnail_image_webp = $locationWebp;
+            }
+        }
         if ($request->hasFile('desktop_banner')) {
             $product->desktop_banner_webp = Helper::uploadWebpImage($request->desktop_banner, 'uploads/product/desktop_banner/webp/', $request->short_url);
             $product->desktop_banner = Helper::uploadFile($request->desktop_banner, 'uploads/product/desktop_banner/', $request->short_url);
         }
-        if ($request->hasFile('mobile_banner')) {
-            $product->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/product/mobile_banner/webp/', $request->short_url);
-            $product->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/product/mobile_banner/', $request->short_url);
-        }
-        if ($request->hasFile('product_manual')) {
-            $product->product_manual = Helper::uploadFile($request->product_manual, 'uploads/product/product_manual/', $request->short_url);
+        elseif($request->copy == 'Copy') {
+            $copy_product = Product::where('id', $request->copy_product_id)->first();
+            $fileName = last(explode('/', $copy_product->desktop_banner));
+            if($fileName != null){
+
+                $sourceFilePathImage = public_path() . "/" . $copy_product->desktop_banner;
+                $destinationPathImage = public_path() . "/uploads/product/desktop_banner/" . time() . $fileName;
+                $success = File::copy($sourceFilePathImage, $destinationPathImage);
+                if ($success) {
+                    $location = 'uploads/product/desktop_banner/' . $fileName;
+                    $product->desktop_banner = $location;
+                }
+                $sourceFilePathWebp = public_path() . "/" . $copy_product->desktop_banner_webp;
+                $destinationPathWebp = public_path() . "/uploads/product/desktop_banner/webp/" . time() . $fileName;
+                $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
+                if ($successWebp) {
+                    $locationWebp = 'uploads/product/desktop_banner/webp/' . $fileName;
+                    $product->desktop_banner_webp = $locationWebp;
+                }
+            }
         }
         if ($request->hasFile('featured_image')) {
             $product->featured_image = Helper::uploadWebpImage($request->featured_image, 'uploads/product/featured_image/webp/', $request->short_url);
             $product->featured_image_webp = Helper::uploadFile($request->featured_image, 'uploads/product/featured_image/', $request->short_url);
         }
+        elseif($request->copy == 'Copy') {
+            $copy_product = Product::where('id', $request->copy_product_id)->first();
+            $fileName = last(explode('/', $copy_product->featured_image));
+            if($fileName != null){
+
+                $sourceFilePathImage = public_path() . "/" . $copy_product->featured_image;
+                $destinationPathImage = public_path() . "/uploads/product/featured_image/" . time() . $fileName;
+                $success = File::copy($sourceFilePathImage, $destinationPathImage);
+                if ($success) {
+                    $location = 'uploads/product/featured_image/' . $fileName;
+                    $product->featured_image = $location;
+                }
+                $sourceFilePathWebp = public_path() . "/" . $copy_product->featured_image_webp;
+                $destinationPathWebp = public_path() . "/uploads/product/featured_image/webp/" . time() . $fileName;
+                $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
+                if ($successWebp) {
+                    $locationWebp = 'uploads/product/featured_image/webp/' . $fileName;
+                    $product->featured_image_webp = $locationWebp;
+                }
+            }
 
         $product->title = $validatedData['title'];
         $product->short_url = $validatedData['short_url'];
         $product->sku = $request->sku ?? '';
         $product->category_id = ($request->category) ? implode(',', $request->category) : '';
         $product->sub_category_id = ($request->sub_category) ? implode(',', $request->sub_category) : '';
-        $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
         $product->tag_id = ($request->tags) ? implode(',', $request->tags) : '';
+        $product->description = $validatedData['description'];
         $product->availability = $request->availability ?? '';
+        $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
         if ($product->availability == "In Stock") {
             $product->stock = $request->stock;
             $product->alert_quantity = $request->alert_quantity;
@@ -125,38 +187,53 @@ class ProductController extends Controller
             $product->stock = 0;
             $product->alert_quantity = 0;
         }
-
-        $product->capacity = $request->capacity;
-        $product->description = $validatedData['description'];
-        $product->quantity = $request->quantity ?? '';
-        $product->price = $request->price ?? null;
-        $product->thumbnail_image_attribute = $request->image_meta_tag ?? '';
-        // $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
-        // $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
+        $product->thumbnail_image_attribute = $request->thumbnail_image_attribute ?? '';
         $product->banner_attribute = $request->banner_attribute ?? '';
-
+        $product->featured_image_attribute = $request->featured_image_attribute ?? '';
+        $product->about_item = $request->about_this_item ?? '';
+        $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
+        $product->shape_id = ($request->shapes) ? implode(',', $request->shapes) : '';
+   
+        $product->product_type_id = $request->type;
+        $product->mount = $request->mount == 'on' ? "Yes" : "No";
+        $product->quantity = $request->quantity ?? '';
+      
+        $product->product_type_id = $request->type;
+        $product->frame_color = $request->frame_color;
         $product->meta_title = $request->meta_title ?? '';
         $product->meta_description = $request->meta_description ?? '';
         $product->meta_keyword = $request->meta_keyword ?? '';
         $product->other_meta_tag = $request->other_meta_tag ?? '';
-
+       
         if ($product->save()) {
+
+            $price = [];
+            $priceWithSize = $request->price;
+            foreach($priceWithSize as $key => $value){
+                $price['product_id'] = 1;
+                $price[$key] = $value;
+                $procutPrice = DB::table('products_size_price')->insert([
+                    'product_id' => $product->id,
+                    'size_id' => $key,
+                    'price' => $value,
+                ]);
+            }
             $similarProducts = [];
             $errorArray = $successArray = [];
-            if ($product->similar_product_id != NULL) {
-                $similarProducts = explode(',', $product->similar_product_id);
-                $similarProducts[] = $product->id;
-                $combinedResult = $this->combinationArrays($similarProducts, 2);
-                foreach ($combinedResult as $combine => $value) {
-                    $productData = Product::find($combine);
-                    $productData->similar_product_id = implode(',', $value);
-                    if ($productData->save()) {
-                        $successArray[] = 1;
-                    } else {
-                        $errorArray[] = 1;
-                    }
-                }
-            }
+            // if ($product->similar_product_id != NULL) {
+            //     $similarProducts = explode(',', $product->similar_product_id);
+            //     $similarProducts[] = $product->id;
+            //     $combinedResult = $this->combinationArrays($similarProducts, 2);
+            //     foreach ($combinedResult as $combine => $value) {
+            //         $productData = Product::find($combine);
+            //         $productData->similar_product_id = implode(',', $value);
+            //         if ($productData->save()) {
+            //             $successArray[] = 1;
+            //         } else {
+            //             $errorArray[] = 1;
+            //         }
+            //     }
+            // }
             if (empty($errorArray)) {
                 session()->flash('success', "Product '" . $product->title . "' has been added successfully");
                 DB::commit();
@@ -164,13 +241,13 @@ class ProductController extends Controller
                 session()->flash('error', "Error while added the product '" . $product->title . "'");
                 DB::rollBack();
             }
-            return redirect(Helper::sitePrefix() . 'product/detail/' . $product->id);
+            return redirect(Helper::sitePrefix() . 'product');
         } else {
             DB::rollBack();
             return back()->withInput($request->input())->withErrors("Error while updating the product");
         }
     }
-
+}
     public function product_edit(Request $request, $id)
     {
         $key = "Update";
@@ -183,13 +260,58 @@ class ProductController extends Controller
             $tags = Tag::active()->get();
             $categories = Category::active()->whereNull('parent_id')->get();
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
+            
             $products = Product::active()->get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'colors'));
+            $sizes = Size::active()->get();
+            $measurement_units = MeasurementUnit::active()->get();
+            $brands = Brand::active()->get();
+            $tags = Tag::active()->get();
+            $categories = Category::active()->whereNull('parent_id')->get();
+            $sizes = Size::active()->get();
+            $productTypes = ProductType::active()->get();
+            $products = Product::active()->get();
+            $frames = Frame::get();
+            $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
+         
+         
+            $shapes = Shape::get();
+            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes','productTypes','frames','shapes','productWithPrice'));
         } else {
             return view('Admin.error.404');
         }
     }
+    public function copy_product($id)
+    {
+        $key = "Copy";
+        $title = "Copy Product";
+        $product = Product::find($id);
 
+        if ($product) {
+
+            $colors = Color::active()->get();
+            $measurement_units = MeasurementUnit::active()->get();
+            $brands = Brand::active()->get();
+            $tags = Tag::active()->get();
+            $categories = Category::active()->whereNull('parent_id')->get();
+            $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
+            
+            $products = Product::active()->get();
+            $sizes = Size::active()->get();
+            $measurement_units = MeasurementUnit::active()->get();
+            $brands = Brand::active()->get();
+            $tags = Tag::active()->get();
+            $categories = Category::active()->whereNull('parent_id')->get();
+            $sizes = Size::active()->get();
+            $productTypes = ProductType::active()->get();
+            $products = Product::active()->get();
+            $frames = Frame::get();
+            $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
+            $shapes = Shape::get();
+            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes','productTypes','frames','shapes','productWithPrice'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
     public function product_update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -209,7 +331,7 @@ class ProductController extends Controller
 //                'measurement_unit' => 'required',
 //                'quantity' => 'required',
                 'price' => 'required',
-                'thumbnail_image' => 'image|mimes:jpeg,png,jpg|max:10240',
+                // 'thumbnail_image' => 'image|mimes:jpeg,png,jpg|max:10240',
             ]);
             if ($request->hasFile('thumbnail_image')) {
                 if (File::exists(public_path($product->thumbnail_image))) {
