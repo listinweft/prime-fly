@@ -66,7 +66,7 @@
                                                        class="common_sort_order" style="width:25%"
                                                        value="{{$size->sort_order}}">
                                             </td>
-                                            <td>
+
                                             <td>{{ $size->price }}</td>
                                             <td>
                                                 <label class="switch">
@@ -87,7 +87,7 @@
                                                        data-url="product/size/delete" data-id="{{$size->id}}"
                                                        title="Delete Size"><i class="fas fa-trash"></i></a>
                                                 </div>
-                                            </td>
+                                            {{-- </td> --}}
                                         </tr>
                                     @endforeach
                                     </tbody>
