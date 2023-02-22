@@ -377,7 +377,7 @@ class AttributeController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|unique:sizes,title,NULL,id,deleted_at,NULL',
-            'price' => 'required|unique:sizes,price,NULL,id,deleted_at,NULL',
+            // 'price' => 'required|unique:sizes,price,NULL,id,deleted_at,NULL',
             'image' => 'image|mimes:jpeg,png,jpg|max:512'
 
         ]);
@@ -387,7 +387,7 @@ class AttributeController extends Controller
             $size->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $size->title = $validatedData['title'];
-        $size->price = $validatedData['price'];
+        // $size->price = $validatedData['price'];
         if ($size->save()) {
             session()->flash('message', "Size '" . $size->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/size');
@@ -484,6 +484,7 @@ class AttributeController extends Controller
             $shape->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $shape->title = $validatedData['title'];
+        $shape->image_attribute = $request->image_attribute;
         if ($shape->save()) {
             session()->flash('message', "Shape '" . $shape->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/shape');

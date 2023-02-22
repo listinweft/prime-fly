@@ -241,9 +241,16 @@
     <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='enquiry')?'block':'none' }}">
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry')}}"
-               class="nav-link {{ (Request::is(Helper::sitePrefix().'enquiry'))?'active':'' }}">
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'enquiry'))?:'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Contact Page</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'enquiry')}}"
+               class="nav-link {{ (Request::segment(3)=='our-collection' && Request::segment(4)=='create')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p> Product </p>
             </a>
         </li>
     </ul>
@@ -493,13 +500,13 @@
                 <p>Product Type</p>
             </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/color')}}"
                class="nav-link {{ (Request::segment(3)=='color')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Color</p>
             </a>
-        </li> --}}
+        </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/size')}}"
                class="nav-link {{ (Request::segment(3)=='size')?:'' }}">

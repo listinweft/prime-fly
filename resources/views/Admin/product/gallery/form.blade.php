@@ -48,7 +48,7 @@
                                 </div>
                             @endif
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6" hidden>
                                     <label> Media Type *</label>
                                     <select name="media_type" id="media_type" class="form-control select2">
                                         @foreach(["Image", "Video"] AS $media_type)
@@ -83,7 +83,7 @@
                                             @endisset
                                         </div>
                                         <span
-                                            class="caption_note">Note: Image size must be 1000 x 1000</span>
+                                            class="caption_note">Note: Image size must be 1200 x 960</span>
                                         @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -127,11 +127,11 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 1000,
-                minImageHeight: 1000,
-                maxImageWidth: 1000,
-                maxImageHeight: 1000,
-                maxFilesize: 1000,
+                minImageWidth: 1200,
+            minImageHeight: 960,
+            maxImageWidth: 1200,
+            maxImageHeight: 960,
+            maxFilesize: 540,
                 showRemove: true,
                 @if(isset($product_gallery) && $product_gallery->image!=NULL)
                 initialPreview: ["{{asset($product_gallery->image)}}",],

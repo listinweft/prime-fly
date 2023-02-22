@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('shapes', function (Blueprint $table) {
-            $table->enum('sort_order', ['Yes', 'No'])->default('No');
+        Schema::table('product_types', function (Blueprint $table) {
+            $table->integer('sort_order');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('shapes', function (Blueprint $table) {
-            $table->dropColumn('sort_order');
+        Schema::table('product_types', function (Blueprint $table) {
+            //
         });
     }
 };

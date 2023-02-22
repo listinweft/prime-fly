@@ -396,16 +396,16 @@ class Helper
         $subject = config('app.name') . ' - ' . $type;
         $mail = self::mailConf($subject);
         if ($contact->type == 'product') {
-            $searchArr = ["{name}", "{email}", "{product}", "{phone}", "{subject}", "{message}", "{type}", "{site_name}"];
-            $replaceArr = [$contact->name, $contact->email, $contact->product->title, $contact->phone, $contact->subject, $contact->message, $type, config('app.name')];
+            $searchArr = ["{name}", "{email}", "{product}", "{phone}", "{message}", "{type}", "{site_name}"];
+            $replaceArr = [$contact->name, $contact->email, $contact->product->title, $contact->phone, $contact->message, $type, config('app.name')];
             $body = file_get_contents(resource_path('views/mail_templates/product_enquiry.blade.php'));
         } else {
-            $searchArr = ["{name}", "{email}", "{phone}", "{subject}", "{message}", "{type}", "{site_name}"];
-            $replaceArr = [$contact->name, $contact->email, $contact->phone, $contact->subject, $contact->message, $type, config('app.name')];
+            $searchArr = ["{name}", "{email}", "{phone}",  "{message}", "{type}", "{site_name}"];
+            $replaceArr = [$contact->name, $contact->email, $contact->phone, $contact->message, $type, config('app.name')];
             $body = file_get_contents(resource_path('views/mail_templates/enquiry.blade.php'));
         }
         $body = str_replace($searchArr, $replaceArr, $body);
-        $contactAddress = SiteInformation::active()->first();
+        $contactAddress = ContactAddress::active()->first();
 //        dd($contactAddress->email);
 
         $mail->MsgHTML($body);

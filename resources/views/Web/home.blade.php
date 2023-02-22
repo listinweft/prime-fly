@@ -45,6 +45,7 @@
 @endif
 @endif
 <!--Home Collection Start-->
+@if(@$ourcollection)
     <section class="collectionsArea">
         <div class="collectionsBgback">
         </div>
@@ -151,7 +152,7 @@
         </div>
     </section>
 <!--Home Collection End-->
-
+@endif
 <!--Home Shop By Theme Start-->
 @if(@$themes)
     <div class="shopSection">

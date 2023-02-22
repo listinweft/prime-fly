@@ -584,14 +584,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         });
 
 
-        // Route::prefix('color')->group(function () {
-        //     Route::get('/', [AttributeController::class, 'color']);
-        //     Route::get('create', [AttributeController::class, 'color_create']);
-        //     Route::post('create', [AttributeController::class, 'color_store']);
-        //     Route::get('edit/{id}', [AttributeController::class, 'color_edit']);
-        //     Route::post('edit/{id}', [AttributeController::class, 'color_update']);
-        //     Route::post('delete', [AttributeController::class, 'delete_color']);
-        // });
+        Route::prefix('color')->group(function () {
+            Route::get('/', [AttributeController::class, 'color']);
+            Route::get('create', [AttributeController::class, 'color_create']);
+            Route::post('create', [AttributeController::class, 'color_store']);
+            Route::get('edit/{id}', [AttributeController::class, 'color_edit']);
+            Route::post('edit/{id}', [AttributeController::class, 'color_update']);
+            Route::post('delete', [AttributeController::class, 'delete_color']);
+        });
 
         Route::prefix('gallery')->group(function () {
             Route::get('/{product_id}', [ProductController::class, 'gallery']);

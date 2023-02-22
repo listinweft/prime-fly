@@ -114,7 +114,7 @@
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file" accept="image/*">
                                     </div>
-                                    <span class="caption_note">Note: Image size must be 140 x 110 px</span>
+                                    <span class="caption_note">Note: Image size must be 76 x 76 px</span>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="image_attribute"> Image Attribute*</label>
@@ -153,10 +153,10 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 140,
-                minImageHeight: 110,
-                maxImageWidth: 140,
-                maxImageHeight: 110,
+                minImageWidth: 76,
+                minImageHeight: 76,
+                maxImageWidth: 76,
+                maxImageHeight: 76,
                 showRemove: true,
                 @if(isset($testimonial) && $testimonial->image!=NULL)
                 initialPreview: ["{{asset($testimonial->image)}}"],

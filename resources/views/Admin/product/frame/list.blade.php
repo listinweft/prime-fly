@@ -57,13 +57,13 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $frame->title }}</td>
                                             <td>
-                                                <label class="switch">
-                                                    <input type="checkbox" class="status_check"
-                                                           data-url="/status-change" data-table="Frame"
-                                                           data-field="status" data-pk="{{ $frame->id}}"
-                                                        {{($frame->status=="Active")?'checked':''}}>
-                                                    <span class="slider"></span>
-                                                </label>
+                                                <input type="text" name="sort_order"
+                                                       id="sort_order_{{$loop->iteration}}"
+                                                       data-table="Frame" data-id="{{ $frame->id }}"
+
+
+                                                       class="common_sort_order" style="width:25%"
+                                                       value="{{$frame->sort_order}}">
                                             </td>
                                             <td>
                                                 <label class="switch">
