@@ -9,10 +9,11 @@
         </div>
     @endif
 </div>
-
+@push('scripts')
 <script>
     $('#product_count').html({{ $offset }});
     $('#total_product_count').html({{ $totalProducts }});
     $('#loading_offset').val({{ $offset }});
     $('#productListingTitle').html('{{ $title }}');
-</script>
+</script> 
+@endpush

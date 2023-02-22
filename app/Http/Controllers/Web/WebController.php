@@ -341,6 +341,7 @@ class WebController extends Controller
 
     public function filter_product(Request $request)
     {
+       
         $condition = $this->filterCondition($request);
         $condition = $this->sortCondition($request, $condition);
         $totalProducts = $condition->count();
