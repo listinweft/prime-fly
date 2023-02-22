@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->integer('sort_order');
+        Schema::table('shapes', function (Blueprint $table) {
+            $table->integer('sort_order')->default(0);
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('frames', function (Blueprint $table) {
+        Schema::table('shapes', function (Blueprint $table) {
             //
         });
     }

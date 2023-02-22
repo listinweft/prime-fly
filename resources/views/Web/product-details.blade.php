@@ -1167,10 +1167,10 @@
                                 <textarea name="message" id="message" class="form-control form-message" placeholder="Message*"></textarea>
                                 <!-- <input type="password" class="form-control" placeholder="Password*"> -->
                             </div>
-                            <input type="hidden" name="subject" value="subject">
+                            {{-- <input type="hidden" name="subject" value="subject"> --}}
 
                             <input type="hidden" name="type" value="product">
-                            {{-- <input type="hidden" name="product_id" value="{{ $product->id }}"> --}}
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <div class="form-group">
                                 <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                             </div>
