@@ -3,7 +3,7 @@
 
                             <div class="product-image-container w-100">
                                 <div class="product-image-wrapper">
-                                    <a href="product-details.php" tabindex="-1">
+                                    <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
                                     {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
                                     </a>
                                 </div>
@@ -38,7 +38,7 @@
                             </div>
                     </div>
                     <div class="product-details">
-                        <a href="product-details.php">
+                        <a href="{{ url('/product/'.$product->short_url) }}">
                             <div class="pro-name">
                             {{ $product->title }}
                             </div>
