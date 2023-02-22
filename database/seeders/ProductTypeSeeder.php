@@ -22,6 +22,7 @@ class ProductTypeSeeder extends Seeder
                 'title' => 'Print Only',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'sort_order' => 1
             ]
         ]);
         ProductType::insert([
@@ -30,6 +31,7 @@ class ProductTypeSeeder extends Seeder
                 'title' => 'Canvas',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'sort_order' => 4
             ]
         ]);
         ProductType::insert([
@@ -38,6 +40,7 @@ class ProductTypeSeeder extends Seeder
                 'title' => 'Stretched Canvas',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'sort_order' => 3
             ]
         ]);
         ProductType::insert([
@@ -46,6 +49,7 @@ class ProductTypeSeeder extends Seeder
                 'title' => 'Framed Canvas',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'sort_order' => 2
             ]
         ]);
        

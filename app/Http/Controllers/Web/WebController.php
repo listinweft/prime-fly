@@ -192,7 +192,7 @@ class WebController extends Controller
     {
         $banner = Banner::type('products')->first();
         $seo_data = $this->seo_content('Products');
-        $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
+       $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
         $condition = Product::active();
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
@@ -204,7 +204,7 @@ class WebController extends Controller
         $sort_value = 'latest';
         $title = 'Products';
         $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('web.product_list', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+        return view('Web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
             'title', 'sort_value'));
     }
