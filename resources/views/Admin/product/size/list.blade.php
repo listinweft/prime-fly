@@ -46,7 +46,7 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Sort Order</th>
-                                        <th>Price</th>
+                                     
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -66,7 +66,6 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>{{ $size->price }}</td>
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"

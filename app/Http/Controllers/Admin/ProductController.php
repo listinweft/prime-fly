@@ -57,7 +57,8 @@ class ProductController extends Controller
         $products = Product::active()->get();
         $frames = Frame::get();
         $shapes = Shape::get();
-        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes','frames','shapes'));
+        $colors = Color::active()->get();
+        return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'brands', 'tags', 'categories', 'products', 'sizes','productTypes','frames','shapes','colors'));
     }
     public function    product_detail($id)
     {
@@ -84,20 +85,34 @@ class ProductController extends Controller
   
  
         DB::beginTransaction();
-        $validatedData = $request->validate([
-            'title' => 'required|min:2|max:255',
-            'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
-            'sku' => 'required',
-//            'brand' => 'required',
-            'category' => 'required',
-            'availability' => 'required',
-            'description' => 'required',
-//            'measurement_unit' => 'required',
-//            'quantity' => 'required',
-            // 'price' => 'required',
-            'type' => 'required| unique:products,product_type_id,NULL,id,deleted_at,NULL',
-            'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
-        ]);
+        if($request->copy != 'Copy'){
+            $validatedData = $request->validate([
+                'title' => 'required|min:2|max:255',
+                'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
+                'sku' => 'required',
+    //            'brand' => 'required',
+                'category' => 'required',
+                'availability' => 'required',
+                'description' => 'required',
+    //            'measurement_unit' => 'required',
+    //            'quantity' => 'required',
+                // 'price' => 'required',
+            
+                'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
+            ]);
+
+        }
+        else{
+            $validatedData = $request->validate([
+                'title' => 'required|min:2|max:255',
+                'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
+                'sku' => 'required',
+                'category' => 'required',
+                'availability' => 'required',
+                'description' => 'required',
+                'type' => 'required|unique:products,product_type_id,' . $request->id . ',id,deleted_at,NULL',
+            ]);
+        }
         $product = new Product;
         if ($request->hasFile('thumbnail_image')) {
             $product->thumbnail_image_webp = Helper::uploadWebpImage($request->thumbnail_image, 'uploads/product/image/webp/', $request->short_url);
@@ -107,7 +122,7 @@ class ProductController extends Controller
         
             $copy_product = Product::where('id', $request->copy_product_id)->first();
             $fileName = last(explode('/', $copy_product->thumbnail_image));
-            // dd($fileName);
+            $fileNameWebp = last(explode('/', $copy_product->thumbnail_image_webp));
             $sourceFilePathImage = public_path() . "/" . $copy_product->thumbnail_image;
             $destinationPathImage = public_path() . "/uploads/product/image/" . time() . $fileName;
             $success = File::copy($sourceFilePathImage, $destinationPathImage);
@@ -116,10 +131,10 @@ class ProductController extends Controller
                 $product->thumbnail_image = $location;
             }
             $sourceFilePathWebp = public_path() . "/" . $copy_product->thumbnail_image_webp;
-            $destinationPathWebp = public_path() . "/uploads/product/image/webp/" . time() . $fileName;
+            $destinationPathWebp = public_path() . "/uploads/product/image/webp/" . time() . $fileNameWebp;
             $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
             if ($successWebp) {
-                $locationWebp = 'uploads/product/image/webp/' . $fileName;
+                $locationWebp = 'uploads/product/image/webp/' . $fileNameWebp;
                 $product->thumbnail_image_webp = $locationWebp;
             }
         }
@@ -130,6 +145,8 @@ class ProductController extends Controller
         elseif($request->copy == 'Copy') {
             $copy_product = Product::where('id', $request->copy_product_id)->first();
             $fileName = last(explode('/', $copy_product->desktop_banner));
+            $fileNameWebp = last(explode('/', $copy_product->desktop_banner_webp));
+    
             if($fileName != null){
 
                 $sourceFilePathImage = public_path() . "/" . $copy_product->desktop_banner;
@@ -140,10 +157,10 @@ class ProductController extends Controller
                     $product->desktop_banner = $location;
                 }
                 $sourceFilePathWebp = public_path() . "/" . $copy_product->desktop_banner_webp;
-                $destinationPathWebp = public_path() . "/uploads/product/desktop_banner/webp/" . time() . $fileName;
+                $destinationPathWebp = public_path() . "/uploads/product/desktop_banner/webp/" . time() . $fileNameWebp;
                 $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
                 if ($successWebp) {
-                    $locationWebp = 'uploads/product/desktop_banner/webp/' . $fileName;
+                    $locationWebp = 'uploads/product/desktop_banner/webp/' . $fileNameWebp;
                     $product->desktop_banner_webp = $locationWebp;
                 }
             }
@@ -155,6 +172,7 @@ class ProductController extends Controller
         elseif($request->copy == 'Copy') {
             $copy_product = Product::where('id', $request->copy_product_id)->first();
             $fileName = last(explode('/', $copy_product->featured_image));
+            $fileNameWebp = last(explode('/', $copy_product->desktop_banner_webp));
        
             if($fileName != null){
 
@@ -167,20 +185,22 @@ class ProductController extends Controller
                     $product->featured_image = $location;
                 }
                 $sourceFilePathWebp = public_path() . "/" . $copy_product->featured_image_webp;
-                $destinationPathWebp = public_path() . "/uploads/product/featured_image/webp/" . time() . $fileName;
+                $destinationPathWebp = public_path() . "/uploads/product/featured_image/webp/" . time() . $fileNameWebp;
                 $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
                 if ($successWebp) {
-                    $locationWebp = 'uploads/product/featured_image/webp/' . $fileName;
+                    $locationWebp = 'uploads/product/featured_image/webp/' . $fileNameWebp;
                     $product->featured_image_webp = $locationWebp;
                 }
             }
         }
+       
         $product->title = $validatedData['title'];
         $product->short_url = $validatedData['short_url'];
         $product->sku = $request->sku ?? '';
         $product->category_id = ($request->category) ? implode(',', $request->category) : '';
         $product->sub_category_id = ($request->sub_category) ? implode(',', $request->sub_category) : '';
         $product->tag_id = ($request->tags) ? implode(',', $request->tags) : '';
+        $product->color_id = ($request->colors) ? implode(',', $request->colors) : '';
         $product->description = $validatedData['description'];
         $product->availability = $request->availability ?? '';
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
@@ -286,10 +306,10 @@ class ProductController extends Controller
             $products = Product::where('id', '!=', $id)->active()->get();
             $frames = Frame::get();
             $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
-        
+            $colors = Color::active()->get();
          
             $shapes = Shape::get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes','productTypes','frames','shapes','productWithPrice'));
+            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags','colors', 'sizes','productTypes','frames','shapes','productWithPrice'));
         } else {
             return view('Admin.error.404');
         }
@@ -321,7 +341,7 @@ class ProductController extends Controller
             $frames = Frame::get();
             $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
             $shapes = Shape::get();
-            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product', 'subCategories', 'brands', 'tags', 'sizes','productTypes','frames','shapes','productWithPrice'));
+            return view('Admin.product.form', compact('key', 'title', 'measurement_units', 'categories', 'products', 'product','colors', 'subCategories', 'brands', 'tags', 'sizes','productTypes','frames','shapes','productWithPrice'));
         } else {
             return view('Admin.error.404');
         }

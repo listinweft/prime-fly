@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label> Category*</label>
                                 <select name="category[]" id="category" multiple
                                         class="form-control select2 required">
@@ -107,7 +107,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label> Sub Category</label>
                                 <select class="form-control select2 " name="sub_category[]"
                                         id="sub_category" multiple>
@@ -126,7 +126,7 @@
                                 @enderror
                             </div>
                             
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label> Tags *</label>
                                 <select class="form-control select2 " name="tags[]" id="tag_id" multiple>
                                     @foreach($tags as $tag)
@@ -134,6 +134,21 @@
                                        
                                         {{ (@$tag->id==@$product->tag_id)?'selected':'' }}
                                    >{{$tag->title}}</option>
+                                @endforeach
+                                </select>
+                                <div class="help-block with-errors" id="tags_error"></div>
+                                @error('tags')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label> Colours *</label>
+                                <select class="form-control select2 " name="colors[]" id="color_id" multiple>
+                                    @foreach($colors as $color)
+                                    <option value="{{$color->id}}"
+                                       
+                                        {{ (@$color->id==@$product->color_id)?'selected':'' }}
+                                   >{{$color->title}}</option>
                                 @endforeach
                                 </select>
                                 <div class="help-block with-errors" id="tags_error"></div>
@@ -497,6 +512,7 @@
         $('#frame_color').val([{{@$product->frame_color}}]).change();
         $('#related_product_id').val([{{@$product->related_product_id}}]).change();
         $('#category').val([{{@$product->category_id}}]).change();
+        $('#color_id').val([{{@$product->color_id}}]).change()
         $('#sub_category').val([{{@$product->sub_category_id}}]).change();
         @endif
         $("#thumbnail_image").fileinput({

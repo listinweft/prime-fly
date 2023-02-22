@@ -59,9 +59,9 @@
                                         @if($type=="Sub Category")
                                             <th>Category</th>
                                         @endif
+                                        <th>Status</th>
                                         <th>Sort Order</th>
                                         
-                                        <th>Status</th>
                                         <th>Display to home</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>

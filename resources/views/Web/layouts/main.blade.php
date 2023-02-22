@@ -14,7 +14,7 @@
     {!! @$siteInformation->header_tag !!}
 
     <script type="text/javascript">
-        var base_url = "{{ url('/') }}";
+        // var base_url = "{{ url('/') }}";
     </script>
     <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/fontawesome/css/all.min.css')}}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css')}}"> --}}
     <script type="text/javascript">
-        var base_url = "{{ url('/') }}";
+        // var base_url = "{{ url('/') }}";
     </script>
 
 </head>

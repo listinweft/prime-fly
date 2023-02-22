@@ -40,7 +40,7 @@ class WebController extends Controller
 {
     public function __construct()
     {
-        return Helper::commonData();
+        return $site = Helper::commonData();
     }
 
     public function seo_content($page)
@@ -61,7 +61,7 @@ class WebController extends Controller
       $themes = Category::active()->oldest('sort_order')->get();
         $testimonials = Testimonial::active()->take(10)->get();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
-      
+     
     //   $ourcollection = Homecollection::active()->first();
     //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
 
