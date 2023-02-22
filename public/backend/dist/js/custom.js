@@ -1160,16 +1160,16 @@ $(document).ready(function () {
         }
     });
     $('#type').on('change', function () {
-        var type = $(this).val();
-        if (type == 1  || type == 3) {
-            $('.mount_div').hide();
-            $('.mount').attr('required', false).removeClass('required');
+        // var type = $(this).val();
+        // if (type == 1  || type == 3) {
+        //     $('.mount_div').hide();
+        //     $('.mount').attr('required', false).removeClass('required');
            
-        } else {
-            $('.mount_div').show();
-            $('.mount').attr('required', true).addClass('required');
+        // } else {
+        //     $('.mount_div').show();
+        //     $('.mount').attr('required', true).addClass('required');
            
-        }
+        // }
     });
     //offer strip timer
     $('#is_timer_available').on('change', function () {
