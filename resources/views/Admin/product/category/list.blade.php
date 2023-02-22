@@ -60,7 +60,7 @@
                                             <th>Category</th>
                                         @endif
                                         <th>Sort Order</th>
-                                        
+
                                         <th>Status</th>
                                         <th>Display to home</th>
                                         <th>Created Date</th>
@@ -76,6 +76,15 @@
                                                 <td>{{$category->parent->title}}</td>
                                             @endif
                                             <td>
+                                                <input type="text" name="gallery_order"
+                                                       id="gallery_order_{{$loop->iteration}}"
+                                                       data-table="Category" data-id="{{ $category->id }}"
+
+
+                                                       class="common_sort_order" style="width:25%"
+                                                       value="{{$category->sort_order}}">
+                                            </td>
+                                            <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="Category"
@@ -84,15 +93,7 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td>
-                                                <input type="text" name="gallery_order"
-                                                       id="gallery_order_{{$loop->iteration}}"
-                                                       data-table="Category" data-id="{{ $category->id }}"
-                                              
-                                                    
-                                                       class="common_sort_order" style="width:25%"
-                                                       value="{{$category->sort_order}}">
-                                            </td>
+
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="bool_status"

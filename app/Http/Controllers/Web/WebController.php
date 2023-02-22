@@ -105,7 +105,6 @@ class WebController extends Controller
         $contact->name = $request->name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
-        $contact->subject = "jdvjd";
         $contact->message = $request->message;
         $contact->product_id = $request->product_id ?? NULL;
         $contact->request_url = url()->previous();

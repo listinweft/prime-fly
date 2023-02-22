@@ -34,6 +34,7 @@ class AboutController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
+            'subtitle' => 'required|min:2|max:255',
             'description' => 'required',
         ]);
         if ($request->id == 0) {
@@ -46,8 +47,15 @@ class AboutController extends Controller
             Helper::deleteFile($about, 'image');
             Helper::deleteFile($about, 'image_webp');
 
-            $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/about/image/webp/', $request->title);
-            $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
+            $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/image/webp/', $request->title);
+            $about->image = Helper::uploadFile($request->image, 'uploads/image/', $request->title);
+        }
+        if ($request->hasFile('banner_image')) {
+            Helper::deleteFile($about, 'banner_image');
+            Helper::deleteFile($about, 'banner_image_webp');
+
+            $about->banner_image_webp = Helper::uploadWebpImage($request->banner_image, 'uploads/image/webp/', $request->title);
+            $about->banner_image = Helper::uploadFile($request->banner_image, 'uploads/image/', $request->title);
         }
 
         if ($request->hasFile('feature_image')) {
@@ -64,11 +72,12 @@ class AboutController extends Controller
             $about->products_available_image = Helper::uploadFile($request->products_available_image, 'uploads/about/products_available_image/', $request->title);
         }
 
-        if ($request->hasFile('image')) {
-            $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/about/image/webp/', $request->title);
-            $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
-        }
+        // if ($request->hasFile('image')) {
+        //     $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/about/image/webp/', $request->title);
+        //     $about->image = Helper::uploadFile($request->image, 'uploads/about/image/', $request->title);
+        // }
         $about->title = $validatedData['title'];
+        $about->subtitle = $validatedData['subtitle'];
         $about->description = $validatedData['description'];
         $about->image_attribute = $request->image_attribute ?? '';
         $about->video_url = $request->video_url ?? '';
