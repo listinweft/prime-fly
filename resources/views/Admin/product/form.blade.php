@@ -109,30 +109,35 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label> Sub Category</label>
-                                <select class="form-control select2" name="sub_category[]"
+                                <select class="form-control select2 " name="sub_category[]"
                                         id="sub_category" multiple>
                                     @if(isset($subCategories))
                                         @foreach($subCategories as $second)
+                                    
                                             <option value="{{$second->id}}"
                                                 {{($second->id==@$product->sub_category_id)?'selected':''}}
                                             >{{$second->title}}</option>
                                         @endforeach
                                     @endif
                                 </select>
+                                <div class="help-block with-errors" id="sub_category_error"></div>
                                 @error('sub_category')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            
                             <div class="form-group col-md-4">
                                 <label> Tags *</label>
-                                <select class="form-control select2 " name="tags[]" id="tags" multiple>
+                                <select class="form-control select2 " name="tags[]" id="tag_id" multiple>
                                     @foreach($tags as $tag)
                                     <option value="{{$tag->id}}"
+                                       
                                         {{ (@$tag->id==@$product->tag_id)?'selected':'' }}
-                                    >{{$tag->title}}</option>
+                                   >{{$tag->title}}</option>
                                 @endforeach
                                 </select>
-                                @error('sub_category')
+                                <div class="help-block with-errors" id="tags_error"></div>
+                                @error('tags')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -187,15 +192,27 @@
                                 @enderror
                             </div>
                            
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label> Quantity*</label>
                                 <input type="text" name="quantity" id="quantity" placeholder="Quantity"
                                        class="form-control required"
                                        value="{{ isset($product)?$product->quantity:'' }}">
                                 <div class="help-block with-errors" id="quantity_error"></div>
                                 @error('quantity')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> You May Also Like</label>
+                                <select name="similar_product_id[]" multiple id="similar_product_id"
+                                        class="form-control select2">
+                                    @foreach($products as $similar)
+                                        <option value="{{ $similar->id  }}">{{ $similar->title }}</option>
+                                    @endforeach
+                                </select>
+                                @error('similar_product_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -220,6 +237,7 @@
                                            accept="image/*">
                                 </div>
                                 <span class="caption_note">Note: uploaded images have a maximum size of <strong> 1200x960</strong> pixels and can't be over 512kb</span>
+                                
                                 @error('thumbnail_image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -264,8 +282,8 @@
                             <div class="form-group col-md-12">
                                 <label> About This Item</label>
                                 <textarea name="about_this_item" id="about_this_item"
-                                          placeholder="About This Item" class="form-control  tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->about_this_item:'' }}</textarea>
+                                          placeholder="About This Item" class="form-control required  tinyeditor"
+                                          autocomplete="off">{{ isset($product)?$product->about_item:'' }}</textarea>
                                 <div class="help-block with-errors" id="about_this_item_error"></div>
                                 @error('about_this_item')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -297,6 +315,20 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            
+                            <div class="form-group col-md-12">
+                                <label> Feature Description*</label>
+                                <textarea name="feature_description" id="feature_description"
+                                          placeholder="Feture Description" class="form-control  tinyeditor"
+                                          autocomplete="off">{{ isset($product)?$product->featured_description:'' }}</textarea>
+                                <div class="help-block with-errors" id="feature_description_error"></div>
+                                @error('feature_description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                         
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label> Product Type*</label>
                                 <select name="type" id="type" 
@@ -308,19 +340,19 @@
                                         >{{$productType->title}}</option>
                                     @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="category_error"></div>
-                                @error('category')
+                                <div class="help-block with-errors" id="type_error"></div>
+                                @error('type')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-3 mount_div">
                                 <br>
                                 <div class="form-check">
-                                    &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount">
+                                    &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount" {{@$product->mount == 'Yes' ? 'checked':''}}>
                                     <label class="form-check-label" for="mount">
                                       With Mount&nbsp; &nbsp;
                                     </label> &nbsp; &nbsp; &nbsp;
-                                    <input class="form-check-input mount" type="radio" name="mount" id="mount" >
+                                    <input class="form-check-input mount" type="radio" name="mount" id="mount"{{@$product->mount == 'No' ? 'checked':''}} >
                                     <label class="form-check-label" for="mount">
                                      No Mount
                                     </label>
@@ -330,7 +362,7 @@
                             </div>
                             <div class="form-group col-md-3 ">
                                 <label> Frame Colour</label>
-                                <select name="frame_color" id="frame_color"  class="form-control select2 required" multiple>
+                                <select name="frame_color[]" id="frame_color"  class="form-control select2 required" multiple>
                                     <option value="">Select Frame Colour </option>
                                     @foreach($frames as $frame)
                                         <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
@@ -371,21 +403,60 @@
                                 </tbody>
                                     @else
                                     <tbody>
-                                        @foreach ($productWithPrice as $size)
+                                        @foreach ($sizes as $size)
                                         <tr>
-                                            @php
-                                                $sizes = App\Models\Size::where('id',$size->size_id)->first();
-
-                                            @endphp
-                                            <td>{{ $sizes->title }}</td>
-                                            <td>w
-                                                <input type="text" name="price[{{$size->size_id}}]" id="price" class="form-control" value="{{isset($size)?$size->price:''}}">
+                                            <td>
+                                                {{$size->title}}
                                             </td>
+                                            <td>
+                                                @php
+                                                    $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
+                                                @endphp
+                                                <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
+    
+                                            </td>
+                                          
                                         </tr>
-
                                         @endforeach
+                                    </tbody>
                                 @endif
                             </table>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label> Meta Title</label>
+                                <textarea class="form-control" id="meta_title" name="meta_title" rows="4"
+                                          placeholder="Meta Title">{{ isset($product)?$product->meta_title:'' }}</textarea>
+                                @error('meta_title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label> Meta Description</label>
+                                <textarea class="form-control" id="meta_description" name="meta_description" rows="4"
+                                          placeholder="Meta Description">{{ isset($product)?$product->meta_description:'' }}</textarea>
+                                @error('meta_description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label> Meta Keyword</label>
+                                <textarea class="form-control" id="meta_keyword" name="meta_keyword" rows="4"
+                                          placeholder="Meta Keyword">{{ isset($product)?$product->meta_keyword:'' }}</textarea>
+                                @error('meta_keyword')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label> Other Meta Tag</label>
+                                <textarea class="form-control" id="other_meta_tag" name="other_meta_tag" rows="4"
+                                          placeholder="Other Meta Tag">{{ isset($product)?$product->other_meta_tag:'' }}</textarea>
+                                @error('other_meta_tag')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
                         </div>
                     </div>
                     <div class="card-footer">
@@ -408,11 +479,22 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+
         @if(isset($product))
+        var type =$('#type').val();
+        if (type == 1  || type == 3) {
+            $('.mount_div').hide();
+            $('.mount').attr('required', false).removeClass('required');
+           
+        } else {
+            $('.mount_div').show();
+            $('.mount').attr('required', true).addClass('required');
+           
+        }
         $('#similar_product_id').val([{{@$product->similar_product_id}}]).change();
-        $('#addon_id').val([{{@$product->add_on_id}}]).change();
+        $('#shapes').val([{{@$product->shape_id}}]).change();
         $('#tag_id').val([{{@$product->tag_id}}]).change();
-        $('#pet_type_id').val([{{@$product->pet_type_id}}]).change();
+        $('#frame_color').val([{{@$product->frame_color}}]).change();
         $('#related_product_id').val([{{@$product->related_product_id}}]).change();
         $('#category').val([{{@$product->category_id}}]).change();
         $('#sub_category').val([{{@$product->sub_category_id}}]).change();
@@ -434,12 +516,13 @@
             maxFilesize: 540,
             showRemove: true,
             @if(isset($product) && $product->thumbnail_image!=NULL)
-            initialPreview: ["{{asset($product->thumbnail_image)}}",],
-            initialPreviewConfig: [{
-                caption: "{{ ($product->thumbnail_image!=NULL)?last(explode('/',$product->thumbnail_image)):''}}",
-                width: "120px"
-            }]
-            @endif
+                initialPreview: ["{{asset($product->thumbnail_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($product->thumbnail_image!=NULL)?last(explode('/',$product->thumbnail_image)):''}}",
+                    width: "120px",
+                    key: "{{'product/thumbnail_image/'.$product->id.'/thumbnail_image_webp' }}",
+                }],
+                @endif
         });
 
         $("#desktop_banner").fileinput({
@@ -458,36 +541,15 @@
             maxImageHeight: 500,
             showRemove: true,
             @if(isset($product) && $product->desktop_banner!=NULL)
-            initialPreview: ["{{asset($product->desktop_banner)}}",],
-            initialPreviewConfig: [{
-                caption: "{{ ($product->desktop_banner!=NULL)?last(explode('/',$product->desktop_banner)):''}}",
-                width: "120px"
-            }]
-            @endif
+                initialPreview: ["{{asset($product->desktop_banner)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($product->desktop_banner!=NULL)?last(explode('/',$product->desktop_banner)):''}}",
+                    width: "120px",
+                    key: "{{'product/desktop_banner/'.$product->id.'/desktop_banner_webp' }}",
+                }],
+                @endif
         });
-        $("#mobile_banner").fileinput({
-            'theme': 'explorer-fas',
-            validateInitialCount: true,
-            overwriteInitial: false,
-            autoReplace: true,
-            initialPreviewShowDelete: false,
-            initialPreviewAsData: true,
-            dropZoneEnabled: false,
-            required: false,
-            allowedFileTypes: ['image'],
-            minImageWidth: 960,
-            minImageHeight: 450,
-            maxImageWidth: 960,
-            maxImageHeight: 450,
-            showRemove: true,
-            @if(isset($product) && $product->mobile_banner!=NULL)
-            initialPreview: ["{{asset($product->mobile_banner)}}",],
-            initialPreviewConfig: [{
-                caption: "{{ ($product->mobile_banner!=NULL)?last(explode('/',$product->mobile_banner)):''}}",
-                width: "120px"
-            }]
-            @endif
-        });
+      
         $("#featured_image").fileinput({
             'theme': 'explorer-fas',
             validateInitialCount: true,
@@ -504,12 +566,13 @@
             maxImageHeight: 830,
             showRemove: true,
             @if(isset($product) && $product->featured_image!=NULL)
-            initialPreview: ["{{asset($product->featured_image)}}",],
-            initialPreviewConfig: [{
-                caption: "{{ ($product->featured_image!=NULL)?last(explode('/',$product->featured_image)):''}}",
-                width: "120px"
-            }]
-            @endif
+                initialPreview: ["{{asset($product->featured_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($product->featured_image!=NULL)?last(explode('/',$product->featured_image)):''}}",
+                    width: "120px",
+                    key: "{{'product/featured_image/'.$product->id.'/featured_image_webp' }}",
+                }],
+                @endif
         });
     });
 </script>
