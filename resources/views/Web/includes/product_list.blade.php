@@ -9,6 +9,7 @@
         </div>
     @endif
 </div>
+
 <script>
     $('#product_count').html({{ $offset }});
     $('#total_product_count').html({{ $totalProducts }});

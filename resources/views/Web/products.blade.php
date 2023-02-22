@@ -79,12 +79,13 @@
             </div>
             <div class="tagArea">
                 <h6>Product Tags</h6>
+                
                 <div class="tagWrapper">
 
 
-                    <div class="fltr sort_details filterItems" id="filterResult">
-                        <div class="txt">
-                            Tag line
+                    <div class="fltr sort_details filterItems">
+                        <div class="txt" id="filterResult">
+                         tags
                         </div>
                         <button class="btn">
                             <i class="fa-solid fa-xmark"></i>
@@ -111,6 +112,9 @@
 </section>
 
 
-
+@endsection
+@push('scripts')
+    
+@endpush
 
 
