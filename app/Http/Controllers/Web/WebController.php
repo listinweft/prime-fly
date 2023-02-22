@@ -193,7 +193,7 @@ class WebController extends Controller
         $banner = Banner::type('products')->first();
         $seo_data = $this->seo_content('Products');
         $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
-        $condition = Product::where('type','Ecommerce')->orWhere('type','All')->active();
+        $condition = Product::active();
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();

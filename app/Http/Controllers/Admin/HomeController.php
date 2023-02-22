@@ -13,6 +13,8 @@ use App\Models\HomeBanner;
 use App\Models\HomeHeading;
 use App\Models\MeasurementUnit;
 use App\Models\Brand;
+use App\Models\ProductType;
+
 use App\Models\Tag;
 use App\Models\HotDeal;
 use App\Models\KeyFeature;
@@ -88,7 +90,7 @@ class HomeController extends Controller
     public function update_home_heading(Request $request)
     {
 
-       
+
         if (isset($request->type)) {
             $home_heading = HomeHeading::type($request->type)->first();
             if (!$home_heading) {
@@ -227,11 +229,11 @@ class HomeController extends Controller
 
     }
 
-    
+
 
     public function status_change(Request $request)
     {
-      
+
         $table = $request->table;
         $state = $request->state;
         $primary_key = $request->primary_key;
@@ -246,7 +248,7 @@ class HomeController extends Controller
         }
         $model = 'App\\Models\\' . $table;
         $data = $model::find($primary_key);
-        
+
         if ($limit && $status == "Active") {
             if ($limit_field && $limit_field_value) {
                 $active_data = $model::where($limit_field, $limit_field_value)->Where($field, 'Active');
@@ -357,7 +359,7 @@ class HomeController extends Controller
 
     public function banner_store(Request $request)
     {
-        
+
         $validatedData = $request->validate([
 //            'title' => 'required|min:2|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
@@ -390,7 +392,7 @@ class HomeController extends Controller
             return back()->with('error', 'Error while creating the banner');
         }
     }
-    
+
 
     public function banner_edit(Request $request, $id)
     {
@@ -648,7 +650,7 @@ class HomeController extends Controller
 
     public function key_feature_store(Request $request)
     {
-   
+
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
             'image' => 'required|image|mimes:svg|max:512',
@@ -785,7 +787,7 @@ class HomeController extends Controller
 
     public function testimonial_edit(Request $request, $id)
     {
-        
+
         $key = "Update";
         $title = "Update Testimonial";
         $testimonial = Testimonial::find($id);
@@ -979,31 +981,31 @@ class HomeController extends Controller
     // public function latest_store(Request $request)
     // {
 
-        
+
     //     DB::beginTransaction();
     //     $validatedData = $request->validate([
     //         'product' => 'required|min:2|max:255',
-            
+
     //     ]);
-        
+
     //     if ($product->save()) {
     //         $similarProducts = [];
     //         $errorArray = $successArray = [];
-            
+
     //         if (empty($errorArray)) {
     //             session()->flash('success', "Product '" . $product->title . "' has been added successfully");
-              
+
     //         } else {
     //             session()->flash('error', "Error while added the product '" . $product->title . "'");
-               
+
     //         }
     //         return redirect(Helper::sitePrefix() . 'home-ecommerce/latest');
     //     } else {
-          
+
     //         return back()->withInput($request->input())->withErrors("Error while updating the product");
     //     }
     // }
-    
+
 
     public function advertisement2()
     {
@@ -1018,7 +1020,7 @@ class HomeController extends Controller
         $title = "Create Home Advertisement";
         return view('Admin.home.advertisement.form', compact('key', 'title'));
     }
-    
+
     public function advertisement_create2()
     {
         $key = "Create";
@@ -1291,14 +1293,14 @@ class HomeController extends Controller
         ]);
       $title =  $request->title;
     $description =  $request->description;
-   
+
 
      $updatelatest = Latest::where('id',1)
      ->update(['title' => $title,
     'description' => $description]);
-        
+
      $all = $request->product;
-   
+
     if(!empty($all))
     {
        $updateProduct = Product::whereIn('id',$all)
@@ -1306,13 +1308,13 @@ class HomeController extends Controller
 
                   $updateProduct = Product::whereNotIn('id',$all)
                   ->update(['latest' => 'No']);
-                  
+
     }
     else
     {
         $updateProduct = Product::where('id', '>', 0)->update(['latest' => 'No']);
     }
-    
+
         session()->flash('success', "latest Product  has been updated successfully");
         return redirect(Helper::sitePrefix() . 'home-ecommerce/latest');
 
@@ -1546,5 +1548,5 @@ class HomeController extends Controller
         return $this->combinationArrays($chars, $size - 1, $new_combinations);
     }
 
-    
+
 }

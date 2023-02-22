@@ -59,7 +59,7 @@
                                             <td>
                                                 <input type="text" name="sort_order"
                                                        id="sort_order_{{$loop->iteration}}"
-                                                       data-table="Product Type" data-id="{{ $product_type->id }}"
+                                                       data-table="ProductType" data-id="{{ $product_type->id }}"
 
 
                                                        class="common_sort_order" style="width:25%"
