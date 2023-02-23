@@ -126,7 +126,7 @@ $('.categorySliderSmall').slick({
 $(document).ready(function() {
     $('.relatedSlider').owlCarousel({
         loop: false,
-        autoplay:false,
+        autoplay:true,
         margin: 15,
         nav: true,
         dots:false,
@@ -179,16 +179,21 @@ $('.productDetailsThumbs').slick({
     verticalSwiping: true,
     asNavFor: '.productDetailsLargeImages',
 });
-// $('.productDetailsThumbs').slick('refresh');
-
-$(".productDetailsThumbs").on('click', function(e) {
-
-    e.preventDefault();
-    $slider.slick('refresh');
 
 
-});
-
+// $('.productClickInt').click(function (){
+//     $('.productDetailsThumbs').slick('unslick');
+//     $('.productDetailsThumbs').slick({
+//         slidesToShow: 3,
+//         slidesToScroll: 1,
+//         focusOnSelect: true,
+//         autoplay: false,
+//         infinite: true,
+//         vertical: true,
+//         verticalSwiping: true,
+//         asNavFor: '.productDetailsLargeImages',
+//     });
+// });
 
 $('.productDetailsLargeImages').slick({
     slidesToShow: 1,
@@ -199,6 +204,7 @@ $('.productDetailsLargeImages').slick({
     nav: false,
     dots:false,
     asNavFor: '.productDetailsThumbs',
+    arrows: false,
 });
 
 
@@ -490,12 +496,9 @@ $(document).on('click', '#edit_profile_go', function () {
 
 //Add Bill Address go to
 $(document).on('click', '#add_address_go', function () {
-    
-    console.log('yes');
     if ($('#my_address_list').css('display') === 'block') {
         $('#my_address_list').addClass('d-none');
         $('#my_address_add_form').removeClass('d-none');
-        // $('#my_address_add_form_')[0].reset();
     }
     else {
         $('#my_address_list').removeClass('d-none');
@@ -587,6 +590,22 @@ $(".mountSpaceBtn").click(function(){
     // $('.frame_product_detail_img').toggleClass('mountClass');
     $(".mountSpaceBtn").removeClass('active');
     $(this).addClass('active');
+});
+
+$('.productTagArea').each(function(){
+    var LiN = $(this).find('a').length;
+    if( LiN > 5){
+        $('a', this).eq(4).nextAll().hide().addClass('toggleable');
+        $(this).append('<a class="tagFilterClick more">Show More</a>');
+    }
+});
+$('.productTagArea').on('click','.more', function(){
+    if( $(this).hasClass('less') ){
+        $(this).text('Show More').removeClass('less');
+    }else{
+        $(this).text('Show Less').addClass('less');
+    }
+    $(this).siblings('a.toggleable').slideToggle();
 });
 
 

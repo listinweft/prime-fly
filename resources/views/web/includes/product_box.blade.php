@@ -4,7 +4,7 @@
                             <div class="product-image-container w-100">
                                 <div class="product-image-wrapper">
                                     <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
-                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100 product-image-photo') !!}
                                     </a>
                                 </div>
                                 <div class="cartWishlistBox">
@@ -32,7 +32,8 @@
                                         </li>
                                     </ul>
                                     <div class="logoArea mt-auto">
-                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                    <img class="img-fluid" src=" {{ asset('frontend/images/productListLogo.png') }}" alt="">
+                                    
                                     </div>
                                 </div>
                             </div>
