@@ -90,9 +90,9 @@
                 required: true,
                 showRemove: false,
                 minImageWidth: 1920,
-                minImageHeight: 501,
+                minImageHeight: 500,
                 maxImageWidth: 1920,
-                maxImageHeight: 501,
+                maxImageHeight: 500,
                 maxFileSize: 512,
                 @if(isset($banner) && $banner->desktop_banner != NULL)
                 initialPreview: ["{{asset($banner->desktop_banner)}}"],
