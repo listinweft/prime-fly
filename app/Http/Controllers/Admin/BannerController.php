@@ -31,14 +31,14 @@ class BannerController extends Controller
     public function banner_store(Request $request)
     {
 
-       
-        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'products', '404','terms-and-conditions','compare');
+
+        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'product', '404','terms-and-conditions','compare');
     //    dd($request->all());
         if (in_array($request->type, $type_array)) {
-           
+
             if ($request->id == 0) {
 
-               
+
                  $banner = new Banner;
 //                 $validatedData = $request->validate([
 // //                    'banner_title' => 'required',
@@ -48,7 +48,7 @@ class BannerController extends Controller
 //                     'banner_attribute' => 'required|min:2'
 //                 ]);
 
-                
+
             } else {
                 // $validatedData = $request->validate([
                 //     // 'banner_title' => 'required',
@@ -59,11 +59,11 @@ class BannerController extends Controller
                 // ]);
                 $banner = Banner::find($request->id);
                 $banner->updated_at = now();
-          
+
             }
-          
+
             if ($request->hasFile('desktop_banner')) {
-              
+
                 if (File::exists(public_path($banner->desktop_banner))) {
                     File::delete(public_path($banner->desktop_banner));
                 }
@@ -87,7 +87,7 @@ class BannerController extends Controller
 //            $banner->banner_sub_title = $request->banner_sub_title;
             $banner->type = $request->type;
             $banner->banner_attribute =$request->banner_attribute;
-        
+
             if ($banner->save()) {
                 session()->flash('success', $request->type . ' banner has been updated successfully');
                 return redirect(Helper::sitePrefix() . 'banner/' . strtolower($request->type));

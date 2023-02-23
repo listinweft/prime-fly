@@ -77,6 +77,13 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'banner/product')}}"
+               class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Product </p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/blogs')}}"
                class="nav-link {{ (Request::segment(3)=='blogs')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
