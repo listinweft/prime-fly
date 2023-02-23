@@ -78,6 +78,7 @@ Route::get('brand/{url}', [WebController::class, 'brand']);
 Route::get('deal/{url}', [WebController::class, 'deal']);
 Route::get('products', [WebController::class, 'products']);
 Route::get('product/{short_url}', [WebController::class, 'product_detail']);
+// Route::get('product/{short_url}/{type_id}', [WebController::class, 'product_detail_type']);
 Route::post('product/check-price', [WebController::class, 'check_price']);
 
 Route::get('category/{short_url}', [WebController::class, 'category']);

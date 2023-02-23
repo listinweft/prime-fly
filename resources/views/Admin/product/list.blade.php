@@ -66,13 +66,13 @@
                                     @foreach($productList as $product)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>
-                                                {{ $product->productType->title}}
-                                            </td>
                                             <td>  
                                                 
                                                 {{ $product->title }}</td>
-                                            <td>
+                                                <td>
+                                                    {{ $product->productType->title}}
+                                                </td>
+                                                <td>
                                                 @foreach($product->product_categories as $product_category)
                                                     {{ $product_category->title }}
                                                     {{ !$loop->last ? ',': ''}}

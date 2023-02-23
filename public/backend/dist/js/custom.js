@@ -979,79 +979,78 @@ $(document).ready(function () {
                     $('#' + id + '_error').html('');
                 }
                 var id = $(this).attr('id');
-                if(id === 'short_url' || id === 'type'){
-                    var type = $('#type').val();
-                    var short_url = $('#short_url').val();
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'json',
-                        url: base_url + '/product/validate',
-                        data: {
-                            id: id,
-                            type: type,
-                            short_url: short_url,
-                            _token: token
-                        },
-                        success: function (response) {
-                            console.log(response);
-                            if (response == false) {
-                                $('#' + id + '_error').html('');
-                            } else {
-                                // validation.push(response.status);
-                                $('#' + id + '_error').html(response.message).css({
-                                    'color': '#FF0000', 'font-size': '14px'
-                                });
-                            }
-                        },
-                        error: function (data) {
+                
+                // if(id === 'short_url' || id === 'type'){
+                //     var type = $('#type').val();
+                //     var short_url = $('#short_url').val();
+                //     $.ajax({
+                //         type: 'POST',
+                //         dataType: 'json',
+                //         url: base_url + '/product/validate',
+                //         data: {
+                //             id: id,
+                //             type: type,
+                //             short_url: short_url,
+                //             _token: token
+                //         },
+                //         success: function (response) {
+                //             console.log(response);
+                //             if (response == false) {
+                //                 $('#' + id + '_error').html('');
+                //             } else {
+                //                 // validation.push(response.status);
+                //                 $('#' + id + '_error').html(response.message).css({
+                //                     'color': '#FF0000', 'font-size': '14px'
+                //                 });
+                //             }
+                //         },
+                //         error: function (data) {
                            
-                            if(data.responseJSON['errors']){
+                //             if(data.responseJSON['errors']){
                                 
-                                let err = data.responseJSON['errors'];
+                //                 let err = data.responseJSON['errors'];
     
-                                $.each(err, (i,j)=>{
-                                    required.push(i);
-                                    $('#' + i + '_error').html(j).css({
-                                        'color': '#FF0000', 'font-size': '14px'
-                                    });
-                                    $('.'+i).append(j+'<br/>');
-                                });
+                //                 $.each(err, (i,j)=>{
+                //                     required.push(i);
+                //                     $('#' + i + '_error').html(j).css({
+                //                         'color': '#FF0000', 'font-size': '14px'
+                //                     });
+                //                     $('.'+i).append(j+'<br/>');
+                //                 });
     
-                                let errKeys = Object.keys(data.responseJSON['errors']);
+                //                 let errKeys = Object.keys(data.responseJSON['errors']);
     
-                                errKeys.map((item) => {
-                                    required.push(item);
+                //                 errKeys.map((item) => {
+                //                     required.push(item);
                                    
-                                });
-                                console.log(required.length);
-                            }
-                            validation.push($('#' + id).val());
-                        }
+                //                 });
+                //                 console.log(required.length);
+                //             }
+                //             validation.push($('#' + id).val());
+                //         }
                         
-                    });
-                }
-              
+                //     });
+                // }
             }
           
         });
-        e.preventDefault();
-    console.log(required.length);
+     
 //   
-        // if (required.length == 0 || validation.length == 0) {
-        //     if ($('.file-error-message').is(":visible")) {
-        //         e.preventDefault();
-        //         $('.submitBtn').attr('disabled', false).val(buttonHtml);
-        //         $('.loadingImg').hide();
-        //     } else {
-        //         $('.submitBtn').attr('disabled', true).val('Please wait...!');
-        //         $('.loadingImg').show();
-        //         $('#formWizard').submit();
-        //     }
-        // } else {
-        //     e.preventDefault();
-        //     $('.loadingImg').hide();
-        //     $('.submitBtn').attr('disabled', false).val(buttonHtml);
-        // }
+        if (required.length == 0 || validation.length == 0) {
+            if ($('.file-error-message').is(":visible")) {
+                e.preventDefault();
+                $('.submitBtn').attr('disabled', false).val(buttonHtml);
+                $('.loadingImg').hide();
+            } else {
+                $('.submitBtn').attr('disabled', true).val('Please wait...!');
+                $('.loadingImg').show();
+                $('#formWizard').submit();
+            }
+        } else {
+            e.preventDefault();
+            $('.loadingImg').hide();
+            $('.submitBtn').attr('disabled', false).val(buttonHtml);
+        }
     });
 
     /************* Validating form submission *******************/

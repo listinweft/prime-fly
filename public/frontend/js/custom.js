@@ -854,7 +854,11 @@ $(document).ready(function () {
     });
     $(document).on('click', '.checkprice', function () {
         var id = $(this).data('id');
-      
+       
+      //remove active class from all
+        $('.checkprice').removeClass('active');
+        //add active class to the selected
+        $(this).addClass('active');
         var product_id = $(this).data('product_id');
         var product_type_id = $(this).data('product_type_id');
         $.ajax({

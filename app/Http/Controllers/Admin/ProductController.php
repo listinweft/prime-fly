@@ -220,6 +220,9 @@ class ProductController extends Controller
             $product->stock = 0;
             $product->alert_quantity = 0;
         }
+        if($request->copy == 'Copy'){
+            $product->copy = "Yes";
+        }
         $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
         $product->thumbnail_image_attribute = $request->thumbnail_image_attribute ?? '';
         $product->banner_attribute = $request->banner_attribute ?? '';
@@ -283,6 +286,9 @@ class ProductController extends Controller
                     }
                 }
             }
+            $productPrice = DB::table('products_size_price')->where('product_id', $product->id)->first();
+            Product::where('id', $product->id)->update(['price' => $productPrice->price]);
+        
             $similarProducts = [];
             $errorArray = $successArray = [];
             if ($product->similar_product_id != NULL) {
