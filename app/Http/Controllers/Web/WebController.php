@@ -307,11 +307,13 @@ class WebController extends Controller
         $typeValue = $search_param;
         $banner = Banner::type('search')->first();
         $sort_value = 'latest';
+        $shapes = Shape::latest()->get();
+        $tags = Tag::latest()->get();
         $title = 'Search result of ' . $search_param;
         $latestProducts = Product::active()->take(5)->latest()->get();
         return view('web.products', compact('products', 'totalProducts', 'offset',
             'loading_limit', 'parentCategories', 'colors', 'colors',
-            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner'));
+            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner','shapes','tags'));
     }
 
     public function product_detail($short_url)
