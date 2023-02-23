@@ -202,6 +202,7 @@ class WebController extends Controller
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();
         $shapes = Shape::latest()->get();
+        $tags = Tag::latest()->get();
         $offset = $products->count();
         $loading_limit = 15;
         $type = "product";
@@ -211,7 +212,7 @@ class WebController extends Controller
         $latestProducts = Product::active()->take(5)->latest()->get();
         return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
-            'title', 'sort_value','shapes'));
+            'title', 'sort_value','shapes','tags'));
     }
 
 
@@ -397,7 +398,7 @@ class WebController extends Controller
             $condition = $condition->where(function ($query) use ($inputs, $request) {
                 if (!empty($inputs)) {
                     foreach ($inputs as $input) {
-                        if ($input == "category_id" || $input == "sub_category_id") {
+                        if ($input == "category_id" || $input == "sub_category_id" ||  $input == "shape_id" ||  $input == "tag_id") {
                             foreach ($request->$input as $key => $reIn) {
                                 $query->OrwhereRaw("find_in_set('" . $reIn . "',$input)");
                             }
@@ -408,6 +409,7 @@ class WebController extends Controller
                 }
             });
         }
+        
         return $condition;
     }
 

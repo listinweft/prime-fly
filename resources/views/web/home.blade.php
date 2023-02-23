@@ -304,7 +304,7 @@
                             {!! @$blog->message !!}
                             
                                 {!! @$blog->message !!}
-                            
+                             
                             </div>
                         </div>
                         @endforeach
