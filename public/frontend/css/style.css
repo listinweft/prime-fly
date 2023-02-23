@@ -771,6 +771,7 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   }
   .navbar .megamenu .shapeWrapper .shapeItem a img {
     width: 60%;
+    max-width: 220px;
     border: 1px solid #000;
     margin-bottom: 10px;
   }
@@ -831,7 +832,6 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   }
   .navbar .nav-item .megamenu .bg-green {
     background-color: #ffffff;
-    box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.11);
     padding-top: 40px;
     padding-bottom: 40px;
   }
@@ -2072,21 +2072,21 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
 .testimonialSection .testimonialsSlider .testimonialsCard .testimonialsProfile .rightDetails .reviewIconStar .jq-star:last-child {
   margin-right: 0;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard p {
+.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper {
   padding-right: 20px;
   height: 130px;
   opacity: 1;
   overflow: hidden;
   overflow-y: scroll;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar {
+.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar {
   width: 7px;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar-track {
+.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar-track {
   border-radius: 10px;
   background: #CECEC5;
 }
-.testimonialSection .testimonialsSlider .testimonialsCard p::-webkit-scrollbar-thumb {
+.testimonialSection .testimonialsSlider .testimonialsCard .textWrapper::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #252525;
   opacity: 1;
@@ -2205,7 +2205,7 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   .testimonialSection .testimonialsSlider .testimonialsCard .testimonialsProfile .rightDetails h3 {
     font-size: 17px;
   }
-  .testimonialSection .testimonialsSlider .testimonialsCard p {
+  .testimonialSection .testimonialsSlider .testimonialsCard .textWrapper {
     height: 120px;
   }
 }
@@ -4460,6 +4460,11 @@ footer .copy ul li img {
   background: url(../images/activeSelect.png) center;
   background-size: cover;
 }
+.productListingPage .category_area .ProductListCategory .accordion .accordion-item .productTagArea .more {
+  color: #ffffff;
+  background: #000000;
+  cursor: pointer;
+}
 .productListingPage .category_area .ProductListCategory .accordion-item:first-of-type .accordion-button {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -5260,18 +5265,16 @@ footer .copy ul li img {
   padding-right: 0;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__stage__frame {
-  position: absolute;
+  position: relative;
   right: 0;
   top: 0;
-  height: 600px;
-  width: 98%;
+  height: 500px;
+  width: 100%;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 0px;
   display: flex !important;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
-  background-color: red;
   overflow: hidden;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__html {
@@ -5288,11 +5291,7 @@ footer .copy ul li img {
   justify-content: center;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftSecond .productDetailsLargeImages .fotorama__img {
-  max-width: 80%;
-  opacity: 1;
-  max-height: 80%;
-  transition: all 0.2s ease;
-  vertical-align: middle;
+  max-width: 100%;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst {
   width: 20%;
@@ -5302,6 +5301,8 @@ footer .copy ul li img {
   justify-content: center;
   padding-top: 0px;
   padding-bottom: 80px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-arrow {
   width: 25px;
@@ -5336,43 +5337,111 @@ footer .copy ul li img {
   line-height: 0 !important;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-list {
-  margin-bottom: -10px;
+  height: auto !important;
   margin-top: -10px;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama__nav__frame {
   padding: 0 !important;
   border: 1px solid #A0A0A0;
+  border: 1px solid #000;
   box-sizing: border-box;
   position: relative;
-  height: 100px;
   display: block;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama__thumb {
   background-color: #f5f5f5;
-  height: 100%;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama_horizontal_ratio .fotorama__img {
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: auto;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama_vertical_ratio .fotorama__img {
   height: 100%;
   width: auto;
 }
-.productDetailsPage .framed-canvas .fotorama__html img.framed-canvas {
-  border: 15px solid #f5f5f5 !important;
-}
-.productDetailsPage .frame_color__Black .fotorama__html img.framed-canvas {
-  border: 15px solid #000 !important;
+.productDetailsPage .framed-canvas img.framed-canvas {
+  background: #f9f9f9;
   box-shadow: 0 0 10px 3px #ccc;
+}
+.productDetailsPage .framed-canvas img.framed-canvas.imageMountClass {
+  padding: 25px;
+}
+.productDetailsPage .framed-canvas img.framed-canvas.fotorama__img {
+  max-width: 80% !important;
+  opacity: 1;
+  max-height: 80% !important;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+.productDetailsPage .frame_color__Black img.framed-canvas.fotorama__img {
+  max-width: 80% !important;
+  opacity: 1;
+  max-height: 80% !important;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+.productDetailsPage .art-prints .fotorama__html img.art-prints {
+  border: 4px solid #fff;
+  box-shadow: -1px 1px 5px #ccc;
+}
+.productDetailsPage .art-prints .fotorama__html img.art-prints.fotorama__img {
+  max-width: 80% !important;
+  opacity: 1;
+  max-height: 80% !important;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+.productDetailsPage .canvas .fotorama__html img.art-canvas {
+  box-shadow: -1px 1px 5px #ccc;
+}
+.productDetailsPage .canvas .fotorama__html .art-canvas.fotorama__img {
+  max-width: 80% !important;
+  opacity: 1;
+  max-height: 80% !important;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+.productDetailsPage .stretchedCanvas .canvas-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.productDetailsPage .stretchedCanvas .canvas-wrapper {
+  perspective: 600px;
+  width: fit-content;
+  position: relative;
+  margin: 0 auto;
+  max-width: 80% !important;
+}
+.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate {
+  transform-style: preserve-3d;
+  transform-origin: left 50%;
+  transform: rotateY(15deg);
+}
+.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate img {
+  max-height: 500px;
+  display: block;
+}
+.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate .canvas-border {
+  position: absolute;
+  top: 0;
+  left: -30px;
+  width: 30px;
+  height: 100%;
+  transform-origin: right 50%;
+  transform: rotateY(-70deg);
+  overflow: hidden;
+}
+.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate .canvas-border .canvas-inside {
+  transform: scaleX(-1);
+  height: 100% !important;
+  max-height: 100% !important;
+}
+.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate .canvas-border .canvas-inside img {
+  width: auto;
+  height: 100% !important;
+  max-height: 100% !important;
+  max-width: none;
 }
 .productDetailsPage .productDetailsInfo .productNameStock {
   display: flex;
@@ -5503,9 +5572,9 @@ footer .copy ul li img {
   -o-transition: 0.3s;
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .item .colorBox {
+  border: 1px solid #252525;
   width: 90px;
   height: 90px;
-  background: red;
   margin-bottom: 8px;
   transition: 0.3s;
   -webkit-transition: 0.3s;
@@ -5541,7 +5610,6 @@ footer .copy ul li img {
   background-size: cover;
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .active img {
-  border: 1px solid #252525;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 .productDetailsPage .productDetailsInfo .relatedProductsTypesSelect .relatedProductsTypesWrapper .active .colorBox {
@@ -7939,6 +8007,9 @@ footer .copy ul li img {
   background: url("../images/pattern-02.png") center;
   background-size: cover;
 }
+.myaccount_section .position-relative {
+  z-index: 1;
+}
 .myaccount_section .sticky-lg-top-110 {
   top: 95px;
 }
@@ -9384,6 +9455,115 @@ footer .copy ul li img {
   }
   .login_create .modal-content .modal-header {
     padding: 0;
+  }
+}
+.reviewModalForm {
+  z-index: 10601;
+  background: rgba(0, 0, 0, 0.5);
+}
+.reviewModalForm .btn-close {
+  box-shadow: none;
+  outline: none;
+  border: 0;
+}
+.reviewModalForm .modal-header {
+  padding-right: 30px;
+  padding-left: 30px;
+}
+.reviewModalForm .formArea {
+  padding: 0 15px;
+  padding-bottom: 25px;
+}
+.reviewModalForm .formArea .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.reviewModalForm .formArea .head .my-rating {
+  margin-top: -8px;
+}
+.reviewModalForm .formArea .head .my-rating .jq-star {
+  margin-right: 5px;
+}
+.reviewModalForm .formArea .head .my-rating .jq-star:last-child {
+  margin-right: 0;
+}
+.reviewModalForm .formArea .message .form-group img {
+  bottom: 50px;
+}
+.reviewModalForm .formArea .form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+.reviewModalForm .formArea .form-group img {
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  width: 20px;
+}
+.reviewModalForm .formArea label {
+  color: #676767;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.reviewModalForm .formArea .form-control {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #000;
+  color: #000;
+  padding: 10px 15px;
+  padding-left: 15px;
+  font-size: 13px;
+  font-family: Brother1816-Light;
+  box-shadow: none;
+  outline: none;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+.reviewModalForm .formArea .form-control::placeholder {
+  color: #000;
+  opacity: 1;
+}
+.reviewModalForm .formArea .form-control:-ms-input-placeholder {
+  color: #000;
+}
+.reviewModalForm .formArea .form-control::-ms-input-placeholder {
+  color: #000;
+}
+.reviewModalForm .formArea textarea {
+  height: 80px;
+  resize: none;
+}
+.reviewModalForm .formArea .primary_btn {
+  margin-bottom: 0;
+  padding: 12px 35px;
+  border: 0;
+  background: #fff;
+  color: #252525;
+  border: 2px solid #252525;
+}
+.reviewModalForm .formArea .primary_btn:before {
+  background: #cfcfc4;
+}
+.reviewModalForm .formArea .primary_btn:hover {
+  background: #252525;
+  color: #fff;
+}
+
+@media (min-width: 767px) {
+  .modal-dialog {
+    max-width: 650px;
+  }
+}
+@media (max-width: 575px) {
+  .reviewModalForm .modal-header {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .reviewModalForm .formArea {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

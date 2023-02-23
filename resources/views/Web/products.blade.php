@@ -3,27 +3,7 @@
 
 
 <!--Inner Banner Start-->
-<section class="innerBanner">
-    <div class="innerBannerImageArea">
-    {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
-    </div>
-    <div class="innerBannerDetails">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Products</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/home.png')}}"
-                                                                                 alt=""></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Products</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@include('web.includes.product_banner')
 <!--Inner Banner End-->
 
 <!--Product Listing Page Start-->
@@ -49,8 +29,8 @@
         <div class="col-lg-9 productListingArea">
             <div class="topSortDetails">
                 <div>
-                    <h4>Latest Products</h4>
-                    <p>Lorem Ipsum is simply dummy text</p>
+                    <h4> Products</h4>
+                    <p></p>
                 </div>
                 <div class="sortSearchBox">
                     <a class="btn primary_btn primary_btn_mb" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">

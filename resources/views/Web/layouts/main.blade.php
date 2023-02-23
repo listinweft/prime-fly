@@ -57,6 +57,58 @@
 <div id="loading">
     <img id="loading-image" src="{{ asset('frontend/images/loading.gif')}}" alt="Loading..."/>
 </div>
+
+<!-- Review Modal Start -->
+<div class="modal fade reviewModalForm" id="reviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="formArea">
+                    <div class="head">
+                        <h5>Write A Review</h5>
+                        <div class="my-rating" data-rating="0"></div>
+                    </div>
+                    <form action="">
+                        <div class="row">
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Designation">
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Email Address">
+                                </div>
+                            </div>
+                            <div class="col-12 message">
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Say Something"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12x ">
+                                <div class="form-group d-flex align-items-end mb-0">
+                                    <button type="submit" class="primary_btn ">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Review Modal End -->
+
+
 @yield('content')
 @include('web.layouts.footer')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
