@@ -25,8 +25,11 @@ use App\Models\KeyFeature;
 use App\Models\Newsletter;
 use App\Models\OfferStrip;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\ProductReview;
 use App\Models\ProductSpecificationHead;
+use App\Models\ProductType;
+use App\Models\Size;
 use App\Models\SeoData;
 use App\Models\SiteInformation;
 use App\Models\Tag;
@@ -40,7 +43,7 @@ class WebController extends Controller
 {
     public function __construct()
     {
-        return Helper::commonData();
+        return $site = Helper::commonData();
     }
 
     public function seo_content($page)
@@ -53,14 +56,21 @@ class WebController extends Controller
     public function home()
     {
         $seo_data = $this->seo_content('Home');
+       
 
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
       $themes = Category::active()->oldest('sort_order')->get();
         $testimonials = Testimonial::active()->take(10)->get();
-      $homeHeadings = HomeHeading::where('type','testimonial')->first();
-        return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
+      $catHomeHeadings = HomeHeading::where('type','category')->first();
+     $products = Product::active()->where('display_to_home','Yes')->get();
+    //   $ourcollection = Homecollection::active()->first();
+    //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
+
+
+    //     return view('web.home', compact('seo_data', 'ourcollection'));
+        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products'));
     }
 
 
@@ -185,8 +195,8 @@ class WebController extends Controller
     {
         $banner = Banner::type('products')->first();
         $seo_data = $this->seo_content('Products');
-        $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
-        $condition = Product::where('type','Ecommerce')->orWhere('type','All')->active();
+       $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
+        $condition = Product::active();
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();
@@ -306,8 +316,10 @@ class WebController extends Controller
         $product = Product::active()->shortUrl($short_url)->with('activeGalleries')->first();
         if ($product) {
             Helper::addRecentProduct($product);
-
+            $productTypes = ProductType::active()->get();
+            $sizes = Size::active()->get();
             $banner = $seo_data = $product;
+          
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
             $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))->latest()->get();
             $relatedProducts = Product::active()->whereIn('id', explode(',', $product->related_product_id))->latest()->get();
@@ -324,16 +336,20 @@ class WebController extends Controller
             $starPercent3 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 3) * 100 / $totalReviews) : 0;
             $starPercent4 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 4) * 100 / $totalReviews) : 0;
             $starPercent5 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 5) * 100 / $totalReviews) : 0;
-            return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts',
+            return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
         } else {
             return view('web.404');
         }
     }
-
+    public function check_price(){
+       $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
+       return $product_price->price;
+    }
     public function filter_product(Request $request)
     {
+       
         $condition = $this->filterCondition($request);
         $condition = $this->sortCondition($request, $condition);
         $totalProducts = $condition->count();

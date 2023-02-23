@@ -60,8 +60,9 @@
                                             <th>Category</th>
                                         @endif
                                         <th>Sort Order</th>
-
                                         <th>Status</th>
+
+                                    
                                         <th>Display to home</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>

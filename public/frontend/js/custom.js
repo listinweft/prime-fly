@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    
     $(".my-rating-readonly").starRating({
         totalStars: 5,
         starShape: 'rounded',
@@ -640,34 +640,33 @@ $(document).ready(function () {
         }
     });
     $(document).on('click', '.form_submit_btn', function (e) {
-
-
+      
         e.preventDefault();
         $this = $(this);
         var buttonText = $this.html();
         var url = $this.data('url');
         var form_id = $this.closest("form").attr('id');
-
+    
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-
+        
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');
         $('span.error').remove();
         $("#" + form_id + " .required").each(function (k, v) {
             var field_name = $(v).attr('name');
 
-
+           
             if (!$(v).val().length) {
                 errors = true;
                 var error = 'Please enter <strong>' + field_name + '</strong>.';
                 var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
 
-
+                
                 $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
                     .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
 
-
+                  
             } else {
                 if (field_name === 'email') {
                     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -693,8 +692,12 @@ $(document).ready(function () {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url: base_url + url,
+
+              
             })
                 .done(function (response) {
+
+                   
                     console.log(response);
                     $this.html(buttonText);
                     $("#" + form_id)[0].reset();
@@ -728,91 +731,6 @@ $(document).ready(function () {
                 })
         }
     });
-
-    $(document).on('click', '.submit_form_btn', function (e) {
-        e.preventDefault();
-        $this = $(this);
-        var buttonText = $this.html();
-        var url = $this.data('url');
-        var form_id = $this.closest("form").attr('id');
-        var modal_id = $this.closest(".modal").attr('id');
-        var formData = new FormData(document.getElementById(form_id));
-        var errors = false;
-        $('form input, form textarea').removeClass('is-invalid is-valid');
-        $('span.error').remove();
-        $("#" + form_id + " .required").each(function (k, v) {
-            var field_name = $(v).attr('name');
-            if (!$(v).val().length) {
-                errors = true;
-                var error = 'Please enter <strong>' + field_name + '</strong>.';
-                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
-                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
-                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-            } else {
-                if (field_name === 'email') {
-                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if (!regex.test($(v).val())) {
-                        errors = true;
-                        msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
-                        $('#' + form_id).find('input[name="' + field_name + '"]')
-                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                    }
-                }
-            }
-        });
-        if (!errors) {
-            $this.html('Please Wait..');
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: base_url + url,
-            })
-                .done(function (response) {
-                    // console.log(response);
-                    $this.html(buttonText);
-                    $("#" + form_id)[0].reset();
-                    if (modal_id) {
-                        $("#" + modal_id).modal('hide');
-                    }
-                    if (response.status == "success") {
-
-
-                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
-                    } else if (response.status == "success-reload") {
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
-                        // console.log(response);
-                        if (response.redirect) {
-                             console.log('yes');
-                            window.location.href = response.redirect;
-                        } else {
-                            location.reload();
-                        }
-                    } else {
-                        swal.fire({
-                            title: response.status, text: response.message, icon: response.status
-                        });
-                    }
-                })
-                .fail(function (response) {
-                    $this.html(buttonText);
-                    $.each(response.responseJSON.errors, function (field_name, error) {
-                        var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
-                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                    });
-                })
-        }
-    });
-
     /***************** cart action end **********************/
 
     $(window).scroll(function () {
@@ -830,7 +748,7 @@ $(document).ready(function () {
 
     function blogLoadMoreData() {
         var total_blogs = $('#totalBlogs').val();
-
+        
         var offset = $('#blog_loading_offset').val();
         var loading_limit = $('#blog_loading_limit').val();
 
@@ -852,5 +770,284 @@ $(document).ready(function () {
             }
         });
     }
+    $(document).on('click', '#change-password-btn', function (e) {
+        e.preventDefault();
+      
+        // var _token = token;
+        var required = [];
+        $('.password-required').each(function () {
+            var id = $(this).attr('id');
+            if ($('#' + id).val() == '') {
+                required.push($('#' + id).val());
+                $('#' + id).css({'border': '1px solid #FF0000'});
+            } else {
+                $('#' + id).css({'border': '1px solid #cdcdcd'});
+            }
+        });
+        if (required.length == 0) {
+            $('.with-errors').html('');
+            var password = $('#new_password').val();
+            
+
+            var confirm_password = $('#confirm_password').val();
+           
+            $.ajax({
+                type: 'POST', dataType: 'json',
+
+                data: $('#change-password-form').serialize(), headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/customer/change-password',
+            })
+                .done(function (response) {
+                    $('#change-password-form').val('Register');
+                    if (response.status == "success") {
+                        Toast.fire({
+                            title: "", text: response.message, icon: "success"
+                        })
+                        location.reload();
+                    } else if (response.status == "error") {
+                        // $('#register_email_id_error').html('Please enter a valid email ID').css({'color':'#FF0000','font-size':'14px','font-weight':'700'});
+                        Toast.fire('Error', response.message, "error");
+                    } else if (response.errors) {
+                        $('.alert-success').hide();
+                        $('.alert-info').hide();
+                        $('.alert-danger').show();
+                        $('.alert-danger ul').html('');
+                        for (var error in response.errors) {
+                            $('.alert-danger').html(response.errors[error]);
+                        }
+                    }
+                })
+                .fail(function (response) {
+                    // $(this).html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                        $("#change-password-form").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
+    $(document).on('click', '.address-form', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+       
+        $.ajax({
+            type: 'POST', dataType: 'html', data: {id}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/customer/address-form', success: function (response) {
+                if (response != '0') {
+
+                    $('#my_address_add_form').html(response);
+                    $('#my_address_list').addClass('d-none');
+                    $('#my_address_add_form').removeClass('d-none');
+                    
+                } else {
+                    swal.fire({
+                        title: "Error", text: "Error while load the form", icon: 'error'
+                    });
+                }
+            }
+        });
+    });
+    $(document).on('click', '.checkprice', function () {
+        var id = $(this).data('id');
+      
+        var product_id = $(this).data('product_id');
+        var product_type_id = $(this).data('product_type_id');
+        $.ajax({
+            type: 'POST', dataType: 'html', data: {id,product_id,product_type_id}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url : base_url+'/product/check-price', success: function (response) {
+                
+                $('#price').html('AED '+response+'.00');
+                if (response != '0') {
+                    
+                } else {
+                    swal.fire({
+                        title: "Error", text: "Error while load the form", icon: 'error'
+                    });
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#add_address_gos', function () {
+
+    
+       
+        $('#my_address_add_form_')[0].reset();
+        if ($('#my_address_list').css('display') === 'block') {
+            $('#my_address_list').addClass('d-none');
+            $('#my_address_add_form').removeClass('d-none');
+        }
+        else {
+            $('#my_address_list').removeClass('d-none');
+            $('#my_address_add_form').addClass('d-none');
+        }
+    });
+
+    $(document).on('change', '#country', function (e) {
+        
+        e.preventDefault();
+        var country_id = $(this).val();
+        var form = $(this).closest("form");
+       
+        var form_id = form.attr('id');
+      
+       
+        if (country_id) {
+            $.ajax({
+                type: 'POST', dataType: 'json', url: base_url + '/state-list', data: {country_id}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, success: function (data) {
+                    
+                    if (data.status == 'error') {
+                        swal.fire('Error !', data.message, 'error');
+                    } else {
+                        alert("nnc");
+                        var resp = data.message;
+                        var len = resp.length;
+                        $("#" + form_id + " #state").empty().append("<option value=''>Select Emirate</option>");
+                        for (var i = 0; i < len; i++) {
+                            $("#" + form_id + " #state").append("<option value='" + resp[i]['id'] + "'>" + resp[i]['title'] + "</option>");
+                        }
+                    }
+                }
+            })
+        } else {
+            $("#" + form_id + " #state").empty().append("<option value=''>Select Country First</option>");
+        }
+    });
+
+    $(document).on('click', '.remove-address', function () {
+
+      
+      
+        var address_id = $(this).data('id');
+        swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST', dataType: 'json', headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }, url: base_url + '/customer/delete-address', data: {address_id}, success: function (data) {
+                        if (data.status == 'error') {
+                            swal.fire('Error !', data.message, 'error');
+                        } else {
+                            $('#address' + address_id).remove();
+                            Toast.fire({
+                                title: "Success", text: data.message, icon: "success"
+                            });
+                            setTimeout(() => {
+
+                               //redirect url
+                               window.location.href = base_url + '/customer/account/address';
+                            }, 1000);
+                        }
+                    }
+                });
+            } else {
+                Toast.fire("Cancelled", "Entry remain safe :)", "warning");
+            }
+        });
+    });
+
+    $(document).on('change', '#priceRangeMin, #priceRangeMax, #priceInputMin, #priceInputMax', function () {
+        filterProducts();
+    });
+
+    // CLEAR
+    $('.clear').on('click', function () {
+        $(".filterItems .fltr").remove();
+        $('.filterItem').prop('checked', false);
+        if ($('#filterResult').html() == null || $('#filterResult').html() == '') {
+            $('.filteredContents').hide();
+        }
+        Toast.fire("Done it!", 'Filter cleared', "success");
+        window.location.reload();
+    });
+
+
+    // Single Clear Filtered
+    $(document).on('click', '.clearFiltered', function () {
+        var id = $(this).data('id');
+        $(this).closest(".filterItems .fltr").remove();
+        $('#' + id).prop('checked', false);
+        if ($('#filterResult').html() == null || $('#filterResult').html() == '') {
+            $('.filteredContents').hide();
+        }
+        filterProducts();
+    });
+
+    $('.filterItem').on('click', function () {
+     
+       var parent = $(this).data('parent');
+       if(parent != null){
+              $('#Category_'+parent).prop('checked', true);
+         }
+         if($(this).prop('checked') == false){
+                $('#Category_'+parent).prop('checked', false);
+            }
+        
+
+        var label = $(this).data('label');
+        var title = $(this).data('title');
+        var id = $(this).val();
+        if ($(this).prop('checked') == true) {
+            $('.filteredContents').show();
+             
+            $('#filterResult').append('<div class="fltr" id="item' + id + '">' + ' <div class="txt">' + label + ': ' + title + '</div>' + '<button class="btn clearFiltered" data-id="' + label + '_' + id + '">' + '<i class="fa-solid fa-xmark"></i> </button> </div>');
+        } else {
+            $('#item' + id).remove();
+            if ($('#filterResult').html() == null || $('#filterResult').html() == '' || parent != null) {
+                $('.filteredContents').hide();
+            }
+        }
+        filterProducts();
+    });
+
+    $(document).on('change', '#sort_order_drop', function () {
+        $('#sort_value').val($(this).val());
+        filterProducts();
+    });
+
+    function filterProducts() {
+        var fields = [];
+        $('.filterItem').each(function () {
+            if ($(this).prop('checked') == true) {
+                fields.push($(this).data('field'));
+            }
+        });
+        $('#input_field').val($.unique(fields.sort()));
+        $.ajax({
+            type: 'POST', dataType: 'html', data: $('#filter-form').serialize(), headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/filter-product', success: function (response) {
+               
+                $('.productList').html(response);
+                Toast.fire("Done it!", 'Filter Applied', "success");
+            }
+        });
+    }
+
+    function select2() {
+        $('.select2').select2({
+            theme: 'bootstrap4', minimumResultsForSearch: -1,
+        });
+    }
+
 
 });

@@ -40,14 +40,14 @@ $('.homeSliderDetails').slick({
 });
 
 $('.homeSliderImages').slick({
-    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: true,
+    infinite: true, slidesToShow: 1, slidesToScroll: 1, autoplay: false,
     dots: false,
     draggable: true,
     pauseOnHover: true,
     pauseOnFocus: false,
     cssEase: 'ease-in-out',
     focusOnSelect: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 3000,
     centerMode: false,
     asNavFor: '.homeSliderDetails',
     arrows: true,
@@ -179,6 +179,16 @@ $('.productDetailsThumbs').slick({
     verticalSwiping: true,
     asNavFor: '.productDetailsLargeImages',
 });
+// $('.productDetailsThumbs').slick('refresh');
+
+$(".productDetailsThumbs").on('click', function(e) {
+
+    e.preventDefault();
+    $slider.slick('refresh');
+
+
+});
+
 
 $('.productDetailsLargeImages').slick({
     slidesToShow: 1,
@@ -190,8 +200,6 @@ $('.productDetailsLargeImages').slick({
     dots:false,
     asNavFor: '.productDetailsThumbs',
 });
-
-
 
 
 //Recent Blog Slider
@@ -482,9 +490,12 @@ $(document).on('click', '#edit_profile_go', function () {
 
 //Add Bill Address go to
 $(document).on('click', '#add_address_go', function () {
+    
+    console.log('yes');
     if ($('#my_address_list').css('display') === 'block') {
         $('#my_address_list').addClass('d-none');
         $('#my_address_add_form').removeClass('d-none');
+        // $('#my_address_add_form_')[0].reset();
     }
     else {
         $('#my_address_list').removeClass('d-none');
@@ -505,6 +516,7 @@ $(document).on('click', '#add_address_ship_go', function () {
     }
 });
 //Order Ship Address go to
+
 
 
 // Mega Menu Start
@@ -555,6 +567,27 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 // Mega Menu End
+
+$(".colorBtn").click(function(){
+    $(".colorBtn").removeClass('active');
+    $(this).addClass('active');
+    var color = $(this).data('color');
+    var img = $(this).data('img');
+    $('.frame_product_detail_img').css('border-color', color);
+    $('.frame_product_border_image').attr('src',img);
+});
+
+$(".mountSpaceBtn").click(function(){
+    if($(this).hasClass('btnMountClass')){
+        $('.frame_product_detail_img').addClass('imageMountClass');
+    }
+    else{
+        $('.frame_product_detail_img').removeClass('imageMountClass');
+    }
+    // $('.frame_product_detail_img').toggleClass('mountClass');
+    $(".mountSpaceBtn").removeClass('active');
+    $(this).addClass('active');
+});
 
 
 $(window).on('load', function () {

@@ -120,6 +120,8 @@ class HomeController extends Controller
     }
     public function ourcollection_store(Request $request)
     {
+
+        // return $request->all();
         $this->validate($request, [
             'title' => 'required|min:2|max:255',
             'image_attribute' => 'required',
@@ -194,9 +196,28 @@ class HomeController extends Controller
         $collection->image_attribute3 = $request->image_attribute3;
         $collection->image_attribute2 = $request->image_attribute2;
         $collection->image_attribute = $request->image_attribute;
-
-
-
+        $collection->title1 = $request->title1;
+        $collection->title2 = $request->title2;
+        $collection->title3 = $request->title3;
+        $collection->title4 = $request->title4;
+        $collection->title5 = $request->title5;
+        $collection->title6 = $request->title6;
+        $collection->description1 = $request->description1;
+        $collection->description2 = $request->description2;
+        $collection->description3 = $request->description3;
+        $collection->description4 = $request->description4;
+        $collection->description5 = $request->description5;
+        $collection->description6 = $request->description6;
+        $collection->short_url1 = $request->shorturl1;
+        $collection->short_url2 = $request->shorturl2;
+        $collection->short_url3 = $request->shorturl3;
+        $collection->short_url4 = $request->shorturl4;
+        $collection->short_url5 = $request->shorturl5;
+        $collection->short_url6 = $request->shorturl6;
+        
+      
+      
+        
         if ($collection->save()) {
             session()->flash('success', "Our collection image has been updated successfully");
             return redirect(Helper::sitePrefix() . 'home/our-collection/create');

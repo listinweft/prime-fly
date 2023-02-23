@@ -46,7 +46,7 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Sort Order</th>
-                                        <th>Price</th>
+                                     
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -66,8 +66,6 @@
                                                        class="common_sort_order" style="width:25%"
                                                        value="{{$size->sort_order}}">
                                             </td>
-
-                                            <td>{{ $size->price }}</td>
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"

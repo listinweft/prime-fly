@@ -18,23 +18,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AdminSeeder::class,
-            CustomerSeeder::class,
+            ProductTypeSeeder::class,
 
             CountrySeeder::class,
             StateSeeder::class,
 
             CurrencySeeder::class,
-            CurrencyRateSeeder::class,
-            HomeHeadingSeeder::class,
 
-            CategorySeeder::class,
-            ColorSeeder::class,
-            MeasurementUnitSeeder::class,
-            ProductSeeder::class,
-
-            MenuSeeder::class,
-            SiteInformationSeeder::class,
-            ContactAddressSeeder::class,
         ]);
     }
 }

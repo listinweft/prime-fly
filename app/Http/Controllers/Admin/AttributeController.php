@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Size;
 use App\Models\Color;
-use App\Models\Frame;
+
 use App\Models\Shape;
 use App\Models\ProductType;
 use App\Http\Helpers\Helper;
@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
 use App\Models\SiteInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Frame;
+use App\Models\Mount;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 
@@ -292,10 +294,10 @@ class AttributeController extends Controller
         }
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Product Type '" . $product_type->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/product_type');
+            session()->flash('success', "Product Type'" . $product_type->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/product-type');
         } else {
-            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+            return back()->withInput($request->input())->withErrors("Error while updating the Product Type");
         }
     }
 
@@ -375,7 +377,7 @@ class AttributeController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|unique:sizes,title,NULL,id,deleted_at,NULL',
-            'price' => 'required|unique:sizes,price,NULL,id,deleted_at,NULL',
+            // 'price' => 'required|unique:sizes,price,NULL,id,deleted_at,NULL',
             'image' => 'image|mimes:jpeg,png,jpg|max:512'
 
         ]);
@@ -385,7 +387,7 @@ class AttributeController extends Controller
             $size->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $size->title = $validatedData['title'];
-        $size->price = $validatedData['price'];
+        // $size->price = $validatedData['price'];
         if ($size->save()) {
             session()->flash('message', "Size '" . $size->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/size');
@@ -482,6 +484,7 @@ class AttributeController extends Controller
             $shape->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $shape->title = $validatedData['title'];
+        $shape->image_attribute = $request->image_attribute;
         if ($shape->save()) {
             session()->flash('message', "Shape '" . $shape->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/shape');

@@ -35,9 +35,9 @@
                         @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">
-                                <a href="{{url(Helper::sitePrefix().'product/product-type/create')}}"
+                                {{-- <a href="{{url(Helper::sitePrefix().'product/product-type/create')}}"
                                    class="btn btn-success pull-right">Add Product Type <i
-                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
+                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a> --}}
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
@@ -80,9 +80,9 @@
                                                     <a href="{{url(Helper::sitePrefix().'product/product-type/edit/'.$product_type->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Category"><i
                                                             class="fas fa-edit"></i></a>
-                                                    <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
+                                                    {{-- <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
                                                        data-url="product/product-type/delete" data-id="{{$product_type->id}}"
-                                                       title="Delete Product Type"><i class="fas fa-trash"></i></a>
+                                                       title="Delete Product Type"><i class="fas fa-trash"></i></a> --}}
                                                 </div>
                                             </td>
                                         </tr>

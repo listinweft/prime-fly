@@ -1152,14 +1152,25 @@ $(document).ready(function () {
     $('#availability').on('change', function () {
         var availability = $(this).val();
         if (availability == "In Stock") {
-            $('#availability_div').show();
-            $('#stock,#alert_quantity').attr('required', true).addClass('required');
+            $('.availability_div').show();
+            $('.stock,.alert_quantity').attr('required', true).addClass('required');
         } else {
-            $('#availability_div').hide();
-            $('#stock,#alert_quantity').attr('required', false).removeClass('required');
+            $('.availability_div').hide();
+            $('.stock,.alert_quantity').attr('required', false).removeClass('required');
         }
     });
-
+    $('#type').on('change', function () {
+        // var type = $(this).val();
+        // if (type == 1  || type == 3) {
+        //     $('.mount_div').hide();
+        //     $('.mount').attr('required', false).removeClass('required');
+           
+        // } else {
+        //     $('.mount_div').show();
+        //     $('.mount').attr('required', true).addClass('required');
+           
+        // }
+    });
     //offer strip timer
     $('#is_timer_available').on('change', function () {
         if ($(this).val() == "Yes") {

@@ -39,6 +39,8 @@ class CustomerController extends Controller
 
     public function account($tab)
     {
+
+       
         if (Auth::guard('customer')->check()) {
             $seo_data = $this->seo_content('My-Account');
             $banner = Banner::type('my-account')->first();
@@ -46,6 +48,7 @@ class CustomerController extends Controller
             $customer = $user->customer;
             $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
             $countries = Country::where('status', 'Active')->get();
+        //    return $states = State::where('status', 'Active')->get();
             $latestProducts = Product::where('status', 'Active')->take(5)->latest()->get();
             $orders = OrderCustomer::with(['orderData' => function ($q) {
                 $q->with(['orderProducts' => function ($t) {
@@ -60,9 +63,10 @@ class CustomerController extends Controller
         }
     }
 
+   
     public function update_profile(Request $request)
     {
-        // dd($request->all());
+        
         if (Auth::guard('customer')->check()) {
             $user = Auth::guard('customer')->user();
             $customer = $user->customer;
@@ -122,8 +126,10 @@ class CustomerController extends Controller
             'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
 //            'zipcode' => 'required',
             'country' => 'required',
-            'state' => 'required',
+            // 'state' => 'required',
         ]);
+
+        $request->state=1;
         if (Auth::guard('customer')->check()) {
             if ($request->id != '0') {
                 $customer_address = CustomerAddress::find($request->id);
@@ -138,7 +144,7 @@ class CustomerController extends Controller
             $customer_address->phone = $request->phone;
             $customer_address->email = $request->email;
             $customer_address->address = $request->address;
-            $customer_address->address_type = $request->address_label_type ?? 'Home';
+            $customer_address->address_type = $request->address_type ?? 'Home';
            $customer_address->zipcode = $request->zipcode ?? null;
             $customer_address->zipcode = 'N/A';
             $customer_address->state_id = $request->state;
@@ -258,6 +264,7 @@ class CustomerController extends Controller
             $user->password = Hash::make($request->password_confirmation);
             $user->updated_at = now();
             if ($user->save()) {
+              
                 if (Helper::sendCustomerNewpassword($user, $request->password)) {
                     return response()->json(['status' => 'success', 'message' => 'Password has been changed successfully']);
                 } else {
@@ -270,4 +277,5 @@ class CustomerController extends Controller
             abort(403, 'You are not authorised');
         }
     }
+    
 }

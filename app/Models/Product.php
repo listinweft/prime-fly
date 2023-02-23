@@ -76,6 +76,11 @@ class Product extends Model
         return Category::whereIn('id', explode(',', $subCategoryId))->get();
     }
 
+    public function getProductTagsAttribute()
+    {
+        $tagId = $this->tag_id;
+        return Tag::whereIn('id', explode(',', $tagId))->get();
+    }
     /**
      * relationships with the Brand model
      * a product has a Brand

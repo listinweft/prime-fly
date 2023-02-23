@@ -55,16 +55,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label> Price*</label>
-                                    <input type="text" name="price" id="price" placeholder="Price"
-                                           class="form-control required" autocomplete="off"
-                                           value="{{ @$size->price }}">
-                                    <div class="help-block with-errors" id="price_error"></div>
-                                    @error('price')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                        
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
