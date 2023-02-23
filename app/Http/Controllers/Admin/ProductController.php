@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function product_store(Request $request)
     {
   
- dd($request->all());
+    
         DB::beginTransaction();
         if($request->copy != 'Copy'){
             $validatedData = $request->validate([
@@ -110,7 +110,7 @@ class ProductController extends Controller
                 'category' => 'required',
                 'availability' => 'required',
                 'description' => 'required',
-                'type' => 'required|unique:products,product_type_id,' . $request->id . ',id,deleted_at,NULL',
+               
             ]);
         }
         $product = new Product;
@@ -124,18 +124,21 @@ class ProductController extends Controller
             $fileName = last(explode('/', $copy_product->thumbnail_image));
             $fileNameWebp = last(explode('/', $copy_product->thumbnail_image_webp));
             $sourceFilePathImage = public_path() . "/" . $copy_product->thumbnail_image;
-            $destinationPathImage = public_path() . "/uploads/product/image/" . time() . $fileName;
-            $success = File::copy($sourceFilePathImage, $destinationPathImage);
-            if ($success) {
-                $location = 'uploads/product/image/' . $fileName;
-                $product->thumbnail_image = $location;
-            }
-            $sourceFilePathWebp = public_path() . "/" . $copy_product->thumbnail_image_webp;
-            $destinationPathWebp = public_path() . "/uploads/product/image/webp/" . time() . $fileNameWebp;
-            $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
-            if ($successWebp) {
-                $locationWebp = 'uploads/product/image/webp/' . $fileNameWebp;
-                $product->thumbnail_image_webp = $locationWebp;
+            if (File::exists($sourceFilePathImage) ) {
+             
+                $destinationPathImage = public_path() . "/uploads/product/image/" . time() . $fileName;
+                $success = File::copy($sourceFilePathImage, $destinationPathImage);
+                if ($success) {
+                    $location = 'uploads/product/image/' . $fileName;
+                    $product->thumbnail_image = $location;
+                }
+                $sourceFilePathWebp = public_path() . "/" . $copy_product->thumbnail_image_webp;
+                $destinationPathWebp = public_path() . "/uploads/product/image/webp/" . time() . $fileNameWebp;
+                $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
+                if ($successWebp) {
+                    $locationWebp = 'uploads/product/image/webp/' . $fileNameWebp;
+                    $product->thumbnail_image_webp = $locationWebp;
+                }
             }
         }
         if ($request->hasFile('desktop_banner')) {
@@ -151,17 +154,19 @@ class ProductController extends Controller
 
                 $sourceFilePathImage = public_path() . "/" . $copy_product->desktop_banner;
                 $destinationPathImage = public_path() . "/uploads/product/desktop_banner/" . time() . $fileName;
-                $success = File::copy($sourceFilePathImage, $destinationPathImage);
-                if ($success) {
-                    $location = 'uploads/product/desktop_banner/' . $fileName;
-                    $product->desktop_banner = $location;
-                }
-                $sourceFilePathWebp = public_path() . "/" . $copy_product->desktop_banner_webp;
-                $destinationPathWebp = public_path() . "/uploads/product/desktop_banner/webp/" . time() . $fileNameWebp;
-                $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
-                if ($successWebp) {
-                    $locationWebp = 'uploads/product/desktop_banner/webp/' . $fileNameWebp;
-                    $product->desktop_banner_webp = $locationWebp;
+                if (File::exists($sourceFilePathImage) ) {
+                    $success = File::copy($sourceFilePathImage, $destinationPathImage);
+                    if ($success) {
+                        $location = 'uploads/product/desktop_banner/' . $fileName;
+                        $product->desktop_banner = $location;
+                    }
+                    $sourceFilePathWebp = public_path() . "/" . $copy_product->desktop_banner_webp;
+                    $destinationPathWebp = public_path() . "/uploads/product/desktop_banner/webp/" . time() . $fileNameWebp;
+                    $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
+                    if ($successWebp) {
+                        $locationWebp = 'uploads/product/desktop_banner/webp/' . $fileNameWebp;
+                        $product->desktop_banner_webp = $locationWebp;
+                    }
                 }
             }
         }
@@ -177,19 +182,20 @@ class ProductController extends Controller
             if($fileName != null){
 
                 $sourceFilePathImage = public_path() . "/" . $copy_product->featured_image;
-
-                $destinationPathImage = public_path() . "/uploads/product/featured_image/" . time() . $fileName;
-                $success = File::copy($sourceFilePathImage, $destinationPathImage);
-                if ($success) {
-                    $location = 'uploads/product/featured_image/' . $fileName;
-                    $product->featured_image = $location;
-                }
-                $sourceFilePathWebp = public_path() . "/" . $copy_product->featured_image_webp;
-                $destinationPathWebp = public_path() . "/uploads/product/featured_image/webp/" . time() . $fileNameWebp;
-                $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
-                if ($successWebp) {
-                    $locationWebp = 'uploads/product/featured_image/webp/' . $fileNameWebp;
-                    $product->featured_image_webp = $locationWebp;
+                if (File::exists($sourceFilePathImage) ) {
+                    $destinationPathImage = public_path() . "/uploads/product/featured_image/" . time() . $fileName;
+                    $success = File::copy($sourceFilePathImage, $destinationPathImage);
+                    if ($success) {
+                        $location = 'uploads/product/featured_image/' . $fileName;
+                        $product->featured_image = $location;
+                    }
+                    $sourceFilePathWebp = public_path() . "/" . $copy_product->featured_image_webp;
+                    $destinationPathWebp = public_path() . "/uploads/product/featured_image/webp/" . time() . $fileNameWebp;
+                    $successWebp = File::copy($sourceFilePathWebp, $destinationPathWebp);
+                    if ($successWebp) {
+                        $locationWebp = 'uploads/product/featured_image/webp/' . $fileNameWebp;
+                        $product->featured_image_webp = $locationWebp;
+                    }
                 }
             }
         }
@@ -219,7 +225,7 @@ class ProductController extends Controller
         $product->about_item = $request->about_this_item ?? '';
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
         $product->shape_id = ($request->shapes) ? implode(',', $request->shapes) : '';
-   
+        $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
         $product->product_type_id = $request->type;
         $product->mount = $request->mount == 'on' ? "Yes" : "No";
         $product->quantity = $request->quantity ?? '';
@@ -365,9 +371,10 @@ class ProductController extends Controller
 //                'measurement_unit' => 'required',
 //                'quantity' => 'required',
                 'price' => 'required',
-                'type' => 'required|unique:products,product_type_id,' . $id . ',id,deleted_at,NULL',
+                // 'type' => 'required|unique:products,product_type_id,' . $id . ',id,deleted_at,NULL|max:255',
                 'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
             ]);
+      
             if ($request->hasFile('thumbnail_image')) {
                 if (File::exists(public_path($product->thumbnail_image))) {
                     File::delete(public_path($product->thumbnail_image));
@@ -416,6 +423,8 @@ class ProductController extends Controller
                 $product->stock = 0;
                 $product->alert_quantity = 0;
             }
+         
+            $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
             $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
             $product->thumbnail_image_attribute = $request->thumbnail_image_attribute ?? '';
             $product->banner_attribute = $request->banner_attribute ?? '';
@@ -461,6 +470,7 @@ class ProductController extends Controller
                 $similarProducts = [];
                 $errorArray = $successArray = [];
                 if ($product->similar_product_id != NULL) {
+               
                     $similarProducts = explode(',', $product->similar_product_id);
                     $similarProducts[] = $product->id;
                     $combinedResult = $this->combinationArrays($similarProducts, 2);

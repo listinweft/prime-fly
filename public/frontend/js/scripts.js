@@ -125,8 +125,8 @@ $('.categorySliderSmall').slick({
 // Related Product slider
 $(document).ready(function() {
     $('.relatedSlider').owlCarousel({
-        loop: true,
-        autoplay:true,
+        loop: false,
+        autoplay:false,
         margin: 15,
         nav: true,
         dots:false,
