@@ -861,8 +861,8 @@
             </div>
         </div>
         <div class="btnsBox">
-            <a href="checkout.php" class="primary_btn checkout_btn">Proceed To Checkout</a>
-            <a href="cart.php" class="primary_btn login">View Cart</a>
+            <a href="#" class="primary_btn checkout_btn">Proceed To Checkout</a>
+            <a href="#" class="primary_btn login">View Cart</a>
         </div>
     </div>
 </div>

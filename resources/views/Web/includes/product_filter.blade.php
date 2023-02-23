@@ -160,15 +160,15 @@
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
             <div class="shapeArea">
                 <a href="javascript:void(0)" class="shapeFilterClick">
-                    <img class="Img-fluid" src="assets/images/shapePortrait.jpg" alt="">
+                    <img class="Img-fluid" src="{{ asset('frontend/images/shapePortrait.jpg')}}" alt="">
                     <h6>Portrait</h6>
                 </a>
                 <a href="javascript:void(0)" class="shapeFilterClick">
-                    <img class="Img-fluid" src="assets/images/shapeLandscape.jpg" alt="">
+                    <img class="Img-fluid" src="{{ asset('frontend/images/shapeLandscape.jpg')}}" alt="">
                     <h6>Landscape</h6>
                 </a>
                 <a href="javascript:void(0)" class="shapeFilterClick">
-                    <img class="Img-fluid" src="assets/images/shapeSquare.jpg" alt="">
+                    <img class="Img-fluid" src="{{ asset('frontend/images/shapeSquare.jpg')}}" alt="">
                     <h6>Square</h6>
                 </a>
             </div>

@@ -62,6 +62,7 @@
                                         @endif
                                         <th>Email</th>
                                         <th>Phone Number</th>
+                                        <th>Subject</th>
                                         <th>Message</th>
                                         <th>Reply</th>
                                         <th>Request URL</th>
@@ -81,6 +82,7 @@
                                             @endif
                                             <td>{{ $enquiry->email}}</td>
                                             <td>{{ $enquiry->phone }}</td>
+                                            <td>{{ $enquiry->subject }}</td>
                                             <td>{{ $enquiry->message }}</td>
                                             <td>{{ $enquiry->reply }}</td>
                                             <td>{{ $enquiry->request_url }}</td>

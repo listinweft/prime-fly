@@ -11,10 +11,10 @@
                         <h1>Product Details</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.php"><img
+                                <li class="breadcrumb-item"><a href="{{url('/')}}"><img
                                             src="{{ asset('frontend/images/home.png') }}" alt=""></a></li>
-                                <li class="breadcrumb-item"><a href="product-listing.php">Products</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                                <li class="breadcrumb-item"><a href="{{url('products')}}">Products</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{$product->title}}</li>
                             </ol>
                         </nav>
                     </div>
@@ -36,14 +36,15 @@
                                     <div
                                         class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active">
                                         <div class="fotorama__html">
-                                            <img class=" fotorama__img"
-                                                src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg"
-                                                aria-hidden="false">
+                                            {!! Helper::printImage('thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','footorama__img') !!}
+                                            {{-- <img class=" fotorama__img"
+                                                src="{{asset($product->thumbnail_image)}}" class="img-fluid"
+                                                aria-hidden="false"> --}}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="itemImgBox">
+                                {{-- <div class="itemImgBox">
                                     <img class="img-fluid" src="{{ asset('frontend/images/product/product02.jpg') }}">
                                 </div>
                                 <div class="itemImgBox">
@@ -51,7 +52,7 @@
                                 </div>
                                 <div class="itemImgBox">
                                     <img class="img-fluid" src="{{ asset('frontend/images/frame/wooden-frame_th.jpg') }}">
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-3 productDetailsLeftFirst">
@@ -59,8 +60,9 @@
                                 <div class="fotorama__nav__frame">
                                     <div
                                         class="fotorama__thumb fotorama_horizontal_ratio fotorama__loaded fotorama__loaded--img">
-                                        <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg"
-                                            class="fotorama__img">
+                                        {!! Helper::printImage('thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','fotorama__img') !!}
+                                        {{-- <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg"
+                                            class="fotorama__img"> --}}
                                     </div>
                                 </div>
                                 <div class="fotorama__nav__frame ">
@@ -91,45 +93,41 @@
                 <div class="col-xxl-7 col-lg-7 productDetailsInfo ps-xxl-5 ps-xl-4">
                     <div class="productNameStock">
                         <div class="name">
-                            <h4>Lorem ipsum dolor sit amet.</h4>
+                            <h4>{{$product->title}}</h4>
                         </div>
                         <!--                    <div class="stock">-->
                         <!--                        In Stock-->
                         <!--                    </div>-->
+                        @if (@$product->availability == 'out of stock')
                         <div class="stock outOfStock">
-                            out of stock
+                            {{ $product->availability}}
                         </div>
+                        @endif
                     </div>
                     <div class="productRatingPrice">
                         <div class="rating">
-                            <h6>1,098 Ratings</h6>
+                            <h6>  {{ $totalReviews }} Ratings</h6>
+                            @if($averageRatings >0)
                             <div class="rate_area">
-                                <i class="fa-solid fa-star"></i> 4.5
+
+                                <i class="fa-solid fa-star"></i>  {{ $averageRatings }}
                             </div>
+                            @endif
                         </div>
                         <div class="price">
-                            <h5>AED 12020.28</h5>
+                            @php
+                                $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                            @endphp
+                            <h5>AED {{$price->price.'.00'}}</h5>
                         </div>
                     </div>
                     <div class="productCode">
                         <h5>
-                            Product Code : <strong>ART345699</strong>
+                            Product Code : <strong>{{$product->sku}}</strong>
                         </h5>
                     </div>
                     <div class="textArea">
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                            the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                            of type and scrambled it to make a type specimen book.
-                        </p>
-                        <ul>
-                            <li>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            </li>
-                            <li>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            </li>
-                        </ul>
+                        {!! @$product->description !!}
                     </div>
 
                     <div class="relatedProductsTypesSelect">
@@ -137,34 +135,16 @@
                             Select Product Type
                         </h5>
                         <div class="relatedProductsTypesWrapper">
-                            <div class="item active">
-                                <a href="{{ url('product-details') }}">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/type-00.jpg') }}"
-                                        alt="">
-                                    <p>Print Only</p>
+                            @foreach ($productTypes as $type)
+                            <div class="item {{$type->id ==  1 ?  'active' : '' }}">
+                                <a href=" {{$type->id ==  1 ?  url('/product/'.$product->short_url) : '#' }} ">
+                                   {!! Helper::printImage($type, 'image','image_webp','image_attribute') !!}
+                                    <p>{{$type->title}}</p>
                                 </a>
                             </div>
-                            <div class="item">
-                                <a href="{{ url('product-details-canvas') }}">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/type-01.jpg') }}"
-                                        alt="">
-                                    <p>Canvas</p>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="{{ url('product-details-stretched-canvas') }}">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/type-02.jpg') }}"
-                                        alt="">
-                                    <p>Stretched Canvas</p>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a href="{{ url('product-details-framed-canvas') }}">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/type-03.jpg') }}"
-                                        alt="">
-                                    <p>Framed Canvas</p>
-                                </a>
-                            </div>
+                                
+                            @endforeach
+                        
                         </div>
                     </div>
 
@@ -173,34 +153,23 @@
                             Select Size <span>(Size in cms)</span>
                         </h5>
                         <div class="relatedProductsTypesWrapper sizeSection">
-                            <div class="item active">
+                            @foreach ($sizes as $size)
+                            <div class="item {{$size->id ==  1 ?  'active' : '' }} checkprice" data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
                                 <div class="sizeImageBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/50_50.png') }}"
-                                        alt="">
+                                    {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                                 </div>
-                                <p>50 X 50</p>
+                                <p>{{$size->title}}</p>
                             </div>
-                            <div class="item">
-                                <div class="sizeImageBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/75_75.png') }}"
-                                        alt="">
-                                </div>
-                                <p>75 X 75</p>
-                            </div>
-                            <div class="item disabledItem">
+                            @endforeach
+
+                            {{-- <div class="item disabledItem">
                                 <div class="sizeImageBox">
                                     <img class="img-fluid" src="{{ asset('frontend/images/productTypes/40_40.png') }}"
                                         alt="">
                                 </div>
                                 <p>40 X 50</p>
-                            </div>
-                            <div class="item">
-                                <div class="sizeImageBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/productTypes/60_75.png') }}"
-                                        alt="">
-                                </div>
-                                <p>60 X 75</p>
-                            </div>
+                            </div> --}}
+                       
                         </div>
                     </div>
 
@@ -230,10 +199,12 @@
                         </h5>
                         <div class="priceQuantityArea">
                             <div class="priceArea">
-                                <h3>AED 12020.28</h3>
-                                <h6>
-                                    AED 13020.28
-                                </h6>
+                               
+                                @php
+                                $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                            @endphp
+                            <h3 id="price">AED {{$price->price.'.00'}}</h3>
+                            <h6></h6>
                             </div>
                             <div class="quantity_parice_order_area">
                                 <div class="quantity-counter">
@@ -267,12 +238,11 @@
 
                     <div class="tagArea">
                         <h6>Product Tags</h6>
-                        <div class="tag">Abstract</div>
-                        <div class="tag">Art</div>
-                        <div class="tag">Canvas</div>
-                        <div class="tag">Acrylic</div>
-                        <div class="tag">Portrait</div>
-                        <div class="tag">Nature</div>
+                        @foreach ($productTags as $tag)
+                            
+                        <div class="tag">{{$tag->title}}</div>
+                        @endforeach
+                     
                     </div>
 
                 </div>
@@ -284,83 +254,18 @@
                             About This Item
                         </h4>
                         <div class="textArea">
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                                been
-                                the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                                galley
-                                of type and scrambled it to make a type specimen book. It has survived not only five
-                                centuries,
-                                but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                                popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                                passages.
-                            </p>
-                            <ul>
-                                <li>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                    has been
-                                    the industry's
-                                </li>
-                                <li>
-                                    It has survived not only five centuries,
-                                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                                </li>
-                                <li>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                </li>
-                                <li>
-                                    It has survived not only five centuries,
-                                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                                </li>
-                                <li>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                    has been
-                                    the industry's
-                                </li>
-                            </ul>
+                           {!! $product->about_item !!}
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center mt-4">
                     <div class="col-lg-5">
-                        <img class="img-fluid" src="{{ asset('frontend/images/moreDetails.jpg') }}" alt="">
+                        {!! Helper::printImage($product, 'featured_image','featured_image_webp','featured_image_attribute', 'img-fluid') !!}
                     </div>
                     <div class="col-lg-5 right ps-xl-5">
                         <div class="textArea">
                             <div>
-                                <h3>
-                                    Lorem Ipsum is simply dummy text
-                                </h3>
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                    has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                    printer took a galley of type and scrambled it to make a type specimen book. It has
-                                    survived not only five centuries, but also the leap into electronic typesetting,
-                                    remaining essentially unchanged.
-                                </p>
-                                <ul>
-                                    <li>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been
-                                        the industry's
-                                    </li>
-                                    <li>
-                                        It has survived not only five centuries,
-                                        but also the leap into electronic typesetting, remaining essentially unchanged.
-                                    </li>
-                                    <li>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </li>
-                                    <li>
-                                        It has survived not only five centuries,
-                                        but also the leap into electronic typesetting, remaining essentially unchanged.
-                                    </li>
-                                    <li>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been
-                                        the industry's
-                                    </li>
-                                </ul>
+                               {!! $product->featured_description !!}
                             </div>
                         </div>
                     </div>
@@ -1167,10 +1072,10 @@
                                 <textarea name="message" id="message" class="form-control form-message" placeholder="Message*"></textarea>
                                 <!-- <input type="password" class="form-control" placeholder="Password*"> -->
                             </div>
-                            <input type="hidden" name="subject" value="subject">
+                            {{-- <input type="hidden" name="subject" value="subject"> --}}
 
                             <input type="hidden" name="type" value="product">
-                            {{-- <input type="hidden" name="product_id" value="{{ $product->id }}"> --}}
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <div class="form-group">
                                 <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                             </div>

@@ -15,7 +15,7 @@
                         </a>
                     </div>
                     <div class="details">
-                        <div>
+                        <div> 
                             <a href="">
                                 <h5>
                                     Lorem ipsum dolor.

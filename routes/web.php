@@ -78,6 +78,8 @@ Route::get('brand/{url}', [WebController::class, 'brand']);
 Route::get('deal/{url}', [WebController::class, 'deal']);
 Route::get('products', [WebController::class, 'products']);
 Route::get('product/{short_url}', [WebController::class, 'product_detail']);
+Route::post('product/check-price', [WebController::class, 'check_price']);
+
 Route::get('category/{short_url}', [WebController::class, 'category']);
 Route::post('newsletter', [WebController::class, 'newsletter']);
 Route::post('filter-product', [WebController::class, 'filter_product']);

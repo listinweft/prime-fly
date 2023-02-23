@@ -85,7 +85,7 @@
                                                        data-url="product/size/delete" data-id="{{$size->id}}"
                                                        title="Delete Size"><i class="fas fa-trash"></i></a>
                                                 </div>
-                                            </td>
+                                            {{-- </td> --}}
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -852,7 +852,27 @@ $(document).ready(function () {
             }
         });
     });
-
+    $(document).on('click', '.checkprice', function () {
+        var id = $(this).data('id');
+      
+        var product_id = $(this).data('product_id');
+        var product_type_id = $(this).data('product_type_id');
+        $.ajax({
+            type: 'POST', dataType: 'html', data: {id,product_id,product_type_id}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url:'/product/check-price', success: function (response) {
+                
+                $('#price').html('AED '+response+'.00');
+                if (response != '0') {
+                    
+                } else {
+                    swal.fire({
+                        title: "Error", text: "Error while load the form", icon: 'error'
+                    });
+                }
+            }
+        });
+    });
 
     $(document).on('click', '#add_address_gos', function () {
 
