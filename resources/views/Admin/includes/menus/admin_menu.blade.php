@@ -241,16 +241,23 @@
     <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='enquiry')?'block':'none' }}">
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry')}}"
-               class="nav-link {{ (Request::is(Helper::sitePrefix().'enquiry'))?:'' }}">
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'enquiry'))?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Contact Page</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'enquiry')}}"
-               class="nav-link {{ (Request::segment(3)=='our-collection' && Request::segment(4)=='create')?'active':'' }}">
+            <a href="{{url(Helper::sitePrefix().'enquiry/product')}}"
+               class="nav-link {{ (Request::segment(3)=='product')?:'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p> Product </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'enquiry/bulk')}}"
+               class="nav-link {{ (Request::segment(3)=='product')?:'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p> Bulk Enquiry </p>
             </a>
         </li>
     </ul>

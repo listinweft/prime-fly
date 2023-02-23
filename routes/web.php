@@ -398,6 +398,13 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('delete', [EnquiryController::class, 'delete_bulk']);
             Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_bulk']);
         });
+        Route::prefix('product')->group(function () {
+            Route::get('/', [EnquiryController::class, 'product_list']);
+            Route::get('view/{id}', [EnquiryController::class, 'product_view']);
+            Route::post('reply', [EnquiryController::class, 'reply_to_product']);
+            Route::post('delete', [EnquiryController::class, 'delete_product']);
+            Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_product']);
+        });
 
         Route::prefix('newsletter')->group(function () {
             Route::get('/', [EnquiryController::class, 'newsletter']);

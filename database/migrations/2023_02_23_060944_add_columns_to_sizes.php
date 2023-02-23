@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->string('color')->unique()->after('image_attribute');
-            $table->string('code')->unique()->after('color');
+        Schema::table('sizes', function (Blueprint $table) {
+            $table->integer('sort_order')->default(0);
         });
     }
 
@@ -26,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            //
+        Schema::table('sizes', function (Blueprint $table) {
+            $table->dropColumn('sort_order');
         });
     }
 };

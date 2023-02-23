@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('sizes', function (Blueprint $table) {
-            $table->string('image')->nullable();
-            $table->string('image_webp')->nullable();
-            $table->string('image_attribute')->nullable();
+        Schema::table('product_types', function (Blueprint $table) {
+            $table->integer('sort_order')->default(0);
         });
     }
 
@@ -27,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('sizes', function (Blueprint $table) {
-            //
+        Schema::table('product_types', function (Blueprint $table) {
+            $table->dropColumn('sort_order');
         });
     }
 };

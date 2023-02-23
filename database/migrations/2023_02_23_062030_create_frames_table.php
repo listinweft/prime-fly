@@ -13,8 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('shapes', function (Blueprint $table) {
+        Schema::create('frames', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('image')->nullable();
+            $table->text('image_webp')->nullable();
+            $table->string('image_attribute')->nullable();
+            $table->string('code')->unique();
             $table->integer('sort_order')->default(0);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('shapes', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('frames');
     }
 };
