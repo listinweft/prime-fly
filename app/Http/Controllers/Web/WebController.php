@@ -56,7 +56,7 @@ class WebController extends Controller
     public function home()
     {
         $seo_data = $this->seo_content('Home');
-       
+
 
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
@@ -81,8 +81,11 @@ class WebController extends Controller
         $homeHeadings = HomeHeading::get();
         $aboutFeatures = AboutFeature::active()->take(4)->oldest('sort_order')->get();
         $histories = History::active()->oldest('sort_order')->get();
-         $banner = Banner::type('about')->first();
-        return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings'));
+        $banner = Banner::type('about')->first();
+        $catHomeHeadings = HomeHeading::where('type','category')->first();
+        $themes = Category::active()->oldest('sort_order')->get();
+
+        return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
     }
 
 
@@ -319,7 +322,7 @@ class WebController extends Controller
             $productTypes = ProductType::active()->get();
             $sizes = Size::active()->get();
             $banner = $seo_data = $product;
-          
+
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
             $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))->latest()->get();
             $relatedProducts = Product::active()->whereIn('id', explode(',', $product->related_product_id))->latest()->get();
@@ -349,7 +352,7 @@ class WebController extends Controller
     }
     public function filter_product(Request $request)
     {
-       
+
         $condition = $this->filterCondition($request);
         $condition = $this->sortCondition($request, $condition);
         $totalProducts = $condition->count();

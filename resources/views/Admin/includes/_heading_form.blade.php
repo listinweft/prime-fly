@@ -27,10 +27,10 @@
                     <input type="text" class="form-control required" id="subtitle" name="subtitle"
                            placeholder="Sub Title" value="{{@$home_heading->subtitle}}">
                     <div class="help-block with-errors" id="subtitle_error"></div>
-                   
+
                 </div>
             </div>
-            
+
             <!-- @if(Request::segment(3)=='type') -->
             <input type="hidden" name="is_description" id="is_description" value="1">
                 <div class="form-row">

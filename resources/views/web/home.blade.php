@@ -13,7 +13,7 @@
                                 <h1>
                                     <strong>{{$banner->title}}</strong> {{$banner->subtitle}}
                                 </h1>
-                            
+
                                     {!!$banner->description!!}  .
                                 @if ($banner->button_text == '' || $banner->button_text == null)
                                 <a href="{{$banner->url}}" class="primary_btn">
@@ -158,7 +158,7 @@
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
-                <h6 class="subHeading">{{$catHomeHeadings->sub_title}}</h6>
+                <h6 class="subHeading">{{$catHomeHeadings->subtitle}}</h6>
                 <h2 class="mainHeading">{{$catHomeHeadings->title}}</h2>
                 <div class="headingText">
                    {!! $catHomeHeadings->description !!}
@@ -177,7 +177,7 @@
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
-                        
+
                             {{-- <h6>{{@$count }} items</h6> --}}
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                                         <h6>{{ $product->title }}</h6>
                                         @foreach ($product->product_categories as $category)
                                             <p>{{ $category->title }}</p>
-                                            
+
                                         @endforeach
                                         <p>Poster Art</p>
                                         <div class="starPrice">
@@ -240,14 +240,14 @@
                                                     <li>
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                     </li>
-                                                 
-                                                   
+
+
                                                     @else
                                                     <li>
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                     </li>
                                                     <li>
-                                                       
+
                                                     </li>
                                                     @endif
                                                 </ul>
@@ -277,7 +277,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-12 pt-60">
-               
+
                     <div class="testimonialsSlider">
                     @if($testimonials->isNotEmpty())
                     @foreach( $testimonials as $blog)
@@ -309,9 +309,9 @@
                         </div>
                         @endforeach
                         @endif
-                       
+
                     </div>
-                    
+
                 </div>
                 <div class="col-12 text-center mt-md-5">
                     <a href="" class="primary_btn">Add Your Review</a>
@@ -322,5 +322,5 @@
 <!--Home Testimonial End-->
 @endsection
 @push('scripts')
-    
+
 @endpush
