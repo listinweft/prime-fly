@@ -992,8 +992,8 @@ $(document).ready(function () {
         filterProducts();
     });
 
-    $('.filterItem').on('change', function () {
-      
+    $('.filterItem').on('click', function () {
+     
        var parent = $(this).data('parent');
        if(parent != null){
               $('#Category_'+parent).prop('checked', true);

@@ -85,7 +85,7 @@
 
                     <div class="fltr sort_details filterItems">
                         <div class="txt" id="filterResult">
-                         tags
+                       
                         </div>
                         <button class="btn">
                             <i class="fa-solid fa-xmark"></i>
@@ -100,7 +100,7 @@
                     
                 </div>
             </div>
-              <div class="productListingWrapper">
+              <div class="productListingWrapper productList">
              
               @include('web.includes.product_list')
               

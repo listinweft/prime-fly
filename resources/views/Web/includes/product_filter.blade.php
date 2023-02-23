@@ -35,13 +35,13 @@
                                     
                                 <li>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault02" name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
+                                                                        <input class="form-check-input filterItem" type="checkbox" value="{{$subCategory->id}}" id="flexCheckDefault02" name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
                                                                                id="Category_{{$subCategory->id}}"
                                                                                data-field="sub_category_id"
                                                                                value="{{ $subCategory->id }}"
                                                                                data-label="Category"
                                                                                data-title="{{$subCategory->title}}">
-                                                                        <label class="form-check-label filterItem" for="Category_{{$subCategory->id}}">
+                                                                        <label class="form-check-label" for="Category_{{$subCategory->id}}">
                                                                         {{ $subCategory->title }}
                                                                         </label>
                                                                     </div>
