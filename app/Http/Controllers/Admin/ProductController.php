@@ -98,7 +98,7 @@ class ProductController extends Controller
     //            'measurement_unit' => 'required',
     //            'quantity' => 'required',
                 // 'price' => 'required',
-                'type' => 'required|unique:products,product_type_id,' . $request->id . ',id,deleted_at,NULL',
+                
                 'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
             ]);
 
@@ -111,6 +111,7 @@ class ProductController extends Controller
                 'category' => 'required',
                 'availability' => 'required',
                 'description' => 'required',
+                'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
                
             ]);
         }

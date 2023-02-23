@@ -178,5 +178,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'product_sub_category', 'product_id', 'category_id');
     }
+    public function productType(){
+        return $this->belongsTo(ProductType::class);
+    }
 
 }
