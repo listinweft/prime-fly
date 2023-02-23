@@ -73,7 +73,7 @@
                                 @endforeach
                                 @if(Helper::averageRating($product->id)>0)
                                 <li class="review">
-                                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id) 
+                                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
                                 </li>
                                 @endif
                             </ul>
