@@ -33,6 +33,7 @@ use App\Models\Size;
 use App\Models\SeoData;
 use App\Models\SiteInformation;
 use App\Models\Tag;
+use App\Models\Shape;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -200,6 +201,7 @@ class WebController extends Controller
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();
+        $shapes = Shape::latest()->get();
         $offset = $products->count();
         $loading_limit = 15;
         $type = "product";
@@ -209,7 +211,7 @@ class WebController extends Controller
         $latestProducts = Product::active()->take(5)->latest()->get();
         return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
-            'title', 'sort_value'));
+            'title', 'sort_value','shapes'));
     }
 
 
@@ -362,7 +364,7 @@ class WebController extends Controller
         $offset = $products->count();
         $title = 'Filtered Products';
         $type = $request->pageType;
-        $typeValue = $request->typeValue;
+       $typeValue = $request->typeValue;
         return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
             'title', 'type', 'typeValue', 'sort_value'));
     }
@@ -375,6 +377,7 @@ class WebController extends Controller
         if ($request->input_field != NULL) {
             $inputs = explode(',', $request->input_field);
         }
+        
         if ($request->pageType == "category" && !in_array('category_id', $inputs)) {
             $category = Category::active()->where('short_url', $request->typeValue)->first();
             if ($category) {

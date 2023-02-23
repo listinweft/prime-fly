@@ -61,25 +61,11 @@
             <div class="tagArea">
                 <h6>Product Tags</h6>
                 
-                <div class="tagWrapper">
-
-
-                    <div class="fltr sort_details filterItems">
-                        <div class="txt" id="filterResult">
-                       
-                        </div>
-                        <button class="btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        
-                    </div>
-                    
-                   
-                    <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
-                    
+                <div class="tagWrapper filterItems" id="filterResult">
                     
                     
                 </div>
+                <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
             </div>
               <div class="productListingWrapper productList">
              
