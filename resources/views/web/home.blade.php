@@ -290,22 +290,20 @@
                                     <h3>{{ @$blog->name }}</h3>
                                     <h6>{{ @$blog->designation }}</h6>
                                     <div class="reviewIconStar">
+                                        @if(@$blog->review_type!=="Normal")
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
+                                        @endif
+                    
                                         <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>
                             </div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
+                            <div class="textWrapper">
+                            {!! @$blog->message !!}
+                            
+                            </div>
                         </div>
                         @endforeach
                         @endif
@@ -314,7 +312,7 @@
                     
                 </div>
                 <div class="col-12 text-center mt-md-5">
-                    <a href="" class="primary_btn">Add Your Review</a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn">Add Your Review</a>
                 </div>
             </div>
         </div>

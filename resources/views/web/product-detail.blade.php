@@ -620,7 +620,7 @@
                         <div class="relatedSlider owl-carousel owl-theme ">
                             @foreach ($relatedProducts as $product)
                             <div class="item">
-                                <div class="product-item-info">
+                                <div class="product-item-info">htgh
                                     <div class="product-photo ">
     
                                         <div class="product-image-container w-100">

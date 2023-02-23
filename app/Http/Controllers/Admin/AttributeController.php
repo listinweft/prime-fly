@@ -283,7 +283,7 @@ class AttributeController extends Controller
     public function product_type_store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|unique:measurement_units,title',
+            'title' => 'required|unique:product_type,title',
             'image' => 'image|mimes:jpeg,png,jpg|max:512'
         ]);
         $product_type = new ProductType;
@@ -294,8 +294,8 @@ class AttributeController extends Controller
         }
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Product Type'" . $product_type->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/product-type');
+            session()->flash('success', "Product Type '" . $product_type->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/product_type');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the Product Type");
         }
