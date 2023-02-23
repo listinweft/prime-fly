@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             //
 
-            $table->double('price')->default(0);
+            $table->double('price')->default(0)->change();
         });
     }
 
