@@ -36,15 +36,15 @@
                                     <div
                                         class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active">
                                         <div class="fotorama__html">
-                                            {!! Helper::printImage('thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','footorama__img') !!}
-                                            {{-- <img class=" fotorama__img"
+                                            {{-- {!! Helper::printImage('thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','footorama__img') !!} --}}
+                                            <img class=" fotorama__img"
                                                 src="{{asset($product->thumbnail_image)}}" class="img-fluid"
-                                                aria-hidden="false"> --}}
+                                                aria-hidden="false">
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- <div class="itemImgBox">
+                                <div class="itemImgBox">
                                     <img class="img-fluid" src="{{ asset('frontend/images/product/product02.jpg') }}">
                                 </div>
                                 <div class="itemImgBox">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="itemImgBox">
                                     <img class="img-fluid" src="{{ asset('frontend/images/frame/wooden-frame_th.jpg') }}">
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                         <div class="col-3 productDetailsLeftFirst">
@@ -60,9 +60,9 @@
                                 <div class="fotorama__nav__frame">
                                     <div
                                         class="fotorama__thumb fotorama_horizontal_ratio fotorama__loaded fotorama__loaded--img">
-                                        {!! Helper::printImage('thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','fotorama__img') !!}
-                                        {{-- <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg"
-                                            class="fotorama__img"> --}}
+                                        {{-- {!! Helper::printImage('thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','fotorama__img') !!} --}}
+                                        <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg"
+                                            class="fotorama__img">
                                     </div>
                                 </div>
                                 <div class="fotorama__nav__frame ">
