@@ -355,7 +355,7 @@ class EnquiryController extends Controller
         }
     }
 
-    /******************************** prodcut Enquiry ************************************/
+    /******************************** product Enquiry ************************************/
     public function product_list()
     {
         $title = "Product Enquiry List";
