@@ -860,7 +860,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST', dataType: 'html', data: {id,product_id,product_type_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url:'/product/check-price', success: function (response) {
+            }, url : base_url+'/product/check-price', success: function (response) {
                 
                 $('#price').html('AED '+response+'.00');
                 if (response != '0') {
