@@ -47,6 +47,7 @@
 
         </div>
         <div class="col-lg-9 productListingArea">
+       
             <div class="topSortDetails">
                 <div>
                     <h4>Latest Products</h4>
