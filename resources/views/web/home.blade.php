@@ -172,26 +172,13 @@
                     @foreach ($themes as $theme)
                     <div class="shopSectionItem shopSectionItemBg{{$n}}">
                         <div class="wrapper">
-                         
                             <div class="imgBox">
                                 {!! Helper::printImage(@$theme, 'image', 'image_webp', '', 'img-fluid') !!}
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
-                        @php
-                        // get all products count by category
-                            $productCategoryCount = \DB::table('product_category')->where('category_id', $theme->id)->get();
-
-                            $productIDs = [];
-                            foreach ($productCategoryCount as $key => $value) {
-                                $productIDs[] = $value->product_id;
-                            }
-                         $arrayCount = count($productIDs);
-
-                        @endphp
-                            <h6>{{$arrayCount}} items</h6>
-                            {{-- <h6>{{@$productCategoryCount }} items</h6> --}}
-                           
+                        
+                            {{-- <h6>{{@$count }} items</h6> --}}
                         </div>
                     </div>
                     @php
@@ -303,19 +290,19 @@
                                     <h3>{{ @$blog->name }}</h3>
                                     <h6>{{ @$blog->designation }}</h6>
                                     <div class="reviewIconStar">
-                                        @if(@$blog->review_type == "Google" )
+                                        @if(@$blog->review_type!=="Normal")
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
                                         @endif
+                    
                                         <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="textWrapper">
-                           
-                                {!! @$blog->message !!}
-                             
+                            {!! @$blog->message !!}
+                            
                             </div>
                         </div>
                         @endforeach

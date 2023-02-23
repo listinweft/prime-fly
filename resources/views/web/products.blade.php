@@ -16,7 +16,7 @@
                     <div class="category_area">
                         <h6 class="heading">
                             <div> Filter</div>
-                            <button type="button" class="btn-close text-reset" id="searchBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </h6>
                         <div class="ProductListCategory">
                             @include('web.includes.product_filter')
@@ -30,7 +30,7 @@
        
             <div class="topSortDetails">
                 <div>
-                    <h4>Products</h4>
+                    <h4> Products</h4>
                     <p></p>
                 </div>
                 <div class="sortSearchBox">
@@ -45,11 +45,6 @@
                                 <img class="img-fluid" src="{{asset('frontend/images/search.png')}}" alt="">
                             </a>
                         </li>
-
-                        <div class="searchResult">
-                            <ul id="search-result-append-here"></ul>
-                        </div>
-                        
                         <li>
                             <img class="img-fluid" src="{{asset('frontend/images/sort.png')}}" alt="">
                             <p>Sort By</p>
@@ -64,13 +59,27 @@
                 </div>
             </div>
             <div class="tagArea">
-                <h6></h6>
+                <h6>Product Tags</h6>
                 
-                <div class="tagWrapper filterItems" id="filterResult">
-                    
+                <div class="tagWrapper">
+
+
+                    <div class="fltr sort_details filterItems">
+                        <div class="txt" id="filterResult">
                        
+                        </div>
+                        <button class="btn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        
+                    </div>
+                    
+                   
+                    <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
+                    
+                    
+                    
                 </div>
-                <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
             </div>
               <div class="productListingWrapper productList">
              

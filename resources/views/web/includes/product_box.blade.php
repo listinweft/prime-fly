@@ -32,8 +32,9 @@
                                         </li>
                                     </ul>
                                     <div class="logoArea mt-auto">
-                                    <img class="img-fluid" src=" {{ asset('frontend/images/productListLogo.png') }}" alt="">
-                                      
+                                    <img class="img-fluid" src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
+                                   
+                                  
                                     </div>
                                 </div>
                             </div>
