@@ -131,14 +131,16 @@
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
             <div class="shapeArea">
             @foreach($shapes as $shape)
-                <a href="javascript:void(0)" class="colorItemFilterClicks">
-                    {!! Helper::printImage($shape, 'image', 'image_webp', '', 'img-fluid') !!}
-                    <h6 for="Shape_{{$shape->id}}">{{ @$shape->title }}</h6>
+                <a href="javascript:void(0)" class="shapeFilterClick">
+                    <label for="Shape_{{$shape->id}}">
+                        {!! Helper::printImage($shape, 'image', 'image_webp', '', 'img-fluid') !!}
+                        <h6>{{ @$shape->title }}</h6>
+                    </label>
                     <input type="checkbox"  name="shape_id[]" id="Shape_{{$shape->id}}" data-field="shape_id"
                                                                value="{{ $shape->id }}" data-label="Shape"
                                                                data-title="{{$shape->title}}"
                                                                {{ $color->short_url == $typeValue?'checked':'' }}
-                                                               class="form-check-input filterItem">
+                                                               class="form-check-input filterItem d-none">
                 </a>
                 @endforeach
             </div>
@@ -156,33 +158,22 @@
         </h2>
         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
             <div class="productTagArea">
+            @foreach($tags as $tag)
                 <a href="javascript:void(0)" class="tagFilterClick">
-                    Seascape
+                {{ @$tag->title }}
+                <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
+                                                               value="{{ $tag->id }}" data-label="Shape"
+                                                               data-title="{{$tag->title}}"
+                                                               {{ $color->short_url == $typeValue?'checked':'' }}
+                                                               class="form-check-input filterItem">
                 </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Canvas
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Acrylic
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Art
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Abstract
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Contemporary
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Texture
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Illustration
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Gestural
-                </a>
+               
+                @endforeach
+               
+                
+                
+               
+               
             </div>
         </div>
     </div>

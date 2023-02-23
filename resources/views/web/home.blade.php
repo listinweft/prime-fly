@@ -315,7 +315,7 @@
                             <div class="textWrapper">
                            
                                 {!! @$blog->message !!}
-                            
+                             
                             </div>
                         </div>
                         @endforeach

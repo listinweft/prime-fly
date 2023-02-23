@@ -196,6 +196,7 @@ Route::prefix('admin')->group(function () {
     Route::post('forgot-password', [LoginController::class, 'forgot_password']);
     Route::get('reset-password/{token}', [LoginController::class, 'reset_password']);
     Route::post('reset-password/{token}', [LoginController::class, 'reset_password_store']);
+
 });
 
 
@@ -210,7 +211,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('change-bool-status', [HomeController::class, 'change_bool_status']);
     Route::post('sort_order/', [HomeController::class, 'sort_order']);
     Route::post('sub-category', [HomeController::class, 'sub_categories']);
-    Route::post('kv-delete-file', [HomeController::class, 'delete_file']);
+    Route::post('sub-category', [HomeController::class, 'sub_categories']);
+  
 
 
     Route::prefix('about')->group(function () {
@@ -404,6 +406,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('/', [EnquiryController::class, 'product_list']);
             Route::get('view/{id}', [EnquiryController::class, 'product_view']);
             Route::post('reply', [EnquiryController::class, 'reply_to_product']);
+            
             Route::post('delete', [EnquiryController::class, 'delete_product']);
             Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_product']);
         });
@@ -571,7 +574,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('delete', [ProductController::class, 'delete_product']);
         Route::get('export', [ProductController::class, 'product_export']);
         Route::get('copy/{id}', [ProductController::class, 'copy_product']);
-
+        Route::post('validate', [HomeController::class, 'product_validate']);
 
         Route::prefix('category')->group(function () {
             Route::get('/', [CategoryController::class, 'category_list']);
