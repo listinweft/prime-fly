@@ -507,6 +507,7 @@
         </div>
     </section>
     <!-- Testimonial End-->
+    @if(@$similarProducts->isNotEmpty())
     <div class="relatedProducts youMayAlsoLike">
         <div class="container">
             <div class="row">
@@ -608,7 +609,8 @@
             </div>
         </div>
     </div>
-    
+    @endif
+    @if(@$relatedProducts->isNotEmpty())
     <div class="relatedProducts">
         <div class="container">
             <div class="row">
@@ -709,7 +711,7 @@
         </div>
     </div>
 
-
+@endif
 
     <section class="bottomStickyBar">
         <div class="container">
