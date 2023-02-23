@@ -1075,9 +1075,9 @@
                             {{-- <input type="hidden" name="subject" value="subject"> --}}
 
                             <input type="hidden" name="type" value="product">
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="product_id" value="1">
                             <div class="form-group">
-                                <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
+                                <button class="btn primary_btn submit_form_btn" data-url="/enquiry">Send</button>
                             </div>
 
 

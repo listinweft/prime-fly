@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function product_store(Request $request)
     {
   
- 
+ dd($request->all());
         DB::beginTransaction();
         if($request->copy != 'Copy'){
             $validatedData = $request->validate([

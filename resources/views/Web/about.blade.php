@@ -119,9 +119,9 @@
                     <h2 class="mainHeading">{!! @$home_heading->title !!}</h2>
                     <div class="headingText">
                         <p>
-                            {!! @$home_heading->description !!}
-                            {{-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                            the industry's standard --}}
+                            {{-- {!! @$home_heading->description !!} --}}
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                            the industry's standard
                         </p>
                     </div>
                 </div>

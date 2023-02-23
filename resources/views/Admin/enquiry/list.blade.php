@@ -59,10 +59,14 @@
                                         <th>Name</th>
                                         @if($type == "bulk")
                                             <th>Product</th>
+                                            <th>Type</th>
+                                            <th>Frame</th>
+                                            <th>Mount</th>
+                                            <th>Size</th>
                                         @endif
                                         <th>Email</th>
                                         <th>Phone Number</th>
-                                        <th>Subject</th>
+                                        {{-- <th>Subject</th> --}}
                                         <th>Message</th>
                                         <th>Reply</th>
                                         <th>Request URL</th>
@@ -79,10 +83,14 @@
                                             <td>{{ $enquiry->name}}</td>
                                             @if($type == "bulk")
                                                 <td>{{ $enquiry->product->title}}</td>
+                                                <td>{{ $enquiry->product->product_type}}</td>
+                                                <td>{{ $enquiry->product->frame}}</td>
+                                                <td>{{ $enquiry->product->mount}}</td>
+                                                <td>{{ $enquiry->product->size}}</td>
                                             @endif
                                             <td>{{ $enquiry->email}}</td>
                                             <td>{{ $enquiry->phone }}</td>
-                                            <td>{{ $enquiry->subject }}</td>
+                                            {{-- <td>{{ $enquiry->subject }}</td> --}}
                                             <td>{{ $enquiry->message }}</td>
                                             <td>{{ $enquiry->reply }}</td>
                                             <td>{{ $enquiry->request_url }}</td>
