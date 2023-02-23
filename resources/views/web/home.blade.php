@@ -172,13 +172,26 @@
                     @foreach ($themes as $theme)
                     <div class="shopSectionItem shopSectionItemBg{{$n}}">
                         <div class="wrapper">
+
                             <div class="imgBox">
                                 {!! Helper::printImage(@$theme, 'image', 'image_webp', '', 'img-fluid') !!}
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
+                        @php
+                        // get all products count by category
+                            $productCategoryCount = \DB::table('product_category')->where('category_id', $theme->id)->get();
 
-                            {{-- <h6>{{@$count }} items</h6> --}}
+                            $productIDs = [];
+                            foreach ($productCategoryCount as $key => $value) {
+                                $productIDs[] = $value->product_id;
+                            }
+                         $arrayCount = count($productIDs);
+
+                        @endphp
+                            <h6>{{$arrayCount}} items</h6>
+                            {{-- <h6>{{@$productCategoryCount }} items</h6> --}}
+
                         </div>
                     </div>
                     @php
@@ -290,22 +303,20 @@
                                     <h3>{{ @$blog->name }}</h3>
                                     <h6>{{ @$blog->designation }}</h6>
                                     <div class="reviewIconStar">
+                                        @if(@$blog->review_type == "Google" )
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
+                                        @endif
                                         <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>
                             </div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                                took a galley of type and scrambled it to make a type specimen book  industry's standard
-                                dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                                a type specimen book  industry's standard dummy text ever since the 1500s.
-                            </p>
+                            <div class="textWrapper">
+
+                                {!! @$blog->message !!}
+
+                            </div>
                         </div>
                         @endforeach
                         @endif
@@ -314,7 +325,7 @@
 
                 </div>
                 <div class="col-12 text-center mt-md-5">
-                    <a href="" class="primary_btn">Add Your Review</a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn">Add Your Review</a>
                 </div>
             </div>
         </div>

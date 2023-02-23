@@ -993,12 +993,22 @@ $(document).ready(function () {
     });
 
     $('.filterItem').on('click', function () {
-     
+       
+        $(this).closest('.colorItemFilterClick').toggleClass("active") ;
+        $(this).closest('.colorItemFilterClicks').toggleClass("active") ;
+        
        var parent = $(this).data('parent');
+
+
+       
+
+      
        if(parent != null){
+        
               $('#Category_'+parent).prop('checked', true);
          }
          if($(this).prop('checked') == false){
+          
                 $('#Category_'+parent).prop('checked', false);
             }
         

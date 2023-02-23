@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use Termwind\Components\Dd;
 
 class ProductController extends Controller
 {
@@ -97,7 +98,7 @@ class ProductController extends Controller
     //            'measurement_unit' => 'required',
     //            'quantity' => 'required',
                 // 'price' => 'required',
-            
+                
                 'thumbnail_image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
             ]);
 
@@ -110,6 +111,7 @@ class ProductController extends Controller
                 'category' => 'required',
                 'availability' => 'required',
                 'description' => 'required',
+                'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
                
             ]);
         }
@@ -203,6 +205,7 @@ class ProductController extends Controller
         $product->title = $validatedData['title'];
         $product->short_url = $validatedData['short_url'];
         $product->sku = $request->sku ?? '';
+      
         $product->category_id = ($request->category) ? implode(',', $request->category) : '';
         $product->sub_category_id = ($request->sub_category) ? implode(',', $request->sub_category) : '';
         $product->tag_id = ($request->tags) ? implode(',', $request->tags) : '';
@@ -238,6 +241,29 @@ class ProductController extends Controller
         $product->other_meta_tag = $request->other_meta_tag ?? '';
    
         if ($product->save()) {
+
+            if(isset($request->category) || $request->category != null){
+                DB::table('product_category')->where('product_id', $product->id)->whereIn('category_id',$request->category)->delete();
+                foreach($request->category as $key => $value){
+                  
+                    $procutCategory = DB::table('product_category')->insert([
+                        'product_id' => $product->id,
+                        'category_id' => $value,
+                    ]);
+                 
+                }
+            }
+            if(isset($request->sub_category) || $request->sub_category != null){
+                DB::table('product_category')->where('product_id', $product->id)->whereIn('category_id',$request->sub_category)->delete();
+                foreach($request->sub_category as $key => $value){
+                  
+                    $procutCategory = DB::table('product_category')->insert([
+                        'product_id' => $product->id,
+                        'category_id' => $value,
+                    ]);
+                 
+                }
+            }
 
             $price = [];
             $priceWithSize = $request->price;
@@ -452,6 +478,28 @@ class ProductController extends Controller
          
             $priceWithSize = $request->price;
         
+            if(isset($request->category) || $request->category != null){
+                DB::table('product_category')->where('product_id', $product->id)->whereIn('category_id',$request->category)->delete();
+                foreach($request->category as $key => $value){
+                  
+                    $procutCategory = DB::table('product_category')->insert([
+                        'product_id' => $product->id,
+                        'category_id' => $value,
+                    ]);
+                 
+                }
+            }
+            if(isset($request->sub_category) || $request->sub_category != null){
+                DB::table('product_category')->where('product_id', $product->id)->whereIn('category_id',$request->sub_category)->delete();
+                foreach($request->sub_category as $key => $value){
+                  
+                    $procutCategory = DB::table('product_category')->insert([
+                        'product_id' => $product->id,
+                        'category_id' => $value,
+                    ]);
+                 
+                }
+            }
             if(isset($priceWithSize) && !empty($priceWithSize)){
                 foreach($priceWithSize as $key => $value){
 

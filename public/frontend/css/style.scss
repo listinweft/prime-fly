@@ -930,6 +930,7 @@ header.sticky {
 }
 
 
+
 @media all and (min-width: 992px) {
 
     .navbar .has-megamenu {
@@ -967,6 +968,7 @@ header.sticky {
                     justify-content: center;
                     img{
                         width: 60%;
+                        max-width: 220px;
                         border: 1px solid #000;
                         margin-bottom: 10px;
                     }
@@ -1036,7 +1038,6 @@ header.sticky {
         //box-shadow: 5px 5px 16px rgba(0, 0, 0, 0.11);
         .bg-green {
             background-color: $white_color;
-            box-shadow: 5px 5px 16px rgba(0,0,0,.11);
             padding-top: 40px;
             padding-bottom: 40px;
         }
@@ -1290,19 +1291,23 @@ header.sticky {
                 }
               }
               .active{
-                &::after {
-                  width: 15px;
-                  height: 15px;
-                  border: 1px solid #FFFFFF;
-                  border-radius: 3px;
-                  content: "";
-                  display: inline-block;
-                  position: absolute;
-                  top: 0px;
-                  right: 0px;
-                  background: url(../images/activeSelect.png) center;
-                  background-size: cover;
-                }
+                  .colorBox{
+                      position: relative;
+                      display: inline-block;
+                      &::after {
+                          width: 15px;
+                          height: 15px;
+                          border: 1px solid #FFFFFF;
+                          border-radius: 3px;
+                          content: "";
+                          display: inline-block;
+                          position: absolute;
+                          top: 0px;
+                          right: 0px;
+                          background: url(../images/activeSelect.png) center;
+                          background-size: cover;
+                      }
+                  }
               }
             }
             .has-megasubmenu{
@@ -2552,26 +2557,29 @@ header.sticky {
             }
           }
         }
-        p{
+        .textWrapper{
           padding-right: 20px;
           height: 130px;
           opacity: 1;
           overflow: hidden;
           overflow-y: scroll;
           &::-webkit-scrollbar {
-            width: 7px;
+              width: 7px;
           }
           &::-webkit-scrollbar-track {
-            border-radius: 10px;
-            background: #CECEC5;
+              border-radius: 10px;
+              background: #CECEC5;
           }
           &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: #252525;
-            opacity: 1;
+              border-radius: 10px;
+              background-color: #252525;
+              opacity: 1;
           }
         }
       }
+        .slick-track{
+            margin-left: 0;
+        }
       .slick-prev{
         top: 0;
         left: -50px;
@@ -2715,7 +2723,7 @@ header.sticky {
           }
         }
         padding: 0 20px;
-        p{
+        .textWrapper{
           height: 120px;
         }
       }
@@ -5126,19 +5134,23 @@ footer{
               }
             }
             .active{
-              &::after {
-                width: 15px;
-                height: 15px;
-                border: 1px solid #FFFFFF;
-                border-radius: 3px;
-                content: "";
-                display: inline-block;
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                background: url(../images/activeSelect.png) center;
-                background-size: cover;
-              }
+                .colorBox{
+                    position: relative;
+                    display: inline-block;
+                    &::after {
+                        width: 15px;
+                        height: 15px;
+                        border: 1px solid #FFFFFF;
+                        border-radius: 3px;
+                        content: "";
+                        display: inline-block;
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        background: url(../images/activeSelect.png) center;
+                        background-size: cover;
+                    }
+                }
             }
           }
 
@@ -5297,6 +5309,11 @@ footer{
                 background-size: cover;
               }
             }
+            .more{
+                color:$white_color;
+                background: $primary_color;
+                cursor:pointer;
+            }
           }
         }
       }
@@ -5392,26 +5409,25 @@ footer{
     .tagArea{
       margin-top: 12px;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       margin-bottom: 30px;
+        grid-gap: 15px;
       h6{
         width: 110px;
-        padding-top: 7px;
+        padding-top: 0px;
       }
       .tagWrapper{
-        width: 87%;
+        width: 83%;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        margin-left: 30px;
+        grid-gap: 15px;
         .fltr{
           display: flex;
           align-items: center;
           background: #CFCFC4;
           justify-content: space-between;
           padding: 8px 12px;
-          margin-right: 15px;
-          margin-bottom: 15px;
           .txt {
             font-size: 12px;
             line-height: 12px;
@@ -5435,6 +5451,10 @@ footer{
             }
           }
         }
+      }
+      .clear{
+          font-size:12px;
+          width: 70px;
       }
     }
   }
@@ -5988,14 +6008,14 @@ footer{
 
       .tagArea{
         flex-direction: column;
+          align-items: flex-start;
+          grid-gap: 10px;
         .tagWrapper{
           width: 100%;
           margin-left: 0px;
+          grid-gap: 10px;
           .fltr{
-            margin-bottom: 0;
-            margin-top: 10px;
             padding: 5px 7px;
-            margin-right: 10px;
           }
         }
       }
@@ -6402,20 +6422,18 @@ footer{
         }
         .productDetailsLargeImages{
           .fotorama__stage__frame {
-            position: absolute;
+            //position: absolute;
+            position: relative;
             right: 0;
             top: 0;
-
-
-            height: 600px;
-            width: 98%;
+            height: 500px;
+            width: 100%;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 0px;
             display: flex !important;
             align-items: center;
             justify-content: center;
-            background-color: #fafafa;
-            background-color: red;
+            //background-color: #fafafa;
             overflow: hidden;
           }
           .fotorama__html {
@@ -6432,16 +6450,9 @@ footer{
             align-items: center;
             justify-content: center;
           }
-          .fotorama__img {
-            max-width: 80%;
-            opacity:1;
-            max-height: 80%;
-            transition: all .2s ease;
-            vertical-align: middle;
+          .fotorama__img{
+              max-width: 100%;
           }
-
-
-
         }
       }
       .productDetailsLeftFirst{
@@ -6452,8 +6463,9 @@ footer{
         justify-content: center;
         padding-top: 0px;
         padding-bottom: 80px;
+          padding-left: 5px;
+          padding-right: 5px;
         .productDetailsThumbs{
-
           .slick-arrow{
             width: 25px;
             height: 25px;
@@ -6487,7 +6499,8 @@ footer{
             }
           }
           .slick-list{
-            margin-bottom: -10px;
+              height: auto !important;
+            //margin-bottom: -10px;
             margin-top: -10px;
           }
 
@@ -6495,16 +6508,17 @@ footer{
           .fotorama__nav__frame {
             padding: 0 !important;
             border: 1px solid #A0A0A0;
+            border: 1px solid #000;
             box-sizing: border-box;
             position: relative;
-            height: 100px;
+            //height: 100px;
             display: block;
           }
 
           .fotorama__thumb {
             background-color: #f5f5f5;
-            height: 100%;
-            width: 100%;
+            //height: 100%;
+            //width: 100%;
             //border-radius: 4px;
             display: flex;
             align-items: center;
@@ -6513,12 +6527,12 @@ footer{
 
           .fotorama_horizontal_ratio{
             .fotorama__img{
-              top: 50%;
-              transform: translateY(-50%);
-              left: 0;
-              position: absolute;
-              width: 100%;
-              height: auto;
+              //top: 50%;
+              //transform: translateY(-50%);
+              //left: 0;
+              //position: absolute;
+              //width: 100%;
+              //height: auto;
             }
           }
 
@@ -6534,14 +6548,132 @@ footer{
   }
 
   .framed-canvas{
-    .fotorama__html img.framed-canvas {
-      border: 15px solid #f5f5f5 !important;
+    img.framed-canvas {
+        background: #f9f9f9;
+        //background: #cecec4;
+        box-shadow: 0 0 10px 3px #ccc;
+    }
+    img.framed-canvas.imageMountClass{
+        padding: 25px;
     }
   }
-  .frame_color__Black .fotorama__html img.framed-canvas {
-    border: 15px solid #000 !important;
-    box-shadow: 0 0 10px 3px #ccc;
+
+  .framed-canvas{
+    img.framed-canvas.fotorama__img {
+        max-width: 80% !important;
+        opacity:1;
+        max-height: 80% !important;
+        transition: all .2s ease;
+        vertical-align: middle;
+    }
   }
+
+    //.frame_color__Black .fotorama__html img.framed-canvas {
+    //    border: 15px solid #000 !important;
+    //    box-shadow: 0 0 10px 3px #ccc;
+    //}
+
+  .frame_color__Black {
+      img.framed-canvas {
+          //border: 15px solid #000 !important;
+          //box-shadow: 0 0 10px 3px #ccc;
+      }
+  }
+
+  .frame_color__Black {
+      img.framed-canvas.fotorama__img {
+          max-width: 80% !important;
+          opacity:1;
+          max-height: 80% !important;
+          transition: all .2s ease;
+          vertical-align: middle;
+      }
+  }
+
+    .art-prints{
+        .fotorama__html img.art-prints  {
+            border: 4px solid #fff;
+            box-shadow: -1px 1px 5px #ccc;
+        }
+        .fotorama__html img.art-prints.fotorama__img {
+            max-width: 80% !important;
+            opacity:1;
+            max-height: 80% !important;
+            transition: all .2s ease;
+            vertical-align: middle;
+        }
+    }
+
+    .canvas{
+        .fotorama__html img.art-canvas  {
+            box-shadow: -1px 1px 5px #ccc;
+        }
+        .fotorama__html .art-canvas.fotorama__img {
+            max-width: 80% !important;
+            opacity:1;
+            max-height: 80% !important;
+            transition: all .2s ease;
+            vertical-align: middle;
+        }
+    }
+
+    .stretchedCanvas{
+        .canvas-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .canvas-wrapper {
+            perspective: 600px;
+            width: fit-content;
+            position: relative;
+            margin: 0 auto;
+            max-width: 80% !important;
+            .canvas-rotate {
+                transform-style: preserve-3d;
+                transform-origin: left 50%;
+                transform: rotateY(15deg);
+                img {
+                    max-height: 500px;
+                    display: block;
+                }
+                .canvas-border {
+                    position: absolute;
+                    top: 0;
+                    left: -30px;
+                    width: 30px;
+                    height: 100%;
+                    transform-origin: right 50%;
+                    transform: rotateY(-70deg);
+                    overflow: hidden;
+                    .canvas-inside {
+                        transform: scaleX(-1);
+                        height: 100% !important;
+                        max-height: 100% !important;
+                        img {
+                            width: auto;
+                            height: 100% !important;
+                            max-height: 100% !important;
+                            max-width: none;
+                        }
+                    }
+                }
+            }
+        }
+        //.fotorama__html img.stretchedCanvas  {
+        //    transform-style: preserve-3d;
+        //    transform-origin: left 50%;
+        //    transform: rotateY(15deg);
+        //}
+        //.fotorama__html .stretchedCanvas.fotorama__img {
+        //    max-width: 80% !important;
+        //    opacity:1;
+        //    max-height: 80% !important;
+        //    transition: all .2s ease;
+        //    vertical-align: middle;
+        //}
+    }
 
   .productDetailsInfo{
     .productNameStock{
@@ -6675,9 +6807,10 @@ footer{
             -o-transition: .3s;
           }
           .colorBox{
+              border: 1px solid #252525;
             width: 90px;
             height: 90px;
-            background: red;
+            //background: red;
             margin-bottom: 8px;
             transition: .3s;
             -webkit-transition: .3s;
@@ -6715,7 +6848,7 @@ footer{
             background-size: cover;
           }
           img{
-            border: 1px solid #252525;
+            //border: 1px solid #252525;
             box-shadow: 0 3px 10px rgba(0,0,0,.2);
           }
           .colorBox{
@@ -9566,6 +9699,10 @@ footer{
     background-size: cover;
   }
 
+  .position-relative{
+      z-index: 1;
+  }
+
   .sticky-lg-top-110 {
     top: 95px;
   }
@@ -11386,3 +11523,133 @@ footer{
 }
 
 // Login Modal End
+
+
+.reviewModalForm{
+    z-index: 10601;
+    background: rgba(0,0,0,0.5);
+    .btn-close{
+        box-shadow: none;
+        outline: none;
+        border: 0;
+    }
+    .modal-header{
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+    .formArea{
+        //border: 1px solid #A0A0A0;
+        //background: #fff;
+        //padding: 30px 30px;
+        padding: 0 15px;
+        padding-bottom: 25px;
+        .head{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            .my-rating{
+                margin-top: -8px;
+                .jq-star {
+                    margin-right: 5px;
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        .message{
+            .form-group{
+                img{
+                    bottom: 50px;
+                }
+            }
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+            img {
+                position: absolute;
+                left: 15px;
+                bottom: 10px;
+                width: 20px;
+            }
+        }
+
+        label{
+            color: #676767;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .form-control {
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid #000;
+            color: #000;
+            padding: 10px 15px;
+            padding-left: 15px;
+            font-size: 13px;
+            font-family: Brother1816-Light;
+            box-shadow: none;
+            outline: none;
+            margin-bottom: 0;
+            border-radius: 0;
+
+            &::placeholder {
+                color: #000;
+                opacity: 1;
+            }
+
+            &:-ms-input-placeholder {
+                color: #000;
+            }
+
+            &::-ms-input-placeholder {
+                color: #000;
+            }
+        }
+
+        textarea{
+            height: 80px;
+            resize: none;
+        }
+
+        .primary_btn {
+            margin-bottom: 0;
+            padding: 12px 35px;
+            border: 0;
+            background: #fff;
+            color: #252525;
+            border: 2px solid #252525;
+            &:before{
+                background: #cfcfc4;
+            }
+            &:hover{
+                background: #252525;
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media (min-width: 767px){
+    .modal-dialog {
+        max-width: 650px;
+    }
+}
+
+@media (max-width: 575px){
+    .reviewModalForm {
+        .modal-header{
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .formArea{
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}

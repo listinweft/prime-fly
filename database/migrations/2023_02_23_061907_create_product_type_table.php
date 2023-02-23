@@ -28,6 +28,12 @@ return new class extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('product_type');
+
+        Schema::table('shapes', function (Blueprint $table) {
+            $table->dropColumn('sort_order');
+        });
+
     }
 };

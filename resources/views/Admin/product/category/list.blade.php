@@ -100,7 +100,7 @@
                                                     <input type="checkbox" class="bool_status"
                                                            data-url='change-bool-status' data-table="Category"
                                                            data-id="{{$category->id}}" data-field="display_to_home"
-                                                        {{($category->display_to_home == "Yes")?'checked':''}}>
+                                                        {{($category->display_to_home == "No")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
