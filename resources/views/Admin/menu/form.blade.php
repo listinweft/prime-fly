@@ -56,6 +56,15 @@
                                         <option value="category" {{ (@$menu->menu_type=="category")?'selected':'' }}>
                                             Category
                                         </option>
+                                        <option value="color" {{ (@$menu->menu_type=="color")?'selected':'' }}>
+                                            color
+                                        </option>
+                                        <option value="tag" {{ (@$menu->menu_type=="tag")?'selected':'' }}>
+                                            Tag
+                                        </option>
+                                        <option value="shape" {{ (@$menu->menu_type=="shape")?'selected':'' }}>
+                                            Shapes
+                                        </option>
                                     </select>
                                     <div class="help-block with-errors" id="menu_type_error"></div>
                                 </div>
@@ -82,6 +91,48 @@
                                         @endforeach
                                     </select>
                                     <div class="help-block with-errors" id="menu_category_id_error"></div>
+                                </div>
+
+                                <div class="form-group col-md-6 color"
+                                     style="display: {{ (@$menu->menu_type=='color')?'block':'none' }}">
+                                    <label> Color*</label>
+                                    <select class="form-control menu_color_id" id="menu_color_id"
+                                            name="menu_color_id">
+                                        <option value="">Select Option</option>
+                                        @foreach($colors as $color)
+                                            <option data-url="{{$color->short_url}}"
+                                                    value="{{ $color->id }}" {{ (@$menu->color_id==$color->id)?'selected':'' }}>{{ $color->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="help-block with-errors" id="menu_color_id_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 shape"
+                                     style="display: {{ (@$menu->menu_type=='shape')?'block':'none' }}">
+                                    <label> Shape*</label>
+                                    <select class="form-control menu_shape_id" id="menu_shape_id"
+                                            name="menu_shape_id">
+                                        <option value="">Select Option</option>
+                                        @foreach($shapes as $shape)
+                                            <option data-url="{{$shape->short_url}}"
+                                                    value="{{ $shape->id }}" {{ (@$menu->shape_id==$shape->id)?'selected':'' }}>{{ $shape->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="help-block with-errors" id="menu_tag_id_error"></div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 tag"
+                                     style="display: {{ (@$menu->menu_type=='tag')?'block':'none' }}">
+                                    <label> Tag*</label>
+                                    <select class="form-control menu_tag_id" id="menu_tag_id"
+                                            name="menu_tag_id">
+                                        <option value="">Select Option</option>
+                                        @foreach($tags as $tag)
+                                            <option data-url="{{$tag->short_url}}"
+                                                    value="{{ $tag->id }}" {{ (@$menu->tag_id==$tag->id)?'selected':'' }}>{{ $tag->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="help-block with-errors" id="menu_tag_id_error"></div>
                                 </div>
                             </div>
                             <div class="form-row">
