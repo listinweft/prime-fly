@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Shape extends Model
 {
     use HasFactory;
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'Active');
+    }
 }
+

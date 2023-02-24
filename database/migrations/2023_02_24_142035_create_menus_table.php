@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenusTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,9 +18,12 @@ class CreateMenusTable extends Migration
 
             $table->string('title');
             $table->string('url');
-            $table->enum('menu_type', ['category', 'static']);
+            $table->enum('menu_type', ['category','color','shape','tag', 'static']);
             $table->string('static_link')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('color_id')->nullable();
+            $table->unsignedBigInteger('shape_id')->nullable();
+            $table->unsignedBigInteger('tag_id')->nullable();
             $table->integer('sort_order');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
 
@@ -38,4 +41,4 @@ class CreateMenusTable extends Migration
     {
         Schema::dropIfExists('menus');
     }
-}
+};

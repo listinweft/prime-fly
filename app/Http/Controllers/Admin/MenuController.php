@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Menu;
+use App\Models\Tag;
+use App\Models\Shape;
 use App\Models\MenuDetail;
 use App\Models\SideMenu;
 use App\Models\SideMenuDetail;
@@ -35,7 +38,10 @@ class MenuController extends Controller
         $key = "Create";
         $title = "Create Menu";
         $categories = Category::active()->whereNull('parent_id')->get();
-        return view('Admin.menu.form', compact('key', 'title', 'categories'));
+        $colors = Color::active()->get();
+        $shapes = Shape::active()->get();
+        $tags = Tag::active()->get();
+        return view('Admin.menu.form', compact('key', 'title', 'categories','tags','colors','shapes'));
     }
 
     public function menu_store(Request $request)
@@ -65,10 +71,15 @@ class MenuController extends Controller
                 $category_name = "Menu";
             }*/
         }
-        if ($request->menu_type == "category") {
+        if ($request->menu_type == "category" || "tag" || "shape" || "color") {
             $menu->url = ($request->url) ? $request->url : '';
             $menu->category_id = $request->menu_category_id;
+            $menu->tag_id = $request->menu_tag_id;
+            $menu->shape_id = $request->menu_shape_id;
+            $menu->color_id = $request->menu_color_id;
+
             /*if($menu->url!=NULL){
+                
             	$exist = Menu::where('category_id','=',$request->menu_category_id)->count();
             	$category_name = "Menu '".$menu->url;
             }else{
@@ -76,6 +87,7 @@ class MenuController extends Controller
                 $category_name = "Menu";
             }*/
         }
+       
         if ($exist == 0) {
             $sort_order = Menu::orderBy('id', 'DESC')->first();
             if ($sort_order) {
@@ -103,7 +115,10 @@ class MenuController extends Controller
         $menu = Menu::find($id);
         if ($menu) {
             $categories = Category::active()->whereNull('parent_id')->get();
-            return view('Admin.menu.form', compact('key', 'menu', 'title', 'categories'));
+            $colors = Color::active()->get();
+            $shapes = Shape::active()->get();
+            $tags = Tag::active()->get();
+            return view('Admin.menu.form', compact('key', 'menu', 'title', 'categories','tags','shapes','colors'));
         } else {
             return view('Admin.error.404');
         }
@@ -135,9 +150,13 @@ class MenuController extends Controller
                 $category_name = "Menu";
             }*/
         }
-        if ($request->menu_type == "category") {
+        if ($request->menu_type == "category" || "shape" || "color" || "tag") {
             $menu->category_id = $request->menu_category_id;
             $menu->url = ($request->url) ? $request->url : '';
+
+            $menu->tag_id = $request->menu_tag_id;
+            $menu->shape_id = $request->menu_shape_id;
+            $menu->color_id = $request->menu_color_id;
             /*if($request->url!=NULL){
                 $exist = Menu::where([['category_id','=',$request->menu_category_id],['id','!=',$id]])->count();
                 $category_name = "Category '".$menu->category->title;
