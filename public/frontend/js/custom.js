@@ -212,6 +212,7 @@ $(document).ready(function () {
                 $('#' + id).css({'border': '1px solid #d0d0d0'});
             }
         });
+        console.log(required);
         if (required.length == 0) {
             if ($('#email').length > 0) {
                 var email = $('#email').val();

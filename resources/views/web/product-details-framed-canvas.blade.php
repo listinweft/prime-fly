@@ -41,28 +41,34 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="item position-relative">
+                                <div class="fotorama__stage__frame" >
+                                    <div class="fotorama__html">
+                                        <img class="fotorama__img" src="{{asset('frontend/images/frame/wooden-frame_th.jpg')}}" aria-hidden="false">
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                                $frame = \App\Models\Frame::where('id',1)->first();
+                            @endphp
+                            <div class="item position-relative">
+                                <div class="fotorama__stage__frame" >
+                                    <div class="fotorama__html">
+                                        <img class="fotorama__img frame_product_border_image" src="{{asset($frame->image)}}" aria-hidden="false">
+                                    </div>
+                                </div>
+                            </div>
                             @if($product->activeGalleries->count() > 0)
-                                @foreach ($product->activeGalleries as $gallery)
-                                    <div class="item position-relative">
-                                        <div class="fotorama__stage__frame" >
-                                            <div class="fotorama__html">
-                                                <img class="fotorama__img" src="{{asset($gallery->image)}}" aria-hidden="false">
-                                            </div>
+                            @foreach ($product->activeGalleries as $gallery)
+                                <div class="item position-relative">
+                                    <div class="fotorama__stage__frame" >
+                                        <div class="fotorama__html">
+                                            <img class="fotorama__img" src="{{asset($gallery->image)}}" aria-hidden="false">
                                         </div>
                                     </div>
-                                @endforeach
-                            @endif
-                            @if($productFrames->isNotEmpty())
-                                @foreach ($productFrames as $frame)
-                                    <div class="item position-relative">
-                                        <div class="fotorama__stage__frame" >
-                                            <div class="fotorama__html">
-                                                <img class="fotorama__img frame_product_border_image" src="{{asset($frame->image)}}" aria-hidden="false">
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
+                                </div>
+                            @endforeach
+                        @endif
                         </div>
                     </div>
                     <div class="col-3 productDetailsLeftFirst" >
@@ -72,31 +78,31 @@
                                     <img src="{{asset($product->thumbnail_image)}}" class="fotorama__img img-fluid">
                                 </div>
                             </div>
+                            <div class="fotorama__nav__frame ">
+                                <div class="fotorama__thumb fotorama_vertical_ratio">
+                                    <img src="{{asset('frontend/images/frame/wooden-frame_th.jpg')}}" class="fotorama__img img-fluid">
+                                </div>
+                            </div>
+                            @php
+                                $frame = \App\Models\Frame::where('id',1)->first();
+                             @endphp
+                            <div class="fotorama__nav__frame ">
+                                <div class="fotorama__thumb fotorama_vertical_ratio">
+                                    {!! Helper::printImage(@$gallery,'image','image_webp','image_attribute','fotorama__img img-fluid frame_product_border_image') !!}
+                                  
+                                </div>
+                            </div>
                             @if($product->activeGalleries->count() > 0)
                                 @foreach ($product->activeGalleries as $gallery)
                                     <div class="fotorama__nav__frame ">
                                         <div class="fotorama__thumb fotorama_vertical_ratio">
                                             {!! Helper::printImage(@$gallery,'image','image_webp','image_attribute','fotorama__img img-fluid') !!}
-                                  
+                                
                                         </div>
                                     </div>
                                 @endforeach
                             @endif
-                            @if($productFrames->isNotEmpty())
-                            @php
-                                $n =1;
-                            @endphp
-                                @foreach ($productFrames as $frame)
-                                    <div class="fotorama__nav__frame" data-id="{{$frame->id}}">
-                                        <div class="fotorama__thumb fotorama_vertical_ratio">
-                                            {!! Helper::printImage(@$frame,'image','image_webp','image_attribute','fotorama__img img-fluid') !!}
-                                        </div>
-                                    </div>
-                                    @php
-                                        $n++;
-                                    @endphp
-                                @endforeach
-                            @endif
+                       
                         </div>
                     </div>
                 </div>
@@ -371,6 +377,7 @@
                                         <label for="">Full Name</label>
                                         <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
                                         <input type="text" class="form-control required" placeholder="Full Name"  name="name" id="name">
+                                        <div class="help-block with-errors" id="name_error"></div>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -378,6 +385,7 @@
                                         <label for="">Email Address</label>
                                         <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
                                         <input   name="email" id="email"  type="text" class="form-control required" placeholder="Email Address">
+                                        <div class="help-block with-errors" id="email_error"></div>
                                     </div>
                                 </div>
                             @endif
@@ -386,6 +394,7 @@
                                     <label for="">Message</label>
                                     <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
                                     <textarea class="form-control required form-review" rows="4"name="review" id="review" placeholder="Say Something"></textarea>
+                                    <div class="help-block with-errors" id="review_error"></div>
                                 </div>
                             </div>
                             <input type="hidden" name="product_id" id="product_id"  value="{{$product->id}}">

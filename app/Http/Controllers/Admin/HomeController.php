@@ -353,7 +353,7 @@ class HomeController extends Controller
     /*********************** Banners Starts here *******************************/
     public function banner()
     {
-        $title = "Home Banner List";
+        $title = "Home Slider List";
         $bannerList = HomeBanner::get();
         return view('Admin.home.banner.list', compact('bannerList', 'title'));
     }
@@ -362,7 +362,7 @@ class HomeController extends Controller
     public function banner_create()
     {
         $key = "Create";
-        $title = "Create Home Banner";
+        $title = "Create Home Slider";
         return view('Admin.home.banner.form', compact('key', 'title'));
     }
 
@@ -395,7 +395,7 @@ class HomeController extends Controller
         $banner->sort_order = $sort_number;
 
         if ($banner->save()) {
-            session()->flash('success', "Home Banner image has been added successfully");
+            session()->flash('success', "Home Slider image has been added successfully");
             return redirect(Helper::sitePrefix() . 'home/banner');
         } else {
             return back()->with('error', 'Error while creating the banner');
@@ -406,7 +406,7 @@ class HomeController extends Controller
     public function banner_edit(Request $request, $id)
     {
         $key = "Update";
-        $title = "Update Home Banner";
+        $title = "Update Home Slider";
         $banner = HomeBanner::find($id);
         if ($banner) {
             return view('Admin.home.banner.form', compact('key', 'banner', 'title'));
@@ -440,7 +440,7 @@ class HomeController extends Controller
         $banner->url = $request->url;
         $banner->updated_at = now();
         if ($banner->save()) {
-            session()->flash('success', "Home Banner image has been updated successfully");
+            session()->flash('success', "Home Slider image has been updated successfully");
             return redirect(Helper::sitePrefix() . 'home/banner');
         } else {
             return back()->with('error', 'Error while updating the banner');
@@ -472,7 +472,7 @@ class HomeController extends Controller
 //        $banner->title = $request->title;
         $banner->image_attribute = $validatedData['image_attribute'];
         $banner->url = $request->url;
-        $banner->type = "corporate";
+      
         $banner->updated_at = now();
         if ($banner->save()) {
             session()->flash('success', "Home Banner image has been updated successfully");

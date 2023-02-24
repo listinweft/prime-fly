@@ -350,22 +350,22 @@ class WebController extends Controller
             $starPercent5 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 5) * 100 / $totalReviews) : 0;
 
             if($product->product_type_id == 1){
-                return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 2){
-                return view('web.product-details-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-details-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 3){
-                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 4){
-                return view('web.product-details-framed-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-details-framed-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }

@@ -413,7 +413,7 @@ class AttributeController extends Controller
         $size = Size::find($id);
         $validatedData = $request->validate([
             'title' => 'required|unique:sizes,title,' . $id,
-            'price' => 'required|unique:sizes,price,' . $id,
+            // 'price' => 'required|unique:sizes,price,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
 
         ]);
@@ -428,7 +428,7 @@ class AttributeController extends Controller
             $size->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $size->title = $validatedData['title'];
-        $size->price = $validatedData['price'];
+        // $size->price = $validatedData['price'];
         $size->updated_at = now();
         if ($size->save()) {
             session()->flash('message', "Size '" . $size->title . "' has been updated successfully");
