@@ -30,8 +30,8 @@
        
             <div class="topSortDetails">
                 <div>
-                    <h4> Products</h4>
-                    <p></p>
+                    <h4>Latest Products</h4>
+                    <p>Lorem Ipsum is simply dummy text</p>
                 </div>
                 <div class="sortSearchBox">
                     <a class="btn primary_btn primary_btn_mb" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
