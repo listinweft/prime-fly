@@ -68,35 +68,36 @@
             </div>
             <div class="modal-body">
                 <div class="formArea">
-                    <div class="head">
-                        <h5>Write A Review</h5>
-                        <div class="my-rating" data-rating="0"></div>
-                    </div>
-                    <form action="">
+                    <form action="" method="POST" id="reviewForm" name="reviewForm">
+                        <div class="head">
+                            <h5>Write A Review</h5>
+                            <div class="my-rating" data-rating="0"></div>
+                            <input type="hidden" name="rating" id="rating" class="required">
+                        </div>
                         <div class="row">
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Full Name">
+                                    <input type="text" class="form-control review-required" placeholder="Full Name" name="name" id="name">
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Designation">
+                                    <input type="text" class="form-control review-required" placeholder="Designation" name="designation" id="designation">
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Email Address">
+                                    <input type="email" class="form-control review-required" placeholder="Email Address" name="email" id="email">
                                 </div>
                             </div>
                             <div class="col-12 message">
                                 <div class="form-group">
-                                    <textarea class="form-control" placeholder="Say Something"></textarea>
+                                    <textarea class="form-control review-required" placeholder="Say Something" name="message" id="message"></textarea>
                                 </div>
                             </div>
                             <div class="col-12x ">
                                 <div class="form-group d-flex align-items-end mb-0">
-                                    <button type="submit" class="primary_btn ">Submit</button>
+                                    <button type="submit" class="primary_btn review-form-btn">Submit</button>
                                 </div>
                             </div>
                         </div>

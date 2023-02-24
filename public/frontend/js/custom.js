@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $(".my-rating-readonly").starRating({
         totalStars: 5,
         starShape: 'rounded',
@@ -640,33 +640,33 @@ $(document).ready(function () {
         }
     });
     $(document).on('click', '.form_submit_btn', function (e) {
-      
+
         e.preventDefault();
         $this = $(this);
         var buttonText = $this.html();
         var url = $this.data('url');
         var form_id = $this.closest("form").attr('id');
-    
+
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-        
+
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');
         $('span.error').remove();
         $("#" + form_id + " .required").each(function (k, v) {
             var field_name = $(v).attr('name');
 
-           
+
             if (!$(v).val().length) {
                 errors = true;
                 var error = 'Please enter <strong>' + field_name + '</strong>.';
-                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
 
-                
+
                 $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
                     .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
 
-                  
+
             } else {
                 if (field_name === 'email') {
                     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -693,11 +693,11 @@ $(document).ready(function () {
                 },
                 url: base_url + url,
 
-              
+
             })
                 .done(function (response) {
 
-                   
+
                     console.log(response);
                     $this.html(buttonText);
                     $("#" + form_id)[0].reset();
@@ -731,6 +731,78 @@ $(document).ready(function () {
                 })
         }
     });
+
+    $(document).on('click', '.review-form-btn', function (e) {
+        e.preventDefault();
+        // var _token = token;
+        var required = [];
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+
+        $('.review-required').each(function () {
+            var id = $(this).attr('id');
+            var id_text = $(this).attr('placeholder');
+            if ($('#' + id).val() == '') {
+                required.push($('#' + id).val());
+                $('#' + id).css({'border': '1px solid #FF0000'});
+            } else {
+                $('#' + id).css({'border': '1px solid #d0d0d0'});
+            }
+        });
+
+
+        $(".review-required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
+                $('#reviewForm').find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (required.length == 0) {
+            if ($('#email').length > 0) {
+                var email = $('#email').val();
+            } else {
+                var email = 'review@artymist.com';
+            }
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!regex.test(email)) {
+                $('#email_error').css({'border': '1px solid #FF0000'});
+            } else {
+                $('.with-errors').html('');
+                $.ajax({
+                    type: 'POST', dataType: 'json', data: $('#reviewForm').serialize(), headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }, url: base_url + '/submit-review', success: function (response) {
+                        if (response.status == "true") {
+                            Toast.fire({
+                                title: "Done it!", text: response.message, icon: "success"
+                            });
+                            window.location.reload();
+                        } else if (response.status == "error") {
+                            $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
+                        } else {
+                            Toast.fire({
+                                title: response.status, text: response.message, icon: response.status
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
     /***************** cart action end **********************/
 
     $(window).scroll(function () {
@@ -748,7 +820,7 @@ $(document).ready(function () {
 
     function blogLoadMoreData() {
         var total_blogs = $('#totalBlogs').val();
-        
+
         var offset = $('#blog_loading_offset').val();
         var loading_limit = $('#blog_loading_limit').val();
 
@@ -772,7 +844,7 @@ $(document).ready(function () {
     }
     $(document).on('click', '#change-password-btn', function (e) {
         e.preventDefault();
-      
+
         // var _token = token;
         var required = [];
         $('.password-required').each(function () {
@@ -787,10 +859,10 @@ $(document).ready(function () {
         if (required.length == 0) {
             $('.with-errors').html('');
             var password = $('#new_password').val();
-            
+
 
             var confirm_password = $('#confirm_password').val();
-           
+
             $.ajax({
                 type: 'POST', dataType: 'json',
 
@@ -833,7 +905,7 @@ $(document).ready(function () {
         e.preventDefault();
         var id = $(this).data('id');
 
-       
+
         $.ajax({
             type: 'POST', dataType: 'html', data: {id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -843,7 +915,7 @@ $(document).ready(function () {
                     $('#my_address_add_form').html(response);
                     $('#my_address_list').addClass('d-none');
                     $('#my_address_add_form').removeClass('d-none');
-                    
+
                 } else {
                     swal.fire({
                         title: "Error", text: "Error while load the form", icon: 'error'
@@ -854,17 +926,17 @@ $(document).ready(function () {
     });
     $(document).on('click', '.checkprice', function () {
         var id = $(this).data('id');
-      
+
         var product_id = $(this).data('product_id');
         var product_type_id = $(this).data('product_type_id');
         $.ajax({
             type: 'POST', dataType: 'html', data: {id,product_id,product_type_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
-                
+
                 $('#price').html('AED '+response+'.00');
                 if (response != '0') {
-                    
+
                 } else {
                     swal.fire({
                         title: "Error", text: "Error while load the form", icon: 'error'
@@ -876,8 +948,8 @@ $(document).ready(function () {
 
     $(document).on('click', '#add_address_gos', function () {
 
-    
-       
+
+
         $('#my_address_add_form_')[0].reset();
         if ($('#my_address_list').css('display') === 'block') {
             $('#my_address_list').addClass('d-none');
@@ -890,20 +962,20 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '#country', function (e) {
-        
+
         e.preventDefault();
         var country_id = $(this).val();
         var form = $(this).closest("form");
-       
+
         var form_id = form.attr('id');
-      
-       
+
+
         if (country_id) {
             $.ajax({
                 type: 'POST', dataType: 'json', url: base_url + '/state-list', data: {country_id}, headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }, success: function (data) {
-                    
+
                     if (data.status == 'error') {
                         swal.fire('Error !', data.message, 'error');
                     } else {
@@ -924,8 +996,8 @@ $(document).ready(function () {
 
     $(document).on('click', '.remove-address', function () {
 
-      
-      
+
+
         var address_id = $(this).data('id');
         swal.fire({
             title: "Are you sure?",
@@ -993,32 +1065,32 @@ $(document).ready(function () {
     });
 
     $('.filterItem').on('click', function () {
-       
+
         $(this).closest('.colorItemFilterClick').toggleClass("active") ;
         $(this).closest('.colorItemFilterClicks').toggleClass("active") ;
-        
+
        var parent = $(this).data('parent');
 
 
-       
 
-      
+
+
        if(parent != null){
-        
+
               $('#Category_'+parent).prop('checked', true);
          }
          if($(this).prop('checked') == false){
-          
+
                 $('#Category_'+parent).prop('checked', false);
             }
-        
+
 
         var label = $(this).data('label');
         var title = $(this).data('title');
         var id = $(this).val();
         if ($(this).prop('checked') == true) {
             $('.filteredContents').show();
-             
+
             $('#filterResult').append('<div class="fltr" id="item' + id + '">' + ' <div class="txt">' + label + ': ' + title + '</div>' + '<button class="btn clearFiltered" data-id="' + label + '_' + id + '">' + '<i class="fa-solid fa-xmark"></i> </button> </div>');
         } else {
             $('#item' + id).remove();
@@ -1046,7 +1118,7 @@ $(document).ready(function () {
             type: 'POST', dataType: 'html', data: $('#filter-form').serialize(), headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/filter-product', success: function (response) {
-               
+
                 $('.productList').html(response);
                 Toast.fire("Done it!", 'Filter Applied', "success");
             }
