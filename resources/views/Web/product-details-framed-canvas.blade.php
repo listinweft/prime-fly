@@ -12,9 +12,10 @@
                     <h1>Product Details</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php"><img  src="{{ asset('frontend/images/home.png')}}" alt=""></a></li>
-                            <li class="breadcrumb-item"><a href="product-listing.php">Products</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+                            <li class="breadcrumb-item"><a href="{{url('/')}}"><img
+                                        src="{{ asset('frontend/images/home.png') }}" alt=""></a></li>
+                            <li class="breadcrumb-item"><a href="{{url('products')}}">Products</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$product->title}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -36,19 +37,19 @@
                             <div class="item position-relative">
                                 <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
                                     <div class="fotorama__html">
-                                        <img class="framed-canvas fotorama__img" src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg" aria-hidden="false">
+                                        <img class="framed-canvas fotorama__img" src="{{asset($product->thumbnail_image)}}" aria-hidden="false">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="itemImgBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/product/product02.jpg')}}">
+                                <img class="img-fluid"  src="{{asset($product->thumbnail_image)}}">
                             </div>
                             <div class="itemImgBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/product/product05.jpg')}}">
+                                <img class="img-fluid"  src="{{asset($product->thumbnail_image)}}">
                             </div>
                             <div class="itemImgBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/frame/wooden-frame_th.jpg')}}">
+                                <img class="img-fluid"  src="{{asset($product->thumbnail_image)}}">
                             </div>
                         </div>
                     </div>
@@ -56,22 +57,22 @@
                         <div class="productDetailsThumbs">
                             <div class="fotorama__nav__frame">
                                 <div class="fotorama__thumb fotorama_horizontal_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="https://image.drawdeck.com/catalog/product/cache/c990ca6a58d31f9a3644f6bd076a6b08/l/a/lazyday_090222.jpg"  class="fotorama__img">
+                                    <img src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
                                 </div>
                             </div>
                             <div class="fotorama__nav__frame ">
                                 <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img  src="{{ asset('frontend/images/product/product02.jpg')}}"  class="fotorama__img">
+                                    <img  src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
                                 </div>
                             </div>
                             <div class="fotorama__nav__frame ">
                                 <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img  src="{{ asset('frontend/images/product/product05.jpg')}}"  class="fotorama__img">
+                                    <img  src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
                                 </div>
                             </div>
                             <div class="fotorama__nav__frame ">
                                 <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img  src="{{ asset('frontend/images/frame/wooden-frame_th.jpg')}}"  class="fotorama__img">
+                                    <img  src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
                                 </div>
                             </div>
                         </div>
@@ -81,45 +82,40 @@
             <div class="col-xxl-7 col-lg-7 productDetailsInfo ps-xxl-5 ps-xl-4">
                 <div class="productNameStock">
                     <div class="name">
-                        <h4>Lorem ipsum dolor sit amet.</h4>
+                        <h4>{{$product->title}}</h4>
                     </div>
 <!--                    <div class="stock">-->
 <!--                        In Stock-->
 <!--                    </div>-->
+                    @if (@$product->availability == 'out of stock')
                     <div class="stock outOfStock">
-                        out of stock
+                        {{ $product->availability}}
                     </div>
-                </div>
+                    @endif
+                                    </div>
                 <div class="productRatingPrice">
                     <div class="rating">
-                        <h6>1,098 Ratings</h6>
+                        <h6> {{ $totalReviews }} Ratings</h6>
+                        @if($averageRatings >0)
                         <div class="rate_area">
                             <i class="fa-solid fa-star"></i> 4.5
                         </div>
+                        @endif
                     </div>
                     <div class="price">
-                        <h5>AED 12020.28</h5>
+                        @php
+                                $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                        @endphp
+                        <h5>AED {{$price->price.'.00'}}</h5>
                     </div>
                 </div>
                 <div class="productCode">
                     <h5>
-                        Product Code : <strong>ART345699</strong>
+                        Product Code : <strong>{{$product->sku}}</strong>
                     </h5>
                 </div>
                 <div class="textArea">
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book.
-                    </p>
-                    <ul>
-                        <li>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </li>
-                        <li>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        </li>
-                    </ul>
+                    {!! @$product->description !!}
                 </div>
 
                 <div class="relatedProductsTypesSelect">
@@ -127,30 +123,16 @@
                         Select Product Type
                     </h5>
                     <div class="relatedProductsTypesWrapper">
-                        <div class="item ">
-                            <a href="{{url('product-details')}}">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-00.jpg')}}" alt="">
-                                <p>Print Only</p>
+                        @foreach ($products as $prd)
+                        <div class="item {{$prd->productType->id ==  $product->productType->id ?  'active' : '' }}">
+                            <a href=" {{url('/product/'.$prd->short_url)}} ">
+                               {!! Helper::printImage($prd->productType, 'image','image_webp','image_attribute') !!}
+                                <p>{{$prd->productType->title}}</p>
                             </a>
                         </div>
-                        <div class="item">
-                            <a href="{{url('product-details-canvas')}}">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-01.jpg')}}" alt="">
-                                <p>Canvas</p>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{url('product-details-stretched-canvas')}}">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-02.jpg')}}" alt="">
-                                <p>Stretched Canvas</p>
-                            </a>
-                        </div>
-                        <div class="item active">
-                            <a href="{{url('product-details-framed-canvas')}}">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/type-03.jpg')}}" alt="">
-                                <p>Framed Canvas</p>
-                            </a>
-                        </div>
+                          
+                        @endforeach
+                    
                     </div>
                 </div>
 
@@ -159,63 +141,84 @@
                         Select Size <span>(Size in cms)</span>
                     </h5>
                     <div class="relatedProductsTypesWrapper sizeSection">
-                        <div class="item active">
+                        @foreach ($sizes as $size)
+                        <div class="item {{$size->id ==  1 ?  'active' : '' }} checkprice" data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
                             <div class="sizeImageBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/50_50.png')}}" alt="">
+                                {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
-                            <p>50 X 50</p>
+                            <p>{{$size->title}}</p>
                         </div>
-                        <div class="item">
+                        @endforeach
+
+                        {{-- <div class="item disabledItem">
                             <div class="sizeImageBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/75_75.png')}}" alt="">
-                            </div>
-                            <p>75 X 75</p>
-                        </div>
-                        <div class="item disabledItem">
-                            <div class="sizeImageBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/40_40.png')}}" alt="">
+                                <img class="img-fluid" src="{{ asset('frontend/images/productTypes/40_40.png') }}"
+                                    alt="">
                             </div>
                             <p>40 X 50</p>
-                        </div>
-                        <div class="item">
-                            <div class="sizeImageBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/productTypes/60_75.png')}}" alt="">
-                            </div>
-                            <p>60 X 75</p>
-                        </div>
+                        </div> --}}
+                   
                     </div>
                 </div>
-
+                @if(@$productFrames->isNotEmpty())
+                   
                 <div class="relatedProductsTypesSelect">
                     <h5>
                         Select Frame Color
                     </h5>
                     <div class="relatedProductsTypesWrapper">
-                        <div class="item active">
-                            <div class="colorBox" style="background: #FFFFFF">
+                        @foreach ($productFrames as $frame)
+                        <div class="item  colorBtn" data-color="{{$frame->code}}" data-img="{{asset($frame->image)}}">
+                            <div class="colorBox" style="background: {{$frame->code}}">
 
                             </div>
-                            <p>White</p>
+                            <p>{{$frame->title}}</p>
                         </div>
-                        <div class="item ">
+
+                        @endforeach
+                        {{-- <div class="item colorBtn" data-color="#000000" data-img="assets/images/frame/wooden-frame2.jpg">
                             <div class="colorBox" style="background: #000000">
 
                             </div>
                             <p>Black</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
+                @endif
 
+                @if(@$product->mount != null)
+                    <div class="relatedProductsTypesSelect">
+                        <h5>
+                            Mount
+                        </h5>
+                        <div class="relatedProductsTypesWrapper">
+                            <div class="item active mountSpaceBtn btnMountClass" >
+                                <div class="colorBox" >
+                                    <img class="img-fluid w-100" src="{{asset('frontend/images/frame/wooden-frame-no-mount.jpg')}}" alt="">
+                                </div>
+                                <p>With Mount</p>
+                            </div>
+                            <div class="item mountSpaceBtn">
+                                <div class="colorBox" >
+                                    <img class="img-fluid w-100" src="{{asset('frontend/images/frame/wooden-frame-mount.jpg')}}" alt="">
+                                </div>
+                                <p>No Mount</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="totalBox">
                     <h5>
                         Total
                     </h5>
                     <div class="priceQuantityArea">
                         <div class="priceArea">
-                            <h3>AED 12020.28</h3>
-                            <h6>
-                                AED 13020.28
-                            </h6>
+                           
+                            @php
+                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                        @endphp
+                        <h3 id="price">AED {{$price->price.'.00'}}</h3>
+                        <h6></h6>
                         </div>
                         <div class="quantity_parice_order_area">
                             <div class="quantity-counter">
@@ -237,97 +240,44 @@
 
                 <div class="tagArea">
                     <h6>Product Tags</h6>
-                    <div class="tag">Abstract</div>
-                    <div class="tag">Art</div>
-                    <div class="tag">Canvas</div>
-                    <div class="tag">Acrylic</div>
-                    <div class="tag">Portrait</div>
-                    <div class="tag">Nature</div>
+                    @foreach ($productTags as $tag)
+                        
+                    <div class="tag">{{$tag->title}}</div>
+                    @endforeach
+                 
                 </div>
-
             </div>
         </div>
+        @if(@$product->about_item != null)
         <div class="moreDetails">
+            @if($product->about_item)
             <div class="row">
                 <div class="col-12">
                     <h4>
                         About This Item
                     </h4>
                     <div class="textArea">
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                            the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                            of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                            but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                            popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.
-                        </p>
-                        <ul>
-                            <li>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                the industry's
-                            </li>
-                            <li>
-                                It has survived not only five centuries,
-                                but also the leap into electronic typesetting, remaining essentially unchanged.
-                            </li>
-                            <li>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            </li>
-                            <li>
-                                It has survived not only five centuries,
-                                but also the leap into electronic typesetting, remaining essentially unchanged.
-                            </li>
-                            <li>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                the industry's
-                            </li>
-                        </ul>
+                       {!! $product->about_item !!}
                     </div>
                 </div>
             </div>
+            @endif
+            @if($product->featured_image)
             <div class="row justify-content-center mt-4">
                 <div class="col-lg-5">
-                    <img class="img-fluid"  src="{{ asset('frontend/images/moreDetails.jpg')}}" alt="">
+                    {!! Helper::printImage($product, 'featured_image','featured_image_webp','featured_image_attribute', 'img-fluid') !!}
                 </div>
                 <div class="col-lg-5 right ps-xl-5">
                     <div class="textArea">
                         <div>
-                            <h3>
-                                Lorem Ipsum is simply dummy text
-                            </h3>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged.
-                            </p>
-                            <ul>
-                                <li>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                    the industry's
-                                </li>
-                                <li>
-                                    It has survived not only five centuries,
-                                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                                </li>
-                                <li>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                </li>
-                                <li>
-                                    It has survived not only five centuries,
-                                    but also the leap into electronic typesetting, remaining essentially unchanged.
-                                </li>
-                                <li>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                                    the industry's
-                                </li>
-                            </ul>
+                           {!! $product->featured_description !!}
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
         </div>
+        @endif
     </div>
 </section>
 
@@ -343,82 +293,37 @@
                     <div class="left">
                         <h5>Customer Reviews</h5>
                         <p>What others think about the item</p>
-                        <h6>162 Customer Ratings</h6>
+                        <h6>{{ $totalRatings }} Customer Ratings</h6>
                         <div class="my-rating-readonly" data-rating="4"></div>
                     </div>
                     <div class="right">
-                        <h5><img  src="{{ asset('frontend/images/star.png')}}" alt="">4.5</h5>
+                        <h5><img src="{{ asset('frontend/images/star.png') }}" alt="">{{ $averageRatings }}</h5>
                         <p>Average customer rating</p>
                     </div>
                 </div>
                 <div class="ratings_reviews_right_bar">
                     <h6>Reviews</h6>
                     <ul>
-                        <li>
-                            <div class="ratings_reviews_star">
-                                <p>5<img  src="{{ asset('frontend/images/star.png')}}" alt=""></p>
-                            </div>
-                            <div class="ratings_reviews_bar">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        <ul>
+                            @for($i=5;$i>=1;$i--)
+    
+                            <li>
+                                <div class="ratings_reviews_star">
+                                    <p>{{ $i }}<img src="{{ asset('frontend/images/star.png') }}" alt=""></p>
                                 </div>
-                                <p>
-                                    106
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ratings_reviews_star">
-                                <p>4<img  src="{{ asset('frontend/images/star.png')}}" alt=""></p>
-                            </div>
-                            <div class="ratings_reviews_bar">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                @php $var = 'starPercent'.$i @endphp
+                                <div class="ratings_reviews_bar">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ $$var }}%" aria-valuenow="{{ $$var }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p>
+                                        {{ $$var }}%
+                                    </p>
                                 </div>
-                                <p>
-                                    56
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ratings_reviews_star">
-                                <p>3<img  src="{{ asset('frontend/images/star.png')}}" alt=""></p>
-                            </div>
-                            <div class="ratings_reviews_bar">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p>
-                                    0
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ratings_reviews_star">
-                                <p>2<img  src="{{ asset('frontend/images/star.png')}}" alt=""></p>
-                            </div>
-                            <div class="ratings_reviews_bar">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p>
-                                    5
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ratings_reviews_star">
-                                <p>1<img  src="{{ asset('frontend/images/star.png')}}" alt=""></p>
-                            </div>
-                            <div class="ratings_reviews_bar">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p>
-                                    0
-                                </p>
-                            </div>
-                        </li>
+                            </li>
+                            @endfor
+                           
+                        </ul>
                     </ul>
                 </div>
             </div>
@@ -465,96 +370,150 @@
 <!--Reviews Section End-->
 
 <!-- Testimonial Start-->
+@if ($testimonials->isNotempty())
 <section class="testimonialSection productTestimonialSection">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-10 col-12 pt-60">
                 <div class="testimonialsSlider">
+                    @foreach( $testimonials as $blog)
                     <div class="testimonialsCard">
                         <div class="testimonialsProfile">
                             <div class="leftPhoto">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/testimonail.png')}}" alt="">
+                                {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
                             </div>
                             <div class="rightDetails">
-                                <h3>Daisy Welch</h3>
-                                <h6>Chief Branding Producer</h6>
+                                <h3>{{ @$blog->name }}</h3>
+                                <h6>{{ @$blog->designation }}</h6>
                                 <div class="reviewIconStar">
+                                    @if(@$blog->review_type!=="Normal")
                                     <div class="icon">
-                                        <img class="imgBox"  src="{{ asset('frontend/images/google.png')}}" alt="">
+                                        <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                     </div>
-                                    <div class="my-rating-readonly" data-rating="5"></div>
+                                    @endif
+                                    <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                 </div>
                             </div>
                         </div>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                            took a galley of type and scrambled it to make a type specimen book  industry's standard
-                            dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                            since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                            a type specimen book  industry's standard dummy text ever since the 1500s.
-                        </p>
+                        {!! @$blog->message !!}
+                            
                     </div>
-                    <div class="testimonialsCard">
-                        <div class="testimonialsProfile">
-                            <div class="leftPhoto">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/testimonail.png')}}" alt="">
-                            </div>
-                            <div class="rightDetails">
-                                <h3>Ishan Ali</h3>
-                                <h6>Business Analyst</h6>
-                                <div class="reviewIconStar">
-                                    <div class="my-rating-readonly" data-rating="5"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                            took a galley of type and scrambled it to make a type specimen book  industry's standard
-                            dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                            since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                            a type specimen book  industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
-                    <div class="testimonialsCard">
-                        <div class="testimonialsProfile">
-                            <div class="leftPhoto">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/testimonail.png')}}" alt="">
-                            </div>
-                            <div class="rightDetails">
-                                <h3>Daisy Welch</h3>
-                                <h6>Chief Branding Producer</h6>
-                                <div class="reviewIconStar">
-                                    <div class="icon">
-                                        <img class="imgBox"  src="{{ asset('frontend/images/google.png')}}" alt="">
-                                    </div>
-                                    <div class="my-rating-readonly" data-rating="5"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
-                            took a galley of type and scrambled it to make a type specimen book  industry's standard
-                            dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                            since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-                            a type specimen book  industry's standard dummy text ever since the 1500s.
-                        </p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="col-12 text-center mt-md-5">
-                <a href="" class="primary_btn">Add Your Review</a>
+                <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn">Add Your Review</a>
             </div>
         </div>
     </div>
 </section>
+    
+@endif
 <!-- Testimonial End-->
+@if(@$similarProducts->isNotEmpty())
+<div class="relatedProducts youMayAlsoLike">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>You May Also Like </h3>
+                <section id="demos">
+                    <div class="relatedSlider owl-carousel owl-theme ">
+                        @foreach ($similarProducts as $product)
+                        <div class="item">
+                            <div class="product-item-info">
+                                <div class="product-photo ">
 
+                                    <div class="product-image-container w-100">
+                                        <div class="product-image-wrapper">
+                                            <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
+                                                {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                            </a>
+                                        </div>
+                                        <div class="cartWishlistBox">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}" data-id="{{$product->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
+                                                            data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
+                                                        <div class="textIcon">
+                                                            Wishlist
+                                                        </div>
+                                                        <div class="iconBox" id="wishlist_check_span_{{$product->id}}">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}" data-id="{{$product->id}}">
+                                                        <div class="iconBox">
+                                                            <i class="fa-solid fa-cart-shopping"></i>
+                                                        </div>
+                                                        <div class="textIcon">
+                                                            Add to Cart
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="logoArea mt-auto">
+                                            {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-details">
+                                    <a href="{{ url('/product/'.$product->short_url) }}">
+                                        <div class="pro-name">
+                                        {{ $product->title }}
+                                        </div>
+                                        <ul class="price-area">
+                                            <li class="offer">
+                                            @if(Helper::offerPrice($product->id)!='')
+                                            </li>
+                                            @endif
+                                            @if(Helper::offerPrice($product->id)!='')
+                                            <li>
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                            </li>
+                                            <li>
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                            </li>
+                                        
+                                        
+                                            @else
+                                            <li>
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                            </li>
+                                            <li>
+                                            
+                                            </li>
+                                            @endif
+                                        </ul>
+                                        <ul class="type-review">
+                                        @foreach($product->product_categories as $product_category)
+                                            <li>
+                                            {{ $product_category->title }}
+                                            </li>
+                                            @endforeach
+                                            @if(Helper::averageRating($product->id)>0)
+                                            <li class="review">
+                                                <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                            </li>
+                                            @endif
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                            
+                        @endforeach
+      
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@if(@$relatedProducts->isNotEmpty())
 <div class="relatedProducts">
     <div class="container">
         <div class="row">
@@ -562,30 +521,32 @@
                 <h3>Related Products</h3>
                 <section id="demos">
                     <div class="relatedSlider owl-carousel owl-theme ">
+                        @foreach ($relatedProducts as $product)
                         <div class="item">
-                            <div class="product-item-info">
+                            <div class="product-item-info">htgh
                                 <div class="product-photo ">
 
                                     <div class="product-image-container w-100">
                                         <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product01.jpg')}}" loading="lazy"  alt="">
+                                            <a href="{{ url('/product/'.$product->short_url) }}" tabindex="-1">
+                                                {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
                                             </a>
                                         </div>
                                         <div class="cartWishlistBox">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}" data-id="{{$product->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
+                                                            data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                         <div class="textIcon">
                                                             Wishlist
                                                         </div>
-                                                        <div class="iconBox">
+                                                        <div class="iconBox" id="wishlist_check_span_{{$product->id}}">
                                                             <i class="fa-regular fa-heart"></i>
                                                         </div>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
+                                                    <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}" data-id="{{$product->id}}">
                                                         <div class="iconBox">
                                                             <i class="fa-solid fa-cart-shopping"></i>
                                                         </div>
@@ -596,420 +557,56 @@
                                                 </li>
                                             </ul>
                                             <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
+                                            {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="{{url('product-details')}}">
+                                    <a href="{{ url('/product/'.$product->short_url) }}">
                                         <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
+                                        {{ $product->title }}
                                         </div>
                                         <ul class="price-area">
                                             <li class="offer">
-                                                AED 10055
+                                            @if(Helper::offerPrice($product->id)!='')
+                                            </li>
+                                            @endif
+                                            @if(Helper::offerPrice($product->id)!='')
+                                            <li>
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                             </li>
                                             <li>
-                                                AED 8000
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                             </li>
+                                        
+                                        
+                                            @else
+                                            <li>
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                            </li>
+                                            <li>
+                                            
+                                            </li>
+                                            @endif
                                         </ul>
                                         <ul class="type-review">
+                                        @foreach($product->product_categories as $product_category)
                                             <li>
-                                                Landscape
+                                            {{ $product_category->title }}
                                             </li>
+                                            @endforeach
+                                            @if(Helper::averageRating($product->id)>0)
                                             <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
+                                                <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
                                             </li>
+                                            @endif
                                         </ul>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product02.jpg')}}" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="{{url('product-details')}}">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product03.jpg')}}" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="{{url('product-details')}}">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product05.jpg')}}" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="{{url('product-details')}}">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product07.jpg')}}" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="{{url('product-details')}}">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product03.jpg')}}" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="{{url('product-details')}}">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item-info">
-                                <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{url('product-details')}}" tabindex="-1">
-                                                <img class="product-image-photo"  src="{{ asset('frontend/images/product/product05.jpg')}}" loading="lazy"  alt="">
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                                <img class="img-fluid"  src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-details">
-                                    <a href="{{url('product-details')}}">
-                                        <div class="pro-name">
-                                            Lorem Ipsum is simply dummy text of the printing
-                                        </div>
-                                        <ul class="price-area">
-                                            <li class="offer">
-                                                AED 10055
-                                            </li>
-                                            <li>
-                                                AED 8000
-                                            </li>
-                                        </ul>
-                                        <ul class="type-review">
-                                            <li>
-                                                Landscape
-                                            </li>
-                                            <li class="review">
-                                                <i class="fa-solid fa-star"></i> 4.5
-                                            </li>
-                                        </ul>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </section>
             </div>
@@ -1017,7 +614,7 @@
     </div>
 </div>
 
-
+@endif
 
 <section class="bottomStickyBar">
     <div class="container">
@@ -1026,22 +623,32 @@
                 <div class="bottomItemWrapper">
                     <div class="imageName">
                         <div class="imgBox">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product02.jpg')}}" alt="">
+                          {!! Helper::printImage(@$product,'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','img-fluid') !!}
                         </div>
                         <div class="name">
                             <p>
-                                Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.
+                             {{$product->title}}
                             </p>
                         </div>
                     </div>
                     <div class="qntyAddBtn">
                         <div class="quantity-counter">
                             <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
                             </button>
-                            <input type="number" disabled class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
+                            <input type="number" disabled class="input-number__input form-control2 form-control-lg"
+                                min="1" max="100" step="1" value="1">
                             <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
                             </button>
                         </div>
                         <a class="primary_btn" href="">Add to Cart</a>
@@ -1051,4 +658,48 @@
         </div>
     </div>
 </section>
+<div class="modal fade login_create" id="bulk_order_form_pop" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> <i class="fa-solid fa-list"></i> Bulk Enquiry</h5>
+                <button type="button" class="btn " data-bs-dismiss="modal" aria-label="Close"><img
+                        class="img-fluid" src="{{ asset('frontend/images/svg/colse_login.svg') }}"
+                        alt=""></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="bulkenquiryForm" name="bulkenquiryForm">
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="text" name="name" id="name" class="form-control"
+                                placeholder="Name*">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="email" id="email" class="form-control"
+                                placeholder="Email*">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="phone" id="phone"class="form-control"
+                                placeholder="Phone*">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" id="message" class="form-control form-message" placeholder="Message*"></textarea>
+                            <!-- <input type="password" class="form-control" placeholder="Password*"> -->
+                        </div>
+                        {{-- <input type="hidden" name="subject" value="subject"> --}}
+
+                        <input type="hidden" name="type" value="product">
+                        <input type="hidden" name="product_id" value="1">
+                        <div class="form-group">
+                            <button class="btn primary_btn submit_form_btn" data-url="/enquiry">Send</button>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

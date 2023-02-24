@@ -303,6 +303,8 @@
                             <div class="textWrapper">
                             {!! @$blog->message !!}
                             
+                                {!! @$blog->message !!}
+                            
                             </div>
                         </div>
                         @endforeach

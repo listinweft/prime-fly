@@ -30,8 +30,8 @@
        
             <div class="topSortDetails">
                 <div>
-                    <h4> Products</h4>
-                    <p></p>
+                    <h4>Latest Products</h4>
+                    <p>Lorem Ipsum is simply dummy text</p>
                 </div>
                 <div class="sortSearchBox">
                     <a class="btn primary_btn primary_btn_mb" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -48,10 +48,11 @@
                         <li>
                             <img class="img-fluid" src="{{asset('frontend/images/sort.png')}}" alt="">
                             <p>Sort By</p>
-                            <select class="formSelect" name="" id="">
+                            <select class="formSelect" name="sort_order_drop" id="sort_order_drop">
                             @foreach(['none'=>'None','new'=>'Latest','best'=>'Popular','featured'=>'Most Relevant','asc'=>'Product: A-Z','desc'=>'Product: Z-A'] as $sortValue => $sortTitle)
-                                <option value="{{ $sortValue }}"
-                                    {{ $sortValue == $sort_value?'selected':'' }}>{{$sortTitle}}</option>
+                                <option class="font" value="{{ $sortValue }}"
+                                    {{ $sortValue == $sort_value?'selected':'' }}
+                                >{{$sortTitle}}</option>
                             @endforeach
                             </select>
                         </li>
@@ -61,22 +62,7 @@
             <div class="tagArea">
                 <h6>Product Tags</h6>
                 
-                <div class="tagWrapper">
-
-
-                    <div class="fltr sort_details filterItems">
-                        <div class="txt" id="filterResult">
-                       
-                        </div>
-                        <button class="btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        
-                    </div>
-                    
-                   
-                    <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
-                    
+                <div class="tagWrapper filterItems" id="filterResult">
                     
                     
                 </div>

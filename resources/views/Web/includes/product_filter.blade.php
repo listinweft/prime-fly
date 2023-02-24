@@ -35,7 +35,7 @@
                                     
                                 <li>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input filterItem" type="checkbox" value="{{$subCategory->id}}" id="flexCheckDefault02" name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
+                                                                        <input class="form-check-input filterItem" type="checkbox" value="{{$subCategory->id}}"  name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
                                                                                id="Category_{{$subCategory->id}}"
                                                                                data-field="sub_category_id"
                                                                                value="{{ $subCategory->id }}"
@@ -72,54 +72,25 @@
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
             <div class="accordion-body">
                 <div class="colorWrapper">
+                @foreach($colors as $color)
                     <a href="javascript:void(0)" class="colorItem colorItemFilterClick">
-                        <div class="colorBox" style="background: #292929">
-                        </div>
+                        <input type="checkbox"  name="color_id[]" id="Color_{{$color->id}}" data-field="color_id"
+                                                               value="{{ $color->id }}" data-label="Color"
+                                                               data-title="{{$color->title}}"
+                                                               {{ $color->short_url == $typeValue?'checked':'' }}
+                                                               class="form-check-input filterItem d-none">
+                        <label for="Color_{{$color->id}}" class="colorBox" style="background:{{$color->code}}">
+                        </label>
                     </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #FFFFFF">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #71A9BA">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #637372">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #F5F4DF">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #75829D">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #BDB8CE">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #FBC9CC">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #EF7F55">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #BDC39F">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #E1C564">
-                        </div>
-                    </a>
-                    <a href="javascript:void(0)" class="colorItemFilterClick">
-                        <div class="colorBox" style="background: #C4CACE">
-                        </div>
-                    </a>
+                    @endforeach
+                    
+                    
+                    
+                   
+                    
+                    
+                   
+                    
                 </div>
             </div>
         </div>
@@ -159,18 +130,19 @@
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
             <div class="shapeArea">
+            @foreach($shapes as $shape)
                 <a href="javascript:void(0)" class="shapeFilterClick">
-                    <img class="Img-fluid" src="{{ asset('frontend/images/shapePortrait.jpg')}}" alt="">
-                    <h6>Portrait</h6>
+                    <label for="Shape_{{$shape->id}}">
+                        {!! Helper::printImage($shape, 'image', 'image_webp', '', 'img-fluid') !!}
+                        <h6>{{ @$shape->title }}</h6>
+                    </label>
+                    <input type="checkbox"  name="shape_id[]" id="Shape_{{$shape->id}}" data-field="shape_id"
+                                                               value="{{ $shape->id }}" data-label="Shape"
+                                                               data-title="{{$shape->title}}"
+                                                               {{ $color->short_url == $typeValue?'checked':'' }}
+                                                               class="form-check-input filterItem d-none">
                 </a>
-                <a href="javascript:void(0)" class="shapeFilterClick">
-                    <img class="Img-fluid" src="{{ asset('frontend/images/shapeLandscape.jpg')}}" alt="">
-                    <h6>Landscape</h6>
-                </a>
-                <a href="javascript:void(0)" class="shapeFilterClick">
-                    <img class="Img-fluid" src="{{ asset('frontend/images/shapeSquare.jpg')}}" alt="">
-                    <h6>Square</h6>
-                </a>
+                @endforeach
             </div>
         </div>
     </div>
@@ -186,33 +158,22 @@
         </h2>
         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
             <div class="productTagArea">
+            @foreach($tags as $tag)
                 <a href="javascript:void(0)" class="tagFilterClick">
-                    Seascape
+                {{ @$tag->title }}
+                  <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
+                                                               value="{{ $tag->id }}" data-label="Shape"
+                                                               data-title="{{$tag->title}}"
+                                                               {{ $color->short_url == $typeValue?'checked':'' }}
+                                                               class="form-check-input filterItem d-none">
                 </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Canvas
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Acrylic
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Art
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Abstract
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Contemporary
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Texture
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Illustration
-                </a>
-                <a href="javascript:void(0)" class="tagFilterClick">
-                    Gestural
-                </a>
+               
+                @endforeach
+               
+                
+                
+               
+               
             </div>
         </div>
     </div>
