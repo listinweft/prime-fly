@@ -181,5 +181,18 @@ class Product extends Model
     public function productType(){
         return $this->belongsTo(ProductType::class);
     }
+    public function productprice()
+    {
+        return $this->hasOne(ProductPrice::class, 'product_id', 'id')->orderBy('created_at');
+    }
+    public function productshape()
+    {
+        return $this->hasOne(ProductPrice::class, 'product_id', 'id')->orderBy('created_at');
+    }
+    public function getProductShapesAttribute()
+    {
+        $shapeid = $this->shape_id;
+        return Shape::whereIn('id', explode(',', $shapeid))->get();
+    }
 
 }

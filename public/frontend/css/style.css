@@ -9580,5 +9580,10 @@ footer .copy ul li img {
     padding-right: 0;
   }
 }
+.swal2-container {
+  display: flex;
+  position: fixed;
+  z-index: 9999;
+}
 
 /*# sourceMappingURL=style.css.map */

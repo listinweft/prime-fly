@@ -279,8 +279,12 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-12">
                     <form class="d-flex">
-                        <input class="searchInput " type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn primary_btn" type="submit">Search</button>
+                        <input class="searchInput" type="search" placeholder="Search" id="main-search" aria-label="Search">
+                        <button class="btn primary_btn" id="searchBtn" type="submit">Search</button>
+
+                        <div class="searchResult">
+                            <ul id="search-result-append-here"></ul>
+                        </div>
                     </form>
                 </div>
             </div>

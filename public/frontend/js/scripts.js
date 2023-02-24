@@ -597,10 +597,10 @@ $(".mountSpaceBtn").click(function(){
 });
 
 $('.productTagArea').each(function(){
-    var LiN = $(this).find('a').length;
+    var LiN = $(this).find('label').length;
     if( LiN > 5){
-        $('a', this).eq(4).nextAll().hide().addClass('toggleable');
-        $(this).append('<a class="tagFilterClick more">Show More</a>');
+        $('label', this).eq(4).nextAll().hide().addClass('toggleable');
+        $(this).append('<label class="tagFilterClick more">Show More</label>');
     }
 });
 $('.productTagArea').on('click','.more', function(){
@@ -609,10 +609,12 @@ $('.productTagArea').on('click','.more', function(){
     }else{
         $(this).text('Show Less').addClass('less');
     }
-    $(this).siblings('a.toggleable').slideToggle();
+    $(this).siblings('label.toggleable').slideToggle();
 });
 
 
 $(window).on('load', function () {
     $('#loading').hide();
 })
+
+

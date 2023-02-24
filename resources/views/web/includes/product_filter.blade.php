@@ -1,10 +1,10 @@
 
 <form id="filter-form" method="post">
-<div class="accordion" id="accordionPe">
+<div class="accordion" id="accordionPanelsStayOpenExample">
                   
     <div class="accordion-item">
-        <h2 class="accordion-header" id="">
-            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="" aria-controls="">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="" aria-controls="">
                 <div class="form-check title">
                     <label class="form-check-label label_bold" for="">
                     Category
@@ -111,8 +111,14 @@
                     <div class="currencyBox">AED</div>
                     <div id="slider-range"></div>
                     <div class="d-flex align-items-center justify-content-between w-100">
-                        <span class="min-range">100</span>
-                        <span class="max-range">1,000</span>
+                        <span class=""> {{ Helper::getMinPrice() }}</span>
+                        <span class=""> {{ Helper::getMaxPrice() }}</span>
+                        <!-- <input type="text" id="amount" name="my_range"
+                                                           value="AED{{ Helper::getMinPrice() }}-AED{{ Helper::getMaxPrice() }}"
+                                                           data-min="{{ Helper::getMinPrice() }}"
+                                                           data-max="{{ Helper::getMaxPrice() }}"
+                                                           data-from="{{ Helper::getMinPrice() }}"
+                                                           data-to="{{ Helper::getMaxPrice() }}"> -->
                     </div>
                 </div>
             </div>
@@ -158,23 +164,50 @@
         </h2>
         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
             <div class="productTagArea">
-            @foreach($tags as $tag)
-                <a href="javascript:void(0)" class="tagFilterClick">
-                {{ @$tag->title }}
-                  <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
-                                                               value="{{ $tag->id }}" data-label="Shape"
+            
+                @foreach($tags as $tag)
+                                                
+                <label for="tag_{{$tag->id}}"  class="tagFilterClick">
+                    <label class="d-block" for="tag_{{$tag->id}}">{{ @$tag->title }}</label>
+                    <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
+                                                               value="{{ $tag->id }}" data-label="Tag"
                                                                data-title="{{$tag->title}}"
                                                                {{ $color->short_url == $typeValue?'checked':'' }}
                                                                class="form-check-input filterItem d-none">
-                </a>
+                </label>
                
                 @endforeach
-               
-                
-                
-               
-               
             </div>
+
+            <!-- <div class="productTagArea">
+                <a href="javascript:void(0)" class="tagFilterClick">
+                    Seascape
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick">
+                    Canvas
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick">
+                    Acrylic
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick">
+                    Art
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick">
+                    Abstract
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick toggleable" style="display: none;">
+                    Contemporary
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick toggleable" style="display: none;">
+                    Texture
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick toggleable" style="display: none;">
+                    Illustration
+                </a>
+                <a href="javascript:void(0)" class="tagFilterClick toggleable" style="display: none;">
+                    Gestural
+                </a>
+            </div> -->
         </div>
     </div>
 </div>
