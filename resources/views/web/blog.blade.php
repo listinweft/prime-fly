@@ -4,6 +4,7 @@
 @section('content')
 <!--Inner Banner Start-->
     <section class="innerBanner">
+        
         <div class="innerBannerImageArea">
         {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
         </div>
