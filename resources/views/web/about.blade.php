@@ -106,7 +106,7 @@
 
     <section class="aboutAdd">
         <a href="#">
-            {!! Helper::printImage($about, 'banner_image', 'banner_image_webp', '' , 'img-fluid') !!}
+            {!! Helper::printImage($about, 'banner_image', 'banner_image_webp', '', 'img-fluid') !!}
         </a>
     </section>
 
@@ -114,141 +114,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    {{-- <h6 class="subHeading">{!! @$home_heading->subtitle !!}</h6> --}}
-                    <h6 class="subHeading">{{ @$home_heading->subtitle }} </h6>
-                    <h2 class="mainHeading">{!! @$home_heading->title !!}</h2>
+                    <h6 class="subHeading">{{ @$catHomeHeadings->subtitle }} </h6>
+                    <h2 class="mainHeading">{{ $catHomeHeadings->title }}</h2>
                     <div class="headingText">
                         <p>
-                            {{-- {!! @$home_heading->description !!} --}}
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                            the industry's standard
+                            {!! @$catHomeHeadings->description !!}
                         </p>
                     </div>
                 </div>
+
                 <div class="col-lg-12 sliderClass position-relative">
                     <div class="sliderNavShopCategory">
                     </div>
                     <div class="shopCategorySlider">
-                        <div class="shopSectionItem shopSectionItemBg1">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-01.jpg') }}"
-                                        alt="">
+                        @foreach ($themes as $theme)
+                            <div class="shopSectionItem shopSectionItemBg1">
+                                <div class="wrapper">
+                                    <div class="imgBox">
+                                        {!! Helper::printImage(@$theme, 'image', 'image_webp', '', 'img-fluid') !!}
+                                        {{-- <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-01.jpg') }}"
+                                        alt=""> --}}
+                                    </div>
+                                    <h5>{{ $theme->title }}</h5>
+                                    <h6>{{ @$theme->items }} </h6>
                                 </div>
-                                <h5>Portraits</h5>
-                                <h6>17 Items</h6>
                             </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg2">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images//themes/theme-02.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Landscapes</h5>
-                                <h6>23 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg3">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-03.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Seascapes</h5>
-                                <h6>27 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg4">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-04.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Flowers</h5>
-                                <h6>32 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg5">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-05.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Animals</h5>
-                                <h6>12 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg6">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-06.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Birds</h5>
-                                <h6>30 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg7">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-06.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Birds</h5>
-                                <h6>30 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg8">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-04.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Flowers</h5>
-                                <h6>32 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg9">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-01.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Portraits</h5>
-                                <h6>17 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg10">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-02.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Landscapes</h5>
-                                <h6>23 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg11">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-03.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Seascapes</h5>
-                                <h6>27 Items</h6>
-                            </div>
-                        </div>
-                        <div class="shopSectionItem shopSectionItemBg12">
-                            <div class="wrapper">
-                                <div class="imgBox">
-                                    <img class="img-fluid" src="{{ asset('frontend/images/themes/theme-05.jpg') }}"
-                                        alt="">
-                                </div>
-                                <h5>Animals</h5>
-                                <h6>12 Items</h6>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

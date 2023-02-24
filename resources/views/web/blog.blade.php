@@ -32,7 +32,7 @@
         <div class="container">
             <div class="row align-items-start">
                 <div class="col-lg-8">
-                    <h6 class="subHeading">Blog Details</h6>
+                    <h6 class="subHeading">{{ $blog->subtitle }}</h6>
                     <h2 class="mainHeading">  {{ $blog->title }}</h2>
                     <div class="timeDate">
                         <div class="date">{{ date('d-m-Y', strtotime($blog->posted_date)) }}</div>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="textArea">
                         <p>
-                           
+
                         </p>
                         <ul>
                             <li>
@@ -71,9 +71,9 @@
                         <p>
 
                         {!! $blog->description !!}
-                        
+
                         </p>
-                       
+
                     </div>
                     <div class="share_navigation_area">
                         <div class="share">
@@ -129,7 +129,7 @@
     </section>
     @endsection
 @push('scripts')
-    
+
 @endpush
 <!--Blog Listing Page End -->
 

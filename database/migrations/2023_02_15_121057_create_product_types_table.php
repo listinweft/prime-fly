@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image')->nullable();
+            $table->integer('sort_order')->nullable();
             $table->string('image_webp')->nullable();
             $table->string('image_attribute')->nullable();
             $table->enum('status', ['Active', 'Inactive'])->default('Active');

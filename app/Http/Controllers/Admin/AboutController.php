@@ -80,6 +80,7 @@ class AboutController extends Controller
         $about->subtitle = $validatedData['subtitle'];
         $about->description = $validatedData['description'];
         $about->image_attribute = $request->image_attribute ?? '';
+        $about->banner_image_attribute = $request->banner_image_attribute ?? '';
         $about->video_url = $request->video_url ?? '';
         $about->feature_title = $request->feature_title ?? '';
         $about->feature_description = $request->feature_description ?? '';
