@@ -30,8 +30,8 @@
        
             <div class="topSortDetails">
                 <div>
-                    <h4> Products</h4>
-                    <p></p>
+                    <h4>Latest Products</h4>
+                    <p>Lorem Ipsum is simply dummy text</p>
                 </div>
                 <div class="sortSearchBox">
                     <a class="btn primary_btn primary_btn_mb" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
@@ -62,22 +62,7 @@
             <div class="tagArea">
                 <h6>Product Tags</h6>
                 
-                <div class="tagWrapper">
-
-
-                    <div class="fltr sort_details filterItems">
-                        <div class="txt" id="filterResult">
-                       
-                        </div>
-                        <button class="btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        
-                    </div>
-                    
-                   
-                    <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
-                    
+                <div class="tagWrapper filterItems" id="filterResult">
                     
                     
                 </div>
