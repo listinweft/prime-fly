@@ -28,6 +28,7 @@ class ContactController extends Controller
 
     public function contact_page_store(Request $request)
     {
+        //dd($request);
         $validatedData = $request->validate([
             'contact_page_title' => 'required|min:2|max:230',
             'contact_request_title' => 'required|min:2|max:230',

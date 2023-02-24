@@ -105,7 +105,7 @@ class WebController extends Controller
     public function enquiry_store(Request $request)
     {
 
-
+        //dd($request->all());
         $request->validate([
             'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
             'email' => 'required|email|max:255',
@@ -419,7 +419,7 @@ class WebController extends Controller
         if ($request->input_field != NULL) {
             $inputs = explode(',', $request->input_field);
         }
-        
+
         if ($request->pageType == "category" && !in_array('category_id', $inputs)) {
             $category = Category::active()->where('short_url', $request->typeValue)->first();
             if ($category) {
@@ -526,6 +526,37 @@ class WebController extends Controller
         return view('web.compare-products', compact('seo_data', 'banner', 'products'));
     }
 
+    // public function submit_review(Request $request)
+    // {
+    //     if (Auth::guard('customer')->check()) {
+    //         $request->validate([
+    //             'rating' => 'required',
+    //         ]);
+    //         $email = Auth::guard('customer')->user()->email;
+    //         $name = Helper::loggedCustomerName();
+    //     } else {
+    //         $request->validate([
+    //             'rating' => 'required',
+    //             'email' => 'required|email',
+    //             'designation' => 'required',
+    //             'name' => 'required',
+    //             'message' => 'required',
+    //         ]);
+    //         $email = $request->email;
+    //         $name = $request->name;
+    //     }
+    //     $review = new ProductReview();
+    //     $review->email = $email;
+    //     $review->name = $name;
+    //     $review->rating = round($request->rating);
+    //     $review->review = $request->review;
+    //     $review->product_id = $request->product_id;
+    //     if ($review->save()) {
+    //         return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);
+    //     } else {
+    //         return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);
+    //     }
+    // }
     public function submit_review(Request $request)
     {
         if (Auth::guard('customer')->check()) {
@@ -538,18 +569,22 @@ class WebController extends Controller
             $request->validate([
                 'rating' => 'required',
                 'email' => 'required|email',
+                'designation' => 'required',
                 'name' => 'required',
+                'message' => 'required',
             ]);
             $email = $request->email;
             $name = $request->name;
         }
-        $review = new ProductReview();
-        $review->email = $email;
-        $review->name = $name;
-        $review->rating = round($request->rating);
-        $review->review = $request->review;
-        $review->product_id = $request->product_id;
-        if ($review->save()) {
+        $testimonial = new Testimonial();
+        $testimonial->email = $email;
+        $testimonial->name = $name;
+        $testimonial->rating = round($request->rating);
+        $testimonial->designation = $request->designation;
+        $testimonial->message = $request->message;
+        //$testimonial->review = $request->review;
+        // $testimonial->product_id = $request->product_id;
+        if ($testimonial->save()) {
             return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);
         } else {
             return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);

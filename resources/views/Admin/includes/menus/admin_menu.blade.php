@@ -52,9 +52,16 @@
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
+               class="nav-link {{ (Request::segment(3)=='testimonial')?:'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Testimonials</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
+               class="nav-link {{ (Request::segment(3)=='testimonial')?:'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>User Testimonial</p>
             </a>
         </li>
 
