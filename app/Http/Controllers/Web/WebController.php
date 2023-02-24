@@ -379,8 +379,14 @@ class WebController extends Controller
         $size = request()->id;
         $product_id = request()->product_id;
         $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
-        return Helper::offerPriceSize($product_id,$size,$productOffer->id);
-    //    $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
+        if($productOffer){
+            return Helper::offerPriceSize($product_id,$size,$productOffer->id);
+        }
+        else{
+               $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
+                return $product_price->price.'.00';
+
+        }
 
     }
     public function filter_product(Request $request)
