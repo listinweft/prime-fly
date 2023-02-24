@@ -200,7 +200,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#review-form-btn', function (e) {
         e.preventDefault();
-        var _token = token;
+   
         var required = [];
         $('.review-required').each(function () {
             var id = $(this).attr('id');

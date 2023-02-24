@@ -293,40 +293,46 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="formArea">
-                    <div class="head">
-                        <h5>Write A Review</h5>
-                        <div class="my-rating" data-rating="0"></div>
+                <form id="review-form" method="post">
+                    <div class="formArea">
+                        <div class="head">
+                            <h5>Write A Review</h5>
+                            <div class="my-rating" data-rating="0"></div>
+                            <input type="hidden" name="rating" id="rating" class="required">
+                        </div>
+                        <div class="row">
+                            @if(!Auth::guard('customer')->check())
+                                <div class=" col-12">
+                                    <div class="form-group">
+                                        <label for="">Full Name</label>
+                                        <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
+                                        <input type="text" class="form-control required" placeholder="Full Name"  name="name" id="name">
+                                    </div>
+                                </div>
+                                <div class=" col-12">
+                                    <div class="form-group">
+                                        <label for="">Email Address</label>
+                                        <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
+                                        <input   name="email" id="email"  type="text" class="form-control required" placeholder="Email Address">
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="col-12 message">
+                                <div class="form-group">
+                                    <label for="">Message</label>
+                                    <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
+                                    <textarea class="form-control required form-review" rows="4"name="review" id="review" placeholder="Say Something"></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" name="product_id" id="product_id"  value="{{$product->id}}">
+                            <div class="col-12x ">
+                                <div class="form-group d-flex align-items-end mb-0">
+                                    <button type="submit" data-url="/submit-review" id="review-form-btn" class="primary_btn ">Submit</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class=" col-12">
-                            <div class="form-group">
-                                <label for="">Full Name</label>
-                                <img  src="{{ asset('frontend/images/loginUser.png')}}" alt="">
-                                <input type="text" class="form-control" placeholder="Full Name">
-                            </div>
-                        </div>
-                        <div class=" col-12">
-                            <div class="form-group">
-                                <label for="">Email Address</label>
-                                <img  src="{{ asset('frontend/images/icon-email.png')}}" alt="">
-                                <input type="text" class="form-control" placeholder="Email Address">
-                            </div>
-                        </div>
-                        <div class="col-12 message">
-                            <div class="form-group">
-                                <label for="">Message</label>
-                                <img  src="{{ asset('frontend/images/icon-pen.png')}}" alt="">
-                                <textarea class="form-control" placeholder="Say Something"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12x ">
-                            <div class="form-group d-flex align-items-end mb-0">
-                                <button type="submit" class="primary_btn ">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -335,44 +341,8 @@
 <!--Reviews Section End-->
 
 <!-- Testimonial Start-->
-@if ($testimonials->isNotempty())
-<section class="testimonialSection productTestimonialSection">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-10 col-12 pt-60">
-                <div class="testimonialsSlider">
-                    @foreach( $testimonials as $blog)
-                    <div class="testimonialsCard">
-                        <div class="testimonialsProfile">
-                            <div class="leftPhoto">
-                                {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
-                            </div>
-                            <div class="rightDetails">
-                                <h3>{{ @$blog->name }}</h3>
-                                <h6>{{ @$blog->designation }}</h6>
-                                <div class="reviewIconStar">
-                                    @if(@$blog->review_type!=="Normal")
-                                    <div class="icon">
-                                        <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
-                                    </div>
-                                    @endif
-                                    <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
-                                </div>
-                            </div>
-                        </div>
-                        {!! @$blog->message !!}
-                            
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="col-12 text-center mt-md-5">
-                <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn">Add Your Review</a>
-            </div>
-        </div>
-    </div>
-</section>
-    
+@if($reviews->isNotEmpty())
+@include('web.includes._review_inner',[$reviews, $totalRatings])
 @endif
 <!-- Testimonial End-->
 @if(@$similarProducts->isNotEmpty())
@@ -488,7 +458,7 @@
                     <div class="relatedSlider owl-carousel owl-theme ">
                         @foreach ($relatedProducts as $product)
                         <div class="item">
-                            <div class="product-item-info">htgh
+                            <div class="product-item-info">
                                 <div class="product-photo ">
 
                                     <div class="product-image-container w-100">

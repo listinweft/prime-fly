@@ -127,6 +127,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
 <script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.js"></script>
 <!-- <script  src="{{ asset('frontend/js/scripts.min.js')}}"></script> -->
 <!-- <script  src="{{ asset('frontend/js/scripts.js')}}"></script> -->
 <!-- <script  src="{{ asset('frontend/js/custom.min.js')}}"></script> -->
