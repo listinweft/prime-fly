@@ -63,7 +63,7 @@
                                 <label> Title*</label>
                                 <input type="text" name="title" id="title" placeholder="Title"
                                        class="form-control required for_canonical_url" autocomplete="off"
-                                       value="{{ isset($product)?$product->title:'' }}">
+                                       value="{{ isset($product)?$product->title: old('title') }}">
                                 <div class="help-block with-errors" id="title_error"></div>
                                 @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -252,13 +252,13 @@
                             </div>
                             <div class="form-group col-md-3 ">
                                 <label> Frame Colour *</label>
-                                <select name="frame_color[]" id="frame_color"  class="form-control select2 required" multiple>
+                                <select name="frame_color[]" id="frame_color"  class="form-control select2 " multiple>
                                     <option value="">Select Frame Colour </option>
                                     @foreach($frames as $frame)
                                         <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
                                     @endforeach
                                 </select>
-                                <div class="help-block with-errors" id="frame_color_error"></div>
+                              
                             </div>
                             <div class="form-group col-md-3 ">
                                 <label> Shapes *</label>
@@ -321,7 +321,7 @@
                                     <input id="thumbnail_image" name="thumbnail_image" type="file"
                                            accept="image/*">
                                 </div>
-                                <span class="caption_note">Note: uploaded images have a maximum size of <strong> 1200x960</strong> pixels and can't be over 512kb</span>
+                                
                                 
                                 @error('thumbnail_image')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -529,11 +529,8 @@
             dropZoneEnabled: false,
             required: true,
             allowedFileTypes: ['image'],
-            minImageWidth: 1200,
-            minImageHeight: 960,
-            maxImageWidth: 1200,
-            maxImageHeight: 960,
-            maxFilesize: 540,
+       
+     
             showRemove: true,
             @if(isset($product) && $product->thumbnail_image!=NULL)
                 initialPreview: ["{{asset($product->thumbnail_image)}}",],

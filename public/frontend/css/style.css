@@ -771,7 +771,6 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   }
   .navbar .megamenu .shapeWrapper .shapeItem a img {
     width: 60%;
-    max-width: 220px;
     border: 1px solid #000;
     margin-bottom: 10px;
   }
@@ -1050,11 +1049,7 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   border-radius: 100%;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
 }
-.hamburgerMenu .offcanvas-body .mobile-menubar .navbar-nav .nav-item .dropdown-menu .colorWrapper .active .colorBox {
-  position: relative;
-  display: inline-block;
-}
-.hamburgerMenu .offcanvas-body .mobile-menubar .navbar-nav .nav-item .dropdown-menu .colorWrapper .active .colorBox::after {
+.hamburgerMenu .offcanvas-body .mobile-menubar .navbar-nav .nav-item .dropdown-menu .colorWrapper .active::after {
   width: 15px;
   height: 15px;
   border: 1px solid #FFFFFF;
@@ -2094,9 +2089,6 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
   border-radius: 10px;
   background-color: #252525;
   opacity: 1;
-}
-.testimonialSection .testimonialsSlider .slick-track {
-  margin-left: 0;
 }
 .testimonialSection .testimonialsSlider .slick-prev {
   top: 0;
@@ -4305,11 +4297,7 @@ footer .copy ul li img {
   border-radius: 100%;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
 }
-.productListingPage .category_area .ProductListCategory .accordion .accordion-item .colorWrapper .active .colorBox {
-  position: relative;
-  display: inline-block;
-}
-.productListingPage .category_area .ProductListCategory .accordion .accordion-item .colorWrapper .active .colorBox::after {
+.productListingPage .category_area .ProductListCategory .accordion .accordion-item .colorWrapper .active::after {
   width: 15px;
   height: 15px;
   border: 1px solid #FFFFFF;
@@ -4471,11 +4459,6 @@ footer .copy ul li img {
   background: url(../images/activeSelect.png) center;
   background-size: cover;
 }
-.productListingPage .category_area .ProductListCategory .accordion .accordion-item .productTagArea .more {
-  color: #ffffff;
-  background: #000000;
-  cursor: pointer;
-}
 .productListingPage .category_area .ProductListCategory .accordion-item:first-of-type .accordion-button {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -4556,20 +4539,19 @@ footer .copy ul li img {
 .productListingPage .productListingArea .tagArea {
   margin-top: 12px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 30px;
-  grid-gap: 15px;
 }
 .productListingPage .productListingArea .tagArea h6 {
   width: 110px;
-  padding-top: 0px;
+  padding-top: 7px;
 }
 .productListingPage .productListingArea .tagArea .tagWrapper {
-  width: 83%;
+  width: 87%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  grid-gap: 15px;
+  margin-left: 30px;
 }
 .productListingPage .productListingArea .tagArea .tagWrapper .fltr {
   display: flex;
@@ -4577,6 +4559,8 @@ footer .copy ul li img {
   background: #CFCFC4;
   justify-content: space-between;
   padding: 8px 12px;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
 .productListingPage .productListingArea .tagArea .tagWrapper .fltr .txt {
   font-size: 12px;
@@ -4597,10 +4581,6 @@ footer .copy ul li img {
 }
 .productListingPage .productListingArea .tagArea .tagWrapper .fltr:hover .btn {
   color: red;
-}
-.productListingPage .productListingArea .tagArea .clear {
-  font-size: 12px;
-  width: 70px;
 }
 .productListingPage .productListingWrapper {
   display: grid;
@@ -5005,16 +4985,16 @@ footer .copy ul li img {
   }
   .productListingPage .productListingArea .tagArea {
     flex-direction: column;
-    align-items: flex-start;
-    grid-gap: 10px;
   }
   .productListingPage .productListingArea .tagArea .tagWrapper {
     width: 100%;
     margin-left: 0px;
-    grid-gap: 10px;
   }
   .productListingPage .productListingArea .tagArea .tagWrapper .fltr {
+    margin-bottom: 0;
+    margin-top: 10px;
     padding: 5px 7px;
+    margin-right: 10px;
   }
   .product-item-info .product-photo .product-image-container .cartWishlistBox {
     opacity: 1;
@@ -5282,7 +5262,7 @@ footer .copy ul li img {
   position: relative;
   right: 0;
   top: 0;
-  height: 500px;
+  height: 600px;
   width: 100%;
   text-align: center;
   border-radius: 0px;
@@ -5315,8 +5295,6 @@ footer .copy ul li img {
   justify-content: center;
   padding-top: 0px;
   padding-bottom: 80px;
-  padding-left: 5px;
-  padding-right: 5px;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-arrow {
   width: 25px;
@@ -5348,25 +5326,36 @@ footer .copy ul li img {
   margin-top: 10px;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-slide div {
+  width: 100%;
   line-height: 0 !important;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .slick-list {
-  height: auto !important;
+  margin-bottom: -10px;
   margin-top: -10px;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama__nav__frame {
   padding: 0 !important;
   border: 1px solid #A0A0A0;
-  border: 1px solid #000;
   box-sizing: border-box;
   position: relative;
+  height: 100px;
   display: block;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama__thumb {
   background-color: #f5f5f5;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama_horizontal_ratio .fotorama__img {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: auto;
 }
 .productDetailsPage .product_details_gallery .sliderWrapperArea .productDetailsLeftFirst .productDetailsThumbs .fotorama_vertical_ratio .fotorama__img {
   height: 100%;
@@ -5413,49 +5402,6 @@ footer .copy ul li img {
   max-height: 80% !important;
   transition: all 0.2s ease;
   vertical-align: middle;
-}
-.productDetailsPage .stretchedCanvas .canvas-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-.productDetailsPage .stretchedCanvas .canvas-wrapper {
-  perspective: 600px;
-  width: fit-content;
-  position: relative;
-  margin: 0 auto;
-  max-width: 80% !important;
-}
-.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate {
-  transform-style: preserve-3d;
-  transform-origin: left 50%;
-  transform: rotateY(15deg);
-}
-.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate img {
-  max-height: 500px;
-  display: block;
-}
-.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate .canvas-border {
-  position: absolute;
-  top: 0;
-  left: -30px;
-  width: 30px;
-  height: 100%;
-  transform-origin: right 50%;
-  transform: rotateY(-70deg);
-  overflow: hidden;
-}
-.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate .canvas-border .canvas-inside {
-  transform: scaleX(-1);
-  height: 100% !important;
-  max-height: 100% !important;
-}
-.productDetailsPage .stretchedCanvas .canvas-wrapper .canvas-rotate .canvas-border .canvas-inside img {
-  width: auto;
-  height: 100% !important;
-  max-height: 100% !important;
-  max-width: none;
 }
 .productDetailsPage .productDetailsInfo .productNameStock {
   display: flex;
@@ -5589,6 +5535,7 @@ footer .copy ul li img {
   border: 1px solid #252525;
   width: 90px;
   height: 90px;
+  background: red;
   margin-bottom: 8px;
   transition: 0.3s;
   -webkit-transition: 0.3s;
@@ -9469,115 +9416,6 @@ footer .copy ul li img {
   }
   .login_create .modal-content .modal-header {
     padding: 0;
-  }
-}
-.reviewModalForm {
-  z-index: 10601;
-  background: rgba(0, 0, 0, 0.5);
-}
-.reviewModalForm .btn-close {
-  box-shadow: none;
-  outline: none;
-  border: 0;
-}
-.reviewModalForm .modal-header {
-  padding-right: 30px;
-  padding-left: 30px;
-}
-.reviewModalForm .formArea {
-  padding: 0 15px;
-  padding-bottom: 25px;
-}
-.reviewModalForm .formArea .head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-.reviewModalForm .formArea .head .my-rating {
-  margin-top: -8px;
-}
-.reviewModalForm .formArea .head .my-rating .jq-star {
-  margin-right: 5px;
-}
-.reviewModalForm .formArea .head .my-rating .jq-star:last-child {
-  margin-right: 0;
-}
-.reviewModalForm .formArea .message .form-group img {
-  bottom: 50px;
-}
-.reviewModalForm .formArea .form-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-.reviewModalForm .formArea .form-group img {
-  position: absolute;
-  left: 15px;
-  bottom: 10px;
-  width: 20px;
-}
-.reviewModalForm .formArea label {
-  color: #676767;
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-.reviewModalForm .formArea .form-control {
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #000;
-  color: #000;
-  padding: 10px 15px;
-  padding-left: 15px;
-  font-size: 13px;
-  font-family: Brother1816-Light;
-  box-shadow: none;
-  outline: none;
-  margin-bottom: 0;
-  border-radius: 0;
-}
-.reviewModalForm .formArea .form-control::placeholder {
-  color: #000;
-  opacity: 1;
-}
-.reviewModalForm .formArea .form-control:-ms-input-placeholder {
-  color: #000;
-}
-.reviewModalForm .formArea .form-control::-ms-input-placeholder {
-  color: #000;
-}
-.reviewModalForm .formArea textarea {
-  height: 80px;
-  resize: none;
-}
-.reviewModalForm .formArea .primary_btn {
-  margin-bottom: 0;
-  padding: 12px 35px;
-  border: 0;
-  background: #fff;
-  color: #252525;
-  border: 2px solid #252525;
-}
-.reviewModalForm .formArea .primary_btn:before {
-  background: #cfcfc4;
-}
-.reviewModalForm .formArea .primary_btn:hover {
-  background: #252525;
-  color: #fff;
-}
-
-@media (min-width: 767px) {
-  .modal-dialog {
-    max-width: 650px;
-  }
-}
-@media (max-width: 575px) {
-  .reviewModalForm .modal-header {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .reviewModalForm .formArea {
-    padding-left: 0;
-    padding-right: 0;
   }
 }
 

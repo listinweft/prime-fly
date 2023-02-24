@@ -85,7 +85,16 @@ class HomeController extends Controller
             'yearSales'));
 
     }
-
+    public function product_validate(){
+       
+        $validatedData = request()->validate([
+            'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
+            'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
+        ]);
+        // return the validated data
+        return $validatedData;
+        // 
+    }
 
     public function update_home_heading(Request $request)
     {

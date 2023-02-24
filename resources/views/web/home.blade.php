@@ -290,21 +290,19 @@
                                     <h3>{{ @$blog->name }}</h3>
                                     <h6>{{ @$blog->designation }}</h6>
                                     <div class="reviewIconStar">
-                                        @if(@$blog->review_type == "Google" )
+                                        @if(@$blog->review_type!=="Normal")
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
                                         @endif
+                    
                                         <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="textWrapper">
                             {!! @$blog->message !!}
-                            {!! @$blog->message !!}
                             
-                                {!! @$blog->message !!}
-                             
                             </div>
                         </div>
                         @endforeach

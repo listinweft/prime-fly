@@ -3,27 +3,7 @@
 
 
 <!--Inner Banner Start-->
-<section class="innerBanner">
-    <div class="innerBannerImageArea">
-    {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
-    </div>
-    <div class="innerBannerDetails">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Products</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/home.png')}}"
-                                                                                 alt=""></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Products</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@include('web.includes.product_banner')
 <!--Inner Banner End-->
 
 <!--Product Listing Page Start-->
@@ -36,7 +16,7 @@
                     <div class="category_area">
                         <h6 class="heading">
                             <div> Filter</div>
-                            <button type="button" class="btn-close text-reset" id="searchBtn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </h6>
                         <div class="ProductListCategory">
                             @include('web.includes.product_filter')
@@ -50,7 +30,7 @@
        
             <div class="topSortDetails">
                 <div>
-                    <h4>Products</h4>
+                    <h4> Products</h4>
                     <p></p>
                 </div>
                 <div class="sortSearchBox">
@@ -65,11 +45,6 @@
                                 <img class="img-fluid" src="{{asset('frontend/images/search.png')}}" alt="">
                             </a>
                         </li>
-
-                        <div class="searchResult">
-                            <ul id="search-result-append-here"></ul>
-                        </div>
-                        
                         <li>
                             <img class="img-fluid" src="{{asset('frontend/images/sort.png')}}" alt="">
                             <p>Sort By</p>
@@ -85,13 +60,27 @@
                 </div>
             </div>
             <div class="tagArea">
-                <h6></h6>
+                <h6>Product Tags</h6>
                 
-                <div class="tagWrapper filterItems" id="filterResult">
-                    
+                <div class="tagWrapper">
+
+
+                    <div class="fltr sort_details filterItems">
+                        <div class="txt" id="filterResult">
                        
+                        </div>
+                        <button class="btn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        
+                    </div>
+                    
+                   
+                    <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
+                    
+                    
+                    
                 </div>
-                <a href="javascript:void(0)" class="clear ms-lg-auto">Clear All</a>
             </div>
               <div class="productListingWrapper productList">
              

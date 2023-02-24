@@ -948,9 +948,10 @@ $(document).ready(function () {
     /***************************** Validating form submission **********************************/
 
     $('#formWizard').on('submit', function (e) {
-        var buttonHtml = $('.submitBtn').val();
-        $('.loadingImg').show();
-        $('.submitBtn').attr('disabled', true).val('Please wait...!');
+        var validation = [];
+        // var buttonHtml = $('.submitBtn').val();
+        // $('.loadingImg').show();
+        // $('.submitBtn').attr('disabled', true).val('Please wait...!');
         
         var required = [];
         $('.required').each(function () {
@@ -977,9 +978,65 @@ $(document).ready(function () {
                 } else {
                     $('#' + id + '_error').html('');
                 }
+                var id = $(this).attr('id');
+                
+                // if(id === 'short_url' || id === 'type'){
+                //     var type = $('#type').val();
+                //     var short_url = $('#short_url').val();
+                //     $.ajax({
+                //         type: 'POST',
+                //         dataType: 'json',
+                //         url: base_url + '/product/validate',
+                //         data: {
+                //             id: id,
+                //             type: type,
+                //             short_url: short_url,
+                //             _token: token
+                //         },
+                //         success: function (response) {
+                //             console.log(response);
+                //             if (response == false) {
+                //                 $('#' + id + '_error').html('');
+                //             } else {
+                //                 // validation.push(response.status);
+                //                 $('#' + id + '_error').html(response.message).css({
+                //                     'color': '#FF0000', 'font-size': '14px'
+                //                 });
+                //             }
+                //         },
+                //         error: function (data) {
+                           
+                //             if(data.responseJSON['errors']){
+                                
+                //                 let err = data.responseJSON['errors'];
+    
+                //                 $.each(err, (i,j)=>{
+                //                     required.push(i);
+                //                     $('#' + i + '_error').html(j).css({
+                //                         'color': '#FF0000', 'font-size': '14px'
+                //                     });
+                //                     $('.'+i).append(j+'<br/>');
+                //                 });
+    
+                //                 let errKeys = Object.keys(data.responseJSON['errors']);
+    
+                //                 errKeys.map((item) => {
+                //                     required.push(item);
+                                   
+                //                 });
+                //                 console.log(required.length);
+                //             }
+                //             validation.push($('#' + id).val());
+                //         }
+                        
+                //     });
+                // }
             }
+          
         });
-        if (required.length == 0) {
+     
+//   
+        if (required.length == 0 || validation.length == 0) {
             if ($('.file-error-message').is(":visible")) {
                 e.preventDefault();
                 $('.submitBtn').attr('disabled', false).val(buttonHtml);
