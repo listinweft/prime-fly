@@ -249,7 +249,7 @@ setTimeout(function () {
 
 <script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
 <script  src="{{ asset('frontend/js/custom.js')}}"></script>
-
+<script  src="{{ asset('frontend/js/scripts.js')}}"></script>
 
 <!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js')}}"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>

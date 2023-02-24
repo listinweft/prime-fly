@@ -30,51 +30,68 @@
 <section class="productDetailsPage">
     <div class="container">
         <div class="row justify-content-between align-items-start">
-            <div class="col-xxl-5  col-lg-5 product_details_gallery framed-canvas">
+            <div class="col-xxl-5  col-lg-5 product_details_gallery canvas">
                 <div class="row sliderWrapperArea ">
                     <div class=" col-9 productDetailsLeftSecond " >
                         <div class="productDetailsLargeImages">
                             <div class="item position-relative">
-                                <div class="fotorama__stage__frame fotorama__loaded magnify-wheel-loaded fotorama__active" >
+                                <div class="fotorama__stage__frame" >
                                     <div class="fotorama__html">
-                                        <img class="framed-canvas fotorama__img" src="{{asset($product->thumbnail_image)}}" aria-hidden="false">
+                                        <img class="art-canvas fotorama__img" src="{{asset($product->thumbnail_image)}}" aria-hidden="false">
                                     </div>
                                 </div>
                             </div>
+                            @if($product->activeGalleries->count() > 0)
+                                @foreach ($product->activeGalleries as $gallery)
+                                <div class="item position-relative">
+                                    <div class="fotorama__stage__frame" >
+                                        <div class="fotorama__html">
+                                            <img class=" fotorama__img" src="{{asset($gallery->image)}}" aria-hidden="false">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
+                            @if($productFrames->isNotEmpty())
+                            @foreach ($productFrames as $frame)
+                            <div class="item position-relative">
+                                <div class="fotorama__stage__frame" >
+                                    <div class="fotorama__html">
+                                        <img class=" fotorama__img" src="{{asset($frame->image)}}" aria-hidden="false">
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        @endif
 
-                            <div class="itemImgBox">
-                                <img class="img-fluid"  src="{{asset($product->thumbnail_image)}}">
-                            </div>
-                            <div class="itemImgBox">
-                                <img class="img-fluid"  src="{{asset($product->thumbnail_image)}}">
-                            </div>
-                            <div class="itemImgBox">
-                                <img class="img-fluid"  src="{{asset($product->thumbnail_image)}}">
-                            </div>
                         </div>
                     </div>
                     <div class="col-3 productDetailsLeftFirst" >
-                        <div class="productDetailsThumbs">
+                        <div class="productDetailsThumbs ">
                             <div class="fotorama__nav__frame">
-                                <div class="fotorama__thumb fotorama_horizontal_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
+                                <div class="fotorama__thumb fotorama_horizontal_ratio ">
+                                    <img src="{{asset($product->thumbnail_image)}}" class="fotorama__img img-fluid">
                                 </div>
                             </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img  src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img  src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio fotorama__loaded fotorama__loaded--img">
-                                    <img  src="{{asset($product->thumbnail_image)}}"  class="fotorama__img">
-                                </div>
-                            </div>
+                            @if($product->activeGalleries->count() > 0)
+                                @foreach ($product->activeGalleries as $gallery)
+                                    <div class="fotorama__nav__frame ">
+                                        <div class="fotorama__thumb fotorama_vertical_ratio ">
+                                            {!! Helper::printImage(@$gallery,'image','image_webp','image_attribute','fotorama__img img-fluid') !!}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                            @if($productFrames->isNotEmpty())
+                                @foreach ($productFrames as $frame)
+                                    <div class="fotorama__nav__frame ">
+                                        <div class="fotorama__thumb fotorama_vertical_ratio ">
+                                            {!! Helper::printImage(@$frame,'image','image_webp','image_attribute','fotorama__img img-fluid') !!}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                            
                         </div>
                     </div>
                 </div>
@@ -111,7 +128,7 @@
                 </div>
                 <div class="productCode">
                     <h5>
-                        Product Code : <strong>ART345699</strong>
+                        Product Code : <strong>{{$product->sku}}</strong>
                     </h5>
                 </div>
                 <div class="textArea">
@@ -153,46 +170,7 @@
                     @endforeach
                     </div>
                 </div>
-                @if(@$productFrames->isNotEmpty())
 
-                <div class="relatedProductsTypesSelect">
-                    <h5>
-                        Select Frame Color
-                    </h5>
-                    <div class="relatedProductsTypesWrapper">
-                        @foreach ($productFrames as $frame)
-                            <div class="item colorBtn" data-color="{{$frame->code}}" data-img="{{asset('frontend/images/frame/wooden-frame-white.jpg')}}">
-                                <div class="colorBox" style="background: {{$frame->code}}">
-
-                                </div>
-                                <p>{{$frame->title}}</p>
-                            </div>
-                                
-                            @endforeach
-                    </div>
-                </div>
-                @endif
-                @if(@$product->mount != null)
-                <div class="relatedProductsTypesSelect">
-                    <h5>
-                        Mount
-                    </h5>
-                    <div class="relatedProductsTypesWrapper">
-                        <div class="item active mountSpaceBtn btnMountClass" >
-                            <div class="colorBox" >
-                                <img class="img-fluid w-100" src="{{asset('frontend/images/frame/wooden-frame-no-mount.jpg')}}" alt="">
-                            </div>
-                            <p>With Mount</p>
-                        </div>
-                        <div class="item mountSpaceBtn">
-                            <div class="colorBox" >
-                                <img class="img-fluid w-100" src="{{asset('frontend/images/frame/wooden-frame-mount.jpg')}}" alt="">
-                            </div>
-                            <p>No Mount</p>
-                        </div>
-                    </div>
-                </div>
-            @endif
                 <div class="totalBox">
                     <h5>
                         Total

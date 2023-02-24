@@ -104,6 +104,7 @@ class ProductController extends Controller
 
         }
         else{
+           
             $validatedData = $request->validate([
                 'title' => 'required|min:2|max:255',
                 'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
@@ -111,7 +112,7 @@ class ProductController extends Controller
                 'category' => 'required',
                 'availability' => 'required',
                 'description' => 'required',
-                'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
+                // 'type' => 'required|unique:products,product_type_id,' . $request->copy_product_id . ',id,deleted_at,NULL',
                
             ]);
         }

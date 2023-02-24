@@ -158,10 +158,10 @@
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
-                <h6 class="subHeading">{{$catHomeHeadings->sub_title}}</h6>
-                <h2 class="mainHeading">{{$catHomeHeadings->title}}</h2>
+                <h6 class="subHeading">{{@$catHomeHeadings->sub_title}}</h6>
+                <h2 class="mainHeading">{{@$catHomeHeadings->title}}</h2>
                 <div class="headingText">
-                   {!! $catHomeHeadings->description !!}
+                   {!! @$catHomeHeadings->description !!}
                 </div>
             </div>
             <div class="col-12 pt-60">

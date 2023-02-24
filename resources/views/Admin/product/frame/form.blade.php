@@ -88,7 +88,7 @@
                                 </div> --}}
                                 <div class="form-group col-md-6">
                                     <label> Code*</label>
-                                    <input type="text" name="code" id="code" placeholder="Color Code"
+                                    <input type="color" name="code" id="code" placeholder="Color Code"
                                            class="form-control required" autocomplete="off" value="{{ @$frame->code }}">
                                     <div class="help-block with-errors" id="code_error"></div>
                                     @error('code')

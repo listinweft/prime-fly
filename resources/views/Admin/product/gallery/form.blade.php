@@ -82,8 +82,7 @@
                                                 <input type="file" name="image[]" id="image" accept="image/*" multiple>
                                             @endisset
                                         </div>
-                                        <span
-                                            class="caption_note">Note: Image size must be 1200 x 960</span>
+                                        
                                         @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -127,10 +126,7 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 1200,
-            minImageHeight: 960,
-            maxImageWidth: 1200,
-            maxImageHeight: 960,
+          
             maxFilesize: 540,
                 showRemove: true,
                 @if(isset($product_gallery) && $product_gallery->image!=NULL)
