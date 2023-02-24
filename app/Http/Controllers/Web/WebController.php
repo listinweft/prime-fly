@@ -68,11 +68,11 @@ class WebController extends Controller
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
     //   $ourcollection = Homecollection::active()->first();
-    //   return view('Web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
+    //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
 
 
-    //     return view('Web.home', compact('seo_data', 'ourcollection'));
-        return view('Web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products'));
+    //     return view('web.home', compact('seo_data', 'ourcollection'));
+        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products'));
     }
 
 
@@ -84,7 +84,7 @@ class WebController extends Controller
         $aboutFeatures = AboutFeature::active()->take(4)->oldest('sort_order')->get();
         $histories = History::active()->oldest('sort_order')->get();
          $banner = Banner::type('about')->first();
-        return view('Web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings'));
+        return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings'));
     }
 
 
@@ -94,7 +94,7 @@ class WebController extends Controller
         $contact = SiteInformation::first();
         $contactAddresses = ContactAddress::active()->get();
         $banner = Banner::type('contact')->first();
-        return view('Web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses'));
+        return view('web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses'));
     }
 
     //enquiry and bulk enquiry storing
@@ -160,7 +160,7 @@ class WebController extends Controller
         $blogs = $condition->skip(4)->take(6)->get();
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
-        return view('Web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
+        return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
             'blogs', 'totalBlog', 'offset', 'loading_limit'));
     }
 
@@ -173,7 +173,7 @@ class WebController extends Controller
         $blogs = $condition->latest('posted_date')->skip($offset)->take($loading_limit)->get();
         $offset += $blogs->count();
 
-        return view('Web._blog_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
+        return view('web._blog_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
     }
 
     public function blog_detail($short_url)
@@ -185,10 +185,10 @@ class WebController extends Controller
             $recentBlogs = Blog::active()->latest('posted_date')->limit(4)->where('id', '!=', $blog->id)->get();
             $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
             $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
-            return view('Web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
+            return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
                 'previousBlog', 'nextBlog','type'));
         } else {
-            return view('Web.404');
+            return view('web.404');
         }
     }
 
@@ -212,7 +212,7 @@ class WebController extends Controller
         $sort_value = 'latest';
         $title = 'Products';
         $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('Web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+        return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
             'title', 'sort_value','shapes','tags'));
     }
@@ -237,11 +237,11 @@ class WebController extends Controller
             $sort_value = 'latest';
             $title = ucfirst($category->title);
             $latestProducts = Product::active()->whereRaw("find_in_set('" . $category->id . "',category_id)")->take(5)->latest()->get();
-            return view('Web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
                 'parentCategories', 'colors', 'category', 'banner', 'type', 'typeValue', 'latestProducts',
                 'title', 'sort_value'));
         } else {
-            return view('Web.404');
+            return view('web.404');
         }
     }
 
@@ -265,14 +265,14 @@ class WebController extends Controller
                 $sort_value = 'latest';
                 $title = ucfirst($deal->title);
                 $latestProducts = Product::active()->whereIn('id', explode(',', $deal->products))->take(5)->latest()->get();
-                return view('Web.products', compact('products', 'totalProducts', 'offset',
+                return view('web.products', compact('products', 'totalProducts', 'offset',
                     'loading_limit', 'parentCategories', 'colors', 'seo_data', 'banner',
                     'type', 'typeValue', 'latestProducts', 'sort_value', 'title'));
             } else {
-                return view('Web.404');
+                return view('web.404');
             }
         } else {
-            return view('Web.404');
+            return view('web.404');
         }
     }
 
@@ -313,7 +313,7 @@ class WebController extends Controller
         $tags = Tag::latest()->get();
         $title = 'Search result of ' . $search_param;
         $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('Web.products', compact('products', 'totalProducts', 'offset',
+        return view('web.products', compact('products', 'totalProducts', 'offset',
             'loading_limit', 'parentCategories', 'colors', 'colors',
             'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner','shapes','tags'));
     }
@@ -349,28 +349,28 @@ class WebController extends Controller
             $starPercent5 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 5) * 100 / $totalReviews) : 0;
 
             if($product->product_type_id == 1){
-                return view('Web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 2){
-                return view('Web.product-details-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-details-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 3){
-                return view('Web.product-details-framed-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-details-framed-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 4){
-                return view('Web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
+                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
            
         } else {
-            return view('Web.404');
+            return view('web.404');
         }
 
 
@@ -396,7 +396,7 @@ class WebController extends Controller
         $title = 'Filtered Products';
         $type = $request->pageType;
        $typeValue = $request->typeValue;
-        return view('Web.includes.product_list', compact('products', 'totalProducts', 'offset',
+        return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
             'title', 'type', 'typeValue', 'sort_value'));
     }
 
@@ -475,7 +475,7 @@ class WebController extends Controller
         $typeValue = $request->typeValue;
         $sort_value = $request->sort_value;
         $latestProducts = Product::active()->take(6)->latest()->get();
-        return view('Web.includes.product_list_inner', compact('products', 'totalProducts', 'offset',
+        return view('web.includes.product_list_inner', compact('products', 'totalProducts', 'offset',
             'title', 'type', 'typeValue', 'sort_value', 'latestProducts'));
     }
     public function reviewLoadMore(Request $request)
@@ -487,7 +487,7 @@ class WebController extends Controller
         $reviews = $reviews->skip($review_offset)->take(3);
         $review_offset += $reviews->count();
 
-        return view('Web.includes._review_inner', compact('reviews', 'totalRatings', 'review_offset'));
+        return view('web.includes._review_inner', compact('reviews', 'totalRatings', 'review_offset'));
     }
 
 
@@ -512,7 +512,7 @@ class WebController extends Controller
             $products = Product::whereIn('id', $compare_products)->get();
 
         }
-        return view('Web.compare-products', compact('seo_data', 'banner', 'products'));
+        return view('web.compare-products', compact('seo_data', 'banner', 'products'));
     }
 
     public function submit_review(Request $request)
@@ -569,7 +569,7 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Disclaimer');
         $banner = Banner::type('disclaimer')->first();
         $field = 'disclaimer';
-        return view('Web.policy', compact('banner', 'seo_data', 'field'));
+        return view('web.policy', compact('banner', 'seo_data', 'field'));
     }
 
     public function privacy_policy()
@@ -578,7 +578,7 @@ class WebController extends Controller
         $banner = Banner::type('privacy-policy')->first();
         $field = 'privacy_policy';
         $title = 'Privacy Policy';
-        return view('Web.policy', compact('banner', 'seo_data', 'field', 'title'));
+        return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
     }
 
     public function return_policy()
@@ -587,7 +587,7 @@ class WebController extends Controller
         $banner = Banner::type('return-policy')->first();
         $field = 'return_policy';
         $title = 'return policy';
-        return view('Web.policy', compact('banner', 'seo_data', 'field','title'));
+        return view('web.policy', compact('banner', 'seo_data', 'field','title'));
     }
 
     public function shipping_policy()
@@ -595,7 +595,7 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Shipping Policy');
         $banner = Banner::type('shipping-policy')->first();
         $field = 'shipping_policy';
-        return view('Web.policy', compact('banner', 'seo_data', 'field'));
+        return view('web.policy', compact('banner', 'seo_data', 'field'));
     }
 
     public function terms_and_conditions()
@@ -605,7 +605,7 @@ class WebController extends Controller
         $banner = Banner::type('terms-and-conditions')->first();
         $field = 'terms_and_conditions';
         $title = 'Terms and Conditions';
-        return view('Web.policy', compact('banner', 'seo_data', 'field', 'title'));
+        return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
     }
 
 }
