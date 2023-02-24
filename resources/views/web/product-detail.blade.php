@@ -335,7 +335,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <form id="review-form" method="post">
+                <form id="review-form" class="review-form" method="post">
                     <div class="formArea">
                         <div class="head">
                             <h5>Write A Review</h5>
@@ -349,6 +349,7 @@
                                         <label for="">Full Name</label>
                                         <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
                                         <input type="text" class="form-control required" placeholder="Full Name"  name="name" id="name">
+                                        <span class="invalidMessage name"> Given Data Error </span>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -356,6 +357,7 @@
                                         <label for="">Email Address</label>
                                         <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
                                         <input   name="email" id="email"  type="text" class="form-control required" placeholder="Email Address">
+                                        <span class="invalidMessage email"> Given Data Error </span>
                                     </div>
                                 </div>
                             @endif
@@ -364,6 +366,7 @@
                                     <label for="">Message</label>
                                     <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
                                     <textarea class="form-control required form-review" rows="4"name="review" id="review" placeholder="Say Something"></textarea>
+                                    <span class="invalidMessage review"> Given Data Error </span>
                                 </div>
                             </div>
                             <input type="hidden" name="product_id" id="product_id"  value="{{$product->id}}">

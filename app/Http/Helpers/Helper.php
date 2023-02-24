@@ -20,7 +20,7 @@ use App\Models\RecentlyViewedProduct;
 use App\Models\ShippingCharge;
 use App\Models\SiteInformation;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+
 use Buglinjo\LaravelWebp\Facades\Webp;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Database\Eloquent\Collection;

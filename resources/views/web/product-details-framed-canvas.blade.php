@@ -363,7 +363,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <form id="review-form" method="post">
+                <form id="review-form" class="review-form" method="post">
                     <div class="formArea">
                         <div class="head">
                             <h5>Write A Review</h5>
