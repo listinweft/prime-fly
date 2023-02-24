@@ -20,6 +20,7 @@ use App\Models\RecentlyViewedProduct;
 use App\Models\ShippingCharge;
 use App\Models\SiteInformation;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Buglinjo\LaravelWebp\Facades\Webp;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Database\Eloquent\Collection;
@@ -1413,5 +1414,23 @@ class Helper
             }
         }
         return $this->combinationArrays($chars, $size - 1, $new_combinations);
+    }
+
+    public static function getMinPrice()
+    {
+        $price = 0;
+        $getPrice = DB::table('products_size_price')->min('price');
+        if ($getPrice)
+            $price = $getPrice;
+        return $price;
+    }
+
+    public static function getMaxPrice()
+    {
+        $price = 0;
+        $getPrice = DB::table('products_size_price')->max('price');
+        if ($getPrice)
+            $price = $getPrice;
+        return $price;
     }
 }

@@ -125,7 +125,7 @@ $('.categorySliderSmall').slick({
 // Related Product slider
 $(document).ready(function() {
     $('.relatedSlider').owlCarousel({
-        loop: true,
+        loop: false,
         autoplay:true,
         margin: 15,
         nav: true,
@@ -179,16 +179,21 @@ $('.productDetailsThumbs').slick({
     verticalSwiping: true,
     asNavFor: '.productDetailsLargeImages',
 });
-// $('.productDetailsThumbs').slick('refresh');
-
-$(".productDetailsThumbs").on('click', function(e) {
-
-    e.preventDefault();
-    $slider.slick('refresh');
 
 
-});
-
+// $('.productClickInt').click(function (){
+//     $('.productDetailsThumbs').slick('unslick');
+//     $('.productDetailsThumbs').slick({
+//         slidesToShow: 3,
+//         slidesToScroll: 1,
+//         focusOnSelect: true,
+//         autoplay: false,
+//         infinite: true,
+//         vertical: true,
+//         verticalSwiping: true,
+//         asNavFor: '.productDetailsLargeImages',
+//     });
+// });
 
 $('.productDetailsLargeImages').slick({
     slidesToShow: 1,
@@ -199,6 +204,7 @@ $('.productDetailsLargeImages').slick({
     nav: false,
     dots:false,
     asNavFor: '.productDetailsThumbs',
+    arrows: false,
 });
 
 
@@ -489,16 +495,16 @@ $(document).on('click', '#edit_profile_go', function () {
 
 
 //Add Bill Address go to
-// $(document).on('click', '#add_address_go', function () {
-//     if ($('#my_address_list').css('display') === 'block') {
-//         $('#my_address_list').addClass('d-none');
-//         $('#my_address_add_form').removeClass('d-none');
-//     }
-//     else {
-//         $('#my_address_list').removeClass('d-none');
-//         $('#my_address_add_form').addClass('d-none');
-//     }
-// });
+$(document).on('click', '#add_address_go', function () {
+    if ($('#my_address_list').css('display') === 'block') {
+        $('#my_address_list').addClass('d-none');
+        $('#my_address_add_form').removeClass('d-none');
+    }
+    else {
+        $('#my_address_list').removeClass('d-none');
+        $('#my_address_add_form').addClass('d-none');
+    }
+});
 //Add Address go to
 
 //Add Ship Address go to
@@ -586,7 +592,25 @@ $(".mountSpaceBtn").click(function(){
     $(this).addClass('active');
 });
 
+$('.productTagArea').each(function(){
+    var LiN = $(this).find('label').length;
+    if( LiN > 5){
+        $('label', this).eq(4).nextAll().hide().addClass('toggleable');
+        $(this).append('<label class="tagFilterClick more">Show More</label>');
+    }
+});
+$('.productTagArea').on('click','.more', function(){
+    if( $(this).hasClass('less') ){
+        $(this).text('Show More').removeClass('less');
+    }else{
+        $(this).text('Show Less').addClass('less');
+    }
+    $(this).siblings('label.toggleable').slideToggle();
+});
+
 
 $(window).on('load', function () {
     $('#loading').hide();
 })
+
+

@@ -10,3 +10,4 @@ class ProductPrice extends Model
     use HasFactory;
     protected $table = 'products_size_price';    
 }
+

@@ -44,37 +44,50 @@
                             {{ $product->title }}
                             </div>
                             <ul class="price-area">
-                                <li class="offer">
+                                <!-- <li class="offer">
                                 @if(Helper::offerPrice($product->id)!='')
+                                </li>
+                                @endif -->
+                                @if(Helper::offerPrice($product->id)!='')
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                </li>
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->id,2)}}
+                                </li>                  
+                                @else
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
                                 </li>
                                 @endif
-                                @if(Helper::offerPrice($product->id)!='')
-                                <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                    </li>
-                    <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                    </li>
-                 
-                   
-                    @else
-                    <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                    </li>
-                    <li>
-                       
-                    </li>
-                    @endif
                             </ul>
                             <ul class="type-review">
-                            @foreach($product->product_categories as $product_category)
+                                <!-- @foreach($product->product_categories as $product_category) -->
+                                <!-- <li> -->
+                                    <!-- {{ $product_category->title }} -->
+                                <!-- </li> -->
+                                <!-- @endforeach -->
+                                <!-- @if(Helper::averageRating($product->id)>0) -->
+
+                                <!-- @endif -->
+                            </ul>
+
+                           
+                              
+                           
+                            <ul class="type-review">
+                                @if($product->product_shapes->count() > 1)
                                 <li>
-                                {{ $product_category->title }}
+                                    {{ $product->product_shapes[0]->title }}, ...
                                 </li>
-                                @endforeach
+                                @else
+                                <li>
+                                    {{ $product->product_shapes[0]->title }}
+                                </li>
+                                @endif
                                 @if(Helper::averageRating($product->id)>0)
                                 <li class="review">
-                                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                    <i class="fa-solid fa-star"></i> {{ Helper::averageRating($product->id) }}                                                                      
                                 </li>
                                 @endif
                             </ul>

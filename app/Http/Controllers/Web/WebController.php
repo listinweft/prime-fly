@@ -40,6 +40,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
@@ -195,6 +196,9 @@ class WebController extends Controller
 
     public function products()
     {
+
+       
+
         $banner = Banner::type('products')->first();
         $seo_data = $this->seo_content('Products');
        $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
@@ -205,6 +209,7 @@ class WebController extends Controller
         $colors = Color::active()->oldest('title')->get();
         $shapes = Shape::latest()->get();
         $tags = Tag::latest()->get();
+        $shapescount = count($shapes);
         $offset = $products->count();
         $loading_limit = 15;
         $type = "product";
@@ -214,7 +219,7 @@ class WebController extends Controller
         $latestProducts = Product::active()->take(5)->latest()->get();
         return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
             'parentCategories', 'colors', 'banner', 'type', 'typeValue', 'latestProducts',
-            'title', 'sort_value','shapes','tags'));
+            'title', 'sort_value','shapes','tags','shapescount'));
     }
 
 
@@ -307,13 +312,16 @@ class WebController extends Controller
         $loading_limit = 15;
         $type = "search_result";
         $typeValue = $search_param;
+        $shapes = Shape::latest()->get();
+        $shapescount = count($shapes);
+        $tags = Tag::latest()->get();
         $banner = Banner::type('search')->first();
         $sort_value = 'latest';
         $title = 'Search result of ' . $search_param;
         $latestProducts = Product::active()->take(5)->latest()->get();
         return view('web.products', compact('products', 'totalProducts', 'offset',
             'loading_limit', 'parentCategories', 'colors', 'colors',
-            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner'));
+            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner','shapes','tags','shapescount'));
     }
 
     public function product_detail($short_url)
@@ -394,8 +402,10 @@ class WebController extends Controller
         $title = 'Filtered Products';
         $type = $request->pageType;
        $typeValue = $request->typeValue;
+       $shapes = Shape::latest()->get();
+       $shapescount = count($shapes);
         return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
-            'title', 'type', 'typeValue', 'sort_value'));
+            'title', 'type', 'typeValue', 'sort_value','shapescount'));
     }
 
     public function filterCondition(Request $request)
