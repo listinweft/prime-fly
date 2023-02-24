@@ -1034,11 +1034,12 @@ class ProductController extends Controller
 
     public function offer_create($product_id)
     {
+        $sizes = Size::where('status', 'Active')->get();
         $product = Product::find($product_id);
         if ($product) {
             $key = "Create";
             $title = "Create Offer";
-            return view('Admin.product.offer.form', compact('key', 'title', 'product'));
+            return view('Admin.product.offer.form', compact('key', 'title', 'product','sizes'));
         } else {
             abort(404, 'Product variant not found');
         }
@@ -1049,25 +1050,37 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'product_id' => 'required',
             'title' => 'required',
-            'price' => 'required',
+            // 'price' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
         $offer = new Offer;
         $offer->title = $validatedData['title'];
         $offer->product_id = $validatedData['product_id'];
-        $offer->price = $validatedData['price'];
+        $offer->price = $validatedData['price'] ?? 0;
         $offer->start_date = $validatedData['start_date'];
         $offer->end_date = $validatedData['end_date'];
         $offer->sale_condition = ($request->sale_condition) ? $request->sale_condition : '';
-
+        
         $activeOffer = Offer::active()->where('product_id', $validatedData['product_id'])->first();
         if ($activeOffer) {
             $activeOffer->status = 'Inactive';
             $activeOffer->save();
         }
-
+        
         if ($offer->save()) {
+            foreach ($request->price as $key => $value) {
+                
+                $pricePRoduct = DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
+                                $procutPrice = DB::table('product_offer_size')->insert([
+                                    'product_id' => $validatedData['product_id'],
+                                    'size_id' => $key,
+                                    'price' => $value,
+                                    'offer_id' => $offer->id,
+                                ]);
+            }
+            $productPrice = Offer::where('product_id',$validatedData['product_id'])->where('status','Active')->
+            update(['price' => $request->price[1]]);
             session()->flash('message', "Offer '" . $offer->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
         } else {
@@ -1108,6 +1121,16 @@ class ProductController extends Controller
         $offer->updated_at = date('Y-m-d h:i:s');
 
         if ($offer->save()) {
+            foreach ($request->price as $key => $value) {
+                
+                $pricePRoduct = DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
+                                $procutPrice = DB::table('product_offer_size')->insert([
+                                    'product_id' => $validatedData['product_id'],
+                                    'size_id' => $key,
+                                    'price' => $value,
+                                    'offer_id' => $offer->id,
+                                ]);
+            }
             session()->flash('message', "Offer '" . $offer->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
         } else {

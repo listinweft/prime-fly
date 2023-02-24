@@ -24,6 +24,7 @@ use App\Models\HomeHeading;
 use App\Models\HotDeal;
 use App\Models\KeyFeature;
 use App\Models\Newsletter;
+use App\Models\Offer;
 use App\Models\OfferStrip;
 use App\Models\Product;
 use App\Models\ProductPrice;
@@ -375,8 +376,12 @@ class WebController extends Controller
     }
 
     public function check_price(){
-       $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
-       return $product_price->price;
+        $size = request()->id;
+        $product_id = request()->product_id;
+        $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
+        return Helper::offerPriceSize($product_id,$size,$productOffer->id);
+    //    $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
+
     }
     public function filter_product(Request $request)
     {

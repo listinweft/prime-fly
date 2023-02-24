@@ -57,19 +57,39 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-12">
                                     <label> Title*</label>
                                     <input type="text" name="title" id="title" placeholder="Title"
                                            class="form-control required" autocomplete="off"
                                            value="{{ isset($offer)?$offer->title:'' }}">
                                     <div class="help-block with-errors" id="title_error"></div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label> Price*</label>
-                                    <input type="number" name="price" id="price" placeholder="Price"
-                                           class="form-control required" step=".01" min="0" max="{{$product->price}}"
-                                           value="{{ isset($offer)?$offer->price:'' }}">
-                                    <div class="help-block with-errors" id="price_error"></div>
+                                <div class="form-group col-md-12">
+                                    <div class="form-row">
+                                        <table class="table table-active">
+                                            <thead>
+                                                <th>Size *</th>
+                                                <th> Price *</th>
+                                         
+                                            </thead>
+                                           
+                                            <tbody>
+                                                @foreach ($sizes as $size)
+                                                <tr>
+                                                    <td>
+                                                        {{$size->title}}
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="price[{{$size->id}}]" id="price"   class="form-control " value="">
+                                                        
+                                                    </td>
+                                                  
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                               
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label> Sale Condition</label>

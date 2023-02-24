@@ -866,7 +866,7 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
                 
-                $('#price').html('AED '+response+'.00');
+                $('#price').html('AED '+response);
                 if (response != '0') {
                     
                 } else {

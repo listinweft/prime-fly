@@ -25,6 +25,7 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -581,6 +582,13 @@ class Helper
         return $offer;
     }
 
+    public static function offerPriceSize($productId,$sizeId,$offerId)
+    {
+        $productOfferSize = DB::table('product_offer_size')->where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
+        $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
+        return $offer;
+        
+    }
     public static function offerPriceAmount($productId)
     {
         $product = Product::find($productId);

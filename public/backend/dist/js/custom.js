@@ -1036,7 +1036,7 @@ $(document).ready(function () {
         });
      
 //   
-        if (required.length == 0 || validation.length == 0) {
+        if (required.length == 0) {
             if ($('.file-error-message').is(":visible")) {
                 e.preventDefault();
                 $('.submitBtn').attr('disabled', false).val(buttonHtml);
