@@ -364,7 +364,7 @@ class WebController extends Controller
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
             elseif($product->product_type_id == 4){
-                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials',
+                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'testimonials','products',
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
