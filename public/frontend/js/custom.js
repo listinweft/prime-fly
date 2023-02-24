@@ -999,7 +999,7 @@ $(document).ready(function () {
     $('.filterItem').on('click', function () {
        
         $(this).closest('.colorItemFilterClick').toggleClass("active") ;
-        $(this).closest('.shapeFilterClick').toggleClass("active") ;
+        $(this).closest('.colorItemFilterClicks').toggleClass("active") ;
         
        var parent = $(this).data('parent');
 

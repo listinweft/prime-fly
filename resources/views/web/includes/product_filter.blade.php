@@ -161,9 +161,9 @@
             @foreach($tags as $tag)
                 <a href="javascript:void(0)" class="tagFilterClick">
                 {{ @$tag->title }}
-                <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
-                                                               value="{{ $shape->id }}" data-label="Shape"
-                                                               data-title="{{$shape->title}}"
+                  <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
+                                                               value="{{ $tag->id }}" data-label="Shape"
+                                                               data-title="{{$tag->title}}"
                                                                {{ $color->short_url == $typeValue?'checked':'' }}
                                                                class="form-check-input filterItem d-none">
                 </a>
