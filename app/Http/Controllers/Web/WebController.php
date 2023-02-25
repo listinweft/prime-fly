@@ -238,16 +238,21 @@ class WebController extends Controller
             $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
             $totalProducts = $condition->count();
-            $products = $condition->latest()->take(12)->get();
+            $products = $condition->where('copy','no')->latest()->take(12)->get();
+            
             $colors = Color::active()->oldest('title')->get();
             $offset = $products->count();
             $loading_limit = 15;
             $type = "category";
+            $colors = Color::active()->oldest('title')->get();
+            $shapes = Shape::latest()->get();
+            $tags = Tag::latest()->get();
+            $shapescount = count($shapes);
             $typeValue = $short_url;
             $sort_value = 'latest';
             $title = ucfirst($category->title);
             $latestProducts = Product::active()->whereRaw("find_in_set('" . $category->id . "',category_id)")->take(5)->latest()->get();
-            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit',
+            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount',
                 'parentCategories', 'colors', 'category', 'banner', 'type', 'typeValue', 'latestProducts',
                 'title', 'sort_value'));
         } else {

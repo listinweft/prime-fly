@@ -95,7 +95,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="title">Button Url</label>
                                     <input type="text" name="url" id="url" placeholder="Button Url" class="form-control" autocomplete="off" value="{{ isset($banner)?$banner->url:'' }}" maxlength="230">
-                                    <div class="help-block with-errors" id="title_error"></div>
+                                    <div class="help-block with-errors" id="url_error"></div>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -112,6 +112,14 @@
         </section>
     </div>
     <script type="text/javascript">
+    //if button text have value add required attribute to url
+    $('#button_text').on('keyup',function(){
+        if($(this).val()!=''){
+            $('#url').addClass('required');
+        }else{
+            $('#url').removeClass('required');
+        }
+    });
         $(document).ready(function(){
             $("#image").fileinput({
                 'theme': 'explorer-fas',
