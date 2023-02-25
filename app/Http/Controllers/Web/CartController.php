@@ -149,9 +149,10 @@ class CartController extends Controller
     {
    
         $product = Product::find($product_id);
+        $n = $product->id;
         $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-        
-   
+        $product->price = $productPrice->price;
+        $product->size = $productPrice->size_id;
         $count = [];
         $qty = ($request->qty) ? $request->qty : '1';
         if (Cart::session($sessionKey)->isEmpty()) {
@@ -190,45 +191,68 @@ class CartController extends Controller
                     $attrText .= "<span>" . $attr . "</span><br/>";
                 }
             }
-            if (Cart::session($sessionKey)->get($product->id)) {
-                Cart::session($sessionKey)->update($product->id, [
+            //where condition in Darryldecode cart
+            $cartItem = Cart::session($sessionKey)->getContent()
+                    ->where('attributes.product_id', $product->id)
+                    ->where('attributes.size', $product->size)
+                    ->first();
+          
+            if ( $cartItem != null) {
+                // if item is already in the cart, just update the quantity
+
+                Cart::session($sessionKey)->update($cartItem->id, [
+                    'product_id' => $product->id,
                     'quantity' => array(
                         'relative' => ($request->countRelative == 1) ? true : false,
                         'value' => $qty,
                     ),
                     'attributes' => array(
+                        'product_id' => $product->id,
                         'currency' => Helper::defaultCurrency(),
                         'color' => $product->color_id,
                         'offer' => $offer_id,
+                        'size' => $product->size,
+                        'type' => $product->product_type_id,
                         'offer_amount' => $offer_amount,
                         'base_price' => $product->price,
-                        'attributeText' => $attrText
+                      
                     ),
                 ]);
             } else {
+              
+
+
                 $wish_list = app('wishlist');
                 if ($wish_list->get($product->id)) {
                     $wish_list->remove($product->id);
                 }
+          
                 Cart::session($sessionKey)->add(array(
-                    'id' => $product->id,
+                
+                    'id' => uniqid(),
+                    'product_id' => $product->id,
                     'name' => $product->title,
                     'price' => $product_price,
-                    'type' => $product->product_type_id,
-                    'size' => $size,
+                   
                     'quantity' => $qty, // need to change as per user input
                     'attributes' => array(
+                        'product_id' => $product->id,
                         'currency' => Helper::defaultCurrency(),
                         'color' => $product->color_id,
                         'offer' => $offer_id,
                         'offer_amount' => $offer_amount,
                         'base_price' => $product_price,
-                        'attributeText' => $attrText
+                 
+                        'size' => $product->size,
+                        'type' => $product->product_type_id,
                     ),
                 ));
             }
             $returnStatus = true;
         }
+      
+        //add session key to helper class
+        Helper::setSessionKey($sessionKey);
         return $returnStatus;
     }
 
@@ -239,8 +263,10 @@ class CartController extends Controller
 
     public function cart()
     {
+        
         $sessionKey = session('session_key');
-        $calculation_box = Helper::calculationBox();
+     
+        // $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
         $banner = Banner::type('cart')->first();
@@ -248,7 +274,7 @@ class CartController extends Controller
         $cartContents = $this->cartData();
    
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-        return view('web.cart', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
+        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail',
             'banner', 'featuredProducts'));
     }
 

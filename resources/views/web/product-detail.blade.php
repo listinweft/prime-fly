@@ -507,27 +507,23 @@
                                     <a href="{{ url('/product/'.$product->short_url) }}">
                                         <div class="pro-name">
                                         {{ $product->title }}
+                                    
                                         </div>
                                         <ul class="price-area">
-                                            <li class="offer">
-                                            @if(Helper::offerPrice($rproduct->id)!='')
+                                            <!-- <li class="offer">
+                                            @if(Helper::offerPrice($product->id)!='')
                                             </li>
-                                            @endif
-                                            @if(Helper::offerPrice($rproduct->id)!='')
+                                            @endif -->
+                                            @if(Helper::offerPrice($product->id)!='')
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($rproduct->id),2)}}
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                             </li>
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
-                                            </li>
-                                        
-                                        
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
+                                            </li>                  
                                             @else
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
-                                            </li>
-                                            <li>
-                                            
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
                                             </li>
                                             @endif
                                         </ul>
@@ -592,7 +588,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <a class="primary_btn" href="">Add to Cart</a>
+                        <a class="primary_btn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }} " ref="javascript:void(0)" data-id="{{$product->id}}">Add to Cart</a>
                     </div>
                 </div>
             </div>

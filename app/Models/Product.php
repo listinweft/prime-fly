@@ -64,6 +64,16 @@ class Product extends Model
         $categoryId = $this->category_id;
         return Category::whereIn('id', explode(',', $categoryId))->get();
     }
+    public function getProductShapeAttribute()
+    {
+        $categoryId = $this->shape_id;
+        return Shape::whereIn('id', explode(',', $categoryId))->get();
+    }
+    public function getProductColorAttribute()
+    {
+        $categoryId = $this->color_id;
+        return Color::whereIn('id', explode(',', $categoryId))->get();
+    }
 
     /**
      * Get the products sub categories.

@@ -1,307 +1,105 @@
 <!--Cart List Start-->
 
+@php
+$sessionKey  =  Helper::getSessionKey();
+@endphp
+
+
 <div class="offcanvas offcanvas-end cartListRight" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""><span>( 6 Items )</span></h5>
+        <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""><span>(<span  class="cart-count">  {{ Helper::getCartItemCount()}}</span> Items )</span></h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div class="orderProductSummary">
-            <div class="item">
-                <div class="leftImgDetails">
-                    <div class="imgBox">
-                        <a href="">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product04.jpg')}}" loading="lazy" alt="">
-                        </a>
+        @if($sessionKey != '')
+            @if (!Cart::session($sessionKey)->isEmpty())
+            <div class="orderProductSummary">
+                @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
+                @php
+                $product = App\Models\Product::find($row->attributes['product_id']);
+                @endphp
+            
+                <div class="item">
+                    <div class="leftImgDetails">
+                        <div class="imgBox">
+                            <a href="{{ url('/product/'.$product->short_url) }}">
+                                {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                            </a>
+                        </div>
+                        <div class="details">
+                            <div> 
+                        
+                                <a href="{{ url('/product/'.$product->short_url) }}">
+                                    <h5>
+                                        {{ $product->title }}
+                                    </h5>
+                                    <ul>
+                                        <li>
+                                            Shape :
+                                            @foreach ($product->product_shape as $shape)
+                                                <span>, {{ $shape->title }}</span>
+                                            @endforeach
+                                        </li>
+                                        <li>
+                                            color : 
+                                            @foreach ($product->product_color as $color)
+                                            <span>,  {{ $color->title }}</span>
+                                            @endforeach
+                                           
+                                        </li>
+                                        <li>
+                                            @php
+                                                $size = App\Models\Size::find($row->attributes['size']);
+                                            @endphp
+                                            Size : <span>{{ $size->title }}</span>
+                                        </li>
+                                    </ul>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="details">
-                        <div> 
-                            <a href="">
-                                <h5>
-                                    Lorem ipsum dolor.
-                                </h5>
-                                <ul>
-                                    <li>
-                                        Shape : <span>Landscape</span>
-                                    </li>
-                                    <li>
-                                        color : <span>Red</span>
-                                    </li>
-                                    <li>
-                                        Size : <span>50 X 50</span>
-                                    </li>
-                                </ul>
+                <div class="price">
+                    <ul class="price-area">
+                       @php
+                           $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                       @endphp
+                        <!-- <li class="offer">
+                        @if(Helper::offerPrice($product->id)!='')
+                        </li>
+                        @endif -->
+                        @if(Helper::offerPrice($product->id)!='')
+                        <li>
+                            {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                        </li>
+                        <li>
+                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                        </li>                  
+                        @else
+                        <li>
+                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                        </li>
+                        @endif
+                    </ul>
+                        <div class="qntyClose">
+                            <div class="quantity-counter">
+                                <button class="btn btn-quantity-down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
+                                <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}">
+                                <button class="btn btn-quantity-up">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
+                            </div>
+                            <a href="" class="closeBtn">
+                                <i class="fa-solid fa-xmark"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div class="price">
-                    <ul class="price_area">
-                        <li>AED 250/- </li>
-                        <li>AED 265/-  </li>
-                    </ul>
-                    <div class="qntyClose">
-                        <div class="quantity-counter">
-                            <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <input type="number" class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
-                            <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                        </div>
-                        <a href="" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            <div class="item">
-                <div class="leftImgDetails">
-                    <div class="imgBox">
-                        <a href="">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product03.jpg')}}" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <div class="details">
-                        <div>
-                            <a href="">
-                                <h5>
-                                    Lorem ipsum dolor.
-                                </h5>
-                                <ul>
-                                    <li>
-                                        Shape : <span>Landscape</span>
-                                    </li>
-                                    <li>
-                                        color : <span>Red</span>
-                                    </li>
-                                    <li>
-                                        Size : <span>50 X 50</span>
-                                    </li>
-                                </ul>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="price">
-                    <ul class="price_area">
-                        <li>AED 250/- </li>
-                        <li>AED 265/-  </li>
-                    </ul>
-                    <div class="qntyClose">
-                        <div class="quantity-counter">
-                            <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <input type="number" class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
-                            <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                        </div>
-                        <a href="" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="leftImgDetails">
-                    <div class="imgBox">
-                        <a href="">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product01.jpg')}}" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <div class="details">
-                        <div>
-                            <a href="">
-                                <h5>
-                                    Lorem ipsum dolor.
-                                </h5>
-                                <ul>
-                                    <li>
-                                        Shape : <span>Landscape</span>
-                                    </li>
-                                    <li>
-                                        color : <span>Red</span>
-                                    </li>
-                                    <li>
-                                        Size : <span>50 X 50</span>
-                                    </li>
-                                </ul>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="price">
-                    <ul class="price_area">
-                        <li>AED 250/- </li>
-                        <li>AED 265/-  </li>
-                    </ul>
-                    <div class="qntyClose">
-                        <div class="quantity-counter">
-                            <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <input type="number" class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
-                            <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                        </div>
-                        <a href="" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="leftImgDetails">
-                    <div class="imgBox">
-                        <a href="">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product05.jpg')}}" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <div class="details">
-                        <div>
-                            <a href="">
-                                <h5>
-                                    Lorem ipsum dolor.
-                                </h5>
-                                <ul>
-                                    <li>
-                                        Shape : <span>Landscape</span>
-                                    </li>
-                                    <li>
-                                        color : <span>Red</span>
-                                    </li>
-                                    <li>
-                                        Size : <span>50 X 50</span>
-                                    </li>
-                                </ul>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="price">
-                    <ul class="price_area">
-                        <li>AED 250/- </li>
-                        <li>AED 265/-  </li>
-                    </ul>
-                    <div class="qntyClose">
-                        <div class="quantity-counter">
-                            <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <input type="number" class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
-                            <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                        </div>
-                        <a href="" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="leftImgDetails">
-                    <div class="imgBox">
-                        <a href="">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product06.jpg')}}" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <div class="details">
-                        <div>
-                            <a href="">
-                                <h5>
-                                    Lorem ipsum dolor.
-                                </h5>
-                                <ul>
-                                    <li>
-                                        Shape : <span>Landscape</span>
-                                    </li>
-                                    <li>
-                                        color : <span>Red</span>
-                                    </li>
-                                    <li>
-                                        Size : <span>50 X 50</span>
-                                    </li>
-                                </ul>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="price">
-                    <ul class="price_area">
-                        <li>AED 250/- </li>
-                        <li>AED 265/-  </li>
-                    </ul>
-                    <div class="qntyClose">
-                        <div class="quantity-counter">
-                            <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <input type="number" class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
-                            <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                        </div>
-                        <a href="" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="leftImgDetails">
-                    <div class="imgBox">
-                        <a href="">
-                            <img class="img-fluid"  src="{{ asset('frontend/images/product/product02.jpg')}}" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <div class="details">
-                        <div>
-                            <a href="">
-                                <h5>
-                                    Lorem ipsum dolor.
-                                </h5>
-                                <ul>
-                                    <li>
-                                        Shape : <span>Landscape</span>
-                                    </li>
-                                    <li>
-                                        color : <span>Red</span>
-                                    </li>
-                                    <li>
-                                        Size : <span>50 X 50</span>
-                                    </li>
-                                </ul>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="price">
-                    <ul class="price_area">
-                        <li>AED 250/- </li>
-                        <li>AED 265/-  </li>
-                    </ul>
-                    <div class="qntyClose">
-                        <div class="quantity-counter">
-                            <button class="btn btn-quantity-down">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                            <input type="number" class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
-                            <button class="btn btn-quantity-up">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            </button>
-                        </div>
-                        <a href="" class="closeBtn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endif
+        @endif
     </div>
     <div class="offcanvas-footer">
         <div class="sub_total">
@@ -309,12 +107,12 @@
                 <h6>Subtotal</h6>
             </div>
             <div class="sub_right">
-                <h5>AED 15710.00</h5>
+                <h5 class="price{{@$product->id}}">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
             </div>
         </div>
         <div class="btnsBox">
-            <a href="checkout.php" class="primary_btn checkout_btn">Proceed To Checkout</a>
-            <a href="cart.php" class="primary_btn login">View Cart</a>
+            <a href="{{url('checkout')}}" class="primary_btn checkout_btn">Proceed To Checkout</a>
+            <a href="{{url('cart')}}" class="primary_btn login">View Cart</a>
         </div>
     </div>
 </div>

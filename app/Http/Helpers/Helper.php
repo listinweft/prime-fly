@@ -102,6 +102,18 @@ class Helper
         }
         return $name;
     }
+    public static function setSessionKey($sessionKey){
+        Session::put('session_key', $sessionKey);
+        $sessionKey = Session::get('session_key');
+       return $sessionKey;
+    }
+    public static function getSessionKey(){
+        $sessionKey = '';
+        if (Session::has('session_key')) {
+            $sessionKey = Session::get('session_key');
+        }
+        return $sessionKey;
+    }
 
     public static function commonData()
     {

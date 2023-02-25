@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    var urlLastSegment = window.location.pathname.split("/").pop();
     $(".my-rating-readonly").starRating({
         totalStars: 5,
         starShape: 'rounded',
