@@ -214,10 +214,10 @@ class HomeController extends Controller
         $collection->short_url4 = $request->shorturl4;
         $collection->short_url5 = $request->shorturl5;
         $collection->short_url6 = $request->shorturl6;
-        
-      
-      
-        
+
+
+
+
         if ($collection->save()) {
             session()->flash('success', "Our collection image has been updated successfully");
             return redirect(Helper::sitePrefix() . 'home/our-collection/create');
@@ -855,6 +855,7 @@ class HomeController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
+    
 
 
 
