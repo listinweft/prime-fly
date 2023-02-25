@@ -40,8 +40,8 @@
                         <a class="position-relative" type="button" data-bs-toggle="offcanvas"
                            data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                             <img class="img-fluid" src="{{ asset('frontend/images/bag.png')}}" alt="">
-                            <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
-                                23
+                            <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger cart-count">
+                                {{ Helper::getCartItemCount()}}
                             </span>
                         </a>
                     </li>
@@ -298,8 +298,8 @@
                         <li class="cart">
                             <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/bag.png')}}" alt="">
-                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger">
-                                23
+                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger cart-count">
+                                    {{ Helper::getCartItemCount()}}
                             </span>
                             </a>
                         </li>

@@ -15,6 +15,7 @@ use App\Models\OrderCustomer;
 use App\Models\OrderLog;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\SeoData;
 use App\Models\ShippingCharge;
 use App\Models\SiteInformation;
@@ -71,14 +72,25 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
+       if($request->size == null){
+        $sizes = ProductPrice::where('product_id',$request->product_id)->get();
+        $sizeID = $sizes->map(function($item) {
+            return $item->size_id;
+        })->toArray();
+        $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+        $size= $sizes->first()->id;
+        }
+        else{
+            $size = $request->size;
+        }
         $sessionKey = $this->setSession();
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey,$size);
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey,$size);
         }
         $count = 0;
         foreach (Cart::session($sessionKey)->getContent() as $row) {
@@ -133,9 +145,13 @@ class CartController extends Controller
         return $sessionKey;
     }
 
-    public function cartAddItems($request, $product_id, $sessionKey)
+    public function cartAddItems($request, $product_id, $sessionKey,$size)
     {
+   
         $product = Product::find($product_id);
+        $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
+        
+   
         $count = [];
         $qty = ($request->qty) ? $request->qty : '1';
         if (Cart::session($sessionKey)->isEmpty()) {
@@ -161,6 +177,7 @@ class CartController extends Controller
                 $offer_amount = '0.00';
                 $offer_id = '0';
                 $product_price = Helper::defaultCurrencyRate() * $product->price;
+                
             }
             $attrText = '';
             if ($request->attributeList != NULL) {
@@ -197,13 +214,15 @@ class CartController extends Controller
                     'id' => $product->id,
                     'name' => $product->title,
                     'price' => $product_price,
+                    'type' => $product->product_type_id,
+                    'size' => $size,
                     'quantity' => $qty, // need to change as per user input
                     'attributes' => array(
                         'currency' => Helper::defaultCurrency(),
                         'color' => $product->color_id,
                         'offer' => $offer_id,
                         'offer_amount' => $offer_amount,
-                        'base_price' => $product->price,
+                        'base_price' => $product_price,
                         'attributeText' => $attrText
                     ),
                 ));

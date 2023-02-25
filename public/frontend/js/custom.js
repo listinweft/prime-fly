@@ -503,7 +503,16 @@ $(document).ready(function () {
         });
     });
 
+    $('.size').on('click', function () {
+       
+
+    });
     $(document).on('click', '.cart-action', function () {
+   // take value of active size class
+        var size = $('.size.active').data('id');
+        var type_id   = $('.size.active').data('product_type_id');
+        var checkout = $(this).data('checkout');
+        var cartText = $('.cart-action-span').html();
         var id = $(this).data('id');
         var qty = $('.qty').val();
         var cartText = $('.cart-action-span').html();
@@ -521,39 +530,51 @@ $(document).ready(function () {
         });
         var attributeList = attrArray.join(",");
         $('.cart-action-span').html('Loading..');
-        var _token = token;
+
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: {product_id: id, _token: _token, qty: qty, countRelative: countRelative,attributeList:attributeList},
+            data: { size : size, type_id: type_id, product_id: id,qty: qty, countRelative: countRelative,attributeList:attributeList},
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: base_url + '/add-cart',
             success: function (response) {
                 $('.cart-action-span').html(cartText);
+                $('.cart-count').html(response.count);
                 if (response.status == true) {
-                    swal({
-                        title: "Done it", text: response.message, type: "success"
-                    });
-                    $('.cartCount').html(response.count);
-                    $('.cartTotal').html(response.cartTotal);
-                    if (/[,\-]/.test(id)) {
-                        var idArray = id.split(',');
-                        var i;
-                        for (i = 0; i < idArray.length; ++i) {
-                            $('#addoncheck' + idArray[i]).prop('disabled', true);
-                            console.log(idArray[i]);
-                            $('#wishlist_check_' + idArray[i]).prop('checked', false);
-                            $('#wishlistBox_' + idArray[i]).remove();
-                        }
+                    if (checkout == 1) {
+                        window.location.href = base_url + '/checkout';
                     } else {
-                        $('#wishlist_check_' + id).prop('checked', false);
-                        $('#wishlistBox_' + id).remove();
+
+                        $('.count').html(response.count);
+                        $('.cartCount').html(response.count);
+                        $('.cartTotal').html(response.cartTotal);
+                        if (/[,\-]/.test(id)) {
+                          
+                            var idArray = id.split(',');
+                            var i;
+                            for (i = 0; i < idArray.length; ++i) {
+                                $('#addoncheck' + idArray[i]).prop('disabled', true);
+                                $('#wishlist_check_' + idArray[i]).removeClass('fill');
+                                $('#wishlistBox_' + idArray[i]).remove();
+                            }
+                        } else {
+                        
+                            $('#wishlist_check_' + id).removeClass('fill');
+                            $('#wishlistBox_' + id).remove();
+                        }
+                        Toast.fire({
+                            title: "Done it", text: response.message, icon: "success"
+                        });
+                       
+                        if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "profile" || urlLastSegment == "wishlist") {
+                            location.reload();
+                        }
                     }
                 } else {
-                    swal({
-                        title: "Oops", text: response.message, type: "error"
+                    swal.fire({
+                        title: "Oops", text: response.message, icon: "error"
                     });
                 }
             }

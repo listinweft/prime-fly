@@ -114,12 +114,15 @@
                     <!--                    <div class="stock">-->
                     <!--                        In Stock-->
                     <!--                    </div>-->
-                    @if (@$product->availability == 'out of stock')
+                
+                    @if (@$product->availability != 'In Stock')
                     <div class="stock outOfStock">
                         {{ $product->availability}}
                     </div>
                     @endif
+                    
                 </div>
+               
                 <div class="productRatingPrice">
                     <div class="rating">
                         <h6>  {{ $totalReviews }} Ratings</h6>
@@ -160,7 +163,7 @@
                     </h5>
                     <div class="relatedProductsTypesWrapper">
                         @foreach ($products as $prd)
-                        <div class="item {{$prd->productType->id ==  $product->productType->id ?  'active' : '' }}">
+                        <div class="item {{$prd->productType->id ==  $product->productType->id ?  'active' : '' }} type" data-id="{{$product->productType->id}}">
                             <a href=" {{url('/product/'.$prd->short_url)}} ">
                                {!! Helper::printImage($prd->productType, 'image','image_webp','image_attribute') !!}
                                 <p>{{$prd->productType->title}}</p>
@@ -182,10 +185,11 @@
                             return $item->size_id;
                         })->toArray();
                         $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                        $firstSizeId = $sizes->first()->id;
                     @endphp
                     <div class="relatedProductsTypesWrapper sizeSection">
                         @foreach ($sizes as $size)
-                        <div class="item {{$size->id ==  1 ?  'active' : '' }} checkprice" data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
+                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
                             <div class="sizeImageBox">
                                 {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
@@ -237,8 +241,9 @@
                             </div>
                         </div>
                     </div>
+                 
                     <div class="btnsArea">
-                        <a class="primary_btn" href="">Add to Cart</a>
+                        <a href="javascript:void(0)" data-id="{{$product->id}}" class="primary_btn cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}">Add to Cart</a>
                         <a class="primary_btn secondary_btn" href="" data-bs-target="#bulk_order_form_pop"
                             data-bs-toggle="modal" data-bs-dismiss="modal">Bulk Enquiry</a>
                     </div>
@@ -640,3 +645,8 @@
 </div>
 
 @endsection
+@push('scripts')
+    <script>
+      
+    </script>
+@endpush
