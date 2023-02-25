@@ -413,8 +413,11 @@ class WebController extends Controller
             $sizes = Size::active()->get();
             $banner = $seo_data = $product;
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
-            $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))->latest()->get();
-            $relatedProducts = Product::active()->whereIn('id', explode(',', $product->related_product_id))->latest()->get();
+            $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))
+            ->where('copy','no')->latest()->get();
+            $relatedProducts = Product::active()->whereIn('id', explode(',', $product->related_product_id))
+            ->where('copy','no')
+            ->latest()->get();
             $productTags = Tag::active()->whereIn('id', explode(',', $product->tag_id))->latest()->get();
             $productFrames = Frame::whereIn('id', explode(',', $product->frame_color))->latest()->get();
             $specifications = ProductSpecificationHead::active()->with('specifications')
@@ -640,7 +643,8 @@ class WebController extends Controller
     //         return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);
     //     }
     // }
-    public function submit_review(Request $request)
+
+    public function product_review(Request $request)
     {
         if (Auth::guard('customer')->check()) {
             $request->validate([
@@ -652,9 +656,39 @@ class WebController extends Controller
             $request->validate([
                 'rating' => 'required',
                 'email' => 'required|email',
-                'designation' => 'required',
                 'name' => 'required',
-                'message' => 'required',
+            ]);
+            $email = $request->email;
+            $name = $request->name;
+        }
+        $review = new ProductReview();
+        $review->email = $email;
+        $review->name = $name;
+        $review->rating = round($request->rating);
+        $review->review = $request->review;
+        $review->product_id = $request->product_id;
+        if ($review->save()) {
+            return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);
+        } else {
+            return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);
+        }
+    }
+    public function submit_review(Request $request)
+    {
+        // dd($request->all());
+        if (Auth::guard('customer')->check()) {
+            $request->validate([
+                'rating' => 'required',
+            ]);
+            $email = Auth::guard('customer')->user()->email;
+            $name = Helper::loggedCustomerName();
+        } else {
+            $request->validate([
+                'rating' => 'required',
+                'email' => 'required|email',
+                // 'designation' => 'required',
+                'name' => 'required',
+                'review' => 'required',
             ]);
             $email = $request->email;
             $name = $request->name;
@@ -664,7 +698,7 @@ class WebController extends Controller
         $testimonial->name = $name;
         $testimonial->rating = round($request->rating);
         $testimonial->designation = $request->designation;
-        $testimonial->message = $request->message;
+        $testimonial->message = $request->review;
         //$testimonial->review = $request->review;
         // $testimonial->product_id = $request->product_id;
         if ($testimonial->save()) {

@@ -91,6 +91,7 @@ Route::post('review-load-more', [WebController::class, 'reviewLoadMore']);
 Route::post('main-search', [WebController::class, 'main_search']);
 Route::get('search/{search_param}', [WebController::class, 'main_search_products']);
 Route::post('submit-review', [WebController::class, 'submit_review']);
+Route::post('product-review', [WebController::class, 'product_review']);
 Route::get('service/{short_url}', [WebController::class, 'service_detail']);
 Route::get('team', [WebController::class, 'team']);
 Route::post('team-load-more', [WebController::class, 'teamLoadMore']);

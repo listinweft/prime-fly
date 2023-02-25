@@ -309,46 +309,10 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <form id="review-form" class="review-form" method="post">
-                    <div class="formArea">
-                        <div class="head">
-                            <h5>Write A Review</h5>
-                            <div class="my-rating" data-rating="0"></div>
-                            <input type="hidden" name="rating" id="rating" class="required">
-                        </div>
-                        <div class="row">
-                            @if(!Auth::guard('customer')->check())
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Full Name</label>
-                                        <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
-                                        <input type="text" class="form-control required" placeholder="Full Name"  name="name" id="name">
-                                    </div>
-                                </div>
-                                <div class=" col-12">
-                                    <div class="form-group">
-                                        <label for="">Email Address</label>
-                                        <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
-                                        <input   name="email" id="email"  type="text" class="form-control required" placeholder="Email Address">
-                                    </div>
-                                </div>
-                            @endif
-                            <div class="col-12 message">
-                                <div class="form-group">
-                                    <label for="">Message</label>
-                                    <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
-                                    <textarea class="form-control required form-review" rows="4"name="review" id="review" placeholder="Say Something"></textarea>
-                                </div>
-                            </div>
-                            <input type="hidden" name="product_id" id="product_id"  value="{{$product->id}}">
-                            <div class="col-12x ">
-                                <div class="form-group d-flex align-items-end mb-0">
-                                    <button type="submit" data-url="/submit-review" id="review-form-btn" class="primary_btn ">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <div class="col-lg-6">
+                    @include('web.includes.review_form',['product_id'=>$product->id])
+                   
+                </div>
             </div>
         </div>
     </div>

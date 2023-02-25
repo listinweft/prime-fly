@@ -23,8 +23,8 @@ $(document).ready(function () {
         emptyColor: 'lightgray',
         useFullStars: true,
         callback: function (currentRating, $el) {
-            $('#rating').val(currentRating);
-            console.log('DOM element ', $el);
+            $('.rating').val(currentRating);
+          console.log('DOM element ', $el);
         }
     });
 
@@ -197,6 +197,58 @@ $(document).ready(function () {
             $('#latestProductsList').hide();
         }
     });
+    $(document).on('click', '.product-review-form-btn', function (e) {
+        e.preventDefault();
+   
+        var required = [];
+        $('.product-review-required').each(function () {
+            var id = $(this).attr('id');
+            console.log($('#' + id).val());
+            var id_text = $(this).attr('placeholder');
+            if ($('#' + id).val() == '') {
+                required.push($('#' + id).val());
+                $('#' + id).css({'border': '1px solid #FF0000'});
+                //add d-none class to error div
+                $('.' + id ).removeClass('d-none');
+            } else {
+                $('#' + id).css({'border': '1px solid #d0d0d0'});
+            }
+        });
+        console.log(required.length);
+        if (required.length == 0) {
+            if ($('#email').length > 0) {
+                var email = $('#email').val();
+            } else {
+                var email = 'review@elitco.com';
+            }
+            var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (!regex.test(email)) {
+                $('#email_error').css({'border': '1px solid #FF0000'});
+            } else {
+                $('.with-errors').html('');
+                $.ajax({
+                    type: 'POST', dataType: 'json', data: $('.product-review-form').serialize(), headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }, url: base_url + '/submit-review', success: function (response) {
+                        if (response.status == "true") {
+                            swal({
+                                title: "Done it!", text: response.message, type: "success"
+                            }, function () {
+                                window.location.reload();
+                            });
+                        } else if (response.status == "error") {
+                            $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
+                        } else {
+                            swal({
+                                title: response.status, text: response.message, type: response.status
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+
 
     $(document).on('click', '#review-form-btn', function (e) {
         e.preventDefault();
@@ -204,6 +256,7 @@ $(document).ready(function () {
         var required = [];
         $('.review-required').each(function () {
             var id = $(this).attr('id');
+            console.log(id);
             var id_text = $(this).attr('placeholder');
             if ($('#' + id).val() == '') {
                 required.push($('#' + id).val());
@@ -714,7 +767,9 @@ $(document).ready(function () {
                         if (response.redirect) {
                             window.location.href = response.redirect;
                         } else {
+                           setTimeout(() => {
                             location.reload();
+                           }, 1000);
                         }
                     } else {
                         swal.fire({
