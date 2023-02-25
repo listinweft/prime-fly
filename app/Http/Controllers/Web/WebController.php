@@ -464,7 +464,9 @@ class WebController extends Controller
     public function check_price(){
         $size = request()->id;
         $product_id = request()->product_id;
+        
         $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
+      
         if($productOffer){
             return Helper::offerPriceSize($product_id,$size,$productOffer->id);
         }

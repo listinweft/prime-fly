@@ -592,7 +592,7 @@ class Helper
     public static function offerPriceSize($productId,$sizeId,$offerId)
     {
         $productOfferSize = DB::table('product_offer_size')->where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
-        dd($productOfferSize);
+     
         $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
         return $offer;
         

@@ -4,9 +4,7 @@
 
 <!--Inner Banner Start-->
 <section class="innerBanner innerBannerProducts">
-    <div class="innerBannerImageArea">
-        <img class="bannerImg img-fluid"  src="{{ asset('frontend/images/banner/banner-09.jpg')}}" alt="">
-    </div>
+  
     <div class="innerBannerDetails">
         <div class="container">
             <div class="row">
@@ -172,18 +170,25 @@
                     <h5>
                         Select Size <span>(Size in cms)</span>
                     </h5>
+                    @php
+                        $sizes = \App\Models\ProductPrice::where('product_id',$product->id)->get();
+                        $sizeID = $sizes->map(function($item) {
+                            return $item->size_id;
+                        })->toArray();
+                        $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                    @endphp
                     <div class="relatedProductsTypesWrapper sizeSection">
                         @foreach ($sizes as $size)
-                            <div class="item {{$size->id ==  1 ?  'active' : '' }} checkprice" data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
-                                <div class="sizeImageBox">
-                                    {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
-                                </div>
-                                <p>{{$size->title}}</p>
+                        <div class="item {{$size->id ==  1 ?  'active' : '' }} checkprice" data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
+                            <div class="sizeImageBox">
+                                {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
+                            <p>{{$size->title}}</p>
+                        </div>
                         @endforeach
+                   
                     </div>
                 </div>
-               
                 
                 <div class="totalBox">
                     <h5>
