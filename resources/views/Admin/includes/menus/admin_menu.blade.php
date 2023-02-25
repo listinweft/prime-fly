@@ -584,13 +584,13 @@
                 <p>Menu </p>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'menu/detail')}}"
                class="nav-link {{ (Request::segment(3)=='detail')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Menu Detail</p>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'side-menu')}}"
                class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu'))?'active':'' }}">
@@ -599,8 +599,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'side-menu/details')}}"
-               class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu-details'))?'active':'' }}">
+            <a href="{{url(Helper::sitePrefix().'side-menu/detail')}}"
+               class="nav-link {{ (Request::is(Helper::sitePrefix().'side-menu-detail'))?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Side Menu Detail</p>
             </a>

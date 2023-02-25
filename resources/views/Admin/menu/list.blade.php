@@ -44,7 +44,7 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Menu Type</th>
+                                        {{-- <th>Menu Type</th> --}}
                                         <th>Menu</th>
                                         <th>Status</th>
                                         <th>Sort Order</th>
@@ -56,7 +56,7 @@
                                     @foreach($menuList as $menu)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $menu->menu_type }}</td>
+                                            {{-- <td>{{ $menu->menu_type }}</td> --}}
                                             <td>{{ $menu->title }}</td>
                                             <td>
                                                 <label class="switch">

@@ -5,6 +5,7 @@ namespace App\Http\Helpers;
 use App\Http\Controllers\Web\CartController;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\ContactAddress;
 use App\Models\Coupon;
 use App\Models\Currency;
@@ -17,7 +18,9 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\RecentlyViewedProduct;
+use App\Models\Shape;
 use App\Models\ShippingCharge;
+use App\Models\SideMenu;
 use App\Models\SiteInformation;
 use App\Models\User;
 
@@ -104,6 +107,9 @@ class Helper
     {
         $siteInformation = SiteInformation::first();
         $menus = Menu::active()->with('category')->oldest('sort_order')->get();
+        $shapes = Shape::active()->get();
+        $sideMenus = SideMenu::active()->oldest('sort_order')->get();
+        $colors = Color::active()->get();
         $blogCount = Blog::active()->count();
         $sessionKey = '';
         if (Session::has('session_key')) {
@@ -114,7 +120,7 @@ class Helper
         $defaultCurrency = Currency::where('is_default', 1)->first();
         $parentCategories = Category::active()->isParent()->get();
         $address = ContactAddress::active()->first();
-        return View::share(compact('siteInformation', 'menus', 'blogCount', 'sessionKey', 'calculation_box', 'currencies', 'defaultCurrency', 'parentCategories', 'address'));
+        return View::share(compact('siteInformation', 'menus', 'blogCount', 'sessionKey', 'calculation_box', 'currencies', 'defaultCurrency', 'parentCategories', 'address','shapes','colors','sideMenus'));
     }
 
     /**

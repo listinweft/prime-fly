@@ -46,112 +46,43 @@
                                 </div>
                             @endif
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6" hidden>
                                     <label> Menu Type*</label>
                                     <select name="menu_type" id="menu_type" class="form-control required"
                                             placeholder="Menu Type">
-                                        <option value="static" {{ (@$menu->menu_type=="static")?'selected':'' }}>
+                                        <option value="static" {{ (@$menu->menu_type=="static")?'selected':'' }} selected>
                                             Static
                                         </option>
                                         <option value="category" {{ (@$menu->menu_type=="category")?'selected':'' }}>
                                             Category
                                         </option>
-                                        <option value="color" {{ (@$menu->menu_type=="color")?'selected':'' }}>
-                                            color
-                                        </option>
-                                        <option value="tag" {{ (@$menu->menu_type=="tag")?'selected':'' }}>
-                                            Tag
-                                        </option>
-                                        <option value="shape" {{ (@$menu->menu_type=="shape")?'selected':'' }}>
-                                            Shapes
-                                        </option>
+                                       
                                     </select>
                                     <div class="help-block with-errors" id="menu_type_error"></div>
                                 </div>
-                                <div class="form-group col-md-6 static"
-                                     style="display: {{ (@$menu->menu_type=='category')?'none':'block' }}">
-                                    <label> Static Links*</label>
-                                    <select name="static_link" id="static_link" class="form-control"
-                                            placeholder="Static Links">
-                                        <option value="custom" {{ (@$menu->static_link=="custom")?'selected':'' }}>
-                                            Custom Link
-                                        </option>
-                                    </select>
-                                    <div class="help-block with-errors" id="static_link_error"></div>
-                                </div>
-                                <div class="form-group col-md-6 category"
-                                     style="display: {{ (@$menu->menu_type=='category')?'block':'none' }}">
-                                    <label> Categories*</label>
-                                    <select class="form-control menu_category_id" id="menu_category_id"
-                                            name="menu_category_id">
-                                        <option value="">Select Option</option>
-                                        @foreach($categories as $category)
-                                            <option data-url="{{$category->short_url}}"
-                                                    value="{{ $category->id }}" {{ (@$menu->category_id==$category->id)?'selected':'' }}>{{ $category->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="menu_category_id_error"></div>
-                                </div>
+                               
 
-                                <div class="form-group col-md-6 color"
-                                     style="display: {{ (@$menu->menu_type=='color')?'block':'none' }}">
-                                    <label> Color*</label>
-                                    <select class="form-control menu_color_id" id="menu_color_id"
-                                            name="menu_color_id">
-                                        <option value="">Select Option</option>
-                                        @foreach($colors as $color)
-                                            <option data-url="{{$color->short_url}}"
-                                                    value="{{ $color->id }}" {{ (@$menu->color_id==$color->id)?'selected':'' }}>{{ $color->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="menu_color_id_error"></div>
+                    
+                            </div>
+                           
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label> Title*</label>
+                                        <input type="text" name="title" id="title" placeholder="Title"
+                                               class="form-control for_canonical_url required" autocomplete="off"
+                                               value="{{ @$menu->title }}">
+                                        <div class="help-block with-errors" id="title_error"></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label> URL*</label>
+                                        <input type="text" name="url" id="url" placeholder="URL"
+                                               class="form-control  menu_url" autocomplete="off"
+                                               value="{{ @$menu->url }}">
+                                        <div class="help-block with-errors" id="url_error"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 shape"
-                                     style="display: {{ (@$menu->menu_type=='shape')?'block':'none' }}">
-                                    <label> Shape*</label>
-                                    <select class="form-control menu_shape_id" id="menu_shape_id"
-                                            name="menu_shape_id">
-                                        <option value="">Select Option</option>
-                                        @foreach($shapes as $shape)
-                                            <option data-url="{{$shape->short_url}}"
-                                                    value="{{ $shape->id }}" {{ (@$menu->shape_id==$shape->id)?'selected':'' }}>{{ $shape->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="menu_tag_id_error"></div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 tag"
-                                     style="display: {{ (@$menu->menu_type=='tag')?'block':'none' }}">
-                                    <label> Tag*</label>
-                                    <select class="form-control menu_tag_id" id="menu_tag_id"
-                                            name="menu_tag_id">
-                                        <option value="">Select Option</option>
-                                        @foreach($tags as $tag)
-                                            <option data-url="{{$tag->short_url}}"
-                                                    value="{{ $tag->id }}" {{ (@$menu->tag_id==$tag->id)?'selected':'' }}>{{ $tag->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="menu_tag_id_error"></div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Title*</label>
-                                    <input type="text" name="title" id="title" placeholder="Title"
-                                           class="form-control for_canonical_url required" autocomplete="off"
-                                           value="{{ @$menu->title }}">
-                                    <div class="help-block with-errors" id="title_error"></div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> URL*</label>
-                                    <input type="text" name="url" id="url" placeholder="URL"
-                                           class="form-control required menu_url" autocomplete="off"
-                                           value="{{ @$menu->url }}">
-                                    <div class="help-block with-errors" id="url_error"></div>
-                                </div>
-                            </div>
-                        </div>
+                    
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">

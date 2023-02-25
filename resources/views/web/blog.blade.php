@@ -3,30 +3,30 @@
 @extends('web.layouts.main')
 @section('content')
 <!--Inner Banner Start-->
-    <section class="innerBanner">
-        
-        <div class="innerBannerImageArea">
-        {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
-        </div>
-        <div class="innerBannerDetails">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Blog Details</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.php"><img src="assets/images/home.png" alt=""></a></li>
-                                <li class="breadcrumb-item"><a href="blog.php">Blogs</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $type }}</li>
-                            </ol>
-                        </nav>
-                    </div>
+
+{{-- @include('web.includes.banner',[$banner, 'type'=> 'Blogs     >     '.$blog->title,'title'=> $blog->title]) --}}
+<!--Inner Banner End-->
+<section class="innerBanner ">
+    <div class="innerBannerImageArea">
+        {!! Helper::printImage($blog, 'desktop_banner','desktop_banner_webp','banner_attribute', 'img-fluid') !!}
+    </div>
+    <div class="innerBannerDetails">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>{{$blog->title}}</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.php"><img src="assets/images/home.png" alt=""></a></li>
+                            <li class="breadcrumb-item"><a href="product-listing.php">Blogs</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$blog->title}}</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
-    </section>
-<!--Inner Banner End-->
-
+    </div>
+</section>
 <!--Blog Listing Page Start-->
     <section class="blogListingPage blogDetailsPage">
         <div class="container">

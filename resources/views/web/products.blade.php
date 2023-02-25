@@ -3,7 +3,7 @@
 
 
 <!--Inner Banner Start-->
-@include('web.includes.product_banner')
+@include('web.includes.banner',[$banner, 'type'=> 'product','title'=>'Products'])
 <!--Inner Banner End-->
 
 <!--Product Listing Page Start-->

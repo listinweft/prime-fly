@@ -47,12 +47,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>{{$type}}</h1>
+                    <h1>{{$title}}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{url('/')}}"><img
                                         src="{{ asset('frontend/images/home.png') }}" alt=""></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{$type}}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                         </ol>
                     </nav>
                 </div>

@@ -49,33 +49,63 @@
                                 </div>
                             @endif
                             <div class="form-row">
+                               
                                 <div class="form-group col-md-6">
                                     <label for="menu_id"> Menu*</label>
                                     <select name="menu_id" id="menu_id" class="form-control required">
                                         <option value="">Select Menu</option>
                                         @foreach($menus as $menu)
-                                            <option value="{{$menu->id}}"
+                                            <option value="{{$menu->id}}" data-type="{{$menu->menu_type}}"
                                                 {{ (@$menuDetail->menu_id==$menu->id)?'selected':'' }}>{{$menu->title}}</option>
                                         @endforeach
                                     </select>
                                     <div class="help-block with-errors" id="menu_id_error"></div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="category_id">Category</label>
-                                    <select class="form-control multiple select2 sub-category-drop" name="category_id[]"
-                                            multiple id="category_id">
-                                        <option>Select Sub Category</option>
-                                        @if(isset($categories))
-                                            @foreach($categories as $category)
-                                                <option value="{{$category->id}}"
-                                                    {{(@$category->id==@$menuDetail->category_id)?'selected':'' }}>
-                                                    {{$category->title}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                              
+                                <div class="form-group col-md-6 color"
+                                style="display: {{ (@$menu->menu_type=='color')?'block':'none' }}">
+                               <label> Color*</label>
+                               <select class="form-control menu_color_id select2" id="menu_color_id" 
+                                       name="menu_color_id">
+                                   <option value="">Select Option</option>
+                                   @foreach($colors as $color)
+                                       <option data-url="{{$color->short_url}}"
+                                               value="{{ $color->id }}" {{ (@$menuDetail->color_id==$color->id)?'selected':'' }}>{{ $color->title }}</option>
+                                   @endforeach
+                               </select>
+                               <div class="help-block with-errors" id="menu_color_id_error"></div>
+                           </div>
+                           <div class="form-group col-md-6 shape  d-none"
+                           style="display: {{ (@$menu->menu_type=='shape')?'block':'none' }}">
+                          <label> Shape*</label>
+                          <select class="form-control menu_shape_id"  id="menu_shape_id" 
+                                  name="menu_shape_id">
+                              <option value="">Select Option</option>
+                              @foreach($shapes as $shape)
+                                  <option data-url="{{$shape->short_url}}"
+                                          value="{{ $shape->id }}" {{ (@$menu->shape_id==$shape->id)?'selected':'' }}>{{ $shape->title }}</option>
+                              @endforeach
+                          </select>
+                          <div class="help-block with-errors" id="menu_tag_id_error"></div>
+                      </div>
+
                             </div>
+                            <div class="form-row" id="slider-div"  style="display: {{ (@$menuDetail->$menu->menu_type=='color')?'none':'block' }}">
+                                <div class="form-group col-md-6">
+                                    <label>Image</label>
+                                    <div class="file-loading">
+                                        <input id="image" name="image" type="file" accept="image/*">
+                                    </div>
+                                    <span class="caption_note">Note: uploaded images have a maximum size of <strong> 38x36</strong> pixels and can't be over 80KB</span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="image_meta_tag">Image Attribute</label>
+                                    <input type="text" name="image_attribute" id="image_attribute" placeholder="Image Alternate Text" class="form-control placeholder-cls required" required autocomplete="off" value="{{ isset($banner)?$banner->image_attribute:'' }}" maxlength="230">
+                                </div>
+
+                            </div>  
                         </div>
+
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
@@ -91,6 +121,38 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#category_id').val([{{@$menuDetail->category_id}}]).change();
+        });
+    </script>
+      <script type="text/javascript">
+
+        $(document).ready(function(){
+            $("#image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+               
+                
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 38,
+                minImageHeight: 36,
+                maxImageWidth: 38,
+                maxImageHeight: 36,
+                maxFileSize: 300,
+                showRemove: true,
+                @if(isset($menuDetail) && $menuDetail->image!=NULL)
+                initialPreview: ["{{asset($menuDetail->image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($menuDetail->image!=NULL)?$menuDetail->title:''}}",
+                    width: "120px",
+                    key: "{{'SideMenuDetail/image/'.$menuDetail->id.'/image_webp' }}",
+                }]
+                @endif
+            });
+
         });
     </script>
 @endsection

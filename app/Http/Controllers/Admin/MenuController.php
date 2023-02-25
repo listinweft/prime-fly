@@ -46,11 +46,11 @@ class MenuController extends Controller
 
     public function menu_store(Request $request)
     {
-        // dd ($request->all());
+
         $validatedData = $request->validate([
             'title' => 'required',
             'menu_type' => 'required',
-            'url' => 'required'
+            // 'url' => 'required'
         ]);
         $menu = new Menu;
         $menu->title = $validatedData['title'];
@@ -74,10 +74,11 @@ class MenuController extends Controller
         if ($request->menu_type == "category" || "tag" || "shape" || "color") {
             $menu->url = ($request->url) ? $request->url : '';
             $menu->category_id = $request->menu_category_id;
-            $menu->tag_id = $request->menu_tag_id;
-            $menu->shape_id = $request->menu_shape_id;
-            $menu->color_id = $request->menu_color_id;
-
+            // $menu->tag_id = $request->menu_tag_id;
+            // $menu->shape_id = $request->menu_shape_id;
+            // $menu->color_id = $request->menu_color_id;
+            $menu->shape_id = ($request->menu_shape_id) ? implode(',', $request->menu_shape_id) : '';
+            $menu->color_id = ($request->color_id) ? implode(',', $request->color_id) : '';
             /*if($menu->url!=NULL){
                 
             	$exist = Menu::where('category_id','=',$request->menu_category_id)->count();
@@ -213,15 +214,21 @@ class MenuController extends Controller
     {
         $title = "Side Menu List";
         $menuList = SideMenu::get();
-        return view('Admin.side_menu.list', compact('menuList', 'title'));
+        $colors = Color::active()->get();
+        $shapes = Shape::active()->get();
+        $tags = Tag::active()->get();
+        return view('Admin.side_menu.list', compact('menuList', 'title','tags','shapes','colors'));
     }
 
     public function side_menu_create()
     {
         $key = "Create";
         $title = "Create Side Menu";
+        $colors = Color::active()->get();
+        $shapes = Shape::active()->get();
+        $tags = Tag::active()->get();
         $categories = Category::active()->whereNull('parent_id')->get();
-        return view('Admin.side_menu.form', compact('key', 'title', 'categories'));
+        return view('Admin.side_menu.form', compact('key', 'title', 'categories','tags','shapes','colors'));
     }
 
     public function side_menu_store(Request $request)
@@ -230,21 +237,14 @@ class MenuController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'menu_type' => 'required',
-            'url' => 'required'
+            // 'url' => 'required'
         ]);
         $menu = new SideMenu;
         $menu->title = $validatedData['title'];
         $menu->menu_type = $validatedData['menu_type'];
+        $menu->url = $request->url ?? '';
         $exist = 0;
-        if ($request->menu_type == "static") {
-            $menu->url = $request->url ?? '';
- 
-        }
-        if ($request->menu_type == "category") {
-            $menu->url = ($request->url) ? $request->url : '';
-            $menu->category_id = $request->menu_category_id;
- 
-        }
+        
         if ($exist == 0) {
             $sort_order = SideMenu::orderBy('id', 'DESC')->first();
             if ($sort_order) {
@@ -252,9 +252,15 @@ class MenuController extends Controller
             } else {
                 $sort_number = 1;
             }
-
+            // $menu->tag_id = $request->menu_tag_id;
+          
             $menu->sort_order = $sort_number;
+            if ($request->hasFile('image')) {
+                $menu->image_webp = Helper::uploadWebpImage($request->image, 'uploads/menu/image/webp/', $request->menu_type);
+                $menu->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->menu_type);
+            }
             if ($menu->save()) {
+
                 session()->flash('success', 'Menu has been added successfully');
                 return redirect(Helper::sitePrefix() . 'side-menu');
             } else {
@@ -270,9 +276,12 @@ class MenuController extends Controller
         $key = "Update";
         $title = "Update menu";
         $menu = SideMenu::find($id);
+        $colors = Color::active()->get();
+        $shapes = Shape::active()->get();
+        $tags = Tag::active()->get();
         if ($menu) {
             $categories = Category::active()->whereNull('parent_id')->get();
-            return view('Admin.menu.form', compact('key', 'menu', 'title', 'categories'));
+            return view('Admin.side_menu.form', compact('key', 'menu', 'title', 'categories','tags','shapes','colors'));
         } else {
             return view('Admin.error.404');
         }
@@ -280,6 +289,7 @@ class MenuController extends Controller
 
     public function side_menu_update(Request $request, $id)
     {
+      
         $menu = SideMenu::find($id);
         $validatedData = $request->validate([
             'title' => 'required',
@@ -287,28 +297,27 @@ class MenuController extends Controller
         ]);
         $menu->title = $validatedData['title'];
         $menu->menu_type = $validatedData['menu_type'];
+        $menu->url = $request->url ?? '';
         $exist = 0;
-        if ($request->menu_type == "static") {
-            if ($request->static_link == "custom") {
-                $menu->url = $request->url ?? '';
-            } else {
-                $menu->url = $request->static_link;
-            }
-            $menu->static_link = $request->static_link;
-            $menu->category_id = NULL;
-     
-        }
-        if ($request->menu_type == "category") {
-            $menu->category_id = $request->menu_category_id;
-            $menu->url = ($request->url) ? $request->url : '';
-        
-        }
+
         $menu->updated_at = date('Y-m-d h:i:s');
+    
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($menu->image))) {
+              
+                File::delete(public_path($menu->image));
+            }
+            if (File::exists(public_path($menu->image_webp))) {
+                File::delete(public_path($menu->image_webp));
+            }
+            $menu->image_webp = Helper::uploadWebpImage($request->image, 'uploads/menu/image/webp/', $request->menu_type);
+            $menu->image = Helper::uploadFile($request->image, 'uploads/menu/image/', $request->menu_type);
+        }
         if ($exist == 0) {
 
             if ($menu->save()) {
                 session()->flash('success', 'Menu has been updated successfully');
-                return redirect(Helper::sitePrefix() . 'menu');
+                return redirect(Helper::sitePrefix() . 'side-menu');
             } else {
                 return back()->withInput($request->input())->withErrors("Error while updating the menu");
             }
@@ -319,6 +328,7 @@ class MenuController extends Controller
 
     public function side_delete_menu(Request $request)
     {
+       
         if (isset($request->id) && $request->id != NULL) {
             $menu = SideMenu::find($request->id);
             if ($menu) {
@@ -357,6 +367,7 @@ class MenuController extends Controller
 
     public function menu_detail_store(Request $request)
     {
+        
         $validatedData = $request->validate([
             'menu_id' => 'required',
         ]);
@@ -409,6 +420,140 @@ class MenuController extends Controller
     {
         if (isset($request->id) && $request->id != null) {
             $detail = MenuDetail::find($request->id);
+            if ($detail) {
+                if ($detail->delete()) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+
+    }
+    
+    public function side_menu_detail()
+    {
+        $title = "Side Menu Detail List";
+        $menuList = SideMenuDetail::get();
+   
+        return view('Admin.side_menu.detail.list', compact('menuList', 'title'));
+    }
+
+    public function side_menu_detail_create()
+    {
+        $key = "Create";
+        $title = "Create Side Menu Detail";
+        $menus = SideMenu::active()->where('menu_type','!=', 'static')->get();
+        $colors = Color::active()->get();
+        $shapes = Shape::active()->get();
+        $tags = Tag::active()->get();
+        return view('Admin.side_menu.detail.form', compact('key', 'title', 'menus','colors','shapes','tags'));
+    }
+
+    public function side_menu_detail_store(Request $request)
+    {
+       
+        $validatedData = $request->validate([
+            'menu_id' => 'required',
+        ]);
+        $menuDetail = new SideMenuDetail;
+        $menuDetail->menu_id = $validatedData['menu_id'];
+        $menuDetail->color_id = $request->menu_color_id ?? null;
+        $menuDetail->shape_id = $request->menu_shape_id ?? null;
+        if ($request->hasFile('image')) {
+        
+            $menuDetail->image_webp = Helper::uploadWebpImage($request->image, 'uploads/side_menu/image/webp/', $request->menu_id);
+            $menuDetail->image = Helper::uploadFile($request->image, 'uploads/side_menu/image/', $request->menu_id);
+        }
+        if($request->menu_color_id != null){
+            $menuDetail->menu_type = 'color';
+        }
+        if($request->menu_shape_id != null){
+            $menuDetail->menu_type = 'shape';
+        }
+        if ($menuDetail->save()) {
+            session()->flash('success', 'Menu Detail has been added successfully');
+            return redirect(Helper::sitePrefix() . 'side-menu/detail');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the menu detail");
+        }
+    }
+
+    public function side_menu_detail_edit(Request $request, $id)
+    {
+        $key = "Update";
+        $title = "Update Side Menu Details";
+        $menuDetail = SideMenuDetail::find($id);
+        if ($menuDetail) {
+            $menus = SideMenu::where('menu_type','!=', 'static')->get();
+         
+            // $categories = Category::active()->where('parent_id', $menuDetail->menu->category_id)->get();
+            $shapes = Shape::active()->get();
+            $colors = Color::active()->get();
+            if($menuDetail->menu_type == 'shape'){
+
+                $shapes = Shape::active()->where('id', $menuDetail->menu->shape_id)->get();
+            }
+            if($menuDetail->menu_type == 'colors'){
+
+                $colors = Color::active()->where('id', $menuDetail->menu->color_id)->get();
+            }
+     
+            return view('Admin.side_menu.detail.form', compact('key', 'menuDetail', 'title', 'menus', 'colors', 'shapes'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function side_menu_detail_update(Request $request, $id)
+    {
+     
+        $validatedData = $request->validate([
+            'menu_id' => 'required',
+        ]);
+        $menu = SideMenuDetail::find($id);
+        if ($request->hasFile('image')) {
+            if (File::exists(public_path($menu->image))) {
+              
+                File::delete(public_path($menu->image));
+            }
+            if (File::exists(public_path($menu->image_webp))) {
+                File::delete(public_path($menu->image_webp));
+            }
+            $menu->image_webp = Helper::uploadWebpImage($request->image, 'uploads/side_menu/image/webp/', $request->menu_id);
+            $menu->image = Helper::uploadFile($request->image, 'uploads/side_menu/image/', $request->menu_id);
+        }
+        if ($menu) {
+            $menu->menu_id = $validatedData['menu_id'];
+          
+            if($request->menu_color_id != null){
+                $menu->menu_type = 'color';
+            }
+            if($request->menu_shape_id != null){
+                $menu->menu_type = 'shape';
+            }
+            $menu->color_id = $request->menu_color_id ?? null;
+            $menu->shape_id = $request->menu_shape_id ?? null;
+            // $menu->category_id = ($request->category_id) ? implode(',', $request->category_id) : '';
+            if ($menu->save()) {
+                session()->flash('success', 'Menu details has been added successfully');
+                return redirect(Helper::sitePrefix() . 'side-menu/detail');
+            } else {
+                return back()->withInput($request->input())->withErrors("Error while updating the menu details");
+            }
+        } else {
+            return view('errors.404');
+        }
+    }
+
+    public function side_delete_detail_menu(Request $request)
+    {
+        if (isset($request->id) && $request->id != null) {
+            $detail = SideMenuDetail::find($request->id);
             if ($detail) {
                 if ($detail->delete()) {
                     return response()->json(['status' => true]);

@@ -77,11 +77,11 @@
                                             <td>{{ date("d-M-Y", strtotime($menu->created_at)) }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="{{url(Helper::sitePrefix().'menu/edit/'.$menu->id)}}"
+                                                    <a href="{{url(Helper::sitePrefix().'side-menu/edit/'.$menu->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Menu"><i
                                                             class="fas fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       data-url="menu/delete" data-id="{{$menu->id}}"
+                                                       data-url="side-menu/delete" data-id="{{$menu->id}}"
                                                        title="Delete Menu"><i class="fas fa-trash"></i></a>
                                                 </div>
                                             </td>

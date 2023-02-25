@@ -24,6 +24,6 @@ class SideMenuDetail extends Model
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class, 'menu_id');
+        return $this->belongsTo(SideMenu::class, 'menu_id');
     }
 }

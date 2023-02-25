@@ -1,6 +1,6 @@
 @extends('web.layouts.main')
 @section('content')
-    @include('web.includes.banner',[$banner, 'type'=> 'About Us'])
+    @include('web.includes.banner',[$banner, 'type'=> 'About Us','title'=>'About Us'])
 
 
 

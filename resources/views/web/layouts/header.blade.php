@@ -81,164 +81,95 @@
         <nav class="navbar mobile-menubar">
             <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('products')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-01.png')}}" alt="">
-                            </div>
-                            Shop All
-                        </a>
-                    </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="errorPage.php">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-02.png')}}" alt="">
-                            </div>
-                            Objects
-                        </a>
-                    </li> --}}
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{url('products')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-03.png')}}" alt="">
-                            </div>
-                            Best Seller
-                        </a>
-                    </li> --}}
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{url('products')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-04.png')}}" alt="">
-                            </div>
-                            New Arrivals
-                        </a>
-                    </li> --}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-05.png')}}" alt="">
-                            </div>
-                            Colors
-                        </a>
-                        <ul class="dropdown-menu">
-                            <div class="colorWrapper">
-                                <a href="{{url('products')}}" class="colorItem colorItemFilterClick">
-                                    <div class="colorBox" style="background: #292929">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #FFFFFF">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #71A9BA">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #637372">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #F5F4DF">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #75829D">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #BDB8CE">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #FBC9CC">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #EF7F55">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #BDC39F">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #E1C564">
-                                    </div>
-                                </a>
-                                <a href="{{url('products')}}" class="colorItemFilterClick">
-                                    <div class="colorBox" style="background: #C4CACE">
-                                    </div>
-                                </a>
-                            </div>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{url('products')}}" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-06.png')}}" alt="">
-                            </div>
-                            Shapes
-                        </a>
-                        <ul class="dropdown-menu" style="">
-                            <li class="has-megasubmenu">
-                                <a class="dropdown-item " href="#" >
+                    @if($sideMenus->isNotEmpty())
+                        @foreach($sideMenus as $side_menu)
+                            @php
+                            $subSideMenu = App\Models\SideMenuDetail::active()->where('menu_id',$side_menu->id)->first();
+                            @endphp
+                           @if($subSideMenu==NULL)
+                                @if($side_menu->menu_type=="color")
+                                @endif
+                                @if($side_menu->menu_type=="shape")
+                                @endif
+                                @if($side_menu->menu_type=="static")
+                                    <li class="nav-item">
+                                        <a class="nav-link"  href="{{ url($side_menu->url) }}"> 
+                                            <div class="iconBox">
+                                                {!! Helper::printImage($side_menu,'image','image_webp','image_attribute','img-fulid') !!}
+                                            </div> 
+                                            {{$side_menu->title}}
+                                        </a>
+                                    </li>
+                                 @endif
+                            @else
+                            @if($side_menu->menu_type=="color")
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="shop-page.html" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="iconBox">
-                                        <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-07.png')}}" alt="">
+                                        {!! Helper::printImage($side_menu,'image','image_webp','image_attribute','img-fluid') !!}
+                                       
                                     </div>
-                                    Portraits
+                                    {{$side_menu->title}}
+                                    @php
+                                    $sideMenuDetails = App\Models\SideMenuDetail::active()->where('menu_id',$side_menu->id)->get();
+                                    $colorId = [];
+                                    foreach($sideMenuDetails as $sideMenuDetail){
+                                        $colorId[] = $sideMenuDetail->color_id;
+                                    }
+                                    $colorItems = App\Models\Color::whereIn('id',$colorId)->get();
+                                    @endphp
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <div class="colorWrapper">
+                                        @foreach ($colorItems as $color_item)
+                                        <a href="{{url('color/'.$color_item->id)}}" class="colorItemFilterClick ">
+                                            <div class="colorBox" style="background:{{$color_item->code}}">
+                                            </div>
+                                            {{$color_item->title}}
+                                        </a>
+                                            
+                                        @endforeach
+                                      
+                                    </div>
+                                </ul>
                             </li>
-                            <li class="has-megasubmenu">
-                                <a class="dropdown-item " href="#" >
+                            @endif
+                            @if($side_menu->menu_type=="shape")
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{{url('products')}}" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="iconBox">
-                                        <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-08.png')}}" alt="">
+                                        {!! Helper::printImage($side_menu,'image','image_webp','image_attribute','img-fluid') !!}
                                     </div>
-                                    Landscapes
+                                    {{$side_menu->title}}
                                 </a>
+                                @php
+                                $sideMenuDetails = App\Models\SideMenuDetail::active()->where('menu_id',$side_menu->id)->get();
+                                @endphp
+                                
+                                <ul class="dropdown-menu" style="">
+                                    @foreach ($sideMenuDetails as $side_menu_detail)
+                                    <li class="has-megasubmenu">
+                                        @php
+                                        $shape = App\Models\Shape::find($side_menu_detail->shape_id)->first();
+                                        @endphp
+                                        <a href="{{url('shape/'.$shape->id)}}" class="dropdown-item ">
+                                            <div class="iconBox">
+                                                {!! Helper::printImage($side_menu_detail,'image','image_webp','image_attribute','img-fluid') !!}
+                                                {{-- <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-08.png')}}" alt=""> --}}
+                                            </div>
+                                            <h6>{{$shape->title}}</h6>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                               
                             </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('about')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-09.png')}}" alt="">
-                            </div>
-                            About
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('blogs')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-010.png')}}" alt="">
-                            </div>
-                            Blog
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('login')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-011.png')}}" alt="">
-                            </div>
-                            Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('contact')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-012.png')}}" alt="">
-                            </div>
-                            Contact us
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url('terms-and-conditions')}}">
-                            <div class="iconBox">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-013.png')}}" alt="">
-                            </div>
-                            Terms and Conditions
-                        </a>
-                    </li>
+                            @endif
+                            @endif
+                        @endforeach
+                    @endif
+                
                 </ul>
             </div>
         </nav>
@@ -301,7 +232,9 @@
                     <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
                 </a>
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item active"><a class="nav-link" href="{{url('/products')}}">Shop All </a></li>
+                  @foreach ($menus as $menu)
+                  <li class="nav-item active"><a class="nav-link" href="{{$menu->url}}">{{$menu->title}} </a></li>    
+                  @endforeach
                     <li class="nav-item dropdown has-megamenu">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>
                         <div class="dropdown-menu megamenu" role="menu">
@@ -311,24 +244,16 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="shapeWrapper">
+                                                    @foreach ($shapes as $shape)
                                                     <div class="shapeItem">
-                                                        <a href="">
-                                                            <img class="img-fluid" src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
-                                                            <h6>Portraits</h6>
+                                                        <a href="{{url('shape/'.$shape->id)}}">
+                                                            {!! Helper::printImage($shape,'image','image_webp','image_attribute','img-fluid') !!}
+                                                            <h6>{{$shape->title}}</h6>
                                                         </a>
                                                     </div>
-                                                    <div class="shapeItem">
-                                                        <a href="">
-                                                            <img class="img-fluid" src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
-                                                            <h6>Landscapes</h6>
-                                                        </a>
-                                                    </div>
-                                                    <div class="shapeItem">
-                                                        <a href="">
-                                                            <img class="img-fluid" src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt="">
-                                                            <h6>Square</h6>
-                                                        </a>
-                                                    </div>
+                                                        
+                                                    @endforeach
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -346,86 +271,14 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="colorWrapper">
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #292929">
+                                                    @foreach ($colors as $color)
+                                                    <a href="{{url('color/'.$color->id)}}" class="colorItemFilterClick ">
+                                                        <div class="colorBox" style="background:{{$color->code}}">
                                                         </div>
-                                                        Color 1
+                                                        {{$color->title}}
                                                     </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #FFFFFF">
-                                                        </div>
-                                                        Color Color 2
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #71A9BA">
-                                                        </div>
-                                                        Color 3
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #637372">
-                                                        </div>
-                                                        Color 4
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #292929">
-                                                        </div>
-                                                        Color 1
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #FFFFFF">
-                                                        </div>
-                                                        Color Color 2
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #71A9BA">
-                                                        </div>
-                                                        Color 3
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #637372">
-                                                        </div>
-                                                        Color 4
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #292929">
-                                                        </div>
-                                                        Color 1
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #FFFFFF">
-                                                        </div>
-                                                        Color Color 2
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #71A9BA">
-                                                        </div>
-                                                        Color 3
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #637372">
-                                                        </div>
-                                                        Color 4
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #292929">
-                                                        </div>
-                                                        Color 1
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #FFFFFF">
-                                                        </div>
-                                                        Color Color 2
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #71A9BA">
-                                                        </div>
-                                                        Color 3
-                                                    </a>
-                                                    <a href="javascript:void(0)" class="colorItemFilterClick ">
-                                                        <div class="colorBox" style="background: #637372">
-                                                        </div>
-                                                        Color 4
-                                                    </a>
+                                                        
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
@@ -434,11 +287,6 @@
                             </div>
                         </div>
                     </li>
-{{--                    <li class="nav-item"><a class="nav-link" href="index.php"> Portraits </a></li>--}}
-{{--                    <li class="nav-item"><a class="nav-link" href="index.php"> Landscapes </a></li>--}}
-                    {{-- <li class="nav-item"><a class="nav-link" href="index.php"> Objects </a></li>
-                    <li class="nav-item"><a class="nav-link" href="errorPage.php"> Best seller </a></li>
-                    <li class="nav-item"><a class="nav-link" href="blog.php"> New arrivals </a></li> --}}
                 </ul>
                 <div class="topRightArea">
                     <ul class="topRightAreaUl">

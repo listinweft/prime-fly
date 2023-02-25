@@ -305,46 +305,31 @@ $(document).ready(function () {
     });
 
     $('#menu_type').on('change', function () {
-        if ($(this).val() === "category") {
-            $('.category').show();
-            $('.static').hide();
-            $('.shape').hide();
-            $('.tag').hide();
-            $('.color').hide();
-            $('#category_id').addClass('required');
-        } else if($(this).val() === "shape") {
-            $('.category').hide();
-            $('.static').hide();
-            $('.shape').show();
-            $('.tag').hide();
-            $('.color').hide();
-            $('#shape_id').removeClass('required');
-        }
-        else if($(this).val() === "tag") {
-            $('.category').hide();
-            $('.static').hide();
-            $('.shape').hide();
-            $('.tag').show();
-            $('.color').hide();
-            $('#tag_id').removeClass('required');
-        } 
-        else if($(this).val() === "color") {
-            $('.category').hide();
-            $('.static').hide();
-            $('.shape').hide();
-            $('.tag').hide();
-            $('.color').show();
-            $('#color_id').removeClass('required');
+        if ($(this).val() === "static") {
+            $('.url_div').show();
+         
         }else {
-            $('.category').hide();
+             $('.url_div').hide();
+        }
+    });
+    $('#menu_id').on('change', function () {
+        //get data type of menu
+        var type = $('option:selected', this).attr('data-type');
+ 
+        if (type=== "color") {
+            $('.color').removeClass('d-none');
+            $('.shape').addClass('d-none');
+            $('.color').show();
+            $('#slider-div').hide();
+           
             $('.shape').hide();
-            $('.tag').hide();
+         
+        }else if(type=== "shape"){
+            $('.color').removeClass('d-none');
+            $('.shape').removeClass('d-none');
             $('.color').hide();
-            $('.static').show();
-            $('#category_id').removeClass('required');
-            $('#shape_id').removeClass('required');
-            $('#tag_id').removeClass('required');
-            $('#color_id').removeClass('required');
+            $('.shape').show();
+            $('#slider-div').show();
         }
     });
 

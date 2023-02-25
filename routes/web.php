@@ -82,6 +82,8 @@ Route::get('product/{short_url}', [WebController::class, 'product_detail']);
 Route::post('product/check-price', [WebController::class, 'check_price']);
 
 Route::get('category/{short_url}', [WebController::class, 'category']);
+Route::get('shape/{short_url}', [WebController::class, 'shape']);
+Route::get('color/{short_url}', [WebController::class, 'color']);
 Route::post('newsletter', [WebController::class, 'newsletter']);
 Route::post('filter-product', [WebController::class, 'filter_product']);
 Route::post('product-load-more', [WebController::class, 'productLoadMore']);
@@ -533,7 +535,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('edit/{id}', [MenuController::class, 'side_menu_update']);
         Route::post('delete', [MenuController::class, 'side_delete_menu']);
 
-        Route::prefix('side-menu-detail')->group(function () {
+        Route::prefix('detail')->group(function () {
             Route::get('/', [MenuController::class, 'side_menu_detail']);
             Route::get('create', [MenuController::class, 'side_menu_detail_create']);
             Route::post('create', [MenuController::class, 'side_menu_detail_store']);

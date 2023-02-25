@@ -65,8 +65,8 @@ class WebController extends Controller
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
-      $testimonials = Testimonial::active()->take(10)->get();
       $themes = Category::active()->oldest('sort_order')->get();
+        $testimonials = Testimonial::active()->take(10)->get();
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
 
@@ -159,11 +159,14 @@ class WebController extends Controller
         $heading = HomeHeading::type('blog')->first();
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
+       
         // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
 
         $totalBlog = Blog::active()->count();
+    
         $condition = Blog::active()->latest('posted_date');
-        $blogs = $condition->skip(4)->take(6)->get();
+        
+        $blogs = $condition->take(6)->get();
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
@@ -204,7 +207,7 @@ class WebController extends Controller
 
        
 
-        $banner = Banner::type('products')->first();
+        $banner = Banner::type('product')->first();
         $seo_data = $this->seo_content('Products');
        $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
         $condition = Product::active()->where('copy','no');
@@ -259,7 +262,71 @@ class WebController extends Controller
             return view('web.404');
         }
     }
-
+    public function color($short_url)
+    {
+        $color = Color::active()->where('id',$short_url)->first();
+    
+        if ($color) {
+            $seo_data = $color;
+          
+            $allProducts = Product::active()->first();
+            $banner = $allProducts;
+            $subCategoryIds = implode('|', ((collect($color->id))->toArray()));
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $totalProducts = $condition->count();
+            $products = $condition->where('copy','no')->latest()->take(12)->get();
+            
+            $colors = Color::active()->oldest('title')->get();
+            $offset = $products->count();
+            $loading_limit = 15;
+            $type = "category";
+            $colors = Color::active()->oldest('title')->get();
+            $shapes = Shape::latest()->get();
+            $tags = Tag::latest()->get();
+            $shapescount = count($shapes);
+            $typeValue = $short_url;
+            $sort_value = 'latest';
+            $title = ucfirst($color->title);
+            $latestProducts = Product::active()->whereRaw("find_in_set('" . $color->id . "',color_id)")->take(5)->latest()->get();
+            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount', 'colors', 'color', 'banner', 'type', 'typeValue', 'latestProducts',
+                'title', 'sort_value'));
+        } else {
+            return view('web.404');
+        }
+    }
+    public function shape($short_url)
+    {
+        $shape = Shape::active()->where('id',$short_url)->first();
+    
+        if ($shape) {
+            $seo_data = $shape;
+            // $parentCategories = Category::active()->isParent()->get();
+            $allProducts = Product::active()->first();
+            $banner = $allProducts;
+            $subCategoryIds = implode('|', ((collect($shape->id))->toArray()));
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $totalProducts = $condition->count();
+            $products = $condition->where('copy','no')->latest()->take(12)->get();
+            
+            $colors = Color::active()->oldest('title')->get();
+            $offset = $products->count();
+            $loading_limit = 15;
+            $type = "category";
+            $colors = Color::active()->oldest('title')->get();
+            $shapes = Shape::latest()->get();
+            $tags = Tag::latest()->get();
+            $shapescount = count($shapes);
+            $typeValue = $short_url;
+            $sort_value = 'latest';
+            $title = ucfirst($shape->title);
+            $latestProducts = Product::active()->whereRaw("find_in_set('" . $shape->id . "',color_id)")->take(5)->latest()->get();
+            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount',
+                'colors', 'shape', 'banner', 'type', 'typeValue', 'latestProducts',
+                'title', 'sort_value'));
+        } else {
+            return view('web.404');
+        }
+    }
     public function deal($short_url)
     {
         if ($short_url) {
