@@ -14,13 +14,13 @@
         <p>Customer</p>
     </a>
 </li>
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'guests')}}"
        class="nav-link {{ (Request::segment(2)=='guests')?'active':'' }}">
         <i class="nav-icon fas fa-user-circle"></i>
         <p>Guests</p>
     </a>
-</li>
+</li> --}}
 <li class="nav-item {{ (Request::segment(2)=='home')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='home')?'active':'' }}">
         <i class="nav-icon fas fa-home"></i>
@@ -33,7 +33,7 @@
             <a href="{{url(Helper::sitePrefix().'home/banner')}}"
                class="nav-link {{ (Request::segment(3)=='banner')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Banner</p>
+                <p>Sliders</p>
             </a>
         </li>
         {{--        <li class="nav-item">--}}
@@ -118,13 +118,7 @@
                 <p>Contact</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'banner/events')}}"
-               class="nav-link {{ (Request::segment(3)=='events')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Events</p>
-            </a>
-        </li>
+       
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/my-account')}}"
                class="nav-link {{ (Request::segment(3)=='my-account')?'active':'' }}">
@@ -132,20 +126,8 @@
                 <p>My Account</p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'banner/products')}}"
-               class="nav-link {{ (Request::segment(3)=='products')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Shop </p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'banner/team')}}"
-               class="nav-link {{ (Request::segment(3)=='team')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Team </p>
-            </a>
-        </li>
+      
+        
 
 
         <li class="nav-item">
@@ -277,12 +259,7 @@
     </ul>
 </li>
 
-<li class="nav-item menu-faq hide-menu">
-    <a href="{{url(Helper::sitePrefix().'faq')}}" class="nav-link {{ (Request::segment(2)=='faq')?'active':''}}">
-        <i class="nav-icon fas fa-question"></i>
-        <p>FAQ</p>
-    </a>
-</li>
+
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'site-information')}}"
        class="nav-link {{ (Request::segment(2)=='site-information')?'active':''}}">

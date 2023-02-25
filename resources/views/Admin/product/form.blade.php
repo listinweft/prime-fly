@@ -235,7 +235,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-3 ">
+                            <div class="form-group col-md-3 mount_div d-none">
                                 <br>
                                 <div class="form-check">
                                     &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount" {{@$product->mount == 'Yes' ? 'checked':''}}>
@@ -250,7 +250,7 @@
                                   <div class="form-check">
                                   </div>
                             </div>
-                            <div class="form-group col-md-3 ">
+                            <div class="form-group col-md-3 frame_div  d-none">
                                 <label> Frame Colour *</label>
                                 <select name="frame_color[]" id="frame_color"  class="form-control select2 " multiple>
                                     <option value="">Select Frame Colour </option>
@@ -497,19 +497,31 @@
     </section>
 </div>
 <script type="text/javascript">
+$('#type').on('change', function () {
+        var type =$(this).val();
+        if (type == 4) {
+            $('.mount_div').removeClass('d-none');
+            $('.frame_div').removeClass('d-none');
+           
+        } else {
+            $('.mount_div').addClass('d-none');
+            $('.frame_div').addClass('d-none');
+           
+        }
+    });
     $(document).ready(function () {
-
+      
         @if(isset($product))
-        // var type =$('#type').val();
-        // if (type == 1  || type == 3) {
-        //     $('.mount_div').hide();
-        //     $('.mount').attr('required', false).removeClass('required');
+        var type =$('#type').val();
+        if (type == 4) {
+            $('.mount_div').removeClass('d-none');
+            $('.frame_div').removeClass('d-none');
            
-        // } else {
-        //     $('.mount_div').show();
-        //     $('.mount').attr('required', true).addClass('required');
+        } else {
+            $('.mount_div').addClass('d-none');
+            $('.frame_div').addClass('d-none');
            
-        // }
+        }
         $('#similar_product_id').val([{{@$product->similar_product_id}}]).change();
         $('#shapes').val([{{@$product->shape_id}}]).change();
         $('#tag_id').val([{{@$product->tag_id}}]).change();

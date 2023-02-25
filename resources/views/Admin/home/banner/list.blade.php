@@ -82,7 +82,7 @@
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'home/banner/create')}}"
                                    class="btn btn-success pull-right">Add
-                                    Banner <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
+                                    Slider <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">

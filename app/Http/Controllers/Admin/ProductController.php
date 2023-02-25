@@ -55,7 +55,7 @@ class ProductController extends Controller
         $categories = Category::active()->whereNull('parent_id')->get();
         $sizes = Size::active()->get();
         $productTypes = ProductType::active()->get();
-        $products = Product::active()->get();
+        $products = Product::where('parent_product_id',null)->active()->get();
         $frames = Frame::get();
         $shapes = Shape::get();
         $colors = Color::active()->get();
@@ -84,7 +84,7 @@ class ProductController extends Controller
     public function product_store(Request $request)
     {
   
-    
+  
         DB::beginTransaction();
         if($request->copy != 'Copy'){
             $validatedData = $request->validate([
@@ -112,7 +112,8 @@ class ProductController extends Controller
                 'category' => 'required',
                 'availability' => 'required',
                 'description' => 'required',
-                // 'type' => 'required|unique:products,product_type_id,' . $request->copy_product_id . ',id,deleted_at,NULL',
+
+                'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
                
             ]);
         }
@@ -127,7 +128,8 @@ class ProductController extends Controller
             $fileName = last(explode('/', $copy_product->thumbnail_image));
             $fileNameWebp = last(explode('/', $copy_product->thumbnail_image_webp));
             $sourceFilePathImage = public_path() . "/" . $copy_product->thumbnail_image;
-            if (File::exists($sourceFilePathImage) ) {
+            $sourceFilePathWebp = public_path() . "/" . $copy_product->thumbnail_image_webp;
+            if (File::exists($sourceFilePathImage)  || File::exists($sourceFilePathWebp)) {
              
                 $destinationPathImage = public_path() . "/uploads/product/image/" . time() . $fileName;
                 $success = File::copy($sourceFilePathImage, $destinationPathImage);
@@ -157,7 +159,8 @@ class ProductController extends Controller
 
                 $sourceFilePathImage = public_path() . "/" . $copy_product->desktop_banner;
                 $destinationPathImage = public_path() . "/uploads/product/desktop_banner/" . time() . $fileName;
-                if (File::exists($sourceFilePathImage) ) {
+                $sourceFilePathWebp = public_path() . "/" . $copy_product->desktop_banner_webp;
+                if (File::exists($sourceFilePathImage)  || File::exists($sourceFilePathWebp)) {
                     $success = File::copy($sourceFilePathImage, $destinationPathImage);
                     if ($success) {
                         $location = 'uploads/product/desktop_banner/' . $fileName;
@@ -180,12 +183,14 @@ class ProductController extends Controller
         elseif($request->copy == 'Copy') {
             $copy_product = Product::where('id', $request->copy_product_id)->first();
             $fileName = last(explode('/', $copy_product->featured_image));
-            $fileNameWebp = last(explode('/', $copy_product->desktop_banner_webp));
+            $fileNameWebp = last(explode('/', $copy_product->featured_image_webp));
        
             if($fileName != null){
 
                 $sourceFilePathImage = public_path() . "/" . $copy_product->featured_image;
-                if (File::exists($sourceFilePathImage) ) {
+                $sourceFilePathWebp = public_path() . "/" . $copy_product->featured_image_webp;
+              
+                if (File::exists($sourceFilePathImage)  || File::exists($sourceFilePathWebp)) {
                     $destinationPathImage = public_path() . "/uploads/product/featured_image/" . time() . $fileName;
                     $success = File::copy($sourceFilePathImage, $destinationPathImage);
                     if ($success) {
@@ -223,7 +228,19 @@ class ProductController extends Controller
         }
         if($request->copy == 'Copy'){
             $product->copy = "Yes";
+            $prd = Product::where('id', $request->copy_product_id)->first();
+            if($prd->parent_product_id == null){
+                    $product->parent_product_id = $request->copy_product_id;
+            }
+            else{
+                $product->parent_product_id = $prd->parent_product_id;
+            }
+          
         }
+        else{
+            $product->copy = "No";
+        }
+       
         $product->related_product_id = ($request->related_product_id) ? implode(',', $request->related_product_id) : '';
         $product->thumbnail_image_attribute = $request->thumbnail_image_attribute ?? '';
         $product->banner_attribute = $request->banner_attribute ?? '';
@@ -559,27 +576,27 @@ class ProductController extends Controller
         if (isset($request->id) && $request->id != null) {
             $product = Product::find($request->id);
             if ($product) {
-                if (File::exists(public_path($product->thumbnail_image))) {
-                    File::delete(public_path($product->thumbnail_image));
-                }
-                if (File::exists(public_path($product->thumbnail_image_webp))) {
-                    File::delete(public_path($product->thumbnail_image_webp));
-                }
-                if (File::exists(public_path($product->desktop_banner))) {
-                    File::delete(public_path($product->desktop_banner));
-                }
-                if (File::exists(public_path($product->desktop_banner_webp))) {
-                    File::delete(public_path($product->desktop_banner_webp));
-                }
-                if (File::exists(public_path($product->mobile_banner))) {
-                    File::delete(public_path($product->mobile_banner));
-                }
-                if (File::exists(public_path($product->mobile_banner_webp))) {
-                    File::delete(public_path($product->mobile_banner_webp));
-                }
-                if (File::exists(public_path($product->product_manual))) {
-                    File::delete(public_path($product->product_manual));
-                }
+                // if (File::exists(public_path($product->thumbnail_image))) {
+                //     File::delete(public_path($product->thumbnail_image));
+                // }
+                // if (File::exists(public_path($product->thumbnail_image_webp))) {
+                //     File::delete(public_path($product->thumbnail_image_webp));
+                // }
+                // if (File::exists(public_path($product->desktop_banner))) {
+                //     File::delete(public_path($product->desktop_banner));
+                // }
+                // if (File::exists(public_path($product->desktop_banner_webp))) {
+                //     File::delete(public_path($product->desktop_banner_webp));
+                // }
+                // if (File::exists(public_path($product->mobile_banner))) {
+                //     File::delete(public_path($product->mobile_banner));
+                // }
+                // if (File::exists(public_path($product->mobile_banner_webp))) {
+                //     File::delete(public_path($product->mobile_banner_webp));
+                // }
+                // if (File::exists(public_path($product->product_manual))) {
+                //     File::delete(public_path($product->product_manual));
+                // }
                 if ($product->delete()) {
                     return response()->json(['status' => true]);
                 } else {

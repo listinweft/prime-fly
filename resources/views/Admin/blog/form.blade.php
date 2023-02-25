@@ -155,16 +155,7 @@
                                     <input type="text" name="video_url" id="video_url" placeholder="Video URL"
                                            class="form-control" autocomplete="off" value="{{ @$blog->video_url }}">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label> Alternate Title*</label>
-                                    <input type="text" name="alternate_title" id="alternate_title" placeholder="Alternate Title"
-                                           class="form-control " autocomplete="off"
-                                           value="{{ isset($blog)?$blog->alternate_title:'' }}">
-                                    <div class="help-block with-errors" id="alternate_title_error"></div>
-                                    @error('alternate_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                              
 
                             </div>
                                 <div class="form-row">

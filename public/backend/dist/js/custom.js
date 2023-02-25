@@ -981,9 +981,9 @@ $(document).ready(function () {
 
     $('#formWizard').on('submit', function (e) {
         var validation = [];
-        // var buttonHtml = $('.submitBtn').val();
-        // $('.loadingImg').show();
-        // $('.submitBtn').attr('disabled', true).val('Please wait...!');
+        var buttonHtml = $('.submitBtn').val();
+        $('.loadingImg').show();
+        $('.submitBtn').attr('disabled', true).val('Please wait...!');
         
         var required = [];
         $('.required').each(function () {

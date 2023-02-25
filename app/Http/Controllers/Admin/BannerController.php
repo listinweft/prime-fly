@@ -25,6 +25,7 @@ class BannerController extends Controller
         $key = "Update";
         $title = "Update " . $type . ' Banner';
         $banner = Banner::where('type', $type)->first();
+      
         return view('Admin.banner.form', compact('key', 'title', 'banner', 'type'));
     }
 
@@ -32,7 +33,7 @@ class BannerController extends Controller
     {
 
 
-        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'product', '404','terms-and-conditions','compare');
+        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'product', '404','terms-and-conditions','faq','shipping-policy','disclaimer    ');
     //    dd($request->all());
         if (in_array($request->type, $type_array)) {
 

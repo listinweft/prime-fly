@@ -69,6 +69,7 @@ class WebController extends Controller
         $testimonials = Testimonial::active()->take(10)->get();
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
+
     //   $ourcollection = Homecollection::active()->first();
     //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
 

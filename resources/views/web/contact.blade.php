@@ -1,32 +1,10 @@
 @extends('web.layouts.main')
 @section('content')
-    {{-- @include('web.includes.banner') --}}
+    
+@include('web.includes.banner',[$banner, 'type'=> 'Contact Us'])
 
 
-
-    <!--Inner Banner Start-->
-    <section class="innerBanner">
-        <div class="innerBannerImageArea">
-            <img class="bannerImg img-fluid" src="{{ asset('frontend/images/banner/banner-04.jpg') }}" alt="">
-        </div>
-        <div class="innerBannerDetails">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Contact Us</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.php"><img
-                                            src="{{ asset('frontend/images/home.png') }}" alt=""></a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--Inner Banner End-->
+  
 
     <!--Blog Listing Page Start-->
     <section class="contactUsPage">

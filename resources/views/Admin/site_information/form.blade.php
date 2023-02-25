@@ -182,6 +182,13 @@
                                               class="form-control tinyeditor" autocomplete="off">
                                         {{ old('disclaimer', !empty($siteInformation)?$siteInformation->disclaimer:'') }}</textarea>
                                 </div>
+                                <div class="form-group col-md-12">
+                                    <label for="privacy_policy">Faq's</label>
+                                    <textarea name="faq" id="faq"
+                                              placeholder="FAQ's"
+                                              class="form-control tinyeditor" autocomplete="off">
+                                        {{ old('faq', !empty($siteInformation)?$siteInformation->faq:'') }}</textarea>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">

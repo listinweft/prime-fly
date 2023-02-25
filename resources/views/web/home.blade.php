@@ -177,8 +177,13 @@
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
-
-                            {{-- <h6>{{@$count }} items</h6> --}}
+                            @php
+                             $productCategory = \DB::table('product_category')->where('id',$theme->id)->get();
+                             //count of products under category id
+                                $count = \DB::table('product_category')->where('category_id',$theme->id)->count();
+                            @endphp
+                          
+                            <h6>{{@$count }} items</h6>
                         </div>
                     </div>
                     @php
@@ -219,7 +224,7 @@
                             </div>
                             <div class="cntOverlay">
                                 <div class="w-100">
-                                    <a href="">
+                                    <a href="{{ url('/product/'.$product->short_url) }}">
                                         <h6>{{ $product->title }}</h6>
                                         @foreach ($product->product_categories as $category)
                                             <p>{{ $category->title }}</p>
@@ -230,11 +235,11 @@
                                             {{-- <div class="my-rating-readonly" data-rating="4"></div> --}}
                                             <div class="price">
                                                 <ul>
+                                                     
+             
                                                     @if(Helper::offerPrice($product->id)!='')
                                                     <li class="offer">
-                                                        @php
-                                                            $price = \ProductPrice::where('product_id',$product->id)->where('')->first();
-                                                        @endphp
+                                                       
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                                     </li>
                                                     <li>

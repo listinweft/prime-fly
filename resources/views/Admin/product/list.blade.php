@@ -67,8 +67,12 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>  
-                                                
-                                                {{ $product->title }}</td>
+                                                @if($product->parent_product_id == null)
+                                                   <strong> {{ $product->title }}</strong>
+                                                @else
+                                                    <span class="ml-3">{{ $product->title }}</span>
+                                                @endif
+                                                {{-- {{ $product->title }}</td> --}}
                                                 <td>
                                                     {{ $product->productType->title}}
                                                 </td>
@@ -138,6 +142,7 @@
                                                     <a href="{{url(Helper::sitePrefix().'product/edit/'.$product->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Product"><i
                                                             class="fas fa-edit"></i></a>
+                                                            
                                                     <a href="{{url(Helper::sitePrefix().'product/copy/'.$product->id)}}"
                                                        class="btn btn-primary mr-2 product_replica tooltips"
                                                        data-id="{{$product->id}}" title="Copy this product"><i
