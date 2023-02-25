@@ -221,7 +221,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label> Product Type*</label>
-                                <select name="type" id="type" 
+                                <select name="product_type_id" id="type" 
                                         class="form-control  required">
                                     <option value="">Select product type </option>
                                     @foreach($productTypes as $productType)
@@ -366,7 +366,7 @@
                             </div>
                         </div>
                        
-                        <div class="form-row">
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Banner Image</label>
                                 <div class="file-loading">
@@ -389,7 +389,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label> About This Item</label>

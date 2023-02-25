@@ -113,9 +113,10 @@ class ProductController extends Controller
                 'availability' => 'required',
                 'description' => 'required',
 
-                'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
-               
+                'product_type_id' => 'required',
+                
             ]);
+            // |unique:products,product_type_id,' . $request->id . ',id,deleted_at,NULL',
         }
         $product = new Product;
         if ($request->hasFile('thumbnail_image')) {
@@ -250,11 +251,11 @@ class ProductController extends Controller
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
         $product->shape_id = ($request->shapes) ? implode(',', $request->shapes) : '';
         $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
-        $product->product_type_id = $request->type;
+        $product->product_type_id = $request->product_type_id;
         $product->mount = $request->mount == 'on' ? "Yes" : "No";
         $product->quantity = $request->quantity ?? '';
       
-        $product->product_type_id = $request->type;
+        $product->product_type_id = $request->product_type_id;
         $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
         $product->meta_title = $request->meta_title ?? '';
         $product->meta_description = $request->meta_description ?? '';
@@ -484,11 +485,11 @@ class ProductController extends Controller
             $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
             $product->shape_id = ($request->shapes) ? implode(',', $request->shapes) : '';
     
-            $product->product_type_id = $request->type;
+            $product->product_type_id = $request->product_type_id;
             $product->mount = $request->mount == 'on' ? "Yes" : "No";
             $product->quantity = $request->quantity ?? '';
         
-            $product->product_type_id = $request->type;
+            $product->product_type_id = $request->product_type_id;
             $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
             $product->meta_title = $request->meta_title ?? '';
             $product->meta_description = $request->meta_description ?? '';
@@ -538,6 +539,8 @@ class ProductController extends Controller
                         ]);
                     }
                 }
+                $productPrice = DB::table('products_size_price')->where('product_id', $product->id)->first();
+                Product::where('id', $product->id)->update(['price' => $productPrice->price]);
             }
                 $similarProducts = [];
                 $errorArray = $successArray = [];
