@@ -65,8 +65,8 @@ class WebController extends Controller
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
+      $testimonials = Testimonial::active()->take(10)->get();
       $themes = Category::active()->oldest('sort_order')->get();
-        $testimonials = Testimonial::active()->take(10)->get();
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
 

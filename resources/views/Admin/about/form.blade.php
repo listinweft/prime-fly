@@ -80,12 +80,12 @@
                                 </div>
                                 {{-- <div class="form-row"> --}}
                                     <div class="form-group col-md-6">
-                                        <label> Description*</label>
-                                        <textarea name="description" id="description"
+                                        <label> Alternative Description*</label>
+                                        <textarea name="feature_description" id="feature_description"
                                                   class="form-control required tinyeditor" placeholder="Description"
-                                        >{{ old('description', isset($about)?$about->description:'') }}</textarea>
+                                        >{{ old('feature_description', isset($about)?$about->feature_description:'') }}</textarea>
                                         <div class="help-block with-errors" id="description_error"></div>
-                                        @error('description')
+                                        @error('feature_description')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
