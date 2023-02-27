@@ -47,7 +47,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
-                                        <th>Price</th>
+                                        {{-- <th>Price</th> --}}
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Status</th>
@@ -60,7 +60,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $offer->title }}</td>
-                                            <td>{{ $offer->price }}</td>
+                                            {{-- <td>{{ $offer->price }}</td> --}}
                                             <td>{{ $offer->start_date }}</td>
                                             <td>{{ $offer->end_date }}</td>
                                             <td>

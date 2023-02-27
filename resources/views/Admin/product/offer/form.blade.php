@@ -72,22 +72,51 @@
                                                 <th> Price *</th>
                                          
                                             </thead>
-                                           
+                                           @php
+                                               $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->get();
+                                               $sizeID = $productPrice->pluck('size_id')->toArray();
+                                                  $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                                           @endphp
+                                            @if (!isset($offer))
+                                                <tbody>
+                                                    @foreach ($sizes as $size)
+                                                    <tr>
+                                                        <td>
+                                                            {{$size->title}}
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="price[{{$size->id}}]" id="price"   class="form-control " value="">
+                                                            
+                                                        </td>
+                                                    
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            @else
                                             <tbody>
+                                                @php
+                                               $productPrice =DB::table('product_offer_size')->where('offer_id',$offer->id)->get();
+                                               $sizeID = $productPrice->pluck('size_id')->toArray();
+                                                  $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                                                @endphp
                                                 @foreach ($sizes as $size)
                                                 <tr>
                                                     <td>
                                                         {{$size->title}}
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="price[{{$size->id}}]" id="price"   class="form-control " value="">
-                                                        
+                                                        @php
+                                                            $price = DB::table('product_offer_size')->where('offer_id',$offer->id)->where('size_id',$size->id)->first();
+                                                        @endphp
+                                                       
+                                                        <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
+            
                                                     </td>
                                                   
                                                 </tr>
                                                 @endforeach
                                             </tbody>
-                                               
+                                            @endif
                                         </table>
                                     </div>
                                 </div>

@@ -511,6 +511,7 @@ $(document).ready(function () {
    // take value of active size class
         var size = $('.size.active').data('id');
         var type_id   = $('.size.active').data('product_type_id');
+        
         var checkout = $(this).data('checkout');
         var cartText = $('.cart-action-span').html();
         var id = $(this).data('id');
@@ -1014,11 +1015,18 @@ $(document).ready(function () {
         var product_id = $(this).data('product_id');
         var product_type_id = $(this).data('product_type_id');
         $.ajax({
-            type: 'POST', dataType: 'html', data: {id,product_id,product_type_id}, headers: {
+            type: 'POST', dataType: 'json', data: {id,product_id,product_type_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
-                
-                $('price').html('AED '+response);
+                console.log(response);
+                if(response.offerPrice != null){
+                    $('.offer_price').html(response.offerPrice);
+                    $('.product_price').html(response.productPrice);
+                }
+                else{
+                    $('.offer_price').html(response.productPrice);
+                    $('.product_price').html('');
+                }
                 if (response != '0') {
 
                 } else {

@@ -9,6 +9,7 @@ use App\Models\Banner;
 use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\CustomerAddress;
+use App\Models\Offer;
 use App\Models\Order;
 use App\Models\OrderCoupon;
 use App\Models\OrderCustomer;
@@ -148,8 +149,11 @@ class CartController extends Controller
 
     public function cartAddItems($request, $product_id, $sessionKey,$size)
     {
-   
         $product = Product::find($product_id);
+      
+        $product->price = $product->price;
+      
+     
         $n = $product->id;
         $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
         $product->price = $productPrice->price;
@@ -172,9 +176,21 @@ class CartController extends Controller
             $returnStatus = false;
         } else {
             if (Helper::offerPrice($product->id) != '') {
-                $offer_amount = Helper::offerPriceAmount($product->id);
-                $offer_id = Helper::offerId($product->id);
-                $product_price = $offer_amount;
+                
+                $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
+                $offer_amount = Helper::offerPriceSize($product->id,$product->size,$productOffer->id);
+                if($offer_amount != null){
+                   
+                    $offer_id = Helper::offerId($product->id);
+                    $product_price = $offer_amount;
+                }
+                else{
+                    $offer_amount = '0.00';
+                    $offer_id = '0';
+                    $product_price = Helper::defaultCurrencyRate() * $product->price;
+                }
+             
+            
             } else {
                 $offer_amount = '0.00';
                 $offer_id = '0';

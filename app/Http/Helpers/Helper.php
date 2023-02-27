@@ -605,39 +605,28 @@ class Helper
     public static function offerPriceSize($productId,$sizeId,$offerId)
     {
         $productOfferSize = DB::table('product_offer_size')->where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
-     
-        $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
-        return $offer;
+        
+        if ($productOfferSize) {
+            ;
+            $productOfferSize = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
+        }
+        
+        return $productOfferSize;
         
     }
     public static function offerPriceAmount($productId)
     {
         $product = Product::find($productId);
+       
         $offer = '';
         if ($product) {
-            $deal = Deal::whereRaw("find_in_set('" . $productId . "',products)")->where([['status', 'Active'], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
-            if ($deal) {
-                if ($deal->offer_type == "Percentage") {
-                    $productPrice = $product->price * self::defaultCurrencyRate();
-                    $percentage = $deal->offer_value;
-                    $amount = (($productPrice * $percentage) / 100);
-                    $finalAmount = number_format(($productPrice - $amount), 2);
-                    $offer = $finalAmount;
-                } else if ($deal->offer_type == "Fixed") {
-                    $offer = number_format($deal->offer_value * self::defaultCurrencyRate(), 2);
-                } else {
-                    //for normal deal=> takes offer
-                    $offer = Offer::where([['status', 'Active'], ['product_id', $productId], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
-                    if ($offer) {
-                        $offer = number_format($offer->price * self::defaultCurrencyRate(), 2);
-                    }
-                }
-            } else {
                 $offer = Offer::where([['status', 'Active'], ['product_id', $productId], ['start_date', '<=', date('Y-m-d')], ['end_date', '>=', date('Y-m-d')]])->first();
+                $offerPrice = DB::table('product_offer_size')->where('product_id',$productId)->where('offer_id',$offer->id)->first();
+                
                 if ($offer) {
-                    $offer = number_format($offer->price * self::defaultCurrencyRate(), 2);
+                    $offer = number_format($offerPrice->price * self::defaultCurrencyRate(), 2);
                 }
-            }
+            
         }
         return $offer;
     }

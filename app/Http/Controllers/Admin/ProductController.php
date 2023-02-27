@@ -1089,18 +1089,19 @@ class ProductController extends Controller
         }
         
         if ($offer->save()) {
+          
             foreach ($request->price as $key => $value) {
-                
-                $pricePRoduct = DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
-                                $procutPrice = DB::table('product_offer_size')->insert([
-                                    'product_id' => $validatedData['product_id'],
-                                    'size_id' => $key,
-                                    'price' => $value,
-                                    'offer_id' => $offer->id,
-                                ]);
+                DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
+                if($value != null){
+                $procutPrice = DB::table('product_offer_size')->insert([
+                    'product_id' => $validatedData['product_id'],
+                    'size_id' => $key,
+                    'price' => $value,
+                    'offer_id' => $offer->id,
+                ]);
+                }
             }
-            $productPrice = Offer::where('product_id',$validatedData['product_id'])->where('status','Active')->
-            update(['price' => $request->price[1]]);
+           
             session()->flash('message', "Offer '" . $offer->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
         } else {
@@ -1127,14 +1128,14 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'product_id' => 'required',
             'title' => 'required',
-            'price' => 'required',
+            // 'price' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             // 'sale_condition' => 'required',
         ]);
         $offer->title = $validatedData['title'];
         $offer->product_id = $validatedData['product_id'];
-        $offer->price = $validatedData['price'];
+
         $offer->start_date = $validatedData['start_date'];
         $offer->end_date = $validatedData['end_date'];
         $offer->sale_condition = ($request->sale_condition) ? $request->sale_condition : '';
@@ -1142,14 +1143,15 @@ class ProductController extends Controller
 
         if ($offer->save()) {
             foreach ($request->price as $key => $value) {
-                
-                $pricePRoduct = DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
-                                $procutPrice = DB::table('product_offer_size')->insert([
-                                    'product_id' => $validatedData['product_id'],
-                                    'size_id' => $key,
-                                    'price' => $value,
-                                    'offer_id' => $offer->id,
-                                ]);
+                DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
+                if($value != null){
+                $procutPrice = DB::table('product_offer_size')->insert([
+                    'product_id' => $validatedData['product_id'],
+                    'size_id' => $key,
+                    'price' => $value,
+                    'offer_id' => $offer->id,
+                ]);
+                }
             }
             session()->flash('message', "Offer '" . $offer->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
@@ -1164,6 +1166,7 @@ class ProductController extends Controller
             $offer = Offer::find($request->id);
             if ($offer) {
                 if ($offer->delete()) {
+                    $offerPrice = DB::table('product_offer_size')->where('offer_id',$request->id)->delete();
                     return response()->json(['status' => true]);
                 } else {
                     return response()->json(['status' => false, 'message' => 'Some error occured,please try after sometime']);

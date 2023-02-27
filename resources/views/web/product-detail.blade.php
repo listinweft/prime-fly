@@ -101,11 +101,14 @@
                         @php
                             $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
                         @endphp
+                        
                         @if(Helper::offerPrice($product->id)!='')
-                            <h5 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
+                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
                         @else
-                            <h5 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
-                            <h5></h5>
+                        <h5>
+
+                        </h5>
+                            <h5 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price ->price,2)}}</h5>
                         @endif
                     </div>
                 </div>
@@ -169,11 +172,11 @@
                     <div class="priceQuantityArea">
                         <div class="priceArea">  
                             @if(Helper::offerPrice($product->id)!='') 
-                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h3>
-                                <h6>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  
+                                <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
                             @else
-                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
-                                <h6></h6>
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
+                                <h6 class="product_price"></h6>
                             @endif
                         </div>
                         <div class="quantity_parice_order_area">
