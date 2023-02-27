@@ -31,6 +31,12 @@
             <div class="topSortDetails">
                 <div>
                     <h4>Products</h4>
+                    @if($offset>1)
+                        <p>1-<span id="product_count">{{ $offset }} </span>
+                            of <span id="total_product_count">{{$totalProducts}}</span>
+                            results.
+                        </p>
+                    @endif
                     <p></p>
                 </div>
                 <div class="sortSearchBox">

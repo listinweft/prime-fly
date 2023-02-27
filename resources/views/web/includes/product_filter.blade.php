@@ -110,16 +110,23 @@
                 <div class="slider-range-wrap">
                     <div class="currencyBox">AED</div>
                     <div id="slider-range"></div>
-                    <div class="d-flex align-items-center justify-content-between w-100">
-                        <span class=""> {{ Helper::getMinPrice() }}</span>
-                        <span class=""> {{ Helper::getMaxPrice() }}</span>
-                        <!-- <input type="text" id="amount" name="my_range"
+                    <div class="price-ranges">
+                                            <h4>Price Range</h4>
+                                            <p>Range : {{Helper::defaultCurrency()}}
+                                                {{ Helper::getMinPrice() }} - {{Helper::defaultCurrency()}}
+                                                {{ Helper::getMaxPrice() }}</p>
+                                            <div class="price-range-slider">
+                                                <div id="slider-range" class="range-bar range_bar_sort"></div>
+                                                <p class="range-value">
+                                                    <input type="text" id="amount" name="my_range"
                                                            value="AED{{ Helper::getMinPrice() }}-AED{{ Helper::getMaxPrice() }}"
                                                            data-min="{{ Helper::getMinPrice() }}"
                                                            data-max="{{ Helper::getMaxPrice() }}"
                                                            data-from="{{ Helper::getMinPrice() }}"
-                                                           data-to="{{ Helper::getMaxPrice() }}"> -->
-                    </div>
+                                                           data-to="{{ Helper::getMaxPrice() }}">
+                                                </p>
+                                            </div>
+                                        </div>
                 </div>
             </div>
         </div>

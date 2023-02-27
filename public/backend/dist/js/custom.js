@@ -381,6 +381,9 @@ $(document).ready(function () {
                             $(".sub-category-drop").append("<option value='" + id + "'>" + title + "</option>");
                         }
                         $('.sub-category-drop_error').html('');
+
+
+                        
                     }
                 }
             });
