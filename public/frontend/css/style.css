@@ -9662,7 +9662,7 @@ footer .copy ul li img {
 }
 
 @media (min-width: 767px) {
-  .modal-dialog {
+  .reviewModalForm .modal-dialog {
     max-width: 650px;
   }
 }
@@ -9680,6 +9680,62 @@ footer .copy ul li img {
   display: flex;
   position: fixed;
   z-index: 9999;
+}
+
+.successModalForm {
+  z-index: 10601;
+  background: rgba(0, 0, 0, 0.5);
+}
+.successModalForm .btn-close {
+  box-shadow: none;
+  outline: none;
+  border: 0;
+}
+.successModalForm .modal-content {
+  border-radius: 15px;
+}
+.successModalForm .modal-header {
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 20px;
+}
+.successModalForm .modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.successModalForm .successIcon {
+  width: 55px;
+  margin-bottom: 10px;
+}
+.successModalForm h6 {
+  font-size: 16px;
+}
+
+@media (min-width: 767px) {
+  .successModalForm .modal-dialog {
+    max-width: 500px;
+  }
+}
+@media (max-width: 675px) {
+  .successModalForm .modal-header {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .successModalForm .modal-dialog {
+    max-width: 75%;
+    margin: 0 auto !important;
+  }
+  .successModalForm .successIcon {
+    width: 47px;
+    margin-bottom: 10px;
+  }
+  .successModalForm h6 {
+    font-size: 13px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
