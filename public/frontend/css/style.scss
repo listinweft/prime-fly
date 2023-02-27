@@ -11748,8 +11748,10 @@ footer{
 }
 
 @media (min-width: 767px){
-    .modal-dialog {
-        max-width: 650px;
+    .reviewModalForm{
+        .modal-dialog {
+            max-width: 650px;
+        }
     }
 }
 
@@ -11771,3 +11773,69 @@ footer{
     position: fixed;
     z-index: 9999;
 }
+
+
+// Success Modal Start
+
+.successModalForm{
+    z-index: 10601;
+    background: rgba(0,0,0,0.5);
+    .btn-close{
+        box-shadow: none;
+        outline: none;
+        border: 0;
+    }
+    .modal-content{
+     border-radius: 15px;
+    }
+    .modal-header{
+        padding-right: 30px;
+        padding-left: 30px;
+        padding-top: 20px;
+    }
+    .modal-body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 30px;
+        padding-top: 30px;
+    }
+    .successIcon{
+        width: 55px;
+        margin-bottom: 10px;
+    }
+    h6{
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 767px){
+    .successModalForm{
+        .modal-dialog {
+            max-width: 500px;
+        }
+    }
+}
+
+@media (max-width: 675px){
+    .successModalForm {
+        .modal-header{
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .modal-dialog {
+            max-width: 75%;
+            margin: 0 auto !important;
+        }
+        .successIcon{
+            width: 47px;
+            margin-bottom: 10px;
+        }
+        h6{
+            font-size: 13px;
+        }
+    }
+}
+
+// Success Modal End
