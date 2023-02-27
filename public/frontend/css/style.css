@@ -2576,6 +2576,9 @@ footer .copy ul li img {
   .innerBanner .innerBannerDetails h1 {
     padding-bottom: 70px;
   }
+  .innerBannerProducts {
+    min-height: 75px;
+  }
 }
 @media (max-width: 1199.98px) {
   .innerBanner {
@@ -2588,6 +2591,9 @@ footer .copy ul li img {
     width: 30px;
     height: 30px;
     margin-right: 15px;
+  }
+  .innerBannerProducts {
+    min-height: 75px;
   }
 }
 @media (max-width: 991.98px) {
@@ -2602,6 +2608,9 @@ footer .copy ul li img {
     width: 25px;
     height: 25px;
     margin-right: 10px;
+  }
+  .innerBannerProducts {
+    min-height: 75px;
   }
 }
 @media (max-width: 767.98px) {
@@ -2629,6 +2638,9 @@ footer .copy ul li img {
   .innerBanner .innerBannerDetails .breadcrumb .breadcrumb-item img {
     width: 15px;
     margin-top: -5px;
+  }
+  .innerBannerProducts {
+    min-height: 70px;
   }
 }
 @media (max-width: 557.98px) {
@@ -7856,6 +7868,7 @@ footer .copy ul li img {
 }
 .searchTop .offcanvas-body {
   position: relative;
+  overflow: visible;
 }
 .searchTop .offcanvas-body .btn-close {
   position: absolute;
@@ -7895,6 +7908,89 @@ footer .copy ul li img {
 .searchTop .primary_btn:hover {
   background: #252525;
   color: #fff;
+}
+.searchTop .searchResult {
+  display: none;
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  margin-top: 1px;
+  top: 70px;
+  top: 45px;
+}
+.searchTop .searchResult img {
+  width: 100%;
+}
+.searchTop .searchResult ul {
+  display: inherit;
+  background: #fff;
+  position: relative;
+  z-index: 2;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.searchTop .searchResult ul li {
+  width: 100%;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.4);
+}
+.searchTop .searchResult ul li:last-child {
+  margin-bottom: 0;
+  border-bottom: 0 !important;
+  padding-bottom: 0;
+}
+.searchTop .searchResult ul::-webkit-scrollbar {
+  width: 5px;
+  background-color: #ffffff;
+}
+.searchTop .searchResult ul::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  color: green;
+}
+.searchTop .searchResult ul::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px #000000;
+  background-color: #000000;
+  opacity: 1;
+}
+.searchTop .searchResult .imgBx img {
+  width: 100%;
+}
+.searchTop .searchResult .txtBx {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 0px !important;
+}
+.searchTop .searchResult .txtBx .name {
+  font-family: "Quadran-Medium";
+  font-size: 15px;
+  color: #3a3a3a;
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.searchTop .searchResult .txtBx .price {
+  font-family: "Quadran-Medium";
+  font-size: 18px;
+  color: #000000;
+}
+.searchTop .searchResult .txtBx .fullPrice {
+  font-family: "Roboto-Bold";
+  font-size: 14px;
+  color: #222;
+  text-decoration: line-through;
+  margin-left: 5px;
 }
 
 @media (max-width: 766.98px) {
@@ -9566,7 +9662,7 @@ footer .copy ul li img {
 }
 
 @media (min-width: 767px) {
-  .modal-dialog {
+  .reviewModalForm .modal-dialog {
     max-width: 650px;
   }
 }
@@ -9584,6 +9680,62 @@ footer .copy ul li img {
   display: flex;
   position: fixed;
   z-index: 9999;
+}
+
+.successModalForm {
+  z-index: 10601;
+  background: rgba(0, 0, 0, 0.5);
+}
+.successModalForm .btn-close {
+  box-shadow: none;
+  outline: none;
+  border: 0;
+}
+.successModalForm .modal-content {
+  border-radius: 15px;
+}
+.successModalForm .modal-header {
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 20px;
+}
+.successModalForm .modal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+.successModalForm .successIcon {
+  width: 55px;
+  margin-bottom: 10px;
+}
+.successModalForm h6 {
+  font-size: 16px;
+}
+
+@media (min-width: 767px) {
+  .successModalForm .modal-dialog {
+    max-width: 500px;
+  }
+}
+@media (max-width: 675px) {
+  .successModalForm .modal-header {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .successModalForm .modal-dialog {
+    max-width: 75%;
+    margin: 0 auto !important;
+  }
+  .successModalForm .successIcon {
+    width: 47px;
+    margin-bottom: 10px;
+  }
+  .successModalForm h6 {
+    font-size: 13px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
