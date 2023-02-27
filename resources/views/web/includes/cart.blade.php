@@ -34,10 +34,10 @@ $sessionKey  =  Helper::getSessionKey();
                                         </h5>
                                         <ul>
                                             <li>
-                                                Shape :
-                                                @foreach ($product->product_shape as $shape)
-                                                    <span>, {{ $shape->title }}</span>
-                                                @endforeach
+                                                Type :
+                                               
+                                                    <span>, {{ $product->productType->title }}</span>
+                                           
                                             </li>
                                             <li>
                                                 color : 

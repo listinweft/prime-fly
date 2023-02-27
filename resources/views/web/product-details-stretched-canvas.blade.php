@@ -175,16 +175,17 @@
                     <h5>
                         Select Size <span>(Size in cms)</span>
                     </h5>
-                    @php
+                   @php
                         $sizes = \App\Models\ProductPrice::where('product_id',$product->id)->get();
                         $sizeID = $sizes->map(function($item) {
                             return $item->size_id;
                         })->toArray();
                         $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                        $firstSizeId = $sizes->first()->id;
                     @endphp
                     <div class="relatedProductsTypesWrapper sizeSection">
                         @foreach ($sizes as $size)
-                        <div class="item {{$size->id ==  1 ?  'active' : '' }} checkprice" data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
+                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
                             <div class="sizeImageBox">
                                 {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
@@ -214,7 +215,7 @@
                                 <button class="btn btn-quantity-down">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                 </button>
-                                <input type="number" disabled class="input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
+                                <input type="number" disabled class=" qty input-number__input form-control2 form-control-lg" min="1" max="100" step="1" value="1">
                                 <button class="btn btn-quantity-up">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                 </button>
@@ -222,7 +223,7 @@
                         </div>
                     </div>
                     <div class="btnsArea">
-                        <a class="primary_btn" href="">Add to Cart</a>
+                       <a href="javascript:void(0)" data-id="{{$product->id}}" class="primary_btn cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}">Add to Cart</a>
                         <a class="primary_btn secondary_btn" href="" data-bs-target="#bulk_order_form_pop" data-bs-toggle="modal" data-bs-dismiss="modal" >Bulk Enquiry</a>
                     </div>
                 </div>
@@ -566,7 +567,7 @@
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                 </svg>
                             </button>
-                            <input type="number" disabled class="input-number__input form-control2 form-control-lg"
+                            <input type="number" disabled class="input-number__input form-control2 form-control-lg qty"
                                 min="1" max="100" step="1" value="1">
                             <button class="btn btn-quantity-up">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -577,7 +578,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <a class="primary_btn" href="">Add to Cart</a>
+                       <a href="javascript:void(0)" data-id="{{$product->id}}" class="primary_btn cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}">Add to Cart</a>
                     </div>
                 </div>
             </div>

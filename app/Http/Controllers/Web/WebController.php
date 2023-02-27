@@ -466,7 +466,6 @@ class WebController extends Controller
         $product_id = request()->product_id;
         
         $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
-  
         if($productOffer){
             $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
             $productPrice =  Helper::defaultCurrency().' '.number_format($productPrice->price * Helper::defaultCurrencyRate(), 2);
@@ -478,14 +477,15 @@ class WebController extends Controller
                 $offerPrice = null;
             }
         //return` offer price and product price
+        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice));
 
         }
         else{
                $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
               $productPrice =  Helper::defaultCurrency().' '.number_format($product_price->price * Helper::defaultCurrencyRate(), 2);
-
+              
+              return response(array('productPrice' => $productPrice));
         }
-        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice));
 
     }
     public function filter_product(Request $request)

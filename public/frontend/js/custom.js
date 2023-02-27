@@ -1018,7 +1018,7 @@ $(document).ready(function () {
             type: 'POST', dataType: 'json', data: {id,product_id,product_type_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
-                console.log(response);
+               
                 if(response.offerPrice != null){
                     $('.offer_price').html(response.offerPrice);
                     $('.product_price').html(response.productPrice);
