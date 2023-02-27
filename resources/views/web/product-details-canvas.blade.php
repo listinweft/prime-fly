@@ -473,6 +473,7 @@
                                     </div>
                                 </div>
                                 <div class="product-details">
+                                    
                                     <a href="{{ url('/product/'.$product->short_url) }}">
                                         <div class="pro-name">
                                         {{ $product->title }}
