@@ -47,7 +47,7 @@
                             <ul class="price-area">
                                 <!-- <li class="offer">
                                 @if(Helper::offerPrice($product->id)!='')
-                                </li>
+                                </li>g
                                 @endif -->
                                 @if(Helper::offerPrice($product->id)!='')
                                 <li>
