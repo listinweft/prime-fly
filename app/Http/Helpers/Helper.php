@@ -127,6 +127,7 @@ class Helper
         if (Session::has('session_key')) {
             $sessionKey = Session::get('session_key');
         }
+
         $calculation_box = self::calculationBox();
         $currencies = Currency::where('status', 'Active')->get();
         $defaultCurrency = Currency::where('is_default', 1)->first();

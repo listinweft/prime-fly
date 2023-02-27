@@ -47,114 +47,116 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [WebController::class, 'home']);
+Route::middleware(['web'])->group(function () {
+    Route::get('/', [WebController::class, 'home']);
 
-Route::get('product-details',function(){
-    return view('web.product-details');
+    Route::get('product-details',function(){
+        return view('web.product-details');
+    });
+
+    Route::get('product-details-framed-canvas',function(){
+        return view('web.product-details-framed-canvas');
+    });
+
+    Route::get('product-details-canvas',function(){
+        return view('web.product-details-canvas');
+    });
+    Route::get('product-details-stretched-canvas',function(){
+        return view('web.product-details-stretched-canvas');
+    });
+
+    Route::get('about', [WebController::class, 'about']);
+    Route::get('testimonials', [WebController::class, 'testimonials']);
+    Route::post('testimonial-load-more', [WebController::class, 'testimonialLoadMore']);
+    Route::get('blogs', [WebController::class, 'blogs']);
+    Route::post('blog-load-more', [WebController::class, 'blogLoadMore']);
+    Route::get('blog/{short_url}', [WebController::class, 'blog_detail']);
+    Route::post('booking', [WebController::class, 'booking']);
+    Route::get('contact', [WebController::class, 'contact']);
+    Route::post('enquiry', [WebController::class, 'enquiry_store']);
+    Route::get('faq', [WebController::class, 'faq']);
+    Route::get('brand/{url}', [WebController::class, 'brand']);
+    Route::get('deal/{url}', [WebController::class, 'deal']);
+    Route::get('products', [WebController::class, 'products']);
+    Route::get('product/{short_url}', [WebController::class, 'product_detail']);
+    // Route::get('product/{short_url}/{type_id}', [WebController::class, 'product_detail_type']);
+    Route::post('product/check-price', [WebController::class, 'check_price']);
+
+    Route::get('category/{short_url}', [WebController::class, 'category']);
+    Route::get('shape/{short_url}', [WebController::class, 'shape']);
+    Route::get('color/{short_url}', [WebController::class, 'color']);
+    Route::post('newsletter', [WebController::class, 'newsletter']);
+    Route::post('filter-product', [WebController::class, 'filter_product']);
+    Route::post('product-load-more', [WebController::class, 'productLoadMore']);
+    Route::post('review-load-more', [WebController::class, 'reviewLoadMore']);
+    Route::post('main-search', [WebController::class, 'main_search']);
+    Route::get('search/{search_param}', [WebController::class, 'main_search_products']);
+    Route::post('submit-review', [WebController::class, 'submit_review']);
+    Route::post('product-review', [WebController::class, 'product_review']);
+    Route::get('service/{short_url}', [WebController::class, 'service_detail']);
+    Route::get('team', [WebController::class, 'team']);
+    Route::post('team-load-more', [WebController::class, 'teamLoadMore']);
+    Route::get('team-detail/{id}', [WebController::class, 'teamDetail']);
+    Route::get('events', [WebController::class, 'events']);
+
+    /********************* Policies *******************/
+    Route::get('disclaimer', [WebController::class, 'disclaimer']);
+    Route::get('privacy-policy', [WebController::class, 'privacy_policy']);
+    Route::get('return-policy', [WebController::class, 'return_policy']);
+    Route::get('shipping-policy', [WebController::class, 'shipping_policy']);
+    Route::get('terms-and-conditions', [WebController::class, 'terms_and_conditions']);
+
+
+    /********************* Authentication URLs *******************/
+    Route::get('login', [CustomerLoginController::class, 'login_form']);
+    Route::post('login', [CustomerLoginController::class, 'login']);
+    Route::get('logout', [CustomerLoginController::class, 'logout']);
+    Route::get('register', [CustomerLoginController::class, 'register_form']);
+    Route::post('register', [CustomerLoginController::class, 'register']);
+    Route::get('forgot-password', [CustomerLoginController::class, 'forgot_password_form']);
+    Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
+    Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);
+    Route::post('reset-password/{token}', [CustomerLoginController::class, 'reset_password_store']);
+    Route::get('email-verification/{token}', [CustomerLoginController::class, 'email_verification']);
+    // Route::get('email-verification-success/{token}', [CustomerLoginController::class, 'email_verification_store']);
+
+
+
+    /********************* Social Authentication URLs *******************/
+    Route::prefix('auth')->group(function () {
+        Route::get('google', [CustomerLoginController::class, 'redirectToGoogle']);
+        Route::get('google/callback', [CustomerLoginController::class, 'handleGoogleCallback']);
+        Route::get('facebook', [CustomerLoginController::class, 'redirectToFacebook']);
+        Route::get('facebook/callback', [CustomerLoginController::class, 'handleFacebookCallback']);
+    });
+
+
+    /******************************* Cart functions *************************************/
+    Route::get('cart', [CartController::class, 'cart']);
+    Route::post('add-wishlist', [CartController::class, 'add_to_wish_list']);
+    Route::post('add-cart', [CartController::class, 'add_to_cart']);
+    Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);
+    Route::post('update-item-quantity', [CartController::class, 'update_item_quantity']);
+    Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
+    Route::get('checkout', [CartController::class, 'checkout']);
+    Route::post('select-customer-address', [CartController::class, 'select_customer_address']);
+    Route::post('different-shipping-address', [CartController::class, 'different_shipping_address']);
+    Route::post('add-order-remarks', [CartController::class, 'add_order_remarks']);
+    Route::post('change-location', [CartController::class, 'change_location']);
+    Route::post('remove-cart-item', [CartController::class, 'remove_cart_item']);
+    Route::post('cancel_all', [OrderController::class, 'cancel_all']);
+
+    Route::post('state-list', [CartController::class, 'state_list']);
+
+    Route::post('submit-order', [CartController::class, 'submit_order']);
+    Route::post('cod-charge-apply', [CartController::class, 'cod_charge_apply']);
+    Route::post('cancel-order', [CartController::class, 'cancel_order']);
+    Route::post('return-order', [CartController::class, 'return_order']);
+    Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
+    Route::post('remove-coupon', [CartController::class, 'remove_coupon']);
+    Route::get('response/{order_id}', [CartController::class, 'response']);
+    Route::get('order/{order_code}', [CartController::class, 'order_detail']);
 });
-
-Route::get('product-details-framed-canvas',function(){
-    return view('web.product-details-framed-canvas');
-});
-
-Route::get('product-details-canvas',function(){
-    return view('web.product-details-canvas');
-});
-Route::get('product-details-stretched-canvas',function(){
-    return view('web.product-details-stretched-canvas');
-});
-
-Route::get('about', [WebController::class, 'about']);
-Route::get('testimonials', [WebController::class, 'testimonials']);
-Route::post('testimonial-load-more', [WebController::class, 'testimonialLoadMore']);
-Route::get('blogs', [WebController::class, 'blogs']);
-Route::post('blog-load-more', [WebController::class, 'blogLoadMore']);
-Route::get('blog/{short_url}', [WebController::class, 'blog_detail']);
-Route::post('booking', [WebController::class, 'booking']);
-Route::get('contact', [WebController::class, 'contact']);
-Route::post('enquiry', [WebController::class, 'enquiry_store']);
-Route::get('faq', [WebController::class, 'faq']);
-Route::get('brand/{url}', [WebController::class, 'brand']);
-Route::get('deal/{url}', [WebController::class, 'deal']);
-Route::get('products', [WebController::class, 'products']);
-Route::get('product/{short_url}', [WebController::class, 'product_detail']);
-// Route::get('product/{short_url}/{type_id}', [WebController::class, 'product_detail_type']);
-Route::post('product/check-price', [WebController::class, 'check_price']);
-
-Route::get('category/{short_url}', [WebController::class, 'category']);
-Route::get('shape/{short_url}', [WebController::class, 'shape']);
-Route::get('color/{short_url}', [WebController::class, 'color']);
-Route::post('newsletter', [WebController::class, 'newsletter']);
-Route::post('filter-product', [WebController::class, 'filter_product']);
-Route::post('product-load-more', [WebController::class, 'productLoadMore']);
-Route::post('review-load-more', [WebController::class, 'reviewLoadMore']);
-Route::post('main-search', [WebController::class, 'main_search']);
-Route::get('search/{search_param}', [WebController::class, 'main_search_products']);
-Route::post('submit-review', [WebController::class, 'submit_review']);
-Route::post('product-review', [WebController::class, 'product_review']);
-Route::get('service/{short_url}', [WebController::class, 'service_detail']);
-Route::get('team', [WebController::class, 'team']);
-Route::post('team-load-more', [WebController::class, 'teamLoadMore']);
-Route::get('team-detail/{id}', [WebController::class, 'teamDetail']);
-Route::get('events', [WebController::class, 'events']);
-
-/********************* Policies *******************/
-Route::get('disclaimer', [WebController::class, 'disclaimer']);
-Route::get('privacy-policy', [WebController::class, 'privacy_policy']);
-Route::get('return-policy', [WebController::class, 'return_policy']);
-Route::get('shipping-policy', [WebController::class, 'shipping_policy']);
-Route::get('terms-and-conditions', [WebController::class, 'terms_and_conditions']);
-
-
-/********************* Authentication URLs *******************/
-Route::get('login', [CustomerLoginController::class, 'login_form']);
-Route::post('login', [CustomerLoginController::class, 'login']);
-Route::get('logout', [CustomerLoginController::class, 'logout']);
-Route::get('register', [CustomerLoginController::class, 'register_form']);
-Route::post('register', [CustomerLoginController::class, 'register']);
-Route::get('forgot-password', [CustomerLoginController::class, 'forgot_password_form']);
-Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
-Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);
-Route::post('reset-password/{token}', [CustomerLoginController::class, 'reset_password_store']);
-Route::get('email-verification/{token}', [CustomerLoginController::class, 'email_verification']);
-// Route::get('email-verification-success/{token}', [CustomerLoginController::class, 'email_verification_store']);
-
-
-
-/********************* Social Authentication URLs *******************/
-Route::prefix('auth')->group(function () {
-    Route::get('google', [CustomerLoginController::class, 'redirectToGoogle']);
-    Route::get('google/callback', [CustomerLoginController::class, 'handleGoogleCallback']);
-    Route::get('facebook', [CustomerLoginController::class, 'redirectToFacebook']);
-    Route::get('facebook/callback', [CustomerLoginController::class, 'handleFacebookCallback']);
-});
-
-
-/******************************* Cart functions *************************************/
-Route::get('cart', [CartController::class, 'cart']);
-Route::post('add-wishlist', [CartController::class, 'add_to_wish_list']);
-Route::post('add-cart', [CartController::class, 'add_to_cart']);
-Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);
-Route::post('update-item-quantity', [CartController::class, 'update_item_quantity']);
-Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
-Route::get('checkout', [CartController::class, 'checkout']);
-Route::post('select-customer-address', [CartController::class, 'select_customer_address']);
-Route::post('different-shipping-address', [CartController::class, 'different_shipping_address']);
-Route::post('add-order-remarks', [CartController::class, 'add_order_remarks']);
-Route::post('change-location', [CartController::class, 'change_location']);
-Route::post('remove-cart-item', [CartController::class, 'remove_cart_item']);
-Route::post('cancel_all', [OrderController::class, 'cancel_all']);
-
-Route::post('state-list', [CartController::class, 'state_list']);
-
-Route::post('submit-order', [CartController::class, 'submit_order']);
-Route::post('cod-charge-apply', [CartController::class, 'cod_charge_apply']);
-Route::post('cancel-order', [CartController::class, 'cancel_order']);
-Route::post('return-order', [CartController::class, 'return_order']);
-Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
-Route::post('remove-coupon', [CartController::class, 'remove_coupon']);
-Route::get('response/{order_id}', [CartController::class, 'response']);
-Route::get('order/{order_code}', [CartController::class, 'order_detail']);
 /******************************* Cart functions *************************************/
 
 

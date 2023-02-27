@@ -573,7 +573,7 @@ $(document).ready(function () {
                         }
                     }
                     setTimeout(() => {
-                        location.reload();
+                        // location.reload();
                     }, 1000);
                 } else {
                     swal.fire({
@@ -1018,7 +1018,7 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
                 
-                $('.price').html('AED '+response);
+                $('price').html('AED '+response);
                 if (response != '0') {
 
                 } else {

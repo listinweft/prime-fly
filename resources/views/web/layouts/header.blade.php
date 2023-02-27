@@ -36,13 +36,10 @@
                             </option>
                         </select>
                     </li>
-                   @php
-                       $session =  Helper::getSessionKey();
-                   @endphp
-
+               
                     <li class="cart">
                         <a class="position-relative" type="button" data-bs-toggle="offcanvas"
-                           data-bs-target=" @if($session != '' || $session != null) #cartListRight @endif" aria-controls="offcanvasRight">
+                           data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                             <img class="img-fluid" src="{{ asset('frontend/images/bag.png')}}" alt="">
                             <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger cart-count">
                                 {{ Helper::getCartItemCount()}}
@@ -301,10 +298,8 @@
                         </li>
                         
                         <li class="cart">
-                            @php
-                        $session =  Helper::getSessionKey();
-                        @endphp
-                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target=" @if($session != '' || $session != null) #cartListRight @endif" aria-controls="offcanvasRight">
+                          
+                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/bag.png')}}" alt="">
                                 <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger cart-count">
                                     {{ Helper::getCartItemCount()}}

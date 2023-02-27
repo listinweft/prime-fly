@@ -4,7 +4,6 @@
 $sessionKey  =  Helper::getSessionKey();
 @endphp
 
-
 <div class="offcanvas offcanvas-end cartListRight" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""><span>(<span  class="cart-count">  {{ Helper::getCartItemCount()}}</span> Items )</span></h5>

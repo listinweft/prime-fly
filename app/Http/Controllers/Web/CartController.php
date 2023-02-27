@@ -119,6 +119,7 @@ class CartController extends Controller
 
     public function setSession()
     {
+ 
         if (Auth::guard('customer')->check()) {
             if (Session::has('session_key')) {
                 $sessionKey = session('session_key');
@@ -264,14 +265,15 @@ class CartController extends Controller
     public function cart()
     {
         
+      
         $sessionKey = session('session_key');
-     
         // $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
         $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
+       
 
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
         return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail',
@@ -286,11 +288,14 @@ class CartController extends Controller
 
     public function cartData()
     {
+
         if (Session::has('session_key')) {
             $sessionKey = session('session_key');
+           
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-                    $product = Product::where([['status', 'Active'], ['id', $row->id]])->first();
+                    $product = Product::where([['status', 'Active'], ['id', $row->attributes->product_id]])->first();
+                  
                     if ($product == NULL) {
                         if (Cart::session($sessionKey)->get($row->id)) {
                             Cart::session($sessionKey)->remove($row->id);
