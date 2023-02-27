@@ -36,7 +36,7 @@
                             </option>
                         </select>
                     </li>
-               
+
                     <li class="cart">
                         <a class="position-relative" type="button" data-bs-toggle="offcanvas"
                            data-bs-target="#cartListRight" aria-controls="offcanvasRight">
@@ -94,10 +94,10 @@
                                 @endif
                                 @if($side_menu->menu_type=="static")
                                     <li class="nav-item">
-                                        <a class="nav-link"  href="{{ url($side_menu->url) }}"> 
+                                        <a class="nav-link"  href="{{ url($side_menu->url) }}">
                                             <div class="iconBox">
                                                 {!! Helper::printImage($side_menu,'image','image_webp','image_attribute','img-fulid') !!}
-                                            </div> 
+                                            </div>
                                             {{$side_menu->title}}
                                         </a>
                                     </li>
@@ -108,7 +108,7 @@
                                 <a class="nav-link dropdown-toggle" href="shop-page.html" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="iconBox">
                                         {!! Helper::printImage($side_menu,'image','image_webp','image_attribute','img-fluid') !!}
-                                       
+
                                     </div>
                                     {{$side_menu->title}}
                                     @php
@@ -128,9 +128,9 @@
                                             </div>
                                             {{$color_item->title}}
                                         </a>
-                                            
+
                                         @endforeach
-                                      
+
                                     </div>
                                 </ul>
                             </li>
@@ -147,7 +147,7 @@
                                 @php
                                 $sideMenuDetails = App\Models\SideMenuDetail::active()->where('menu_id',$side_menu->id)->get();
                                 @endphp
-                                
+
                                 <ul class="dropdown-menu" style="">
                                     @foreach ($sideMenuDetails as $side_menu_detail)
                                     <li class="has-megasubmenu">
@@ -164,13 +164,13 @@
                                     </li>
                                     @endforeach
                                 </ul>
-                               
+
                             </li>
                             @endif
                             @endif
                         @endforeach
                     @endif
-                
+
                 </ul>
             </div>
         </nav>
@@ -210,7 +210,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-12">
-                    <form class="d-flex">
+                    <form class="d-flex position-relative">
                         <input class="searchInput" type="search" placeholder="Search" id="main-search" aria-label="Search">
                         <button class="btn primary_btn" id="searchBtn" type="submit">Search</button>
 
@@ -233,8 +233,8 @@
                     <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
                 </a>
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/products">Shop now </a></li>    
-                 
+                    <li class="nav-item active"><a class="nav-link" href="/products">Shop now </a></li>
+
                     <li class="nav-item dropdown has-megamenu">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>
                         <div class="dropdown-menu megamenu" role="menu">
@@ -251,9 +251,9 @@
                                                             <h6>{{$shape->title}}</h6>
                                                         </a>
                                                     </div>
-                                                        
+
                                                     @endforeach
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -277,7 +277,7 @@
                                                         </div>
                                                         {{$color->title}}
                                                     </a>
-                                                        
+
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -288,7 +288,7 @@
                         </div>
                     </li>
                     @foreach ($menus as $menu)
-                    <li class="nav-item active"><a class="nav-link" href="{{$menu->url}}">{{$menu->title}} </a></li>    
+                    <li class="nav-item active"><a class="nav-link" href="{{$menu->url}}">{{$menu->title}} </a></li>
                     @endforeach
                 </ul>
                 <div class="topRightArea">
@@ -298,9 +298,9 @@
                                 <img class="img-fluid"  src="{{ asset('frontend/images/search.png')}}" alt="">
                             </a>
                         </li>
-                        
+
                         <li class="cart">
-                          
+
                             <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                                 <img class="img-fluid"  src="{{ asset('frontend/images/bag.png')}}" alt="">
                                 <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger cart-count">
