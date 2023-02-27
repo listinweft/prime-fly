@@ -496,6 +496,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [HomeController::class, 'testimonial_update']);
             Route::post('delete', [HomeController::class, 'delete_testimonial']);
         });
+
+        Route::prefix('usertestimonial')->group(function () {
+            Route::get('/', [HomeController::class, 'usertestimonial']);
+            // Route::get('create', [HomeController::class, 'testimonial_create']);
+            // Route::post('create', [HomeController::class, 'testimonial_store']);
+            // Route::get('edit/{id}', [HomeController::class, 'testimonial_edit']);
+            // Route::post('edit/{id}', [HomeController::class, 'testimonial_update']);
+            Route::post('delete', [HomeController::class, 'delete_usertestimonial']);
+        });
     });
 
     Route::prefix('mail')->group(function () {

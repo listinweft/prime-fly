@@ -95,6 +95,8 @@
                                     <textarea class="form-control review-required" placeholder="Say Something" name="message" id="message"></textarea>
                                 </div>
                             </div>
+                            <input type="hidden" name="user_type" value="user_type">
+                            {{-- <input type="hidden" name="" value="2"> --}}
                             <div class="col-12x ">
                                 <div class="form-group d-flex align-items-end mb-0">
                                     <button type="submit" class="primary_btn review-form-btn">Submit</button>

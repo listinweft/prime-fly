@@ -199,6 +199,7 @@ class Helper
 
         $target = $location . $fileName;
         if (File::exists(public_path($target))) {
+
             $increment = 0;
             list($name, $ext) = explode('.', $fileName);
             while (File::exists(public_path($target))) {

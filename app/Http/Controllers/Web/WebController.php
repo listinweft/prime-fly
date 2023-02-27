@@ -741,7 +741,9 @@ class WebController extends Controller
         $testimonial->name = $name;
         $testimonial->rating = round($request->rating);
         $testimonial->designation = $request->designation;
-        $testimonial->message = $request->review;
+        $testimonial->message = $request->message;
+        $testimonial->user_type = "Customer";
+        $testimonial->status = "Inactive";
         //$testimonial->review = $request->review;
         // $testimonial->product_id = $request->product_id;
         if ($testimonial->save()) {
