@@ -11,95 +11,95 @@ $sessionKey  =  Helper::getSessionKey();
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        @if($sessionKey != '')
-            @if (!Cart::session($sessionKey)->isEmpty())
-            <div class="orderProductSummary">
-                @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
-                @php
-                $product = App\Models\Product::find($row->attributes['product_id']);
-                @endphp
-            
-                <div class="item">
-                    <div class="leftImgDetails">
-                        <div class="imgBox">
-                            <a href="{{ url('/product/'.$product->short_url) }}">
-                                {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
-                            </a>
-                        </div>
-                        <div class="details">
-                            <div> 
-                        
+            @if($sessionKey)
+                @if (!Cart::session($sessionKey)->isEmpty())
+                <div class="orderProductSummary">
+                    @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
+                    @php
+                    $product = App\Models\Product::find($row->attributes['product_id']);
+                    @endphp
+                
+                    <div class="item">
+                        <div class="leftImgDetails">
+                            <div class="imgBox">
                                 <a href="{{ url('/product/'.$product->short_url) }}">
-                                    <h5>
-                                        {{ $product->title }}
-                                    </h5>
-                                    <ul>
-                                        <li>
-                                            Shape :
-                                            @foreach ($product->product_shape as $shape)
-                                                <span>, {{ $shape->title }}</span>
-                                            @endforeach
-                                        </li>
-                                        <li>
-                                            color : 
-                                            @foreach ($product->product_color as $color)
-                                            <span>,  {{ $color->title }}</span>
-                                            @endforeach
-                                           
-                                        </li>
-                                        <li>
-                                            @php
-                                                $size = App\Models\Size::find($row->attributes['size']);
-                                            @endphp
-                                            Size : <span>{{ $size->title }}</span>
-                                        </li>
-                                    </ul>
+                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                </a>
+                            </div>
+                            <div class="details">
+                                <div> 
+                            
+                                    <a href="{{ url('/product/'.$product->short_url) }}">
+                                        <h5>
+                                            {{ $product->title }}
+                                        </h5>
+                                        <ul>
+                                            <li>
+                                                Shape :
+                                                @foreach ($product->product_shape as $shape)
+                                                    <span>, {{ $shape->title }}</span>
+                                                @endforeach
+                                            </li>
+                                            <li>
+                                                color : 
+                                                @foreach ($product->product_color as $color)
+                                                <span>,  {{ $color->title }}</span>
+                                                @endforeach
+                                            
+                                            </li>
+                                            <li>
+                                                @php
+                                                    $size = App\Models\Size::find($row->attributes['size']);
+                                                @endphp
+                                                Size : <span>{{ $size->title }}</span>
+                                            </li>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="price">
+                        <ul class="price-area">
+                        @php
+                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                        @endphp
+                            <!-- <li class="offer">
+                            @if(Helper::offerPrice($product->id)!='')
+                            </li>
+                            @endif -->
+                            @if(Helper::offerPrice($product->id)!='')
+                            <li>
+                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                            </li>
+                            <li>
+                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                            </li>                  
+                            @else
+                            <li>
+                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                            </li>
+                            @endif
+                        </ul>
+                            <div class="qntyClose">
+                                <div class="quantity-counter">
+                                    <button class="btn btn-quantity-down">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </button>
+                                    <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}">
+                                    <button class="btn btn-quantity-up">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </button>
+                                </div>
+                                <a href="" class="closeBtn">
+                                    <i class="fa-solid fa-xmark"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                <div class="price">
-                    <ul class="price-area">
-                       @php
-                           $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
-                       @endphp
-                        <!-- <li class="offer">
-                        @if(Helper::offerPrice($product->id)!='')
-                        </li>
-                        @endif -->
-                        @if(Helper::offerPrice($product->id)!='')
-                        <li>
-                            {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                        </li>
-                        <li>
-                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                        </li>                  
-                        @else
-                        <li>
-                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                        </li>
-                        @endif
-                    </ul>
-                        <div class="qntyClose">
-                            <div class="quantity-counter">
-                                <button class="btn btn-quantity-down">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                </button>
-                                <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}">
-                                <button class="btn btn-quantity-up">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                </button>
-                            </div>
-                            <a href="" class="closeBtn">
-                                <i class="fa-solid fa-xmark"></i>
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+                @endif
             @endif
-        @endif
     </div>
     <div class="offcanvas-footer">
         <div class="sub_total">
@@ -107,7 +107,9 @@ $sessionKey  =  Helper::getSessionKey();
                 <h6>Subtotal</h6>
             </div>
             <div class="sub_right">
+                @if($sessionKey)
                 <h5 class="price{{@$product->id}}">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
+                @endif
             </div>
         </div>
         <div class="btnsBox">
