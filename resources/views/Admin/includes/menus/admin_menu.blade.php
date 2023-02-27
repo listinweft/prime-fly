@@ -52,14 +52,14 @@
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonial')?:'' }}">
+               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Testimonials</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonial')?:'' }}">
+            <a href="{{url(Helper::sitePrefix().'home/usertestimonial')}}"
+               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>User Testimonial</p>
             </a>
@@ -262,14 +262,14 @@
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry/product')}}"
-               class="nav-link {{ (Request::segment(3)=='product')?:'' }}">
+               class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p> Product </p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry/bulk')}}"
-               class="nav-link {{ (Request::segment(3)=='product')?:'' }}">
+               class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p> Bulk Enquiry </p>
             </a>
@@ -530,14 +530,14 @@
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/size')}}"
-               class="nav-link {{ (Request::segment(3)=='size')?:'' }}">
+               class="nav-link {{ (Request::segment(3)=='size')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Size</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/shape')}}"
-               class="nav-link {{ (Request::segment(3)=='shape')?:'' }}">
+               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Shape</p>
             </a>
@@ -545,7 +545,7 @@
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/frame')}}"
-               class="nav-link {{ (Request::segment(3)=='shape')?:'' }}">
+               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Frame</p>
             </a>

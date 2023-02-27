@@ -494,7 +494,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             // Route::post('create', [HomeController::class, 'testimonial_store']);
             // Route::get('edit/{id}', [HomeController::class, 'testimonial_edit']);
             // Route::post('edit/{id}', [HomeController::class, 'testimonial_update']);
-            // Route::post('delete', [HomeController::class, 'delete_testimonial']);
+            Route::post('delete', [HomeController::class, 'delete_usertestimonial']);
         });
     });
 

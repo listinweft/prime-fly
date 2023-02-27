@@ -744,7 +744,7 @@ class HomeController extends Controller
     public function testimonial()
     {
         $title = "Testimonial List";
-        $testimonialList = Testimonial::get();
+        $testimonialList = Testimonial::where('user_type','Admin')->get();
         return view('Admin.home.testimonial.list', compact('testimonialList', 'title'));
     }
 
@@ -765,17 +765,20 @@ class HomeController extends Controller
             'rating' => 'integer|between:0,5',
             'review_type' => 'required',
         ]);
+
         $testimonial = new Testimonial;
         if ($request->hasFile('image')) {
-            $testimonial->image_webp = Helper::uploadWebpImage($request->image, 'uploads/testimonial/image/webp/', $request->name);
-            $testimonial->image = Helper::uploadFile($request->image, 'uploads/testimonial/image/', $request->name);
+           return  $testimonial->image_webp = Helper::uploadWebpImage($request->image, 'uploads/testimonial/image/webp/', $request->title);
+            $testimonial->image = Helper::uploadFile($request->image, 'uploads/testimonial/image/', $request->title);
         }
         $testimonial->name = $validatedData['name'];
         $testimonial->message = $validatedData['message'];
         $testimonial->designation = $request->designation;
         $testimonial->rating = $request->rating;
+        $testimonial->user_type = "Admin";
         $testimonial->image_attribute = $request->image_attribute ?? '';
         $testimonial->review_type = $request->review_type;
+
 
         if ($testimonial->save()) {
             session()->flash('success', 'Testimonial has been added successfully');
@@ -855,9 +858,36 @@ class HomeController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
-    
+    public function usertestimonial()
+    {
+        $title = "User Testimonial List";
+        $testimonialList = Testimonial::where('user_type','Customer')->get();
+        return view('Admin.home.user_testimonial.list', compact('testimonialList', 'title'));
+    }
 
-
+    public function delete_usertestimonial(Request $request)
+    {
+        if (isset($request->id) && $request->id != NULL) {
+            $testimonial = Testimonial::find($request->id);
+            if ($testimonial) {
+                if (File::exists(public_path($testimonial->image))) {
+                    File::delete(public_path($testimonial->image));
+                }
+                if (File::exists(public_path($testimonial->image_webp))) {
+                    File::delete(public_path($testimonial->image_webp));
+                }
+                if ($testimonial->delete()) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        } else {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    }
 
     public function home_get_quote()
     {

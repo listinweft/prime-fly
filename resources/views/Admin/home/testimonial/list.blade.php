@@ -49,6 +49,7 @@
                                         <th>Designation</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
+
                                         <th class="not-sortable">Actions</th>
                                     </tr>
                                     </thead>
@@ -68,6 +69,7 @@
                                                 </label>
                                             </td>
                                             <td>{{ date("d-M-Y", strtotime($testimonial->created_at)) }}</td>
+
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
                                                     <a href="{{url(Helper::sitePrefix().'home/testimonial/edit/'.$testimonial->id)}}"
