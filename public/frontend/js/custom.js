@@ -572,6 +572,9 @@ $(document).ready(function () {
                             location.reload();
                         }
                     }
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
                 } else {
                     swal.fire({
                         title: "Oops", text: response.message, icon: "error"
@@ -1015,7 +1018,7 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
                 
-                $('#price').html('AED '+response);
+                $('.price').html('AED '+response);
                 if (response != '0') {
 
                 } else {

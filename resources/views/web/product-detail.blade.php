@@ -69,43 +69,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-xxl-5  col-lg-5 product_details_gallery art-prints">
-                <div class="row sliderWrapperArea ">
-                    <div class=" col-9 productDetailsLeftSecond " >
-                        <div class="productDetailsLargeImages">
-                            <div class="item position-relative">
-                                <div class="fotorama__stage__frame" >
-                                    <div class="fotorama__html">
-                                        <img class="art-prints fotorama__img" src="{{ asset($product->thumbnail_image)}}" aria-hidden="false">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item position-relative">
-                                <div class="fotorama__stage__frame" >
-                                    <div class="fotorama__html">
-                                        <img class="fotorama__img" src="{{ asset($product->thumbnail_image)}}"  aria-hidden="false">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-3 productDetailsLeftFirst" >
-                        <div class="productDetailsThumbs ">
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio ">
-                                    <img class="fotorama__img img-fluid" src="{{ asset($product->thumbnail_image)}}" >
-                                </div>
-                            </div>
-                            <div class="fotorama__nav__frame ">
-                                <div class="fotorama__thumb fotorama_vertical_ratio ">
-                                    <img class="fotorama__img img-fluid" src="{{ asset($product->thumbnail_image)}}" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+          
             <div class="col-xxl-7 col-lg-7 productDetailsInfo ps-xxl-5 ps-xl-4">
                 <div class="productNameStock">
                     <div class="name">
@@ -137,15 +101,12 @@
                         @php
                             $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
                         @endphp
-                       <ul class="price_area">
                         @if(Helper::offerPrice($product->id)!='')
-                        {{-- <h5> AED {{$price->price.'.00'}}</h5> --}}
-                       <h5>{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
-                      
-                    @else
-                    <h5>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
-                        <h5></h5>
-                    @endif
+                            <h5 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
+                        @else
+                            <h5 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
+                            <h5></h5>
+                        @endif
                     </div>
                 </div>
                 <div class="productCode">
@@ -206,17 +167,14 @@
                         Total
                     </h5>
                     <div class="priceQuantityArea">
-                        <div class="priceArea">
-                          
-                        
-                        @if(Helper::offerPrice($product->id)!='')
-                        {{-- <h5> AED {{$price->price.'.00'}}</h5> --}}
-                        <h3 id="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h3>
-                        <h6>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
-                    @else
-                    <h3 id="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
-                        <h6></h6>
-                    @endif
+                        <div class="priceArea">  
+                            @if(Helper::offerPrice($product->id)!='') 
+                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h3>
+                                <h6>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
+                            @else
+                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
+                                <h6></h6>
+                            @endif
                         </div>
                         <div class="quantity_parice_order_area">
                             <div class="quantity-counter">

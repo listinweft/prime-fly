@@ -119,9 +119,14 @@
                     </div>
                     <div class="price">
                         @php
-                        $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
-                    @endphp
-                    <h5>AED {{$price->price.'.00'}}</h5>
+                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                        @endphp
+                        @if(Helper::offerPrice($product->id)!='')
+                            <h5 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
+                        @else
+                            <h5 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
+                            <h5></h5>
+                        @endif
                     </div>
                 </div>
                 <div class="productCode">
@@ -182,13 +187,14 @@
                         Total
                     </h5>
                     <div class="priceQuantityArea">
-                        <div class="priceArea">
-                           
-                            @php
-                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
-                        @endphp
-                        <h3 id="price">AED {{$price->price.'.00'}}</h3>
-                        <h6></h6>
+                        <div class="priceArea">  
+                            @if(Helper::offerPrice($product->id)!='') 
+                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h3>
+                                <h6>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
+                            @else
+                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
+                                <h6></h6>
+                            @endif
                         </div>
                         <div class="quantity_parice_order_area">
                             <div class="quantity-counter">
