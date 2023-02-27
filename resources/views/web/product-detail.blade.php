@@ -98,17 +98,12 @@
                         @endif
                     </div>
                     <div class="price">
-                        @php
-                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
-                        @endphp
+                        @if(Helper::offerPrice($product->id)!='') 
+                        <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  </h5>
                         
-                        @if(Helper::offerPrice($product->id)!='')
-                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
                         @else
-                        <h5>
-
-                        </h5>
-                            <h5 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price ->price,2)}}</h5>
+                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
+                            <h5 class="product_price"></h5>
                         @endif
                     </div>
                 </div>
@@ -188,8 +183,8 @@
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                     </svg>
                                 </button>
-                                <input type="number" disabled
-                                    class="input-number__input form-control2 form-control-lg" min="1"
+                                <input type="number" disabled  name="qty" data-id="{{$product->id}}" 
+                                    class="input-number__input form-control2 form-control-lg qty" min="1"
                                     max="100" step="1" value="1">
                                 <button class="btn btn-quantity-up">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

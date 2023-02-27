@@ -1018,7 +1018,7 @@ $(document).ready(function () {
             type: 'POST', dataType: 'json', data: {id,product_id,product_type_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
-                console.log(response);
+               
                 if(response.offerPrice != null){
                     $('.offer_price').html(response.offerPrice);
                     $('.product_price').html(response.productPrice);
@@ -1264,16 +1264,16 @@ $(document).ready(function () {
                             for (var i = 0; i < len; i++) {
                                 var id = resp[i]['id'];
                                 var title = resp[i]['title'];
-                                // var price = resp[i]['price'];
-                                // var offer_price = resp[i]['offer_price'];
+                                var price = resp[i]['price'];
+                                 var offer_price = resp[i]['offer_price'];
                                 var image = resp[i]['image'];
                                 var link = resp[i]['link'];
                                 var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
-                                // if (offer_price != '') {
-                                //     result += "<div class='d-flex align-items-center'><div class='price'>" + offer_price + "</div>" + "<div class='fullPrice'>" + price + "</div></div>";
-                                // } else {
-                                //     result += "<div class='d-flex align-items-center'><div class='price'>" + price + "</div></div>";
-                                // }
+                                if (offer_price != '') {
+                                    result += "<div class='d-flex align-items-center'><div class='price'>" + offer_price + "</div>" + "<div class='fullPrice'>" + price + "</div></div>";
+                                } else {
+                                    result += "<div class='d-flex align-items-center'><div class='price'>" + price + "</div></div>";
+                                }
                                 result += "</div></div>" + "</a></li>";
                                 $('#search-result-append-here').append(result);
                                 $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});

@@ -149,6 +149,7 @@ class CartController extends Controller
 
     public function cartAddItems($request, $product_id, $sessionKey,$size)
     {
+       
         $product = Product::find($product_id);
       
         $product->price = $product->price;

@@ -267,28 +267,28 @@ function numberWithCommas(x) {
 
 $(function() {
     //slider range init set
-    $( "#slider-range" ).slider({
-        range: true,
-        min: 100,
-        max: 1000,
-        values: [ 100, 1000 ],
-        slide: function( event, ui ) {
-            $( "#min" ).html(numberWithCommas(ui.values[ 0 ]) );
-            $( "#max" ).html(numberWithCommas(ui.values[ 1 ]) );
-        }
-    });
+    // $( "#slider-range" ).slider({
+    //     range: true,
+    //     min: 100,
+    //     max: 1000,
+    //     values: [ 100, 1000 ],
+    //     slide: function( event, ui ) {
+    //         $( "#min" ).html(numberWithCommas(ui.values[ 0 ]) );
+    //         $( "#max" ).html(numberWithCommas(ui.values[ 1 ]) );
+    //     }
+    // });
 
-    //slider range data tooltip set
-    var $handler = $("#slider-range .ui-slider-handle");
+    // //slider range data tooltip set
+    // var $handler = $("#slider-range .ui-slider-handle");
 
-    $handler.eq(0).append("<b class='amount'><span id='min'>"+numberWithCommas($( "#slider-range" ).slider( "values", 0 )) +"</span></b>");
-    $handler.eq(1).append("<b class='amount'><span id='max'>"+numberWithCommas($( "#slider-range" ).slider( "values", 1 )) +"</span></b>");
+    // $handler.eq(0).append("<b class='amount'><span id='min'>"+numberWithCommas($( "#slider-range" ).slider( "values", 0 )) +"</span></b>");
+    // $handler.eq(1).append("<b class='amount'><span id='max'>"+numberWithCommas($( "#slider-range" ).slider( "values", 1 )) +"</span></b>");
 
-    //slider range pointer mousedown event
-    $handler.on("mousedown",function(e){
-        e.preventDefault();
-        $(this).children(".amount").fadeIn(300);
-    });
+    // //slider range pointer mousedown event
+    // $handler.on("mousedown",function(e){
+    //     e.preventDefault();
+    //     $(this).children(".amount").fadeIn(300);
+    // });
 
     //slider range pointer mouseup event
     $handler.on("mouseup",function(e){
