@@ -233,9 +233,8 @@
                     <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
                 </a>
                 <ul class="navbar-nav m-auto">
-                  @foreach ($menus as $menu)
-                  <li class="nav-item active"><a class="nav-link" href="{{$menu->url}}">{{$menu->title}} </a></li>    
-                  @endforeach
+                    <li class="nav-item active"><a class="nav-link" href="/products">Shop now </a></li>    
+                 
                     <li class="nav-item dropdown has-megamenu">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>
                         <div class="dropdown-menu megamenu" role="menu">
@@ -288,6 +287,9 @@
                             </div>
                         </div>
                     </li>
+                    @foreach ($menus as $menu)
+                    <li class="nav-item active"><a class="nav-link" href="{{$menu->url}}">{{$menu->title}} </a></li>    
+                    @endforeach
                 </ul>
                 <div class="topRightArea">
                     <ul class="topRightAreaUl">
