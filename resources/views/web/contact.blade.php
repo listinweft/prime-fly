@@ -1,10 +1,10 @@
 @extends('web.layouts.main')
 @section('content')
-    
+
 @include('web.includes.banner',[$banner, 'title'=> 'Contact Us','type'=> 'Contact Us'])
 
 
-  
+
 
     <!--Blog Listing Page Start-->
     <section class="contactUsPage">
@@ -93,7 +93,6 @@
                                         <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
                                         <input type="text" class="form-control nameField required"
                                             placeholder="Full Name" name="name" required>
-                                        <span class="invalidMessage"></span>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -102,7 +101,6 @@
                                         <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
                                         <input type="text" class="form-control required" placeholder="Email Address"
                                             name="email" required>
-                                        <span class="invalidMessage"></span>
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -111,7 +109,6 @@
                                         <img src="{{ asset('frontend/images/icon-phone.png') }}" alt="">
                                         <input type="number" class="form-control phoneField required"
                                             placeholder="+1 000 000 00" name="phone" required>
-                                        <span class="invalidMessage"></span>
 
                                     </div>
                                 </div>
@@ -120,8 +117,6 @@
                                         <label for="">Message</label>
                                         <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
                                         <textarea class="form-control form-message required" placeholder="Say Something" name="message" required></textarea>
-                                        <span class="invalidMessage"></span>
-
                                     </div>
                                 </div>
                                 <div class="col-12x ">
