@@ -522,7 +522,7 @@ class WebController extends Controller
 
         $price_range = explode('-', str_replace('AED', '', $request->my_range));
 
-        
+
          if (!empty($price_range)) {
 
 
@@ -532,12 +532,13 @@ class WebController extends Controller
 
              $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
                 $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
-             });
+                
+             })->where('products.copy','no');
          }
 
          else{
 
-            $condition = Product::active();
+            $condition = Product::active()->where('copy','no');
 
 
 
