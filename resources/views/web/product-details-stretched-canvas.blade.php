@@ -128,7 +128,7 @@
                         <h6> {{ $totalReviews }}  Ratings</h6>
                         @if($averageRatings >0)
                         <div class="rate_area">
-                            <i class="fa-solid fa-star"></i> 4.5
+                            <i class="fa-solid fa-star"></i>  {{ $averageRatings }}
                         </div>
                         @endif
                     </div>

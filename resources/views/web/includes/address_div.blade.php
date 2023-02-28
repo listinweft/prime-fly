@@ -115,6 +115,85 @@ login
             </form>
         </div>
     </div>
+    <div class="select_address_area billiing_address_form  @if(!Helper::checkConfirmOrder())  @else d-none @endif">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="billingAddressOffcanvas position-relative">
+                    <div class=" add_address_form" >
+                        <div class="add_address_form">
+                            <h4>Add Billing Address</h4>
+                            <form action="" id="addBillingForm">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">First Name</label>
+                                            <input type="text" name="first_name" id="first_name" required class="form-control required billing-value-change" maxlength="60" required placeholder="First Name*"  value="{{(Session::has('billing_first_name'))?session('billing_first_name'):''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">Last Name</label>
+                                            <input type="text" name="last_name" id="last_name" required class="form-control required billing-value-change" maxlength="60" required placeholder="Last Name*"  value="{{(Session::has('shipping_last_name'))?session('billing_last_name'):''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">Email</label>
+                                            <input type="email" name="email" id="email" class="form-control billing-required billing-value-change" placeholder="Email*" maxlength="70" required value="{{(Session::has('billing_email'))?session('billing_email'):''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">Phone</label>
+                                            <input  type="number" name="phone" id="phone" class="form-control billing-required billing-value-change"  placeholder="Phone Number*" maxlength="70" required value="{{(Session::has('billing_phone'))?session('billing_phone'):''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group" >
+                                            <label for="">Country</label>
+                                            <select  name="country" id="country"   class="form-control form_select billing-required billing-value-change" required>
+                                                <option selected disabled value="">Select Country*</option>
+                                                @foreach($countries as $country)
+                                                <option value="{{ $country->id }}" {{(session('billing_country')==$country->id)?'selected':''}} >{{$country->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group" >
+                                            <label for="">State</label>
+                                            <select name="state" id="state" class="form-control form_select  billing-value-change " >
+                                                <option selected disabled value="">Select Emirate</option>
+                                                @if(!empty($billing_states))
+                                                @foreach($billing_states as $billing_state)
+                                                    <option value="{{ $billing_state->id }}" {{(session('billing_state')==$billing_state->id)?'selected':''}} >{{$billing_state->title}}</option>
+                                                @endforeach
+                                            @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Zip Code</label>
+                                            <input type="number" maxlength="15" name="zipcode" id="zipcode" class="form-control billing-value-change" placeholder="Zip Code " value="{{(Session::has('billing_zipcode'))?session('billing_zipcode'):''}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Address</label>
+                                            <textarea class="form-control form-message billing-required  billing-value-change" required  name="address" id="address" placeholder="Address*">{{(Session::has('billing_address'))?session('billing_address'):''}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="customerNote">
@@ -133,112 +212,111 @@ login
 
 @push('scripts')
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
 
-    //make checkbox unchecked
-    // $('.different_shipping_address').prop('checked', false);
-    if($(".different_shipping_address").is(':checked')){
-        var choose = "different";
-        $('.billiing_address_form').removeClass("d-none");
-        $('.choose').val("different");
-      
-} else {
-    var choose = "same";
-        $('.billiing_address_form').addClass("d-none");
-        $('.choose').val("same");
-       
-}
-});
-//check if checkbox is checked or not
-$(document).on('click', '.different_shipping_address', function (e) {
-    if($(this).is(':checked')){
-        var choose = "different";
-        $('.billiing_address_form').removeClass("d-none");
-        $('.choose').val("different");
-    }
-    else{
+        //make checkbox unchecked
+        // $('.different_shipping_address').prop('checked', false);
+        if($(".different_shipping_address").is(':checked')){
+            var choose = "different";
+            $('.billiing_address_form').removeClass("d-none");
+            $('.choose').val("different");
+        
+    } else {
         var choose = "same";
-        $('.billiing_address_form').addClass("d-none");
-        $('.choose').val("same");
+            $('.billiing_address_form').addClass("d-none");
+            $('.choose').val("same");
+        
     }
-});
-    //for selecting different address for shipping
-    $(document).on('change', '.different_shipping_address', function (e) {
-        e.preventDefault();
-        $this = $(this);
-        var different_status = $this.is(':checked');
-        $.ajax({
-            type: 'POST', dataType: 'json', data: {different_status}, headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/different-shipping-address', success: function (response) {
-                
-                if (response.status == true  ) {
-                  console.log(response);
-                    Toast.fire("", response.message, "success");
-                   //make all fields readonly
-                   if(response.orderC == true){
-                       $('.error').addClass("d-none");
+    });
+    //check if checkbox is checked or not
+    $(document).on('click', '.different_shipping_address', function (e) {
+        if($(this).is(':checked')){
+            var choose = "different";
+            $('.billiing_address_form').removeClass("d-none");
+            $('.choose').val("different");
+        }
+        else{
+            var choose = "same";
+            $('.billiing_address_form').addClass("d-none");
+            $('.choose').val("same");
+        }
+    });
+        //for selecting different address for shipping
+        $(document).on('change', '.different_shipping_address', function (e) {
+            e.preventDefault();
+            $this = $(this);
+            var different_status = $this.is(':checked');
+            $.ajax({
+                type: 'POST', dataType: 'json', data: {different_status}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/different-shipping-address', success: function (response) {
+                    
+                    if (response.status == true  ) {
+                    console.log(response);
+                        Toast.fire("", response.message, "success");
+                    //make all fields readonly
+                    if(response.orderC == true){
+                        $('.error').addClass("d-none");
 
-                   }
-                   else{
-                    $('.error').removeClass("d-none");
-                   }
-                   if(response.type == 'same'){
-                    $('.billiing_address_form').addClass("d-none");
-                    $('#addBillingForm input').val('');
-                    //select box empty
-                    $('#addBillingForm select').val('');
-                    $('#addBillingForm textarea').val('');
-                    $('#addBillingForm span').html('');
-                    $('.error').addClass("d-none");
-                    //remove disabled attribute from confirm payment button
-                    $('#confirm_payment').attr('disabled', false);
-                   }
-                   else{
-                    $('.billiing_address_form').removeClass("d-none");
-                    $('#addBillingForm input').val('');
-                    $('.error').removeClass("d-none");
-                    $('#confirm_payment').attr('disabled', true);
-                   }
-                   if(response.reload == true){
+                    }
+                    else{
+                        $('.error').removeClass("d-none");
+                    }
+                    if(response.type == 'same'){
+                        $('.billiing_address_form').addClass("d-none");
+                        $('#addBillingForm input').val('');
+                        //select box empty
+                        $('#addBillingForm select').val('');
+                        $('#addBillingForm textarea').val('');
+                        $('#addBillingForm span').html('');
+                        $('.error').addClass("d-none");
+                        //remove disabled attribute from confirm payment button
+                        $('#confirm_payment').attr('disabled', false);
+                    }
+                    else{
+                        $('.billiing_address_form').removeClass("d-none");
+                        $('#addBillingForm input').val('');
+                        $('.error').removeClass("d-none");
+                        $('#confirm_payment').attr('disabled', true);
+                    }
+                    if(response.reload == true){
+                        setTimeout(() => {
+                            // location.reload();
+                        }, 1000);
+                    }
+                    } else {
+                        if(response.orderC == true){
+                        $('.error').addClass("d-none");
+
+                    }
+                    else{
+                        $('.error').removeClass("d-none");
+                    //empty all  in addBillingForm form
+                    $(':input').val('');
+
+                    
+
+                    }
+                    if(response.type == 'same'){
+                            $('.billiing_address_form').addClass("d-none");
+                        
+                            $('#confirm_payment').attr('disabled', false);
+                        }
+                        else{
+                        
+                            $('.billiing_address_form').removeClass("d-none");
+                            $('#confirm_payment').attr('disabled', true);
+                        }
+
+                    
+                        Toast.fire('Error', response.message, "error");
+                    }
                     setTimeout(() => {
                         // location.reload();
-                    }, 1000);
-                   }
-                } else {
-                    if(response.orderC == true){
-                       $('.error').addClass("d-none");
-
-                   }
-                   else{
-                    $('.error').removeClass("d-none");
-                  //empty all  in addBillingForm form
-                  $(':input').val('');
-
-                  
-
-                   }
-                   if(response.type == 'same'){
-                        $('.billiing_address_form').addClass("d-none");
-                       
-                        $('#confirm_payment').attr('disabled', false);
-                     }
-                    else{
-                      
-                        $('.billiing_address_form').removeClass("d-none");
-                        $('#confirm_payment').attr('disabled', true);
-                     }
-
-                  
-                    Toast.fire('Error', response.message, "error");
+                        
+                    }, 1500);
                 }
-                setTimeout(() => {
-                    // location.reload();
-                    
-                }, 1500);
-            }
+            });
         });
-    });
 </script>
 @endpush
-@endsection
