@@ -90,9 +90,13 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Product</th>
-                                            <th>Currency</th>
-                                            <th>Color</th>
+                                            <th>Cost</th>
+                                            <th>Type</th>
+                                            <th>Frame Colour</th>
+                                            <th>Size</th>
+                                        
                                             <th>Quantity</th>
+                                 
                                             <th>Price</th>
                                         </tr>
                                         </thead>
@@ -112,7 +116,28 @@
                                                     {{$product->productData->title}}
                                                 </td>
                                                 <td>{{$order->currency}} {{$product->cost}}</td>
-                                                <td>{{($product->colorData)?ucfirst($product->colorData->title):''}}</td>
+                                                @php
+                                                $frame = App\Models\Frame::where('id',$product->frame)->first();
+                                                $type = App\Models\ProductType::where('id',$product->type)->first();
+                                                   $size = App\Models\Size::where('id',$product->size)->first();
+                                                    @endphp
+                                       
+                                            
+                                                <td>
+                                                    @if(@$type)
+                                                    {{ $type->title }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(@$frame)
+                                                    {{ $frame->title }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(@$size)
+                                                    {{ $size->title }}
+                                                    @endif
+                                                </td>
                                                 <td>{{$product->qty}}</td>
                                                 <td>{{$order->currency}}
                                                     @if(count($order->orderProducts)==1)

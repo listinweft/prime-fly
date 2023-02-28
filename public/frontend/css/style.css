@@ -769,6 +769,12 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
     align-items: center;
     justify-content: center;
   }
+  .navbar .megamenu .shapeWrapper .shapeItem a picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .navbar .megamenu .shapeWrapper .shapeItem a img {
     width: 60%;
     max-width: 220px;
@@ -4447,6 +4453,9 @@ footer .copy ul li img {
 .productListingPage .category_area .ProductListCategory .accordion .accordion-item .shapeArea .shapeFilterClick {
   position: relative;
 }
+.productListingPage .category_area .ProductListCategory .accordion .accordion-item .shapeArea .shapeFilterClick img {
+  max-width: 85px;
+}
 .productListingPage .category_area .ProductListCategory .accordion .accordion-item .shapeArea .shapeFilterClick h6 {
   padding-top: 8px;
   font-family: Brother1816-Book;
@@ -6724,6 +6733,10 @@ footer .copy ul li img {
   background: #CECEC5;
   display: block;
   text-align: center;
+  width: 100%;
+  box-shadow: none;
+  border: 0;
+  outline: none;
 }
 .my_cart_section .order_summary .btnsBox .login::before {
   background: #FFFFFF;
@@ -9734,6 +9747,34 @@ footer .copy ul li img {
   display: flex;
   position: fixed;
   z-index: 9999 !important;
+}
+
+.swal2-icon.swal2-success {
+  color: #252525 !important;
+}
+
+.swal2-icon.swal2-success [class^=swal2-success-line] {
+  background-color: #252525 !important;
+}
+
+.swal2-icon.swal2-success [class^=swal2-success-line] {
+  background-color: #252525 !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border: 0.25em solid #252525 !important;
+}
+
+.swal2-popup.swal2-toast .swal2-content {
+  font-size: 13px !important;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+  font-size: 13px !important;
+}
+
+.swal2-popup.swal2-toast {
+  padding: 15px !important;
 }
 
 .successModalForm {

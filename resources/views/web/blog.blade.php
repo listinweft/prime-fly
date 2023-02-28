@@ -42,20 +42,7 @@
                     {!! Helper::printImage($blog, 'image','image_webp','image_attribute', 'img-fluid') !!}
                     </div>
                     <div class="textArea">
-                        <p>
-
-                        </p>
-                        <ul>
-                            <li>
-                                Lorem Ipsum is <a href="">simply dummy</a> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
-                            </li>
-                            <li>
-                                Lorem Ipsum is simply dummy text.
-                            </li>
-                            <li>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            </li>
-                        </ul>
+                        {!! $blog->description !!}
                     </div>
                     <div class="video-area">
                     {!! Helper::printImage($blog, 'video_thumbnail_image', 'video_thumbnail_image_webp', 'video_thumbnail_image_attribute', 'img-fluid') !!}
@@ -68,11 +55,11 @@
                         @endif
                     </div>
                     <div class="textArea">
-                        <p>
 
-                        {!! $blog->description !!}
 
-                        </p>
+                        {!! $blog->alternate_description !!}
+
+
 
                     </div>
                     <div class="share_navigation_area">

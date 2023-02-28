@@ -67,15 +67,20 @@
                                                 $orderTotal = App\Models\Order::getOrderTotal($order->id);
                                                 $cancelledTotal = App\Models\Order::getCancelledProductTotal($order->id);
                                                 $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                                                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['codCharge'];
+                                                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ 'PP'.$order->order_code }}</td>
-                                                @if($order->orderCustomer->user_type=="User")
+                                                <td>{{ 'MBSHI'.$order->order_code }}</td>
+                                                @if(@$order->orderCustomer->user_type=="User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
-                                                    <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
+                                                @if (@$order->orderCustomer->billingAddress)
+                                                    
+                                                <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
+                                                @else
+                                                <td></td>
+                                                @endif
                                                 @endif
                                                 <td>{{ number_format($productTotal,2) }}</td>
                                                 <td>{{ $order->tax_amount }}</td>

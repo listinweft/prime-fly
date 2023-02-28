@@ -1,8 +1,8 @@
 
-                
-              
+
+
             @if($blogs->isNotEmpty())
-                
+
             @foreach( $blogs as $blog )
                 <div class="col-lg-4 col-md-6 marginBottom">
                     <div class="blogCard">
@@ -11,13 +11,13 @@
                         </div>
                         <div class="blogDetails">
                             <h6>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting
+                                {{ $blog->title }}
                             </h6>
                             <div class="textArea">
-                                <p>
+
                                 {!! $blog->description !!}
-                                </p>
-                                
+
+
                             </div>
                             <div class="btnDateWrapper">
                                 <a class="primary_btn" href="{{ url('blog/'.$blog->short_url) }}">Read More</a>
@@ -34,12 +34,12 @@
             @endif
                 @endforeach
                 @endif
-               
+
             </div>
             <input type="hidden" id="totalBlogs" name="total_blogs" value="{{$totalBlog}}">
         <input type="hidden" id="blog_loading_offset" name="blog_loading_offset" value="{{$offset}}">
         <input type="hidden" id="blog_loading_limit" name="blog_loading_limit" value="{{$loading_limit}}">
-        
+
             @if($totalBlog>$offset)
             <div class="row">
                 <div class="col-12 text-center more-section-{{$offset}}">
@@ -51,4 +51,3 @@
 
 
         </div>
-  

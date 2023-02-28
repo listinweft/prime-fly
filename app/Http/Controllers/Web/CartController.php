@@ -491,56 +491,7 @@ class CartController extends Controller
                     $shipping_states = State::active()->where('country_id', session('shipping_country'))->latest()->get();
                 }
                 $customerAddress = CustomerAddress::where('is_default','Yes')->first();
-                // $customer_address = [];
-                // foreach ($customerAddress->toArray() as $key => $value) {
-                //     $customer_address[$key] = $value;
-                // }   
-            
-                    // session()->forget('billing_first_name');
-                    // session()->forget('billing_last_name');
-                    // session()->forget('billing_phone');
-                    // session()->forget('billing_email');
-                    // session()->forget('billing_address');
-                    // session()->forget('billing_address_label_type');
-                    // session()->forget('billing_zipcode');
-                    // session()->forget('billing_state');
-                    // session()->forget('billing_state_name');
-                    // session()->forget('billing_country');
-                    // session()->forget('billing_country_name');
-
-                    // session()->forget('shipping_first_name');
-                    // session()->forget('shipping_last_name');
-                    // session()->forget('shipping_phone');
-                    // session()->forget('shipping_email');
-                    // session()->forget('shipping_address');
-                    // session()->forget('shipping_address_label_type');
-                    // session()->forget('shipping_zipcode');
-                    // session()->forget('shipping_state');
-                    // session()->forget('shipping_state_name');
-                    // session()->forget('shipping_country');
-                    // session()->forget('shipping_country_name');
-               
-                    // session(['billing_first_name' => $customer_address['first_name']]);
-                    // session(['billing_last_name' =>  $customer_address['last_name']]);
-                    // session(['billing_phone' =>  $customer_address['address']]);
-                    // session(['billing_country' =>  $customer_address['country_id']]);
-                    // session(['billing_state' => $customer_address['state_id']]);
-                    // session(['billing_email' =>  $customer_address['email']]);
-                    // session(['billing_address' =>  $customer_address['address']]);
-                    // session(['billing_zipcode' =>  $customer_address['zipcode']]);
-                    // session(['address_choose' => 'same']);
-                    // session(['selected_billing_address' => $customer_address['id']]);
-
-                    // session(['shipping_first_name' => $customer_address['first_name']]);
-                    // session(['shipping_last_name' =>  $customer_address['last_name']]);
-                    // session(['shipping_phone' =>  $customer_address['address']]);
-                    // session(['shipping_country' =>  $customer_address['country_id']]);
-                    // session(['shipping_state' => $customer_address['state_id']]);
-                    // session(['shipping_email' =>  $customer_address['email']]);
-                    // session(['shipping_address' =>  $customer_address['address']]);
-                    // session(['shipping_zipcode' =>  $customer_address['zipcode']]);
-                    // session(['address_choose' => 'same']);
-                    // session(['selected_shipping_address' => $customer_address['id']]);
+                
                   
                 $siteInformation = SiteInformation::first();
                 return view('web.checkout', compact('sessionKey', 'calculation_box', 'seo_data',
@@ -577,12 +528,12 @@ class CartController extends Controller
    
                 }
                 session(['different_shipping_address' => true]);
-                return response(array('status' => true, 'message' => 'You can select new Billing Address'));
+                return response(array('status' => true, 'message' => 'You can select new Billing Address','type'=>'different','reload'=>true));
             } else {
                 session(['different_shipping_address' => false]);
                 if (Session::has('selected_shipping_address')) {
                     session(['selected_billing_address' => Session::get('selected_shipping_address')]);
-                    return response(array('status' => true, 'message' => 'Same address for Billing  Address selected Successfully'));
+                    return response(array('status' => true, 'message' => 'Same address for Billing  Address selected Successfully','type'=>'same','reload'=>true));
                 } else {
                     return response(array('status' => false, 'message' => 'Select Shipping Address First'));
                 }
@@ -604,7 +555,16 @@ class CartController extends Controller
                     session()->forget('billing_country');
                     session()->forget('billing_country_name');
                 }
-                return response(array('status' => true, 'message' => 'You can add new Blling Address'));
+                $orderConfirm = Helper::checkConfirmOrder();
+                $orderC = false;
+                if($orderConfirm == "true"){
+                    $orderC = true;
+                }
+                else{
+                    $orderC = false;
+                }
+               
+                return response(array('status' => true, 'message' => 'You can add new Blling Address','orderC' => $orderC, 'type'=>'different'));
             } else {
                
                 session(['different_shipping_address' => false]);
@@ -629,22 +589,42 @@ class CartController extends Controller
                     session(['shipping_address' => session('address')]);
                     session(['shipping_zipcode' => session('zipcode')]);
                     session(['address_choose' => 'same']);
-                    return response(array('status' => true, 'message' => 'Same address for Billing and Shipping Address added Successfully'));
+                    $orderConfirm = Helper::checkConfirmOrder();
+                    $orderC = false;
+                    if($orderConfirm == "true"){
+                        $orderC = true;
+                    }
+                    else{
+                        $orderC = false;
+                    }
+                 
+                    return response(array('status' => true, 'message' => 'Same address for Billing and Shipping Address added Successfully','orderC' => $orderC, 'type'=>'same'));
                 } else {
-                    return response(array('status' => false, 'message' => 'Add Shipping Address First'));
+                    $orderConfirm = Helper::checkConfirmOrder();
+                    $orderC = false;
+                    if($orderConfirm == "true"){
+                        $orderC = true;
+                    }
+                    else{
+                        $orderC = false;
+                    }
+                    return response(array('status' => false, 'message' => 'Add Shipping Address First','orderC' => $orderC, 'type'=>'same'));
                 }
             }
         }
     }
     public function update_customer_shipping_address(Request $request)
     {
+        
        
         if (Auth::guard('customer')->check()) {
+           
             if ($request->id != '0') {
                 $customer_address = CustomerAddress::find($request->id);
                 $text = 'update';
             } else {
                 $customer_address = new CustomerAddress;
+        
                 $text = 'add';
                 $customer_address->customer_id = Auth::guard('customer')->user()->customer->id;
             }
@@ -673,23 +653,14 @@ class CartController extends Controller
             $customer_address->state_id = $request->state;
             $customer_address->country_id = $request->country;
             $customer_address->is_default = 'Yes' ;
-          
+            // dd($customer_address);
             $checkInShipping = ShippingCharge::where('status','Active')->where('state_id' ,$request->state)->first();
             if($checkInShipping != ''){
                 $state_in_shipping = true;
             }
             if ($request->is_default) {
                 $message = 'Address has been added successfully';
-                if($request->state != ''){
-                    if($checkInShipping != ''){
-                        $customer_address->is_default = 'Yes';
-                        $is_default = true;
-                    }
-                    else
-                        $message = 'Cannot be make this as default, because the state is not in shipping charge list';
-                }
-                else
-                    $message = 'Cannot be make this as default, because the state is not selected';
+               
             }
             else{
                 $customer_address->is_default = 'No';
@@ -697,10 +668,10 @@ class CartController extends Controller
            
 
             if ($customer_address->save()) {
-                if ($is_default) {
+                if ($customer_address->is_default) {
                     $updateWhole = CustomerAddress::where([['customer_id', Auth::guard('customer')->user()->customer->id], ['id', '!=', $customer_address->id]])->update(['is_default' => 'No']);
                 }
-                if (isset($request->set_session) && $request->set_session == 1 && $state_in_shipping) {
+                if (isset($request->set_session) && $request->set_session == 1 ) {
                     session(['selected_customer_address' => $customer_address->id]);
                     session(['selected_shipping_address' => $customer_address->id]);
                     session(['selected_billing_address' => $customer_address->id]);
@@ -711,101 +682,126 @@ class CartController extends Controller
                 echo json_encode(array('status' => 'false', 'message' => "Error while " . $text . "ing the address, Please try after sometime"));
             }
         } else {
-         dd($request->all());
       
             $account_type = $request->account_type;
-            if ($account_type == "0" && $request->address && $request->state !=  null) {
-                
-                $request->validate([
-                    'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
-                    'last_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
-                    'country' =>    'required',
-                    'state' =>    'required',
-                    'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
-                    'email' => 'required|email|max:70',
-                    'address' => 'required',
-                    // 'zipcode' => 'regex:/^([0-9\+]*)$/|max:10',
-                ]);
-                if($request->address && $request->state !=  null){
-                    
-       
-                    session(['first_name' => $request->first_name]);
-                    session(['last_name' => $request->last_name]);
-                    session(['email' => $request->email]);
-                    session(['phone' => $request->phone]);
-                    session(['country' => $request->country]);
-                    session(['state' => $request->state]);
-                  
-                    session(['address' => $request->address]);
-                    session(['zipcode' => $request->zipcode]);
-                    session(['address_choose' => $request->choose]);
-
-
-                if (session('address_choose') == 'same') {
-                    session(['billing_first_name' => session('first_name')]);
-                    session(['billing_last_name' => session('last_name')]);
-                    session(['billing_phone' => session('phone')]);
-                    session(['billing_country' => session('country')]);
-                    session(['billing_state' => session('state')]);
-                    session(['billing_email' => session('email')]);
-                    session(['billing_address' => session('address')]);
-                    session(['billing_zipcode' => session('zipcode')]);
-                    session(['address_choose' => 'same']);
-
-                    session(['shipping_first_name' => session('first_name')]);
-                    session(['shipping_last_name' => session('last_name')]);
-                    session(['shipping_phone' => session('phone')]);
-                    session(['shipping_country' => session('country')]);
-                    session(['shipping_state' => session('state')]);
-                    session(['shipping_email' => session('email')]);
-                    session(['shipping_address' => session('address')]);
-                    session(['shipping_zipcode' => session('zipcode')]);
-                    session(['address_choose' => 'same']);
-                }
-                else{ 
-                   
-                    if(session('shipping_address') == null){
-                        session(['shipping_first_name' => session('first_name')]);
-                    session(['shipping_last_name' => session('last_name')]);
-                    session(['shipping_phone' => session('phone')]);
-                    session(['shipping_country' => session('country')]);
-                    session(['shipping_state' => session('state')]);
-                    session(['shipping_email' => session('email')]);
-                    session(['shipping_address' => session('address')]);
-                    session(['shipping_zipcode' => session('zipcode')]);
-                    session(['address_choose' => 'diffrerent']);
-                    }
-                    session()->forget('billing_first_name');
-                    session()->forget('billing_last_name');
-                    session()->forget('billing_phone');
-                    session()->forget('billing_email');
-                    session()->forget('billing_address');
-                    session()->forget('billing_address_label_type');
-                    session()->forget('billing_zipcode');
-                    session()->forget('billing_state');
-                    session()->forget('billing_state_name');
-                    session()->forget('billing_country');
-                    session()->forget('billing_country_name');
-
-                    session(['billing_first_name' => session('first_name')]);
-                    session(['billing_last_name' => session('last_name')]);
-                    session(['billing_phone' => session('phone')]);
-                    session(['billing_country' => session('country')]);
-                    session(['billing_state' => session('state')]);
-                    session(['billing_email' => session('email')]);
-                    session(['billing_address' => session('address')]);
-                    session(['billing_zipcode' => session('zipcode')]);
-                    session(['address_choose' => 'diffrent']);
-                    
-
-                }
-       
+            if ($account_type == "0") {
                
-                 $calculation_box = Helper::calculationBox();
-                 echo json_encode(array('status' => 'true', 'message' => 'Address has been added successfully','calculation_box'=>$calculation_box , 'reload'=>"true"));
+   
+                if($request->shipping_address && $request->shipping_state !=  null){
+                    if($request->choose == 'same'){
+                        
+                        $request->validate([
+                            'shipping_first_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
+                            'shipping_last_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
+                            'shipping_country' =>    'required',
+                            'shipping_state' =>    'required',
+                            'shipping_phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
+                            'shipping_email' => 'required|email|max:70',
+                            'shipping_address' => 'required',
+                            // 'zipcode' => 'regex:/^([0-9\+]*)$/|max:10',
+                        ],
+                        [
+                            'shipping_first_name.required' => 'The first name field is required.',
+                            'shipping_last_name.required' => 'The last name field is required.',
+                            'shipping_country.required' => 'The country field is required.',
+                            'shipping_state.required' => 'The state field is required.',
+                            'shipping_phone.required' => 'The phone field is required.',
+                            'shipping_email.required' => 'The email field is required.',
+                            'shipping_address.required' => 'The address field is required.',
+                            'shipping_first_name.regex' => 'The first name may only contain letters and spaces.',
+                            'shipping_last_name.regex' => 'The last name may only contain letters and spaces.',
+                            'shipping_phone.regex' => 'The phone may only contain numbers and +.',
+                            'shipping_first_name.min' => 'The first name must be at least 2 characters.',
+                            'shipping_last_name.min' => 'The last name must be at least 2 characters.',
+                            'shipping_phone.min' => 'The phone must be at least 7 characters.',
+                            'shipping_first_name.max' => 'The first name may not be greater than 30 characters.',
+                            'shipping_last_name.max' => 'The last name may not be greater than 30 characters.',
+                            'shipping_phone.max' => 'The phone may not be greater than 20 characters.',
+                            'shipping_email.email' => 'The email must be a valid email address',
+                        ]);
+                            session(['first_name' => $request->shipping_first_name]);
+                            session(['last_name' => $request->shipping_last_name]);
+                            session(['email' => $request->shipping_email]);
+                            session(['phone' => $request->shipping_phone]);
+                            session(['country' => $request->shipping_country]);
+                            session(['state' => $request->shipping_state]);                  
+                            session(['address' => $request->shipping_address]);
+                            session(['zipcode' => $request->shipping_zipcode]);
+                            session(['address_choose' => $request->choose]);
+
+                            session(['billing_first_name' => session('first_name')]);
+                            session(['billing_last_name' => session('last_name')]);
+                            session(['billing_phone' => session('phone')]);
+                            session(['billing_country' => session('country')]);
+                            session(['billing_state' => session('state')]);
+                            session(['billing_email' => session('email')]);
+                            session(['billing_address' => session('address')]);
+                            session(['billing_zipcode' => session('zipcode')]);
+                            session(['address_choose' => 'same']);
+
+                            session(['shipping_first_name' => session('first_name')]);
+                            session(['shipping_last_name' => session('last_name')]);
+                            session(['shipping_phone' => session('phone')]);
+                            session(['shipping_country' => session('country')]);
+                            session(['shipping_state' => session('state')]);
+                            session(['shipping_email' => session('email')]);
+                            session(['shipping_address' => session('address')]);
+                            session(['shipping_zipcode' => session('zipcode')]);
+                            session(['address_choose' => 'same']);
+                           
+                            
+                    }
+                    else{
+                        session()->forget('billing_first_name');
+                        session()->forget('billing_last_name');
+                        session()->forget('billing_phone');
+                        session()->forget('billing_country');
+                        session()->forget('billing_email');
+                        session()->forget('billing_address');
+                        session()->forget('billing_zipcode');
+                        session()->forget('address_choose');
+
+                        session()->forget('shipping_first_name');
+                        session()->forget('shipping_last_name');
+                        session()->forget('shipping_phone');
+                        session()->forget('shipping_state');
+                        session()->forget('shipping_state');
+                        session()->forget('shipping_address');
+                        session()->forget('shipping_zipcode');
+                        session()->forget('address_choose');
+
+                        session(['first_name' => $request->shipping_first_name]);
+                        session(['last_name' => $request->shipping_last_name]);
+                        session(['email' => $request->shipping_email]);
+                        session(['phone' => $request->shipping_phone]);
+                        session(['country' => $request->shipping_country]);
+                        session(['state' => $request->shipping_state]);                  
+                        session(['address' => $request->shipping_address]);
+                        session(['zipcode' => $request->shipping_zipcode]);
+                        session(['address_choose' => $request->choose]);
+
+                        session(['shipping_first_name' => session('first_name')]);
+                        session(['shipping_last_name' => session('last_name')]);
+                        session(['shipping_phone' => session('phone')]);
+                        session(['shipping_country' => session('country')]);
+                        session(['shipping_state' => session('state')]);
+                        session(['shipping_email' => session('email')]);
+                        session(['shipping_address' => session('address')]);
+                        session(['shipping_zipcode' => session('zipcode')]);
+                        session(['address_choose' => 'different']);
+                    }
+                    $orderConfirm = Helper::checkConfirmOrder();
+                    $orderC = false;
+                    if($orderConfirm == "true"){
+                        $orderC = true;
+                    }
+                    else{
+                        $orderC = false;
+                    }
+                 
+                    $calculation_box = Helper::calculationBox();
+                    echo json_encode(array('status' => 'true', 'message' => 'Address has been added successfully','calculation_box'=>$calculation_box , 'reload'=>$orderC));
                 }
-
-
             } else {
                 abort(403, 'You are not authorised');
             }
@@ -829,7 +825,7 @@ class CartController extends Controller
     // }
     public function billing_address_store(Request $request)
     {
-       
+  
         if($request->address){
                
             $request->validate([
@@ -880,6 +876,7 @@ class CartController extends Controller
                 echo json_encode(array('status' => 'false', 'message' => "Error while " . $text . "ing the address, Please try after sometime"));
             }
         } else {
+           
             $account_type = $request->account_type;
             $request->validate([
                 'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
@@ -1200,17 +1197,22 @@ class CartController extends Controller
                         if ($order_customer->save()) {
                             $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
                             foreach (Cart::session(session('session_key'))->getContent() as $row) {
-                                $product = Product::find($row->id);
+                          
+                                $product_id = $row->attributes->product_id;
+                                $product = Product::find( $product_id);
                                 $detail = new OrderProduct;
                                 $detail->order_id = $order->id;
-                                if (strpos($row->id, '_') !== false) {
-                                    $productIdData = explode('_', $row->id);
+                                if (strpos( $product_id, '_') !== false) {
+                                    $productIdData = explode('_',  $product_id);
                                     $detail->product_id = $productIdData[0];
                                 } else {
-                                    $detail->product_id = $row->id;
+                                    $detail->product_id =  $product_id;
                                 }
                                 $detail->qty = $row->quantity;
-                                $detail->color = $row->attributes->color;
+                                $detail->size = $row->attributes->size;
+                                $detail->mount = $row->attributes->mount;
+                                $detail->type = $row->attributes->type;
+                                $detail->frame = $row->attributes->frame;
                                 $detail->cost = $row->price;
                                 $detail->offer_id = $row->attributes->offer;
                                 $detail->offer_amount = $row->attributes->offer_amount;
@@ -1359,13 +1361,13 @@ class CartController extends Controller
             if (Helper::sendOrderPlacedMail($order->id, '1')) {
                 return array(
                     'status' => true,
-                    'message' => 'Order "TOS' . $order->order_code . '" has been placed successfully',
+                    'message' => 'Order "ARTMYST' . $order->order_code . '" has been placed successfully',
                     'data' => '/response/' . $order->id,
                 );
             } else {
                 return array(
                     'status' => true,
-                    'message' => 'Order "TOS' . $order->order_code . '" has been placed successfully, error while send the mail',
+                    'message' => 'Order "ARTMYST' . $order->order_code . '" has been placed successfully, error while send the mail',
                     'data' => '/response/' . $order->id,
                 );
             }
@@ -1422,6 +1424,7 @@ class CartController extends Controller
             } else {
                 $orderData = Order::with('orderProducts')->with('orderCustomer')->with('orderCoupons')->find($order_id);
             }
+            $banner = Banner::type('contact')->first();
             return view('web.thank_you', compact('order', 'seo_data'));
         } else {
             return view('web.404');
@@ -1480,7 +1483,7 @@ class CartController extends Controller
                     $updateOrder->status = "Cancelled";
                     if ($updateOrder->save()) {
                         Helper::sendOrderCancelledMail($orderData, $request->reason, $updateOrder);
-                        return response()->json(['status' => 'success-reload', 'message' => "Order 'TOS" . $orderData->order_code . "' has been cancelled"]);
+                        return response()->json(['status' => 'success-reload', 'message' => "Order 'ARTMYST" . $orderData->order_code . "' has been cancelled"]);
                     } else {
                         return response()->json(['status' => 'error', 'message' => 'Error : Please enter a valid email id']);
                     }
@@ -1549,7 +1552,7 @@ class CartController extends Controller
                     if ($updateOrder->save()) {
                         return response(array(
                             'status' => true,
-                            'message' => "Order 'TOS#" . $orderData->order_code . "' has been returned",
+                            'message' => "Order 'ARTMYST#" . $orderData->order_code . "' has been returned",
                             'type' => 'success',
                             'key' => 'Success',
                         ), 200, []);

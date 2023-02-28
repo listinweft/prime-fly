@@ -156,7 +156,7 @@ class WebController extends Controller
     public function blogs()
     {
         $banner = Banner::type('blogs')->first();
-        $heading = HomeHeading::type('blog')->first();
+         $heading = HomeHeading::type('blog')->first();
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
 
@@ -239,7 +239,8 @@ class WebController extends Controller
             $parentCategories = Category::active()->isParent()->get();
             $banner = $category;
             $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
 
@@ -270,9 +271,10 @@ class WebController extends Controller
             $seo_data = $color;
 
             $allProducts = Product::active()->first();
-            $banner = $allProducts;
+            $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($color->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
 
@@ -302,9 +304,10 @@ class WebController extends Controller
             $seo_data = $shape;
             // $parentCategories = Category::active()->isParent()->get();
             $allProducts = Product::active()->first();
-            $banner = $allProducts;
+            $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($shape->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
 
@@ -335,7 +338,7 @@ class WebController extends Controller
                 $seo_data = $deal;
                 $banner = $deal;
                 $parentCategories = Category::active()->isParent()->get();
-                $condition = Product::active()->whereIn('id', explode(',', $deal->products));
+                $condition = Product::active()->whereIn('id', explode(',', $deal->products))->where('copy','no');
                 $totalProducts = $condition->count();
                 $products = $condition->latest()->take(12)->get();
                 $colors = Color::active()->get();
@@ -379,7 +382,7 @@ class WebController extends Controller
 
     public function main_search_products($search_param)
     {
-        $condition = Product::active()->where('title', 'LIKE', "%{$search_param}%");
+        $condition = Product::active()->where('title', 'LIKE', "%{$search_param}%")->where('copy','no');
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(30)->get();
         $parentCategories = Category::active()->isParent()->get();
@@ -432,6 +435,7 @@ class WebController extends Controller
             $starPercent3 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 3) * 100 / $totalReviews) : 0;
             $starPercent4 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 4) * 100 / $totalReviews) : 0;
             $starPercent5 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 5) * 100 / $totalReviews) : 0;
+            
 
             if($product->product_type_id == 1){
                 return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
@@ -509,7 +513,7 @@ class WebController extends Controller
        $shapes = Shape::latest()->get();
        $shapescount = count($shapes);
 
-     
+
         return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
             'title', 'type', 'typeValue', 'sort_value','shapescount'));
     }
@@ -517,8 +521,8 @@ class WebController extends Controller
     public function filterCondition(Request $request)
     {
 
-       
-       
+
+
 
         $price_range = explode('-', str_replace('AED', '', $request->my_range));
 
@@ -526,9 +530,9 @@ class WebController extends Controller
          if (!empty($price_range)) {
 
 
-         
-          
-            
+
+
+
 
              $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
                 $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
@@ -569,7 +573,7 @@ class WebController extends Controller
             }
         }
 
-        
+
         //color filtering
         if ($request->input_field != NULL) {
             $condition = $condition->where(function ($query) use ($inputs, $request) {
@@ -746,7 +750,7 @@ class WebController extends Controller
                 'email' => 'required|email',
                 // 'designation' => 'required',
                 'name' => 'required',
-                'review' => 'required',
+                'message' => 'required',
             ]);
             $email = $request->email;
             $name = $request->name;
@@ -756,7 +760,7 @@ class WebController extends Controller
         $testimonial->name = $name;
         $testimonial->rating = round($request->rating);
         $testimonial->designation = $request->designation;
-        $testimonial->message = $request->message;
+        $testimonial->message = '<p>'.$request->message.'</p>';
         $testimonial->user_type = "Customer";
         $testimonial->status = "Inactive";
         //$testimonial->review = $request->review;

@@ -589,25 +589,25 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.remove-cart-item', function () {
-        var id = $(this).data('id');
-        
+        var id = $(this).attr('id');
+        var _token = token;
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: {cart_id: id},
+            data: {cart_id: id, _token: _token},
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: base_url + '/remove-cart-item',
             success: function (response) {
                 if (response.status == true) {
-                    swal.fire({
+                    swal({
+                        title: "Done it!",
                         text: response.message,
                         type: "success"
+                    }, function () {
+                        window.location.reload();
                     });
-                    setTimeout(() => {
-                        location.reload();
-                    }, 900);
                 } else {
                     $.notify(response.message, "error");
                 }
@@ -684,43 +684,43 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click','#confirm_payment',function(){
-        if($('#terms-condition').prop('checked')==true){
-            $('#confirm-order-error').html('');
-            if($('.payment_method').val()=="cod"){
-                $('.order-submit-loader').show();
-                var _token = token;
-                $.ajax({
-                    type:'POST',
-                    dataType:'json',
-                    data:{_token:_token},
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: base_url+'/submit-order-by-cod',
-                    success:function(response){
-                        $('.order-submit-loader').hide();
-                        if(response.status==true){
-                            swal({
-                                title: "Done it!",
-                                text: response.message,
-                                type: "success"
-                            }, function() {
-                                $('#submit-loader').hide();
-                                window.location.href = base_url+'/response/'+response.data;
-                            });
-                        }else{
-                            $.notify(response.message, "error");
-                        }
-                    }
-                });
-            }else{
-                alert('online payment');
-            }
-        }else{
-            $('#confirm-order-error').html('Please accept the terms & condition').css({'color':'red'});
-        }
-    });
+    // $(document).on('click','#confirm_payment',function(){
+    //     if($('#terms-condition').prop('checked')==true){
+    //         $('#confirm-order-error').html('');
+    //         if($('.payment_method').val()=="cod"){
+    //             $('.order-submit-loader').show();
+    //             var _token = token;
+    //             $.ajax({
+    //                 type:'POST',
+    //                 dataType:'json',
+    //                 data:{_token:_token},
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 url: base_url+'/submit-order-by-cod',
+    //                 success:function(response){
+    //                     $('.order-submit-loader').hide();
+    //                     if(response.status==true){
+    //                         swal({
+    //                             title: "Done it!",
+    //                             text: response.message,
+    //                             type: "success"
+    //                         }, function() {
+    //                             $('#submit-loader').hide();
+    //                             window.location.href = base_url+'/response/'+response.data;
+    //                         });
+    //                     }else{
+    //                         $.notify(response.message, "error");
+    //                     }
+    //                 }
+    //             });
+    //         }else{
+    //             alert('online payment');
+    //         }
+    //     }else{
+    //         $('#confirm-order-error').html('Please accept the terms & condition').css({'color':'red'});
+    //     }
+    // });
     $(document).on('click', '.form_submit_btn', function (e) {
 
         e.preventDefault();
@@ -872,15 +872,38 @@ $(document).ready(function () {
                     }, url: base_url + '/submit-review', success: function (response) {
 
 
+
+
+
+
                         if (response.status == "true") {
+
+
+
+
                             $("#reviewForm")[0].reset();
-                            $("#reviewModal").modal('hide');
-                            Toast.fire({
-                                title: "Done it!", text: response.message, icon: "success"
+                             $("#reviewModal").modal('hide');
+                             $(".successModalForm").modal('show');
 
-                            });
+                            document.getElementById("myspan").innerHTML=response.message;
 
-                            //window.location.reload();
+                            // Toast.fire({
+                            //     title: "Done it!", text: response.message, icon: "success"
+
+                            // });
+
+
+                            document.getElementById("myspan").innerHTML=response.message;
+                            const myTimeout = setTimeout(myGreeting, 2000);
+
+                            function myGreeting() {
+
+                                 $('.successModalForm').delay(2000).fadeOut();
+
+                                 window.location.reload();
+
+
+                              }
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
@@ -1080,7 +1103,7 @@ $(document).ready(function () {
                     if (data.status == 'error') {
                         swal.fire('Error !', data.message, 'error');
                     } else {
-                       
+                        alert("nnc");
                         var resp = data.message;
                         var len = resp.length;
                         $("#" + form_id + " #state").empty().append("<option value=''>Select Emirate</option>");

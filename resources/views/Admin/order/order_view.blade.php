@@ -87,8 +87,10 @@
                                             <th>#</th>
                                             <th>Product</th>
                                             <th>Cost</th>
-                                            <th>Size / Pieces</th>
-                                            <th>Color</th>
+                                            <th>Type</th>
+                                            <th>Frame Colour</th>
+                                            <th>Size</th>
+                                        
                                             <th>Quantity</th>
                                             <th>Status</th>
                                             <th>Price</th>
@@ -110,13 +112,32 @@
                                             }
                                             @endphp
                                             <tr>
+                                                @php
+                                                $frame = App\Models\Frame::where('id',$product->frame)->first();
+                                                $type = App\Models\ProductType::where('id',$product->type)->first();
+                                                   $size = App\Models\Size::where('id',$product->size)->first();
+                                            @endphp
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>
                                                     {{$product->productData->title}}
                                                 </td>
                                                 <td>{{$order->currency}} {{$product->cost}}</td>
-                                                <td>{{$product->measurement_unit}}</td>
-                                                <td>{{($product->colorData)?ucfirst($product->colorData->title):''}}</td>
+                                                <td>
+                                                    @if(@$type)
+                                                    {{ $type->title }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(@$frame)
+                                                    {{ $frame->title }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(@$size)
+                                                    {{ $size->title }}
+                                                    @endif
+                                                </td>
+                                               
                                                 <td>{{$product->qty}}</td>
                                                 <td>
                                                     <select name="status" id="orderStatus" class="form-control"

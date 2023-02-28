@@ -86,14 +86,14 @@ class HomeController extends Controller
 
     }
     public function product_validate(){
-       
+
         $validatedData = request()->validate([
             'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
             'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
         ]);
         // return the validated data
         return $validatedData;
-        // 
+        //
     }
 
     public function update_home_heading(Request $request)
@@ -472,7 +472,7 @@ class HomeController extends Controller
 //        $banner->title = $request->title;
         $banner->image_attribute = $validatedData['image_attribute'];
         $banner->url = $request->url;
-      
+
         $banner->updated_at = now();
         if ($banner->save()) {
             session()->flash('success', "Home Banner image has been updated successfully");
@@ -870,7 +870,7 @@ class HomeController extends Controller
     public function usertestimonial()
     {
         $title = "User Testimonial List";
-        $testimonialList = Testimonial::where('user_type','Customer')->get();
+        $testimonialList = Testimonial::where('user_type','Customer')->latest()->get();
         return view('Admin.home.user_testimonial.list', compact('testimonialList', 'title'));
     }
 
