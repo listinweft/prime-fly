@@ -35,7 +35,10 @@
                             <div class="item position-relative">
                                 <div class="fotorama__stage__frame" >
                                     <div class="fotorama__html">
-                                        <img class="framed-canvas fotorama__img frame_product_detail_img imageMountClass" style="border: 15px solid #ffffff !important;" src="{{asset($product->thumbnail_image)}}" aria-hidden="false">
+                                        @php
+                                            $fr = \App\Models\Frame::where('id',1)->first();
+                                        @endphp
+                                        <img class="framed-canvas fotorama__img frame_product_detail_img imageMountClass" style="border: 15px solid {{$fr->code}} !important;" src="{{asset($product->thumbnail_image)}}" aria-hidden="false">
                                     </div>
                                 </div>
                             </div>
@@ -130,14 +133,12 @@
                         @endif
                     </div>
                     <div class="price">
-                        @php
-                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->first();
-                        @endphp
-                        @if(Helper::offerPrice($product->id)!='')
-                            <h5 id="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h5>
+                        @if(Helper::offerPrice($product->id)!='') 
+                        <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  </h5>
+                        
                         @else
-                            <h5 id="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
-                            <h5></h5>
+                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
+                            <h5 class="product_price"></h5>
                         @endif
                     </div>
                 </div>
@@ -181,7 +182,7 @@
                             $n = 1;
                         @endphp
                         @foreach ($productFrames as $frame)
-                        <div class="item {{ $frm->id == $frame->id ?  'active'  : '' }}  colorBtn" data-color="{{$frame->code}}" data-img="{{asset($frame->image)}}" data-id="{{$frame->id}}">
+                        <div class="item {{ $frm->id == $frame->id ?  'active'  : '' }}  colorBtn frame" data-color="{{$frame->code}}" data-img="{{asset($frame->image)}}" data-id="{{$frame->id}}">
                             <div class="colorBox" style="background: {{$frame->code}}">
 
                             </div>
@@ -207,13 +208,13 @@
                             Mount
                         </h5>
                         <div class="relatedProductsTypesWrapper">
-                            <div class="item active mountSpaceBtn btnMountClass" >
+                            <div class="item active mountSpaceBtn btnMountClass mount"  data-mount="Yes">
                                 <div class="colorBox" >
                                     <img class="img-fluid w-100" src="{{asset('frontend/images/frame/wooden-frame-no-mount.jpg')}}" alt="">
                                 </div>
                                 <p>With Mount</p>
                             </div>
-                            <div class="item mountSpaceBtn">
+                            <div class="item mountSpaceBtn mount" data-mount= "No">
                                 <div class="colorBox" >
                                     <img class="img-fluid w-100" src="{{asset('frontend/images/frame/wooden-frame-mount.jpg')}}" alt="">
                                 </div>
@@ -253,11 +254,11 @@
                     <div class="priceQuantityArea">
                         <div class="priceArea">  
                             @if(Helper::offerPrice($product->id)!='') 
-                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}</h3>
-                                <h6>{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  
+                                <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
                             @else
-                                <h3 class="price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
-                                <h6></h6>
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
+                                <h6 class="product_price"></h6>
                             @endif
                         </div>
                         <div class="quantity_parice_order_area">

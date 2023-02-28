@@ -33,18 +33,12 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        Shape :
-                                        @foreach ($product->product_shape as $shape)
-                                            <span>, {{ $shape->title }}</span>
-                                        @endforeach
+                                        Type :
+                                       
+                                            <span>, {{ $product->productType->title }}</span>
+                                  
                                     </li>
-                                    <li>
-                                        color : 
-                                        @foreach ($product->product_color as $color)
-                                        <span>,  {{ $color->title }}</span>
-                                        @endforeach
-                                    
-                                    </li>
+                                   
                                     <li>
                                         @php
                                             $size = App\Models\Size::find($row->attributes['size']);

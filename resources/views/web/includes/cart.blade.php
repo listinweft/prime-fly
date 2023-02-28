@@ -36,22 +36,29 @@ $sessionKey  =  Helper::getSessionKey();
                                             <li>
                                                 Type :
                                                
-                                                    <span>, {{ $product->productType->title }}</span>
+                                                    <span> {{ $product->productType->title }}</span>
                                            
                                             </li>
+                                            @if($row->attributes['frame'] != null)
                                             <li>
-                                                color : 
-                                                @foreach ($product->product_color as $color)
-                                                <span>,  {{ $color->title }}</span>
-                                                @endforeach
-                                            
+                                                Frame Colour :
+                                            @php
+                                                $frame = App\Models\Frame::find($row->attributes['frame']);
+                                            @endphp
+                                                <span> {{ $frame->title }}</span>
                                             </li>
+                                            @endif
+                                            @if($row->attributes['mount'] != null)
                                             <li>
-                                                @php
-                                                    $size = App\Models\Size::find($row->attributes['size']);
-                                                @endphp
-                                                Size : <span>{{ $size->title }}</span>
+                                                Mount : 
+                                                @if($row->attributes['mount'] == 'Yes')
+                                                    <span> With Mount</span>
+                                                @else
+                                                    <span> No Mount</span>
+                                                @endif
                                             </li>
+                                            @endif
+                                          
                                         </ul>
                                     </a>
                                 </div>

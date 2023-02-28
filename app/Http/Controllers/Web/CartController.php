@@ -153,8 +153,8 @@ class CartController extends Controller
         $product = Product::find($product_id);
       
         $product->price = $product->price;
-      
-     
+        $product->frame = ($request->frame_id) ?$request->frame_id : null;
+        $product->mount = ($request->mount) ?$request->mount : null;
         $n = $product->id;
         $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
         $product->price = $productPrice->price;
@@ -233,6 +233,8 @@ class CartController extends Controller
                         'type' => $product->product_type_id,
                         'offer_amount' => $offer_amount,
                         'base_price' => $product->price,
+                        'mount' => $product->mount,
+                        'frame' => $product->frame,
                       
                     ),
                 ]);
@@ -244,7 +246,7 @@ class CartController extends Controller
                 if ($wish_list->get($product->id)) {
                     $wish_list->remove($product->id);
                 }
-          
+       
                 Cart::session($sessionKey)->add(array(
                 
                     'id' => uniqid(),
@@ -263,6 +265,8 @@ class CartController extends Controller
                  
                         'size' => $product->size,
                         'type' => $product->product_type_id,
+                        'mount' => $product->mount,
+                        'frame' => $product->frame,
                     ),
                 ));
             }

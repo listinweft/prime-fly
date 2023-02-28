@@ -511,7 +511,8 @@ $(document).ready(function () {
    // take value of active size class
         var size = $('.size.active').data('id');
         var type_id   = $('.size.active').data('product_type_id');
-        
+        var frame_id = $('.frame.active').data('id');
+        var mount = $('.mount.active').data('mount');
         var checkout = $(this).data('checkout');
         var cartText = $('.cart-action-span').html();
         var id = $(this).data('id');
@@ -535,7 +536,9 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: { size : size, type_id: type_id, product_id: id,qty: qty, countRelative: countRelative,attributeList:attributeList},
+            data: { size : size, type_id: type_id, product_id: id,qty: qty, countRelative: countRelative,attributeList:attributeList,
+                frame_id:frame_id,mount:mount,
+            },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -574,7 +577,7 @@ $(document).ready(function () {
                         }
                     }
                     setTimeout(() => {
-                        // location.reload();
+                        location.reload();
                     }, 1000);
                 } else {
                     swal.fire({
