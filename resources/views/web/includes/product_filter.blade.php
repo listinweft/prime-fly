@@ -223,6 +223,7 @@
     </div>
 </div>
 
+
 <input type="hidden" id="sort_value" name="sort_value"
                        value="{{ $sort_value }}">
                 <input type="hidden" id="input_field" name="input_field">
