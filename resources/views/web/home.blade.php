@@ -158,7 +158,7 @@
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
-                
+
                 <h6 class="subHeading">{{@$catHomeHeadings->subtitle}}</h6>
                 <h2 class="mainHeading">{{@$catHomeHeadings->title}}</h2>
                 <div class="headingText">
@@ -184,7 +184,7 @@
                              //count of products under category id
                                 $count = \DB::table('product_category')->where('category_id',$theme->id)->count();
                             @endphp
-                          
+
                             <h6>{{@$count }} items</h6>
                         </div>
                     </div>
@@ -238,11 +238,11 @@
                                             {{-- <div class="my-rating-readonly" data-rating="4"></div> --}}
                                             <div class="price">
                                                 <ul>
-                                                     
-             
+
+
                                                     @if(Helper::offerPrice($product->id)!='')
                                                     <li class="offer">
-                                                       
+
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                                     </li>
                                                     <li>
@@ -303,7 +303,7 @@
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
                                         @endif
-                    
+
                                         <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>

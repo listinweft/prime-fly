@@ -156,7 +156,7 @@ class WebController extends Controller
     public function blogs()
     {
         $banner = Banner::type('blogs')->first();
-        $heading = HomeHeading::type('blog')->first();
+         $heading = HomeHeading::type('blog')->first();
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
 
@@ -753,7 +753,7 @@ class WebController extends Controller
         $testimonial->name = $name;
         $testimonial->rating = round($request->rating);
         $testimonial->designation = $request->designation;
-        $testimonial->message = $request->message;
+        $testimonial->message = '<p>'.$request->message.'</p>';
         $testimonial->user_type = "Customer";
         $testimonial->status = "Inactive";
         //$testimonial->review = $request->review;

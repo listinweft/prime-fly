@@ -74,7 +74,7 @@
                             <h5>Write A Review</h5>
                             <div>
                                 <div class="my-rating " data-rating="0"></div>
-                                <input type="hidden" class="form-control review-required rating" placeholder="rating" name="rating" id="rating">
+                                <input type="hidden"  class="form-control review-required rating" placeholder="rating" name="rating" id="rating">
                             </div>
                         </div>
                         <div class="row">
@@ -115,7 +115,7 @@
 </div>
 <!-- Review Modal End -->
 
-<a href=""hidden  data-bs-toggle="modal" data-bs-target="#successModal" class="primary_btn form_submit_btn">Success</a>
+<a href=""  data-bs-toggle="modal" data-bs-target="#successModal" class="primary_btn form_submit_btn">Success</a>
 <!-- Success Modal Start -->
 <div class="modal fade successModalForm" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -126,7 +126,7 @@
                 <div class="modal-body">
                     <img class="img-fluid successIcon" src="{{ asset('frontend/images/svg/success.svg')}}" alt="">
                     <h6>
-                        Thank you for Update
+                        <span class="success_message" id="myspan"></span>
                     </h6>
                 </div>
             </div>

@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <!-- @if(Request::segment(3)=='type') -->
+
             <input type="hidden" name="is_description" id="is_description" value="1">
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -44,7 +44,7 @@
                         @enderror
                     </div>
                 </div>
-            <!-- @endif -->
+
         </div>
         <div class="card-footer">
             <input type="button" id="headingSubmit" data-type="{{ @$home_heading->type ?? $type }}"
