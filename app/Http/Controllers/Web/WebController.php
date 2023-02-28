@@ -368,7 +368,7 @@ class WebController extends Controller
                     $offerPrice = Helper::offerPrice($product->id);
                     $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $$product->productprice->id;
                 } else {
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->id;
+                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->price;
                 }
                 $searchResult[] = array("id" => $product->id, "title" => $product->title, 'price' => $price, 'offer_price' => $offerPrice ?? '', 'image' => ($product->thumbnail_image != NULL && File::exists(public_path($product->thumbnail_image))) ? asset($product->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('product/' . $product->short_url));
             }
