@@ -199,7 +199,7 @@ $(document).ready(function () {
     });
     $(document).on('click', '.product-review-form-btn', function (e) {
         e.preventDefault();
-   
+
         var required = [];
         $('.product-review-required').each(function () {
             var id = $(this).attr('id');
@@ -252,7 +252,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#review-form-btn', function (e) {
         e.preventDefault();
-   
+
         var required = [];
         $('.review-required').each(function () {
             var id = $(this).attr('id');
@@ -338,7 +338,7 @@ $(document).ready(function () {
             if (!$(v).val().length) {
                 errors = true;
                 var error = 'Please enter <strong>' + field_name + '</strong>.';
-                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
+                var msg = '<span class="error invalid-feedback " style="color: red" for="' + field_name + '">' + error + '</span>';
                 $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"]')
                     .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
             } else {
@@ -346,7 +346,7 @@ $(document).ready(function () {
                     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                     if (!regex.test($(v).val())) {
                         errors = true;
-                        msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
+                        msg = '<span class="error invalid-feedback " style="color: red" for="email">Please enter a valid email address</span>';
                         $('#' + form_id).find('input[name="' + field_name + '"]')
                             .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
@@ -504,14 +504,14 @@ $(document).ready(function () {
     });
 
     $('.size').on('click', function () {
-       
+
 
     });
     $(document).on('click', '.cart-action', function () {
    // take value of active size class
         var size = $('.size.active').data('id');
         var type_id   = $('.size.active').data('product_type_id');
-        
+
         var checkout = $(this).data('checkout');
         var cartText = $('.cart-action-span').html();
         var id = $(this).data('id');
@@ -552,7 +552,7 @@ $(document).ready(function () {
                         $('.cartCount').html(response.count);
                         $('.cartTotal').html(response.cartTotal);
                         if (/[,\-]/.test(id)) {
-                          
+
                             var idArray = id.split(',');
                             var i;
                             for (i = 0; i < idArray.length; ++i) {
@@ -561,14 +561,14 @@ $(document).ready(function () {
                                 $('#wishlistBox_' + idArray[i]).remove();
                             }
                         } else {
-                        
+
                             $('#wishlist_check_' + id).removeClass('fill');
                             $('#wishlistBox_' + id).remove();
                         }
                         Toast.fire({
                             title: "Done it", text: response.message, icon: "success"
                         });
-                       
+
                         if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "profile" || urlLastSegment == "wishlist") {
                             location.reload();
                         }
@@ -751,7 +751,7 @@ $(document).ready(function () {
                     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                     if (!regex.test($(v).val())) {
                         errors = true;
-                        msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
+                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
                         $('#' + form_id).find('input[name="' + field_name + '"]')
                             .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
@@ -805,7 +805,7 @@ $(document).ready(function () {
                 .fail(function (response) {
                     $this.html(buttonText);
                     $.each(response.responseJSON.errors, function (field_name, error) {
-                        var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
                         $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
                             .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     });
@@ -825,9 +825,9 @@ $(document).ready(function () {
             var id_text = $(this).attr('placeholder');
             if ($('#' + id).val() == '') {
                 required.push($('#' + id).val());
-                $('#' + id).css({'border': '1px solid #FF0000'});
+                $('#' + id).css({'border-bottom': '1px solid #FF0000'});
             } else {
-                $('#' + id).css({'border': '1px solid #d0d0d0'});
+                $('#' + id).css({'border-bottom': '1px solid #d0d0d0'});
             }
         });
 
@@ -837,7 +837,7 @@ $(document).ready(function () {
             if (!$(v).val().length) {
                 errors = true;
                 var error = 'Please enter <strong>' + field_name + '</strong>.';
-                var msg = '<span class="error invalid-feedback" style="color: red" for="' + field_name + '">' + error + '</span>';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
                 $('#reviewForm').find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
                     .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
             } else {
@@ -1013,7 +1013,7 @@ $(document).ready(function () {
     });
     $(document).on('click', '.checkprice', function () {
         var id = $(this).data('id');
-       
+
       //remove active class from all
         $('.checkprice').removeClass('active');
         //add active class to the selected
@@ -1024,7 +1024,7 @@ $(document).ready(function () {
             type: 'POST', dataType: 'json', data: {id,product_id,product_type_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url : base_url+'/product/check-price', success: function (response) {
-               
+
                 if(response.offerPrice != null){
                     $('.offer_price').html(response.offerPrice);
                     $('.product_price').html(response.productPrice);
@@ -1167,8 +1167,8 @@ $(document).ready(function () {
         $(this).closest('.colorItemFilterClick').toggleClass("active") ;
         $(this).closest('.shapeFilterClick').toggleClass("active") ;
         $(this).closest('.tagFilterClick').toggleClass("active") ;
-        
-        
+
+
        var parent = $(this).data('parent');
 
 
@@ -1233,7 +1233,7 @@ $(document).ready(function () {
 
     $(document).mouseup(function (e) {
         var container = $("#main-search");
-       
+
         // if the target of the click isn't the container nor a descendant of the container
         if (!container.is(e.target) && container.has(e.target).length === 0) {
             $('.searchResult').hide();
@@ -1265,7 +1265,7 @@ $(document).ready(function () {
                         var resp = response.message;
                         var len = response.message.length;
                         if (len > 0) {
-                            
+
                             $('#search-result-append-here').html('');
                             for (var i = 0; i < len; i++) {
                                 var id = resp[i]['id'];
@@ -1339,17 +1339,17 @@ $(document).ready(function () {
                     $('#confirm_payment').attr('disabled', false);
                     setTimeout(() => {
                         // window.location.reload();
-                        
+
                     }, 1500);
                 }
             })
-          
+
 
             .fail(function (response) {
-                
+
                 // $(this).html(buttonText);
                 $.each(response.responseJSON.errors, function (field_name, error) {
-               
+
                     var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
                     $("#addShippingAddressForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
                         .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
