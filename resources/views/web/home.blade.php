@@ -13,7 +13,7 @@
                                 <h1>
                                     <strong>{{$banner->title}}</strong> {{$banner->subtitle}}
                                 </h1>
-
+                            
                                     {!!$banner->description!!}  .
                                 @if ($banner->button_text == '' || $banner->button_text == null)
                                 <a href="{{$banner->url}}" class="primary_btn">
@@ -158,7 +158,7 @@
     <div class="shopSection">
         <div class="container">
             <div class="col-12 text-center">
-                <h6 class="subHeading">{{$catHomeHeadings->subtitle}}</h6>
+                <h6 class="subHeading">{{$catHomeHeadings->sub_title}}</h6>
                 <h2 class="mainHeading">{{$catHomeHeadings->title}}</h2>
                 <div class="headingText">
                    {!! $catHomeHeadings->description !!}
@@ -172,26 +172,13 @@
                     @foreach ($themes as $theme)
                     <div class="shopSectionItem shopSectionItemBg{{$n}}">
                         <div class="wrapper">
-
                             <div class="imgBox">
                                 {!! Helper::printImage(@$theme, 'image', 'image_webp', '', 'img-fluid') !!}
                                 {{-- <img class="img-fluid"src="{{ asset('frontend/images/themes/themes-01.jpg')}}" alt=""> --}}
                             </div>
                             <h5>{{$theme->title}}</h5>
-                        @php
-                        // get all products count by category
-                            $productCategoryCount = \DB::table('product_category')->where('category_id', $theme->id)->get();
-
-                            $productIDs = [];
-                            foreach ($productCategoryCount as $key => $value) {
-                                $productIDs[] = $value->product_id;
-                            }
-                         $arrayCount = count($productIDs);
-
-                        @endphp
-                            <h6>{{$arrayCount}} items</h6>
-                            {{-- <h6>{{@$productCategoryCount }} items</h6> --}}
-
+                        
+                            {{-- <h6>{{@$count }} items</h6> --}}
                         </div>
                     </div>
                     @php
@@ -236,7 +223,7 @@
                                         <h6>{{ $product->title }}</h6>
                                         @foreach ($product->product_categories as $category)
                                             <p>{{ $category->title }}</p>
-
+                                            
                                         @endforeach
                                         <p>Poster Art</p>
                                         <div class="starPrice">
@@ -253,14 +240,14 @@
                                                     <li>
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                     </li>
-
-
+                                                 
+                                                   
                                                     @else
                                                     <li>
                                                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
                                                     </li>
                                                     <li>
-
+                                                       
                                                     </li>
                                                     @endif
                                                 </ul>
@@ -290,7 +277,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-12 pt-60">
-
+               
                     <div class="testimonialsSlider">
                     @if($testimonials->isNotEmpty())
                     @foreach( $testimonials as $blog)
@@ -303,26 +290,26 @@
                                     <h3>{{ @$blog->name }}</h3>
                                     <h6>{{ @$blog->designation }}</h6>
                                     <div class="reviewIconStar">
-                                        @if(@$blog->review_type == "Google" )
+                                        @if(@$blog->review_type!=="Normal")
                                         <div class="icon">
                                             <img class="imgBox"src="{{ asset('frontend/images/google.png')}}" alt="">
                                         </div>
                                         @endif
+                    
                                         <div class="my-rating-readonly" data-rating={{$blog->rating}}></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="textWrapper">
-
-                                {!! @$blog->message !!}
-
+                            {!! @$blog->message !!}
+                            
                             </div>
                         </div>
                         @endforeach
                         @endif
-
+                       
                     </div>
-
+                    
                 </div>
                 <div class="col-12 text-center mt-md-5">
                     <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn">Add Your Review</a>
@@ -333,5 +320,5 @@
 <!--Home Testimonial End-->
 @endsection
 @push('scripts')
-
+    
 @endpush

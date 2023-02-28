@@ -35,7 +35,7 @@
                                     
                                 <li>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input filterItem" type="checkbox" value="{{$subCategory->id}}"  name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
+                                                                        <input class="form-check-input filterItem" type="checkbox" value="{{$subCategory->id}}" id="flexCheckDefault02" name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
                                                                                id="Category_{{$subCategory->id}}"
                                                                                data-field="sub_category_id"
                                                                                value="{{ $subCategory->id }}"
@@ -72,25 +72,54 @@
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
             <div class="accordion-body">
                 <div class="colorWrapper">
-                @foreach($colors as $color)
                     <a href="javascript:void(0)" class="colorItem colorItemFilterClick">
-                        <input type="checkbox"  name="color_id[]" id="Color_{{$color->id}}" data-field="color_id"
-                                                               value="{{ $color->id }}" data-label="Color"
-                                                               data-title="{{$color->title}}"
-                                                               {{ $color->short_url == $typeValue?'checked':'' }}
-                                                               class="form-check-input filterItem d-none">
-                        <label for="Color_{{$color->id}}" class="colorBox" style="background:{{$color->code}}">
-                        </label>
+                        <div class="colorBox" style="background: #292929">
+                        </div>
                     </a>
-                    @endforeach
-                    
-                    
-                    
-                   
-                    
-                    
-                   
-                    
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #FFFFFF">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #71A9BA">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #637372">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #F5F4DF">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #75829D">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #BDB8CE">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #FBC9CC">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #EF7F55">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #BDC39F">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #E1C564">
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="colorItemFilterClick">
+                        <div class="colorBox" style="background: #C4CACE">
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -130,17 +159,18 @@
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
             <div class="shapeArea">
-            @foreach($shapes as $shape)
-                <a href="javascript:void(0)" class="colorItemFilterClicks">
-                    {!! Helper::printImage($shape, 'image', 'image_webp', '', 'img-fluid') !!}
-                    <h6 for="Shape_{{$shape->id}}">{{ @$shape->title }}</h6>
-                    <input type="checkbox"  name="shape_id[]" id="Shape_{{$shape->id}}" data-field="shape_id"
-                                                               value="{{ $shape->id }}" data-label="Shape"
-                                                               data-title="{{$shape->title}}"
-                                                               {{ $color->short_url == $typeValue?'checked':'' }}
-                                                               class="form-check-input filterItem">
+                <a href="javascript:void(0)" class="shapeFilterClick">
+                    <img class="Img-fluid" src="{{ asset('frontend/images/shapePortrait.jpg')}}" alt="">
+                    <h6>Portrait</h6>
                 </a>
-                @endforeach
+                <a href="javascript:void(0)" class="shapeFilterClick">
+                    <img class="Img-fluid" src="{{ asset('frontend/images/shapeLandscape.jpg')}}" alt="">
+                    <h6>Landscape</h6>
+                </a>
+                <a href="javascript:void(0)" class="shapeFilterClick">
+                    <img class="Img-fluid" src="{{ asset('frontend/images/shapeSquare.jpg')}}" alt="">
+                    <h6>Square</h6>
+                </a>
             </div>
         </div>
     </div>

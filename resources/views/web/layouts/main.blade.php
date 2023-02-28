@@ -68,42 +68,35 @@
             </div>
             <div class="modal-body">
                 <div class="formArea">
-                    <form action="" method="POST" id="reviewForm" name="reviewForm">
-
-                        <div class="head">
-                            <h5>Write A Review</h5>
-                            <div>
-                                <div class="my-rating " data-rating="0"></div>
-                                <input type="hidden" class="form-control review-required" placeholder="rating" name="rating" id="rating">
-                            </div>
-                        </div>
+                    <div class="head">
+                        <h5>Write A Review</h5>
+                        <div class="my-rating" data-rating="0"></div>
+                    </div>
+                    <form action="">
                         <div class="row">
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control review-required" placeholder="Full Name" name="name" id="name">
+                                    <input type="text" class="form-control" placeholder="Full Name">
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control review-required" placeholder="Designation" name="designation" id="designation">
+                                    <input type="text" class="form-control" placeholder="Designation">
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="form-group">
-                                    <input type="email" class="form-control review-required" placeholder="Email Address" name="email" id="email">
+                                    <input type="text" class="form-control" placeholder="Email Address">
                                 </div>
                             </div>
-
                             <div class="col-12 message">
                                 <div class="form-group">
-                                    <textarea class="form-control review-required" placeholder="Say Something" name="message" id="message"></textarea>
+                                    <textarea class="form-control" placeholder="Say Something"></textarea>
                                 </div>
                             </div>
-                            <input type="hidden" name="user_type" value="user_type">
-                            {{-- <input type="hidden" name="" value="2"> --}}
                             <div class="col-12x ">
                                 <div class="form-group d-flex align-items-end mb-0">
-                                    <button type="submit" class="primary_btn review-form-btn">Submit</button>
+                                    <button type="submit" class="primary_btn ">Submit</button>
                                 </div>
                             </div>
                         </div>

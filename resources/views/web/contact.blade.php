@@ -107,7 +107,7 @@
                 <div class="col-lg-6  ps-0">
                     <div class="formArea">
                         <h5>Enquire Now</h5>
-                        <form method="post" id="enquiry" action="{{ url('contact') }}" name="enquiry">
+                        <form method="POST" id="enquiry" action="{{ url('contact') }}" name="enquiry">
                             <div class="row">
                                 <div class=" col-12">
                                     <div class="form-group">
@@ -149,7 +149,7 @@
                                 <div class="col-12x ">
                                     <div class="form-group d-flex align-items-end">
                                         <input type="hidden" name="type" value="contact">
-                                        <button type="submit" class="primary_btn form_submit_btn"
+                                        <button type="submit" class="primary_btn submit_form_btn"
                                             data-url="/enquiry">Submit</button>
                                     </div>
                                 </div>
