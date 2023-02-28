@@ -769,6 +769,12 @@ header.sticky .navbar-expand-lg .topRightArea .topRightAreaUl .login .dropdown-m
     align-items: center;
     justify-content: center;
   }
+  .navbar .megamenu .shapeWrapper .shapeItem a picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .navbar .megamenu .shapeWrapper .shapeItem a img {
     width: 60%;
     max-width: 220px;
