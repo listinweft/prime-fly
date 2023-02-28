@@ -100,10 +100,12 @@
                                     <h6 class="price{{$product->id}}">{{Helper::defaultCurrency()}} {{number_format($row->price * $row->quantity,2)}}</h6>
                                 </div>
                                 <div class="btns_area">
-                                    <a data-id="{{$product->id}}"
-                                         class="btn_cart my_wishlist  {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}"
-                                         id="wishlist_check_{{$product->id}}"
-                                          href="javascript:void(0) "><i class="fa-solid fa-heart"></i></a>
+                                    @if(Auth::guard('customer')->check())
+                                        <a data-id="{{$product->id}}"
+                                            class="btn_cart my_wishlist  {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}"
+                                            id="wishlist_check_{{$product->id}}"
+                                            href="javascript:void(0) "><i class="fa-solid fa-heart"></i></a>
+                                    @endif
                                     <a class="btn_cart remove-cart-item" href="javascript:void(0)" data-id="{{$row->id}}"   ><i class="fa-solid fa-xmark"></i></a>
                                 </div>
                             </div>
@@ -112,70 +114,8 @@
                     @endforeach
                 </div>
                 <div class="col-lg-4 sticky-lg-top sticky-lg-top-110">
-                    <div class="order_summary">
-                        <h5 class="head">Order Summary</h5>
-
-                        <ul class="calc_area">
-                            <li>
-                                <div class="left">
-                                    <h6>Subtotal</h6>
-                                </div>
-                                <div class="right">
-                                    <h5>AED 15750.00</h5>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="left">
-                                    <h6>Tax</h6>
-                                </div>
-                                <div class="right">
-                                    <h5>AED 10.00</h5>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="left">
-                                    <h6>Shipping Charge</h6>
-                                </div>
-                                <div class="right">
-                                    <h5>Free Shipping</h5>
-                                </div>
-                            </li>
-                            <li class="couponLi">
-                                <form action="">
-                                    <div class="form-group position-relative">
-                                        <input type="text" class="form-control" placeholder="Coupon Code">
-                                        <a class="coupon_remove_btn" href="javascript:void(0)"><i class="fa-solid fa-xmark"></i></a>
-                                        <span class="invalidMessage"> Given Data Error </span>
-                                    </div>
-                                    <button class="btn primary_btn">Apply Coupon</button>
-                                </form>
-                            </li>
-                            <li class="flex-column justify-content-end align-items-end couponDiscount">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <div class="left">
-                                        <h6>Coupon Discount :</h6>
-                                    </div>
-                                    <div class="right">
-                                        <h6 class="tableData">AED 15760.00</h6>
-                                        <h6 class="tableData">- AED 50</h6>
-                                    </div>
-                                </div>
-                                <a class="coupon_remove_btn" href="javascript:void(0)" >Remove Coupon<i class="fa-solid fa-xmark"></i></a>
-                            </li>
-                        </ul>
-                        <div class="sub_total">
-                            <div class="sub_left">
-                                <h6>Total</h6>
-                            </div>
-                            <div class="sub_right">
-                                <h5>AED 15710.00</h5>
-                            </div>
-                        </div>
-                        <div class="btnsBox">
-                            <a href="checkout.php" class="primary_btn checkout_btn">Guest Checkout</a>
-                            <a href="login.php" class="primary_btn login">Login</a>
-                        </div>
-                    </div>
+                    @include('web.includes.order_summary')
+                   
                 </div>
             </div>
         </div>

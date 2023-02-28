@@ -589,25 +589,25 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.remove-cart-item', function () {
-        var id = $(this).attr('id');
-        var _token = token;
+        var id = $(this).data('id');
+        
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: {cart_id: id, _token: _token},
+            data: {cart_id: id},
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: base_url + '/remove-cart-item',
             success: function (response) {
                 if (response.status == true) {
-                    swal({
-                        title: "Done it!",
+                    swal.fire({
                         text: response.message,
                         type: "success"
-                    }, function () {
-                        window.location.reload();
                     });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 900);
                 } else {
                     $.notify(response.message, "error");
                 }

@@ -288,8 +288,9 @@ class CartController extends Controller
         
       
         $sessionKey = session('session_key');
-        // $calculation_box = Helper::calculationBox();
-        
+     
+        $calculation_box = Helper::calculationBox();
+       
         $tag = $this->seo_content('Cart');
         $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
@@ -297,7 +298,7 @@ class CartController extends Controller
        
 
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail',
+        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box',
             'banner', 'featuredProducts'));
     }
 
@@ -398,6 +399,7 @@ class CartController extends Controller
     }
     public function remove_cart_item(Request $request)
     {
+      
         if ($request->cart_id) {
             if (Session::has('session_key')) {
                 $sessionKey = session('session_key');

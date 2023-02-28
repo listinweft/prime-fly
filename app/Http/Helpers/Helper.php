@@ -540,17 +540,18 @@ class Helper
             $sessionKey = session('session_key');
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-                    $product = Product::find($row->id);
-                    if (Helper::offerPrice($product->id) != '') {
-                        $offer_amount = Helper::offerPriceAmount($product->id);
-                        $offer_id = Helper::offerId($product->id);
-                        $product_price = $offer_amount;
-                    } else {
+               
+                    $product = Product::find($row->attributes->product_id);
+                    $productOffer = Offer::where('product_id',$product->id)->where('status','Active')->first();
+                    if($productOffer){
+
+                    }
+                    else{
                         $offer_amount = '0.00';
                         $offer_id = '0';
                         $product_price = Helper::defaultCurrencyRate() * $product->price;
                     }
-                    Cart::session($sessionKey)->update($row->id, [
+                    Cart::session($sessionKey)->update($row->attributes->product_id, [
                         'price' => $product_price,
                         'attributes' => [
                             'currency' => Helper::defaultCurrency(),
@@ -734,6 +735,7 @@ class Helper
             $siteInformation = SiteInformation::first();
             $sessionKey = session('session_key');
             $grand_total = Cart::session($sessionKey)->getTotal();
+        
             $currency_rate = self::defaultCurrencyRate();
             $shippingFreeArray = [];
             if (Session::has('coupons')) {
@@ -778,9 +780,11 @@ class Helper
                 }
             }
             $grandTotal = $grand_total + $shippingAmount;
+         
             $return_result['shippingAmount'] = $shippingAmount;
             $return_result['tax_amount'] = $tax_amount;
             $return_result['final_total_with_tax'] = $grandTotal;
+           
         }
         return $return_result;
     }
