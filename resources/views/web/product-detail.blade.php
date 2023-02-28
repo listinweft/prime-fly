@@ -1,7 +1,7 @@
 @extends('web.layouts.main')
 @section('content')
 <section class="innerBanner innerBannerProducts">
-  
+
     <div class="innerBannerDetails">
         <div class="container">
             <div class="row">
@@ -26,8 +26,8 @@
 <section class="productDetailsPage">
     <div class="container">
         <div class="row justify-content-between align-items-start">
-   
-         
+
+
             <div class="col-xxl-5  col-lg-5 product_details_gallery canvas">
                 <div class="row sliderWrapperArea ">
                     <div class=" col-9 productDetailsLeftSecond " >
@@ -41,7 +41,7 @@
                             </div>
                             @if($product->activeGalleries->count() > 0)
                                 @foreach ($product->activeGalleries as $gallery)
-                                    
+
                                 <div class="item position-relative">
                                     <div class="fotorama__stage__frame" >
                                         <div class="fotorama__html">
@@ -64,12 +64,12 @@
                                     </div>
                                 @endforeach
                             @endif
-                          
+
                         </div>
                     </div>
                 </div>
             </div>
-          
+
             <div class="col-xxl-7 col-lg-7 productDetailsInfo ps-xxl-5 ps-xl-4">
                 <div class="productNameStock">
                     <div class="name">
@@ -78,15 +78,15 @@
                     <!--                    <div class="stock">-->
                     <!--                        In Stock-->
                     <!--                    </div>-->
-                
+
                     @if (@$product->availability != 'In Stock')
                     <div class="stock outOfStock">
                         {{ $product->availability}}
                     </div>
                     @endif
-                    
+
                 </div>
-               
+
                 <div class="productRatingPrice">
                     <div class="rating">
                         <h6>  {{ $totalReviews }} Ratings</h6>
@@ -98,9 +98,9 @@
                         @endif
                     </div>
                     <div class="price">
-                        @if(Helper::offerPrice($product->id)!='') 
+                        @if(Helper::offerPrice($product->id)!='')
                         <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  </h5>
-                        
+
                         @else
                             <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
                             <h5 class="product_price"></h5>
@@ -128,9 +128,9 @@
                                 <p>{{$prd->productType->title}}</p>
                             </a>
                         </div>
-                         
+
                         @endforeach
-                    
+
                     </div>
                 </div>
 
@@ -155,19 +155,19 @@
                             <p>{{$size->title}}</p>
                         </div>
                         @endforeach
-                   
+
                     </div>
                 </div>
-    
+
 
                 <div class="totalBox">
                     <h5>
                         Total
                     </h5>
                     <div class="priceQuantityArea">
-                        <div class="priceArea">  
-                            @if(Helper::offerPrice($product->id)!='') 
-                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  
+                        <div class="priceArea">
+                            @if(Helper::offerPrice($product->id)!='')
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                 <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
                             @else
                                 <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
@@ -183,7 +183,7 @@
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                     </svg>
                                 </button>
-                                <input type="number" disabled  name="qty" data-id="{{$product->id}}" 
+                                <input type="number" disabled  name="qty" data-id="{{$product->id}}"
                                     class="input-number__input form-control2 form-control-lg qty" min="1"
                                     max="100" step="1" value="1">
                                 <button class="btn btn-quantity-up">
@@ -197,7 +197,7 @@
                             </div>
                         </div>
                     </div>
-                 
+
                     <div class="btnsArea">
                         <a href="javascript:void(0)" data-id="{{$product->id}}" class="primary_btn cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}">Add to Cart</a>
                         <a class="primary_btn secondary_btn" href="" data-bs-target="#bulk_order_form_pop"
@@ -208,10 +208,10 @@
                 <div class="tagArea">
                     <h6>Product Tags</h6>
                     @foreach ($productTags as $tag)
-                        
+
                     <div class="tag">{{$tag->title}}</div>
                     @endforeach
-                 
+
                 </div>
 
             </div>
@@ -288,13 +288,13 @@
                             </div>
                         </li>
                         @endfor
-                       
+
                     </ul>
                 </div>
             </div>
             <div class="col-lg-6">
                 @include('web.includes.review_form',['product_id'=>$product->id])
-               
+
             </div>
         </div>
     </div>
@@ -329,7 +329,7 @@
                                         <div class="cartWishlistBox">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}" 
+                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}"
                                                             data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                         <div class="textIcon">
                                                             Wishlist
@@ -373,14 +373,14 @@
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
                                             </li>
-                                        
-                                        
+
+
                                             @else
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
                                             </li>
                                             <li>
-                                            
+
                                             </li>
                                             @endif
                                         </ul>
@@ -400,9 +400,9 @@
                                 </div>
                             </div>
                         </div>
-                            
+
                         @endforeach
-      
+
                     </div>
                 </section>
             </div>
@@ -432,7 +432,7 @@
                                         <div class="cartWishlistBox">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}" 
+                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}"
                                                             data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                         <div class="textIcon">
                                                             Wishlist
@@ -463,7 +463,7 @@
                                     <a href="{{ url('/product/'.$product->short_url) }}">
                                         <div class="pro-name">
                                         {{ $product->title }}
-                                    
+
                                         </div>
                                         <ul class="price-area">
                                             <!-- <li class="offer">
@@ -476,7 +476,7 @@
                                             </li>
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
-                                            </li>                  
+                                            </li>
                                             @else
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
@@ -585,7 +585,7 @@
                         <input type="hidden" name="type" value="product">
                         <input type="hidden" name="product_id" value="1">
                         <div class="form-group">
-                            <button class="btn primary_btn submit_form_btn" data-url="/enquiry">Send</button>
+                            <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                         </div>
 
 
@@ -599,6 +599,6 @@
 @endsection
 @push('scripts')
     <script>
-      
+
     </script>
 @endpush

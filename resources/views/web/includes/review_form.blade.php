@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="">Message</label>
                     <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
-                    <textarea class="form-control product-review-required form-review" rows="4"name="review" id="review" placeholder="Say Something"></textarea>
+                    <textarea class="form-control form-review product-review-required" rows="4"name="message" id="message" placeholder="Say Something" required></textarea>
                 </div>
             </div>
             <input type="hidden" name="product_id" id="product_id"  value="{{$product_id}}">
