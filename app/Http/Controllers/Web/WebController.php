@@ -432,6 +432,7 @@ class WebController extends Controller
             $starPercent3 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 3) * 100 / $totalReviews) : 0;
             $starPercent4 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 4) * 100 / $totalReviews) : 0;
             $starPercent5 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 5) * 100 / $totalReviews) : 0;
+            
 
             if($product->product_type_id == 1){
                 return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
