@@ -691,11 +691,12 @@ class WebController extends Controller
     {
         if (Auth::guard('customer')->check()) {
             $request->validate([
-                'rating' => 'required',
+                'email' => 'required|email',
             ]);
             $email = Auth::guard('customer')->user()->email;
             $name = Helper::loggedCustomerName();
         } else {
+
             $request->validate([
                 'rating' => 'required',
                 'email' => 'required|email',
