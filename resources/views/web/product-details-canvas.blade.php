@@ -273,7 +273,7 @@
                         <div class="my-rating-readonly" data-rating="{{ $totalRatings }}"></div>
                     </div>
                     <div class="right">
-                        <h5><img src="assets/images/star.png" alt="">4.5</h5>
+                         <h5><img src="{{ asset('frontend/images/star.png') }}" alt="">{{ $averageRatings }}</h5>
                         <p>Average customer rating</p>
                     </div>
                 </div>

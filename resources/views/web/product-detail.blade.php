@@ -264,7 +264,7 @@
                         <div class="my-rating-readonly" data-rating="{{ $totalRatings }}"></div>
                     </div>
                     <div class="right">
-                        <h5><img src="assets/images/star.png" alt="">4.5</h5>
+                         <h5><img src="{{ asset('frontend/images/star.png') }}" alt="">{{ $averageRatings }}</h5>
                         <p>Average customer rating</p>
                     </div>
                 </div>
@@ -278,6 +278,7 @@
                                 </div>
                                 @php $var = 'starPercent'.$i @endphp
                                 <div class="ratings_reviews_bar">
+                               )
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ $$var }}%" aria-valuenow="{{ $$var }}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
