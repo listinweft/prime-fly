@@ -115,6 +115,25 @@
 </div>
 <!-- Review Modal End -->
 
+<a href="" data-bs-toggle="modal" data-bs-target="#successModal" class="primary_btn form_submit_btn">Success</a>
+<!-- Success Modal Start -->
+<div class="modal fade successModalForm" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img class="img-fluid successIcon" src="{{ asset('frontend/images/svg/success.svg')}}" alt="">
+                    <h6>
+                        Thank you for Update
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Success Modal End -->
+
 
 @yield('content')
 @include('web.layouts.footer')
