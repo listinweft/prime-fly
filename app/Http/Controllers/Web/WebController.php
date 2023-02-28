@@ -508,6 +508,8 @@ class WebController extends Controller
        $typeValue = $request->typeValue;
        $shapes = Shape::latest()->get();
        $shapescount = count($shapes);
+
+     
         return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
             'title', 'type', 'typeValue', 'sort_value','shapescount'));
     }
@@ -515,8 +517,32 @@ class WebController extends Controller
     public function filterCondition(Request $request)
     {
 
+       
+       
 
-        $condition = Product::active();
+        $price_range = explode('-', str_replace('AED', '', $request->my_range));
+         if (!empty($price_range)) {
+
+
+         
+          
+            
+
+             $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
+                $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
+             });
+         }
+
+         else{
+
+            $condition = Product::active();
+
+
+
+         }
+
+
+
 
         $inputs = [];
         if ($request->input_field != NULL) {
@@ -540,23 +566,7 @@ class WebController extends Controller
             }
         }
 
-        // $price_range = explode('-', str_replace('AED', '', $request->my_range));
-        // if (!empty($price_range)) {
-
-
-        //     return 1;
-
-
-        //      $condition = \App\Models\Product::with('productprices')->get();
-
-
-        //     $condition = $condition->where(function ($query) use ($price_range) {
-
-
-        //      $query->whereBetween('price', [$price_range[0], $price_range[1]])->active();
-
-        //     });
-        // }
+        
         //color filtering
         if ($request->input_field != NULL) {
             $condition = $condition->where(function ($query) use ($inputs, $request) {
