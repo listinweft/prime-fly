@@ -159,13 +159,13 @@ class WebController extends Controller
         $heading = HomeHeading::type('blog')->first();
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
-       
+
         // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
 
         $totalBlog = Blog::active()->count();
-    
+
         $condition = Blog::active()->latest('posted_date');
-        
+
         $blogs = $condition->take(6)->get();
         $offset = $blogs->count() + 4;
         $loading_limit = 6;
@@ -205,13 +205,13 @@ class WebController extends Controller
     public function products()
     {
 
-       
+
 
         $banner = Banner::type('product')->first();
         $seo_data = $this->seo_content('Products');
        $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
         $condition = Product::active()->where('copy','no');
-        
+
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();
@@ -242,7 +242,7 @@ class WebController extends Controller
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
-            
+
             $colors = Color::active()->oldest('title')->get();
             $offset = $products->count();
             $loading_limit = 15;
@@ -265,17 +265,17 @@ class WebController extends Controller
     public function color($short_url)
     {
         $color = Color::active()->where('id',$short_url)->first();
-    
+
         if ($color) {
             $seo_data = $color;
-          
+
             $allProducts = Product::active()->first();
             $banner = $allProducts;
             $subCategoryIds = implode('|', ((collect($color->id))->toArray()));
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
-            
+
             $colors = Color::active()->oldest('title')->get();
             $offset = $products->count();
             $loading_limit = 15;
@@ -297,7 +297,7 @@ class WebController extends Controller
     public function shape($short_url)
     {
         $shape = Shape::active()->where('id',$short_url)->first();
-    
+
         if ($shape) {
             $seo_data = $shape;
             // $parentCategories = Category::active()->isParent()->get();
@@ -307,7 +307,7 @@ class WebController extends Controller
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
-            
+
             $colors = Color::active()->oldest('title')->get();
             $offset = $products->count();
             $loading_limit = 15;
@@ -409,7 +409,7 @@ class WebController extends Controller
             $products = Product::active()->where('title',$product->title)->with('activeGalleries')->get();
             $productTypeIds = $products->pluck('product_type_id')->toArray();
             $productTypes = ProductType::whereIn('id',$productTypeIds)->active()->get();
-          
+
             $sizes = Size::active()->get();
             $banner = $seo_data = $product;
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
@@ -453,7 +453,7 @@ class WebController extends Controller
                 'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
                 'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
             }
-           
+
         } else {
             return view('web.404');
         }
@@ -464,7 +464,7 @@ class WebController extends Controller
     public function check_price(){
         $size = request()->id;
         $product_id = request()->product_id;
-        
+
         $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
         if($productOffer){
             $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
@@ -483,7 +483,7 @@ class WebController extends Controller
         else{
                $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
               $productPrice =  Helper::defaultCurrency().' '.number_format($product_price->price * Helper::defaultCurrencyRate(), 2);
-              
+
               return response(array('productPrice' => $productPrice));
         }
 
@@ -491,8 +491,8 @@ class WebController extends Controller
     public function filter_product(Request $request)
     {
 
-        
-    
+
+
         $condition = $this->filterCondition($request);
         $condition = $this->sortCondition($request, $condition);
         $totalProducts = $condition->count();
@@ -515,16 +515,16 @@ class WebController extends Controller
     public function filterCondition(Request $request)
     {
 
-       
+
         $condition = Product::active();
 
         $inputs = [];
         if ($request->input_field != NULL) {
             $inputs = explode(',', $request->input_field);
         }
-        
-     
-       
+
+
+
         if ($request->pageType == "category" && !in_array('category_id', $inputs)) {
             $category = Category::active()->where('short_url', $request->typeValue)->first();
             if ($category) {
@@ -549,12 +549,12 @@ class WebController extends Controller
 
         //      $condition = \App\Models\Product::with('productprices')->get();
 
-            
+
         //     $condition = $condition->where(function ($query) use ($price_range) {
-                
-                  
+
+
         //      $query->whereBetween('price', [$price_range[0], $price_range[1]])->active();
-                    
+
         //     });
         // }
         //color filtering
@@ -564,14 +564,14 @@ class WebController extends Controller
                     foreach ($inputs as $input) {
                         if ($input == "category_id" || $input == "sub_category_id" ||  $input == "shape_id" ||  $input == "tag_id") {
 
-                       
+
                             foreach ($request->$input as $key => $reIn) {
 
-                              
+
                                 $query->OrwhereRaw("find_in_set('" . $reIn . "',$input)");
                             }
-                            
-                         } 
+
+                         }
                          else {
                             $query->whereIn($input, $request[$input]);
                         }
@@ -579,7 +579,7 @@ class WebController extends Controller
                 }
             });
         }
-        
+
         return $condition;
     }
 
@@ -701,6 +701,7 @@ class WebController extends Controller
                 'rating' => 'required',
                 'email' => 'required|email',
                 'name' => 'required',
+                'message' => 'required',
             ]);
             $email = $request->email;
             $name = $request->name;
