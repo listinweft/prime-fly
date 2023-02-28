@@ -74,7 +74,7 @@
                             <h5>Write A Review</h5>
                             <div>
                                 <div class="my-rating " data-rating="0"></div>
-                                <input type="hidden" class="form-control review-required" placeholder="rating" name="rating" id="rating">
+                                <input type="hidden" class="form-control review-required rating" placeholder="rating" name="rating" id="rating">
                             </div>
                         </div>
                         <div class="row">

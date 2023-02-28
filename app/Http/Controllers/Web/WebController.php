@@ -509,7 +509,7 @@ class WebController extends Controller
        $shapes = Shape::latest()->get();
        $shapescount = count($shapes);
 
-     
+
         return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
             'title', 'type', 'typeValue', 'sort_value','shapescount'));
     }
@@ -517,16 +517,16 @@ class WebController extends Controller
     public function filterCondition(Request $request)
     {
 
-       
-       
+
+
 
         $price_range = explode('-', str_replace('AED', '', $request->my_range));
          if (!empty($price_range)) {
 
 
-         
-          
-            
+
+
+
 
              $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
                 $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
@@ -566,7 +566,7 @@ class WebController extends Controller
             }
         }
 
-        
+
         //color filtering
         if ($request->input_field != NULL) {
             $condition = $condition->where(function ($query) use ($inputs, $request) {
@@ -743,7 +743,7 @@ class WebController extends Controller
                 'email' => 'required|email',
                 // 'designation' => 'required',
                 'name' => 'required',
-                'review' => 'required',
+                'message' => 'required',
             ]);
             $email = $request->email;
             $name = $request->name;
