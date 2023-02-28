@@ -69,10 +69,13 @@
             <div class="modal-body">
                 <div class="formArea">
                     <form action="" method="POST" id="reviewForm" name="reviewForm">
+
                         <div class="head">
                             <h5>Write A Review</h5>
-                            <div class="my-rating" data-rating="0"></div>
-                            <input type="hidden" name="rating" id="rating" class="required">
+                            <div>
+                                <div class="my-rating " data-rating="0"></div>
+                                <input type="hidden" class="form-control review-required" placeholder="rating" name="rating" id="rating">
+                            </div>
                         </div>
                         <div class="row">
                             <div class=" col-12">
@@ -90,6 +93,7 @@
                                     <input type="email" class="form-control review-required" placeholder="Email Address" name="email" id="email">
                                 </div>
                             </div>
+
                             <div class="col-12 message">
                                 <div class="form-group">
                                     <textarea class="form-control review-required" placeholder="Say Something" name="message" id="message"></textarea>
