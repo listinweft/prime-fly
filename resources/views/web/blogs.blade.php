@@ -27,10 +27,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h6 class="subHeading">{{ $heading->title }}</h6>
-                    <h2 class="mainHeading">{{ $heading->subtitle }}</h2>
+                    <h6 class="subHeading">{{ @$heading->title }}</h6>
+                    <h2 class="mainHeading">{{ @$heading->subtitle }}</h2>
                     <div class="headingText">
-                        {!! $heading->description !!}
+                        {!! @$heading->description !!}
                     </div>
                 </div>
             </div>

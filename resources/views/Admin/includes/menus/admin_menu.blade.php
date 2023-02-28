@@ -76,13 +76,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='banner')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'banner/about')}}"
-               class="nav-link {{ (Request::segment(3)=='about')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>About </p>
-            </a>
-        </li>
+   
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/product')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">

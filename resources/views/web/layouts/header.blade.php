@@ -288,7 +288,7 @@
                         </div>
                     </li>
                     @foreach ($menus as $menu)
-                    <li class="nav-item active"><a class="nav-link" href="{{$menu->url}}">{{$menu->title}} </a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{url($menu->url)}}">{{$menu->title}} </a></li>
                     @endforeach
                 </ul>
                 <div class="topRightArea">

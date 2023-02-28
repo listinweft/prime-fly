@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use Termwind\Components\Dd;
 
 class AboutController extends Controller
 {
@@ -32,11 +33,12 @@ class AboutController extends Controller
 
     public function about_store(Request $request)
     {
+  
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
             'subtitle' => 'required|min:2|max:255',
             'description' => 'required',
-            'alternative_description' => 'required',
+            // 'alternative_description' => 'required',
         ]);
         if ($request->id == 0) {
             $about = new About;
@@ -80,7 +82,7 @@ class AboutController extends Controller
         $about->title = $validatedData['title'];
         $about->subtitle = $validatedData['subtitle'];
         $about->description = $validatedData['description'];
-        $about->alternative_description = $validatedData['alternative_description'];
+        // $about->alternative_description = $validatedData['alternative_description'];
         $about->image_attribute = $request->image_attribute ?? '';
         $about->banner_image_attribute = $request->banner_image_attribute ?? '';
         $about->video_url = $request->video_url ?? '';
