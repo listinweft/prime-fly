@@ -110,7 +110,7 @@
                                 </div>
                 <div class="productRatingPrice">
                     <div class="rating">
-                        <h6>{{ $totalReviews }} Ratings</h6>
+                        <h6>{{ $totalRatings }} Ratings</h6>
                         @if($averageRatings >0)
                         <div class="rate_area">
                             <i class="fa-solid fa-star"></i>  {{ $averageRatings }}
@@ -269,20 +269,18 @@
                     <div class="left">
                         <h5>Customer Reviews</h5>
                         <p>What others think about the item</p>
-                        <h6>{{ $totalRatings }} Customer Ratings</h6>
-                        <div class="my-rating-readonly" data-rating="4"></div>
+                        <h6>{{ $totalRatings }} Ratings & {{ $totalReviews }} Reviews</h6>
+                        <div class="my-rating-readonly" data-rating="{{ $totalRatings }}"></div>
                     </div>
                     <div class="right">
-                        <h5><img src="{{ asset('frontend/images/star.png') }}" alt="">{{ $averageRatings }}</h5>
+                        <h5><img src="assets/images/star.png" alt="">4.5</h5>
                         <p>Average customer rating</p>
                     </div>
                 </div>
                 <div class="ratings_reviews_right_bar">
                     <h6>Reviews</h6>
                     <ul>
-                        <ul>
-                            @for($i=5;$i>=1;$i--)
-    
+                        @for($i=5;$i>=1;$i--)
                             <li>
                                 <div class="ratings_reviews_star">
                                     <p>{{ $i }}<img src="{{ asset('frontend/images/star.png') }}" alt=""></p>
@@ -297,17 +295,12 @@
                                     </p>
                                 </div>
                             </li>
-                            @endfor
-                           
-                        </ul>
+                        @endfor
                     </ul>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="col-lg-6">
-                    @include('web.includes.review_form',['product_id'=>$product->id])
-                   
-                </div>
+                @include('web.includes.review_form',['product_id'=>$product->id])
             </div>
         </div>
     </div>
