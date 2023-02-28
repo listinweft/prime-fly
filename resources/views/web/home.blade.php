@@ -1,7 +1,7 @@
 @extends('web.layouts.main')
 @section('content')
 
-@if($homeBanners->isNotEmpty())
+@if(@$homeBanners->isNotEmpty())
 <section class="homeSlider">
     <div class="container">
         <div class="row justify-content-between">
@@ -10,15 +10,15 @@
                     <div class="homeSliderDetails ">
                         @foreach ($homeBanners as $banner)
                         @if ( $banner->button_text != null)
-                        <a href="{{url($banner->url)}}">
+                        <a href="{{@$banner->url}}">
                             <div class="item">
                                 <h1>
-                                    <strong>{{$banner->title}}</strong> {{$banner->subtitle}}
+                                    <strong>{{@$banner->title}}</strong> {{$banner->subtitle}}
                                 </h1>
 
                                     {!!$banner->description!!}  .
                                 @if ( $banner->button_text != null)
-                                <a href="{{$banner->url}}" class="primary_btn">
+                                <a href="{{@$banner->url}}" class="primary_btn">
                                     {{$banner->button_text}}
                                 </a>
                                 @endif
