@@ -1,6 +1,25 @@
 @extends('web.layouts.main')
 @section('content')
-    @include('web.includes.banner',[$banner, 'type'=> 'About Us','title'=>'About Us'])
+<section class="innerBanner">
+    <div class="innerBannerImageArea">
+        {!! Helper::printImage($about, 'banner_image','banner_image_webp','banner_image_attribute','bannerImg img-fluid') !!}
+    </div>
+    <div class="innerBannerDetails">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>About Us</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{url('/')}}"><img src="{{asset('frontend/images/home.png')}}" alt=""></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
