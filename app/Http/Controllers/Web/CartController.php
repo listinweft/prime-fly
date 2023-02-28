@@ -711,7 +711,8 @@ class CartController extends Controller
                 echo json_encode(array('status' => 'false', 'message' => "Error while " . $text . "ing the address, Please try after sometime"));
             }
         } else {
-         
+         dd($request->all());
+      
             $account_type = $request->account_type;
             if ($account_type == "0" && $request->address && $request->state !=  null) {
                 

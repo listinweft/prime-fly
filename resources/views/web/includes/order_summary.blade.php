@@ -1,5 +1,84 @@
 <div class="order_summary">
     <h5 class="head">Order Summary</h5>
+    <div class="orderProductSummary  @if (Request::is('checkout'))  @else d-none  @endif">
+        @if (Session::has('session_key') && !Cart::session($sessionKey)->isEmpty())
+            @if (!Cart::session($sessionKey)->isEmpty())
+                @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
+                    @php
+                    $product = App\Models\Product::find($row->attributes['product_id']);
+                    @endphp
+                    <div class="item">
+                        <div class="leftImgDetails">
+                            <div class="imgBox">
+                                <a href="{{ url('/product/'.$product->short_url) }}">
+                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                </a>
+                            </div>
+                            <div class="details">
+                                <div>
+                                    <a href="{{ url('/product/'.$product->short_url) }}">
+                                        <h5>
+                                            {{ $product->title }}
+                                        </h5>
+                                        <ul>
+                                            <li>
+                                                Type :
+                                               
+                                                    <span> {{ $product->productType->title }}</span>
+                                           
+                                            </li>
+                                            @if($row->attributes['frame'] != null)
+                                            <li>
+                                                Frame Colour :
+                                            @php
+                                                $frame = App\Models\Frame::find($row->attributes['frame']);
+                                            @endphp
+                                                <span> {{ $frame->title }}</span>
+                                            </li>
+                                            @endif
+                                            @if($row->attributes['mount'] != null)
+                                            <li>
+                                                Mount : 
+                                                @if($row->attributes['mount'] == 'Yes')
+                                                    <span> With Mount</span>
+                                                @else
+                                                    <span> No Mount</span>
+                                                @endif
+                                            </li>
+                                            @endif
+                                          
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price">
+                            <ul class="price_area">
+                                @php
+                                $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                                @endphp
+                              
+                                @if(Helper::offerPrice($product->id)!='')
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                </li>
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                </li>                  
+                                @else
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                </li>
+                                <li></li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        @endif
+      
+    </div>
 
     <ul class="calc_area">
         <li>
@@ -75,10 +154,84 @@
             <h5>{{Helper::defaultCurrency()}} {{number_format($calculation_box['final_total_with_tax'],2)}}</h5>
         </div>
     </div>
-    <div class="btnsBox">
+    <div class="btnsBox @if (Request::is('cart'))  @else d-none  @endif ">
         @if(!Auth::guard('customer')->check())
             <a href="{{ url('checkout') }}" class="primary_btn checkout_btn">Guest Checkout</a>
             <a href="{{ url('login') }}" class="primary_btn login">Login</a>
         @endif
+    </div>
+    <div class=" @if (Request::is('checkout'))  @else d-none  @endif ">
+        <div class="banks">
+            <div class="accordion" id="accordionExample">
+                {{-- <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <input class="bank-radio" type="radio" checked id="credit" name="bank">
+                            <label for="credit"><img src="assets/images/mastercard.svg" alt=""></label>
+                        </button>
+                    </h3>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+                            <p>Pay with Credit card or Debit card.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <input class="bank-radio" type="radio" id="paypal" name="bank">
+                            <label for="paypal"><img src="assets/images/paypal.svg" alt=""></label>
+                        </button>
+                    </h3>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+                            <p>Pay with PayPal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <input class="bank-radio" type="radio" id="applepay" name="bank">
+                            <label for="applepay"><img src="assets/images/applepay.svg" alt=""></label>
+                        </button>
+                    </h3>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+                            <p>Pay with Apple Pay.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            <input class="bank-radio" type="radio" id="bitcoin" name="bank">
+                            <label for="bitcoin"><img src="assets/images/bitcoin.svg" alt=""></label>
+                        </button>
+                    </h3>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+                            <p>Pay with Bitcoin.</p>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            <input class="bank-radio" type="radio" id="cod" name="bank">
+                            <label for="cod"><img src="{{asset('frontend/images/cashondelivery.svg')}}" alt=""></label>
+                        </button>
+                    </h3>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+                            <p>Pay with Cash On Delivery.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btnsBox">
+                    <a href="thankyou.php" class="primary_btn login">Place Order</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

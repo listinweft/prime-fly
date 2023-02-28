@@ -98,6 +98,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('team-load-more', [WebController::class, 'teamLoadMore']);
     Route::get('team-detail/{id}', [WebController::class, 'teamDetail']);
     Route::get('events', [WebController::class, 'events']);
+    Route::post('update-customer-shipping-address',[CartController::class,'update_customer_shipping_address']);
 
     /********************* Policies *******************/
     Route::get('disclaimer', [WebController::class, 'disclaimer']);
@@ -170,6 +171,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
     Route::post('address-form', [CustomerWebController::class, 'address_form']);
     Route::post('update-customer-address', [CustomerWebController::class, 'createAddress']);
     Route::post('delete-address', [CustomerWebController::class, 'delete_address']);
+  
     Route::post('set-default-address', [CustomerWebController::class, 'set_default_address']);
 
 

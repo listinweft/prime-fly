@@ -1080,7 +1080,7 @@ $(document).ready(function () {
                     if (data.status == 'error') {
                         swal.fire('Error !', data.message, 'error');
                     } else {
-                        alert("nnc");
+                       
                         var resp = data.message;
                         var len = resp.length;
                         $("#" + form_id + " #state").empty().append("<option value=''>Select Emirate</option>");

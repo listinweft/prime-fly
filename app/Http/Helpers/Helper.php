@@ -16,6 +16,7 @@ use App\Models\Menu;
 use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\ProductReview;
 use App\Models\RecentlyViewedProduct;
 use App\Models\Shape;
@@ -36,6 +37,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use NumberFormatter;
 use PHPMailer\PHPMailer\PHPMailer;
+use Termwind\Components\Dd;
 
 class Helper
 {
@@ -544,7 +546,11 @@ class Helper
                     $product = Product::find($row->attributes->product_id);
                     $productOffer = Offer::where('product_id',$product->id)->where('status','Active')->first();
                     if($productOffer){
-
+                        $productPrice = ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes->size)->first();
+                      
+                       $offer_amount = Helper::offerPriceSize($product->id,$row->attributes->size,$productOffer->id);
+                       $offer_id = Helper::offerId($product->id);
+                       $product_price = $offer_amount;
                     }
                     else{
                         $offer_amount = '0.00';

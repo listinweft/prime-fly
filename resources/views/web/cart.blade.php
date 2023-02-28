@@ -63,28 +63,28 @@
                         </div>
                         <div class="right">
                             <div class="price_offer_quantity">
-                                <ul class="price_area">
-                                    @php
-                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
-                        @endphp
-                            <!-- <li class="offer">
-                            @if(Helper::offerPrice($product->id)!='')
-                            </li>
-                            @endif -->
-                            @if(Helper::offerPrice($product->id)!='')
-                            <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                            </li>
-                            <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                            </li>                  
-                            @else
-                            <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                            </li>
-                            <li></li>
-                            @endif
-                                </ul>
+                            <ul class="price_area">
+                                @php
+                                $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                                @endphp
+                                <!-- <li class="offer">
+                                @if(Helper::offerPrice($product->id)!='')
+                                </li>
+                                @endif -->
+                                @if(Helper::offerPrice($product->id)!='')
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                </li>
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                </li>                  
+                                @else
+                                <li>
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                </li>
+                                <li></li>
+                                @endif
+                            </ul>
                                 <div class="quantity-counter">
                                     <button class="btn btn-quantity-down">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
