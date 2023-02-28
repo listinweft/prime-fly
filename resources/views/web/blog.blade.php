@@ -7,9 +7,11 @@
 {{-- @include('web.includes.banner',[$banner, 'type'=> 'Blogs     >     '.$blog->title,'title'=> $blog->title]) --}}
 <!--Inner Banner End-->
 <section class="innerBanner ">
+@if($blog->desktop_banner !='' || $blog->desktop_banner != null)
     <div class="innerBannerImageArea">
         {!! Helper::printImage($blog, 'desktop_banner','desktop_banner_webp','banner_attribute', 'img-fluid') !!}
     </div>
+    @endif
     <div class="innerBannerDetails">
         <div class="container">
             <div class="row">
@@ -34,16 +36,16 @@
                 <div class="col-lg-8">
                     <h6 class="subHeading">{{ $blog->subtitle }}</h6>
                     <h2 class="mainHeading">  {{ $blog->title }}</h2>
-                    <div class="timeDate">
+                  
                         <div class="date">{{ date('d-m-Y', strtotime($blog->posted_date)) }}</div>
-                        <div class="time">4 minutes</div>
-                    </div>
+                    
                     <div class="blogImage">
                     {!! Helper::printImage($blog, 'image','image_webp','image_attribute', 'img-fluid') !!}
                     </div>
                     <div class="textArea">
                         {!! $blog->description !!}
                     </div>
+                    @if($blog->video_thumbnail_image !='' || $blog->video_thumbnail_image != null)
                     <div class="video-area">
                     {!! Helper::printImage($blog, 'video_thumbnail_image', 'video_thumbnail_image_webp', 'video_thumbnail_image_attribute', 'img-fluid') !!}
                             @if($blog->video_url !='' || $blog->video_url != null)
@@ -54,6 +56,7 @@
                         </a>
                         @endif
                     </div>
+                    @endif
                     <div class="textArea">
 
 
@@ -94,13 +97,13 @@
                                 </div>
                                 <div class="recentBlogDetails">
                                     <h6>
-                                    {!! $blog->description !!}
+                                    {{ $blog->title }}
                                     </h6>
-                                    <div class="timeDate">
+                                    
                                         <div class="date">
                                         {{ date('d-m-Y', strtotime($blog->posted_date)) }}</div>
-                                        <div class="time">4 minutes</div>
-                                    </div>
+    
+                                    
                                     <a href="{{ url('blog/'.$blog->short_url) }}">Read More</a>
                                 </div>
                             </div>
