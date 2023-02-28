@@ -825,7 +825,7 @@ class CartController extends Controller
     // }
     public function billing_address_store(Request $request)
     {
-       
+  
         if($request->address){
                
             $request->validate([
@@ -1424,6 +1424,7 @@ class CartController extends Controller
             } else {
                 $orderData = Order::with('orderProducts')->with('orderCustomer')->with('orderCoupons')->find($order_id);
             }
+            $banner = Banner::type('contact')->first();
             return view('web.thank_you', compact('order', 'seo_data'));
         } else {
             return view('web.404');

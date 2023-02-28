@@ -151,7 +151,7 @@
             <h6>Total</h6>
         </div>
         <div class="sub_right">
-            <h5>{{Helper::defaultCurrency()}} {{number_format($calculation_box['final_total_with_tax'],2)}}</h5>
+            <h5 class="cart_final_total">{{Helper::defaultCurrency()}} {{number_format($calculation_box['final_total_with_tax'],2)}}</h5>
         </div>
     </div>
     <div class="btnsBox @if (Request::is('cart'))  @else d-none  @endif ">
