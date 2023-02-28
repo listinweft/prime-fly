@@ -320,7 +320,7 @@
 
                 </div>
                 <div class="col-12 text-center mt-md-5">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn form_submit_btn">Add Your Review</a>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#reviewModal" class="primary_btn">Add Your Review</a>
                 </div>
             </div>
         </div>

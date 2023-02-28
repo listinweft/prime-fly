@@ -867,11 +867,17 @@ $(document).ready(function () {
                     type: 'POST', dataType: 'json', data: $('#reviewForm').serialize(), headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }, url: base_url + '/submit-review', success: function (response) {
+
+
                         if (response.status == "true") {
+                            $("#reviewForm")[0].reset();
+                            $("#reviewModal").modal('hide');
                             Toast.fire({
                                 title: "Done it!", text: response.message, icon: "success"
+
                             });
-                            window.location.reload();
+
+                            //window.location.reload();
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {

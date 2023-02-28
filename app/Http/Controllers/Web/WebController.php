@@ -748,7 +748,7 @@ class WebController extends Controller
         //$testimonial->review = $request->review;
         // $testimonial->product_id = $request->product_id;
         if ($testimonial->save()) {
-            return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);
+            return response()->json(['status' => 'true', 'message' => 'Review successfully posted']);
         } else {
             return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);
         }
