@@ -30,13 +30,7 @@
        
             <div class="topSortDetails">
                 <div>
-                    <h4>Products</h4>
-                    @if($offset>1)
-                        <p>1-<span id="product_count">{{ $offset }} </span>
-                            of <span id="total_product_count">{{$totalProducts}}</span>
-                            results.
-                        </p>
-                    @endif
+                    <h4> Products</h4>
                     <p></p>
                 </div>
                 <div class="sortSearchBox">
@@ -54,11 +48,10 @@
                         <li>
                             <img class="img-fluid" src="{{asset('frontend/images/sort.png')}}" alt="">
                             <p>Sort By</p>
-                            <select class="formSelect" name="sort_order_drop" id="sort_order_drop">
+                            <select class="formSelect" name="" id="">
                             @foreach(['none'=>'None','new'=>'Latest','best'=>'Popular','featured'=>'Most Relevant','asc'=>'Product: A-Z','desc'=>'Product: Z-A'] as $sortValue => $sortTitle)
-                                <option class="font" value="{{ $sortValue }}"
-                                    {{ $sortValue == $sort_value?'selected':'' }}
-                                >{{$sortTitle}}</option>
+                                <option value="{{ $sortValue }}"
+                                    {{ $sortValue == $sort_value?'selected':'' }}>{{$sortTitle}}</option>
                             @endforeach
                             </select>
                         </li>

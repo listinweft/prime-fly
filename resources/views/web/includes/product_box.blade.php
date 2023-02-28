@@ -32,8 +32,9 @@
                                         </li>
                                     </ul>
                                     <div class="logoArea mt-auto">
-                                    <img class="img-fluid" src=" {{ asset('frontend/images/productListLogo.png') }}" alt="">
-                                    
+                                    <img class="img-fluid" src="{{ asset('frontend/images/productListLogo.png')}}" alt="">
+                                   
+                                  
                                     </div>
                                 </div>
                             </div>
@@ -44,50 +45,44 @@
                             {{ $product->title }}
                             </div>
                             <ul class="price-area">
-                                <!-- <li class="offer">
+                                <li class="offer">
                                 @if(Helper::offerPrice($product->id)!='')
-                                </li>
-                                @endif -->
-                                @if(Helper::offerPrice($product->id)!='')
-                                <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                                </li>
-                                <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->id,2)}}
-                                </li>                  
-                                @else
-                                <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
                                 </li>
                                 @endif
+                                @if(Helper::offerPrice($product->id)!='')
+                                <li>
+                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                    </li>
+                    <li>
+                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                    </li>
+                 
+                   
+                    @else
+                    <li>
+                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
+                    </li>
+                    <li>
+                       
+                    </li>
+                    @endif
                             </ul>
                             <ul class="type-review">
-                                <!-- @foreach($product->product_categories as $product_category) -->
-                                <!-- <li> -->
-                                    <!-- {{ $product_category->title }} -->
-                                <!-- </li> -->
-                                <!-- @endforeach -->
-                                <!-- @if(Helper::averageRating($product->id)>0) -->
-
-                                <!-- @endif -->
-                            </ul>
-
-                           
+                            @if($product->product_categories->count() > 1)
+                                <li>
+                                {{ $product->product_categories[0]->title }}, ...
+                                
+                                </li>
+                                @else
+                                <li>
+                                {{ $product->product_categories[0]->title }}
+                                
+                                </li>
+                                @endif
                               
-                           
-                            <ul class="type-review">
-                                @if($product->product_shapes->count() > 1)
-                                <li>
-                                    {{ $product->product_shapes[0]->title }}, ...
-                                </li>
-                                @else
-                                <li>
-                                    {{ $product->product_shapes[0]->title }}
-                                </li>
-                                @endif
                                 @if(Helper::averageRating($product->id)>0)
                                 <li class="review">
-                                    <i class="fa-solid fa-star"></i> {{ Helper::averageRating($product->id) }}                                                                      
+                                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
                                 </li>
                                 @endif
                             </ul>
