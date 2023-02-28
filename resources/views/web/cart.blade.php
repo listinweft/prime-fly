@@ -35,16 +35,29 @@
                                     <li>
                                         Type :
                                        
-                                            <span>, {{ $product->productType->title }}</span>
-                                  
-                                    </li>
+                                            <span> {{ $product->productType->title }}</span>
                                    
-                                    <li>
-                                        @php
-                                            $size = App\Models\Size::find($row->attributes['size']);
-                                        @endphp
-                                        Size : <span>{{ $size->title }}</span>
                                     </li>
+                                    @if($row->attributes['frame'] != null)
+                                    <li>
+                                        Frame Colour :
+                                    @php
+                                        $frame = App\Models\Frame::find($row->attributes['frame']);
+                                    @endphp
+                                        <span> {{ $frame->title }}</span>
+                                    </li>
+                                    @endif
+                                    @if($row->attributes['mount'] != null)
+                                    <li>
+                                        Mount : 
+                                        @if($row->attributes['mount'] == 'Yes')
+                                            <span> With Mount</span>
+                                        @else
+                                            <span> No Mount</span>
+                                        @endif
+                                    </li>
+                                    @endif
+                                  
                                 </ul>
                             </div>
                         </div>
