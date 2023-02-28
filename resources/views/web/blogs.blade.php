@@ -4,9 +4,11 @@
 @section('content')
 
     <section class="innerBanner">
+    @if($banner->desktop_banner !='' || $banner->desktop_banner != null)
         <div class="innerBannerImageArea">
         {!! Helper::printImage($banner, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
         </div>
+        @endif
         <div class="innerBannerDetails">
             <div class="container">
                 <div class="row">
