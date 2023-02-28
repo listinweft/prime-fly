@@ -114,8 +114,9 @@
                     @endforeach
                 </div>
                 <div class="col-lg-4 sticky-lg-top sticky-lg-top-110">
+                    <div class="order_summary">
                     @include('web.includes.order_summary')
-                   
+                    </div>
                 </div>
             </div>
         </div>

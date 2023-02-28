@@ -292,7 +292,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-6">
+        
                 @include('web.includes.review_form',['product_id'=>$product->id])
 
             </div>

@@ -528,12 +528,12 @@ class CartController extends Controller
    
                 }
                 session(['different_shipping_address' => true]);
-                return response(array('status' => true, 'message' => 'You can select new Billing Address'));
+                return response(array('status' => true, 'message' => 'You can select new Billing Address','type'=>'different','reload'=>true));
             } else {
                 session(['different_shipping_address' => false]);
                 if (Session::has('selected_shipping_address')) {
                     session(['selected_billing_address' => Session::get('selected_shipping_address')]);
-                    return response(array('status' => true, 'message' => 'Same address for Billing  Address selected Successfully'));
+                    return response(array('status' => true, 'message' => 'Same address for Billing  Address selected Successfully','type'=>'same','reload'=>true));
                 } else {
                     return response(array('status' => false, 'message' => 'Select Shipping Address First'));
                 }
@@ -555,7 +555,16 @@ class CartController extends Controller
                     session()->forget('billing_country');
                     session()->forget('billing_country_name');
                 }
-                return response(array('status' => true, 'message' => 'You can add new Blling Address'));
+                $orderConfirm = Helper::checkConfirmOrder();
+                $orderC = false;
+                if($orderConfirm == "true"){
+                    $orderC = true;
+                }
+                else{
+                    $orderC = false;
+                }
+               
+                return response(array('status' => true, 'message' => 'You can add new Blling Address','orderC' => $orderC, 'type'=>'different'));
             } else {
                
                 session(['different_shipping_address' => false]);
@@ -580,9 +589,26 @@ class CartController extends Controller
                     session(['shipping_address' => session('address')]);
                     session(['shipping_zipcode' => session('zipcode')]);
                     session(['address_choose' => 'same']);
-                    return response(array('status' => true, 'message' => 'Same address for Billing and Shipping Address added Successfully'));
+                    $orderConfirm = Helper::checkConfirmOrder();
+                    $orderC = false;
+                    if($orderConfirm == "true"){
+                        $orderC = true;
+                    }
+                    else{
+                        $orderC = false;
+                    }
+                 
+                    return response(array('status' => true, 'message' => 'Same address for Billing and Shipping Address added Successfully','orderC' => $orderC, 'type'=>'same'));
                 } else {
-                    return response(array('status' => false, 'message' => 'Add Shipping Address First'));
+                    $orderConfirm = Helper::checkConfirmOrder();
+                    $orderC = false;
+                    if($orderConfirm == "true"){
+                        $orderC = true;
+                    }
+                    else{
+                        $orderC = false;
+                    }
+                    return response(array('status' => false, 'message' => 'Add Shipping Address First','orderC' => $orderC, 'type'=>'same'));
                 }
             }
         }
@@ -850,6 +876,7 @@ class CartController extends Controller
                 echo json_encode(array('status' => 'false', 'message' => "Error while " . $text . "ing the address, Please try after sometime"));
             }
         } else {
+           
             $account_type = $request->account_type;
             $request->validate([
                 'first_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:30',
@@ -1170,17 +1197,22 @@ class CartController extends Controller
                         if ($order_customer->save()) {
                             $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
                             foreach (Cart::session(session('session_key'))->getContent() as $row) {
-                                $product = Product::find($row->id);
+                          
+                                $product_id = $row->attributes->product_id;
+                                $product = Product::find( $product_id);
                                 $detail = new OrderProduct;
                                 $detail->order_id = $order->id;
-                                if (strpos($row->id, '_') !== false) {
-                                    $productIdData = explode('_', $row->id);
+                                if (strpos( $product_id, '_') !== false) {
+                                    $productIdData = explode('_',  $product_id);
                                     $detail->product_id = $productIdData[0];
                                 } else {
-                                    $detail->product_id = $row->id;
+                                    $detail->product_id =  $product_id;
                                 }
                                 $detail->qty = $row->quantity;
-                                $detail->color = $row->attributes->color;
+                                $detail->size = $row->attributes->size;
+                                $detail->mount = $row->attributes->mount;
+                                $detail->type = $row->attributes->type;
+                                $detail->frame = $row->attributes->frame;
                                 $detail->cost = $row->price;
                                 $detail->offer_id = $row->attributes->offer;
                                 $detail->offer_amount = $row->attributes->offer_amount;
@@ -1329,13 +1361,13 @@ class CartController extends Controller
             if (Helper::sendOrderPlacedMail($order->id, '1')) {
                 return array(
                     'status' => true,
-                    'message' => 'Order "TOS' . $order->order_code . '" has been placed successfully',
+                    'message' => 'Order "ARTMYST' . $order->order_code . '" has been placed successfully',
                     'data' => '/response/' . $order->id,
                 );
             } else {
                 return array(
                     'status' => true,
-                    'message' => 'Order "TOS' . $order->order_code . '" has been placed successfully, error while send the mail',
+                    'message' => 'Order "ARTMYST' . $order->order_code . '" has been placed successfully, error while send the mail',
                     'data' => '/response/' . $order->id,
                 );
             }
@@ -1450,7 +1482,7 @@ class CartController extends Controller
                     $updateOrder->status = "Cancelled";
                     if ($updateOrder->save()) {
                         Helper::sendOrderCancelledMail($orderData, $request->reason, $updateOrder);
-                        return response()->json(['status' => 'success-reload', 'message' => "Order 'TOS" . $orderData->order_code . "' has been cancelled"]);
+                        return response()->json(['status' => 'success-reload', 'message' => "Order 'ARTMYST" . $orderData->order_code . "' has been cancelled"]);
                     } else {
                         return response()->json(['status' => 'error', 'message' => 'Error : Please enter a valid email id']);
                     }
@@ -1519,7 +1551,7 @@ class CartController extends Controller
                     if ($updateOrder->save()) {
                         return response(array(
                             'status' => true,
-                            'message' => "Order 'TOS#" . $orderData->order_code . "' has been returned",
+                            'message' => "Order 'ARTMYST#" . $orderData->order_code . "' has been returned",
                             'type' => 'success',
                             'key' => 'Success',
                         ), 200, []);

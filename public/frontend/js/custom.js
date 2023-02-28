@@ -684,43 +684,43 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click','#confirm_payment',function(){
-        if($('#terms-condition').prop('checked')==true){
-            $('#confirm-order-error').html('');
-            if($('.payment_method').val()=="cod"){
-                $('.order-submit-loader').show();
-                var _token = token;
-                $.ajax({
-                    type:'POST',
-                    dataType:'json',
-                    data:{_token:_token},
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: base_url+'/submit-order-by-cod',
-                    success:function(response){
-                        $('.order-submit-loader').hide();
-                        if(response.status==true){
-                            swal({
-                                title: "Done it!",
-                                text: response.message,
-                                type: "success"
-                            }, function() {
-                                $('#submit-loader').hide();
-                                window.location.href = base_url+'/response/'+response.data;
-                            });
-                        }else{
-                            $.notify(response.message, "error");
-                        }
-                    }
-                });
-            }else{
-                alert('online payment');
-            }
-        }else{
-            $('#confirm-order-error').html('Please accept the terms & condition').css({'color':'red'});
-        }
-    });
+    // $(document).on('click','#confirm_payment',function(){
+    //     if($('#terms-condition').prop('checked')==true){
+    //         $('#confirm-order-error').html('');
+    //         if($('.payment_method').val()=="cod"){
+    //             $('.order-submit-loader').show();
+    //             var _token = token;
+    //             $.ajax({
+    //                 type:'POST',
+    //                 dataType:'json',
+    //                 data:{_token:_token},
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 url: base_url+'/submit-order-by-cod',
+    //                 success:function(response){
+    //                     $('.order-submit-loader').hide();
+    //                     if(response.status==true){
+    //                         swal({
+    //                             title: "Done it!",
+    //                             text: response.message,
+    //                             type: "success"
+    //                         }, function() {
+    //                             $('#submit-loader').hide();
+    //                             window.location.href = base_url+'/response/'+response.data;
+    //                         });
+    //                     }else{
+    //                         $.notify(response.message, "error");
+    //                     }
+    //                 }
+    //             });
+    //         }else{
+    //             alert('online payment');
+    //         }
+    //     }else{
+    //         $('#confirm-order-error').html('Please accept the terms & condition').css({'color':'red'});
+    //     }
+    // });
     $(document).on('click', '.form_submit_btn', function (e) {
 
         e.preventDefault();

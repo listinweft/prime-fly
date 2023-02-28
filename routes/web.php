@@ -142,6 +142,8 @@ Route::middleware(['web'])->group(function () {
     Route::get('checkout', [CartController::class, 'checkout']);
     Route::post('select-customer-address', [CartController::class, 'select_customer_address']);
     Route::post('different-shipping-address', [CartController::class, 'different_shipping_address']);
+    Route::post('billing-address-store', [CartController::class, 'billing_address_store']);
+    Route::post('customer/state-list', [CountryController::class,'state_list']);
     Route::post('add-order-remarks', [CartController::class, 'add_order_remarks']);
     Route::post('change-location', [CartController::class, 'change_location']);
     Route::post('remove-cart-item', [CartController::class, 'remove_cart_item']);

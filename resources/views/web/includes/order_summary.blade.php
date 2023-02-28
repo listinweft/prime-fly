@@ -1,4 +1,4 @@
-<div class="order_summary">
+
     <h5 class="head">Order Summary</h5>
     <div class="orderProductSummary  @if (Request::is('checkout'))  @else d-none  @endif">
         @if (Session::has('session_key') && !Cart::session($sessionKey)->isEmpty())
@@ -215,23 +215,4 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="accordion-item">
-                    <h3 class="accordion-header" id="headingFive">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            <input class="bank-radio" type="radio" id="cod" name="bank">
-                            <label for="cod"><img src="{{asset('frontend/images/cashondelivery.svg')}}" alt=""></label>
-                        </button>
-                    </h3>
-                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample" style="">
-                        <div class="accordion-body">
-                            <p>Pay with Cash On Delivery.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="btnsBox">
-                    <a href="thankyou.php" class="primary_btn login">Place Order</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                

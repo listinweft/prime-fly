@@ -32,6 +32,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.min.css')}}">
+    @stack('styles')
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick.min.css')}}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/slick/slick-theme.min.css')}}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('frontend/vendor/fontawesome/css/all.min.css')}}"> --}}

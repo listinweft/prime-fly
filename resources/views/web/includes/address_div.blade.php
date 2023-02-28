@@ -72,7 +72,7 @@ login
                                         <span class="invalidMessage d-none">  </span>
                                     </div>
                                 </div>
-                                <div class="col-12">PmaP
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label for="">Zipcode</label>
                                         <input type="text" class="form-control  shipping-value-change"   name="shipping_zipcode" id="zipcode" placeholder="Zip code"  value="{{(Session::has('shipping_zipcode'))?session('shipping_zipcode'):''}}">
@@ -115,7 +115,7 @@ login
             </form>
         </div>
     </div>
-    <div class="select_address_area billiing_address_form  @if(!Helper::checkConfirmOrder())  @else d-none @endif">
+    <div class="select_address_area billiing_address_form  @if(!Helper::checkConfirmOrder())  @else d-none @endif d-none">
 
         <div class="row">
             <div class="col-12">
@@ -186,6 +186,13 @@ login
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" id="account_type" name="account_type"
+                                value="{{(Auth::guard('customer')->check())?1:0}}">
+                                <input type="hidden" name="is_default" id="is_default" value="1">
+
+                                <input type="hidden" id="type" name="type" value="billing" class="choose">
+                                <input type="hidden" id="id" name="id" value="0">
+                        <input type="hidden" name="set_session" id="set_session" ovalue="1">
                             </form>
                         </div>
                     </div>
@@ -210,113 +217,3 @@ login
 </div>
 </div>
 
-@push('scripts')
-<script>
-    $(document).ready(function () {
-
-        //make checkbox unchecked
-        // $('.different_shipping_address').prop('checked', false);
-        if($(".different_shipping_address").is(':checked')){
-            var choose = "different";
-            $('.billiing_address_form').removeClass("d-none");
-            $('.choose').val("different");
-        
-    } else {
-        var choose = "same";
-            $('.billiing_address_form').addClass("d-none");
-            $('.choose').val("same");
-        
-    }
-    });
-    //check if checkbox is checked or not
-    $(document).on('click', '.different_shipping_address', function (e) {
-        if($(this).is(':checked')){
-            var choose = "different";
-            $('.billiing_address_form').removeClass("d-none");
-            $('.choose').val("different");
-        }
-        else{
-            var choose = "same";
-            $('.billiing_address_form').addClass("d-none");
-            $('.choose').val("same");
-        }
-    });
-        //for selecting different address for shipping
-        $(document).on('change', '.different_shipping_address', function (e) {
-            e.preventDefault();
-            $this = $(this);
-            var different_status = $this.is(':checked');
-            $.ajax({
-                type: 'POST', dataType: 'json', data: {different_status}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, url: base_url + '/different-shipping-address', success: function (response) {
-                    
-                    if (response.status == true  ) {
-                    console.log(response);
-                        Toast.fire("", response.message, "success");
-                    //make all fields readonly
-                    if(response.orderC == true){
-                        $('.error').addClass("d-none");
-
-                    }
-                    else{
-                        $('.error').removeClass("d-none");
-                    }
-                    if(response.type == 'same'){
-                        $('.billiing_address_form').addClass("d-none");
-                        $('#addBillingForm input').val('');
-                        //select box empty
-                        $('#addBillingForm select').val('');
-                        $('#addBillingForm textarea').val('');
-                        $('#addBillingForm span').html('');
-                        $('.error').addClass("d-none");
-                        //remove disabled attribute from confirm payment button
-                        $('#confirm_payment').attr('disabled', false);
-                    }
-                    else{
-                        $('.billiing_address_form').removeClass("d-none");
-                        $('#addBillingForm input').val('');
-                        $('.error').removeClass("d-none");
-                        $('#confirm_payment').attr('disabled', true);
-                    }
-                    if(response.reload == true){
-                        setTimeout(() => {
-                            // location.reload();
-                        }, 1000);
-                    }
-                    } else {
-                        if(response.orderC == true){
-                        $('.error').addClass("d-none");
-
-                    }
-                    else{
-                        $('.error').removeClass("d-none");
-                    //empty all  in addBillingForm form
-                    $(':input').val('');
-
-                    
-
-                    }
-                    if(response.type == 'same'){
-                            $('.billiing_address_form').addClass("d-none");
-                        
-                            $('#confirm_payment').attr('disabled', false);
-                        }
-                        else{
-                        
-                            $('.billiing_address_form').removeClass("d-none");
-                            $('#confirm_payment').attr('disabled', true);
-                        }
-
-                    
-                        Toast.fire('Error', response.message, "error");
-                    }
-                    setTimeout(() => {
-                        // location.reload();
-                        
-                    }, 1500);
-                }
-            });
-        });
-</script>
-@endpush

@@ -540,8 +540,35 @@ $(document).ready(function () {
         });
     });
 
-
+    $(document).on('click', '.payment_method', function () {
+        var payment_method = $(this).val();
+        var finalAmount = $('#grand_total_amount').val();
+        finalAmount = parseInt(finalAmount.replace(/\,/g, ''));
+        $('.order-submit-loader').show();
+        $.ajax({
+            type: 'POST', dataType: 'json', data: {payment_method}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/cod-charge-apply', success: function (response) {
+                $('.order-submit-loader').hide();
+                if (response.status == true) {
+                    $('.cod-charge').show();
+                    var finalTotal = parseFloat(finalAmount) + parseFloat(response.cost);
+                    $('.cart_final_total').html(response.currency + ' ' + finalTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+                    Toast.fire('Done it!', response.message, "success");
+                } else {
+                    $('.cod-charge').hide();
+                    finalAmount = parseFloat(finalAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                    $('.cart_final_total').html(response.currency + ' ' + finalAmount);
+                    $('#grand_total_amount').val(finalAmount);
+                    if ($('.cod-charge').css('display') === 'flex') {
+                        Toast.fire('Done it!', response.message, "success");
+                    }
+                }
+            }
+        });
+    });
     $(document).on('click', '#confirm_payment', function (e) {
+   
         e.preventDefault();
         // alert($('#terms-and-conditions').val());
         if ($('#terms-and-conditions').prop('checked') == true) {
@@ -559,7 +586,6 @@ $(document).ready(function () {
             var credit_point = $('#credit_point_amount').val();
             var credit_point_check = $('#credit_point_check_valid').val();
             var thisData = $(this);
-            // alert(payment_method);
             if (payment_method) {
                 $(this).text("Please Wait...")
                 $.ajax({
@@ -628,6 +654,7 @@ $(document).ready(function () {
             } else {
                 $(this).prop('disabled', false);
                 var payment_error = 'Select payment method';
+           
                 $('#payment-method-error').html(payment_error).css({'color': 'red'});
                 Toast.fire('Error', payment_error, "error");
             }
@@ -2039,6 +2066,7 @@ $(document).ready(function () {
 
 
     $(document).on('change', '.billing-value-change', function (e) {
+        
         var addressChoose = $('.billingAddressChoose:checked').val();
         e.preventDefault();
         var reload = $(this).data('reload');

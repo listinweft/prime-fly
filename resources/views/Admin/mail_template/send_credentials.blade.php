@@ -75,7 +75,7 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
                             <tr>
                                 <td><img style="width: 10vw; padding: 1vw;"
-                                         src="https://pentacodesdemo.com/tos/frontend/images/logo.png"/></td>
+                                         src="https://pentacodesdemo.com/ARTMYST/frontend/images/logo.png"/></td>
                                 <td></td>
                             </tr>
                         </table>
@@ -88,7 +88,7 @@
                         <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear {name}, <br/>
                             Your login credentials are below. Please ensure you do not share your
                             credentials with anyone else. For any further assistance, please reach out to us
-                            at info@tos.com<br/><br/></p>
+                            at info@ARTMYST.com<br/><br/></p>
                     </td>
                 </tr>
 
