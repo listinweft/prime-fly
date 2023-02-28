@@ -233,7 +233,7 @@
                     <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
                 </a>
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/products">Shop now </a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{url('products')}}">Shop now </a></li>
 
                     <li class="nav-item dropdown has-megamenu">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shapes</a>

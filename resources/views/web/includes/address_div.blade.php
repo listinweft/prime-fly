@@ -104,9 +104,12 @@ login
         <div class="col-12">
             <form action="" class="sameShipping">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input different_shipping_address" type="checkbox" value="same" name="address_choose"
+                    id="different_shipping_address"
+                    {{ Session::get('different_shipping_address') ? 'checked':'' }}>
+                    <br>
                     <label class="form-check-label" for="flexCheckDefault">
-                        Same as Shipping Address
+                        Bill to a different address?  <br>
                     </label>
                 </div>
             </form>
@@ -127,3 +130,115 @@ login
     </div>
 </div>
 </div>
+
+@push('scripts')
+<script>
+$(document).ready(function () {
+
+    //make checkbox unchecked
+    // $('.different_shipping_address').prop('checked', false);
+    if($(".different_shipping_address").is(':checked')){
+        var choose = "different";
+        $('.billiing_address_form').removeClass("d-none");
+        $('.choose').val("different");
+      
+} else {
+    var choose = "same";
+        $('.billiing_address_form').addClass("d-none");
+        $('.choose').val("same");
+       
+}
+});
+//check if checkbox is checked or not
+$(document).on('click', '.different_shipping_address', function (e) {
+    if($(this).is(':checked')){
+        var choose = "different";
+        $('.billiing_address_form').removeClass("d-none");
+        $('.choose').val("different");
+    }
+    else{
+        var choose = "same";
+        $('.billiing_address_form').addClass("d-none");
+        $('.choose').val("same");
+    }
+});
+    //for selecting different address for shipping
+    $(document).on('change', '.different_shipping_address', function (e) {
+        e.preventDefault();
+        $this = $(this);
+        var different_status = $this.is(':checked');
+        $.ajax({
+            type: 'POST', dataType: 'json', data: {different_status}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/different-shipping-address', success: function (response) {
+                
+                if (response.status == true  ) {
+                  console.log(response);
+                    Toast.fire("", response.message, "success");
+                   //make all fields readonly
+                   if(response.orderC == true){
+                       $('.error').addClass("d-none");
+
+                   }
+                   else{
+                    $('.error').removeClass("d-none");
+                   }
+                   if(response.type == 'same'){
+                    $('.billiing_address_form').addClass("d-none");
+                    $('#addBillingForm input').val('');
+                    //select box empty
+                    $('#addBillingForm select').val('');
+                    $('#addBillingForm textarea').val('');
+                    $('#addBillingForm span').html('');
+                    $('.error').addClass("d-none");
+                    //remove disabled attribute from confirm payment button
+                    $('#confirm_payment').attr('disabled', false);
+                   }
+                   else{
+                    $('.billiing_address_form').removeClass("d-none");
+                    $('#addBillingForm input').val('');
+                    $('.error').removeClass("d-none");
+                    $('#confirm_payment').attr('disabled', true);
+                   }
+                   if(response.reload == true){
+                    setTimeout(() => {
+                        // location.reload();
+                    }, 1000);
+                   }
+                } else {
+                    if(response.orderC == true){
+                       $('.error').addClass("d-none");
+
+                   }
+                   else{
+                    $('.error').removeClass("d-none");
+                  //empty all  in addBillingForm form
+                  $(':input').val('');
+
+                  
+
+                   }
+                   if(response.type == 'same'){
+                        $('.billiing_address_form').addClass("d-none");
+                       
+                        $('#confirm_payment').attr('disabled', false);
+                     }
+                    else{
+                      
+                        $('.billiing_address_form').removeClass("d-none");
+                        $('#confirm_payment').attr('disabled', true);
+                     }
+
+                  
+                    Toast.fire('Error', response.message, "error");
+                }
+                setTimeout(() => {
+                    // location.reload();
+                    
+                }, 1500);
+            }
+        });
+    });
+</script>
+@endpush
+@endsection
