@@ -278,7 +278,7 @@
                                 </div>
                                 @php $var = 'starPercent'.$i @endphp
                                 <div class="ratings_reviews_bar">
-                               )
+                               
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: {{ $$var }}%" aria-valuenow="{{ $$var }}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>

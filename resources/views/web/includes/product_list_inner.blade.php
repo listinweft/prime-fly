@@ -4,6 +4,7 @@
         <div class="appendHere{{$offset}}"></div>
     @endif
 @endforeach
+
 @if($totalProducts>$offset)
     
 

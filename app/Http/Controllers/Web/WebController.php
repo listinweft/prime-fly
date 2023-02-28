@@ -239,7 +239,8 @@ class WebController extends Controller
             $parentCategories = Category::active()->isParent()->get();
             $banner = $category;
             $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
 
@@ -270,9 +271,10 @@ class WebController extends Controller
             $seo_data = $color;
 
             $allProducts = Product::active()->first();
-            $banner = $allProducts;
+            $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($color->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
 
@@ -302,9 +304,10 @@ class WebController extends Controller
             $seo_data = $shape;
             // $parentCategories = Category::active()->isParent()->get();
             $allProducts = Product::active()->first();
-            $banner = $allProducts;
+            $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($shape->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
 
@@ -335,7 +338,7 @@ class WebController extends Controller
                 $seo_data = $deal;
                 $banner = $deal;
                 $parentCategories = Category::active()->isParent()->get();
-                $condition = Product::active()->whereIn('id', explode(',', $deal->products));
+                $condition = Product::active()->whereIn('id', explode(',', $deal->products))->where('copy','no');
                 $totalProducts = $condition->count();
                 $products = $condition->latest()->take(12)->get();
                 $colors = Color::active()->get();
@@ -379,7 +382,7 @@ class WebController extends Controller
 
     public function main_search_products($search_param)
     {
-        $condition = Product::active()->where('title', 'LIKE', "%{$search_param}%");
+        $condition = Product::active()->where('title', 'LIKE', "%{$search_param}%")->where('copy','no');
         $totalProducts = $condition->count();
         $products = $condition->latest()->take(30)->get();
         $parentCategories = Category::active()->isParent()->get();
