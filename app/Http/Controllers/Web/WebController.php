@@ -521,6 +521,8 @@ class WebController extends Controller
 
 
         $price_range = explode('-', str_replace('AED', '', $request->my_range));
+
+        
          if (!empty($price_range)) {
 
 

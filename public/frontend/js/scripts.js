@@ -293,19 +293,8 @@ $('.shopCategorySlider').slick({
     // });
 // });
 
-$(function() {
-    $( "#slider-range" ).slider({
-        range: true,
-        min: 400,
-        max: 1000,
-        values: [ 400, 1000 ],
-        slide: function( event, ui ) {
-            $( "#amount" ).val( "AED" + ui.values[ 0 ] + " - AED" + ui.values[ 1 ] );
-        }
-    });
-    $( "#amount" ).val( "AED" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - AED" + $( "#slider-range" ).slider( "values", 1 ) );
-});
+
+
 
 
 
