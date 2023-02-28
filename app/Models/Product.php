@@ -193,7 +193,7 @@ class Product extends Model
     }
     public function productprice()
     {
-        return $this->hasOne(ProductPrice::class, 'product_id', 'id')->orderBy('created_at');
+        return $this->hasOne(ProductPrice::class, 'product_id', 'id');
     }
     public function productprices()
     {
