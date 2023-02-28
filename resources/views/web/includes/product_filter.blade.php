@@ -1,7 +1,7 @@
 
 <form id="filter-form" method="post">
 <div class="accordion" id="accordionPanelsStayOpenExample">
-
+                  
     <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
             <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="" aria-controls="">
@@ -30,9 +30,9 @@
                                                     <div id="{{ $parent->short_url }}" class="accordion-collapse collapse show {{ ($loop->iteration ==1)?'show':'' }}" aria-labelledby="{{ $parent->title }}">
                             <div class="accordion-body">
                                 <ul>
-
+                                    
                                 @foreach($parent->activeChildren as $subCategory)
-
+                                    
                                 <li>
                                                                     <div class="form-check">
                                                                         <input class="form-check-input filterItem" type="checkbox" value="{{$subCategory->id}}"  name="sub_category_id[]" data-parent = "{{ $subCategory->parent_id }}"
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     @endforeach
-
+                    
                 </div>
             </div>
         </div>
@@ -83,14 +83,14 @@
                         </label>
                     </a>
                     @endforeach
-
-
-
-
-
-
-
-
+                    
+                    
+                    
+                   
+                    
+                    
+                   
+                    
                 </div>
             </div>
         </div>
@@ -108,29 +108,31 @@
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
             <div class="priceRagerArea">
                 <div class="slider-range-wrap">
-                    <div class="currencyBox">AED</div>
-                    <div id="slider-range"></div>
+                <div class="currencyBox">{{Helper::defaultCurrency()}}</div>
+                    <div id="slider-range" class="range_bar_sort"></div>
                     <p class="range-value">
-                        <input type="text" id="amount">
+                        <input type="text" id="amount" name="my_range"  value="AED{{ Helper::getMinPrice() }}-AED{{ Helper::getMaxPrice() }}"data-min="{{ Helper::getMinPrice() }}"
+                                                           data-max="{{ Helper::getMaxPrice() }}"
+                                                           data-from="{{ Helper::getMinPrice() }}"
+                                                           data-to="{{ Helper::getMaxPrice() }}">
                     </p>
-{{--                    <div id="slider-range"></div>--}}
-{{--                    <div class="price-ranges">--}}
-{{--                        <h4>Price Range</h4>--}}
-{{--                        <p>Range : {{Helper::defaultCurrency()}}--}}
-{{--                            {{ Helper::getMinPrice() }} - {{Helper::defaultCurrency()}}--}}
-{{--                            {{ Helper::getMaxPrice() }}</p>--}}
-{{--                        <div class="price-range-slider">--}}
-{{--                            <div id="slider-range" class="range-bar range_bar_sort"></div>--}}
-{{--                            <p class="range-value">--}}
-{{--                                <input type="text" id="amount" name="my_range"--}}
-{{--                                       value="AED{{ Helper::getMinPrice() }}-AED{{ Helper::getMaxPrice() }}"--}}
-{{--                                       data-min="{{ Helper::getMinPrice() }}"--}}
-{{--                                       data-max="{{ Helper::getMaxPrice() }}"--}}
-{{--                                       data-from="{{ Helper::getMinPrice() }}"--}}
-{{--                                       data-to="{{ Helper::getMaxPrice() }}">--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+
+                                            <!-- <h4>Price Range</h4>
+                                            <p>Range : {{Helper::defaultCurrency()}}
+                                                {{ Helper::getMinPrice() }} - {{Helper::defaultCurrency()}}
+                                                {{ Helper::getMaxPrice() }}</p>
+                                            <div class="price-range-slider">
+                                                <div id="slider-range" class="range-bar range_bar_sort"></div>
+                                                <p class="range-value">
+                                                    <input type="text" id="amount" name="my_range"
+                                                           value="AED{{ Helper::getMinPrice() }}-AED{{ Helper::getMaxPrice() }}"
+                                                           data-min="{{ Helper::getMinPrice() }}"
+                                                           data-max="{{ Helper::getMaxPrice() }}"
+                                                           data-from="{{ Helper::getMinPrice() }}"
+                                                           data-to="{{ Helper::getMaxPrice() }}">
+                                                </p>
+                                            </div>
+                                        </div> -->
                 </div>
             </div>
         </div>
@@ -175,9 +177,9 @@
         </h2>
         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
             <div class="productTagArea">
-
+            
                 @foreach($tags as $tag)
-
+                                                
                 <label for="tag_{{$tag->id}}"  class="tagFilterClick">
                     <label class="d-block" for="tag_{{$tag->id}}">{{ @$tag->title }}</label>
                     <input type="checkbox"  name="tag_id[]" id="tag_{{$tag->id}}" data-field="tag_id"
@@ -186,7 +188,7 @@
                                                                {{ $color->short_url == $typeValue?'checked':'' }}
                                                                class="form-check-input filterItem d-none">
                 </label>
-
+               
                 @endforeach
             </div>
 
@@ -223,7 +225,6 @@
     </div>
 </div>
 
-
 <input type="hidden" id="sort_value" name="sort_value"
                        value="{{ $sort_value }}">
                 <input type="hidden" id="input_field" name="input_field">
@@ -236,3 +237,27 @@
                 <input type="hidden" id="loading_limit" name="loading_limit"
                        value="{{$loading_limit}}">
 </form>
+
+@push('scripts')
+
+<script>
+   $(function() {
+    // var amount = $("#amount").val();
+    // alert(amount);
+    // let new_phrase = amount.replace('AED');
+    // alert(new_phrase);
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 1,
+        max: 5000,
+        values: [ 1, 5000 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val( "AED" + ui.values[ 0 ] + " - AED" + ui.values[ 1 ] );
+        }
+    });
+    $( "#amount" ).val( "AED" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - AED" + $( "#slider-range" ).slider( "values", 1 ) );
+});
+
+</script>
+@endpush
