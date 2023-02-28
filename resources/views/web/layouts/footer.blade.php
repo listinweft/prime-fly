@@ -247,7 +247,7 @@ setTimeout(function () {
 
 
 
-<script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>
+{{--<script  src="{{ asset('frontend/js/scripts.min.js')}}"></script>--}}
 <script  src="{{ asset('frontend/js/custom.js')}}"></script>
 <script  src="{{ asset('frontend/js/scripts.js')}}"></script>
 
@@ -265,7 +265,7 @@ setTimeout(function () {
         backdrop: true, showConfirmButton: true,
     });
     var Toast = Swal.mixin({
-        toast: true, position: 'top-end', showConfirmButton: false, timer: 3000,
+        toast: true, position: 'top-end', showConfirmButton: false, timer: 30000,
     });
 </script>
 </body>

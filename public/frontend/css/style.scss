@@ -5170,6 +5170,24 @@ footer{
                         padding: 30px 0px 40px 30px;
                         padding-right: 15px;
                         border-bottom: 1px solid #A0A0A0;
+
+                        .range-value{
+                            margin-top: 15px;
+                            input {
+                                width: 100%;
+                                background: none;
+                                color: #000;
+                                font-size: 14px;
+                                font-weight: initial;
+                                box-shadow: none;
+                                border: none;
+                                margin: 0px 0 0px 0;
+                                outline: none;
+                                box-shadow: none;
+                                border: 0;
+                            }
+                        }
+
                         .ui-widget-header {
                             height: 5px !important;
                             background: #252525;
@@ -11806,7 +11824,7 @@ footer{
 .swal2-container {
     display: flex;
     position: fixed;
-    z-index: 9999;
+    z-index: 9999 !important;
 }
 
 

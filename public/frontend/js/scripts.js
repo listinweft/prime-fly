@@ -259,14 +259,13 @@ $('.shopCategorySlider').slick({
 
 //Price Ranger Start
 
-function numberWithCommas(x) {
-    if (x !== null) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-}
+// function numberWithCommas(x) {
+//     if (x !== null) {
+//         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+//     }
+// }
 
-$(function() {
-    //slider range init set
+// $(function() {
     // $( "#slider-range" ).slider({
     //     range: true,
     //     min: 100,
@@ -278,24 +277,37 @@ $(function() {
     //     }
     // });
 
-    // //slider range data tooltip set
     // var $handler = $("#slider-range .ui-slider-handle");
 
     // $handler.eq(0).append("<b class='amount'><span id='min'>"+numberWithCommas($( "#slider-range" ).slider( "values", 0 )) +"</span></b>");
     // $handler.eq(1).append("<b class='amount'><span id='max'>"+numberWithCommas($( "#slider-range" ).slider( "values", 1 )) +"</span></b>");
 
-    // //slider range pointer mousedown event
     // $handler.on("mousedown",function(e){
     //     e.preventDefault();
     //     $(this).children(".amount").fadeIn(300);
     // });
 
-    //slider range pointer mouseup event
-    $handler.on("mouseup",function(e){
-        e.preventDefault();
-        $(this).children(".amount").fadeOut(300);
+    // $handler.on("mouseup",function(e){
+    //     e.preventDefault();
+    //     $(this).children(".amount").fadeOut(300);
+    // });
+// });
+
+$(function() {
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 400,
+        max: 1000,
+        values: [ 400, 1000 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val( "AED" + ui.values[ 0 ] + " - AED" + ui.values[ 1 ] );
+        }
     });
+    $( "#amount" ).val( "AED" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - AED" + $( "#slider-range" ).slider( "values", 1 ) );
 });
+
+
 
 //Price Ranger End
 
@@ -574,12 +586,12 @@ document.addEventListener("DOMContentLoaded", function(){
 $(".colorBtn").click(function(){
    frame_id = $(this).data('id');
    //remove d-none class of given id class
-   
+
     $(".colorBtn").removeClass('active');
     $(this).addClass('active');
     var color = $(this).data('color');
     var img = $(this).data('img');
- 
+
     $('.frame_product_detail_img').css('border-color', color);
     $('.frame_product_border_image').attr('src',img);
 });
