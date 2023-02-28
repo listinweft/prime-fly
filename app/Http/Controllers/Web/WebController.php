@@ -366,9 +366,9 @@ class WebController extends Controller
             foreach ($products as $product) {
                 if (Helper::offerPrice($product->id) != '') {
                     $offerPrice = Helper::offerPrice($product->id);
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->price;
+                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $$product->productprice->id;
                 } else {
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->price;
+                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->id;
                 }
                 $searchResult[] = array("id" => $product->id, "title" => $product->title, 'price' => $price, 'offer_price' => $offerPrice ?? '', 'image' => ($product->thumbnail_image != NULL && File::exists(public_path($product->thumbnail_image))) ? asset($product->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('product/' . $product->short_url));
             }
@@ -491,6 +491,8 @@ class WebController extends Controller
     public function filter_product(Request $request)
     {
 
+        
+    
         $condition = $this->filterCondition($request);
         $condition = $this->sortCondition($request, $condition);
         $totalProducts = $condition->count();
@@ -512,13 +514,17 @@ class WebController extends Controller
 
     public function filterCondition(Request $request)
     {
+
+       
         $condition = Product::active();
 
         $inputs = [];
         if ($request->input_field != NULL) {
             $inputs = explode(',', $request->input_field);
         }
-
+        
+     
+       
         if ($request->pageType == "category" && !in_array('category_id', $inputs)) {
             $category = Category::active()->where('short_url', $request->typeValue)->first();
             if ($category) {
@@ -533,16 +539,40 @@ class WebController extends Controller
                 $condition = $condition->whereIn('id', explode(',', $deal->products));
             }
         }
+
+        // $price_range = explode('-', str_replace('AED', '', $request->my_range));
+        // if (!empty($price_range)) {
+
+
+        //     return 1;
+
+
+        //      $condition = \App\Models\Product::with('productprices')->get();
+
+            
+        //     $condition = $condition->where(function ($query) use ($price_range) {
+                
+                  
+        //      $query->whereBetween('price', [$price_range[0], $price_range[1]])->active();
+                    
+        //     });
+        // }
         //color filtering
         if ($request->input_field != NULL) {
             $condition = $condition->where(function ($query) use ($inputs, $request) {
-                if (!empty($inputs)) {
+                 {
                     foreach ($inputs as $input) {
                         if ($input == "category_id" || $input == "sub_category_id" ||  $input == "shape_id" ||  $input == "tag_id") {
+
+                       
                             foreach ($request->$input as $key => $reIn) {
+
+                              
                                 $query->OrwhereRaw("find_in_set('" . $reIn . "',$input)");
                             }
-                        } else {
+                            
+                         } 
+                         else {
                             $query->whereIn($input, $request[$input]);
                         }
                     }

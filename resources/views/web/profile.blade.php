@@ -76,7 +76,7 @@
                             </div>
                             Wishlist
                         </button>
-                        <a class="nav-link" href="index.php">
+                        <a class="nav-link" href="{{url('logout')}}">
                             <div class="iconBox">
                                 <img src="assets/images/myAccount-06.png" alt="">
                             </div>
