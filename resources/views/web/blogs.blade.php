@@ -27,12 +27,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h6 class="subHeading">Our Blogs</h6>
-                    <h2 class="mainHeading">Blogs</h2>
+                    <h6 class="subHeading">{{ $heading->title }}</h6>
+                    <h2 class="mainHeading">{{ $heading->subtitle }}</h2>
                     <div class="headingText">
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                        </p>
+                        {!! $heading->description !!}
                     </div>
                 </div>
             </div>
@@ -42,6 +40,6 @@
 </section>
     @endsection
 @push('scripts')
-    
+
 @endpush
 
