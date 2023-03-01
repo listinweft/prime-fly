@@ -71,7 +71,7 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ 'ARTMYST'.$order->order_code }}</td>
+                                                <td>{{ 'ARTMYST#'.$order->order_code }}</td>
                                                 @if(@$order->orderCustomer->user_type=="User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else

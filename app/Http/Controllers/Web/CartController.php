@@ -1361,13 +1361,13 @@ class CartController extends Controller
             if (Helper::sendOrderPlacedMail($order->id, '1')) {
                 return array(
                     'status' => true,
-                    'message' => 'Order "ARTMYST' . $order->order_code . '" has been placed successfully',
+                    'message' => 'Order "ARTMYST#' . $order->order_code . '" has been placed successfully',
                     'data' => '/response/' . $order->id,
                 );
             } else {
                 return array(
                     'status' => true,
-                    'message' => 'Order "ARTMYST' . $order->order_code . '" has been placed successfully, error while send the mail',
+                    'message' => 'Order "ARTMYST#' . $order->order_code . '" has been placed successfully, error while send the mail',
                     'data' => '/response/' . $order->id,
                 );
             }
@@ -1483,7 +1483,7 @@ class CartController extends Controller
                     $updateOrder->status = "Cancelled";
                     if ($updateOrder->save()) {
                         Helper::sendOrderCancelledMail($orderData, $request->reason, $updateOrder);
-                        return response()->json(['status' => 'success-reload', 'message' => "Order 'ARTMYST" . $orderData->order_code . "' has been cancelled"]);
+                        return response()->json(['status' => 'success-reload', 'message' => "Order 'ARTMYST#" . $orderData->order_code . "' has been cancelled"]);
                     } else {
                         return response()->json(['status' => 'error', 'message' => 'Error : Please enter a valid email id']);
                     }
