@@ -133,21 +133,25 @@
                                     <div class="price">
                                         <ul class="price-area">
                                             <li class="offer">
-                                            @if(Helper::offerPrice($product->productData->id)!='')
-                                            </li>
-                                            @endif
+                                         
                                             @if(Helper::offerPrice($product->productData->id)!='')
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->productData->id),2)}}
+                                                @php
+                                                $price = \App\Models\ProductPrice::where('product_id',$product->productData->id)->where('size_id',$product->size)->first();
+                                                @endphp
+                                                @php
+                                                $offerId =Helper::offerId($product->productData->id);
+                                                 @endphp
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->productData->id,$product->size,$offerId),2)}}
                                             </li>
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productData->price,2)}}
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
                                             </li>
 
 
                                             @else
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productData->price,2)}}
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
                                             </li>
                                             <li>
 
