@@ -112,7 +112,7 @@
                 <p>Contact</p>
             </a>
         </li>
-       
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/my-account')}}"
                class="nav-link {{ (Request::segment(3)=='my-account')?'active':'' }}">
@@ -120,8 +120,8 @@
                 <p>My Account</p>
             </a>
         </li>
-      
-        
+
+
 
 
         <li class="nav-item">
@@ -236,13 +236,13 @@
                 <p>Contact Page</p>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry/product')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p> Product </p>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry/bulk')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">

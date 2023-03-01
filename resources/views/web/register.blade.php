@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <label for="">Phone number</label>
                                         <img src="assets/images/icon-phone.png" alt="">
-                                        <input type="email" class="form-control required" name="phone" id="phone"placeholder="Enter Phone number">
+                                        <input type="text" class="form-control required" name="phone" id="phone"placeholder="Enter Phone number">
                                     </div>
                                 </div>
                                 <div class=" col-12">

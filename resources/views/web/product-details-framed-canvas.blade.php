@@ -91,7 +91,7 @@
                                 <div class="fotorama__thumb fotorama_vertical_ratio">
                                     <img src="{{asset($frm->image)}}" alt="{{$frm->image_attribute}}" class="fotorama__img img-fluid frame_product_border_image">
                                     {{-- {!! Helper::printImage(@$frame,'image','image_webp','image_attribute','') !!} --}}
-                                  
+
                                 </div>
                             </div>
                             @if($product->activeGalleries->count() > 0)
@@ -99,12 +99,12 @@
                                     <div class="fotorama__nav__frame ">
                                         <div class="fotorama__thumb fotorama_vertical_ratio">
                                             {!! Helper::printImage(@$gallery,'image','image_webp','image_attribute','fotorama__img img-fluid') !!}
-                                
+
                                         </div>
                                     </div>
                                 @endforeach
                             @endif
-                       
+
                         </div>
                     </div>
                 </div>
@@ -136,9 +136,9 @@
                         @endif
                     </div>
                     <div class="price">
-                        @if(Helper::offerPrice($product->id)!='') 
+                        @if(Helper::offerPrice($product->id)!='')
                         <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  </h5>
-                        
+
                         @else
                             <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
                             <h5 class="product_price"></h5>
@@ -166,20 +166,20 @@
                                 <p>{{$prd->productType->title}}</p>
                             </a>
                         </div>
-                          
+
                         @endforeach
-                    
+
                     </div>
                 </div>
 
-               
+
                 @if(@$productFrames->isNotEmpty())
-        
+
                 <div class="relatedProductsTypesSelect">
                     <h5>
                         Select Frame Color
                     </h5>
-                    
+
                     <div class="relatedProductsTypesWrapper">
                         @php
                             $n = 1;
@@ -247,7 +247,7 @@
                             <p>{{$size->title}}</p>
                         </div>
                         @endforeach
-                   
+
                     </div>
                 </div>
                 <div class="totalBox">
@@ -255,9 +255,9 @@
                         Total
                     </h5>
                     <div class="priceQuantityArea">
-                        <div class="priceArea">  
-                            @if(Helper::offerPrice($product->id)!='') 
-                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  
+                        <div class="priceArea">
+                            @if(Helper::offerPrice($product->id)!='')
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
                                 <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
                             @else
                                 <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
@@ -295,10 +295,10 @@
                 <div class="tagArea">
                     <h6>Product Tags</h6>
                     @foreach ($productTags as $tag)
-                        
+
                     <div class="tag">{{$tag->title}}</div>
                     @endforeach
-                 
+
                 </div>
             </div>
         </div>
@@ -358,7 +358,9 @@
                 <div class="ratings_reviews_right_bar">
                     <h6>Reviews</h6>
                     <ul>
-                        @for($i=5;$i>=1;$i--)
+                        <ul>
+                            @for($i=5;$i>=1;$i--)
+
                             <li>
                                 <div class="ratings_reviews_star">
                                     <p>{{ $i }}<img src="{{ asset('frontend/images/star.png') }}" alt=""></p>
@@ -373,7 +375,9 @@
                                     </p>
                                 </div>
                             </li>
-                        @endfor
+                            @endfor
+
+                        </ul>
                     </ul>
                 </div>
             </div>
@@ -413,7 +417,7 @@
                                         <div class="cartWishlistBox">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}" 
+                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}"
                                                             data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                         <div class="textIcon">
                                                             Wishlist
@@ -467,14 +471,14 @@
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
                                             </li>
-                                        
-                                        
+
+
                                             @else
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
                                             </li>
                                             <li>
-                                            
+
                                             </li>
                                             @endif
                                         </ul>
@@ -494,9 +498,9 @@
                                 </div>
                             </div>
                         </div>
-                            
+
                         @endforeach
-      
+
                     </div>
                 </section>
             </div>
@@ -526,7 +530,7 @@
                                         <div class="cartWishlistBox">
                                             <ul>
                                                 <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}" 
+                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}"
                                                             data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                         <div class="textIcon">
                                                             Wishlist
@@ -580,14 +584,14 @@
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
                                             </li>
-                                        
-                                        
+
+
                                             @else
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
                                             </li>
                                             <li>
-                                            
+
                                             </li>
                                             @endif
                                         </ul>

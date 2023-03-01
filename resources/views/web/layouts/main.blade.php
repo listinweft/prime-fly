@@ -157,7 +157,7 @@
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.js"></script>--}}
 <!-- <script  src="{{ asset('frontend/js/scripts.min.js')}}"></script> -->
 <!-- <script  src="{{ asset('frontend/js/scripts.js')}}"></script> -->
-<!-- <script  src="{{ asset('frontend/js/custom.min.js')}}"></script> -->
+{{-- <script  src="{{ asset('frontend/js/custom.min.js')}}"></script> --}}
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>--}}
 <script type="text/javascript">
         var base_url = "{{ url('/') }}";

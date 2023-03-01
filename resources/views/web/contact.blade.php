@@ -85,14 +85,14 @@
                 <div class="col-lg-6  ps-0">
                     <div class="formArea">
                         <h5>Enquire Now</h5>
-                        <form method="post" id="enquiry" action="{{ url('contact') }}" name="enquiry">
+                        <form  id="enquiry"  name="enquiry" action="#">
                             <div class="row">
                                 <div class=" col-12">
                                     <div class="form-group">
                                         <label for="">Full Name</label>
                                         <img src="{{ asset('frontend/images/loginUser.png') }}" alt="">
                                         <input type="text" class="form-control nameField required"
-                                            placeholder="Full Name" name="name" required>
+                                            placeholder="Full Name" name="name" >
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -100,7 +100,7 @@
                                         <label for="">Email Address</label>
                                         <img src="{{ asset('frontend/images/icon-email.png') }}" alt="">
                                         <input type="text" class="form-control required" placeholder="Email Address"
-                                            name="email" required>
+                                            name="email" >
                                     </div>
                                 </div>
                                 <div class=" col-12">
@@ -108,7 +108,7 @@
                                         <label for="">Phone Number</label>
                                         <img src="{{ asset('frontend/images/icon-phone.png') }}" alt="">
                                         <input type="number" class="form-control phoneField required"
-                                            placeholder="+1 000 000 00" name="phone" required>
+                                            placeholder="+1 000 000 00" name="phone" >
 
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                     <div class="form-group">
                                         <label for="">Message</label>
                                         <img src="{{ asset('frontend/images/icon-pen.png') }}" alt="">
-                                        <textarea class="form-control form-message required" placeholder="Say Something" name="message" required></textarea>
+                                        <textarea class="form-control form-message required" placeholder="Say Something" name="message" ></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12x ">
