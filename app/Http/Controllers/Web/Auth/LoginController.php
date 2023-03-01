@@ -56,7 +56,8 @@ class LoginController extends Controller
                 $sessionKey = Auth::guard('customer')->user()->customer->id;
                 session(['session_key' => $sessionKey]);
                 Helper::transferGuestCartToUser($sessionKey);
-                return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+                 return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in','redirect'=> '/']);
+                
             }
         } else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);

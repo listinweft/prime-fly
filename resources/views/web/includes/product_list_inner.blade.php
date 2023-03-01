@@ -9,7 +9,7 @@
     
 
         <div class="row">
-                <div class="col-12 text-center-{{$offset}}">
+                <div class="col-12 more-section-{{$offset}}">
                     <button class="primary_btn d-block m-auto load-more-product">Load More</button>
                 </div>
             </div>
