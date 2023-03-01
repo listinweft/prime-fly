@@ -231,17 +231,29 @@ $(document).ready(function () {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }, url: base_url + '/submit-review', success: function (response) {
                         if (response.status == "true") {
-                            swal({
-                                title: "Done it!", text: response.message, type: "success"
-                            }, function () {
-                                window.location.reload();
-                            });
+                            $(".successModalForm").modal('show');
+
+                            document.getElementById("myspan").innerHTML=response.message;
+
+                            const myTimeout = setTimeout(myGreeting, 2000);
+
+                            function myGreeting() {
+
+                                 $('.successModalForm').delay(2000).fadeOut();
+
+                                 window.location.reload();
+                            }
+                            // swal({
+                            //     title: "Done it!", text: response.message, type: "success"
+                            // }, function () {
+                            //     window.location.reload();
+                            // });
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
-                            swal({
-                                title: response.status, text: response.message, type: response.status
-                            });
+                            // swal({
+                            //     title: response.status, text: response.message, type: response.status
+                            // });
                         }
                     }
                 });
@@ -282,11 +294,23 @@ $(document).ready(function () {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }, url: base_url + '/submit-review', success: function (response) {
                         if (response.status == "true") {
-                            swal({
-                                title: "Done it!", text: response.message, type: "success"
-                            }, function () {
-                                window.location.reload();
-                            });
+                            $(".successModalForm").modal('show');
+
+                            document.getElementById("myspan").innerHTML=response.message;
+
+                            const myTimeout = setTimeout(myGreeting, 2000);
+
+                            function myGreeting() {
+
+                                 $('.successModalForm').delay(2000).fadeOut();
+
+                                 window.location.reload();
+                            }
+                            // swal({
+                            //     title: "Done it!", text: response.message, type: "success"
+                            // }, function () {
+                            //     window.location.reload();
+                            // });
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
@@ -374,9 +398,18 @@ $(document).ready(function () {
                         if (modal_id) {
                             $("#" + modal_id).hide();
                         }
-                        swal({title: "Done it!", text: response.message, type: response.status}, function () {
-                            location.reload();
-                        });
+                        $(".successModalForm").modal('show');
+
+                            document.getElementById("myspan").innerHTML=response.message;
+
+                            const myTimeout = setTimeout(myGreeting, 2000);
+
+                            function myGreeting() {
+
+                                 $('.successModalForm').delay(2000).fadeOut();
+
+                                 window.location.reload();
+                            }
                     } else if (response.status == "login-success") {
                         swal({
                             title: "Success!", text: response.message, type: 'success'
@@ -478,19 +511,31 @@ $(document).ready(function () {
                         $('#cartBox' + id).remove();
                     }
                     if (method == "cart" && response.cartCount == 0) {
-                        swal({
-                            title: 'success',
-                            text: response.message,
-                            type: 'success'
-                        }, function () {
-                            window.location.reload();
-                        });
+                        $(".successModalForm").modal('show');
+
+                            $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // swal({
+                        //     title: 'success',
+                        //     text: response.message,
+                        //     type: 'success'
+                        // }, function () {
+                        //     window.location.reload();
+                        // });
                     } else {
-                        swal({
-                            title: 'success',
-                            text: response.message,
-                            type: 'success'
-                        });
+                        $(".successModalForm").modal('show');
+
+                            $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // swal({
+                        //     title: 'success',
+                        //     text: response.message,
+                        //     type: 'success'
+                        // });
                     }
                 } else {
                     swal({
@@ -568,9 +613,15 @@ $(document).ready(function () {
                             $('#wishlist_check_' + id).removeClass('fill');
                             $('#wishlistBox_' + id).remove();
                         }
-                        Toast.fire({
-                            title: "Done it", text: response.message, icon: "success"
-                        });
+                        $(".successModalForm").modal('show');
+
+                            $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // Toast.fire({
+                        //     title: "Done it", text: response.message, icon: "success"
+                        // });
 
                         if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "profile" || urlLastSegment == "wishlist") {
                             location.reload();
@@ -601,13 +652,19 @@ $(document).ready(function () {
             url: base_url + '/remove-cart-item',
             success: function (response) {
                 if (response.status == true) {
-                    swal({
-                        title: "Done it!",
-                        text: response.message,
-                        type: "success"
-                    }, function () {
-                        window.location.reload();
-                    });
+                    $(".successModalForm").modal('show');
+
+                            $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                    // swal({
+                    //     title: "Done it!",
+                    //     text: response.message,
+                    //     type: "success"
+                    // }, function () {
+                    //     window.location.reload();
+                    // });
                 } else {
                     $.notify(response.message, "error");
                 }
@@ -724,6 +781,7 @@ $(document).ready(function () {
     $(document).on('click', '.form_submit_btn', function (e) {
 
         e.preventDefault();
+
         $this = $(this);
         var buttonText = $this.html();
         var url = $this.data('url');
@@ -787,11 +845,34 @@ $(document).ready(function () {
                         $("#" + modal_id).modal('hide');
                     }
                     if (response.status == "success") {
-                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                        $(".successModalForm").modal('show');
+                        document.getElementById("myspan").innerHTML=response.message;
+
+                            const myTimeout = setTimeout(myGreeting, 2000);
+
+                            function myGreeting() {
+
+                                 $('.successModalForm').delay(2000).fadeOut();
+
+                                 window.location.reload();
+
+
+                              }
+                        // const successModel = setTimeout(myGreeting, 2000);
+                        // function successModel(){
+
+                        // }
+                        // Toast.fire({title: "Done it!", text: response.message, icon: response.status});
                     } else if (response.status == "success-reload") {
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
                         if (response.redirect) {
                             window.location.href = response.redirect;
                         } else {
@@ -800,9 +881,14 @@ $(document).ready(function () {
                            }, 1000);
                         }
                     } else {
-                        swal.fire({
-                            title: response.status, text: response.message, icon: response.status
-                        });
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // swal.fire({
+                        //     title: response.status, text: response.message, icon: response.status
+                        // });
                     }
                 })
                 .fail(function (response) {
@@ -849,7 +935,7 @@ $(document).ready(function () {
                     if (!regex.test($(v).val())) {
                         errors = true;
                         msg = '<span class="error invalid-feedback" style="color: red" for="email">Please enter a valid email address</span>';
-                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                        $('#reviewForm').find('input[name="' + field_name + '"]')
                             .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
                 }
@@ -871,45 +957,24 @@ $(document).ready(function () {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }, url: base_url + '/submit-review', success: function (response) {
 
-
-
-
-
-
-                        if (response.status == "true") {
-
-
-
+                            if (response.status == "true") {
 
                             $("#reviewForm")[0].reset();
                              $("#reviewModal").modal('hide');
                              $(".successModalForm").modal('show');
 
-                            document.getElementById("myspan").innerHTML=response.message;
-
-                            // Toast.fire({
-                            //     title: "Done it!", text: response.message, icon: "success"
-
-                            // });
-
-
-                            document.getElementById("myspan").innerHTML=response.message;
-                            const myTimeout = setTimeout(myGreeting, 2000);
-
-                            function myGreeting() {
-
-                                 $('.successModalForm').delay(2000).fadeOut();
-
-                                 window.location.reload();
-
-
-                              }
+                            $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
-                            Toast.fire({
-                                title: response.status, text: response.message, icon: response.status
-                            });
+                             $(".successModalForm").modal('show');
+                             $(".successModalForm").modal('show');
+                            // Toast.fire({
+                            //     title: response.status, text: response.message, icon: response.status
+                            // });
                         }
                     }
                 });

@@ -562,7 +562,7 @@
                         alt=""></button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" id="bulkenquiryForm" name="bulkenquiryForm">
+                <form action="#" method="post" id="bulkenquiryForm" name="bulkenquiryForm">
                     <div class="row">
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control"
@@ -583,7 +583,9 @@
                         {{-- <input type="hidden" name="subject" value="subject"> --}}
 
                         <input type="hidden" name="type" value="product">
-                        <input type="hidden" name="product_id" value="1">
+                        <input type="hidden" name="product_id" value="">
+                        <input type="hidden" name="product_type_id" value="">
+                        <input type="hidden" name="size_id" value="">
                         <div class="form-group">
                             <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                         </div>

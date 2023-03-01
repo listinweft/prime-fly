@@ -74,7 +74,8 @@
                                             <td>{{ $testimonial->name}}</td>
                                             <td>{{ $testimonial->designation }}</td>
                                             <td>{{ $testimonial->email}}</td>
-                                            <td>{{ $testimonial->message }}</td>
+                                            <td>{!! $testimonial->message !!}</td>
+                                            {{-- <td>{{ $testimonial->message }}</td> --}}
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"

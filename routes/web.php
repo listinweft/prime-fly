@@ -171,7 +171,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
     Route::post('address-form', [CustomerWebController::class, 'address_form']);
     Route::post('update-customer-address', [CustomerWebController::class, 'createAddress']);
     Route::post('delete-address', [CustomerWebController::class, 'delete_address']);
-  
+
     Route::post('set-default-address', [CustomerWebController::class, 'set_default_address']);
 
 
@@ -220,7 +220,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('sort_order/', [HomeController::class, 'sort_order']);
     Route::post('sub-category', [HomeController::class, 'sub_categories']);
     Route::post('sub-category', [HomeController::class, 'sub_categories']);
-  
+
 
 
     Route::prefix('about')->group(function () {
@@ -414,7 +414,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::get('/', [EnquiryController::class, 'product_list']);
             Route::get('view/{id}', [EnquiryController::class, 'product_view']);
             Route::post('reply', [EnquiryController::class, 'reply_to_product']);
-            
+
             Route::post('delete', [EnquiryController::class, 'delete_product']);
             Route::post('delete-multiple', [EnquiryController::class, 'delete_multiple_product']);
         });

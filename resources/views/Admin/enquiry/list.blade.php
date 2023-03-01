@@ -83,10 +83,10 @@
                                             <td>{{ $enquiry->name}}</td>
                                             @if($type == "bulk")
                                                 <td>{{ $enquiry->product->title}}</td>
-                                                <td>{{ $enquiry->product->product_type}}</td>
+                                                <td>{{ $enquiry->productType->title}}</td>
                                                 <td>{{ $enquiry->product->frame}}</td>
                                                 <td>{{ $enquiry->product->mount}}</td>
-                                                <td>{{ $enquiry->product->size}}</td>
+                                                <td>{{ $enquiry->Size->title}}</td>
                                             @endif
                                             <td>{{ $enquiry->email}}</td>
                                             <td>{{ $enquiry->phone }}</td>

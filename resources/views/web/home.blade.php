@@ -292,7 +292,8 @@
                         <div class="testimonialsCard">
                             <div class="testimonialsProfile">
                                 <div class="leftPhoto">
-                                {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
+                                    <img class="img-fluid" src="{{ asset('frontend/images/user icon.png')}}" alt="">
+
                                 </div>
                                 <div class="rightDetails">
                                     <h3>{{ @$blog->name }}</h3>

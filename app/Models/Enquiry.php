@@ -18,4 +18,14 @@ class Enquiry extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function productType()
+    {
+        return $this->belongsTo(ProductType::class, 'product_type_id');
+    }
+    public function Size()
+    {
+        return $this->belongsTo(Size::class, 'size_id');
+    }
+
 }

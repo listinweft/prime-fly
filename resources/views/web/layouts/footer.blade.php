@@ -198,7 +198,7 @@
 @if(Session::has('success'))
 <script>
 setTimeout(function () {
-    Toast.fire({title: "Done it!", text: '{{ Session::get('success')}}', icon: 'success'});
+    // Toast.fire({title: "Done it!", text: '{{ Session::get('success')}}', icon: 'success'});
     // toastr['success'](
     //     'Your Email Verified Successfully',
     //     {
@@ -212,7 +212,7 @@ setTimeout(function () {
 @if(Session::has('error'))
 <script>
 setTimeout(function () {
-    Toast.fire({title: "Error !", text: '{{ Session::get('error')}}', icon: 'error'});
+    // Toast.fire({title: "Error !", text: '{{ Session::get('error')}}', icon: 'error'});
 
 });
 </script>
