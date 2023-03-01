@@ -271,6 +271,7 @@
                 <div class="ratings_reviews_right_bar">
                     <h6>Reviews</h6>
                     <ul>
+                       
                         @for($i=5;$i>=1;$i--)
                             <li>
                                 <div class="ratings_reviews_star">
