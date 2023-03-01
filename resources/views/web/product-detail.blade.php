@@ -78,10 +78,12 @@
                     <!--                    <div class="stock">-->
                     <!--                        In Stock-->
                     <!--                    </div>-->
-
-                    @if (@$product->availability != 'In Stock')
+                    @php
+                        $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                    @endphp
+                    @if (@$productPrice->availability != 'In Stock')
                     <div class="stock outOfStock">
-                        {{ $product->availability}}
+                        {{ $productPrice->availability}}
                     </div>
                     @endif
 
@@ -199,7 +201,17 @@
                     </div>
 
                     <div class="btnsArea">
-                        <a href="javascript:void(0)" data-id="{{$product->id}}" class="primary_btn cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}">Add to Cart</a>
+                        @php
+                            $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                            $class = '';
+                            if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
+                               $class = 'cart-action';
+                            }
+                            else{
+                                $class = 'out-of-stock';
+                            }
+                        @endphp
+                        <a href="javascript:void(0)" data-id="{{$product->id}}" class="primary_btn cartBtn {{ $class }}">Add to Cart</a>
                         <a class="primary_btn secondary_btn" href="" data-bs-target="#bulk_order_form_pop"
                             data-bs-toggle="modal" data-bs-dismiss="modal">Bulk Enquiry</a>
                     </div>

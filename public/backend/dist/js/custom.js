@@ -976,6 +976,7 @@ $(document).ready(function () {
         var required = [];
         $('.required').each(function () {
             var id = $(this).attr('id');
+        
             var id_text = $(this).attr('placeholder');
             if ($(this).hasClass('tinyeditor')) {
                 var editorContent = tinymce.get($(this).attr('id')).getContent();
@@ -1054,7 +1055,7 @@ $(document).ready(function () {
             }
           
         });
-     
+     console.log(required.length);
 //   
         if (required.length == 0) {
             if ($('.file-error-message').is(":visible")) {
@@ -1226,7 +1227,7 @@ $(document).ready(function () {
     });
     /********************* Product Specification clone menu ends *************************/
     // product form availability
-    $('#availability').on('change', function () {
+    $('.availability').on('change', function () {
         var availability = $(this).val();
         if (availability == "In Stock") {
             $('.availability_div').show();

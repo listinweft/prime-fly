@@ -157,6 +157,7 @@ class CartController extends Controller
         $product->mount = ($request->mount) ?$request->mount : null;
         $n = $product->id;
         $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
+        $product->stock = $productPrice->stock;
         $product->price = $productPrice->price;
         $product->size = $productPrice->size_id;
         $count = [];
@@ -174,6 +175,7 @@ class CartController extends Controller
             $productCount = $qty;
         }
         if ($productCount > $product->stock) {
+           
             $returnStatus = false;
         } else {
             if (Helper::offerPrice($product->id) != '') {
@@ -333,11 +335,13 @@ class CartController extends Controller
         if ($request->product_id) {
             if (Session::has('session_key')) {
                 $product = Product::find($request->product_id);
-                $item = Cart::session(session('session_key'))->get($request->product_id);
+                $productPrice = ProductPrice::where('product_id', $request->product_id)->where('size_id',$request->size)->first(); 
+          
+                $item = Cart::session(session('session_key'))->get($request->id);
                $productCount=0;
       
                 
-                if ($request->qty > $product->stock) {
+                if ($request->qty > $productPrice->stock) {
                     return response(array(
                         'status' => false,
                         'message' => 'Item seems to be low stock..!',
@@ -345,7 +349,7 @@ class CartController extends Controller
                         
                     ), 200, []);
                 } else {
-                    Cart::session(session('session_key'))->update($request->product_id, [
+                    Cart::session(session('session_key'))->update($request->id, [
                         'quantity' => array(
                             'relative' => false,
                             'value' => $request->qty

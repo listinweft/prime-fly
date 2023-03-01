@@ -171,52 +171,10 @@
                          
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label> Availability*</label>
-                                <select class="form-control required" name="availability" id="availability">
-                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
-                                        <option value="{{ $availability }}"
-                                            {{ old("availability", @$product->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="availability_error"></div>
-                                @error('availability')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$product->availability=='Out of stock')?'none':''}};">
-                                <label> Stock*</label>
-                                <input type="text" name="stock" id="stock" placeholder="Stock"
-                                        class="form-control stock {{(@$product->availability=='Out of Stock')?'':'required'}}"
-                                        autocomplete="off" value="{{ isset($product)?$product->stock:'2' }}">
-                                <div class="help-block with-errors" id="stock_error"></div>
-                                @error('stock')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$product->availability=='Out of stock')?'none':''}};">
-                                <label> Alert Quantity *</label>
-                                <input type="text" name="alert_quantity" id="alert_quantity"
-                                        placeholder="Alert Quantity"
-                                        class="form-control alert_quantity {{(@$product->quantity=='Out of Stock')?'':'required'}}"
-                                        autocomplete="off"
-                                        value="{{ isset($product)?$product->alert_quantity:'1' }}">
-                                <div class="help-block with-errors" id="alert_quantity_error"></div>
-                                @error('alert_quantity')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            
                            
-                            <div class="form-group col-md-3">
-                                <label> Quantity*</label>
-                                <input type="text" name="quantity" id="quantity" placeholder="Quantity"
-                                       class="form-control required"
-                                       value="{{ isset($product)?$product->quantity:'' }}">
-                                <div class="help-block with-errors" id="quantity_error"></div>
-                                @error('quantity')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                           
+                       
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
@@ -235,21 +193,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-3 mount_div d-none">
-                                <br>
-                                <div class="form-check">
-                                    &nbsp; &nbsp;&nbsp; &nbsp; <input class="form-check-input mount" type="radio" name="mount" id="mount" {{@$product->mount == 'Yes' ? 'checked':''}}>
-                                    <label class="form-check-label" for="mount">
-                                      With Mount&nbsp; &nbsp;
-                                    </label> &nbsp; &nbsp; &nbsp;
-                                    <input class="form-check-input mount" type="radio" name="mount" id="mount"{{@$product->mount == 'No' ? 'checked':''}} >
-                                    <label class="form-check-label" for="mount">
-                                     No Mount
-                                    </label>
-                                  </div>
-                                  <div class="form-check">
-                                  </div>
-                            </div>
+                            
                             <div class="form-group col-md-3 frame_div  d-none">
                                 <label> Frame Colour *</label>
                                 <select name="frame_color[]" id="frame_color"  class="form-control select2 " multiple>
@@ -276,7 +220,9 @@
                                 <thead>
                                     <th>Size *</th>
                                     <th> Price *</th>
-                             
+                                    <th> Availability*</th>
+                                    <th> Stock*</th>
+                                    <th> Alert Quantity *</th>
                                 </thead>
                                 @if (!isset($product))
                                 <tbody>
@@ -286,8 +232,48 @@
                                             {{$size->title}}
                                         </td>
                                         <td>
-                                            <input type="text" name="price[{{$size->id}}]" id="price"   class="form-control " value="{{isset($product)?$product->price:''}}">
+                                            <input type="text" name="price[{{$size->id}}]" id="price{{$size->id}}"   class="form-control " value="{{isset($product)?$product->price:''}}">
                                             
+                                        </td>
+                                        <td>
+                                                <select class="form-control required"  name="availability[{{$size->id}}]"  id="availability">
+                                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
+                                                        <option value="{{ $availability }}"
+                                                            {{ old("availability", @$product->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <div class="help-block with-errors" id="availability_error"></div>
+                                                @error('availability')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                    
+                                            
+                                        </td>
+                                        <td>
+                                           
+                                            <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
+                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':'required'}}"
+                                                    autocomplete="off" value="{{ isset($product)?$product->stock:'2' }}">
+                                            <div class="help-block with-errors" id="stock_error"></div>
+                                            @error('stock')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$product->availability=='Out of stock')?'none':''}};">
+                                            </div>
+                                        </td>
+                                        <td>
+                                           
+                                            <input type="text"name="alert_quantity[{{$size->id}}]" id="alert_quantity"
+                                                    placeholder="Alert Quantity"
+                                                    class="form-control alert_quantity {{(@$product->quantity=='Out of Stock')?'':'required'}}"
+                                                    autocomplete="off"
+                                                    value="{{ isset($product)?$product->alert_quantity:'1' }}">
+                                            <div class="help-block with-errors" id="alert_quantity_error"></div>
+                                            @error('alert_quantity')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                           
+                                           
                                         </td>
                                       
                                     </tr>
@@ -304,10 +290,51 @@
                                                 @php
                                                     $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
                                                 @endphp
+                                                <input type="hidden" name="size[]" id="" value="{{$size->id}}">
                                                 <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
     
                                             </td>
+                                        </td>
+                                        <td>
+                                                <select class="form-control required availability" name="availability[{{$size->id}}]" id="availability">
+                                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
+                                                        <option value="{{ $availability }}"
+                                                            {{ old("availability", @$price->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <div class="help-block with-errors" id="availability_error"></div>
+                                                @error('availability')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                    
+                                            
+                                        </td>
+                                        <td>
                                           
+                                            <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
+                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':'required'}}"
+                                                    autocomplete="off" value="{{ isset($price)?$price->stock:'2' }}">
+                                            <div class="help-block with-errors" id="stock_error"></div>
+                                            @error('stock')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$price->availability=='Out of stock')?'none':''}};">
+                                            </div>
+                                        </td>
+                                        <td>
+                                           
+                                            <input type="text" name="alert_quantity[{{$size->id}}]" id="alert_quantity"
+                                                    placeholder="Alert Quantity"
+                                                    class="form-control alert_quantity {{(@$price->quantity=='Out of Stock')?'':'required'}}"
+                                                    autocomplete="off"
+                                                    value="{{ isset($price)?$price->alert_quantity:'1' }}">
+                                            <div class="help-block with-errors" id="alert_quantity_error"></div>
+                                            @error('alert_quantity')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                           
+                                           
+                                        </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

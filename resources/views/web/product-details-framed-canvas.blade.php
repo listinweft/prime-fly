@@ -117,12 +117,15 @@
 <!--                    <div class="stock">-->
 <!--                        In Stock-->
 <!--                    </div>-->
-                    @if (@$product->availability == 'out of stock')
-                    <div class="stock outOfStock">
-                        {{ $product->availability}}
-                    </div>
-                    @endif
-                                    </div>
+                            @php
+                            $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->first();
+                            @endphp
+                            @if (@$productPrice->availability != 'In Stock')
+                                <div class="stock outOfStock">
+                                {{ $productPrice->availability}}
+                                </div>
+                            @endif
+                </div>
                 <div class="productRatingPrice">
                     <div class="rating">
                         <h6> {{ $totalRatings }} Ratings</h6>

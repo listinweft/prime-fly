@@ -237,7 +237,7 @@ class WebController extends Controller
         if ($category) {
             $seo_data = $category;
             $parentCategories = Category::active()->isParent()->get();
-            $banner = $category;
+            $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
             ->where('copy','no');
@@ -481,14 +481,17 @@ class WebController extends Controller
                 $offerPrice = null;
             }
         //return` offer price and product price
-        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice));
+        $product = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
+        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice,'availabilty' => $product->availability));
 
         }
         else{
                $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
+            
               $productPrice =  Helper::defaultCurrency().' '.number_format($product_price->price * Helper::defaultCurrencyRate(), 2);
-
-              return response(array('productPrice' => $productPrice));
+              
+              $product = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
+              return response(array('productPrice' => $productPrice,'availabilty' => $product->availability));
         }
 
     }

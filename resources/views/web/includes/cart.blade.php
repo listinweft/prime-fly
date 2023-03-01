@@ -58,7 +58,15 @@ $sessionKey  =  Helper::getSessionKey();
                                                 @endif
                                             </li>
                                             @endif
-                                          
+                                            @if($row->attributes['size'] != null)
+                                            <li>
+                                                @php
+                                                $size = App\Models\Size::find($row->attributes['size']);
+                                            @endphp
+                                                Size : 
+                                                <span> {{ $size->title }}</span>
+                                            </li>
+                                            @endif
                                         </ul>
                                     </a>
                                 </div>
@@ -86,17 +94,18 @@ $sessionKey  =  Helper::getSessionKey();
                             </li>
                             @endif
                         </ul>
+                    
                             <div class="qntyClose">
                                 <div class="quantity-counter">
                                     <button class="btn btn-quantity-down">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                     </button>
-                                    <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}">
+                                    <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}" data-size ={{$row->attributes['size']}} data-product_id = {{$row->attributes['product_id']}}>
                                     <button class="btn btn-quantity-up">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                     </button>
                                 </div>
-                                <a href="javascript:void(0)" class="closeBtn remove-cart-item"  data-id="{{$row->id}}">
+                                <a href="javascript:void(0)" class="closeBtn remove-cart-item" id="{{$row->id}}"  data-id="{{$row->id}}">
                                     <i class="fa-solid fa-xmark"></i>
                                 </a>
                             </div>

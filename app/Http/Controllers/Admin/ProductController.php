@@ -83,8 +83,10 @@ class ProductController extends Controller
  
     public function product_store(Request $request)
     {
-  
-  
+
+        
+
+        
         DB::beginTransaction();
         if($request->copy != 'Copy'){
             $validatedData = $request->validate([
@@ -104,7 +106,23 @@ class ProductController extends Controller
 
         }
         else{
-           
+           $product = Product::where('id',$request->copy_product_id)->first();
+           if($product->product_type_id == $request->product_type_id){
+            $validatedData = $request->validate([
+                'product_type_id' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
+                'title' => 'required|min:2|max:255',
+                'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
+                'sku' => 'required',
+                'category' => 'required',
+                'availability' => 'required',
+                'description' => 'required',
+            ],
+            [
+                'product_type_id.unique' => 'Product Type already exists',
+            ]
+        );
+           }
+           else{
             $validatedData = $request->validate([
                 'title' => 'required|min:2|max:255',
                 'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
@@ -112,11 +130,9 @@ class ProductController extends Controller
                 'category' => 'required',
                 'availability' => 'required',
                 'description' => 'required',
-
-                'product_type_id' => 'required',
-                
             ]);
-            // |unique:products,product_type_id,' . $request->id . ',id,deleted_at,NULL',
+           }
+           
         }
         $product = new Product;
         if ($request->hasFile('thumbnail_image')) {
@@ -218,15 +234,15 @@ class ProductController extends Controller
         $product->tag_id = ($request->tags) ? implode(',', $request->tags) : '';
         $product->color_id = ($request->colors) ? implode(',', $request->colors) : '';
         $product->description = $validatedData['description'];
-        $product->availability = $request->availability ?? '';
+        // $product->availability = $request->availability ?? '';
         $product->size_id = ($request->sizes) ? implode(',', $request->sizes) : '';
-        if ($product->availability == "In Stock") {
-            $product->stock = $request->stock;
-            $product->alert_quantity = $request->alert_quantity;
-        } else {
-            $product->stock = 0;
-            $product->alert_quantity = 0;
-        }
+        // if ($product->availability == "In Stock") {
+        //     $product->stock = $request->stock;
+        //     $product->alert_quantity = $request->alert_quantity;
+        // } else {
+        //     $product->stock = 0;
+        //     $product->alert_quantity = 0;
+        // }
         if($request->copy == 'Copy'){
             $product->copy = "Yes";
             $prd = Product::where('id', $request->copy_product_id)->first();
@@ -253,7 +269,7 @@ class ProductController extends Controller
         $product->similar_product_id = ($request->similar_product_id) ? implode(',', $request->similar_product_id) : '';
         $product->product_type_id = $request->product_type_id;
         $product->mount = $request->mount == 'on' ? "Yes" : "No";
-        $product->quantity = $request->quantity ?? '';
+        // $product->quantity = $request->quantity ?? '';
       
         $product->product_type_id = $request->product_type_id;
         $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
@@ -287,25 +303,70 @@ class ProductController extends Controller
                 }
             }
 
-            $price = [];
             $priceWithSize = $request->price;
-        
+            
             if(isset($priceWithSize) && !empty($priceWithSize)){
+                DB::table('products_size_price')->where('product_id', $product->id)->whereIn('size_id',$request->size)->delete();
                 foreach($priceWithSize as $key => $value){
-
+                   
                     $price['product_id'] = $product->id;
                     $price[$key] = $value;
+               
                     if(isset($price[$key]) && !empty($price[$key])){
-
+    
                         $procutPrice = DB::table('products_size_price')->insert([
-                            'product_id' => $product->id,
+                            'product_id' =>  $product->id,
                             'size_id' => $key,
                             'price' => $value,
+                        ]);
+                      
+                    }
+                }
+            }
+            $stockWithSize = $request->stock;
+            if(isset($stockWithSize) && !empty($stockWithSize)){
+                foreach($stockWithSize as $key => $value){
+                    $stock['product_id'] =  $product->id;
+                    $stock[$key] = $value;
+                    if(isset($stock[$key]) && !empty($stock[$key])){
+                        $procutPrice = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+                            'product_id' =>  $product->id,
+                            'size_id' => $key,
+                            'stock' => $value,
+                        ]);
+                    }
+                }
+            }
+            $availabilityWithSize = $request->availability;
+            if(isset($availabilityWithSize) && !empty($availabilityWithSize)){
+                foreach($availabilityWithSize as $key => $value){
+                    $stock['product_id'] =  $product->id;
+                    $stock[$key] = $value;
+                    if(isset($stock[$key]) && !empty($stock[$key])){
+                        $availabilityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+                            'product_id' =>  $product->id,
+                            'size_id' => $key,
+                            'availability' => $value,
+                        ]);
+                    }
+                }
+            }
+            $alert_quantityWithSize = $request->alert_quantity;
+            if(isset($alert_quantityWithSize) && !empty($alert_quantityWithSize)){
+                foreach($alert_quantityWithSize as $key => $value){
+                    $stock['product_id'] =  $product->id;
+                    $stock[$key] = $value;
+                    if(isset($stock[$key]) && !empty($stock[$key])){
+                        $alert_quantityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+                            'product_id' =>  $product->id,
+                            'size_id' => $key,
+                            'alert_quantity' => $value,
                         ]);
                     }
                 }
             }
             $productPrice = DB::table('products_size_price')->where('product_id', $product->id)->first();
+           
             Product::where('id', $product->id)->update(['price' => $productPrice->price]);
         
             $similarProducts = [];
@@ -525,22 +586,67 @@ class ProductController extends Controller
                  
                 }
             }
+            $priceWithSize = $request->price;
+            
             if(isset($priceWithSize) && !empty($priceWithSize)){
+                DB::table('products_size_price')->where('product_id', $product->id)->whereIn('size_id',$request->size)->delete();
                 foreach($priceWithSize as $key => $value){
-
+                   
                     $price['product_id'] = $product->id;
                     $price[$key] = $value;
+               
                     if(isset($price[$key]) && !empty($price[$key])){
-                        $pricePRoduct = ProductPrice::where('product_id',$product->id)->where('size_id',$key)->delete();
+    
                         $procutPrice = DB::table('products_size_price')->insert([
-                            'product_id' => $product->id,
+                            'product_id' =>  $product->id,
                             'size_id' => $key,
                             'price' => $value,
                         ]);
+                      
                     }
                 }
-                $productPrice = DB::table('products_size_price')->where('product_id', $product->id)->first();
-                Product::where('id', $product->id)->update(['price' => $productPrice->price]);
+            }
+            $stockWithSize = $request->stock;
+            if(isset($stockWithSize) && !empty($stockWithSize)){
+                foreach($stockWithSize as $key => $value){
+                    $stock['product_id'] =  $product->id;
+                    $stock[$key] = $value;
+                    if(isset($stock[$key]) && !empty($stock[$key])){
+                        $procutPrice = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+                            'product_id' =>  $product->id,
+                            'size_id' => $key,
+                            'stock' => $value,
+                        ]);
+                    }
+                }
+            }
+            $availabilityWithSize = $request->availability;
+            if(isset($availabilityWithSize) && !empty($availabilityWithSize)){
+                foreach($availabilityWithSize as $key => $value){
+                    $stock['product_id'] =  $product->id;
+                    $stock[$key] = $value;
+                    if(isset($stock[$key]) && !empty($stock[$key])){
+                        $availabilityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+                            'product_id' =>  $product->id,
+                            'size_id' => $key,
+                            'availability' => $value,
+                        ]);
+                    }
+                }
+            }
+            $alert_quantityWithSize = $request->alert_quantity;
+            if(isset($alert_quantityWithSize) && !empty($alert_quantityWithSize)){
+                foreach($alert_quantityWithSize as $key => $value){
+                    $stock['product_id'] =  $product->id;
+                    $stock[$key] = $value;
+                    if(isset($stock[$key]) && !empty($stock[$key])){
+                        $alert_quantityWithSize = DB::table('products_size_price')->where('product_id',$product->id)->where('size_id',$key)->update([
+                            'product_id' =>  $product->id,
+                            'size_id' => $key,
+                            'alert_quantity' => $value,
+                        ]);
+                    }
+                }
             }
                 $similarProducts = [];
                 $errorArray = $successArray = [];

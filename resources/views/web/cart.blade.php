@@ -106,7 +106,7 @@
                                             id="wishlist_check_{{$product->id}}"
                                             href="javascript:void(0) "><i class="fa-solid fa-heart"></i></a>
                                     @endif
-                                    <a class="btn_cart remove-cart-item" href="javascript:void(0)" data-id="{{$row->id}}"   ><i class="fa-solid fa-xmark"></i></a>
+                                    <a class="btn_cart remove-cart-item" href="javascript:void(0)" data-id="{{$row->id}}"  id="{{$row->id}}" ><i class="fa-solid fa-xmark"></i></a>
                                 </div>
                             </div>
                         </div>
