@@ -58,19 +58,21 @@
                                 $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
                                 @endphp
                               
-                                @if(Helper::offerPrice($product->id)!='')
-                                <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                                </li>
-                                <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                                </li>                  
-                                @else
-                                <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                                </li>
-                                <li></li>
-                                @endif
+                              @if(Helper::offerPrice($product->id)!='')
+                              @php
+                              $offerId =Helper::offerId($product->id);
+                               @endphp
+                              <li>
+                                  {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$row->attributes['size'],$offerId),2)}}
+                              </li>
+                              <li>
+                                  {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                              </li>                  
+                              @else
+                              <li>
+                                  {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                              </li>
+                              @endif
                             </ul>
                         </div>
                     </div>
@@ -86,7 +88,7 @@
                 <h6>  Subtotal {{ ($siteInformation->tax_type == 'Inside')? '(Tax Inclusive - '.$siteInformation->tax.'%)':''}}</h6>
             </div>
             <div class="right">
-                <h5>{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
+                <h5 class="sub_totall">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
             </div>
         </li>
         @if($siteInformation->tax_type == 'Outside')
@@ -118,7 +120,7 @@
         <li class="@if (Request::is('cart')) d-none   @else couponLi  @endif ">
             <form action="#">
                 <div class="form-group position-relative">
-                    <input type="text" class="form-control" placeholder="Coupon Code" value="{{ (Session::has('coupons'))?session('coupons')[count(session('coupons')) -  1]['code']:'' }}" >
+                    <input type="text" class="form-control"name="coupon" id="coupon" placeholder="Coupon Code" value="{{ (Session::has('coupons'))?session('coupons')[count(session('coupons')) -  1]['code']:'' }}" >
                     @if (Session::exists('coupons'))
                         <a class="coupon_remove_btn remove_coupon" href="javascript:void(0)" data-coupon="{{ (Session::has('coupons'))?session('coupons')[count(session('coupons')) -  1]['code']:'' }}" ><i class="fa-solid fa-xmark"></i></a>
                     @endif
@@ -136,6 +138,7 @@
                             <h6>Coupon ({{ $session_coupon['code'] }}):</h6>
                         </div>
                         <div class="right">
+                          
                             <h6 class="tableData">- {{Helper::defaultCurrency()}} {{number_format($session_coupon['coupon_value'],2)}}</h6>
                         </div>
                     </div>

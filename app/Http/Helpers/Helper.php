@@ -927,25 +927,31 @@ class Helper
                                             $coupon_applicable_cart_product_cost = [];
                                             $coupon_applicable_value = 0;
                                             $couponProductIds = self::getCouponProductIds($coupon);
+                                        
                                             foreach ($cartProducts as $cartProduct) {
-                                                $productData = Product::find($cartProduct->id);
+                                                $productData = Product::find($cartProduct->attributes->product_id);
+                                 
                                                 if (in_array($productData->id, $couponProductIds)) {
+                                              
                                                     if ($coupon->applicable_only_if_sale_price == "No") {
-                                                        if (self::offerPriceAmount($cartProduct->id) == '') {
-                                                            $coupon_applicable_cart_product_ids[] = $cartProduct->id;
+                                                        if (self::offerPriceAmount($cartProduct->attributes->product_id) == '') {
+                                                         
+                                                            $coupon_applicable_cart_product_ids[] =$cartProduct->attributes->product_id;
                                                             $coupon_applicable_cart_product_cost[] = $cartProduct->price * $cartProduct->quantity;
                                                         } else {
-                                                            $coupon_not_applicable_cart_product_ids[] = $cartProduct->id;
+                                                            $coupon_not_applicable_cart_product_ids[] = $cartProduct->attributes->product_id;
                                                         }
                                                     } else {
-                                                        $coupon_applicable_cart_product_ids[] = $cartProduct->id;
+                                                        $coupon_applicable_cart_product_ids[] = $cartProduct->attributes->product_id;
                                                         $coupon_applicable_cart_product_cost[] = $cartProduct->price * $cartProduct->quantity;
                                                     }
                                                 } else {
-                                                    $coupon_not_applicable_cart_product_ids[] = $cartProduct->id;
+                                                    dd('d');
+                                                    $coupon_not_applicable_cart_product_ids[] = $cartProduct->attributes->product_id;
                                                 }
                                             }
                                             if ($coupon_not_applicable_cart_product_ids) {
+                                               
                                                 if ($coupon->type == "Fixed") {
                                                     if(Session::has('coupons')){
                                                         self::removeSessionCoupon($coupon->code);
@@ -995,6 +1001,7 @@ class Helper
                                                     if ($coupon_total_value) {
                                                         Session::put('coupon_value', $coupon_total_value);
                                                     }
+                                                    
                                                     return array(
                                                         'status' => "success",
                                                         'message' => "Coupon applied successfully",

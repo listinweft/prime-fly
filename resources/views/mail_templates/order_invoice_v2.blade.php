@@ -625,7 +625,7 @@
                                                                         style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                         <strong>{{$product->productData->title}}</strong>
                                                                     </h3></td>
-                                                            </tr>
+                                                            {{-- </tr>
                                                             @if($product->size_type!="Custom" && $product->size!=0)
                                                                 <tr style="border-collapse:collapse">
                                                                     <td align="left" class="es-m-txt-l"
@@ -635,8 +635,8 @@
                                                                                     style="color:#000000">Size:</span>&nbsp;{{$product->sizeData->size}}
                                                                             </strong></h3></td>
                                                                 </tr>
-                                                            @endif
-                                                            @if($product->color!=0)
+                                                            @endif --}}
+                                                            {{-- @if($product->color!=0)
                                                                 <tr style="border-collapse:collapse">
                                                                     <td align="left" class="es-m-txt-l"
                                                                         style="padding:0;Margin:0;padding-top:10px"><h3
@@ -645,7 +645,7 @@
                                                                                     style="color:#000000">Color:</span>&nbsp;{{$product->colorData->title}}
                                                                             </strong></h3></td>
                                                                 </tr>
-                                                            @endif
+                                                            @endif --}}
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="left" class="es-m-txt-l"
                                                                     style="padding:0;Margin:0;padding-top:10px"><h3

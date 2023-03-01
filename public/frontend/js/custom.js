@@ -636,13 +636,11 @@ $(document).ready(function () {
             url: base_url + '/update-item-quantity',
             success: function (response) {
                 if (response.status == true) {
-                    swal.fire({
-                        title: "Done it!",
-                        text: response.message,
-                        type: "success"
-                    }, function () {
-                        window.location.reload();
+                    Toast.fire({
+                        title: "Done it!", text: response.message, icon: "success"
                     });
+                    // console.log();
+                    $('.cart-count').html(response.productCount);
                 } else {
                     Toast.fire('Error', response.message, "error");
                  
@@ -650,7 +648,36 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).on('change', '.cartQuantity', function () {
+        var id = $(this).data('id');
+        var product_id = $(this).data('product_id');
+        var qty = $(this).val();
+        var size = $(this).data('size');
+        if (qty >= 1) {
+            $.ajax({
+                type: 'POST', dataType: 'json',  data: {product_id: product_id, qty: qty,size: size,id : id}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/get-calc-value', success: function (response) {
+                    if (response.status == true) {
+                        console.log(response);
+                        $('.sub_totall').html(response.default_currency+' '+response.cart);
+                        $('.tax_amount').html(response.default_currency+' '+response.tax_amount);
+                        $('.cart_final_total').html(response.default_currency+' '+response.cart_final_total);
+                        $('.shipping_amount').html(response.default_currency+' '+response.shipping_amount);
+                        $('.price'+id).html(response.default_currency+' '+response.total);
+                        
+                    } else {
+                        Toast.fire('Error', response.message, "error");
+                        $this.val(response.qty);
+                    }
+                }
+            });
 
+        } else {
+            $this.val(1);
+            Toast.fire('Error', 'Quantity must be minimum 1', "error");
+        }
+    });
     $(document).on('click','.deliver',function(e){
         e.preventDefault();
         var id = $(this).data('id');
@@ -1109,7 +1136,7 @@ $(document).ready(function () {
                     if (data.status == 'error') {
                         swal.fire('Error !', data.message, 'error');
                     } else {
-                        alert("nnc");
+                   
                         var resp = data.message;
                         var len = resp.length;
                         $("#" + form_id + " #state").empty().append("<option value=''>Select Emirate</option>");

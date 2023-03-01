@@ -372,13 +372,23 @@ class CartController extends Controller
     }
     public function get_calc_value(Request $request){
       $product = Product::find($request->product_id);
+     
       $price = 0;
-      if(Helper::offerPrice($product->id) != ''){
-        $price = Helper::offerPriceAmount($product->id);
-      }
-      else{
-        $price = $product->price;
-      }
+      $productOffer = Offer::where('product_id',$product->id)->where('status','Active')->first();
+      if (Helper::offerPrice($product->id) != '') {
+                
+        $offer_amount = Helper::offerPriceSize($product->id,$request->size,$productOffer->id);
+        if($offer_amount != null){
+          
+            $price =$offer_amount;
+        }
+        else{
+            $price = $product->price;
+          }
+     
+    
+    }
+      
       
       $qty = number_format($request->qty,2);
         $total = ($price*$qty);
@@ -1228,7 +1238,11 @@ class CartController extends Controller
                                     foreach (Session::get('coupons') as $session_coupon) {
                                         $couponProductTotal = 0;
                                         foreach ($session_coupon['products'] as $couponProduct) {
+                                            dd($couponProduct);
+                                            //get cart item based on attribute id
+                                            $cartItem = Cart::session($sessionKey)->getContent()->where('attributes.product_id', $couponProduct);
                                             $item = Cart::session(session('session_key'))->get($couponProduct);
+                                           
                                             $couponProductTotal += $item->price * $item->quantity;
                                         }
                                         if (in_array($row->id, $session_coupon['products'])) {
@@ -1348,12 +1362,14 @@ class CartController extends Controller
                 $orderNotSaved[] = 1;
             }
             $product = Product::find($order_product->product_id);
-            $quantity = $product->stock - $order_product->quantity;
-            $product->stock = ($quantity > 0) ? $quantity : '0';
-            if ($product->stock == 0) {
-                $product->avilability = 'Out of Stock';
+           $productPrice = ProductPrice::where('product_id', $order_product->product_id)->where('size_id',$order_product->size)->first();
+ 
+            $quantity = $productPrice->stock - $order_product->quantity;
+            $productPrice->stock = ($quantity > 0) ? $quantity : '0';
+            if ($productPrice->stock == 0) {
+                $productPrice->avilability = 'Out of Stock';
             }
-            if ($product->save()) {
+            if ($productPrice->save()) {
                 $saved[] = 1;
             } else {
                 $notSaved[] = 1;
@@ -1584,7 +1600,9 @@ class CartController extends Controller
 
     public function apply_coupon(Request $request)
     {
+   
         $coupon = Coupon::where([['status', 'Active'], ['code', $request->coupon]])->first();
+       
         if ($coupon) {
             $response = Helper::coupon_application($coupon, $request->credit_point);
             return response(array(

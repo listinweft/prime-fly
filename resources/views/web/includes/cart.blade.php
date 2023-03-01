@@ -77,13 +77,17 @@ $sessionKey  =  Helper::getSessionKey();
                         @php
                             $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
                         @endphp
+                        
                             <!-- <li class="offer">
                             @if(Helper::offerPrice($product->id)!='')
                             </li>
                             @endif -->
                             @if(Helper::offerPrice($product->id)!='')
+                            @php
+                            $offerId =Helper::offerId($product->id);
+                             @endphp
                             <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$row->attributes['size'],$offerId),2)}}
                             </li>
                             <li>
                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
@@ -123,7 +127,7 @@ $sessionKey  =  Helper::getSessionKey();
             </div>
             <div class="sub_right">
                 @if($sessionKey)
-                <h5 class="price{{@$product->id}}">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
+                <h5 class="sub_totall price{{@$product->id}}">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
                 @endif
             </div>
         </div>

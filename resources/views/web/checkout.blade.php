@@ -120,9 +120,9 @@
                                         <input type="hidden" value="{{Session::has('address_choose')?session('address_choose'):'different'}}" name="billingAddressChoose" id="billingAddressChoose">
                                       
                                         @if(Auth::guard('customer')->check())
-                                            <a href="javascript:void(0)" class="primary_btn login confirm_payment_btn checkout_btn" id="confirm_payment"    @if(!Helper::checkConfirmOrder()) disabled @endif >Place Order</a>
+                                            <button type="button" class="primary_btn login confirm_payment_btn checkout_btn" id="confirm_payment"    @if(!Helper::checkConfirmOrder()) disabled @endif >Place Order</button>
                                         @else
-                                            <a href="javascript:void(0)" class="primary_btn login confirm_payment_btn checkout_btn" id="confirm_payment"  @if(session('billing_address') == null) disabled  @endif>Place Order</a>
+                                            <button type="button" href="javascript:void(0)" class="primary_btn login confirm_payment_btn checkout_btn" id="confirm_payment"  @if(session('billing_address') == null) disabled  @endif>Place Order</button>
                                         @endif
                                     </div>
                                 </div>

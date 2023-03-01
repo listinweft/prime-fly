@@ -139,6 +139,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);
     Route::post('update-item-quantity', [CartController::class, 'update_item_quantity']);
     Route::post('apply-coupon', [CartController::class, 'apply_coupon']);
+    Route::post('get-calc-value', [CartController::class, 'get_calc_value']);
     Route::get('checkout', [CartController::class, 'checkout']);
     Route::post('select-customer-address', [CartController::class, 'select_customer_address']);
     Route::post('different-shipping-address', [CartController::class, 'different_shipping_address']);

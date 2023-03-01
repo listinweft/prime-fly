@@ -67,13 +67,13 @@
                                 @php
                                 $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
                                 @endphp
-                                <!-- <li class="offer">
-                                @if(Helper::offerPrice($product->id)!='')
-                                </li>
-                                @endif -->
+
                                 @if(Helper::offerPrice($product->id)!='')
                                 <li>
-                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                    @php
+                                        $offerId =Helper::offerId($product->id);
+                                    @endphp
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$row->attributes['size'],$offerId),2)}}
                                 </li>
                                 <li>
                                     {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
@@ -89,7 +89,7 @@
                                     <button class="btn btn-quantity-down">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                     </button>
-                                    <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}">
+                                    <input type="number" class="input-number__input form-control2 form-control-lg cartQuantity" min="1" max="100" step="1" value="{{$row->quantity}}"data-id="{{$row->id}}" data-size ={{$row->attributes['size']}} data-product_id = {{$row->attributes['product_id']}}>
                                     <button class="btn btn-quantity-up">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                     </button>
@@ -97,6 +97,7 @@
                             </div>
                             <div class="total_price_btns">
                                 <div class="total_price">
+                                    
                                     <h6 class="price{{$product->id}}">{{Helper::defaultCurrency()}} {{number_format($row->price * $row->quantity,2)}}</h6>
                                 </div>
                                 <div class="btns_area">
