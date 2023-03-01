@@ -416,7 +416,7 @@ class Helper
 
     public static function sendContactMail($contact, $type = Null)
     {
-        $siteInfo = SiteInformation::first();
+        $common = SiteInformation::first();
         $subject = config('app.name') . ' - ' . $type;
         $mail = self::mailConf($subject);
         if ($contact->type == 'product') {

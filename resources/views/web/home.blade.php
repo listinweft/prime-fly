@@ -9,9 +9,9 @@
                 <div class="homeSliderDetailsArea d-block w-100">
                     <div class="homeSliderDetails ">
                         @foreach ($homeBanners as $banner)
-                        @if ( $banner->button_text != null)
-                        <a href="{{@$banner->url}}">
-                            <div class="item">
+                        
+                        <div class="item">
+                                <a href="{{@$banner->url}}">
                                 <h1>
                                     <strong>{{@$banner->title}}</strong> {{$banner->subtitle}}
                                 </h1>
@@ -22,8 +22,8 @@
                                     {{$banner->button_text}}
                                 </a>
                                 @endif
+                            </a>
                             </div>
-                            @endif
                         @endforeach
                     </div>
                 </div>
