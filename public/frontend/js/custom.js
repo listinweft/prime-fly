@@ -1007,6 +1007,10 @@ $(document).ready(function () {
     });
     /***************** cart action end **********************/
 
+
+
+    
+
     $(window).scroll(function () {
         $(".load-more-button").each(function () {
             var WindowTop = $(window).scrollTop();
@@ -1018,7 +1022,50 @@ $(document).ready(function () {
                 blogLoadMoreData();
             }
         });
+         $(".load-more-product").each(function () {
+            var WindowTop = $(window).scrollTop();
+            var WindowBottom = WindowTop + $(window).height();
+            var ElementTop = $(this).offset().top;
+            var ElementBottom = ElementTop + $(this).height();
+
+            if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
+                loadMoreData();
+            }
+        });
     });
+
+    function loadMoreData() {
+    
+        var total_products = $('#totalProducts').val();
+        
+        var offset = $('#loading_offset').val();
+        
+        var btnHtml = $('.load-more-product').html();
+
+      
+        if (total_products > offset) {
+           
+            $('.load-more-product').html('Please wait..!');
+            $.ajax({
+                type: 'POST', data: $('#filter-form').serialize(), headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/product-load-more', success: function (response) {
+                    if (response != 0) {
+                        $('.appendHere' + offset).after(response).remove();
+                        $('.more-section-' + offset).remove();
+                        $('.load-more-product').html(btnHtml);
+                    } else {
+                        Toast.fire({
+                            title: "Error", text: 'Some error occurred', icon: 'error'
+                        });
+                    }
+                }
+            });
+        }
+    
+    }
+
+    
 
     function blogLoadMoreData() {
         var total_blogs = $('#totalBlogs').val();
@@ -1270,7 +1317,10 @@ $(document).ready(function () {
         $('.filterItem').prop('checked', false);
         if ($('#filterResult').html() == null || $('#filterResult').html() == '') {
             $('.filteredContents').hide();
+            $("#tags").hide();
         }
+       
+
         Toast.fire("Done it!", 'Filter cleared', "success");
         window.location.reload();
     });
@@ -1281,9 +1331,21 @@ $(document).ready(function () {
         var id = $(this).data('id');
         $(this).closest(".filterItems .fltr").remove();
         $('#' + id).prop('checked', false);
-        if ($('#filterResult').html() == null || $('#filterResult').html() == '') {
+        if ($('#filterResult').val() == null || $('#filterResult').val() == '') {
+
+           
+
+            $("#tags").hide();
+          
             $('.filteredContents').hide();
+
+           
+
+           
+
+
         }
+       
         filterProducts();
     });
 
@@ -1343,6 +1405,11 @@ $(document).ready(function () {
             type: 'POST', dataType: 'html', data: $('#filter-form').serialize(), headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/filter-product', success: function (response) {
+                $("#tags").show();
+
+                
+
+              
 
                 $('.productList').html(response);
                 Toast.fire("Done it!", 'Filter Applied', "success");
@@ -1505,3 +1572,5 @@ $(document).ready(function () {
 
 
 });
+
+

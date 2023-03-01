@@ -48,7 +48,7 @@
                         <li>
                             <img class="img-fluid" src="{{asset('frontend/images/sort.png')}}" alt="">
                             <p>Sort By</p>
-                            <select class="formSelect" name="" id="">
+                            <select class="formSelect" name="sort_order_drop" id="sort_order_drop">
                             @foreach(['none'=>'None','new'=>'Latest','best'=>'Popular','featured'=>'Most Relevant','asc'=>'Product: A-Z','desc'=>'Product: Z-A'] as $sortValue => $sortTitle)
                                 <option value="{{ $sortValue }}"
                                     {{ $sortValue == $sort_value?'selected':'' }}>{{$sortTitle}}</option>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="tagArea">
-                <h6></h6>
+                <h6 id="tags">Product Tags </h6>
                 
                 <div class="tagWrapper filterItems" id="filterResult">
                     
@@ -82,6 +82,14 @@
 
 @endsection
 @push('scripts')
+<script>
+$( document ).ready(function() {
+    
+    $("#tags").hide();
+   
+});
+
+</script>
     
 @endpush
 

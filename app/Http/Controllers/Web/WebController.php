@@ -195,7 +195,7 @@ class WebController extends Controller
         if ($blog) {
             $banner = $seo_data = $blog;
             $type = $short_url;
-            $recentBlogs = Blog::active()->latest('posted_date')->limit(4)->where('id', '!=', $blog->id)->get();
+            $recentBlogs = Blog::active()->latest('posted_date')->limit(10)->where('id', '!=', $blog->id)->get();
             $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
             $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
@@ -216,7 +216,7 @@ class WebController extends Controller
        $parentCategories = Category::active()->isParent()->with('activeChildren')->get();
         $condition = Product::active()->where('copy','no');
 
-        $totalProducts = $condition->count();
+         $totalProducts = $condition->count();
         $products = $condition->latest()->take(12)->get();
         $colors = Color::active()->oldest('title')->get();
         $shapes = Shape::latest()->get();
@@ -512,6 +512,9 @@ class WebController extends Controller
             $products = $condition->take(12)->get()->shuffle();
         } else {
             $products = $condition->take(12)->get();
+
+          
+            
         }
         $offset = $products->count();
         $title = 'Filtered Products';
@@ -568,9 +571,24 @@ class WebController extends Controller
         if ($request->pageType == "category" && !in_array('category_id', $inputs)) {
             $category = Category::active()->where('short_url', $request->typeValue)->first();
             if ($category) {
-                $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
-                $condition = $condition->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")');
-            }
+
+  
+
+                if($request->category_id){
+                    if(in_array($category->id, $request->category_id)) {
+                        $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::get_all_sub_categories($category->id)->pluck('id')))->toArray()));
+                        $condition = $condition->whereRaw("(FIND_IN_SET('" . $category->id . "',products.category_id)")->orwhereRaw('CONCAT(",", products.sub_category_id, ",") REGEXP ",(' . $subCategoryIds . '),")');
+                    }
+                }
+                if($request->sub_category_id){
+                    if(in_array($category->id, $request->sub_category_id)) {
+                        $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::get_all_sub_categories($category->id)->pluck('id')))->toArray()));
+                        $condition = $condition->whereRaw("(FIND_IN_SET('" . $category->id . "',products.category_id)")->orwhereRaw('CONCAT(",", products.sub_category_id, ",") REGEXP ",(' . $subCategoryIds . '),")');
+                    }
+                }
+          
+
+        }
         } elseif ($request->pageType == "search_result") {
             $condition = $condition->Where('title', 'like', '%' . $request->typeValue . '%');
         } elseif ($request->pageType == "deal") {
@@ -583,13 +601,17 @@ class WebController extends Controller
 
         //color filtering
         if ($request->input_field != NULL) {
+           
             $condition = $condition->where(function ($query) use ($inputs, $request) {
                  {
                     foreach ($inputs as $input) {
-                        if ($input == "category_id" || $input == "sub_category_id" ||  $input == "shape_id" ||  $input == "tag_id") {
+                        if ($input == "color_id" || $input == "category_id" || $input == "sub_category_id" ||  $input == "shape_id" ||  $input == "tag_id") {
 
 
                             foreach ($request->$input as $key => $reIn) {
+
+                            
+                               
 
 
                                 $query->OrwhereRaw("find_in_set('" . $reIn . "',$input)");

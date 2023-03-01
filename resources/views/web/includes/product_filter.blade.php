@@ -14,20 +14,27 @@
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                                         <div class="accordion-body">
+                                            
                                             <div class="accordion" id="accordionPanelsStayOpenExample">
                 @foreach($parentCategories as $parent)
                     <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingOne1">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                                         <button class="accordion-button {{ ($loop->iteration ==1)?'':'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $parent->short_url }}" aria-expanded="{{ ($loop->iteration ==1)?'true':'false' }}" aria-controls="{{ $parent->short_url }}">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" checked type="checkbox" value="" id="flexCheckDefault01">
+                                                                <input class="form-check-input filterItem"  type="checkbox" 
+                                                                           type="checkbox" name="category_id[]"
+                                                                           id="Category_{{$parent->id}}"
+                                                                           value="{{$parent->id}}"
+                                                                           data-field="category_id"
+                                                                           data-label="Category"
+                                                                           data-title="{{$parent->title}}" {{ $parent->short_url == $typeValue?'checked':'' }}>
                                                                 <label class="form-check-label" for="Category_{{ $parent->id }}">
                                                                 {{ $parent->title }}
                                                                 </label>
                                                             </div>
                                                         </button>
                                                     </h2>
-                                                    <div id="{{ $parent->short_url }}" class="accordion-collapse collapse show {{ ($loop->iteration ==1)?'show':'' }}" aria-labelledby="{{ $parent->title }}">
+                                                    <div id="{{ $parent->short_url }}" class="accordion-collapse collapse show {{ ($loop->iteration ==1)?'show':'' }}" aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
                                 <ul>
                                     
@@ -236,6 +243,7 @@
                        value="{{$offset}}">
                 <input type="hidden" id="loading_limit" name="loading_limit"
                        value="{{$loading_limit}}">
+                       <input type="hidden" id="totalProducts" name="totalProducts" value="{{$totalProducts}}">
 </form>
 
 @push('scripts')
