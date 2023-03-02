@@ -1210,9 +1210,9 @@ $(document).ready(function () {
                              $(".successModalForm").modal('show');
 
                             $("#myspan").html(response.message);
-                            // setTimeout(function(){
-                            //     $(".successModalForm").modal('hide');
-                            // }, 2000);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {

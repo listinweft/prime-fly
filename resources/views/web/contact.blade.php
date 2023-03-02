@@ -76,9 +76,13 @@
                 <div class="col-lg-6 ps-0 pe-0">
                     <div class="map">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8587.210954799328!2d55.25341403158094!3d25.187116237053157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69d8ffc92625%3A0x87fe1fd8aa716eb7!2sWME%20Global!5e0!3m2!1sen!2sin!4v1670240944632!5m2!1sen!2sin"
+                            src="{{ $contact->google_map }}"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        {{-- <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8587.210954799328!2d55.25341403158094!3d25.187116237053157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69d8ffc92625%3A0x87fe1fd8aa716eb7!2sWME%20Global!5e0!3m2!1sen!2sin!4v1670240944632!5m2!1sen!2sin"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
                     </div>
                 </div>
 

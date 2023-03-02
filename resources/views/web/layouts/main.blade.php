@@ -149,7 +149,7 @@
                 <form>
 
                     <div class="form-group">
-                        <input type="hidden" name="mail">
+                        <input type="hidden" name="mail" id="mail">
                         <button class="btn primary_btn loginform_submit_btn" data-url="/login" fdprocessedid="kqhewq" style="background-color:#cecec4;">Resend</button>
                     </div>
                 </form>
