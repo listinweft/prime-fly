@@ -107,8 +107,6 @@ class WebController extends Controller
     public function enquiry_store(Request $request)
     {
 
-
-        //return 1;
         //dd($request->all());
         $request->validate([
             'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
@@ -127,8 +125,6 @@ class WebController extends Controller
         $contact->phone = $request->phone;
         $contact->message = $request->message;
         $contact->product_id = $request->product_id ?? NULL;
-        $contact->product_type_id = $request->product_type_id ?? NULL;
-        $contact->size_id = $request->size_id ?? NULL;
         $contact->request_url = url()->previous();
 
 
@@ -241,7 +237,7 @@ class WebController extends Controller
         if ($category) {
             $seo_data = $category;
             $parentCategories = Category::active()->isParent()->get();
-            $banner = Banner::type('product')->first();
+            $banner = $category;
             $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
             ->where('copy','no');
@@ -485,17 +481,14 @@ class WebController extends Controller
                 $offerPrice = null;
             }
         //return` offer price and product price
-        $product = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice,'availabilty' => $product->availability));
+        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice));
 
         }
         else{
                $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
-            
               $productPrice =  Helper::defaultCurrency().' '.number_format($product_price->price * Helper::defaultCurrencyRate(), 2);
-              
-              $product = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-              return response(array('productPrice' => $productPrice,'availabilty' => $product->availability));
+
+              return response(array('productPrice' => $productPrice));
         }
 
     }
@@ -601,22 +594,37 @@ class WebController extends Controller
 
         //color filtering
         if ($request->input_field != NULL) {
-           
-            $condition = $condition->where(function ($query) use ($inputs, $request) {
-                 {
+            $condition = $condition->where(function ($mainquery) use ($inputs, $request) {
+                {
                     foreach ($inputs as $input) {
-                        if ($input == "color_id" || $input == "category_id" || $input == "sub_category_id" ||  $input == "shape_id" ||  $input == "tag_id") {
-
-
-                            foreach ($request->$input as $key => $reIn) {
-
-                            
-                               
-
-
-                                $query->OrwhereRaw("find_in_set('" . $reIn . "',$input)");
-                            }
-
+                        if ($input == "category_id" || $input == "sub_category_id") {
+                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
+                                foreach ($request[$input] as $key => $reIn) {
+                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
+                                }
+                            });
+                         }
+                        //  and(category=portrait or category=landscape)and(color=green or color=red)
+                         else if ($input == "color_id") {
+                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
+                                foreach ($request[$input] as $key => $reIn) {
+                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
+                                }
+                            });
+                         }
+                         else if ($input == "shape_id") {
+                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
+                                foreach ($request[$input] as $key => $reIn) {
+                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
+                                }
+                            });
+                         }
+                         else if ($input == "tag_id") {
+                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
+                                foreach ($request[$input] as $key => $reIn) {
+                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
+                                }
+                            });
                          }
                          else {
                             $query->whereIn($input, $request[$input]);
@@ -625,7 +633,6 @@ class WebController extends Controller
                 }
             });
         }
-
         return $condition;
     }
 

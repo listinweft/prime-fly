@@ -21,7 +21,7 @@
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                                         <button class="accordion-button {{ ($loop->iteration ==1)?'':'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $parent->short_url }}" aria-expanded="{{ ($loop->iteration ==1)?'true':'false' }}" aria-controls="{{ $parent->short_url }}">
                                                             <div class="form-check">
-                                                                <input class="form-check-input filterItem"  type="checkbox" 
+                                                                <input class="form-check-input filterItem categoryFilterItem"  type="checkbox" 
                                                                            type="checkbox" name="category_id[]"
                                                                            id="Category_{{$parent->id}}"
                                                                            value="{{$parent->id}}"

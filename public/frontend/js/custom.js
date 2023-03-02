@@ -1354,6 +1354,7 @@ $(document).ready(function () {
         $(this).closest('.colorItemFilterClick').toggleClass("active") ;
         $(this).closest('.shapeFilterClick').toggleClass("active") ;
         $(this).closest('.tagFilterClick').toggleClass("active") ;
+        
 
 
        var parent = $(this).data('parent');
