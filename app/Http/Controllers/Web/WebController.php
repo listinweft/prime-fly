@@ -752,9 +752,10 @@ class WebController extends Controller
 
     public function product_review(Request $request)
     {
+      
         if (Auth::guard('customer')->check()) {
             $request->validate([
-                'email' => 'required|email',
+                'message' => 'required',
             ]);
             $email = Auth::guard('customer')->user()->email;
             $name = Helper::loggedCustomerName();
@@ -773,7 +774,7 @@ class WebController extends Controller
         $review->email = $email;
         $review->name = $name;
         $review->rating = round($request->rating);
-        $review->review = $request->review;
+        $review->review = $request->message;
         $review->product_id = $request->product_id;
         if ($review->save()) {
             return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);

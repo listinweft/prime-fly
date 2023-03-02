@@ -19,6 +19,7 @@
                                 </div>
                             </div>
                             <div class="textWrapper">
+                            
                                 <p>{!!$review->review!!}</p>
                             </div>
                         </div>
