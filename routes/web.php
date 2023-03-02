@@ -103,6 +103,8 @@ Route::middleware(['web'])->group(function () {
     Route::get('return-policy', [WebController::class, 'return_policy']);
     Route::get('shipping-policy', [WebController::class, 'shipping_policy']);
     Route::get('terms-and-conditions', [WebController::class, 'terms_and_conditions']);
+    Route::get('faq', [WebController::class, 'faq']);
+    Route::get('payment-policy', [WebController::class, 'payment_policy']);
 
 
     /********************* Authentication URLs *******************/

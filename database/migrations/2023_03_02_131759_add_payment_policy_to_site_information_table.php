@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('enquiries', function (Blueprint $table) {
-            $table->text('mount')->nullable()->after('frame_id')->nullable();
+        Schema::table('site_information', function (Blueprint $table) {
+         $table->string('payment_policy')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('enquiries', function (Blueprint $table) {
-            
+        Schema::table('site_information', function (Blueprint $table) {
+            $table->dropColumn('payment_policy');
         });
     }
 };

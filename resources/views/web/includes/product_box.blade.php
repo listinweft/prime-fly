@@ -72,28 +72,34 @@
                     <li>
                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
                     </li>
-            @endif
-            </ul>
-            
-            <ul class="type-review">
-            @if($product->product_categories->count() > 1)
-                <li>
-                {{ $product->product_categories[0]->title }}, ...
-                
-                </li>
-                @else
-                <li>
-                {{ $product->product_categories[0]->title }}
-                
-                </li>
-                @endif
-                
-                @if(Helper::averageRating($product->id)>0)
-                <li class="review">
-                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
-                </li>
-                @endif
-            </ul>
-        </a>
-    </div>
-</div>
+                 
+                   
+                    @else
+                    <li>
+                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
+                    </li>
+                   
+                    @endif
+                            </ul>
+                            <ul class="type-review">
+                            @if($product->product_categories->count() > 1)
+                                <li>
+                                {{ $product->product_categories[0]->title }}, ...
+                                
+                                </li>
+                                @else
+                                <li>
+                                {{ $product->product_categories[0]->title }}
+                                
+                                </li>
+                                @endif
+                              
+                                @if(Helper::averageRating($product->id)>0)
+                                <li class="review">
+                                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                </li>
+                                @endif
+                            </ul>
+                        </a>
+                    </div>
+                </div>
