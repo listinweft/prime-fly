@@ -232,6 +232,7 @@
                                             {{$size->title}}
                                         </td>
                                         <td>
+                                            <input type="hidden" name="size[]" id="" value="{{$size->id}}">
                                             <input type="text" name="price[{{$size->id}}]" id="price{{$size->id}}"   class="form-control " value="{{isset($product)?$product->price:''}}">
                                             
                                         </td>
