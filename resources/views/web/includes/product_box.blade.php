@@ -56,32 +56,25 @@
                         <a href="{{ url('/product/'.$product->short_url) }}">
                             <div class="pro-name">
                             {{ $product->title }}
-                            </div>
-                            
-                            <ul class="price-area">
-                             
-                                {{-- <li class="offer">
-                                @if(Helper::offerPrice($product->id)!='')
-                               </li>
-                                @endif
-                                @if(Helper::offerPrice($product->id)!='')
+                        </div>
+                        <ul class="price-area">
+                            @if(Helper::offerPrice($product->id)!='')
+                                <li class="offer">
+                                    @php
+                                        $offerId =Helper::offerId($product->id);
+                                    @endphp
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}
+                                </li>
                                 <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                    </li>
-                    <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                    </li>
-                 
-                   
-                    @else
-                    <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
-                    </li>
-                    <li>
-                       
-                    </li>
-                    @endif --}}
+                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                </li>
+                            @else
+                                    <li>
+                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                    </li>
+                            @endif
                             </ul>
+                            
                             <ul class="type-review">
                             @if($product->product_categories->count() > 1)
                                 <li>
