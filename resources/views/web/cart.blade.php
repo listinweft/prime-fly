@@ -93,7 +93,25 @@
                                 <li></li>
                                 @endif
                             </ul>
-                                <div class="quantity-counter">
+                            @php
+                                $productPrice = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                                $stock = [];
+                                $display = 'd-none';
+                                $class = 'inStock';
+                              //push stock in array
+                              foreach ($productPrice as $key => $value) {
+                                $istock[$productPrice->id] = $productPrice->availability;
+                              }
+                              if(in_array('Out of Stock', $istock)){
+                                $display = 'block';
+                                $class = 'outOfStock';
+                              }
+                            @endphp
+                            
+                              <div class="productNameStock productDetailsInfo" @if($productPrice->availability=='In Stock' && $productPrice->stock!=0)  hidden @else  @endif>
+                              <div class=" stock outOfStock outstock">  Out of Stock </div> </div>
+                         
+                                <div class="quantity-counter " @if($productPrice->availability=='In Stock' && $productPrice->stock!=0)   @else  hidden @endif>
                                     <button class="btn btn-quantity-down">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                     </button>
@@ -121,10 +139,16 @@
                         </div>
                     </div>
                     @endforeach
+                    <div class="update_cart">
+                        <br>
+                        
+                        <a class="btn primary_btn {{$display}}" style="color:red">Cart contain out of stock products</a>
+                    </div>
                 </div>
-                <div class="col-lg-4 sticky-lg-top sticky-lg-top-110">
+              
+                <div class="col-lg-4 sticky-lg-top sticky-lg-top-110 " >
                     <div class="order_summary">
-                    @include('web.includes.order_summary')
+                    @include('web.includes.order_summary',['button_class' => $class])
                     </div>
                 </div>
             </div>

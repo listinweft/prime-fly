@@ -74,6 +74,7 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
+        
        if($request->size == null){
         $sizes = ProductPrice::where('product_id',$request->product_id)->get();
         $sizeID = $sizes->map(function($item) {
@@ -320,7 +321,10 @@ class CartController extends Controller
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
                     $product = Product::where([['status', 'Active'], ['id', $row->attributes->product_id]])->first();
-                  
+                    $productPrice =ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                   if($productPrice->stock == 0 && $productPrice->availability !='In Stock'){
+                    return false;
+                   }
                     if ($product == NULL) {
                         if (Cart::session($sessionKey)->get($row->id)) {
                             Cart::session($sessionKey)->remove($row->id);

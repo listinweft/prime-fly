@@ -151,7 +151,7 @@
                     @endphp
                     <div class="relatedProductsTypesWrapper sizeSection">
                         @foreach ($sizes as $size)
-                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
+                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="{{$product->product_type_id}}">
                             <div class="sizeImageBox">
                                 {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>

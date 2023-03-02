@@ -549,14 +549,32 @@ $(document).ready(function () {
         });
     });
 
-    $('.size').on('click', function () {
-
-
+    $('.outOfStock').on('click', function () {
+        //cart contain out of stock product
+        swal.fire({
+            title: "Oops",
+            text: "Sorry, this product is out of stock.",
+            type: "error"
+        });
     });
     $(document).on('click', '.cart-action', function () {
    // take value of active size class
         var size = $('.size.active').data('id');
+        if(size == undefined){
+            var size = $(this).data('size');
+        }
+        else{
+            var size = $('.size.active').data('id');
+        }
         var type_id   = $('.size.active').data('product_type_id');
+        if(type_id == undefined){
+            var type_id = $(this).data('product_type_id');
+        }
+        else{
+            var type_id = $('.size.active').data('id');
+        }
+        
+       
         var frame_id = $('.frame.active').data('id');
         var mount = $('.mount.active').data('mount');
         var checkout = $(this).data('checkout');
@@ -1211,7 +1229,8 @@ $(document).ready(function () {
                
                     $('.cartBtn').addClass('out-of-stock');
                     $('.cartBtn').removeClass('cart-action');
-                    $('.outstock').removeClass('d-none');
+                    $('.outstock').addClass('d-none');
+                  
                     //empty instock
                     $('.instock').html('');
                     $('.instock').append('');

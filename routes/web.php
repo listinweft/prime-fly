@@ -145,7 +145,9 @@ Route::middleware(['web'])->group(function () {
     Route::post('add-order-remarks', [CartController::class, 'add_order_remarks']);
     Route::post('change-location', [CartController::class, 'change_location']);
     Route::post('remove-cart-item', [CartController::class, 'remove_cart_item']);
+    Route::get('check-out-button', [CartController::class, 'check_out_button']);
     Route::post('cancel_all', [OrderController::class, 'cancel_all']);
+
 
     Route::post('state-list', [CartController::class, 'state_list']);
 

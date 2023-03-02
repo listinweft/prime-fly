@@ -23,7 +23,18 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ ($product->availability=='In Stock' && $product->stock!=0)?'cart-action':'out-of-stock' }}" data-id="{{$product->id}}">
+                                            @php
+                                                $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                                                $class = '';
+                                                if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
+                                                    $class = 'cart-action';
+                                                }
+                                                else{
+                                                    $class = 'out-of-stock';
+                                                }
+                                            @endphp
+                                            
+                                            <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
                                                 <div class="iconBox">
                                                     <i class="fa-solid fa-cart-shopping"></i>
                                                 </div>
@@ -46,8 +57,10 @@
                             <div class="pro-name">
                             {{ $product->title }}
                             </div>
+                            
                             <ul class="price-area">
-                                <li class="offer">
+                             
+                                {{-- <li class="offer">
                                 @if(Helper::offerPrice($product->id)!='')
                                </li>
                                 @endif
@@ -67,7 +80,7 @@
                     <li>
                        
                     </li>
-                    @endif
+                    @endif --}}
                             </ul>
                             <ul class="type-review">
                             @if($product->product_categories->count() > 1)
