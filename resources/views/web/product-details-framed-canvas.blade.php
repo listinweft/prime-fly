@@ -36,8 +36,10 @@
                                 <div class="fotorama__stage__frame" >
                                     <div class="fotorama__html">
                                         @php
-                                            $fr = \App\Models\Frame::where('id',1)->first();
+                                            $frame  = explode(',',$product->frame_color);
+                                            $fr = \App\Models\Frame::whereIn('id',$frame)->first();
                                         @endphp
+                                       
                                         <img class="framed-canvas fotorama__img frame_product_detail_img imageMountClass" style="border: 15px solid {{$fr->code}} !important;" src="{{asset($product->thumbnail_image)}}" aria-hidden="false">
                                     </div>
                                 </div>
@@ -50,7 +52,8 @@
                                 </div>
                             </div>
                             @php
-                                $frame = \App\Models\Frame::where('id',1)->first();
+                            $frame  = explode(',',$product->frame_color);
+                            $frame = \App\Models\Frame::whereIn('id',$frame)->first();
                             @endphp
                             <div class="item position-relative">
                                 <div class="fotorama__stage__frame" >
@@ -85,8 +88,9 @@
                                 </div>
                             </div>
                             @php
-                                $frm = \App\Models\Frame::where('id',1)->first();
-                             @endphp
+                            $frame  = explode(',',$product->frame_color);
+                            $frm = \App\Models\Frame::whereIn('id',$frame)->first();
+                            @endphp
                             <div class="fotorama__nav__frame ">
                                 <div class="fotorama__thumb fotorama_vertical_ratio">
                                     <img src="{{asset($frm->image)}}" alt="{{$frm->image_attribute}}" class="fotorama__img img-fluid frame_product_border_image">
@@ -657,7 +661,7 @@
                             </button>
                         </div>
                         @php
-                        $productPrice = \App\Models\ProductPrice::where('product_id',$rproduct->id)->first();
+                        $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->first();
                         $class = '';
                         if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
                            $class = 'cart-action';
