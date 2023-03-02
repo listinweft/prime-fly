@@ -14,6 +14,7 @@
                             <span class="invalidMessage"></span>
                         </div> -->
                         <div class="form-group">
+                            <img src="{{asset('frontend/images/icon-email.png')}}" alt="">
                             <input type="text" class="form-control required" id="email" name="email" placeholder="Email*">
                         </div>
                        
@@ -28,8 +29,8 @@
                 </form>
                         <h6 class="or">OR</h6>
                         <div class="loginOptionWrapper">
-                            <a class="btnBox" href=""> <img src="assets/images/googleIcon.png" alt="">  <p>Continue With Google</p> </a>
-                            <a class="btnBox btnBoxFace" href=""> <img src="assets/images/facebookIcon.png" alt=""> <p>Continue With Facebook</p> </a>
+                            <   <a class="btnBox" href=""> <img src="{{asset('frontend/images/googleIcon.png')}}" alt="">  <p>Continue With Google</p> </a>
+                            <a class="btnBox btnBoxFace" href=""> <img src="{{asset('frontend/images/facebookIcon.png')}}" alt=""> <p>Continue With Facebook</p> </a>
                         </div>
                     </div>
                 </div>

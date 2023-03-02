@@ -1200,6 +1200,7 @@ $(document).ready(function () {
                     $('.product_price').html('');
                 }
                
+             
                 if(response.availabilty == "In Stock"){
                     $('.cartBtn').removeClass('out-of-stock');
                     $('.cartBtn').addClass('cart-action');
@@ -1207,13 +1208,14 @@ $(document).ready(function () {
                     $('.instock').addClass('d-none');
                 }
                 else{
-                    
+               
                     $('.cartBtn').addClass('out-of-stock');
+                    $('.cartBtn').removeClass('cart-action');
                     $('.outstock').removeClass('d-none');
                     //empty instock
                     $('.instock').html('');
                     $('.instock').append('');
-                    $('.instock').append(response.availabilty);
+                    $('.instock').append('Out of Stock');
                     $('.instock').removeClass('d-none');
                 }
                 if (response != '0') {

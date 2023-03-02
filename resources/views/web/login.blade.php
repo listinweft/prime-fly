@@ -14,9 +14,11 @@
                             <span class="invalidMessage"></span>
                         </div> -->
                         <div class="form-group">
+                            <img src="{{asset('frontend/images/loginUser.png')}}" alt="">
                             <input type="text" class="form-control required" id="username" name="username" placeholder="Email*">
                         </div>
                         <div class="form-group">
+                            <img src="{{asset('frontend/images/loginPassword.png')}}" alt="">
                             <input type="password" class="form-control required" id="password" name="password" placeholder="Password*">
                         </div>
                         <!-- <div class="form-group">
@@ -30,13 +32,13 @@
                 </form>
                         <h6 class="or">OR</h6>
                         <div class="loginOptionWrapper">
-                            <a class="btnBox" href=""> <img src="assets/images/googleIcon.png" alt="">  <p>Continue With Google</p> </a>
-                            <a class="btnBox btnBoxFace" href=""> <img src="assets/images/facebookIcon.png" alt=""> <p>Continue With Facebook</p> </a>
+                            <a class="btnBox" href=""> <img src="{{asset('frontend/images/googleIcon.png')}}" alt="">  <p>Continue With Google</p> </a>
+                            <a class="btnBox btnBoxFace" href=""> <img src="{{asset('frontend/images/facebookIcon.png')}}" alt=""> <p>Continue With Facebook</p> </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 myAccountImageBox">
-                    <img class="img-fluid w-100" src="assets/images/loginImage.png" alt="">
+                    <img class="img-fluid w-100" src="{{asset('frontend/images/images/loginImage.png')}}" alt="">
                 </div>
             </div>
         </div>
