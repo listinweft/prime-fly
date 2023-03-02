@@ -22,23 +22,10 @@
             <div class="col-12 profile_detail_wrapper">
                 <div class="left_profile_nav sticky-xl-top sticky-lg-top-110">
                     <div class="info_user_box">
-                        <div class="profile_photo">
-                            <img class="img-fluid" src="assets/images/profile.jpg" alt="">
-                            <div class="upload_photo">
-                                <form action="">
-                                    <label class="custom-file-upload">
-                                        <input type="file">
-                                        <img class="img-fluid" src="assets/images/image.png" alt="">
-                                    </label>
-                                </form>
-                            </div>
-                        </div>
+                     
                         <div class="profile_info">
                             <div class="name">
                             {{@$customer->first_name}} {{@$customer->last_name}}
-                            </div>
-                            <div class="username">
-                            {{@$customer->user->email}}
                             </div>
                             <div class="mail">
                             {{@$customer->user->email}}
@@ -46,39 +33,39 @@
                         </div>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <button class="nav-link {{$tab=='profile'?'active':''}}" id="v-pills-information-tab" data-bs-toggle="pill" data-bs-target="#v-pills-information" type="button" role="tab" aria-controls="v-pills-information" aria-selected="true">
+                        <a href="{{url('customer/account/profile')}}" class="nav-link {{$tab=='profile'?'active':''}}" id="v-pills-information-tab" data-bs-toggle="pill" data-bs-target="#v-pills-information" type="button" role="tab" aria-controls="v-pills-information" aria-selected="true">
                             <div class="iconBox">
-                                <img src="assets/images/myAccount-01.png" alt="">
+                                <img src="{{asset('frontend/images/myAccount-01.png')}}" alt="">
                             </div>
                             Personal Information
-                        </button>
-                        <button class="nav-link {{$tab=='password'?'active':''}}" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button" role="tab" aria-controls="v-pills-password" aria-selected="false">
+                        </a>
+                        <a href="{{url('customer/account/password')}}"   class="nav-link {{$tab=='password'?'active':''}}" id="v-pills-password-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password" type="button" role="tab" aria-controls="v-pills-password" aria-selected="false">
                             <div class="iconBox">
-                                <img src="assets/images/myAccount-02.png" alt="">
+                                <img src="{{asset('frontend/images/myAccount-02.png')}}" alt="">
                             </div>
                             Change Password
-                        </button>
-                        <button class="nav-link {$tab=='order'?'active':''}}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">
+                        </a>
+                        <a href="{{url('customer/account/order')}}" class="nav-link {$tab=='order'?'active':''}}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">
                             <div class="iconBox">
-                                <img src="assets/images/myAccount-03.png" alt="">
+                                <img src="{{asset('frontend/images/myAccount-03.png')}}" alt="">
                             </div>
                             My Orders
-                        </button>
-                        <button class="nav-link {{$tab=='address'?'active':''}}" id="v-pills-Address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-Address" type="button" role="tab" aria-controls="v-pills-Address" aria-selected="false">
+                        </a>
+                        <a href="{{url('customer/account/address')}}"  class="nav-link {{$tab=='address'?'active':''}}" id="v-pills-Address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-Address" type="button" role="tab" aria-controls="v-pills-Address" aria-selected="false">
                             <div class="iconBox">
-                                <img src="assets/images/myAccount-04.png" alt="">
+                                <img src="{{asset('frontend/images/myAccount-04.png')}}" alt="">
                             </div>
                             Address
-                        </button>
-                        <button class="nav-link {{$tab=='wishlist'?'active':''}}" id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist" type="button" role="tab" aria-controls="v-pills-wishlist" aria-selected="false">
+                        </a>
+                        <a href="{{url('customer/account/wishlist')}}"  class="nav-link {{$tab=='wishlist'?'active':''}}"  id="v-pills-wishlist-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wishlist" type="button" role="tab" aria-controls="v-pills-wishlist" aria-selected="false">
                             <div class="iconBox">
-                                <img src="assets/images/myAccount-05.png" alt="">
+                                <img src="{{asset('frontend/images/myAccount-05.png')}}" alt="">
                             </div>
                             Wishlist
-                        </button>
-                        <a class="nav-link" href="index.php">
+                        </a>
+                        <a class="nav-link" href="{{url('logout')}}">
                             <div class="iconBox">
-                                <img src="assets/images/myAccount-06.png" alt="">
+                                <img src="{{asset('frontend/images/myAccount-06.png')}}" alt="">
                             </div>
                             Logout
                         </a>
@@ -257,7 +244,7 @@
                                                                 @foreach($product->productData->product_categories as $product_category)
                                                                     <div class="product-image-wrapper">
                                                                         <a href="{{ url('category/'.$product_category->short_url) }}" tabindex="-1">
-                                                                            <img class="product-image-photo" src="assets/images/product/product07.jpg" loading="lazy"  alt="">
+                                                                            <img class="product-image-photo"src="{{asset('frontend/images/product/product07.jpg')}}" loading="lazy"  alt="">
                                                                         </a>
                                                                     </div>
                                                                     @endforeach

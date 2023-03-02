@@ -1241,7 +1241,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#change-password-btn', function (e) {
         e.preventDefault();
-        alert("hfg");
+        
         // var _token = token;
         var required = [];
         $('.password-required').each(function () {

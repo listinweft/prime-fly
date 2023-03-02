@@ -46,11 +46,14 @@
                             </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{url('/')}}">
-                            <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
-                        </a>
-                    </li>
+                    @if(Auth::guard('customer')->check())
+                        <li>
+                            <a href="{{url('/')}}">
+                                <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
+                            </a>
+                        </li>
+                    @endif
+                 
                     <li class="login">
                         <div class="dropdown">
                             <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -58,8 +61,13 @@
                                 <img class="img-fluid icon" src="{{ asset('frontend/images/user.png')}}" alt="">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                                @if(Auth::guard('customer')->check())
+                                <li><a class="dropdown-item" href="{{ url('customer/account/profile') }}">My Account</a></li>
+                                <li><a class="dropdown-item" href="{{ url('logout') }}">Logout</a></li>
+                                @else
                                 <li><a class="dropdown-item" href="{{ url('login') }}">Login</a></li>
                                 <li><a class="dropdown-item" href="{{ url('register') }}">Register</a></li>
+                                @endif
                             </ul>
                         </div>
                     </li>
