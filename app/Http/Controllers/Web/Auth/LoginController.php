@@ -161,6 +161,8 @@ class LoginController extends Controller
                
                  $verificationdata->delete();
 
+                
+
                 return redirect('/')->with('success', 'Your Account is verified');
                 
             }
