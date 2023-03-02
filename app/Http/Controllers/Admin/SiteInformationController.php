@@ -53,6 +53,7 @@ class SiteInformationController extends Controller
         $siteInformation->contact = $request->contact ?? '';
         $siteInformation->faq = $request->faq ?? '';
         $siteInformation->shipping_policy = $request->shipping_policy ?? '';
+        $siteInformation->payment_policy = $request->payment_policy ?? '';
         $siteInformation->disclaimer = $request->disclaimer ?? '';
         $siteInformation->default_shipping_charge = $request->default_shipping_charge;
         $siteInformation->cod_extra_charge = $request->cod_extra_charge;

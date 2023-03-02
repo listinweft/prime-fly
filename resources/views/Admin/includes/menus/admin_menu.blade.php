@@ -131,6 +131,21 @@
                 <p>Faq</p>
             </a>
         </li>
+        
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'banner/shipping-policy')}}"
+               class="nav-link {{ (Request::segment(3)=='faq')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Shipping Policy</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'banner/payment-policy')}}"
+               class="nav-link {{ (Request::segment(3)=='faq')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>payment-policy</p>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/privacy-policy')}}"

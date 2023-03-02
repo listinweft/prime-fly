@@ -646,7 +646,7 @@ class WebController extends Controller
                                 }
                             });
                          }
-                        //  and(category=portrait or category=landscape)and(color=green or color=red)
+                        //  (and(category=portrait or category=landscape)and(color=green or color=red))
                          else if ($input == "color_id") {
                             $mainquery->where(function ($query) use ($inputs, $request, $input) {
                                 foreach ($request[$input] as $key => $reIn) {
@@ -901,9 +901,17 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Shipping Policy');
         $banner = Banner::type('shipping-policy')->first();
         $field = 'shipping_policy';
-        return view('web.policy', compact('banner', 'seo_data', 'field'));
+        $title = 'shipping policy';
+        return view('web.policy', compact('banner', 'seo_data', 'field','title'));
     }
-
+    public function payment_policy()
+    {
+        $seo_data = $this->seo_content('payment Policy');
+        $banner = Banner::type('payment-policy')->first();
+        $field = 'payment_policy';
+        $title = 'Payment Policy';
+        return view('web.policy', compact('banner', 'seo_data', 'field','title'));
+    }
     public function terms_and_conditions()
     {
         $seo_data = $this->seo_content('Terms and Conditions');
@@ -911,6 +919,16 @@ class WebController extends Controller
         $banner = Banner::type('terms-and-conditions')->first();
         $field = 'terms_and_conditions';
         $title = 'Terms and Conditions';
+        return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
+    }
+
+    public function faq()
+    {
+        $seo_data = $this->seo_content('faq');
+
+        $banner = Banner::type('faq')->first();
+        $field = 'faq';
+        $title = 'faq';
         return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
     }
 

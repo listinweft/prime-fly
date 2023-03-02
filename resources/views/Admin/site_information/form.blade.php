@@ -182,6 +182,13 @@
                                               class="form-control tinyeditor" autocomplete="off">
                                         {{ old('disclaimer', !empty($siteInformation)?$siteInformation->disclaimer:'') }}</textarea>
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label for="privacy_policy">Payment Policy</label>
+                                    <textarea name="payment_policy" id="payment_policy"
+                                              placeholder="payment_policy"
+                                              class="form-control tinyeditor" autocomplete="off">
+                                        {{ old('payment_policy', !empty($siteInformation)?$siteInformation->payment_policy:'') }}</textarea>
+                                </div>
                                 <div class="form-group col-md-12">
                                     <label for="privacy_policy">Faq's</label>
                                     <textarea name="faq" id="faq"

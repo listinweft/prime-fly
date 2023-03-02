@@ -35,7 +35,7 @@
                 <h6>Help</h6>
                 <ul class="list">
                     <li>
-                        <a href="">FAQ's</a>
+                        <a href="{url('faq')}}">FAQ's</a>
                     </li>
                     <li>
 
@@ -49,10 +49,13 @@
 
                     </li>
                     <li>
-                        <a href="errorPage.php">Payment</a>
+                        <a href="{{url('payment-policy')}}">Payment Policy</a>
                     </li>
                     <li>
-                        <a href="contactUs.php">Support Center</a>
+                        <a href="{{url('contact')}}">Contact Centre</a>
+                    </li>
+                    <li>
+                        <a href="{{url('shipping-policy')}}">Shipping Policy</a>
                     </li>
                 </ul>
                 <div class="paymentAreaBox">

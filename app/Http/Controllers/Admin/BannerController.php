@@ -33,7 +33,7 @@ class BannerController extends Controller
     {
 
 
-        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'product', '404','terms-and-conditions','faq','shipping-policy','disclaimer    ');
+        $type_array = array('about', 'return-policy','blogs', 'cart', 'checkout', 'contact', 'my-account', 'privacy-policy', 'product', '404','terms-and-conditions','faq','shipping-policy','disclaimer' ,'payment-policy');
     //    dd($request->all());
         if (in_array($request->type, $type_array)) {
 
