@@ -17,27 +17,27 @@ $sessionKey  =  Helper::getSessionKey();
                     @php
                     $product = App\Models\Product::find($row->attributes['product_id']);
                     @endphp
-                
+
                     <div class="item">
                         <div class="leftImgDetails">
                             <div class="imgBox">
-                                <a href="{{ url('/product/'.$product->short_url) }}">
+                                <a href="{{ url('/product/'.@$product->short_url) }}">
                                     {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
                                 </a>
                             </div>
                             <div class="details">
-                                <div> 
-                            
-                                    <a href="{{ url('/product/'.$product->short_url) }}">
+                                <div>
+
+                                    <a href="{{ url('/product/'.@$product->short_url) }}">
                                         <h5>
-                                            {{ $product->title }}
+                                            {{ @$product->title }}
                                         </h5>
                                         <ul>
                                             <li>
                                                 Type :
-                                               
-                                                    <span> {{ $product->productType->title }}</span>
-                                           
+
+                                                    <span> {{ @$product->productType->title }}</span>
+
                                             </li>
                                             @if($row->attributes['frame'] != null)
                                             <li>
@@ -50,7 +50,7 @@ $sessionKey  =  Helper::getSessionKey();
                                             @endif
                                             @if($row->attributes['mount'] != null)
                                             <li>
-                                                Mount : 
+                                                Mount :
                                                 @if($row->attributes['mount'] == 'Yes')
                                                     <span> With Mount</span>
                                                 @else
@@ -58,7 +58,7 @@ $sessionKey  =  Helper::getSessionKey();
                                                 @endif
                                             </li>
                                             @endif
-                                          
+
                                         </ul>
                                     </a>
                                 </div>
@@ -67,22 +67,22 @@ $sessionKey  =  Helper::getSessionKey();
                     <div class="price">
                         <ul class="price-area">
                         @php
-                            $price = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                            $price = \App\Models\ProductPrice::where('product_id',@$product->id)->where('size_id',$row->attributes['size'])->first();
                         @endphp
                             <!-- <li class="offer">
-                            @if(Helper::offerPrice($product->id)!='')
+                            @if(Helper::offerPrice(@$product->id)!='')
                             </li>
                             @endif -->
-                            @if(Helper::offerPrice($product->id)!='')
+                            @if(Helper::offerPrice(@$product->id)!='')
                             <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount(@$product->id),2)}}
                             </li>
                             <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                            </li>                  
+                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*@$price->price,2)}}
+                            </li>
                             @else
                             <li>
-                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*@$price->price,2)}}
                             </li>
                             @endif
                         </ul>

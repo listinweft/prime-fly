@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-12x ">
                                     <div class="form-group btnWrapper">
-                                        <button type="button" class="primary_btn form_submit_btn" data-url="/register">Register</button>
+                                        <button type="button" class="primary_btn registerform_submit_btn" data-url="/register">Register</button>
                                         <div class="btnRegister">
                                             <p>Already a Member</p>
                                             <a href="">Login</a>

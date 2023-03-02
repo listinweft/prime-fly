@@ -34,9 +34,9 @@
                                 <ul>
                                     <li>
                                         Type :
-                                       
+
                                             <span> {{ $product->productType->title }}</span>
-                                   
+
                                     </li>
                                     @if($row->attributes['frame'] != null)
                                     <li>
@@ -49,7 +49,7 @@
                                     @endif
                                     @if($row->attributes['mount'] != null)
                                     <li>
-                                        Mount : 
+                                        Mount :
                                         @if($row->attributes['mount'] == 'Yes')
                                             <span> With Mount</span>
                                         @else
@@ -57,7 +57,7 @@
                                         @endif
                                     </li>
                                     @endif
-                                  
+
                                 </ul>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                                 </li>
                                 <li>
                                     {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                                </li>                  
+                                </li>
                                 @else
                                 <li>
                                     {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
@@ -115,7 +115,7 @@
                 </div>
                 <div class="col-lg-4 sticky-lg-top sticky-lg-top-110">
                     @include('web.includes.order_summary')
-                   
+
                 </div>
             </div>
         </div>
@@ -126,7 +126,7 @@
 <section class="emptyCart">
     <div class="container">
         <div class="row">
-            <div class="col-md-3"> 
+            <div class="col-md-3">
                 <br>
                 <br>
             </div>
