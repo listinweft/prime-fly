@@ -99,9 +99,7 @@
                     <div class="name">
                         <h4>{{$product->title}}</h4>
                     </div>
-<!--                    <div class="stock">-->
-<!--                        In Stock-->
-<!--                    </div>-->
+                    <div class="instock outOfStock d-none stock"> </div>
                                 @php
                                 $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->first();
                                 @endphp

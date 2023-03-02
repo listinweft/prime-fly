@@ -81,8 +81,9 @@
                     @php
                         $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->first();
                     @endphp
+                      <div class="instock outOfStock d-none stock"> </div>
                     @if (@$productPrice->availability != 'In Stock')
-                    <div class="stock outOfStock">
+                    <div class="stock outOfStock outstock">
                         {{ $productPrice->availability}}
                     </div>
                     @endif
@@ -360,7 +361,7 @@
                                                         $class = 'out-of-stock';
                                                     }
                                                 @endphp
-                                                    <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ $class }}" data-id="{{$rproduct->id}}">
+                                                <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ $class }}" data-id="{{$rproduct->id}}">
                                                         <div class="iconBox">
                                                             <i class="fa-solid fa-cart-shopping"></i>
                                                         </div>

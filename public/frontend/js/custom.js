@@ -1199,11 +1199,18 @@ $(document).ready(function () {
                 if(response.availabilty == "In Stock"){
                     $('.cartBtn').removeClass('out-of-stock');
                     $('.cartBtn').addClass('cart-action');
-                    $('.stock').addClass('d-none');
+                    $('.outstock').addClass('d-none');
+                    $('.instock').addClass('d-none');
                 }
                 else{
+                    
                     $('.cartBtn').addClass('out-of-stock');
-                    $('.stock').removeClass('d-none');
+                    $('.outstock').removeClass('d-none');
+                    //empty instock
+                    $('.instock').html('');
+                    $('.instock').append('');
+                    $('.instock').append(response.availabilty);
+                    $('.instock').removeClass('d-none');
                 }
                 if (response != '0') {
 
