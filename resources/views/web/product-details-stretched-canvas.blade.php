@@ -349,6 +349,7 @@
 @include('web.includes._review_inner',[$reviews, $totalRatings])
 @endif
 <!-- Testimonial End-->
+
 @if(@$similarProducts->isNotEmpty())
 <div class="relatedProducts youMayAlsoLike">
     <div class="container">
