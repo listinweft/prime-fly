@@ -135,6 +135,30 @@
     </div>
 <!-- Success Modal End -->
 
+<!-- Success2 Modal Start -->
+<div class="modal fade successModalForm" id="successModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img class="img-fluid successIcon" src="{{ asset('frontend/images/svg/success.svg')}}" alt="">
+                <h6>
+                    <span class="success_message" id="myspan2"></span>
+                </h6>
+                <form>
+
+                    <div class="form-group">
+                        <input type="hidden" name="mail">
+                        <button class="btn primary_btn loginform_submit_btn" data-url="/login" fdprocessedid="kqhewq" style="background-color:#cecec4;">Resend</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Success2 Modal End -->
 
 @yield('content')
 @include('web.layouts.footer')

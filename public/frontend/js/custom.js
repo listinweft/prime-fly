@@ -512,31 +512,31 @@ $(document).ready(function () {
                         $('#cartBox' + id).remove();
                     }
                     if (method == "cart" && response.cartCount == 0) {
-                        $(".successModalForm").modal('show');
+                        // $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                        // swal({
-                        //     title: 'success',
-                        //     text: response.message,
-                        //     type: 'success'
-                        // }, function () {
-                        //     window.location.reload();
-                        // });
+                        //     $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModalForm").modal('hide');
+                        //     }, 2000);
+                        swal({
+                            title: 'success',
+                            text: response.message,
+                            type: 'success'
+                        }, function () {
+                            window.location.reload();
+                        });
                     } else {
-                        $(".successModalForm").modal('show');
+                        //$(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                        // swal({
-                        //     title: 'success',
-                        //     text: response.message,
-                        //     type: 'success'
-                        // });
+                            // $("#myspan").html(response.message);
+                            // setTimeout(function(){
+                            //     $(".successModalForm").modal('hide');
+                            // }, 2000);
+                        swal({
+                            title: 'success',
+                            text: response.message,
+                            type: 'success'
+                        });
                     }
                 } else {
                     swal({
@@ -634,10 +634,10 @@ $(document).ready(function () {
                         }
                         // $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
+                        //     $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModalForm").modal('hide');
+                        //     }, 2000);
                         Toast.fire({
                             title: "Done it", text: response.message, icon: "success"
                         });
@@ -666,19 +666,19 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/remove-cart-item', success: function (response) {
                 if (response.status == true) {
-                    $(".successModalForm").modal('show');
+                    // $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                    // swal({
-                    //     title: "Done it!",
-                    //     text: response.message,
-                    //     type: "success"
-                    // }, function () {
-                    //     window.location.reload();
-                    // });
+                    //         $("#myspan").html(response.message);
+                    //         setTimeout(function(){
+                    //             $(".successModalForm").modal('hide');
+                    //         }, 2000);
+                    swal({
+                        title: "Done it!",
+                        text: response.message,
+                        type: "success"
+                    }, function () {
+                        window.location.reload();
+                    });
                 } else {
                     Toast.fire('Error', response.message, "error");
                 }
@@ -948,6 +948,248 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('click', '.registerform_submit_btn', function (e) {
+
+        e.preventDefault();
+
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+
+
+
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+        console.log(formData);
+
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+
+
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
+
+
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+
+
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+
+
+            })
+                .done(function (response) {
+
+
+                    console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    if (response.status == "success") {
+                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                    } else if (response.status == "success-reload") {
+                        // $(".successModalForm").modal('show');
+                        // $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModalForm").modal('hide');
+                        //     }, 2000);
+
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        } else {
+                           setTimeout(() => {
+                            location.reload();
+                           }, 1000);
+                        }
+                    } else {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // swal.fire({
+                        //     title: response.status, text: response.message, icon: response.status
+                        // });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
+    $(document).on('click', '.loginform_submit_btn', function (e) {
+
+        e.preventDefault();
+
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+
+
+
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+        console.log(formData);
+
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+
+
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
+
+
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+
+
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+
+
+            })
+                .done(function (response) {
+
+
+                    console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    // if (response.status == "success") {
+                    //     Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                    // }
+                    if (response.status == "success-reload") {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
+                        // if (response.redirect) {
+                        //     window.location.href = response.redirect;
+                        // } else {
+                        //    setTimeout(() => {
+                        //     location.reload();
+                        //    }, 1000);
+                        // }
+                    }
+
+                    else if (response.status == "error2") {
+                        //$(".successModalForm2").modal('show');
+
+                        $("#successModal2").modal('show');
+
+                        $("#myspan2").html(response.message);
+
+
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
+                        // if (response.redirect) {
+                        //     window.location.href = response.redirect;
+                        // } else {
+                        //    setTimeout(() => {
+                        //     location.reload();
+                        //    }, 1000);
+                        // }
+                    }
+                    else {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // swal.fire({
+                        //     title: response.status, text: response.message, icon: response.status
+                        // });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
     $(document).on('click', '.review-form-btn', function (e) {
         e.preventDefault();
         // var _token = token;
@@ -1010,9 +1252,9 @@ $(document).ready(function () {
                              $(".successModalForm").modal('show');
 
                             $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
+                            // setTimeout(function(){
+                            //     $(".successModalForm").modal('hide');
+                            // }, 2000);
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {

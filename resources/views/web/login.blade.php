@@ -1,6 +1,9 @@
 
 @extends('web.layouts.main')
 @section('content')
+
+
+
 <section class="loginSection position-relative">
         <div class="container position-relative">
             <div class="row">
@@ -23,10 +26,10 @@
                         </div>
                         <!-- <div class="form-group">
                             <textarea name="" class="form-control form-message" placeholder="Message*"></textarea>
-                         
+
                         </div> -->
                         <div class="form-group">
-                            <button class="btn primary_btn form_submit_btn" data-url="/login" >Send</button>
+                            <button class="btn primary_btn loginform_submit_btn" data-url="/login" >Send</button>
                         </div>
                     </div>
                 </form>
@@ -46,5 +49,5 @@
 
 @endsection
 @push('scripts')
-    
+
 @endpush

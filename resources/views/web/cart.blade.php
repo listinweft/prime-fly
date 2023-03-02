@@ -34,9 +34,9 @@
                                 <ul>
                                     <li>
                                         Type :
-                                       
+
                                             <span> {{ $product->productType->title }}</span>
-                                   
+
                                     </li>
                                     @if($row->attributes['frame'] != null)
                                     <li>
@@ -49,7 +49,7 @@
                                     @endif
                                     @if($row->attributes['mount'] != null)
                                     <li>
-                                        Mount : 
+                                        Mount :
                                         @if($row->attributes['mount'] == 'Yes')
                                             <span> With Mount</span>
                                         @else
@@ -85,7 +85,7 @@
                                 </li>
                                 <li>
                                     {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
-                                </li>                  
+                                </li>
                                 @else
                                 <li>
                                     {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
@@ -160,7 +160,7 @@
 <section class="emptyCart">
     <div class="container">
         <div class="row">
-            <div class="col-md-3"> 
+            <div class="col-md-3">
                 <br>
                 <br>
             </div>

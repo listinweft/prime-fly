@@ -46,8 +46,8 @@ class LoginController extends Controller
         }
         if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'], $remember)) {
             if (Auth::guard('customer')->user()->is_verified == 0) {
-               
-                return response()->json(['status' => 'error', 'message' => 'Account not verified, Please register with your email']);
+
+                return response()->json(['status' => 'error2', 'message' => 'Account not verified, Please register with your email','mail'=>"sandeepps2468@gmail.com"]);
             }
             if (Auth::guard('customer')->user()->status == 'Inactive') {
                 Auth::guard('customer')->logout();
@@ -84,7 +84,7 @@ class LoginController extends Controller
     public function forgot_password(Request $request)
     {
       $user = User::where('email', $request->email)->where('user_type', 'Customer')->first();
-      
+
         if ($user) {
             $token = Str::random(64);
             DB::beginTransaction();
@@ -126,7 +126,7 @@ class LoginController extends Controller
 
     public function reset_password($token)
     {
-      
+
         $title = 'Reset Password';
         $password_reset = PasswordReset::where('token', $token)->first();
         if ($password_reset) {
@@ -142,12 +142,12 @@ class LoginController extends Controller
     }
     public function email_verification(Request $request,$token)
     {
-      
+
         $title = 'Email Verification';
         $verify = Usersverifie::where('token', $token)->first();
         if ($verify) {
-            
-        
+
+
         $verificationdata = Usersverifie::where('token', $request->token)->first();
 
         $user = User::where('email', $verificationdata->email)->first();
@@ -155,16 +155,16 @@ class LoginController extends Controller
                 $verifyaccount = $user->where('id', $user->id)->update([
                     'is_verified' => 1
                 ]);
-               if($verifyaccount) 
+               if($verifyaccount)
                {
 
-               
+
                  $verificationdata->delete();
 
                 
 
                 return redirect('/')->with('success', 'Your Account is verified');
-                
+
             }
             else {
                 return redirect('/')->with('error', 'Some Error Occured');
@@ -178,7 +178,7 @@ class LoginController extends Controller
         }
     }
     // public function email_verification_store(Request $request, $token)
-    
+
     // {
 
     //     $verificationdata = Usersverifie::where('token', $request->token)->first();
@@ -188,7 +188,7 @@ class LoginController extends Controller
     //             $verifyaccount = $user->where('id', $user->id)->update([
     //                 'is_verified' => 1
     //             ]);
-    //            if($verifyaccount) 
+    //            if($verifyaccount)
     //            {
     //             return response()->json([
     //                 'status' => 'success-reload',
@@ -201,15 +201,15 @@ class LoginController extends Controller
     //         }
 
     //         }
-            
+
 
 
     // }
 
     public function reset_password_store(Request $request, $token)
-    
+
     {
-      
+
         $password_reset = PasswordReset::where('token', $request->token)->first();
         if ($password_reset) {
             $request->validate([
@@ -292,9 +292,9 @@ class LoginController extends Controller
                 //         'message' => 'Registration has been completed successfully, credentials has been sent to your registered mail id',
                 //     ]);
                 // }
-                
-                
-                
+
+
+
                 // else {
                 //     return response()->json([
                 //         'status' => 'success-reload',
@@ -308,13 +308,13 @@ class LoginController extends Controller
                     $link = url('email-verification/' . $token);
                     $name = $user->customer->first_name ;
                     if (Helper::verifyemail($user, $name, $link)) {
-                       
+
                         return response()->json([
                             'status' => 'success',
                             'message' => 'Please click on the link that has just been sent to your email account to verify your Account.'
                         ]);
                     }
-    
+
     }
 
  else {
