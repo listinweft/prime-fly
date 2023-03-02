@@ -10,8 +10,10 @@
                                 <div class="cartWishlistBox">
                                     <ul>
                                         <li>
-                                            <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}" data-id="{{$product->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
-                        data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
+                                            <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
+                                                 {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}" data-id="{{$product->id}}"  
+                                                 data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
+                                                 data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                 <div class="textIcon">
                                                     Wishlist
                                                 </div>

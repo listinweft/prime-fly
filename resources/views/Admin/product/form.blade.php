@@ -297,7 +297,7 @@
                                             </td>
                                         </td>
                                         <td>
-                                                <select class="form-control required availability" name="availability[{{$size->id}}]" id="availability">
+                                                <select class="form-control  availability" name="availability[{{$size->id}}]" id="availability">
                                                     @foreach(["In Stock", "Out of Stock"] AS $availability)
                                                         <option value="{{ $availability }}"
                                                             {{ old("availability", @$price->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
@@ -313,7 +313,7 @@
                                         <td>
                                           
                                             <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
-                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':'required'}}"
+                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':''}}"
                                                     autocomplete="off" value="{{ isset($price)?$price->stock:'2' }}">
                                             <div class="help-block with-errors" id="stock_error"></div>
                                             @error('stock')
@@ -326,7 +326,7 @@
                                            
                                             <input type="text" name="alert_quantity[{{$size->id}}]" id="alert_quantity"
                                                     placeholder="Alert Quantity"
-                                                    class="form-control alert_quantity {{(@$price->quantity=='Out of Stock')?'':'required'}}"
+                                                    class="form-control alert_quantity {{(@$price->quantity=='Out of Stock')?'':''}}"
                                                     autocomplete="off"
                                                     value="{{ isset($price)?$price->alert_quantity:'1' }}">
                                             <div class="help-block with-errors" id="alert_quantity_error"></div>
