@@ -21,11 +21,16 @@ class Enquiry extends Model
 
     public function productType()
     {
-        return $this->belongsTo(ProductType::class, 'product_type_id');
+        return $this->belongsTo(ProductType::class);
     }
+
     public function Size()
     {
-        return $this->belongsTo(Size::class, 'size_id');
+        return $this->belongsTo(Size::class,'size_id','id');
+    }
+    public function Frame()
+    {
+        return $this->belongsTo(Frame::class);
     }
 
 }

@@ -83,10 +83,17 @@
                                             <td>{{ $enquiry->name}}</td>
                                             @if($type == "bulk")
                                                 <td>{{ $enquiry->product->title}}</td>
-                                                <td>{{ $enquiry->productType->title}}</td>
-                                                <td>{{ $enquiry->product->frame}}</td>
-                                                <td>{{ $enquiry->product->mount}}</td>
-                                                <td>{{ $enquiry->Size->title}}</td>
+                                                <td>{{ $enquiry->productType->title }}</td>
+                                                <td>{{ $enquiry->Frame->title}}</td>
+                                                {{-- <td>{{ $enquiry->product->mount}}</td> --}}
+                                                <td>
+                                                    @if($enquiry->product['mount'] == 'Yes')
+                                                        <span> With Mount</span>
+                                                    @else
+                                                        <span> No Mount</span>
+                                                    @endif
+                                            </td>
+                                                <td>{{ $enquiry->Size->title }}</td>
                                             @endif
                                             <td>{{ $enquiry->email}}</td>
                                             <td>{{ $enquiry->phone }}</td>
