@@ -516,7 +516,7 @@ $(document).ready(function () {
                             $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
+                            }, 800);
                         // swal({
                         //     title: 'success',
                         //     text: response.message,
@@ -530,7 +530,7 @@ $(document).ready(function () {
                             $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
+                            }, 800);
                         // swal({
                         //     title: 'success',
                         //     text: response.message,
@@ -613,15 +613,15 @@ $(document).ready(function () {
                             $('#wishlist_check_' + id).removeClass('fill');
                             $('#wishlistBox_' + id).remove();
                         }
-                        $(".successModalForm").modal('show');
+                        // $(".successModalForm").modal('show');
 
                             $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
-                        // Toast.fire({
-                        //     title: "Done it", text: response.message, icon: "success"
-                        // });
+                            }, 800);
+                        Toast.fire({
+                            title: "Done it", text: response.message, icon: "success"
+                        });
 
                         if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "profile" || urlLastSegment == "wishlist") {
                             location.reload();
@@ -652,7 +652,7 @@ $(document).ready(function () {
                             $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
+                            }, 800);
                     // swal({
                     //     title: "Done it!",
                     //     text: response.message,
@@ -892,7 +892,7 @@ $(document).ready(function () {
                         $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
+                            }, 800);
 
                         // Toast.fire({
                         //     title: "Success!", text: response.message, icon: "success"
@@ -909,7 +909,7 @@ $(document).ready(function () {
                         $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
+                            }, 800);
                         // swal.fire({
                         //     title: response.status, text: response.message, icon: response.status
                         // });
@@ -990,12 +990,12 @@ $(document).ready(function () {
                             $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 2000);
+                            }, 800);
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
                              $(".successModalForm").modal('show');
-                             $(".successModalForm").modal('show');
+                            //  $(".successModalForm").modal('show');
                             // Toast.fire({
                             //     title: response.status, text: response.message, icon: response.status
                             // });
