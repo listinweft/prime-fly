@@ -370,13 +370,45 @@ class WebController extends Controller
 
     public function main_search(Request $request)
     {
+        // $searchResult = array();
+        // $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+
+
         $searchResult = array();
-        $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+    
+                $categories = Category::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+                $tags = Tag::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+                $shapes = Shape::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+                $colors = Color::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+                $categoryIds = implode('', $categories->pluck('id')->toArray());
+                $tagIds = implode('', $tags->pluck('id')->toArray());
+                $shapeIds = implode('', $shapes->pluck('id')->toArray());
+                $colorIds = implode('', $colors->pluck('id')->toArray());
+                $products = Product::active()->where('copy','no')
+                    ->where(function ($query) use ($categoryIds, $tagIds,$shapeIds,$colorIds,$request) {
+                        $query->orWhere('title', 'LIKE', "%{$request->search_param}%");
+                        if ($categoryIds) {
+                            $query->orWhereRaw('CONCAT(",", `category_id`, ",") REGEXP ",(' . $categoryIds . '),"');
+                            $query->orWhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $categoryIds . '),"');
+                        }
+                        if ($tagIds) {
+                            
+                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $tagIds . '),"');
+                        }
+                        if ($shapeIds) {
+                            
+                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $shapeIds . '),"');
+                        }
+                        if ($colorIds) {
+                            
+                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $colorIds . '),"');
+                        }
+                    })->get();
         if ($products->isNotEmpty()) {
             foreach ($products as $product) {
                 if (Helper::offerPrice($product->id) != '') {
                     $offerPrice = Helper::offerPrice($product->id);
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $$product->productprice->id;
+                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->id;
                 } else {
                     $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->price;
                 }
