@@ -73,7 +73,7 @@
                     <td colspan="5" align="left" valign="top">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
                             <tr>
-                                <td><img style="width: 10vw; padding: 1vw;" src="{{ asset($common->brand_logo) }}"/>
+                                <td><img style="width: 10vw; padding: 1vw;" src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"/>
                                 </td>
                                 <td></td>
                             </tr>

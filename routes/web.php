@@ -36,7 +36,9 @@ use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CustomerController as CustomerWebController;
 use App\Http\Controllers\Web\PaymentController;
 use App\Http\Controllers\Web\WebController;
+use App\Http\Helpers\Helper;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\TextUI\Help;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,16 +56,11 @@ Route::middleware(['web'])->group(function () {
         return view('web.product-details');
     });
 
-    Route::get('product-details-framed-canvas',function(){
-        return view('web.product-details-framed-canvas');
+    Route::get('/invoice',function(){
+        $order = \App\Models\Order::find(27);
+       Helper::sendOrderPlacedMail($order,'0');
     });
 
-    Route::get('product-details-canvas',function(){
-        return view('web.product-details-canvas');
-    });
-    Route::get('product-details-stretched-canvas',function(){
-        return view('web.product-details-stretched-canvas');
-    });
 
     Route::get('about', [WebController::class, 'about']);
     Route::get('testimonials', [WebController::class, 'testimonials']);

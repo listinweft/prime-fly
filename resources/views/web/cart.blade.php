@@ -57,7 +57,15 @@
                                         @endif
                                     </li>
                                     @endif
-                                  
+                                    @if($row->attributes['size'] != null)
+                                    <li>
+                                        @php
+                                        $size = App\Models\Size::find($row->attributes['size']);
+                                    @endphp
+                                        Size : 
+                                        <span> {{ $size->title }}</span>
+                                    </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>

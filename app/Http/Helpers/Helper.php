@@ -364,8 +364,10 @@ class Helper
         $to_name = $customerAddress->first_name . ' ' . $customerAddress->last_name;
         $link = url('order/' . base64_encode($order->order_code));
         $orderGrandTotal = Order::OrderGrandTotal($order->id);
+       
         $orderTotal = Order::getProductTotal($order->id);
         //mail to customer
+       
         Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
             'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
             'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
@@ -932,21 +934,21 @@ class Helper
                                                 $productData = Product::find($cartProduct->attributes->product_id);
                                  
                                                 if (in_array($productData->id, $couponProductIds)) {
-                                              
+                                           
                                                     if ($coupon->applicable_only_if_sale_price == "No") {
                                                         if (self::offerPriceAmount($cartProduct->attributes->product_id) == '') {
                                                          
-                                                            $coupon_applicable_cart_product_ids[] =$cartProduct->attributes->product_id;
+                                                            $coupon_applicable_cart_product_ids[] = $cartProduct->id;
                                                             $coupon_applicable_cart_product_cost[] = $cartProduct->price * $cartProduct->quantity;
                                                         } else {
                                                             $coupon_not_applicable_cart_product_ids[] = $cartProduct->attributes->product_id;
                                                         }
                                                     } else {
-                                                        $coupon_applicable_cart_product_ids[] = $cartProduct->attributes->product_id;
+                                                        $coupon_applicable_cart_product_ids[] = $cartProduct->id;
                                                         $coupon_applicable_cart_product_cost[] = $cartProduct->price * $cartProduct->quantity;
                                                     }
                                                 } else {
-                                                    dd('d');
+                                                   
                                                     $coupon_not_applicable_cart_product_ids[] = $cartProduct->attributes->product_id;
                                                 }
                                             }
@@ -995,6 +997,7 @@ class Helper
                                                             Session::push('coupons', ['code' => $coupon->code, 'coupon_value' => $coupon_applicable_value, 'products' => $coupon_applicable_cart_product_ids]);
                                                         }
                                                     } else {
+                                                      
                                                         Session::push('coupons', ['code' => $coupon->code, 'coupon_value' => $coupon_applicable_value, 'products' => $coupon_applicable_cart_product_ids]);
                                                     }
                                                     $coupon_total_value = Helper::get_coupon_total_value();

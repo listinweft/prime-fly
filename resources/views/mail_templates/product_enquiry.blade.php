@@ -66,6 +66,25 @@
 <body style="background-color:#fff;font-family:Arial, Helvetica, sans-serif;">
 <table class="container" width="680" border="0" cellspacing="0" cellpadding="0" align="center"
        style="border-left:solid 1px #d9dadb;border-right:solid 1px #d9dadb;border-top:solid 1px #d9dadb;border-bottom:solid 1px #d9dadb; ">
+       <tr style="border-collapse:collapse">
+        <td class="es-m-p20b" align="left"
+            style="padding:0;Margin:0;width:173px">
+            <table width="100%" cellspacing="0" cellpadding="0"
+                   role="presentation"
+                   style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                <tr style="border-collapse:collapse">
+                    <td align="left"
+                        style="padding:0;Margin:0;padding-bottom:5px;font-size:0">
+                        <a target="_blank" href="javascript:void(0)"
+                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494c45;font-size:16px"><img
+                            src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"
+                                alt
+                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
+                                class="adapt-img" width="125"></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <tr>
 
         <td style="border-style: solid; border-color: #00afef; border-width: 2px; width:640px;">

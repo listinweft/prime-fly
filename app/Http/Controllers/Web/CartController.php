@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Termwind\Components\Dd;
 
 class CartController extends Controller
 {
@@ -1237,10 +1238,12 @@ class CartController extends Controller
                                 if (Session::has('coupons')) {
                                     foreach (Session::get('coupons') as $session_coupon) {
                                         $couponProductTotal = 0;
+                                    
                                         foreach ($session_coupon['products'] as $couponProduct) {
-                                            dd($couponProduct);
+                                           
                                             //get cart item based on attribute id
-                                            $cartItem = Cart::session($sessionKey)->getContent()->where('attributes.product_id', $couponProduct);
+                                          
+                                          
                                             $item = Cart::session(session('session_key'))->get($couponProduct);
                                            
                                             $couponProductTotal += $item->price * $item->quantity;
