@@ -7,6 +7,7 @@
                 <h1>Thank <span>You</span></h1>
                 <h5>Your Order is Placed Successfully</h5>
                 <ul>
+                    
                     <li>
                         Order Number : <span>ARTMYST#{{@$order->order_code}}</span>
                     </li>
