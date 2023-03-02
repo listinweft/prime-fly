@@ -64,9 +64,7 @@
                     <li>
                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
                     </li>
-                    <li>
-                       
-                    </li>
+                   
                     @endif
                             </ul>
                             <ul class="type-review">
