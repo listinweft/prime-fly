@@ -583,7 +583,36 @@ $(".colorBtn").click(function(){
 
     $('.frame_product_detail_img').css('border-color', color);
     $('.frame_product_border_image').attr('src',img);
+    $('#frame_id').val(frame_id);
 });
+
+$(".typeBtn").click(function(){
+    product_type_id = $(this).data('id');
+    //remove d-none class of given id class
+
+     $(".typeBtn").removeClass('active');
+     $(this).addClass('active');
+    //  var color = $(this).data('color');
+    //  var img = $(this).data('img');
+
+    //  $('.frame_product_detail_img').css('border-color', color);
+    //  $('.frame_product_border_image').attr('src',img);
+     $('#product_type_id').val(product_type_id);
+ });
+
+ $(".checkprice").click(function(){
+    size_id = $(this).data('id');
+    //remove d-none class of given id class
+
+     $(".checkprice").removeClass('active');
+     $(this).addClass('active');
+    //  var color = $(this).data('color');
+    //  var img = $(this).data('img');
+
+    //  $('.frame_product_detail_img').css('border-color', color);
+    //  $('.frame_product_border_image').attr('src',img);
+     $('#size_id').val(size_id);
+ });
 
 $(".mountSpaceBtn").click(function(){
     if($(this).hasClass('btnMountClass')){
@@ -595,6 +624,7 @@ $(".mountSpaceBtn").click(function(){
     // $('.frame_product_detail_img').toggleClass('mountClass');
     $(".mountSpaceBtn").removeClass('active');
     $(this).addClass('active');
+    $('#mount_id').val(mount_id);
 });
 
 $('.productTagArea').each(function(){

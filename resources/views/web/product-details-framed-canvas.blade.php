@@ -117,6 +117,7 @@
                 <div class="productNameStock">
                     <div class="name">
                         <h4>{{$product->title}}</h4>
+                        <input type="hidden" id="pid" value="{{$product->id}}">
                     </div>
                     <div class="instock outOfStock d-none stock"> </div>
                             @php
@@ -162,10 +163,12 @@
                     </h5>
                     <div class="relatedProductsTypesWrapper">
                         @foreach ($products as $prd)
-                        <div class="item {{$prd->productType->id ==  $product->productType->id ?  'active' : '' }}">
+                        <div class="item typeBtn {{$prd->productType->id ==  $product->productType->id ?  'active' : '' }}">
                             <a href=" {{url('/product/'.$prd->short_url)}} ">
                                {!! Helper::printImage($prd->productType, 'image','image_webp','image_attribute') !!}
                                 <p>{{$prd->productType->title}}</p>
+
+                                <input type="hidden" id="ptype" value="{{$product->productType->id}}">
                             </a>
                         </div>
 
@@ -192,6 +195,7 @@
 
                             </div>
                             <p>{{$frame->title}}</p>
+                            <input type="hidden" id="pframe" value="{{$frame->id}}">
                         </div>
                         @php
                             $n++;
@@ -247,6 +251,7 @@
                                 {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
                             <p>{{$size->title}}</p>
+                            <input type="hidden" id="psize" value="{{$size->id}}">
                         </div>
                         @endforeach
 
@@ -686,7 +691,7 @@
                         alt=""></button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" id="bulkenquiryForm" name="bulkenquiryForm">
+                <form action="#"  id="bulkenquiryForm" name="bulkenquiryForm">
                     <div class="row">
                         <div class="form-group">
                             <input type="text" name="name" id="name" class="form-control"
@@ -706,8 +711,12 @@
                         </div>
                         {{-- <input type="hidden" name="subject" value="subject"> --}}
 
-                        <input type="hidden" name="type" value="product">
-                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <input type="hidden" id="type" name="type" value="bulk">
+                        <input type="hidden" id="proid" name="product_id" value="">
+                        <input type="hidden" id="product_type_id" name="product_type_id" value="">
+                        <input type="hidden" id="size_id" name="size_id" value="">
+                        <input type="hidden" id="frameid" name="frame_id" value="">
+                        <input type="hidden" id="mount_id" name="mount_id" value="">
                         <div class="form-group">
                            <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                         </div>
@@ -720,3 +729,24 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+
+var ptype = $('#ptype').val();
+$('#product_type_id').val(ptype);
+
+var fid = $('#pframe').val();
+
+ $('#frameid').val(fid);
+
+var psize = $('#psize').val();
+ $('#size_id').val(psize);
+
+
+ var pid = $('#pid').val();
+ $('#proid').val(pid);
+
+
+</script>
+
+@endpush

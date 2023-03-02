@@ -354,6 +354,7 @@ $(document).ready(function () {
         var form_id = $(this).closest("form").attr('id');
         var modal_id = $(this).closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
+
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');
         $('span.error').remove();
@@ -811,8 +812,11 @@ $(document).ready(function () {
         var url = $this.data('url');
         var form_id = $this.closest("form").attr('id');
 
+
+
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
+        console.log(formData);
 
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');

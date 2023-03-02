@@ -125,6 +125,10 @@ class WebController extends Controller
         $contact->phone = $request->phone;
         $contact->message = $request->message;
         $contact->product_id = $request->product_id ?? NULL;
+        $contact->product_type_id = $request->product_type_id ?? NULL;
+        $contact->size_id = $request->size_id ?? NULL;
+        $contact->frame_id = $request->frame_id ?? NULL;
+        //$contact->frame_id = $request->frame_id ?? NULL;
         $contact->request_url = url()->previous();
 
 
@@ -132,6 +136,9 @@ class WebController extends Controller
             $type = " Get A Quote";
         } elseif ($request->type == 'product') {
             $type = ' Product Enquiry';
+        }
+        elseif ($request->type == 'bulk') {
+            $type = ' Bulk  Enquiry';
         }
          else {
             $type = ' Contact request';
