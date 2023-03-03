@@ -17,13 +17,13 @@
                             <img src="{{asset('frontend/images/icon-email.png')}}" alt="">
                             <input type="text" class="form-control required" id="email" name="email" placeholder="Email*">
                         </div>
-                       
+
                         <!-- <div class="form-group">
                             <textarea name="" class="form-control form-message" placeholder="Message*"></textarea>
-                         
+
                         </div> -->
                         <div class="form-group">
-                            <button class="btn primary_btn form_submit_btn" data-url="/forgot-password" >Send</button>
+                            <button class="btn primary_btn form_submit_btn" data-url="/forgot-password" ></button>
                         </div>
                     </div>
                 </form>
@@ -43,5 +43,5 @@
 
 @endsection
 @push('scripts')
-    
+
 @endpush

@@ -359,7 +359,8 @@ class LoginController extends Controller
 
                         return response()->json([
                             'status' => 'success',
-                            'message' => 'Please click on the link that has just been sent to your email account to verify your Account.'
+                            'message' => 'Please click on the link that has just been sent to your email account to verify your Account.',
+                            'redirect'=>'/login'
                         ]);
                     }
 

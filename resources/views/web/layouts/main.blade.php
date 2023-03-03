@@ -136,7 +136,7 @@
 <!-- Success Modal End -->
 
 <!-- Success2 Modal Start -->
-<div class="modal fade successModalForm" id="successModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade successModalForm2" id="successModal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
