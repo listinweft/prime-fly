@@ -1553,7 +1553,7 @@ class CartController extends Controller
                     $updateOrder->status = "Cancelled";
                     if ($updateOrder->save()) {
                         Helper::sendOrderCancelledMail($orderData, $request->reason, $updateOrder);
-                        return response()->json(['status' => 'success-reload', 'message' => "Order 'ARTMYST#" . $orderData->order_code . "' has been cancelled"]);
+                        return response()->json(['status' => true, 'message' => "Order 'ARTMYST#" . $orderData->order_code . "' has been cancelled"]);
                     } else {
                         return response()->json(['status' => 'error', 'message' => 'Error : Please enter a valid email id']);
                     }

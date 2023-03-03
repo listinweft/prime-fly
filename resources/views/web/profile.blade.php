@@ -45,7 +45,7 @@
                             </div>
                             Change Password
                         </a>
-                        <a href="{{url('customer/account/order')}}" class="nav-link {$tab=='order'?'active':''}}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">
+                        <a href="{{url('customer/account/order')}}" class="nav-link {{tab=='order'?'active':''}}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">
                             <div class="iconBox">
                                 <img src="{{asset('frontend/images/myAccount-03.png')}}" alt="">
                             </div>

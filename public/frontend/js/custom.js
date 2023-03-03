@@ -1053,20 +1053,25 @@ $(document).ready(function () {
 
                     else if (response.status == "error2") {
 
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "error"
+                        });
+                        // $("#successModal2").modal('show');
 
-                        $("#successModal2").modal('show');
-
-                        $("#myspan2").html(response.message);
-                        $("#mail").val(response.mail);
+                        // $("#myspan2").html(response.message);
+                        // $("#mail").val(response.mail);
 
 
                     }
                     else {
-                        $(".successModalForm").modal('show');
-                        $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 2000);
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
+                        // $(".successModalForm").modal('show');
+                        // $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModalForm").modal('hide');
+                        //     }, 2000);
 
                     }
                 })

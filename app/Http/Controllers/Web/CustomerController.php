@@ -40,7 +40,7 @@ class CustomerController extends Controller
     public function account($tab)
     {
 
-       
+  
         if (Auth::guard('customer')->check()) {
             $seo_data = $this->seo_content('My-Account');
             $banner = Banner::type('my-account')->first();

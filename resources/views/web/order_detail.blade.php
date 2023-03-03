@@ -294,7 +294,7 @@
                            <input type="hidden" name="product_id" id="product_id">
                            <input type="hidden" name="order_id" id="order_id">
                            <input type="hidden" name="order_status" id="order_status">
-                           <button type="submit" class="primary_btn form_submit_btn" data-url="/cancel-order"
+                           <button type="submit" class="primary_btn " id="cancel-order-submit" data-url="/cancel-order"
                            >Submit
                            </button>
                        </form>

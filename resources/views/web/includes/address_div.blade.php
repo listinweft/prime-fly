@@ -13,7 +13,7 @@
                 <div class="right">
                     <button class="btn secondary_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#shippingAddress" aria-controls="billingAddress"><i class="fa-solid fa-plus"></i> Add Shipping Address</button>
                     <div class="slick-address-nav1">
-                    </div>Pcon
+                    </div>
                 </div>
             </div>
        
