@@ -258,7 +258,7 @@
 <script>
  
 setTimeout(function () {
-    Toast.fire({title: "Done it!", text: '{{ Session::get('success')}}', icon: 'success'});
+    Toast.fire({title: "", text: '{{ Session::get('success')}}', icon: 'success'});
     
 });
 </script>

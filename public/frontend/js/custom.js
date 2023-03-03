@@ -178,7 +178,7 @@ $(document).ready(function () {
             }, url: base_url + '/set-language', success: function (response) {
                 if (response.status === true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        title: "", text: response.message, type: "success"
                     }, function () {
                         window.location.reload();
                     });
@@ -244,7 +244,7 @@ $(document).ready(function () {
                                  window.location.reload();
                             }
                             // swal({
-                            //     title: "Done it!", text: response.message, type: "success"
+                            //     title: "", text: response.message, type: "success"
                             // }, function () {
                             //     window.location.reload();
                             // });
@@ -307,7 +307,7 @@ $(document).ready(function () {
                                  window.location.reload();
                             }
                             // swal({
-                            //     title: "Done it!", text: response.message, type: "success"
+                            //     title: "", text: response.message, type: "success"
                             // }, function () {
                             //     window.location.reload();
                             // });
@@ -334,7 +334,7 @@ $(document).ready(function () {
             }, url: base_url + '/currency_set', success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        title: "", text: response.message, type: "success"
                     }, function () {
                         window.location.reload();
                     });
@@ -673,7 +673,7 @@ $(document).ready(function () {
                     //             $(".successModalForm").modal('hide');
                     //         }, 2000);
                     swal({
-                        title: "Done it!",
+                        title: "",
                         text: response.message,
                         type: "success"
                     }, function () {
@@ -711,7 +711,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == true) {
                     Toast.fire({
-                        title: "Done it!", text: response.message, icon: "success"
+                        title: "", text: response.message, icon: "success"
                     });
                     // console.log();
                     $('.cart-count').html(response.productCount);
@@ -768,7 +768,7 @@ $(document).ready(function () {
             success:function(response){
                 if(response.status==true){
                     swal({
-                        title: "Done it!",
+                        title: "",
                         text: 'Customer addrress selected succesfully',
                         type: "success"
                     }, function() {
@@ -799,7 +799,7 @@ $(document).ready(function () {
     //                     $('.order-submit-loader').hide();
     //                     if(response.status==true){
     //                         swal({
-    //                             title: "Done it!",
+    //                             title: "",
     //                             text: response.message,
     //                             type: "success"
     //                         }, function() {
@@ -905,7 +905,7 @@ $(document).ready(function () {
                         // function successModel(){
 
                         // }
-                        // Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                        // Toast.fire({title: "", text: response.message, icon: response.status});
                     } else if (response.status == "success-reload") {
                         $(".successModalForm").modal('show');
                         $("#myspan").html(response.message);
@@ -1015,7 +1015,7 @@ $(document).ready(function () {
                         $("#" + modal_id).modal('hide');
                     }
                     if (response.status == "success") {
-                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                        Toast.fire({title: "", text: response.message, icon: response.status});
                     } else if (response.status == "success-reload") {
                         // $(".successModalForm").modal('show');
                         // $("#myspan").html(response.message);
@@ -1125,7 +1125,7 @@ $(document).ready(function () {
                         $("#" + modal_id).modal('hide');
                     }
                     if (response.status == "success-reload") {
-                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                        Toast.fire({title: "", text: response.message, icon: response.status});
                     }
                     if (response.status == "success-reload") {
               
@@ -1134,7 +1134,7 @@ $(document).ready(function () {
                             title: "Success!", text: response.message, icon: "success"
                         });
                         setTimeout(() => {
-                            window.location.href = response.redirect;
+                            window.location.href = "https://pentacodesdemos.com/artemyst/";
                         }, 1000);
                     
                     }

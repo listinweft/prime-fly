@@ -199,7 +199,7 @@ $(document).ready(function () {
                         if (response.status == true) {
                             $('.error_message').html('');
                             swal({
-                                title: "Done it!", text: response.message, type: "success"
+                                title: "", text: response.message, type: "success"
                             }, function () {
                                 window.location.href = base_url + '/admin';
                             });
@@ -906,7 +906,7 @@ $(document).ready(function () {
                 if (response.status == true) {
                     swal({
                         showConfirmButton: false,
-                        title: "Done it!", text: response.message, type: "success", timer : 700,
+                        title: "", text: response.message, type: "success", timer : 700,
                     });
                 } else {
                     swal({
@@ -953,7 +953,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.status == true) {
                         swal({
-                            title: "Done it!", text: response.message, type: "success"
+                            title: "", text: response.message, type: "success"
                         });
                         $('.loadingImg').hide();
                         $('#headingSubmit').attr('disabled', false).val(buttonHtml);
@@ -1719,7 +1719,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.status == true) {
                         swal({
-                            title: "Done it!", text: response.message, type: "success"
+                            title: "", text: response.message, type: "success"
                         });
                         $('.loadingImg').hide();
                         $('#bannertypeSubmit').attr('disabled', false).val(buttonHtml);
