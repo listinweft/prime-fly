@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="btns_area">
                                     @if(Auth::guard('customer')->check())
-                                        <a data-id="{{$product->id}}"
+                                        <a data-id="{{$product->id}}" data-cart_id="{{$row->id}}" data-size ="{{$row->attributes['size']}}"
                                             class="btn_cart my_wishlist  {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}"
                                             id="wishlist_check_{{$product->id}}"
                                             href="javascript:void(0) "><i class="fa-solid fa-heart"></i></a>
@@ -145,6 +145,7 @@
                         <a class="btn primary_btn {{$display}}" style="color:red">Cart contain out of stock products</a>
                     </div>
                 </div>
+              
               
                 <div class="col-lg-4 sticky-lg-top sticky-lg-top-110 " >
                     <div class="order_summary">

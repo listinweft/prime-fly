@@ -37,6 +37,7 @@ class CartController extends Controller
 
     public function add_to_wish_list(Request $request)
     {
+       
         if (Auth::guard('customer')->check()) {
             $wish_list = app('wishlist');
             $sessionKey = Auth::guard('customer')->user()->customer->id;
@@ -46,8 +47,17 @@ class CartController extends Controller
                 $message = "Item removed from wishlist";
                 $responseStatus = true;
             } else {
-                if (Cart::session($sessionKey)->get($product->id)) {
-                    Cart::session($sessionKey)->remove($product->id);
+                $cartItem = Cart::session($sessionKey)->getContent()->where('attributes.product_id', $product->id)->where('attributes.size', $request->size)->first();
+                if($request->cart_id != null){
+
+                    if (Cart::session($sessionKey)->get($request->cart_id)) {
+                        Cart::session($sessionKey)->remove($request->cart_id);
+                    }
+                }
+                if ($cartItem) {
+                    if (Cart::session($sessionKey)->get($cartItem->id)) {
+                        Cart::session($sessionKey)->remove($cartItem->id);
+                    }
                 }
                 $item = $wish_list->add(array(
                     'id' => $product->id,
