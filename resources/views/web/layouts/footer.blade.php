@@ -35,7 +35,7 @@
                 <h6>Help</h6>
                 <ul class="list">
                     <li>
-                        <a href="{url('faq')}}">FAQ's</a>
+                        <a href="{{url('faq')}}">FAQ's</a>
                     </li>
                     <li>
 

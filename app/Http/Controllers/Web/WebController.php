@@ -924,9 +924,9 @@ class WebController extends Controller
 
     public function faq()
     {
-        $seo_data = $this->seo_content('faq');
+        $seo_data = $this->seo_content('faq');  
 
-        $banner = Banner::type('faq')->first();
+         $banner = Banner::type('faq')->first();
         $field = 'faq';
         $title = 'faq';
         return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
