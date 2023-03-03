@@ -51,7 +51,7 @@
                                                         <a class="remove_add remove-address"  data-id="{{ $address->id }}" href="javascript:void(0)"><i class="fa-solid fa-trash-can"></i> Remove</a>
 
                                                         @if( $address->is_default == 'No')
-                                                        <a class="set_d_add" href=""> <img class="img-fluid"  href="javascript:void(0)" data-id="{{$address->id}}" src="assets/images/defaultActive.png" alt=""> Set as Default
+                                                        <a class="set_d_add default_address" data-id="{{$address->id}}" href=""> <img class="img-fluid"  href="javascript:void(0)" data-id="{{$address->id}}" src="{{asset('frontend/images/defaultActive.png')}}" alt=""> Set as Default
                                                     
                                                     </a>
                                                     @endif

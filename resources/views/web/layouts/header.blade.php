@@ -48,7 +48,7 @@
                     </li>
                     @if(Auth::guard('customer')->check())
                         <li>
-                            <a href="{{url('/')}}">
+                            <a href="{{url('customer/account/wishlist')}}">
                                 <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
                             </a>
                         </li>
