@@ -90,6 +90,7 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
+             
                 $addStatus = $this->cartAddItems($request, $product, $sessionKey,$size);
             }
         } else {

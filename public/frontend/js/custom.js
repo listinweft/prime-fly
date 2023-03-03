@@ -688,12 +688,9 @@ $(document).ready(function () {
 
     $(document).on('click', '.login-popup', function () {
         var id = $(this).data('id');
-        swal({
-            title: "Oops",
-            text: 'Please login for wishlisting a product',
-            type: "error"
-        }, function () {
-            $('#wishlist_check_' + id).prop('checked', false);
+        $('#wishlist_check_' + id).removeClass('fill');
+        Toast.fire({
+            title: "Oops", text: 'Please login for wish listing a product', icon: "error"
         });
 
     });
@@ -1127,26 +1124,19 @@ $(document).ready(function () {
                     if (modal_id) {
                         $("#" + modal_id).modal('hide');
                     }
-                    // if (response.status == "success") {
-                    //     Toast.fire({title: "Done it!", text: response.message, icon: response.status});
-                    // }
                     if (response.status == "success-reload") {
-                        $(".successModalForm").modal('show');
-                        $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 2000);
+                        Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                    }
+                    if (response.status == "success-reload") {
+              
 
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
-                        // if (response.redirect) {
-                        //     window.location.href = response.redirect;
-                        // } else {
-                        //    setTimeout(() => {
-                        //     location.reload();
-                        //    }, 1000);
-                        // }
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        setTimeout(() => {
+                            window.location.href = response.redirect;
+                        }, 1000);
+                    
                     }
 
                     else if (response.status == "error2") {
