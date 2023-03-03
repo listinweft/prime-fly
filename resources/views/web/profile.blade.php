@@ -96,7 +96,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control"  name="email"
+                                                        <input type="text" class="form-control"  name="email" readonly
                                                      id="email" value="{{@$customer->user->email}}" placeholder="">
                                                     </div>
                                                 </div>
@@ -186,7 +186,7 @@
                                         </div>
                                     </div>
                                     <div class="btn-group">
-                                        <button type="button" class="primary_btn" id="change-password-btn">Update</button>
+                                        <button type="button" class="primary_btn " id="change-password-btn">Update</button>
                                         
                                     </div>
                                 </form>

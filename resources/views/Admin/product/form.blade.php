@@ -32,7 +32,7 @@
                     </ul>
                 </div>
             @endif
-            <form role="form" id="formWizard"
+            <form role="form" id="formWizard" data-product_id="{{@$product->id}}"
                   action="{{@$key=='Copy'?url(Helper::sitePrefix().'product/create'):''}}" class="form--wizard"
                   enctype="multipart/form-data" method="post">
                 {{csrf_field()}}

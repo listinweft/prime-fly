@@ -36,9 +36,9 @@
                         @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">
-                                <a href="{{url(Helper::sitePrefix().'customer/address/create/'.$customer_id)}}"
+                                {{-- <a href="{{url(Helper::sitePrefix().'customer/address/create/'.$customer_id)}}"
                                    class="btn btn-success pull-right">Add Customer Address <i
-                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
+                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a> --}}
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
@@ -76,9 +76,9 @@
                                             <td>{{ date("d-M-Y", strtotime($address->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="{{url(Helper::sitePrefix().'customer/address/edit/'.$address->id)}}"
+                                                    {{-- <a href="{{url(Helper::sitePrefix().'customer/address/edit/'.$address->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Address"><i
-                                                            class="fas fa-edit"></i></a>
+                                                            class="fas fa-edit"></i></a> --}}
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
                                                        title="Delete address" data-url="customer/address/delete"
                                                        data-id="{{$address->id}}"><i class="fas fa-trash"></i></a>

@@ -283,7 +283,7 @@ class AttributeController extends Controller
     public function product_type_store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|unique:product_type,title',
+            'title' => 'required|unique:product_types,title',
             'image' => 'image|mimes:jpeg,png,jpg|max:512'
         ]);
         $product_type = new ProductType;
@@ -317,7 +317,7 @@ class AttributeController extends Controller
     {
         $product_type = ProductType::find($id);
         $validatedData = $request->validate([
-            'title' => 'required|unique:product_type,title,' . $id,
+            'title' => 'required|unique:product_types,title,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
         ]);
         if ($request->hasFile('image')) {

@@ -1145,61 +1145,61 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', '#profile-update', function (e) {
-        e.preventDefault();
-        // var _token = token;
-        var required = [];
-        $('form input, form textarea').removeClass('is-invalid is-valid');
-        $('span.error').remove();
-        $('.profile-required').each(function () {
-            var id = $(this).attr('id');
-            if ($('#' + id).val() == '') {
-                required.push($('#' + id).val());
-                $('#' + id).css({'border': '1px solid #FF0000'});
-            } else {
-                $('#' + id).css({'border': '1px solid #cdcdcd'});
-            }
-        });
-        if (required.length == 0) {
-            $('.with-errors').html('');
-            $.ajax({
-                type: 'POST', dataType: 'json', data: $('#customerProfileForm').serialize(), headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, url: base_url + '/customer/update-profile',
-            })
-                .done(function (response) {
-                    // $('#customerAddressForm').val('Register');
-                    if (response.status == "true") {
-                        Toast.fire({
-                            title: "", text: response.message, icon: "success"
-                        });
-                        location.reload();
-                    } else if (response.status == "error") {
-                        // $('#register_email_id_error').html('Please enter a valid email ID').css({'color':'#FF0000','font-size':'14px','font-weight':'700'});
-                        Toast.fire({
-                            title: "Error", text: response.message, icon: 'error'
-                        });
-                    } else if (response.errors) {
-                        $('.alert-success').hide();
-                        $('.alert-info').hide();
-                        $('.alert-danger').show();
-                        $('.alert-danger ul').html('');
-                        for (var error in response.errors) {
-                            $('.alert-danger').html(response.errors[error]);
-                        }
-                    }
-                })
-                .fail(function (response) {
-                    // console.log(response);
-                    // $(this).html(buttonText);
-                    $.each(response.responseJSON.errors, function (field_name, error) {
-                        var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
-                        $("#customerProfileForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                    });
-                })
-        }
-    });
+    // $(document).on('click', '#profile-update', function (e) {
+    //     e.preventDefault();
+    //     // var _token = token;
+    //     var required = [];
+    //     $('form input, form textarea').removeClass('is-invalid is-valid');
+    //     $('span.error').remove();
+    //     $('.profile-required').each(function () {
+    //         var id = $(this).attr('id');
+    //         if ($('#' + id).val() == '') {
+    //             required.push($('#' + id).val());
+    //             $('#' + id).css({'border': '1px solid #FF0000'});
+    //         } else {
+    //             $('#' + id).css({'border': '1px solid #cdcdcd'});
+    //         }
+    //     });
+    //     if (required.length == 0) {
+    //         $('.with-errors').html('');
+    //         $.ajax({
+    //             type: 'POST', dataType: 'json', data: $('#customerProfileForm').serialize(), headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }, url: base_url + '/customer/update-profile',
+    //         })
+    //             .done(function (response) {
+    //                 // $('#customerAddressForm').val('Register');
+    //                 if (response.status == "true") {
+    //                     Toast.fire({
+    //                         title: "", text: response.message, icon: "success"
+    //                     });
+    //                     location.reload();
+    //                 } else if (response.status == "error") {
+    //                     // $('#register_email_id_error').html('Please enter a valid email ID').css({'color':'#FF0000','font-size':'14px','font-weight':'700'});
+    //                     Toast.fire({
+    //                         title: "Error", text: response.message, icon: 'error'
+    //                     });
+    //                 } else if (response.errors) {
+    //                     $('.alert-success').hide();
+    //                     $('.alert-info').hide();
+    //                     $('.alert-danger').show();
+    //                     $('.alert-danger ul').html('');
+    //                     for (var error in response.errors) {
+    //                         $('.alert-danger').html(response.errors[error]);
+    //                     }
+    //                 }
+    //             })
+    //             .fail(function (response) {
+    //                 // console.log(response);
+    //                 // $(this).html(buttonText);
+    //                 $.each(response.responseJSON.errors, function (field_name, error) {
+    //                     var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+    //                     $("#customerProfileForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+    //                         .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+    //                 });
+    //             })
+    //     }
+    // });
 
 
     $(document).on('click', '#reset_password', function (e) {

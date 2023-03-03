@@ -1,4 +1,4 @@
-@if ((Auth::user()->admin->role) == "Super Admin")
+{{-- @if ((Auth::user()->admin->role) == "Super Admin")
     <li class="nav-item">
         <a href="{{url(Helper::sitePrefix().'administration')}}"
            class="nav-link {{ (Request::segment(2)=='administration')?'active':'' }}">
@@ -6,7 +6,7 @@
             <p>Administration</p>
         </a>
     </li>
-@endif
+@endif --}}
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'customer')}}"
        class="nav-link {{ (Request::segment(2)=='customer')?'active':'' }}">
