@@ -63,6 +63,7 @@ Route::middleware(['web'])->group(function () {
 
 
     Route::get('about', [WebController::class, 'about']);
+    Route::post('currency_set', [WebController::class, 'currency_set']);
     Route::get('testimonials', [WebController::class, 'testimonials']);
     Route::post('testimonial-load-more', [WebController::class, 'testimonialLoadMore']);
     Route::get('blogs', [WebController::class, 'blogs']);
@@ -474,6 +475,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('/about-us', [AboutController::class, 'home_about_us_store']);
         Route::get('/our-collection/create', [HomeController::class, 'ourcollection_create']);
         Route::post('/our-collection/create', [HomeController::class, 'ourcollection_store']);
+
+       
+
+        Route::get('/our-selection/create', [HomeController::class, 'ourselection_create']);
+        Route::post('/our-selection/create', [HomeController::class, 'ourselection_store']);
+        Route::post('update', [HomeController::class, 'selection_update'])->name('selection.update');
+
+      
 
         Route::prefix('banner')->group(function () {
             Route::get('/', [HomeController::class, 'banner']);

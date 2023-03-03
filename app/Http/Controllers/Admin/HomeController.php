@@ -127,6 +127,120 @@ class HomeController extends Controller
 
 
     }
+
+    public function ourselection_create(Request $request)
+    {
+        $key = "Create";
+        $title = "Create Our Selection";
+      
+       
+         $productID =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',1)->first();
+         $productID1 = DB::table('products')->where('copy',"no")->where('type','selection')->where('order',2)->first();
+         $productID2 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',3)->first();
+         $productID3 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',4)->first();
+         $productID4 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',5)->first();
+         $productID5 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',6)->first();
+         $productID6 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',7)->first();
+         $productID7 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',8)->first();
+        $products = Product::active()->where('copy',"no")->get();
+      
+ 
+        return view('Admin.selection.form', compact('key', 'title', 'products','productID','productID1','productID2','productID3','productID4','productID5','productID6','productID7'));
+
+    }
+
+    public function selection_update(Request $request)
+    {
+
+        $validator = $request->validate([
+          
+            "product" => "required|min:1",
+            "product1" => "required|min:1",
+            "product2" => "required|min:1",
+            "product3" => "required|min:1",
+            "product4" => "required|min:1",
+            "product5" => "required|min:1",
+            "product6" => "required|min:1",
+            "product7" => "required|min:1",
+        ]);
+       
+     $all =  $request->all();
+    
+   
+        if(!empty($all))
+        {
+
+            if(!empty($request->product))
+        {
+                   $updateProduct = Product::where('id',$request->product)
+                      ->update(['type' => 'selection',
+                    'order'=>1]);
+        }
+        if(!empty($request->product1))
+        {
+                    $updateProduct = Product::where('id',$request->product1)
+                      ->update(['type' => 'selection',
+                    'order'=>2]);
+        }
+
+        if(!empty($request->product2))
+        {
+                    $updateProduct = Product::where('id',$request->product2)
+                      ->update(['type' => 'selection',
+                    'order'=>3]);
+
+        }
+        if(!empty($request->product3))
+        {
+
+                    $updateProduct = Product::where('id',$request->product3)
+                      ->update(['type' => 'selection',
+                    'order'=>4]);
+
+        }
+        if(!empty($request->product4))
+        {
+                    $updateProduct = Product::where('id',$request->product4)
+                      ->update(['type' => 'selection',
+                    'order'=>5]);
+
+        }
+
+        if(!empty($request->product5))
+        {
+                    $updateProduct = Product::where('id',$request->product5)
+                      ->update(['type' => 'selection',
+                    'order'=>6]);
+
+        }
+        if(!empty($request->product6))
+        {
+                   $updateProduct = Product::where('id',$request->product6)
+                      ->update(['type' => 'selection',
+                    'order'=>7]);
+
+        }
+        if(!empty($request->product7))
+        {
+                    $updateProduct = Product::where('id',$request->product7)
+                      ->update(['type' => 'selection',
+                    'order'=>8]);
+
+        }
+    
+                      
+                    
+                      
+        }
+        else
+        {
+            $updateProduct = Product::where('id', '>', 0)->update(['type' => 'non-selection','order'=>0]);
+        }
+        
+     
+        session()->flash('success', "selections  has been updated successfully");
+        return redirect(Helper::sitePrefix() . 'home/our-selection/create');
+    }
     public function ourcollection_store(Request $request)
     {
 

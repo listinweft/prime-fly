@@ -50,6 +50,14 @@
                 <p>Our Collection</p>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'home/our-selection/create')}}"
+               class="nav-link {{ (Request::segment(3)=='our-selection' && Request::segment(4)=='create')?'active':'' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Our Selection</p>
+            </a>
+        </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
                class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
