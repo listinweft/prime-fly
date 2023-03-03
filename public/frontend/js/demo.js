@@ -485,19 +485,20 @@ $(document).ready(function () {
                     })
                     $('.error').addClass('d-none');
                     if (response.address_selected == true) {
-                        $('#address_select_error').addClass('d-none');
                         $('.error').addClass('d-none');
                         $('.confirm_payment_btn').attr('id','confirm_payment');
+                    $('#confirm_payment').attr('disabled',false);
                     }else{
-                        $('.error').removeClass('d-none');
                         $('.confirm_payment_btn').removeAttr('id');
-                        $('#address_select_error').removeClass('d-none');
+                        // $('#address_select_error').removeClass('d-none');
+                        $('.error').removeClass('d-none');
+                        $('#confirm_payment').attr('disabled',false);
                     }
-                    $('.session_billing'+response.address_id).removeClass('d-none');
+                    $('.session_billing'+response.address_id).addClass('active');
               
                     response.address_id_not_selected.forEach(function (item) {
                       console.log(item);
-                        $('.session_billing'+item).addClass('d-none');
+                        $('.session_billing'+item).removeClass('active');
                     });
                     $('.login_billing'+response.address_id).addClass('d-none');
               

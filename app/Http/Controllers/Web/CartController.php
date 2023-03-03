@@ -1054,6 +1054,7 @@ class CartController extends Controller
             if (Session::has('session_key')) {
                 $sessionKey = session('session_key');
                 if (!Cart::session($sessionKey)->isEmpty()) {
+                    $address = CustomerAddress::find($request->address_id);
                     session(['selected_customer_billing_address' => $request->address_id]);
                     session(['selected_billing_address' => $request->address_id]);
                     if ($request->remarks != NULL) {
@@ -1067,6 +1068,8 @@ class CartController extends Controller
                     return response(array(
                         'status' => true,
                         'data' => [],
+                        'address_id' => $address->id,
+                        'address_id_not_selected' => CustomerAddress::where('customer_id', Auth::guard('customer')->user()->customer->id)->where('id', '!=', $address->id)->pluck('id')->toArray(),
                         'address_selected'=>$address_selected,
                     ), 200, []);
                 }
@@ -1076,6 +1079,7 @@ class CartController extends Controller
                 session(['order_remarks' => $request->remarks]);
             }
             return response(array(
+                
                 'status' => true,
                 'data' => [],
             ), 200, []);

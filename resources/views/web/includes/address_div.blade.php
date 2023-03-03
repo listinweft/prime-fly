@@ -181,198 +181,166 @@
             <div class="col-12">
                 <form action="" class="sameShipping">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input different_shipping_address" type="checkbox" value="same" name="address_choose"
+                        id="different_shipping_address"
+                        {{ Session::get('different_shipping_address') ? 'checked':'' }}>
+                        <br>
                         <label class="form-check-label" for="flexCheckDefault">
-                            Same as Shipping Address
+                            Bill to a different address?  <br>
                         </label>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="select_shipping_address_slider">
-                    <div class="select_address_card active">
-                        <h6 class="ads_name">
-                            John George
-                        </h6>
-                        <p class="addressLabel">
-                            Work
-                        </p>
-                        <div class="add_line">
-                            <p>
-                                consectetur adipiscing elit.
-                                nescio, quo modo possit,
-                                United Arab Emirates,
-                                Dubai United Arab Emirates,
-                                Dubai
-                            </p>
-                        </div>
-                        <p class="phone">
-                            Email : asdf@gmail.com
-                        </p>
-                        <p class="phone">
-                            Phone : +971 98989 8989
-                        </p>
-                        <div class="buttons_area">
-                            <a class="edit_add" id="add_address_go" href="javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                        </div>
+        <div class="select_address_area billiing_address_form  @if(!Helper::checkConfirmOrder())  @else d-none @endif d-none">
+            <div class="row">
+                <div class="col-12">
+                    <div class="select_shipping_address_slider">
+                        @if (@$customerAddresses)
+                            @foreach($customerAddresses as $address)
+                            <div class="select_address_card  session_billing{{$address->id}}      @if (session('selected_customer_billing_address')== $address->id) active @endif">
+                                <h6 class="ads_name">
+                                    {{$address->first_name.' '.$address->last_name}}
+                                </h6>
+                                <p class="addressLabel">
+                                    {{$address->address_type}}
+                                </p>
+                                <div class="add_line">
+                                    <p>
+                                        {{$address->address}}
+                                    </p>
+                                </div>
+                                <p class="phone">
+                                    Email :  {{$address->email}}
+                                </p>
+                                <p class="phone">
+                                    Phone : {{$address->phone}}
+                                </p>
+                                @if ($address->zipcode)
+                                <p>
+                                    <p>ZIP Code : {{$address->zipcode}}</p>
+                                </p>
+                                @endif
+                                    @if ($address->state)
+                                    <p>
+                                        <p>State : {{ $address->state->title }}</p>
+                                    </p>
+                                    @endif
+                                    <p>
+                                        <p>Country
+                                            :  {{$address->country->title}}</p>
+                                    </p>
+                                <div class="buttons_area">
+                                    <a 
+                                    class="set_d_add billing login_billing{{$address->id}}  @if(session('selected_customer_billing_address')!= $address->id )  @else d-none  @endif" href="" data-id="{{$address->id}}"  data-address-type="billing"
+                                    tabindex="0"><img src="{{asset('frontend/images/selectSliderActive.png')}}"
+                                     alt=""  
+                                     href="javascript:void(0)"> Select</a>
+                                </div>
+                            </div>
+                            @endforeach
+                        @endif
                     </div>
-                    <div class="select_address_card">
-                        <h6 class="ads_name">
-                            John M George
-                        </h6>
-                        <p class="addressLabel">
-                            Home
-                        </p>
-                        <div class="add_line">
-                            <p>
-                                consectetur adipiscing elit.
-                                nescio, quo modo possit,
-                                United Arab Emirates,
-                                Dubai United Arab Emirates,
-                                Dubai
-                            </p>
-                        </div>
-                        <p class="phone">
-                            Email : asdf@gmail.com
-                        </p>
-                        <p class="phone">
-                            Phone : +971 98989 8989
-                        </p>
-                        <div class="buttons_area">
-                            <a class="edit_add" id="add_address_go" href="javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                            <a class="set_d_add" href=""><img src="assets/images/selectSliderActive.png" alt=""> Select</a>
-                        </div>
-                    </div>
-                    <div class="select_address_card">
-                        <h6 class="ads_name">
-                            John George
-                        </h6>
-                        <p class="addressLabel">
-                            Work
-                        </p>
-                        <div class="add_line">
-                            <p>
-                                consectetur adipiscing elit.
-                                nescio, quo modo possit,
-                                United Arab Emirates,
-                                Dubai United Arab Emirates,
-                                Dubai
-                            </p>
-                        </div>
-                        <p class="phone">
-                            Email : asdf@gmail.com
-                        </p>
-                        <p class="phone">
-                            Phone : +971 98989 8989
-                        </p>
-                        <div class="buttons_area">
-                            <a class="edit_add" id="add_address_go" href="javascript:void(0)"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                            <a class="set_d_add" href=""><img src="assets/images/selectSliderActive.png" alt=""> Select</a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="billingAddressOffcanvas position-relative">
-                    <div class="offcanvas offcanvas-top add_address_form" data-bs-scroll="true" tabindex="-1" id="billingAddress" aria-labelledby="offcanvasTopLabel">
-                        <div class="offcanvas-header">
-                            <h4>Add Billing  Address</h4>
-                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <form action="">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="">First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name*">
-                                        <span class="invalidMessage"> Given Data Error </span>
+                    <div class="billingAddressOffcanvas position-relative">
+                        <div class="offcanvas offcanvas-top add_address_form" data-bs-scroll="true" tabindex="-1" id="billingAddress" aria-labelledby="offcanvasTopLabel">
+                            <div class="offcanvas-header">
+                                <h4>Add Billing  Address</h4>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">First Name</label>
+                                            <input type="text" class="form-control" placeholder="First Name*">
+                                            <span class="invalidMessage"> Given Data Error </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name*">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Last Name*">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="">Email</label>
-                                        <input type="text" class="form-control" placeholder="Email*">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">Email</label>
+                                            <input type="text" class="form-control" placeholder="Email*">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="">Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="Phone Number*">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="">Phone Number</label>
+                                            <input type="text" class="form-control" placeholder="Phone Number*">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group" >
-                                        <label for="">Country</label>
-                                        <select name="" id="" class="form-control form_select">
-                                            <option selected disabled value="">Select Country*</option>
-                                            <option value="UAE">UAE</option>
-                                            <option value="Bahrain">Bahrain</option>
-                                            <option value="India">India</option>
-                                        </select>
+                                    <div class="col-lg-6">
+                                        <div class="form-group" >
+                                            <label for="">Country</label>
+                                            <select name="" id="" class="form-control form_select">
+                                                <option selected disabled value="">Select Country*</option>
+                                                <option value="UAE">UAE</option>
+                                                <option value="Bahrain">Bahrain</option>
+                                                <option value="India">India</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group" >
-                                        <label for="">Emirate</label>
-                                        <select name="" id="" class="form-control form_select">
-                                            <option selected disabled value="">Select Emirate*</option>
-                                            <option value="Abu Dhabi">Abu Dhabi</option>
-                                            <option value="Dubai">Dubai</option>
-                                            <option value="Sharjah">Sharjah</option>
-                                            <option value="Ajman">Ajman</option>
-                                            <option value="Umm Al Quwain">Umm Al Quwain</option>
-                                            <option value="Ras Al Khaimah">Ras Al Khaimah</option>
-                                            <option value="Fujairah">Fujairah</option>
-                                        </select>
+                                    <div class="col-lg-6">
+                                        <div class="form-group" >
+                                            <label for="">Emirate</label>
+                                            <select name="" id="" class="form-control form_select">
+                                                <option selected disabled value="">Select Emirate*</option>
+                                                <option value="Abu Dhabi">Abu Dhabi</option>
+                                                <option value="Dubai">Dubai</option>
+                                                <option value="Sharjah">Sharjah</option>
+                                                <option value="Ajman">Ajman</option>
+                                                <option value="Umm Al Quwain">Umm Al Quwain</option>
+                                                <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                                                <option value="Fujairah">Fujairah</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Flat Number/Building Name/Gate Number*">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Flat Number/Building Name/Gate Number*">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control form-message" placeholder="Address*"></textarea>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control form-message" placeholder="Address*"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group address_label">
-                                        <label class="label_cnt">
-                                            <span>Address Label</span>
-                                            (optional)
-                                        </label>
-                                        <div class="d-flex">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="addressShipLabel" id="homeShip" value="option1" checked>
-                                                <label class="form-check-label" for="homeShip">
-                                                    Home
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="addressShipLabel" id="workShip" value="option2">
-                                                <label class="form-check-label" for="workShip">
-                                                    Work
-                                                </label>
+                                    <div class="col-lg-6">
+                                        <div class="form-group address_label">
+                                            <label class="label_cnt">
+                                                <span>Address Label</span>
+                                                (optional)
+                                            </label>
+                                            <div class="d-flex">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="addressShipLabel" id="homeShip" value="option1" checked>
+                                                    <label class="form-check-label" for="homeShip">
+                                                        Home
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="addressShipLabel" id="workShip" value="option2">
+                                                    <label class="form-check-label" for="workShip">
+                                                        Work
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-12">
                 <div class="customerNote">

@@ -610,13 +610,16 @@ $(document).ready(function () {
                     //         setTimeout(function(){
                     //             $(".successModalForm").modal('hide');
                     //         }, 2000);
-                    swal({
+                    swal.fire({
                         title: "",
                         text: response.message,
                         type: "success"
                     }, function () {
                         window.location.reload();
                     });
+                    setTimeout(() => {
+                        location.reload();
+                    }, 800);
                 } else {
                     Toast.fire('Error', response.message, "error");
                 }
