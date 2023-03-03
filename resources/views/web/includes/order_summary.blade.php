@@ -159,9 +159,13 @@
     </div>
     <div class="btnsBox @if (Request::is('cart'))  @else d-none  @endif ">
         @if(!Auth::guard('customer')->check())
-            <a href="{{ url('checkout') }}" class="primary_btn checkout_btn">Guest Checkout</a>
+            <a @if(isset($button_class) && $button_class == "outOfStock") href="javascript:void(0)" @else  href="{{ url('checkout') }}"  @endif   class="primary_btn checkout_btn {{@$button_class}}">Guest Checkout</a>
             <a href="{{ url('login') }}" class="primary_btn login">Login</a>
+        @else
+        <a @if(isset($button_class) && $button_class == "outOfStock") href="javascript:void(0)" @else  href="{{ url('checkout') }}"  @endif   class="primary_btn checkout_btn {{@$button_class}}">Proceed to Checkout</a>
+
         @endif
+
     </div>
     <div class=" @if (Request::is('checkout'))  @else d-none  @endif ">
         <div class="banks">

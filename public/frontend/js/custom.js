@@ -178,7 +178,7 @@ $(document).ready(function () {
             }, url: base_url + '/set-language', success: function (response) {
                 if (response.status === true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        title: "", text: response.message, type: "success"
                     }, function () {
                         window.location.reload();
                     });
@@ -244,7 +244,7 @@ $(document).ready(function () {
                                  window.location.reload();
                             }
                             // swal({
-                            //     title: "Done it!", text: response.message, type: "success"
+                            //     title: "", text: response.message, type: "success"
                             // }, function () {
                             //     window.location.reload();
                             // });
@@ -307,7 +307,7 @@ $(document).ready(function () {
                                  window.location.reload();
                             }
                             // swal({
-                            //     title: "Done it!", text: response.message, type: "success"
+                            //     title: "", text: response.message, type: "success"
                             // }, function () {
                             //     window.location.reload();
                             // });
@@ -334,7 +334,7 @@ $(document).ready(function () {
             }, url: base_url + '/currency_set', success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        title: "", text: response.message, type: "success"
                     }, function () {
                         window.location.reload();
                     });
@@ -485,78 +485,34 @@ $(document).ready(function () {
 
     /****************** cart action *************************/
 
-    $(document).on('click', '.wishlist-action', function () {
-        var id = $(this).data('id');
-        var _token = token;
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            data: {product_id: id, _token: _token},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url + '/add-wishlist',
-            success: function (response) {
-                if (response.status == true) {
-                    if (response.responseStatus == true) {
-                        $('#wishlist_check_' + id).prop('checked', false);
-                        if ($('#wishlistBox' + id).length > 0) {
-                            $('#wishlistBox' + id).remove();
-                        }
-                    } else {
-                        $('#wishlist_check_' + id).prop('checked', true);
-                    }
-                    $('.wishlistCount').html(response.count);
-                    $('.cartCount').html(response.cartCount);
-                    if ($('#cartBox' + id).length > 0) {
-                        $('#cartBox' + id).remove();
-                    }
-                    if (method == "cart" && response.cartCount == 0) {
-                        $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                        // swal({
-                        //     title: 'success',
-                        //     text: response.message,
-                        //     type: 'success'
-                        // }, function () {
-                        //     window.location.reload();
-                        // });
-                    } else {
-                        $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                        // swal({
-                        //     title: 'success',
-                        //     text: response.message,
-                        //     type: 'success'
-                        // });
-                    }
-                } else {
-                    swal({
-                        title: "Oops",
-                        text: response.message,
-                        type: "error"
-                    });
-                }
-            }
+    $('.outOfStock').on('click', function () {
+        //cart contain out of stock product
+        swal.fire({
+            title: "Oops",
+            text: "Sorry, this product is out of stock.",
+            type: "error"
         });
-    });
-
-    $('.size').on('click', function () {
-
-
     });
     $(document).on('click', '.cart-action', function () {
    // take value of active size class
         var size = $('.size.active').data('id');
+        if(size == undefined){
+            var size = $(this).data('size');
+        }
+        else{
+            var size = $('.size.active').data('id');
+        }
         var type_id   = $('.size.active').data('product_type_id');
+        if(type_id == undefined){
+            var type_id = $(this).data('product_type_id');
+        }
+        else{
+            var type_id = $('.size.active').data('id');
+        }
+        
+       
         var frame_id = $('.frame.active').data('id');
         var mount = $('.mount.active').data('mount');
         var checkout = $(this).data('checkout');
@@ -616,10 +572,10 @@ $(document).ready(function () {
                         }
                         // $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
+                        //     $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModalForm").modal('hide');
+                        //     }, 2000);
                         Toast.fire({
                             title: "Done it", text: response.message, icon: "success"
                         });
@@ -648,19 +604,19 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/remove-cart-item', success: function (response) {
                 if (response.status == true) {
-                    $(".successModalForm").modal('show');
+                    // $(".successModalForm").modal('show');
 
-                            $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                    // swal({
-                    //     title: "Done it!",
-                    //     text: response.message,
-                    //     type: "success"
-                    // }, function () {
-                    //     window.location.reload();
-                    // });
+                    //         $("#myspan").html(response.message);
+                    //         setTimeout(function(){
+                    //             $(".successModalForm").modal('hide');
+                    //         }, 2000);
+                    swal({
+                        title: "",
+                        text: response.message,
+                        type: "success"
+                    }, function () {
+                        window.location.reload();
+                    });
                 } else {
                     Toast.fire('Error', response.message, "error");
                 }
@@ -670,12 +626,9 @@ $(document).ready(function () {
 
     $(document).on('click', '.login-popup', function () {
         var id = $(this).data('id');
-        swal({
-            title: "Oops",
-            text: 'Please login for wishlisting a product',
-            type: "error"
-        }, function () {
-            $('#wishlist_check_' + id).prop('checked', false);
+        $('#wishlist_check_' + id).removeClass('fill');
+        Toast.fire({
+            title: "Oops", text: 'Please login for wish listing a product', icon: "error"
         });
 
     });
@@ -696,7 +649,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == true) {
                     Toast.fire({
-                        title: "Done it!", text: response.message, icon: "success"
+                        title: "", text: response.message, icon: "success"
                     });
                     // console.log();
                     $('.cart-count').html(response.productCount);
@@ -753,7 +706,7 @@ $(document).ready(function () {
             success:function(response){
                 if(response.status==true){
                     swal({
-                        title: "Done it!",
+                        title: "",
                         text: 'Customer addrress selected succesfully',
                         type: "success"
                     }, function() {
@@ -784,7 +737,7 @@ $(document).ready(function () {
     //                     $('.order-submit-loader').hide();
     //                     if(response.status==true){
     //                         swal({
-    //                             title: "Done it!",
+    //                             title: "",
     //                             text: response.message,
     //                             type: "success"
     //                         }, function() {
@@ -890,7 +843,7 @@ $(document).ready(function () {
                         // function successModel(){
 
                         // }
-                        // Toast.fire({title: "Done it!", text: response.message, icon: response.status});
+                        // Toast.fire({title: "", text: response.message, icon: response.status});
                     } else if (response.status == "success-reload") {
                         $(".successModalForm").modal('show');
                         $("#myspan").html(response.message);
@@ -914,6 +867,241 @@ $(document).ready(function () {
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
                             }, 800);
+                        // swal.fire({
+                        //     title: response.status, text: response.message, icon: response.status
+                        // });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
+    $(document).on('click', '.registerform_submit_btn', function (e) {
+
+        e.preventDefault();
+
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+
+
+
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+        console.log(formData);
+
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+
+
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
+
+
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+
+
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+
+
+            })
+                .done(function (response) {
+
+
+                    console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    if (response.status == "success") {
+                        Toast.fire({title: "", text: response.message, icon: response.status});
+                    } else if (response.status == "success-reload") {
+                        // $(".successModalForm").modal('show');
+                        // $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModalForm").modal('hide');
+                        //     }, 2000);
+
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        } else {
+                           setTimeout(() => {
+                            location.reload();
+                           }, 1000);
+                        }
+                    } else {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
+                        // swal.fire({
+                        //     title: response.status, text: response.message, icon: response.status
+                        // });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
+    $(document).on('click', '.loginform_submit_btn', function (e) {
+
+        e.preventDefault();
+
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+
+
+
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+        console.log(formData);
+
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+
+
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
+
+
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+
+
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+
+
+            })
+                .done(function (response) {
+
+
+                    console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    if (response.status == "success-reload") {
+                        Toast.fire({title: "", text: response.message, icon: response.status});
+                    }
+                    if (response.status == "success-reload") {
+              
+
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        setTimeout(() => {
+                            window.location.href = "https://pentacodesdemos.com/artemyst/";
+                        }, 1000);
+                    
+                    }
+
+                    else if (response.status == "error2") {
+                        //$(".successModalForm2").modal('show');
+
+                        $("#successModal2").modal('show');
+
+                        $("#myspan2").html(response.message);
+
+
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
+                        // if (response.redirect) {
+                        //     window.location.href = response.redirect;
+                        // } else {
+                        //    setTimeout(() => {
+                        //     location.reload();
+                        //    }, 1000);
+                        // }
+                    }
+                    else {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
                         // swal.fire({
                         //     title: response.status, text: response.message, icon: response.status
                         // });
@@ -992,9 +1180,9 @@ $(document).ready(function () {
                              $(".successModalForm").modal('show');
 
                             $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
+                            // setTimeout(function(){
+                            //     $(".successModalForm").modal('hide');
+                            // }, 2000);
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
@@ -1211,7 +1399,8 @@ $(document).ready(function () {
                
                     $('.cartBtn').addClass('out-of-stock');
                     $('.cartBtn').removeClass('cart-action');
-                    $('.outstock').removeClass('d-none');
+                    $('.outstock').addClass('d-none');
+                  
                     //empty instock
                     $('.instock').html('');
                     $('.instock').append('');

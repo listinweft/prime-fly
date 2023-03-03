@@ -37,6 +37,7 @@ class CartController extends Controller
 
     public function add_to_wish_list(Request $request)
     {
+       
         if (Auth::guard('customer')->check()) {
             $wish_list = app('wishlist');
             $sessionKey = Auth::guard('customer')->user()->customer->id;
@@ -46,15 +47,30 @@ class CartController extends Controller
                 $message = "Item removed from wishlist";
                 $responseStatus = true;
             } else {
-                if (Cart::session($sessionKey)->get($product->id)) {
-                    Cart::session($sessionKey)->remove($product->id);
+                $cartItem = Cart::session($sessionKey)->getContent()->where('attributes.product_id', $product->id)->where('attributes.size', $request->size)->first();
+                if($request->cart_id != null){
+
+                    if (Cart::session($sessionKey)->get($request->cart_id)) {
+                        Cart::session($sessionKey)->remove($request->cart_id);
+                    }
+                }
+                if ($cartItem) {
+                    if (Cart::session($sessionKey)->get($cartItem->id)) {
+                        Cart::session($sessionKey)->remove($cartItem->id);
+                    }
                 }
                 $item = $wish_list->add(array(
                     'id' => $product->id,
                     'name' => $product->title,
                     'price' => Helper::defaultCurrencyRate() * $product->price,
                     'quantity' => 1,
-                ));
+                  
+                    'attributes' => array(
+                        'size' => $request->size,
+                        'type_id' => $request->type_id,
+                    ),
+                ),
+            );
                 $message = "Item added to wishlist";
                 $responseStatus = false;
             }
@@ -74,6 +90,7 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
+        
        if($request->size == null){
         $sizes = ProductPrice::where('product_id',$request->product_id)->get();
         $sizeID = $sizes->map(function($item) {
@@ -89,6 +106,7 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
+             
                 $addStatus = $this->cartAddItems($request, $product, $sessionKey,$size);
             }
         } else {
@@ -320,7 +338,10 @@ class CartController extends Controller
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
                     $product = Product::where([['status', 'Active'], ['id', $row->attributes->product_id]])->first();
-                  
+                    $productPrice =ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                   if($productPrice->stock == 0 && $productPrice->availability !='In Stock'){
+                    return false;
+                   }
                     if ($product == NULL) {
                         if (Cart::session($sessionKey)->get($row->id)) {
                             Cart::session($sessionKey)->remove($row->id);

@@ -342,8 +342,11 @@ $(document).ready(function () {
 
     $(document).on('click', '.wishlist-action', function () {
         var id = $(this).data('id');
+        var size = $(this).data('size');
+        var cart_id = $(this).data('cart_id');
+        var type_id = $(this).data('product_type_id');
         $.ajax({
-            type: 'POST', dataType: 'json', data: {product_id: id}, headers: {
+            type: 'POST', dataType: 'json', data: {product_id: id,type_id : type_id, size : size,cart_id : cart_id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/add-wishlist', success: function (response) {
                 if (response.status == true) {

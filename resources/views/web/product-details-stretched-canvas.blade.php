@@ -134,11 +134,21 @@
                         @endif
                     </div>
                     <div class="price">
-                        @if(Helper::offerPrice($product->id)!='') 
-                        <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  </h5>
-                        
+                       
+                        @if(Helper::offerPrice($product->id)!='')
+                        @php
+                            $offerId =Helper::offerId($product->id);
+                            $sizes = \App\Models\ProductPrice::where('product_id',$product->id)->get();
+                            $sizeID = $sizes->map(function($item) {
+                                return $item->size_id;
+                            })->toArray();
+                            $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                            $firstSizeId = $sizes->first()->id;
+                            $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$firstSizeId)->first();
+                        @endphp
+                        <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$firstSizeId,$offerId),2)}}  </h5>
                         @else
-                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
+                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</h5>
                             <h5 class="product_price"></h5>
                         @endif
                     </div>
@@ -184,7 +194,7 @@
                     @endphp
                     <div class="relatedProductsTypesWrapper sizeSection">
                         @foreach ($sizes as $size)
-                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
+                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}"  data-product_type_id="{{$product->product_type_id}}">
                             <div class="sizeImageBox">
                                 {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
@@ -200,15 +210,15 @@
                         Total
                     </h5>
                     <div class="priceQuantityArea">
-                        <div class="priceArea">  
-                            @if(Helper::offerPrice($product->id)!='') 
-                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  
-                                <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
+                        <div class="priceArea">
+                            @if(Helper::offerPrice($product->id)!='')
+                            <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$firstSizeId,$offerId),2)}}  </h3>
+                                <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</h6>
                             @else
-                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</h3>
                                 <h6 class="product_price"></h6>
                             @endif
-                        </div>
+                        </div>  
                         <div class="quantity_parice_order_area">
                             <div class="quantity-counter">
                                 <button class="btn btn-quantity-down">
@@ -339,6 +349,7 @@
 @include('web.includes._review_inner',[$reviews, $totalRatings])
 @endif
 <!-- Testimonial End-->
+
 @if(@$similarProducts->isNotEmpty())
 <div class="relatedProducts youMayAlsoLike">
     <div class="container">

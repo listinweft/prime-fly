@@ -178,7 +178,7 @@ $(document).ready(function () {
             }, url: base_url + '/set-language', success: function (response) {
                 if (response.status === true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        title: "", text: response.message, type: "success"
                     }, function () {
                         window.location.reload();
                     });
@@ -229,7 +229,7 @@ $(document).ready(function () {
                     }, url: base_url + '/submit-review', success: function (response) {
                         if (response.status == "true") {
                             swal({
-                                title: "Done it!", text: response.message, type: "success"
+                                title: "", text: response.message, type: "success"
                             }, function () {
                                 window.location.reload();
                             });
@@ -256,7 +256,7 @@ $(document).ready(function () {
             }, url: base_url + '/currency_set', success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!", text: response.message, type: "success"
+                        title: "", text: response.message, type: "success"
                     }, function () {
                         window.location.reload();
                     });
@@ -320,7 +320,7 @@ $(document).ready(function () {
                         if (modal_id) {
                             $("#" + modal_id).hide();
                         }
-                        swal({title: "Done it!", text: response.message, type: response.status}, function () {
+                        swal({title: "", text: response.message, type: response.status}, function () {
                             location.reload();
                         });
                     } else if (response.status == "login-success") {
@@ -520,7 +520,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!",
+                        title: "",
                         text: response.message,
                         type: "success"
                     }, function () {
@@ -560,7 +560,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == true) {
                     swal({
-                        title: "Done it!",
+                        title: "",
                         text: response.message,
                         type: "success"
                     }, function () {
@@ -589,7 +589,7 @@ $(document).ready(function () {
             success:function(response){
                 if(response.status==true){
                     swal({
-                        title: "Done it!",
+                        title: "",
                         text: 'Customer addrress selected succesfully',
                         type: "success"
                     }, function() {
@@ -620,7 +620,7 @@ $(document).ready(function () {
                         $('.order-submit-loader').hide();
                         if(response.status==true){
                             swal({
-                                title: "Done it!",
+                                title: "",
                                 text: response.message,
                                 type: "success"
                             }, function() {

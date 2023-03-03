@@ -101,11 +101,21 @@
                         @endif
                     </div>
                     <div class="price">
+                       
                         @if(Helper::offerPrice($product->id)!='')
-                        <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}  </h5>
-
+                        @php
+                            $offerId =Helper::offerId($product->id);
+                            $sizes = \App\Models\ProductPrice::where('product_id',$product->id)->get();
+                            $sizeID = $sizes->map(function($item) {
+                                return $item->size_id;
+                            })->toArray();
+                            $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
+                            $firstSizeId = $sizes->first()->id;
+                            $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$firstSizeId)->first();
+                        @endphp
+                        <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$firstSizeId,$offerId),2)}}  </h5>
                         @else
-                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h5>
+                            <h5 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</h5>
                             <h5 class="product_price"></h5>
                         @endif
                     </div>
@@ -151,7 +161,7 @@
                     @endphp
                     <div class="relatedProductsTypesWrapper sizeSection">
                         @foreach ($sizes as $size)
-                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="1">
+                        <div class="item {{$size->id ==   $firstSizeId ?  'active' : '' }} checkprice size " data-id="{{$size->id}}" data-product_id="{{$product->id}}" data-product_type_id="{{$product->product_type_id}}">
                             <div class="sizeImageBox">
                                 {!! Helper::printImage($size, 'image','image_webp','image_attribute', 'img-fluid') !!}
                             </div>
@@ -170,10 +180,10 @@
                     <div class="priceQuantityArea">
                         <div class="priceArea">
                             @if(Helper::offerPrice($product->id)!='')
-                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                                <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h6>
+                            <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$firstSizeId,$offerId),2)}}  </h3>
+                                <h6 class="product_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</h6>
                             @else
-                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}</h3>
+                                <h3 class="offer_price">{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</h3>
                                 <h6 class="product_price"></h6>
                             @endif
                         </div>
@@ -326,91 +336,98 @@
                 <h3>You May Also Like </h3>
                 <section id="demos">
                     <div class="relatedSlider owl-carousel owl-theme ">
-                        @foreach ($similarProducts as $rproduct)
+                        @foreach ($similarProducts as $yproduct)
                         <div class="item">
                             <div class="product-item-info">
                                 <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{ url('/product/'.$rproduct->short_url) }}" tabindex="-1">
-                                                {!! Helper::printImage($rproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}"
-                                                            data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox" id="wishlist_check_span_{{$rproduct->id}}">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    @php
-                                                    $productPrice = \App\Models\ProductPrice::where('product_id',$rproduct->id)->first();
-                                                    $class = '';
-                                                    if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
-                                                       $class = 'cart-action';
-                                                    }
-                                                    else{
-                                                        $class = 'out-of-stock';
-                                                    }
-                                                @endphp
-                                                <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ $class }}" data-id="{{$rproduct->id}}">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                            {!! Helper::printImage($rproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                            
+                                        <div class="product-image-container w-100">
+                                            <div class="product-image-wrapper">
+                                                <a href="{{ url('/product/'.$yproduct->short_url) }}" tabindex="-1">
+                                                {!! Helper::printImage($yproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100 product-image-photo') !!}
+                                                </a>
+                                            </div>
+                                            <div class="cartWishlistBox">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
+                                                                {{ (Auth::guard('customer')->check())?((app('wishlist')->get($yproduct->id))?'fill':''):'' }}" data-id="{{$yproduct->id}}"  
+                                                                data-bs-toggle="popover"  id="wishlist_check_{{$yproduct->id}}" 
+                                                                data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
+                                                            <div class="textIcon">
+                                                                Wishlist
+                                                            </div>
+                                                            <div class="iconBox" id="wishlist_check_span_{{$yproduct->id}}">
+                                                                <i class="fa-regular fa-heart"></i>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        @php
+                                                            $productPrice = \App\Models\ProductPrice::where('product_id',$yproduct->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                                                            $class = '';
+                                                            if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
+                                                                $class = 'cart-action';
+                                                            }
+                                                            else{
+                                                                $class = 'out-of-stock';
+                                                            }
+                                                        @endphp
+                                                        
+                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$yproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$yproduct->product_type_id}}">
+                                                            <div class="iconBox">
+                                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                            </div>
+                                                            <div class="textIcon">
+                                                                Add to Cart
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="logoArea mt-auto">
+                                                    {!! Helper::printImage($yproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                                
+                                                
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="{{ url('/product/'.$product->short_url) }}">
+                                    <a href="{{ url('/product/'.$yproduct->short_url) }}">
                                         <div class="pro-name">
-                                        {{ $product->title }}
-                                        </div>
-                                        <ul class="price-area">
+                                        {{ $yproduct->title }}
+                                    </div>
+                                    <ul class="price-area">
+                                        @if(Helper::offerPrice($yproduct->id)!='')
                                             <li class="offer">
-                                            @if(Helper::offerPrice($rproduct->id)!='')
-                                            </li>
-                                            @endif
-                                            @if(Helper::offerPrice($rproduct->id)!='')
-                                            <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($rproduct->id),2)}}
+                                                @php
+                                                    $offerId =Helper::offerId($yproduct->id);
+                                                @endphp
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($yproduct->id,$productPrice->size_id,$offerId),2)}}
                                             </li>
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
                                             </li>
-
-
+                                        @else
+                                                <li>
+                                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                                </li>
+                                        @endif
+                                        </ul>
+                                        
+                                        <ul class="type-review">
+                                        @if($product->product_categories->count() > 1)
+                                            <li>
+                                            {{ $product->product_categories[0]->title }}, ...
+                                            
+                                            </li>
                                             @else
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$rproduct->price,2)}}
-                                            </li>
-                                            <li>
-
+                                            {{ $product->product_categories[0]->title }}
+                                            
                                             </li>
                                             @endif
-                                        </ul>
-                                        <ul class="type-review">
-                                        @foreach($product->product_categories as $product_category)
-                                            <li>
-                                            {{ $product_category->title }}
-                                            </li>
-                                            @endforeach
+                                            
                                             @if(Helper::averageRating($product->id)>0)
                                             <li class="review">
                                                 <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
@@ -443,86 +460,97 @@
                         <div class="item">
                             <div class="product-item-info">
                                 <div class="product-photo ">
-
-                                    <div class="product-image-container w-100">
-                                        <div class="product-image-wrapper">
-                                            <a href="{{ url('/product/'.$rproduct->short_url) }}" tabindex="-1">
-                                                {!! Helper::printImage($rproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
-                                            </a>
-                                        </div>
-                                        <div class="cartWishlistBox">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }} {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}"
-                                                            data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
-                                                        <div class="textIcon">
-                                                            Wishlist
-                                                        </div>
-                                                        <div class="iconBox" id="wishlist_check_span_{{$rproduct->id}}">
-                                                            <i class="fa-regular fa-heart"></i>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                @php
-                                                $productPrice = \App\Models\ProductPrice::where('product_id',$rproduct->id)->first();
-                                                $class = '';
-                                                if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
-                                                   $class = 'cart-action';
-                                                }
-                                                else{
-                                                    $class = 'out-of-stock';
-                                                }
-                                            @endphp
-                                                <li>
-                                                    <a href="javascript:void(0)" class="my_wishlist  cartBtn {{ $class}}" data-id="{{$rproduct->id}}">
-                                                        <div class="iconBox">
-                                                            <i class="fa-solid fa-cart-shopping"></i>
-                                                        </div>
-                                                        <div class="textIcon">
-                                                            Add to Cart
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="logoArea mt-auto">
-                                            {!! Helper::printImage($rproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                            
+                                        <div class="product-image-container w-100">
+                                            <div class="product-image-wrapper">
+                                                <a href="{{ url('/product/'.$rproduct->short_url) }}" tabindex="-1">
+                                                {!! Helper::printImage($rproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100 product-image-photo') !!}
+                                                </a>
+                                            </div>
+                                            <div class="cartWishlistBox">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
+                                                                {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}" data-id="{{$rproduct->id}}"  
+                                                                data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}" 
+                                                                data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
+                                                            <div class="textIcon">
+                                                                Wishlist
+                                                            </div>
+                                                            <div class="iconBox" id="wishlist_check_span_{{$rproduct->id}}">
+                                                                <i class="fa-regular fa-heart"></i>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        @php
+                                                            $productPrice = \App\Models\ProductPrice::where('product_id',$rproduct->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                                                            $class = '';
+                                                            if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
+                                                                $class = 'cart-action';
+                                                            }
+                                                            else{
+                                                                $class = 'out-of-stock';
+                                                            }
+                                                        @endphp
+                                                        
+                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$rproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$rproduct->product_type_id}}">
+                                                            <div class="iconBox">
+                                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                            </div>
+                                                            <div class="textIcon">
+                                                                Add to Cart
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="logoArea mt-auto">
+                                                    {!! Helper::printImage($rproduct, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                                
+                                                
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
                                 <div class="product-details">
-                                    <a href="{{ url('/product/'.$product->short_url) }}">
+                                    <a href="{{ url('/product/'.$rproduct->short_url) }}">
                                         <div class="pro-name">
-                                        {{ $product->title }}
-
-                                        </div>
-                                        <ul class="price-area">
-                                            <!-- <li class="offer">
-                                            @if(Helper::offerPrice($product->id)!='')
-                                            </li>
-                                            @endif -->
-                                            @if(Helper::offerPrice($product->id)!='')
-                                            <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
+                                        {{ $rproduct->title }}
+                                    </div>
+                                    <ul class="price-area">
+                                        @if(Helper::offerPrice($rproduct->id)!='')
+                                            <li class="offer">
+                                                @php
+                                                    $offerId =Helper::offerId($product->id);
+                                                @endphp
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($rproduct->id,$productPrice->size_id,$offerId),2)}}
                                             </li>
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                            </li>
+                                        @else
+                                                <li>
+                                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                                </li>
+                                        @endif
+                                        </ul>
+                                        
+                                        <ul class="type-review">
+                                        @if($product->product_categories->count() > 1)
+                                            <li>
+                                            {{ $rproduct->product_categories[0]->title }}, ...
+                                            
                                             </li>
                                             @else
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}
+                                            {{ $rproduct->product_categories[0]->title }}
+                                            
                                             </li>
                                             @endif
-                                        </ul>
-                                        <ul class="type-review">
-                                        @foreach($product->product_categories as $product_category)
-                                            <li>
-                                            {{ $product_category->title }}
-                                            </li>
-                                            @endforeach
-                                            @if(Helper::averageRating($product->id)>0)
+                                            
+                                            @if(Helper::averageRating($rproduct->id)>0)
                                             <li class="review">
-                                                <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                                <i class="fa-solid fa-star"></i>{{ Helper::averageRating($rproduct->id)  }}
                                             </li>
                                             @endif
                                         </ul>
