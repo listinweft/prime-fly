@@ -45,7 +45,7 @@
                             </div>
                             Change Password
                         </a>
-                        <a href="{{url('customer/account/order')}}" class="nav-link {{tab=='order'?'active':''}}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">
+                        <a href="{{url('customer/account/order')}}" class="nav-link {{$tab=='order'?'active':''}}" id="v-pills-orders-tab" data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab" aria-controls="v-pills-orders" aria-selected="false">
                             <div class="iconBox">
                                 <img src="{{asset('frontend/images/myAccount-03.png')}}" alt="">
                             </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="right_detail_wrapper">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-information" role="tabpanel" aria-labelledby="v-pills-information-tab">
+                        <div class="tab-pane fade {{$tab=='profile'?'show active':''}}" id="v-pills-information" role="tabpanel" aria-labelledby="v-pills-information-tab">
                             <div id="info_box">
                                 <div class="tab-pane-header">
                                     <h4>Personal Information</h4>
@@ -192,76 +192,73 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane fade " id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
+                        <div class="tab-pane fade {{$tab=='order'?'show active':''}}" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
                             <div class="tab-pane-header">
                                 <h4>My Orders</h4>
                             </div>
                             <div class="tab-pane-body">
-
-                            @if($orders->isNotEmpty())
-                                        @foreach($orders as $order)
+                                @if($orders->isNotEmpty())
                                 <div id="my_order_list">
-                                    <div class="my_order_list my_order_list{{$order->orderData->id}}" >
+                                    @foreach ($orders as $order)
+                                    <div class="my_order_list" >
+                                      
                                         <div class="order_header">
                                             <ul>
                                                 <li>
-                                                Order ID : MB# {{$order->orderData->order_code}}
+                                             
+                                                    Order ID : ARTMYST# {{$order->orderData->order_code}}
                                                 </li>
                                                 <li>
-                                                Placed Order on {{date('d-m-Y',strtotime($order->orderData->created_at))}}
+                                                    Placed Order on   {{ date("d-m-y", strtotime($order->orderData->created_at))  }}
                                                 </li>
                                                 <li>
-                                                    <a  href="javascript:void(0)" id="my_order_details_go" data-id="{{$order->orderData->id}}" >Order Details <i class="fa-solid fa-arrow-right"></i></a>
+                                                    <a href="{{ url('order/'.base64_encode($order->orderData->order_code)) }}" target="_blank">Order Details <i class="fa-solid fa-arrow-right"></i></a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="order_body">
                                             <section id="demos">
                                                 <div class="our-works-slider owl-carousel owl-theme ">
-                                                @php
-                                                                        
-                                                                        $refundStatus = $refundStatusPrevious = null;
-                                                                    @endphp
-                                                                    
-                                                                    @foreach ($order->orderData->orderProducts as $product)
-                                                                        @php
-                                                                            $orderStatus = App\Models\OrderLog::where('order_product_id',$product->id)->latest()->first();
-                                                                            $orderStatusPrevious = App\Models\OrderLog::where('order_product_id',$product->id)->latest()->skip(1)->take(1)->first();
-                                                                            if ($orderStatus->status == 'Refunded'){
-                                                                                $refundStatus = $orderStatus;
-                                                                                $refundStatusPrevious = $orderStatusPrevious;
-                                                                            }
-                                                                        @endphp
-                                                   
-                                                   
-                                                    
-                                                   
+                                                    @foreach($order->orderData->orderProducts as $orderProduct)
                                                     <div class="item">
                                                         <div class="product-item-info">
                                                             <div class="product-photo ">
 
                                                                 <div class="product-image-container w-100">
-                                                                @foreach($product->productData->product_categories as $product_category)
                                                                     <div class="product-image-wrapper">
-                                                                        <a href="{{ url('category/'.$product_category->short_url) }}" tabindex="-1">
-                                                                            <img class="product-image-photo"src="{{asset('frontend/images/product/product07.jpg')}}" loading="lazy"  alt="">
+                                                                        <a href="{{ url('/product/'.$orderProduct->productData->short_url) }}" tabindex="-1">
+                                                                            {!! Helper::printImage($orderProduct->productData, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','img1') !!}
                                                                         </a>
                                                                     </div>
-                                                                    @endforeach
                                                                     <div class="cartWishlistBox">
                                                                         <ul>
+                                                                            @php
+                                                                            $productPrice = \App\Models\ProductPrice::where('product_id',$orderProduct->productData->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                                                                            $class = '';
+                                                                            if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
+                                                                                $class = 'cart-action';
+                                                                            }
+                                                                            else{
+                                                                                $class = 'out-of-stock';
+                                                                            }
+                                                                            @endphp
+                                                                        
                                                                             <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
+                                                                                <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
+                                                                                        {{ (Auth::guard('customer')->check())?((app('wishlist')->get($orderProduct->productData->id))?'fill':''):'' }}"  data-id="{{$orderProduct->productData->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$orderProduct->productData->product_type_id}}"
+                                                                                        data-bs-toggle="popover"  id="wishlist_check_{{$orderProduct->productData->id}}" 
+                                                                                        data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                                                     <div class="textIcon">
                                                                                         Wishlist
                                                                                     </div>
-                                                                                    <div class="iconBox">
+                                                                                    <div class="iconBox" id="wishlist_check_span_{{$orderProduct->productData->id}}">
                                                                                         <i class="fa-regular fa-heart"></i>
                                                                                     </div>
                                                                                 </a>
                                                                             </li>
                                                                             <li>
-                                                                                <a href="javascript:void(0)" class="my_wishlist">
+                                                                              
+                                                                                <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$orderProduct->productData->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$orderProduct->productData->product_type_id}}">
                                                                                     <div class="iconBox">
                                                                                         <i class="fa-solid fa-cart-shopping"></i>
                                                                                     </div>
@@ -272,34 +269,60 @@
                                                                             </li>
                                                                         </ul>
                                                                         <div class="logoArea mt-auto">
-                                                                        {!! Helper::printImage($product->productData, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                                                            {!! Helper::printImage($orderProduct->productData, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                                                        
+                                                                        
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="product-details">
-                                                                <a href="product-details.php">
+                                                                <a href="{{ url('/product/'.$orderProduct->productData->short_url) }}">
                                                                     <div class="pro-name">
-                                                                    {{ $product->productData->title }}
-                                                                    </div>
-                                                                    <ul class="price-area">
+                                                                    {{ $orderProduct->productData->title }}
+                                                                </div>
+                                                                <ul class="price-area">
+                                                                    @if(Helper::offerPrice($orderProduct->productData>id)!='')
                                                                         <li class="offer">
-                                                                           {{$order->currency}} {{$product->cost}}
+                                                                            @php
+                                                                                $offerId =Helper::offerId($orderProduct->productData->id);
+                                                                            @endphp
+                                                                            {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($orderProduct->productData->id,$productPrice->size_id,$offerId),2)}}
                                                                         </li>
                                                                         <li>
-                                                                        {{$order->currency}} {{$product->cost}}
+                                                                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
                                                                         </li>
-                                                                    </ul>
-                                                                    <ul class="type-review">
-                                                                        <li>
-                                                                            Landscape
-                                                                        </li>
-                                                                        <li class="review">
-                                                                            <i class="fa-solid fa-star"></i> 4.5
-                                                                        </li>
-                                                                    </ul>
-                                                                </a>
-                                                            </div>
+                                                                         @else
+                                                                            <li>
+                                                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                                                            </li>
+                                                                         
+                                                                           
+                                                                         
+                                                                          
+                                                                            @endif
+                                                                                    </ul>
+                                                                                    <ul class="type-review">
+                                                                                    @if($orderProduct->productData->product_categories->count() > 1)
+                                                                                        <li>
+                                                                                        {{ $orderProduct->productData->product_categories[0]->title }}, ...
+                                                                                        
+                                                                                        </li>
+                                                                                        @else
+                                                                                        <li>
+                                                                                        {{ $orderProduct->productData->product_categories[0]->title }}
+                                                                                        
+                                                                                        </li>
+                                                                                        @endif
+                                                                                      
+                                                                                        @if(Helper::averageRating($orderProduct->productData->id)>0)
+                                                                                        <li class="review">
+                                                                                            <i class="fa-solid fa-star"></i>{{ Helper::averageRating($orderProduct->productData->id)  }}
+                                                                                        </li>
+                                                                                        @endif
+                                                                                    </ul>
+                                                                                </a>
+                                                                            </div>
                                                         </div>
                                                     </div>
                                                     @endforeach
@@ -307,16 +330,13 @@
                                             </section>
                                         </div>
                                     </div>
-                                   
+                                    @endforeach
                                 </div>
-
-                                @endforeach
-                                        @endif
+                                @endif
                             </div>
                         </div>
 
-                      
-                        <div class="tab-pane fade" id="v-pills-Address" role="tabpanel" aria-labelledby="v-pills-Address-tab">
+                        <div class="tab-pane fade {{$tab=='address'?'show active':''}}" id="v-pills-Address" role="tabpanel" aria-labelledby="v-pills-Address-tab">
                             <div class="tab-pane-header">
                                 <h4>Address</h4>
                             </div>
@@ -333,7 +353,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-wishlist" role="tabpanel" aria-labelledby="v-pills-wishlist-tab">
+                        <div class="tab-pane fade {{$tab=='wishlist'?'show active':''}}" id="v-pills-wishlist" role="tabpanel" aria-labelledby="v-pills-wishlist-tab">
                             <div class="tab-pane-header">
                                 <h4>Wishlist</h4>
                             </div>
