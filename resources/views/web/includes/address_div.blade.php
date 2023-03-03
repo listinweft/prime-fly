@@ -248,92 +248,69 @@
                                 <h4>Add Billing  Address</h4>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                             </div>
-                            <form action="">
+                            <form action="" id="addBillingingLoginAddressForm">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="">First Name</label>
-                                            <input type="text" class="form-control" placeholder="First Name*">
-                                            <span class="invalidMessage"> Given Data Error </span>
+                                            <input type="text" name="first_name" id="first_name" required class="form-control required billing-login-value-change" maxlength="60" required placeholder="First Name*"  value="{{(Session::has('billing_first_name'))?session('billing_first_name'):''}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name*">
+                                            <input type="text" name="last_name" id="last_name" required class="form-control required billing-login-value-change" maxlength="60" required placeholder="Last Name*"  value="{{(Session::has('shipping_last_name'))?session('billing_last_name'):''}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="">Email</label>
-                                            <input type="text" class="form-control" placeholder="Email*">
+                                            <input type="email" name="email" id="email" class="form-control billing-required billing-login-value-change" placeholder="Email*" maxlength="70" required value="{{(Session::has('billing_email'))?session('billing_email'):''}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="">Phone Number</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number*">
+                                            <input  type="number" name="phone" id="phone" class="form-control billing-required billing-login-value-change"  placeholder="Phone Number*" maxlength="70" required value="{{(Session::has('billing_phone'))?session('billing_phone'):''}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group" >
-                                            <label for="">Country</label>
-                                            <select name="" id="" class="form-control form_select">
+                                            <select  name="country" id="country"   class="form-control form_select billing-required billing-login-value-change" required>
                                                 <option selected disabled value="">Select Country*</option>
-                                                <option value="UAE">UAE</option>
-                                                <option value="Bahrain">Bahrain</option>
-                                                <option value="India">India</option>
+                                                @foreach($countries as $country)
+                                                <option value="{{ $country->id }}" {{(session('billing_country')==$country->id)?'selected':''}} >{{$country->title}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group" >
-                                            <label for="">Emirate</label>
-                                            <select name="" id="" class="form-control form_select">
-                                                <option selected disabled value="">Select Emirate*</option>
-                                                <option value="Abu Dhabi">Abu Dhabi</option>
-                                                <option value="Dubai">Dubai</option>
-                                                <option value="Sharjah">Sharjah</option>
-                                                <option value="Ajman">Ajman</option>
-                                                <option value="Umm Al Quwain">Umm Al Quwain</option>
-                                                <option value="Ras Al Khaimah">Ras Al Khaimah</option>
-                                                <option value="Fujairah">Fujairah</option>
+                                            <select name="state" id="state" class="form-control form_select  billing-login-value-change " >
+                                                <option selected disabled value="">Select Emirate</option>
+                                                @if(!empty($billing_states))
+                                                @foreach($billing_states as $billing_state)
+                                                    <option value="{{ $billing_state->id }}" {{(session('billing_state')==$billing_state->id)?'selected':''}} >{{$billing_state->title}}</option>
+                                                @endforeach
+                                            @endif
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Flat Number/Building Name/Gate Number*">
+                                            <input type="number" maxlength="15" name="zipcode" id="zipcode" class="form-control billing-login-value-change" placeholder="Zip Code " value="{{(Session::has('billing_zipcode'))?session('billing_zipcode'):''}}">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <textarea class="form-control form-message" placeholder="Address*"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group address_label">
-                                            <label class="label_cnt">
-                                                <span>Address Label</span>
-                                                (optional)
-                                            </label>
-                                            <div class="d-flex">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="addressShipLabel" id="homeShip" value="option1" checked>
-                                                    <label class="form-check-label" for="homeShip">
-                                                        Home
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="addressShipLabel" id="workShip" value="option2">
-                                                    <label class="form-check-label" for="workShip">
-                                                        Work
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <textarea class="form-control form-message billing-required  billing-login-value-change" required  name="address" id="address" placeholder="Address*">{{(Session::has('billing_address'))?session('billing_address'):''}}</textarea>
                                         </div>
                                     </div>
                                 </div>
+                                
+                                        <input type="hidden" id="account_type" name="account_type"
+                                        value="{{(Auth::guard('customer')->check())?1:0}}">
+                                <input type="hidden" name="is_default" id="is_default"
+                                        value="1">
+                                <input type="hidden" id="id" name="id" value="0">
+                                <input type="hidden" name="set_session" id="set_session"
+                                        value="1">
                             </form>
                         </div>
                     </div>
