@@ -573,35 +573,7 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click','.deliver',function(e){
-        e.preventDefault();
-        var id = $(this).data('id');
-        var remarks = $('#exampleFormControlTextarea1').val();
-        var _token = token;
-        $.ajax({
-            type:'POST',
-            dataType:'json',
-            data:{address_id:id,_token:_token,remarks:remarks},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url+'/select-customer-address',
-            success:function(response){
-                if(response.status==true){
-                    swal({
-                        title: "",
-                        text: 'Customer addrress selected succesfully',
-                        type: "success"
-                    }, function() {
-                        window.location.reload();
-                    });
-                }else{
-                    $.notify(response.message, "error");
-                }
-            }
-        });
-    });
-
+    
     $(document).on('click','#confirm_payment',function(){
         if($('#terms-condition').prop('checked')==true){
             $('#confirm-order-error').html('');

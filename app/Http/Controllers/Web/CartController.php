@@ -530,9 +530,17 @@ class CartController extends Controller
                 
                   
                 $siteInformation = SiteInformation::first();
+                $orderConfirm = Helper::checkConfirmOrder();
+                $orderC = false;
+                if($orderConfirm == "true"){
+                    $orderC = true;
+                }
+                else{
+                    $orderC = false;
+                }
                 return view('web.checkout', compact('sessionKey', 'calculation_box', 'seo_data',
                     'banner', 'featuredProducts', 'checkoutAdDetail', 'countries', 'relatedProducts', 'billing_states',
-                    'shipping_states', 'siteInformation', 'customerAddresses'));
+                    'shipping_states', 'siteInformation', 'customerAddresses','orderC'));
             } else {
                 return redirect('/cart');
             }
@@ -651,7 +659,7 @@ class CartController extends Controller
     }
     public function update_customer_shipping_address(Request $request)
     {
-        
+      
        
         if (Auth::guard('customer')->check()) {
            
@@ -1000,14 +1008,31 @@ class CartController extends Controller
                     }else{
                         $address_selected=false;
                     }
-                 
+                 $message = false;
 
+                    if($address->state){
+                    $shipping = ShippingCharge::active()->get();
+                    $stateIDs = $shipping->pluck('state_id')->toArray();
+                }
+                else
+                    $shipping = NULL;
+                if($shipping == NULL){
+                    $class = '';
+                    $message = true;
+                    $tooltipval = '';
+                }
+                dd($calculation_box);
                     return response(array(
                         'status' => $status,
                         'data' => [],
                         'calculation_box' => $calculation_box,
                         'address_selected' => $address_selected,
+                        'address_id' => $address->id,
+                        'address_id_not_selected' => CustomerAddress::where('customer_id', Auth::guard('customer')->user()->customer->id)
+                        ->whereIn('state_id', $stateIDs)
+                        ->where('id', '!=', $address->id)->pluck('id')->toArray(),
                         'response_message' => $responseMessage,
+                        'message' => $message,
                     ), 200, []);
                 }
             }

@@ -397,8 +397,10 @@ $(document).ready(function () {
 
 
     $(document).on('click', '.deliver', function (e) {
+        
         e.preventDefault();
         var id = $(this).data('id');
+   
         $('.deliver').removeClass('active');
         var addressChoose = $('.addressChoose:checked').val();
         $(this).addClass('active');
@@ -415,15 +417,16 @@ $(document).ready(function () {
                     })
                   
                     if (response.status == true) {
-                        $('#address_select_error').addClass('d-none');
-                        $('.error').addClass('d-none');
-                        $('.confirm_payment_btn').attr('id','confirm_payment');
-                    $('#confirm_payment').attr('disabled',false);
+                      
+                    //     $('#address_select_error').addClass('d-none');
+                    //     $('.error').addClass('d-none');
+                    //     $('.confirm_payment_btn').attr('id','confirm_payment');
+                    // $('#confirm_payment').attr('disabled',false);
                     }else{
-                        $('.confirm_payment_btn').removeAttr('id');
-                        $('#address_select_error').removeClass('d-none');
-                        $('.error').removeClass('d-none');
-                        $('#confirm_payment').attr('disabled',false);
+                        // $('.confirm_payment_btn').removeAttr('id');
+                        // $('#address_select_error').removeClass('d-none');
+                        // $('.error').removeClass('d-none');
+                        // $('#confirm_payment').attr('disabled',false);
                     }
                     $('.shipping_charge').text(response.calculation_box.shippingAmount);
                     $('.tax_amount').text(response.calculation_box.tax_amount);
@@ -432,11 +435,11 @@ $(document).ready(function () {
                     // $('.session').removeClass('d-none');
                     if(response.message == false){
 
-                        $('.session'+response.address_id).removeClass('d-none');
+                        $('.address_session'+response.address_id).addClass('active');
                   
                         response.address_id_not_selected.forEach(function (item) {
                           
-                            $('.session'+item).addClass('d-none');
+                            $('.address_session'+item).removeClass('active');
                         });
                         $('.login'+response.address_id).addClass('d-none');
                   
