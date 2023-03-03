@@ -325,27 +325,27 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', '.currency-selection', function () {
-        var currency = $(this).data('id');
-        var _token = token;
-        $.ajax({
-            type: 'POST', dataType: 'json', data: {currency: currency, _token: _token}, headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/currency_set', success: function (response) {
-                if (response.status == true) {
-                    swal({
-                        title: "", text: response.message, type: "success"
-                    }, function () {
-                        window.location.reload();
-                    });
-                } else {
-                    swal({
-                        title: "Error", text: response.message, type: "error"
-                    });
-                }
-            }
-        });
-    });
+    // $(document).on('click', '.currency-selection', function () {
+    //     var currency = $(this).data('id');
+    //     var _token = token;
+    //     $.ajax({
+    //         type: 'POST', dataType: 'json', data: {currency: currency, _token: _token}, headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }, url: base_url + '/currency_set', success: function (response) {
+    //             if (response.status == true) {
+    //                 swal({
+    //                     title: "", text: response.message, type: "success"
+    //                 }, function () {
+    //                     window.location.reload();
+    //                 });
+    //             } else {
+    //                 swal({
+    //                     title: "Error", text: response.message, type: "error"
+    //                 });
+    //             }
+    //         }
+    //     });
+    // });
 
     $(document).on('click', '.contact_form_btn', function (e) {
         e.preventDefault();
@@ -1771,6 +1771,28 @@ $(document).ready(function () {
 
     $("#amount").keyup(function () {
         filterProducts();
+    });
+
+     $(document).on('change', '.currency-selection', function () {
+        var currency = $(this).find(':selected').data('code');
+        // var _token = token;
+        $.ajax({
+            type: 'POST', dataType: 'json', data: {currency: currency}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/currency_set', success: function (response) {
+                if (response.status == true) {
+                    Toast.fire({
+                        title: "Done it!", text: response.message, icon: "success"
+                    }).then((result) => {
+                        location.reload();
+                    });
+                } else {
+                    swal.fire({
+                        title: "Error", text: response.message, icon: "error"
+                    });
+                }
+            }
+        });
     });
 
 

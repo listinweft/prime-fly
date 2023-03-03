@@ -8,6 +8,7 @@ use App\Models\About;
 use App\Models\AboutFeature;
 use App\Models\Banner;
 use App\Models\Blog;
+use App\Models\Currency;
 use App\Models\Category;
 use App\Models\Homecollection;
 use App\Models\Color;
@@ -16,6 +17,8 @@ use App\Models\ContactAddress;
 use App\Models\Deal;
 use App\Models\Enquiry;
 use App\Models\Frame;
+use App\Models\CurrencyRate;
+
 use App\Models\History;
 use App\Models\HomeAdvertisement;
 use App\Models\HomeBanner;
@@ -65,17 +68,20 @@ class WebController extends Controller
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
+      $selectionheading = HomeHeading::where('type','selection')->first();
       $themes = Category::active()->oldest('sort_order')->get();
         $testimonials = Testimonial::active()->take(10)->get();
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
+     $selection = Product::active()->where('copy','no')->where('type','selection')->orderBy('order')->limit(8)->get();
+   
 
     //   $ourcollection = Homecollection::active()->first();
     //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
 
 
     //     return view('web.home', compact('seo_data', 'ourcollection'));
-        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products'));
+        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products','selection','selectionheading'));
     }
 
 
@@ -664,7 +670,7 @@ class WebController extends Controller
                          else if ($input == "tag_id") {
                             $mainquery->where(function ($query) use ($inputs, $request, $input) {
                                 foreach ($request[$input] as $key => $reIn) {
-                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
+                                    $query->whereRaw("find_in_set('" . $reIn . "', products." . "$input)");
                                 }
                             });
                          }
@@ -930,6 +936,78 @@ class WebController extends Controller
         $field = 'faq';
         $title = 'faq';
         return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
+    }
+    public function currency_set(Request $request)
+    {
+        if ($request->currency) {
+            $changed = false;
+            $currency = Currency::where('code', $request->currency)->first();
+            $defaultCurrency = Currency::where('is_default', 1)->first();
+            $currencyRate = CurrencyRate::where([['other_currency_id', $currency->id], ['currency_id', $defaultCurrency->id]])->first();
+            if ($request->currency == $defaultCurrency->code) {
+                session(['currency_rate' => '1']);
+                session(['currency' => $defaultCurrency->code]);
+                $currencyRate = 1;
+                $changed = true;
+            } else {
+                if ($currencyRate != NULL) {
+                    session(['currency_rate' => $currencyRate->conversion_rate]);
+                    session(['currency' => $currency->code]);
+                    $currencyRate = $currencyRate->conversion_rate;
+                    $changed = true;
+
+
+                    $updatecurrency = Currency::where('id',$currency->id)
+                      ->update(['is_default' =>1
+                    ]);
+
+                   $data[]= $currency->id;
+
+                    $updatecurrencys = Currency::whereNotIn('id',$data)
+                    ->update(['is_default' =>0
+                  ]);
+
+
+
+                } else {
+                    return response(array(
+                        'status' => false,
+                        'message' => 'Currency rate not fixed yet..!',
+                    ), 200, []);
+                }
+            }
+            if ($changed == true) {
+                if (Session::has('session_key')) {
+                    $sessionKey = session('session_key');
+                  
+                        if (Session::has('currency')) {
+                            $currency_rate = session('currency_rate');
+                        } else {
+                            $currency_rate = 1;
+                        }
+                        
+                    
+                }
+                // if (Session::has('coupon_base_value')) {
+                //     $coupon_value = session('coupon_base_value') * $currencyRate;
+                //     session(['coupon_value' => $coupon_value]);
+                // }
+                return response(array(
+                    'status' => true,
+                    'message' => "Currency changed to '" . $currency->code . "'",
+                ), 200, []);
+            } else {
+                return response(array(
+                    'status' => false,
+                    'message' => 'Error while changing the currency',
+                ), 200, []);
+            }
+        } else {
+            return response(array(
+                'status' => false,
+                'message' => 'Currency input not found',
+            ), 200, []);
+        }
     }
 
 }

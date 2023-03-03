@@ -207,22 +207,22 @@
 <!--Home Shop By Theme End-->
 
 <!--Home Services Start-->
-@if(@$products->isNotEmpty())
+@if(@$selection)
     <section class="serviceHome">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h6 class="subHeading">Our Selection</h6>
-                    <h2 class="mainHeading">Find Your Inspiration</h2>
+                    <h6 class="subHeading">{{@$selectionheading->subtitle}}</h6>
+                    <h2 class="mainHeading">{{@$selectionheading->title}}</h2>
                     <div class="headingText">
-                        <p>
-                            Our goal is to keep things fresh and bring you inspired canvases with new styles and themes.
-                        </p>
+                       
+                        {!! @$selectionheading->description !!}
+                        
                     </div>
                 </div>
                 <div class="col-12 pt-60">
                     <div class="selectionWrapper">
-                        @foreach ($products as $product)
+                        @foreach ($selection as $product)
                         <div class="item">
                             {{-- {{ Helper::printImage(@$product, 'image', 'image_webp', 'image_attribute', 'img-fluid') }} --}}
                             <div class="product-image-wrapper">
@@ -274,7 +274,8 @@
             </div>
         </div>
     </section>
-@endif
+    @endif
+
 <!--Home Services End-->
 
 <!--Home Testimonial Start-->

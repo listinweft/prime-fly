@@ -27,13 +27,12 @@
                     </li>
                     <li class="currency">
                         <img class="img-fluid language-flag" src="{{ asset('frontend/images/currency/aed.png')}}" alt="">
-                        <select id="language-selector">
-                            <option data-img="{{ asset('frontend/images/currency/aed.png')}}">
-                                AED
-                            </option>
-                            <option data-img="{{ asset('frontend/images/currency/usd.png')}}">
-                                USD
-                            </option>
+                        <select id="language-selector" class="currency-selection">
+                        @foreach($currencies as $currency)
+                                        <option data-id='{{ $currency->id}}' data-code='{{ $currency->code}}'
+                                        {{ $defaultCurrency->code == $currency->code ? 'selected': '' }}
+                                        >{{ $currency->code}}</option>
+                                    @endforeach
                         </select>
                     </li>
 
