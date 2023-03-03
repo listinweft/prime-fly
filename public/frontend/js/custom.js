@@ -978,7 +978,9 @@ $(document).ready(function () {
 
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-        console.log(formData);
+
+
+
 
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');
@@ -1050,23 +1052,14 @@ $(document).ready(function () {
                     }
 
                     else if (response.status == "error2") {
-                        //$(".successModalForm2").modal('show');
+
 
                         $("#successModal2").modal('show');
 
                         $("#myspan2").html(response.message);
+                        $("#mail").val(response.mail);
 
 
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
-                        // if (response.redirect) {
-                        //     window.location.href = response.redirect;
-                        // } else {
-                        //    setTimeout(() => {
-                        //     location.reload();
-                        //    }, 1000);
-                        // }
                     }
                     else {
                         $(".successModalForm").modal('show');
@@ -1074,9 +1067,7 @@ $(document).ready(function () {
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
                             }, 2000);
-                        // swal.fire({
-                        //     title: response.status, text: response.message, icon: response.status
-                        // });
+
                     }
                 })
                 .fail(function (response) {
@@ -1152,9 +1143,9 @@ $(document).ready(function () {
                              $(".successModalForm").modal('show');
 
                             $("#myspan").html(response.message);
-                            // setTimeout(function(){
-                            //     $(".successModalForm").modal('hide');
-                            // }, 2000);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 2000);
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {

@@ -119,6 +119,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('reset-password/{token}', [CustomerLoginController::class, 'reset_password_store']);
     Route::get('email-verification/{token}', [CustomerLoginController::class, 'email_verification']);
     // Route::get('email-verification-success/{token}', [CustomerLoginController::class, 'email_verification_store']);
+    Route::post('resend', [CustomerLoginController::class, 'resend']);
 
 
 

@@ -147,11 +147,11 @@
                 <h6>
                     <span class="success_message" id="myspan2"></span>
                 </h6>
-                <form>
-
+                <form action="#" id="resend">
                     <div class="form-group">
-                        <input type="hidden" name="mail">
-                        <button class="btn primary_btn loginform_submit_btn" data-url="/login" fdprocessedid="kqhewq" style="background-color:#cecec4;">Resend</button>
+                        <input type="hidden" name="mail" id="mail" value="">
+
+                        <button class="btn primary_btn loginform_submit_btn" data-url="/resend" fdprocessedid="kqhewq" style="background-color:#cecec4;">Resend</button>
                     </div>
                 </form>
             </div>

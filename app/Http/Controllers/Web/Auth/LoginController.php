@@ -47,7 +47,7 @@ class LoginController extends Controller
         if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'], $remember)) {
             if (Auth::guard('customer')->user()->is_verified == 0) {
 
-                return response()->json(['status' => 'error2', 'message' => 'Account not verified, Please register with your email','mail'=>""]);
+                return response()->json(['status' => 'error2', 'message' => 'Account not verified, Please register with your email','mail'=>$request->username]);
             }
             if (Auth::guard('customer')->user()->status == 'Inactive') {
                 Auth::guard('customer')->logout();
@@ -177,6 +177,40 @@ class LoginController extends Controller
             return redirect('/')->with('error', 'Invalid token!');
         }
     }
+
+    public function resend(Request $request)
+    {
+        $mail  = $request->mail;
+
+                $title = 'Email Verification';
+                // $email = Usersverifie::where('mail', $mail)->first();
+
+                $user = User::where('email', $mail)->first();
+
+                if($user)
+                {
+
+                $token = Str::random(64);
+
+
+                $link = url('email-verification/' . $token);
+                    $name = $user->customer->first_name ;
+                    if (Helper::verifyemail($user, $name, $link)) {
+
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'Please click on the link that has just been sent to your email account to verify your Account.'
+                        ]);
+                    }
+
+            }
+                else {
+                    return redirect('/')->with('error', 'Some Error Occured');
+                }
+
+
+
+    }
     // public function email_verification_store(Request $request, $token)
 
     // {
@@ -202,9 +236,9 @@ class LoginController extends Controller
 
     //         }
 
+// }
 
 
-    // }
 
     public function reset_password_store(Request $request, $token)
 
