@@ -448,7 +448,7 @@ class LoginController extends Controller
         dd($facebookUser);
         try {
             if ($facebookUser) {
-                $user = User::where('email', $facebookUser->email)->where('user_type', 'Customer')->first();
+                $user = User::where('email', $facebookUser->email)->orWhere('email', $facebookUser->id)->where('user_type', 'Customer')->first();
              
                 if ($user) {
                     $user->update([
