@@ -419,19 +419,21 @@ $(document).ready(function () {
                     if (response.status == true) {
                       
                     //     $('#address_select_error').addClass('d-none');
-                    //     $('.error').addClass('d-none');
-                    //     $('.confirm_payment_btn').attr('id','confirm_payment');
-                    // $('#confirm_payment').attr('disabled',false);
+                        $('.error').addClass('d-none');
+                        $('.confirm_payment_btn').attr('id','confirm_payment');
+                    $('#confirm_payment').attr('disabled',false);
                     }else{
-                        // $('.confirm_payment_btn').removeAttr('id');
+                        $('.confirm_payment_btn').removeAttr('id');
                         // $('#address_select_error').removeClass('d-none');
-                        // $('.error').removeClass('d-none');
-                        // $('#confirm_payment').attr('disabled',false);
+                        $('.error').removeClass('d-none');
+                        $('#confirm_payment').attr('disabled',false);
                     }
-                    $('.shipping_charge').text(response.calculation_box.shippingAmount);
-                    $('.tax_amount').text(response.calculation_box.tax_amount);
+                    $('.cod-charge').hide();
+
+                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount+'.00');
+                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount+'.00');
                     $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
-                    $('.cart_final_total_span').text(response.calculation_box.final_total_with_tax);
+                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax+'.00');
                     // $('.session').removeClass('d-none');
                     if(response.message == false){
 
@@ -1582,38 +1584,39 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#cancel-order-submit', function (e) {
-        e.preventDefault();
-        // if($('#terms-conditions-cancel').prop('checked')==true){
-        //     $('#terms-conditions-cancel-error').html('');
-        $('#cancel-order-submit').html('Please wait..!');
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: $('#order-cancel-form').serialize(),
-            url: base_url + '/cancel-order',
-            success: function (response) {
-                $('#cancel-order-submit').html('Submit');
-                if (response.status == true) {
-                    Toast.fire({
-                        title: "Success", text: response.message, icon: "success",
-                    });
-                    window.location.reload();
+        alert('hi');
+        // e.preventDefault();
+        // // if($('#terms-conditions-cancel').prop('checked')==true){
+        // //     $('#terms-conditions-cancel-error').html('');
+        // $('#cancel-order-submit').html('Please wait..!');
+        // $.ajax({
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     data: $('#order-cancel-form').serialize(),
+        //     url: base_url + '/cancel-order',
+        //     success: function (response) {
+        //         $('#cancel-order-submit').html('Submit');
+        //         if (response.status == true) {
+        //             Toast.fire({
+        //                 title: "Success", text: response.message, icon: "success",
+        //             });
+        //             // window.location.reload();
 
-                } else {
-                    // $.notify(response.message, "error");
-                    Toast.fire("Error!", response.message, 'error');
-                }
-            },
-            fail: function (response) {
-                // alert('dddd');
-            }
-        });
-        // }else{
-        //     $('#terms-conditions-cancel-error').html('Please accept the terms & condition').css({'color':'red'});
-        // }
+        //         } else {
+        //             // $.notify(response.message, "error");
+        //             Toast.fire("Error!", response.message, 'error');
+        //         }
+        //     },
+        //     fail: function (response) {
+        //         // alert('dddd');
+        //     }
+        // });
+        // // }else{
+        // //     $('#terms-conditions-cancel-error').html('Please accept the terms & condition').css({'color':'red'});
+        // // }
     });
 
 

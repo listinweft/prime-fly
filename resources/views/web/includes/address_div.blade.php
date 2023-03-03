@@ -13,7 +13,7 @@
                 <div class="right">
                     <button class="btn secondary_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#shippingAddress" aria-controls="billingAddress"><i class="fa-solid fa-plus"></i> Add Shipping Address</button>
                     <div class="slick-address-nav1">
-                    </div>
+                    </div>Pcon
                 </div>
             </div>
        
@@ -22,7 +22,7 @@
                 <div class="select_billing_address_slider">
                     @if (@$customerAddresses)
                         @foreach($customerAddresses as $address)
-                            <div class="select_address_card  address_session{{$address->id}}  ">
+                            <div class="select_address_card  address_session{{$address->id}}     @if (session('selected_customer_address')== $address->id) active @endif">
                                 <h6 class="ads_name">
                                     {{$address->first_name.' '.$address->last_name}}
                                 </h6>

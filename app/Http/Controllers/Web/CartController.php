@@ -1021,10 +1021,11 @@ class CartController extends Controller
                     $message = true;
                     $tooltipval = '';
                 }
-                dd($calculation_box);
+               
                     return response(array(
                         'status' => $status,
                         'data' => [],
+                        'default_currency' => Helper::defaultCurrency(),
                         'calculation_box' => $calculation_box,
                         'address_selected' => $address_selected,
                         'address_id' => $address->id,

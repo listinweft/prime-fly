@@ -133,7 +133,9 @@
                                     <div class="price">
                                         <ul class="price-area">
                                             <li class="offer">
-                                         
+                                         @php
+                                                $sizes = \App\Models\ProductPrice::where('product_id',$product->productData->id)->where('size_id',$size->id)->first();
+                                         @endphp
                                             @if(Helper::offerPrice($product->productData->id)!='')
                                             <li>
                                                 @php
@@ -145,13 +147,14 @@
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->productData->id,$product->size,$offerId),2)}}
                                             </li>
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
                                             </li>
 
 
                                             @else
                                             <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$price->price,2)}}
+                                              
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
                                             </li>
                                             <li>
 
@@ -267,5 +270,39 @@
             </div>
         </div>
     </div>
+    <div class="modal fade quickEnquiryModal" id="cancelOrder" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Cancel Order</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+           </div>
+           <div class="modal-body">
+               <div class="row">
+                   <div class="col-md-12">
+                       <form action="" id="cancelOrderForm" enctype="multipart/form-data">
+                           <div class="col-md-12 ">
+                               <div class="form-group">
+                                   <div class="customer_note">
+                                       <label for="reason">Customer Notes</label>
+                                       <textarea name="reason" id="reason" class="form-control mt-3"
+                                                 placeholder="Please enter your reason to cancel this order"></textarea>
+                                   </div>
+                               </div>
+                           </div>
+                           <input type="hidden" name="product_id" id="product_id">
+                           <input type="hidden" name="order_id" id="order_id">
+                           <input type="hidden" name="order_status" id="order_status">
+                           <button type="submit" class="primary_btn form_submit_btn" data-url="/cancel-order"
+                           >Submit
+                           </button>
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
 </section>
 @endsection
