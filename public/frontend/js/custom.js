@@ -1029,7 +1029,9 @@ $(document).ready(function () {
 
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-        console.log(formData);
+
+
+
 
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');
@@ -1085,9 +1087,7 @@ $(document).ready(function () {
                     if (modal_id) {
                         $("#" + modal_id).modal('hide');
                     }
-                    // if (response.status == "success") {
-                    //     Toast.fire({title: "Done it!", text: response.message, icon: response.status});
-                    // }
+
                     if (response.status == "success-reload") {
                         $(".successModalForm").modal('show');
                         $("#myspan").html(response.message);
@@ -1095,36 +1095,18 @@ $(document).ready(function () {
                                 $(".successModalForm").modal('hide');
                             }, 2000);
 
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
-                        // if (response.redirect) {
-                        //     window.location.href = response.redirect;
-                        // } else {
-                        //    setTimeout(() => {
-                        //     location.reload();
-                        //    }, 1000);
-                        // }
+
                     }
 
                     else if (response.status == "error2") {
-                        //$(".successModalForm2").modal('show');
+
 
                         $("#successModal2").modal('show');
 
                         $("#myspan2").html(response.message);
+                        $("#mail").val(response.mail);
 
 
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
-                        // if (response.redirect) {
-                        //     window.location.href = response.redirect;
-                        // } else {
-                        //    setTimeout(() => {
-                        //     location.reload();
-                        //    }, 1000);
-                        // }
                     }
                     else {
                         $(".successModalForm").modal('show');
@@ -1132,9 +1114,7 @@ $(document).ready(function () {
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
                             }, 2000);
-                        // swal.fire({
-                        //     title: response.status, text: response.message, icon: response.status
-                        // });
+
                     }
                 })
                 .fail(function (response) {

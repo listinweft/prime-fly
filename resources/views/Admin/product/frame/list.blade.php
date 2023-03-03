@@ -78,7 +78,7 @@
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
                                                     <a href="{{url(Helper::sitePrefix().'product/frame/edit/'.$frame->id)}}"
-                                                       class="btn btn-success mr-2 tooltips" title="Edit Category"><i
+                                                       class="btn btn-success mr-2 tooltips" title="Edit Frame"><i
                                                             class="fas fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
                                                        data-url="product/frame/delete" data-id="{{$frame->id}}"
