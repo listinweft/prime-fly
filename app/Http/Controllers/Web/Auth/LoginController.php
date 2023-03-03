@@ -444,22 +444,31 @@ class LoginController extends Controller
 
     public function handleFacebookCallback()
     {
+        $facebookUser = Socialite::driver('facebook')->user();
+        // dd($facebookUser);
         try {
-            $facebookUser = Socialite::driver('facebook')->user();
             if ($facebookUser) {
-                $user = User::where('email', $facebookUser->email)->first();
+                $user = User::where('email', $facebookUser->email)->where('user_type', 'Customer')->first();
+             
                 if ($user) {
                     $user->update([
                         'facebook_token' => $facebookUser->token,
                         'facebook_refresh_token' => $facebookUser->refreshToken,
                     ]);
-                    Auth::guard('customer')->login($user);
+                    if ($user->status == "Active") {
+                        Auth::guard('customer')->login($user);
+                        $sessionKey = Auth::guard('customer')->user()->customer->id;
+                        session(['session_key' => $sessionKey]);
+                        Helper::transferGuestCartToUser($sessionKey);
+                    } else {
+                        return redirect('/')->with('login-errors', 'Account is inactive, Please contact site owner');
+                    }
                 } else {
                     DB::beginTransaction();
                     $user = new User();
                     $user->user_type = 'Customer';
-                    $user->email = $facebookUser->email;
-//                    $user->username = $facebookUser->email;
+                    $user->email = $facebookUser->email ? $facebookUser->email :  $facebookUser->id;
+                    $user->username = $facebookUser->email ? $facebookUser->email :  $facebookUser->id;
                     $user->password = Hash::make('dummyPass');
                     $user->phone = NULL;
                     $user->facebook_id = $facebookUser->id;
@@ -472,6 +481,9 @@ class LoginController extends Controller
                         $customer->user_id = $user->id;
                         if ($customer->save()) {
                             DB::commit();
+                            $sessionKey = $customer->id;
+                            session(['session_key' => $sessionKey]);
+                            Helper::transferGuestCartToUser($sessionKey);
                             Auth::guard('customer')->login($user);
                         } else {
                             DB::rollBack();
@@ -484,6 +496,7 @@ class LoginController extends Controller
                 return redirect('/')->with('status', 'Some error occurred');
             }
         } catch (Exception $e) {
+            
             dd($e->getMessage());
         }
     }
