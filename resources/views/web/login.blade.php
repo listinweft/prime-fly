@@ -35,8 +35,8 @@
                 </form>
                         <h6 class="or">OR</h6>
                         <div class="loginOptionWrapper">
-                            <a class="btnBox" href=""> <img src="{{asset('frontend/images/googleIcon.png')}}" alt="">  <p>Continue With Google</p> </a>
-                            <a class="btnBox btnBoxFace" href=""> <img src="{{asset('frontend/images/facebookIcon.png')}}" alt=""> <p>Continue With Facebook</p> </a>
+                            <a class="btnBox" href="{{ url('auth/google') }}"> <img src="{{asset('frontend/images/googleIcon.png')}}" alt="">  <p>Continue With Google</p> </a>
+                            <a class="btnBox btnBoxFace" href="{{ url('auth/facebook') }}"> <img src="{{asset('frontend/images/facebookIcon.png')}}" alt=""> <p>Continue With Facebook</p> </a>
                         </div>
                     </div>
                 </div>
