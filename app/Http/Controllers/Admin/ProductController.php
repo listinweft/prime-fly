@@ -422,8 +422,10 @@ class ProductController extends Controller
             $sizes = Size::active()->get();
             $productTypes = ProductType::active()->get();
             $parentIds = Product::where('id', '!=', $id)->where('copy','no')->where('parent_product_id',null)->whereNotIn('id',[$product->parent_product_id])->pluck('id')->toArray();
-            $products = Product::whereIn('id',[$parentIds])->active()->get();
-           
+            
+            $products = Product::whereIn('id',$parentIds)->active()->get();
+          
+
          
             $frames = Frame::get();
             $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
@@ -459,8 +461,8 @@ class ProductController extends Controller
             $sizes = Size::active()->get();
             $productTypes = ProductType::active()->get();
             $parentIds = Product::where('id', '!=', $id)->where('copy','no')->where('parent_product_id',null)->whereNotIn('id',[$product->parent_product_id])->pluck('id')->toArray();
-            $products = Product::whereIn('id',[$parentIds])->active()->get();
-           
+            $products = Product::whereIn('id',$parentIds)->active()->get();
+         
             $frames = Frame::get();
             $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
             $shapes = Shape::get();

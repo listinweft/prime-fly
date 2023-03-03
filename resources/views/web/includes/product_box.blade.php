@@ -9,9 +9,20 @@
                 </div>
                 <div class="cartWishlistBox">
                     <ul>
+                        @php
+                        $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                        $class = '';
+                        if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
+                            $class = 'cart-action';
+                        }
+                        else{
+                            $class = 'out-of-stock';
+                        }
+                        @endphp
+                    
                         <li>
                             <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
-                                    {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}" data-id="{{$product->id}}"  
+                                    {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}"  data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}"
                                     data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
                                     data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                 <div class="textIcon">
@@ -23,17 +34,7 @@
                             </a>
                         </li>
                         <li>
-                            @php
-                                $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('availability','In Stock')->where('stock','!=',0)->first();
-                                $class = '';
-                                if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
-                                    $class = 'cart-action';
-                                }
-                                else{
-                                    $class = 'out-of-stock';
-                                }
-                            @endphp
-                            
+                          
                             <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
                                 <div class="iconBox">
                                     <i class="fa-solid fa-cart-shopping"></i>

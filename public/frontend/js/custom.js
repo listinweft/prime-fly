@@ -485,69 +485,7 @@ $(document).ready(function () {
 
     /****************** cart action *************************/
 
-    $(document).on('click', '.wishlist-action', function () {
-        var id = $(this).data('id');
-        var _token = token;
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            data: {product_id: id, _token: _token},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url + '/add-wishlist',
-            success: function (response) {
-                if (response.status == true) {
-                    if (response.responseStatus == true) {
-                        $('#wishlist_check_' + id).prop('checked', false);
-                        if ($('#wishlistBox' + id).length > 0) {
-                            $('#wishlistBox' + id).remove();
-                        }
-                    } else {
-                        $('#wishlist_check_' + id).prop('checked', true);
-                    }
-                    $('.wishlistCount').html(response.count);
-                    $('.cartCount').html(response.cartCount);
-                    if ($('#cartBox' + id).length > 0) {
-                        $('#cartBox' + id).remove();
-                    }
-                    if (method == "cart" && response.cartCount == 0) {
-                        // $(".successModalForm").modal('show');
 
-                        //     $("#myspan").html(response.message);
-                        //     setTimeout(function(){
-                        //         $(".successModalForm").modal('hide');
-                        //     }, 2000);
-                        swal({
-                            title: 'success',
-                            text: response.message,
-                            type: 'success'
-                        }, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        //$(".successModalForm").modal('show');
-
-                            // $("#myspan").html(response.message);
-                            // setTimeout(function(){
-                            //     $(".successModalForm").modal('hide');
-                            // }, 2000);
-                        swal({
-                            title: 'success',
-                            text: response.message,
-                            type: 'success'
-                        });
-                    }
-                } else {
-                    swal({
-                        title: "Oops",
-                        text: response.message,
-                        type: "error"
-                    });
-                }
-            }
-        });
-    });
 
     $('.outOfStock').on('click', function () {
         //cart contain out of stock product

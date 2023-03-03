@@ -54,7 +54,13 @@ class CartController extends Controller
                     'name' => $product->title,
                     'price' => Helper::defaultCurrencyRate() * $product->price,
                     'quantity' => 1,
-                ));
+                  
+                    'attributes' => array(
+                        'size' => $request->size,
+                        'type_id' => $request->type_id,
+                    ),
+                ),
+            );
                 $message = "Item added to wishlist";
                 $responseStatus = false;
             }
