@@ -29,7 +29,7 @@
 
                         </div> -->
                         <div class="form-group">
-                            <button class="btn primary_btn loginform_submit_btn" data-url="/login" >Send</button>
+                            <button class="btn primary_btn loginform_submit_btn" data-url="/login" >Login</button>
                         </div>
                     </div>
                 </form>

@@ -57,7 +57,7 @@ class LoginController extends Controller
                 session(['session_key' => $sessionKey]);
                 Helper::transferGuestCartToUser($sessionKey);
                  return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in','redirect'=> '/']);
-                
+
             }
         } else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
@@ -161,7 +161,7 @@ class LoginController extends Controller
 
                  $verificationdata->delete();
 
-                
+
 
                 return redirect('/')->with('success', 'Your Account is verified');
 
@@ -187,10 +187,24 @@ class LoginController extends Controller
 
                 $user = User::where('email', $mail)->first();
 
+
+
+
+
+
                 if($user)
                 {
 
+
+
+
                 $token = Str::random(64);
+
+                $verify = Usersverifie::insert([
+                    'email' => $request->mail,
+                    'token' => $token,
+                    'created_at' => now()
+                ]);
 
 
                 $link = url('email-verification/' . $token);
