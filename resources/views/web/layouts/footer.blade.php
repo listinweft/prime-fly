@@ -99,8 +99,9 @@
             <div class="col-lg-3 col-6 order-lg-4 order-lg-2 order-2">
                 <h6>Contact</h6>
                 <ul class="list">
-                    <li>
-                    {{-- {!! @$siteInformation->contact!!} --}}
+                    <li>{!! @$siteInformation->address!!}</li>
+                    <li><span>Ph  &ensp;  </span>: {!! @$siteInformation->phone!!}</li>
+                    <li><span>Mail </span>: {!! @$siteInformation->email!!}</li>
                     </li>
 
                 </ul>
@@ -256,10 +257,10 @@
 
 
 <script>
- 
+
 setTimeout(function () {
     Toast.fire({title: "", text: '{{ Session::get('success')}}', icon: 'success'});
-    
+
 });
 </script>
 @endif

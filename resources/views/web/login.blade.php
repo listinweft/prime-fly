@@ -23,6 +23,7 @@
                         <div class="form-group">
                             <img src="{{asset('frontend/images/loginPassword.png')}}" alt="">
                             <input type="password" class="form-control required" id="password" name="password" placeholder="Password*">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
                         <!-- <div class="form-group">
                             <textarea name="" class="form-control form-message" placeholder="Message*"></textarea>

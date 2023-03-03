@@ -16,19 +16,21 @@
                         <div class="form-group">
                             <img src="{{asset('frontend/images/loginPassword.png')}}" alt="">
                             <input type="password" class="form-control required" id="password" name="password" placeholder="New Password*">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
                             <img src="{{asset('frontend/images/loginPasswordRe.png')}}" alt="">
                             <input type="password" class="form-control required" id="password_confirmation" name="password_confirmation" placeholder="Re-type Password*">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
-                       
+
                         <!-- <div class="form-group">
                             <textarea name="" class="form-control form-message" placeholder="Message*"></textarea>
-                         
+
                         </div> -->
-                        
+
                         <div class="form-group">
-                            <button class="btn primary_btn form_submit_btn" data-url="/reset-password/{{$token}}" >Send</button>
+                            <button class="btn primary_btn form_submit_btn" data-url="/reset-password/{{$token}}" >Reset Password</button>
                         </div>
                     </div>
                 </form>
@@ -48,5 +50,5 @@
 
 @endsection
 @push('scripts')
-    
+
 @endpush

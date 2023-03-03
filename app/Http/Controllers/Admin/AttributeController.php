@@ -317,7 +317,7 @@ class AttributeController extends Controller
     {
         $product_type = ProductType::find($id);
         $validatedData = $request->validate([
-            'title' => 'required|unique:measurement_units,title,' . $id,
+            'title' => 'required|unique:product_type,title,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
         ]);
         if ($request->hasFile('image')) {
@@ -572,7 +572,7 @@ class AttributeController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
-            'title' => 'required|unique:measurement_units,title',
+            'title' => 'required|unique:frames,title',
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
             // 'color' => 'required|unique:frames,deleted_at,NULL',
             'code' => 'required|unique:frames,deleted_at,NULL',
@@ -610,7 +610,7 @@ class AttributeController extends Controller
     {
         $frame = Frame::find($id);
         $validatedData = $request->validate([
-            'title' => 'required|unique:measurement_units,title,' . $id,
+            'title' => 'required|unique:frames,title,' . $id,
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
             // 'color' => 'required|unique:frames,color,' . $id,
             'code' => 'required|unique:frames,code,' . $id,
