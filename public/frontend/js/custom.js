@@ -231,7 +231,7 @@ $(document).ready(function () {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }, url: base_url + '/submit-review', success: function (response) {
                         if (response.status == "true") {
-                            $(".successModalForm").modal('show');
+                            $("#successModal").modal('show');
 
                             document.getElementById("myspan").innerHTML=response.message;
 
@@ -239,7 +239,7 @@ $(document).ready(function () {
 
                             function myGreeting() {
 
-                                 $('.successModalForm').delay(2000).fadeOut();
+                                 $('#successModal').delay(2000).fadeOut();
 
                                  window.location.reload();
                             }
@@ -294,7 +294,7 @@ $(document).ready(function () {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }, url: base_url + '/submit-review', success: function (response) {
                         if (response.status == "true") {
-                            $(".successModalForm").modal('show');
+                            $("#successModal").modal('show');
 
                             document.getElementById("myspan").innerHTML=response.message;
 
@@ -302,7 +302,7 @@ $(document).ready(function () {
 
                             function myGreeting() {
 
-                                 $('.successModalForm').delay(2000).fadeOut();
+                                 $('#successModal').delay(2000).fadeOut();
 
                                  window.location.reload();
                             }
@@ -399,7 +399,7 @@ $(document).ready(function () {
                         if (modal_id) {
                             $("#" + modal_id).hide();
                         }
-                        $(".successModalForm").modal('show');
+                        $("#successModal").modal('show');
 
                             document.getElementById("myspan").innerHTML=response.message;
 
@@ -407,7 +407,7 @@ $(document).ready(function () {
 
                             function myGreeting() {
 
-                                 $('.successModalForm').delay(2000).fadeOut();
+                                 $('#successModal').delay(2000).fadeOut();
 
                                  window.location.reload();
                             }
@@ -511,8 +511,8 @@ $(document).ready(function () {
         else{
             var type_id = $('.size.active').data('id');
         }
-        
-       
+
+
         var frame_id = $('.frame.active').data('id');
         var mount = $('.mount.active').data('mount');
         var checkout = $(this).data('checkout');
@@ -598,7 +598,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.remove-cart-item', function () {
         var id = $(this).data('id');
-   
+
         $.ajax({
             type: 'POST', dataType: 'json', data: {cart_id: id}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -655,7 +655,7 @@ $(document).ready(function () {
                     $('.cart-count').html(response.productCount);
                 } else {
                     Toast.fire('Error', response.message, "error");
-                 
+
                 }
             }
         });
@@ -677,7 +677,7 @@ $(document).ready(function () {
                         $('.cart_final_total').html(response.default_currency+' '+response.cart_final_total);
                         $('.shipping_amount').html(response.default_currency+' '+response.shipping_amount);
                         $('.price'+id).html(response.default_currency+' '+response.total);
-                        
+
                     } else {
                         Toast.fire('Error', response.message, "error");
                         $this.val(response.qty);
@@ -925,17 +925,23 @@ $(document).ready(function () {
                         $("#" + modal_id).modal('hide');
                     }
                     if (response.status == "success") {
-                        Toast.fire({title: "", text: response.message, icon: response.status});
+                        // Toast.fire({title: "", text: response.message, icon: response.status});
+                        $("#successModal").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $("#successModal").modal('hide');
+                            });
+                            window.location.href('/');
                     } else if (response.status == "success-reload") {
-                        // $(".successModalForm").modal('show');
-                        // $("#myspan").html(response.message);
-                        //     setTimeout(function(){
-                        //         $(".successModalForm").modal('hide');
-                        //     }, 2000);
+                        $("#successModal").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModal").modal('hide');
+                            }, 2000);
 
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
                         if (response.redirect) {
                             window.location.href = response.redirect;
                         } else {
@@ -1036,19 +1042,19 @@ $(document).ready(function () {
                     if (modal_id) {
                         $("#" + modal_id).modal('hide');
                     }
+                    // if (response.status == "success-reload") {
+                    //     Toast.fire({title: "", text: response.message, icon: response.status});
+                    // }
                     if (response.status == "success-reload") {
-                        Toast.fire({title: "", text: response.message, icon: response.status});
-                    }
-                    if (response.status == "success-reload") {
-              
+
 
                         Toast.fire({
                             title: "Success!", text: response.message, icon: "success"
                         });
                         setTimeout(() => {
-                            window.location.href = "https://pentacodesdemos.com/artemyst/";
+                            window.location.href = "/";
                         }, 1000);
-                    
+
                     }
 
                     else if (response.status == "error2") {
@@ -1149,7 +1155,7 @@ $(document).ready(function () {
                         } else if (response.status == "error") {
                             $('#email_error').html('Please enter a valid email ID').css({'border-color': '1px solid #FF0000'});
                         } else {
-                             $(".successModalForm").modal('show');
+                             $("#successModal").modal('show');
                             //  $(".successModalForm").modal('show');
                             // Toast.fire({
                             //     title: response.status, text: response.message, icon: response.status
@@ -1164,7 +1170,7 @@ $(document).ready(function () {
 
 
 
-    
+
 
     $(window).scroll(function () {
         $(".load-more-button").each(function () {
@@ -1190,16 +1196,16 @@ $(document).ready(function () {
     });
 
     function loadMoreData() {
-    
+
         var total_products = $('#totalProducts').val();
-        
+
         var offset = $('#loading_offset').val();
-        
+
         var btnHtml = $('.load-more-product').html();
 
-      
+
         if (total_products > offset) {
-           
+
             $('.load-more-product').html('Please wait..!');
             $.ajax({
                 type: 'POST', data: $('#filter-form').serialize(), headers: {
@@ -1217,10 +1223,10 @@ $(document).ready(function () {
                 }
             });
         }
-    
+
     }
 
-    
+
 
     function blogLoadMoreData() {
         var total_blogs = $('#totalBlogs').val();
@@ -1350,8 +1356,8 @@ $(document).ready(function () {
                     $('.offer_price').html(response.productPrice);
                     $('.product_price').html('');
                 }
-               
-             
+
+
                 if(response.availabilty == "In Stock"){
                     $('.cartBtn').removeClass('out-of-stock');
                     $('.cartBtn').addClass('cart-action');
@@ -1359,11 +1365,11 @@ $(document).ready(function () {
                     $('.instock').addClass('d-none');
                 }
                 else{
-               
+
                     $('.cartBtn').addClass('out-of-stock');
                     $('.cartBtn').removeClass('cart-action');
                     $('.outstock').addClass('d-none');
-                  
+
                     //empty instock
                     $('.instock').html('');
                     $('.instock').append('');
@@ -1414,7 +1420,7 @@ $(document).ready(function () {
                     if (data.status == 'error') {
                         swal.fire('Error !', data.message, 'error');
                     } else {
-                   
+
                         var resp = data.message;
                         var len = resp.length;
                         $("#" + form_id + " #state").empty().append("<option value=''>Select Emirate</option>");
@@ -1484,7 +1490,7 @@ $(document).ready(function () {
             $('.filteredContents').hide();
             $("#tags").hide();
         }
-       
+
 
         Toast.fire("Done it!", 'Filter cleared', "success");
         window.location.reload();
@@ -1498,19 +1504,19 @@ $(document).ready(function () {
         $('#' + id).prop('checked', false);
         if ($('#filterResult').val() == null || $('#filterResult').val() == '') {
 
-           
+
 
             $("#tags").hide();
-          
+
             $('.filteredContents').hide();
 
-           
 
-           
+
+
 
 
         }
-       
+
         filterProducts();
     });
 
@@ -1519,7 +1525,7 @@ $(document).ready(function () {
         $(this).closest('.colorItemFilterClick').toggleClass("active") ;
         $(this).closest('.shapeFilterClick').toggleClass("active") ;
         $(this).closest('.tagFilterClick').toggleClass("active") ;
-        
+
 
 
        var parent = $(this).data('parent');
@@ -1573,9 +1579,9 @@ $(document).ready(function () {
             }, url: base_url + '/filter-product', success: function (response) {
                 $("#tags").show();
 
-                
 
-              
+
+
 
                 $('.productList').html(response);
                 Toast.fire("Done it!", 'Filter Applied', "success");
@@ -1726,8 +1732,8 @@ $(document).ready(function () {
 
     $(".range_bar_sort").on("slidechange", function (event, ui) {
 
-       
-        
+
+
         $("#amount").val("AED" + $("#slider-range").slider("values", 0) + " - AED" + $("#slider-range").slider("values", 1));
         filterProducts();
     });

@@ -330,8 +330,8 @@ class AttributeController extends Controller
             $product_type->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
             $product_type->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
-      
-      
+
+
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
             session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been updated successfully");
@@ -580,8 +580,8 @@ class AttributeController extends Controller
         $frame = new Frame;
 
         if ($request->hasFile('image')) {
-            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/frame/image/webp/', $request->title);
-            $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
+            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $frame->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $frame->title = $validatedData['title'];
         // $frame->color = $validatedData['color'];
@@ -622,8 +622,8 @@ class AttributeController extends Controller
             if (File::exists(public_path($frame->image_webp))) {
                 File::delete(public_path($frame->image_webp));
             }
-            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/frame/image/webp/', $request->title);
-            $frame->image = Helper::uploadFile($request->image, 'uploads/frame/image/', $request->title);
+            $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
+            $frame->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
         $frame = Frame::find($id);
         $frame->title = $validatedData['title'];
