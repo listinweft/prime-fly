@@ -19,7 +19,7 @@
                     <h1>Blog Detail</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php"><img src="assets/images/home.png" alt=""></a></li>
+                            <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/home.png')}}"></a></li>
                             <li class="breadcrumb-item"><a href="product-listing.php">Blogs</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{$blog->title}}</li>
                         </ol>

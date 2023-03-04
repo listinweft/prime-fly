@@ -531,11 +531,11 @@
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($collect) && $collect->mobile_image4!=NULL)
-                initialPreview: ["{{asset($collect->mobile_image4)}}",],
+                initialPreview: ["{{asset($collect->mobile_image5)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{ ($collect->mobile_image4!=NULL)?$collect->title:''}}",
+                    caption: "{{ ($collect->mobile_image5!=NULL)?$collect->title:''}}",
                     width: "120px",
-                    key: "{{($collect->mobile_image4)}}",
+                    key: "{{($collect->mobile_image5)}}",
                 }]
                 @endif
             });

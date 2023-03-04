@@ -15,7 +15,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                           
-                                <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/svg/aboutBanner.jpg')}} alt=""></a></li>
+                                <li class="breadcrumb-item"><a href="index.php"><img src="{{asset('frontend/images/home.png')}}"></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
                             </ol>
                         </nav>
