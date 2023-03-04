@@ -617,19 +617,18 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/remove-cart-item', success: function (response) {
                 if (response.status == true) {
-                    // $(".successModalForm").modal('show');
+                   
+                    $(".successModalForm").modal('show');
 
-                    //         $("#myspan").html(response.message);
-                    //         setTimeout(function(){
-                    //             $(".successModalForm").modal('hide');
-                    //         }, 2000);
-                    swal.fire({
-                        title: "",
-                        text: response.message,
-                        type: "success"
-                    }, function () {
-                        window.location.reload();
-                    });
+                            $("#myspan").html(response.message);
+                          
+                    // swal.fire({
+                    //     title: "",
+                    //     text: response.message,
+                    //     type: "success"
+                    // }, function () {
+                    //     // window.location.reload();
+                    // });
                     setTimeout(() => {
                         location.reload();
                     }, 800);

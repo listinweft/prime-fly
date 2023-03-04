@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
                 <picture class="d-flex justify-content-center">
-                    <img class="img-fluid" src="{{asset('frontend/images/404.png')}}" alt="">
+                    <img class="img-fluid" src="{{asset('frontend/images/error.png')}}" alt="">
                 </picture>
                 <p>
                  Page not found
