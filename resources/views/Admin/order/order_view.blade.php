@@ -90,7 +90,7 @@
                                             <th>Type</th>
                                             <th>Frame Colour</th>
                                             <th>Size</th>
-                                        
+                                            <th>Mount</th>
                                             <th>Quantity</th>
                                             <th>Status</th>
                                             <th>Price</th>
@@ -136,6 +136,14 @@
                                                     @if(@$size)
                                                     {{ $size->title }}
                                                     @endif
+                                                </td>
+                                                <td>
+                                                    
+                                                    @if($product->mount == 'yes')
+                                                    <span> With Mount</span>
+                                                @else
+                                                    <span> No Mount</span>
+                                                @endif
                                                 </td>
                                                
                                                 <td>{{$product->qty}}</td>

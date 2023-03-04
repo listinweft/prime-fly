@@ -251,7 +251,7 @@ class WebController extends Controller
         if ($category) {
             $seo_data = $category;
             $parentCategories = Category::active()->isParent()->get();
-            $banner = $category;
+            $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
             $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
             ->where('copy','no');

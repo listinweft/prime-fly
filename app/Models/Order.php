@@ -57,7 +57,7 @@ class Order extends Model
         $to_name = $contact->name;
         Mail::send('mail_templates.contact_reply', array('contact' => $contact), function ($message) use ($to, $to_name, $common, $contactAddress) {
             $message->to($to, $to_name)->subject(config('app.name') . ' - Contact Request Reply');
-            $message->from($contactAddress->email, $contactAddress->email_recipient);
+            $message->from($common->email, $common->email_recipient);
         });
         return true;
     }
@@ -72,20 +72,24 @@ class Order extends Model
         Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $to_name,
             'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $contactAddress) {
             $message->to($to, $to_name)->subject(config('app.name') . ' - Order Status Changed');
-            $message->from($contactAddress->email, $contactAddress->email_recipient);
+            $message->from($common->email, $common->email_recipient);
             /*if($status=="Cancelled"){
                 $message->bcc($common->admin_mail, $common->admin_name);
             }*/
         });
         //mail to /admins
-        Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $common->email_recipient,
-            'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $contactAddress) {
-            $message->to($contactAddress->email, $contactAddress->email_recipient)->subject(config('app.name') . ' - Order Status Changed');
-            $message->from($contactAddress->email, $contactAddress->email_recipient);
-            /*if($status=="Cancelled"){
-                $message->bcc($common->admin_mail, $common->admin_name);
-            }*/
-        });
+        $emails = explode(',', $common->order_emails);
+        foreach ($emails as $email) {
+
+            Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $common->email_recipient,
+                'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $email) {
+                    $message->to($email, $common->email_recipient)->subject(config('app.name') . ' - Order Status Changed');
+                $message->from($common->email, $common->email_recipient);
+                /*if($status=="Cancelled"){
+                    $message->bcc($common->admin_mail, $common->admin_name);
+                }*/
+            });
+        }
         return true;
     }
 
@@ -655,7 +659,7 @@ class Order extends Model
         $to_name = $customerData->first_name . ' ' . $customerData->last_name;
         Mail::send('mail_template.notify_cart', array('name' => $to_name, 'common' => $common, 'cartData' => $cartData, 'defaultTemplate' => $defaultTemplate, 'type' => $type), function ($message) use ($to, $to_name, $common, $contactAddress) {
             $message->to($to, $to_name)->subject(config('app.name') . ' - Cart Notify');
-            $message->from($contactAddress->email, $contactAddress->email_receipient_name);
+            $message->from($common->email, $common->email_receipient_name);
         });
         return true;
     }

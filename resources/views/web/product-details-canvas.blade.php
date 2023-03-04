@@ -428,7 +428,7 @@
                         <input type="hidden" id="type" name="type" value="product">
                         <input type="hidden" id="proid" name="product_id" value="{{$product->id}}">
                         <input type="hidden" id="product_type_id" name="product_type_id" value="{{$product->product_type_id}}">
-                        <input type="" id="size_id" name="size_id" value="">
+                        <input type="hidden" id="size_id" name="size_id" value="">
                         <div class="form-group">
                            <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                         </div>
