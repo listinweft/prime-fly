@@ -1085,7 +1085,7 @@ $(document).ready(function () {
                             title: "Success!", text: response.message, icon: "success"
                         });
                         setTimeout(() => {
-                            window.location.href = "https://pentacodesdemos.com/artemyst/";
+                            window.location.href = base_url;
                         }, 1000);
 
                     }

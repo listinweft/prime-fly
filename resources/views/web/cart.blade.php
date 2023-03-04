@@ -187,24 +187,8 @@
 </section>
 @endif
 @if(@$recently_viewed_products)
-<section class="recommended-products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading">
-                    <h4>Recently Viewed Products</h4>
-                </div>
-                <div class="recommended-slider">
-
-                    @foreach($recently_viewed_products as $recent_product)
-
-                        @include('web.includes.product_card',['product'=>$recent_product->product])
-
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-@endif`
+    @include('web.includes.recently_viewed_products',['recentlyViewedProducts' => $recently_viewed_products])
+    @endif
 @endsection
+
+

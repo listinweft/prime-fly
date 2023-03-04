@@ -335,9 +335,9 @@ class CartController extends Controller
         $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
-       
+        $recently_viewed_products = Helper::getRecentProducts();
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box',
+        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box','recently_viewed_products',
             'banner', 'featuredProducts'));
     }
 

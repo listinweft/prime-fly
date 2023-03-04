@@ -62,51 +62,51 @@
                 </div>
             </div>
     </div>
-    <div class="product-details">
-        <a href="{{ url('/product/'.$product->short_url) }}">
-            <div class="pro-name">
-            {{ $product->title }}
-        </div>
-        <ul class="price-area">
-            @if(Helper::offerPrice($product->id)!='')
-                <li class="offer">
-                    @php
-                        $offerId =Helper::offerId($product->id);
-                    @endphp
-                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}
-                </li>
-                <li>
-                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
-                </li>
-                 @else
+        <div class="product-details">
+            <a href="{{ url('/product/'.$product->short_url) }}">
+                <div class="pro-name">
+                {{ $product->title }}
+            </div>
+            <ul class="price-area">
+                @if(Helper::offerPrice($product->id)!='')
+                    <li class="offer">
+                        @php
+                            $offerId =Helper::offerId($product->id);
+                        @endphp
+                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}
+                    </li>
                     <li>
                         {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
                     </li>
-                 
-                   
-                 
-                  
-                    @endif
-                            </ul>
-                            <ul class="type-review">
-                            @if($product->product_categories->count() > 1)
-                                <li>
-                                {{ $product->product_categories[0]->title }}, ...
+                    @else
+                        <li>
+                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                        </li>
+                    
+                    
+                    
+                    
+                        @endif
+                                </ul>
+                                <ul class="type-review">
+                                @if($product->product_categories->count() > 1)
+                                    <li>
+                                    {{ $product->product_categories[0]->title }}, ...
+                                    
+                                    </li>
+                                    @else
+                                    <li>
+                                    {{ $product->product_categories[0]->title }}
+                                    
+                                    </li>
+                                    @endif
                                 
-                                </li>
-                                @else
-                                <li>
-                                {{ $product->product_categories[0]->title }}
-                                
-                                </li>
-                                @endif
-                              
-                                @if(Helper::averageRating($product->id)>0)
-                                <li class="review">
-                                    <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
-                                </li>
-                                @endif
-                            </ul>
-                        </a>
-                    </div>
+                                    @if(Helper::averageRating($product->id)>0)
+                                    <li class="review">
+                                        <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                    </li>
+                                    @endif
+                                </ul>
+                            </a>
+                        </div>
                 </div>

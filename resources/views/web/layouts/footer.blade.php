@@ -8,26 +8,43 @@
                 </a>
                 <ul class="list">
                     <li>
-                        <a href="aboutUs.php">Our Story</a>
+                        <a href="{{url('about')}}">Our Story</a>
                     </li>
+                  
                     <li>
-                        <a href="errorPage.php">Sustainability</a>
+                        <a href="{{url('products')}}">Shop Now</a>
                     </li>
-                    <li>
-                        <a href="errorPage.php">Art for Business</a>
-                    </li>
-                    <li>
-                        <a class="strong" href="my-account.php">My Account</a>
-                    </li>
+                    @if(Auth::guard('customer')->check())
+                        <li>
+                            <a class="strong" href="{{ url('customer/account/profile') }}">My Account</a>
+                        </li>
+                    @endif
                 </ul>
 
                 <div class="socialArea">
                     <h6>Connect With Us</h6>
                     <div class="iconBox">
-                        <a href=""><i class="fa-brands fa-instagram"></i></a>
-                        <a href=""><i class="fa-brands fa-facebook"></i></a>
-                        <a href=""><i class="fa-brands fa-linkedin"></i></a>
-                        <a href=""><i class="fa-brands fa-twitter"></i></a>
+                        @if($siteInformation->instagram_url)
+                            <a href="{{$siteInformation->instagram_url}}"><i class="fa-brands fa-instagram"></i></a>
+                        @endif
+                        @if($siteInformation->facebook_url)
+                            <a href="{{$siteInformation->facebook_url}}"><i class="fa-brands fa-facebook"></i></a>
+                        @endif
+                        @if($siteInformation->linkedin_url)
+                            <a href="{{$siteInformation->linkedin_url}}"><i class="fa-brands fa-linkedin"></i></a>
+                        @endif
+                        @if($siteInformation->twitter_url)
+                            <a href="{{$siteInformation->twitter_url}}"><i class="fa-brands fa-twitter"></i></a>
+                        @endif
+                        @if($siteInformation->snapchat_url)
+                            <a href="{{$siteInformation->twitter_url}}"><i class="fa-brands fa-snapchat"></i></a>
+                        @endif
+                        @if($siteInformation->youtube_url)
+                            <a href="{{$siteInformation->youtube_url}}"><i class="fa-brands fa-youtube"></i></a>
+                        @endif
+                        @if($siteInformation->pinterest_url)
+                            <a href="{{$siteInformation->pinterest_url}}"><i class="fa-brands fa-pinterest"></i></a>
+                        @endif
                     </div>
                 </div>
             </div>

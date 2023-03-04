@@ -185,26 +185,55 @@
         <div class="connectArea">
             <h6>Connect With Us</h6>
             <div class="d-flex align-items-center">
+                @if($siteInformation->instagram_url)
+                    <div class="list">
+                        <a href="{{$siteInformation->instagram_url}}">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+                @endif
+                @if($siteInformation->facebook_url)
+                    <div class="list">
+                        <a href="{{$siteInformation->facebook_url}}">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </div>
+                @endif
+                @if($siteInformation->linkedin_url)
+                    <div class="list">
+                        <a href="{{$siteInformation->linkedin_url}}">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                    </div>
+                @endif
+                @if($siteInformation->twitter_url)
                 <div class="list">
-                    <a href="">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                </div>
-                <div class="list">
-                    <a href="">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                </div>
-                <div class="list">
-                    <a href="">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-                </div>
-                <div class="list">
-                    <a href="">
+                    <a href="{{$siteInformation->twitter_url}}">
                         <i class="fa-brands fa-twitter"></i>
                     </a>
                 </div>
+                @endif
+                @if($siteInformation->youtube_url)
+                <div class="list">
+                    <a href="{{$siteInformation->youtube_url}}">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+                @endif
+                @if($siteInformation->pinterest_url)
+                <div class="list">
+                    <a href="{{$siteInformation->pinterest_url}}">
+                        <i class="fa-brands fa-pinterest"></i>
+                    </a>
+                </div>
+                @endif
+                @if($siteInformation->snapchat_url)
+                <div class="list">
+                    <a href="{{$siteInformation->snapchat_url}}">
+                    <i class="fa-brands fa-snapchat"></i>
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -315,19 +344,26 @@
                             </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{url('/')}}">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/wishlist.png')}}" alt="">
-                            </a>
-                        </li>
+                        @if(Auth::guard('customer')->check())
+                            <li>
+                                <a href="{{url('customer/account/wishlist')}}">
+                                    <img class="img-fluid" src="{{ asset('frontend/images/wishlist.png')}}" alt="">
+                                </a>
+                            </li>
+                        @endif
                         <li class="login">
                             <div class="dropdown">
                                 <a class="userBox dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img class="img-fluid icon"  src="{{ asset('frontend/images/user.png')}}" alt="">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="{{url('login')}}">Login</a></li>
-                                    <li><a class="dropdown-item" href="{{url('register')}}">Register</a></li>
+                                    @if(Auth::guard('customer')->check())
+                                    <li><a class="dropdown-item" href="{{ url('customer/account/profile') }}">My Account</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('logout') }}">Logout</a></li>
+                                    @else
+                                    <li><a class="dropdown-item" href="{{ url('login') }}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('register') }}">Register</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </li>

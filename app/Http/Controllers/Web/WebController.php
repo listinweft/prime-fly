@@ -64,13 +64,14 @@ class WebController extends Controller
     {
         $seo_data = $this->seo_content('Home');
 
-
         $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
       $selectionheading = HomeHeading::where('type','selection')->first();
       $themes = Category::active()->oldest('sort_order')->get();
         $testimonials = Testimonial::active()->take(10)->get();
+        $recentlyViewedProducts = Helper::getRecentProducts();
+       
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
      $selection = Product::active()->where('copy','no')->where('type','selection')->orderBy('order')->limit(8)->get();
@@ -81,7 +82,7 @@ class WebController extends Controller
 
 
     //     return view('web.home', compact('seo_data', 'ourcollection'));
-        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products','selection','selectionheading'));
+        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products','selection','selectionheading','recentlyViewedProducts'));
     }
 
 

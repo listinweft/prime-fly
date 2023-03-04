@@ -44,10 +44,12 @@
     </div>
 </section>
 @endif
-@if(Auth::check())
-@if(@$relatedProducts->isNotEmpty())
-@include('web._related_products')
-@endif
+
+
+
+@if(@$recentlyViewedProducts->isNotEmpty())
+@include('web.includes.recently_viewed_products')
+
 @endif
 <!--Home Collection Start-->
 @if(@$ourcollection)
@@ -243,25 +245,28 @@
                                             {{-- <div class="my-rating-readonly" data-rating="4"></div> --}}
                                             <div class="price">
                                                 <ul>
-
+                                                    @php
+                                                    $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                                                    @endphp
 
                                                     @if(Helper::offerPrice($product->id)!='')
-                                                    <li class="offer">
-
-                                                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceAmount($product->id),2)}}
-                                                    </li>
+                                                <li class="offer">
+                                                    @php
+                                                        $offerId =Helper::offerId($product->id);
+                                                    @endphp
+                                                    {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}
+                                                </li>
+                                                <li>
+                                                    {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
+                                                </li>
+                                                 @else
                                                     <li>
-                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
+                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
                                                     </li>
-
-
-                                                    @else
-                                                    <li>
-                                                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->price,2)}}
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
+                                                 
+                                                   
+                                                 
+                                                  
                                                     @endif
                                                 </ul>
                                             </div>
