@@ -131,7 +131,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group" >
                                         <label for="">Emirate</label>
-                                        <select class="form-control form_select required shipping-login-value-change" name="state" id="state" required>
+                                        <select class="form-control form_select required shipping-login-value-change" name="state" id="shipping_state" required>
                                             <option selected disabled value="">Select Emirate*</option>
                                             @if(!empty($shipping_states))
                                                 @foreach($shipping_states as $shipping_state)
@@ -283,7 +283,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group" >
-                                            <select name="state" id="state" class="form-control form_select  billing-login-value-change " >
+                                            <select name="state" id="billing_state" class="form-control form_select  billing-login-value-change " >
                                                 <option selected disabled value="">Select Emirate</option>
                                                 @if(!empty($billing_states))
                                                 @foreach($billing_states as $billing_state)
@@ -390,7 +390,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group" >
                                         <label for="">Emirate</label>
-                                        <select class="form-control form_select required shipping-value-change" name="shipping_state" id="state" required>
+                                        <select class="form-control form_select required shipping-value-change" name="shipping_state" id="shipping_state" required>
                                             <option selected disabled value="">Select Emirate*</option>
                                             @if(!empty($shipping_states))
                                                 @foreach($shipping_states as $shipping_state)
@@ -494,7 +494,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group" >
                                             <label for="">State</label>
-                                            <select name="state" id="state" class="form-control form_select  billing-value-change " >
+                                            <select name="state" id="billing_state" class="form-control form_select  billing-value-change " >
                                                 <option selected disabled value="">Select Emirate</option>
                                                 @if(!empty($billing_states))
                                                 @foreach($billing_states as $billing_state)

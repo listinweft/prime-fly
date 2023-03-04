@@ -114,6 +114,7 @@
                 <h6>Shipping Charge</h6>
             </div>
             <div class="right">
+               
                 <h5 class="shipping_amount">{{Helper::defaultCurrency()}} {{number_format($calculation_box['shippingAmount'],2)}}</h5>
             </div>
         </li>

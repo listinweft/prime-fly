@@ -852,7 +852,7 @@ class Helper
                             $maximum_valid = false;
                         }
                     }
-
+              
                     if ($minimum_valid == true && $maximum_valid == true) {
                         if (Auth::guard('customer')->check()) {
                             if (Session::has('selected_shipping_address')) {
@@ -1082,7 +1082,7 @@ class Helper
                         }
                         return array(
                             'status' => 'error',
-                            'message' => "Purchase amount must be above " . $currency . ' ' . $coupon->minimum_spend,
+                            'message' => "Purchase amount must be above " . $currency . ' ' . $coupon->minimum_spend ." and below " . $currency . ' ' . $coupon->maximum_spend,
                         );
                     }
                 } else {
