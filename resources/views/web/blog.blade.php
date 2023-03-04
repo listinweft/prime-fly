@@ -69,10 +69,10 @@
                         <div class="share">
                             <p>Share</p>
                             <div>
-                                <a href="" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                                <a href="" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                                <a href="" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="{{'https://www.facebook.com/sharer/sharer.php?u='.Request::fullUrl() }}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="{{'https://wa.me/?text='.Request::fullUrl()}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="{{'https://twitter.com/intent/tweet/?url='.Request::fullUrl() }}" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="{{'https://www.linkedin.com/shareArticle?mini=true&url='.Request::fullUrl() }}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
                             </div>
                         </div>
                         <div class="prev_next">
