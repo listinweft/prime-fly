@@ -298,7 +298,11 @@
                         <div class="testimonialsCard">
                             <div class="testimonialsProfile">
                                 <div class="leftPhoto">
+                                    @if($blog->image != null)
+                                    {!! Helper::printImage(@$blog, 'image', 'image_webp', 'image_attribute', 'img-fluid') !!}
+                                    @else
                                     <img class="img-fluid" src="{{ asset('frontend/images/user icon.png')}}" alt="">
+                                    @endif
 
                                 </div>
                                 <div class="rightDetails">

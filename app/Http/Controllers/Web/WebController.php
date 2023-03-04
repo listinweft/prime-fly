@@ -134,7 +134,8 @@ class WebController extends Controller
         $contact->product_type_id = $request->product_type_id ?? NULL;
         $contact->size_id = $request->size_id ?? NULL;
         $contact->frame_id = $request->frame_id ?? NULL;
-        //$contact->frame_id = $request->frame_id ?? NULL;
+        $contact->mount = $request->mount ?? NULL;
+      
         $contact->request_url = url()->previous();
 
 

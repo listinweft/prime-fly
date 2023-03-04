@@ -509,7 +509,7 @@ $(document).ready(function () {
             var type_id = $(this).data('product_type_id');
         }
         else{
-            var type_id = $('.size.active').data('id');
+            var type_id   = $('.size.active').data('product_type_id');
         }
 
 
@@ -768,7 +768,7 @@ $(document).ready(function () {
 
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-        console.log(formData);
+        
 
         var errors = false;
         $('form input, form textarea').removeClass('is-invalid is-valid');

@@ -441,8 +441,10 @@
                         </div>
                         {{-- <input type="hidden" name="subject" value="subject"> --}}
 
-                        <input type="hidden" name="type" value="product">
-                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <input type="hidden" id="type" name="type" value="product">
+                        <input type="hidden" id="proid" name="product_id" value="{{$product->id}}">
+                        <input type="hidden" id="product_type_id" name="product_type_id" value="{{$product->product_type_id}}">
+                        <input type="" id="size_id" name="size_id" value="">
                         <div class="form-group">
                            <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                         </div>
@@ -457,3 +459,16 @@
 
 
 @endsection
+@push('scripts')
+<script>
+
+   
+    var size = $('.size.active').data('id');
+    $('#size_id').val(size);
+
+$('.size').onclick(function(){
+    var size = $(this).data('id');
+    $('#size_id').val(size);
+});
+   </script>
+@endpush

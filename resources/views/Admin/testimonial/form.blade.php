@@ -108,27 +108,27 @@
                                     <div class="help-block with-errors" id="message_error"></div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="image"> Image*</label>
-                                    <div class="file-loading">
-                                        <input id="image" name="image" type="file" accept="image/*">
-                                    </div>
-                                    <span class="caption_note">Note: Image dimension must be 200 x 200 px
-                                    and Size must be less than 512 KB</span>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="image"> Image*</label>
+                                <div class="file-loading">
+                                    <input id="image" name="image" type="file" accept="image/*">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="image_attribute"> Image Attribute*</label>
-                                    <input type="text" class="form-control required placeholder-cls"
-                                           id="image_attribute" name="image_attribute"
-                                           placeholder="Alt='Image Attribute'"
-                                           value="{{ isset($testimonial)?$testimonial->image_attribute:'' }}">
-                                    <div class="help-block with-errors" id="image_attribute_error"></div>
-                                    @error('image_attribute')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <span class="caption_note">Note: Image dimension must be 200 x 200 px
+                                and Size must be less than 512 KB</span>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="image_attribute"> Image Attribute*</label>
+                                <input type="text" class="form-control required placeholder-cls"
+                                        id="image_attribute" name="image_attribute"
+                                        placeholder="Alt='Image Attribute'"
+                                        value="{{ isset($testimonial)?$testimonial->image_attribute:'' }}">
+                                <div class="help-block with-errors" id="image_attribute_error"></div>
+                                @error('image_attribute')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"

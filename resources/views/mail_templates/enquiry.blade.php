@@ -121,11 +121,7 @@
                                 <td style="padding:5px;font-weight:bold;">:</td>
                                 <td style="padding:5px;font-weight:bold;">{phone}</td>
                             </tr>
-                            <tr>
-                                <td style="padding:5px;font-weight:bold;">Subject</td>
-                                <td style="padding:5px;font-weight:bold;">:</td>
-                                <td style="padding:5px;font-weight:bold;">{subject}</td>
-                            </tr>
+                        
                             <tr>
                                 <td style="padding:5px;font-weight:bold;">Message</td>
                                 <td style="padding:5px;font-weight:bold;">:</td>

@@ -508,7 +508,7 @@
                         <input type="hidden" id="product_type_id" name="product_type_id" value="">
                         <input type="hidden" id="size_id" name="size_id" value="">
                         <input type="hidden" id="frameid" name="frame_id" value="">
-                        <input type="hidden" id="mount_id" name="mount_id" value="">
+                        <input type="hidden" id="mount_id" name="mount" value="">
                         <div class="form-group">
                            <button class="btn primary_btn form_submit_btn" data-url="/enquiry">Send</button>
                         </div>
@@ -523,22 +523,26 @@
 @endsection
 @push('scripts')
 <script>
+ var type_id   = $('.size.active').data('product_type_id');
+$('#product_type_id').val(type_id);
 
-var ptype = $('#ptype').val();
-$('#product_type_id').val(ptype);
+var frame_id = $('.frame.active').data('id');
 
-var fid = $('#pframe').val();
+ $('#frameid').val(frame_id);
 
- $('#frameid').val(fid);
-
-var psize = $('#psize').val();
- $('#size_id').val(psize);
+ var size = $('.size.active').data('id');
+ $('#size_id').val(size);
 
 
  var pid = $('#pid').val();
  $('#proid').val(pid);
 
-
+ var mount = $('.mount.active').data('mount');
+ $('#mount_id').val(mount);
+ $('.size').onclick(function(){
+    var size = $(this).data('id');
+    $('#size_id').val(size);
+});
 </script>
 
 @endpush

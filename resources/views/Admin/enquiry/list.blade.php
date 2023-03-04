@@ -82,18 +82,22 @@
                                                        id="{{ $enquiry->id }}" value="{{ $enquiry->id }}"></td>
                                             <td>{{ $enquiry->name}}</td>
                                             @if($type == "bulk")
-                                                <td>{{ $enquiry->product->title}}</td>
-                                                <td>{{ $enquiry->productType->title }}</td>
-                                                <td>{{ $enquiry->Frame->title}}</td>
+                                                <td>{{ $enquiry->product->title ?? ''}}</td>
+                                                <td>{{ $enquiry->productType->title ?? ''}}</td>
+                                                <td>{{ $enquiry->Frame->title ?? ''}}</td>
                                                 {{-- <td>{{ $enquiry->product->mount}}</td> --}}
                                                 <td>
-                                                    @if($enquiry->product['mount'] == 'Yes')
+                                                    @if($enquiry->product != NULL)
+                                                    @if($enquiry->mount == "Yes")
                                                         <span> With Mount</span>
-                                                    @else
+                                                    @elseif($enquiry->mount == "No")
                                                         <span> No Mount</span>
+                                                        @else
+                                                        <span></span>
+                                                    @endif
                                                     @endif
                                             </td>
-                                                <td>{{ $enquiry->Size->title }}</td>
+                                                <td>{{ $enquiry->Size->title  ?? ''}}</td>
                                             @endif
                                             <td>{{ $enquiry->email}}</td>
                                             <td>{{ $enquiry->phone }}</td>
