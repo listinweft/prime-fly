@@ -118,6 +118,7 @@
                         </div>
                     </div>
                 </form>
+           
         </section>
     </div>
     <script type="text/javascript">
@@ -143,7 +144,8 @@
                 initialPreview: ["{{asset($frame->image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($frame->image!=NULL)?last(explode('/',$frame->image)):''}}",
-                    width: "120px"
+                    width: "120px",
+                    key: "{{'product/image/'.$frame->id.'/image_webp' }}",
                 }]
                 @endif
             });
