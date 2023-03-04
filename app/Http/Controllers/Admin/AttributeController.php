@@ -334,10 +334,10 @@ class AttributeController extends Controller
 
         $product_type->title = $validatedData['title'];
         if ($product_type->save()) {
-            session()->flash('success', "Measurement Unit '" . $product_type->title . "' has been updated successfully");
+            session()->flash('success', "Product Type '" . $product_type->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/product-type');
         } else {
-            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+            return back()->withInput($request->input())->withErrors("Error while updating the product Type");
         }
     }
 
@@ -435,7 +435,7 @@ class AttributeController extends Controller
             session()->flash('message', "Size '" . $size->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/size');
         } else {
-            return back()->withInput($request->input())->withErrors("Error while updating the color");
+            return back()->withInput($request->input())->withErrors("Error while updating the size");
         }
     }
 
@@ -625,15 +625,13 @@ class AttributeController extends Controller
             $frame->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/image/webp/', $request->title);
             $frame->image = Helper::uploadFile($request->image, 'uploads/product/image/', $request->title);
         }
-        $frame = Frame::find($id);
         $frame->title = $validatedData['title'];
-        // $frame->title = $validatedData['color'];
-        $frame->code = $validatedData['code'];
+        $frame->updated_at = now();
         if ($frame->save()) {
-            session()->flash('success', "Frame '" . $frame->title . "' has been updated successfully");
+            session()->flash('message', "Shape '" . $frame->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/frame');
         } else {
-            return back()->withInput($request->input())->withErrors("Error while updating the measurement unit");
+            return back()->withInput($request->input())->withErrors("Error while updating the frame");
         }
     }
 
@@ -642,7 +640,8 @@ class AttributeController extends Controller
         if (isset($request->id) && $request->id != NULL) {
             $frame = Frame::find($request->id);
             if ($frame) {
-                if ($frame->delete()) {
+                $deleted = $frame->delete();
+                if ($deleted == true) {
                     return response()->json(['status' => true]);
                 } else {
                     return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
@@ -653,6 +652,7 @@ class AttributeController extends Controller
         } else {
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
+
     }
 }
 
