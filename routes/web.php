@@ -220,6 +220,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     /******************************** Common Routes ************************************/
     Route::post('home-heading', [HomeController::class, 'update_home_heading']);
+    Route::get('home-heading', [HomeController::class, 'create_home_heading']);
     Route::post('status-change', [HomeController::class, 'status_change']);
     Route::post('change-bool-status', [HomeController::class, 'change_bool_status']);
     Route::post('sort_order/', [HomeController::class, 'sort_order']);
