@@ -976,8 +976,9 @@ $(document).ready(function () {
         var required = [];
         $('.required').each(function () {
             var id = $(this).attr('id');
-        
+   
             var id_text = $(this).attr('placeholder');
+           
             if ($(this).hasClass('tinyeditor')) {
                 var editorContent = tinymce.get($(this).attr('id')).getContent();
                 if (editorContent == '') {
@@ -991,6 +992,30 @@ $(document).ready(function () {
                 }
             } else {
                 if ($('#' + id).val() == '') {
+                    if(id === 'short_url'){
+                        console.log(id);
+                        required.push($('#' + id).val());
+                        $.ajax({
+                            type: 'POST', dataType: 'json', data: $('#reviewForm').serialize(), headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },  url: base_url + '/product/validate', success: function (response) {
+                                console.log(response);
+                            },
+                            error: function (data) {
+                                if(data.responseJSON['errors']){
+                                    let err = data.responseJSON['errors'];
+                                    $.each(err, (i,j)=>{
+                                        required.push(i);
+                                        $('#' + i + '_error').html(j).css({
+                                            'color': '#FF0000', 'font-size': '14px'
+                                        });
+                                        $('.'+i).append(j+'<br/>');
+                                    });
+                                }
+                            }
+                        });
+                    
+                    }
                     required.push($('#' + id).val());
                     // $('#'+id+'_error').html('Please enter '+id_text).css({'color':'#FF0000','font-size':'14px'});
                     $('#' + id + '_error').html('This field is required').css({

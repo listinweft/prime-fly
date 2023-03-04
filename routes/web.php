@@ -606,7 +606,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('edit/{id}', [ProductController::class, 'product_edit']);
         Route::post('edit/{id}', [ProductController::class, 'product_update']);
         Route::post('delete', [ProductController::class, 'delete_product']);
-        Route::get('export', [ProductController::class, 'product_export']);
+        Route::get('export', [ReportController::class, 'product_export'])->name('export');
         Route::get('copy/{id}', [ProductController::class, 'copy_product']);
         Route::post('validate', [HomeController::class, 'product_validate']);
 
