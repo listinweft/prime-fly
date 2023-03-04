@@ -16,12 +16,12 @@
                         <div class="form-group">
                             <img src="{{asset('frontend/images/loginPassword.png')}}" alt="">
                             <input type="password" class="form-control required" id="password" name="password" placeholder="New Password*">
-                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
                             <img src="{{asset('frontend/images/loginPasswordRe.png')}}" alt="">
                             <input type="password" class="form-control required" id="password_confirmation" name="password_confirmation" placeholder="Re-type Password*">
-                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            <span toggle="#password_confirmation" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
 
                         <!-- <div class="form-group">

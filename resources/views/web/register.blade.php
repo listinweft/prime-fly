@@ -56,8 +56,8 @@
                                         <label for="">Confirm Password</label>
                                         <div class="position-relative d-flex align-items-center">
                                             <img src="{{asset('frontend/images/loginPasswordRe.png')}}" alt="">
-                                            <input id="password-field" type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter Password" name="password" value="asdf">
-                                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                            <input id="confirm_password" type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter Password" name="password" value="asdf">
+                                            <span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                         </div>
                                     </div>
                                 </div>
