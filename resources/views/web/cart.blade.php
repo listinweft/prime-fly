@@ -186,7 +186,8 @@
     </div>
 </section>
 @endif
-@if(@$recently_viewed_products)
+
+@if(@$recently_viewed_products->isNotEmpty())
     @include('web.includes.recently_viewed_products',['recentlyViewedProducts' => $recently_viewed_products])
     @endif
 @endsection
