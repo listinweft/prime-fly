@@ -152,19 +152,36 @@
                                                                     {{$key}}
                                                                 </td>
                                                                <td>
-                                                                {{$cart->attributes->currency}}   {{ $cart->price }}
+                                                                @php
+                                                                    $productData = App\Models\Product::find($cart->attributes->product_id);
+                                                                @endphp
+                                                                {{ $productData->title }}
                                                                </td>
                                                                <td>
-                                                                {{ $cart->attributes->type }}
+                                                                @php
+                                                                    $productType = App\Models\ProductType::find($cart->attributes->type);
+                                                                @endphp
+                                                                {{ $productType->title }}
                                                                </td>
                                                                <td>
-                                                                {{ $cart->attributes->frame }}
+                                                                @if ($cart->attributes->frame != null)
+                                                                @php
+                                                                    $frameData = App\Models\Frame::find($cart->attributes->frame);
+                                                                @endphp
+                                                                {{ $frameData->title }}
+                                                                    
+                                                                    
+                                                                @endif
                                                                </td>
                                                                <td>
+                                                                
                                                                 {{ $cart->attributes->mount }}
                                                                </td>
                                                                <td>
-                                                                {{ $cart->attributes->size }}
+                                                                @php
+                                                                    $sizeData = \App\Models\Size::find($cart->attributes->size);
+                                                                @endphp
+                                                                {{ $sizeData->title }}
                                                                </td>
                                                                <td>
                                                                 {{$cart->quantity}}
@@ -173,16 +190,7 @@
                                                                 <td>{{$cart->attributes->currency}} {{$cart->price}}</td>
                                                             </tr>
                                                         
-                                                                    {{-- 
-                                                                        
-                                                                        <td>@dump($cart)</td> --}}
-                                                                        {{-- 
-                                                                            <td>{{$cart->attributes->size_id}}</td>
-                                                                            <td>{{$cart->attributes->size_amount}}</td>
-                                                                            <td>{{$cart->quantity}}</td>
-                                                                            <td>{{ ($cart->attributes->offer!=0)?'Yes':'No'}}</td>
-                                                                            <td>{{$cart->attributes->currency}} {{$cart->attributes->offer_amount}}</td>
-                                                                            <td>{{$cart->attributes->currency}} {{$cart->price}}</td> --}}
+                                                                  
                                                                             @php
                                                                                 $key++;
                                                                             @endphp
