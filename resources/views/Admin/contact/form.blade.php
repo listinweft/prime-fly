@@ -121,7 +121,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Order Email*</label>
-                                    <input type="text" name="email" id="email" class="form-control required"
+                                    <input type="email" name="email" id="email" class="form-control required"
                                            placeholder="Email"
                                            value="{{ !empty($contact)?$contact->email:'' }}"
                                            maxlength="230">
@@ -129,9 +129,26 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label> Enquiry Email</label>
-                                    <input type="text" name="alternate_email" id="alternate_email"
+                                    <input type="email" name="alternate_email" id="alternate_email"
                                            class="form-control" placeholder="Alternate Email"
                                            value="{{ !empty($contact)?$contact->alternate_email:'' }}"
+                                           maxlength="230">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Order Recieving Emails*</label>
+                                    <input type="text" name="order_emails" id="order_emails" class="form-control required"
+                                           placeholder="Order Recieving Emails"
+                                           value="{{ !empty($contact)?$contact->order_emails:'' }}"
+                                           maxlength="230">
+                                    <div class="help-block with-errors" id="email_error"></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Enquiry Recieving Emails</label>
+                                    <input type="text" name="enquiry_emails" id="enquiry_emails"
+                                           class="form-control" placeholder="Enquiry Recieving Emails"
+                                           value="{{ !empty($contact)?$contact->enquiry_emails:'' }}"
                                            maxlength="230">
                                 </div>
                             </div>

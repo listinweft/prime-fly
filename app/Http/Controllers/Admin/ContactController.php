@@ -72,6 +72,8 @@ class ContactController extends Controller
         $contact->contact_page_title = $request->contact_page_title;
         $contact->contact_request_title = $request->contact_request_title;
         $contact->description = $request->description;
+        $contact->enquiry_emails = $request->enquiry_emails;
+        $contact->order_emails = $request->order_emails;
         $contact->google_map = $request->google_map;
         $contact->phone = $request->phone;
         $contact->alternate_phone = $request->alternate_phone;

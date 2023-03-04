@@ -57,7 +57,7 @@ Route::middleware(['web'])->group(function () {
     });
 
     Route::get('/invoice',function(){
-        $order = \App\Models\Order::find(27);
+        $order = \App\Models\Order::find(9);
        Helper::sendOrderPlacedMail($order,'0');
     });
 

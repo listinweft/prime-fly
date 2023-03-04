@@ -367,6 +367,8 @@ class Helper
        
         $orderTotal = Order::getProductTotal($order->id);
         //mail to customer
+     $emails = explode(',', $common->order_emails);
+     //send mail to multiple emails
        
         Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
             'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
@@ -374,12 +376,14 @@ class Helper
             $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
             $message->from($common->email, $common->email_recipient);
         });        //mail to admin
-        Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $common->email_recipient,
-            'common' => $common, 'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'New Order Placed',
-            'link' => $link), function ($message) use ($common,$contactAddress) {
-            $message->to([$common->email], $common->email_recipient)->subject(config('app.name') . ' - New Order Placed');
-            $message->from($common->email, $common->email_recipient);
-        });
+        foreach ($emails as $email) {
+            Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
+                'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
+                'link' => $link), function ($message) use ($email, $to_name, $common,$contactAddress) {
+                $message->to($email, $to_name)->subject(config('app.name') . ' - Order Placed');
+                $message->from($common->email, $common->email_recipient);
+            });
+        }
         return true;
     }
 
@@ -402,11 +406,15 @@ class Helper
             $message->from($common->email, $common->email_recipient);
         });
         //mail to admin
-        Mail::send('mail_templates.order_cancel', array('order' => $order, 'name' => $common->email_recipient,
-            'common' => $common, 'reason' => $reason, 'product' => $product->title), function ($message) use ($common,$contactAddress) {
-            $message->to($common->email, $common->email_recipient)->subject(config('app.name') . ' - Order Cancelled');
-            $message->from($common->email, $common->email_recipient);
-        });
+        $emails = explode(',', $common->order_emails);
+        foreach ($emails as $email) {
+
+            Mail::send('mail_templates.order_cancel', array('order' => $order, 'name' => $common->email_recipient,
+                'common' => $common, 'reason' => $reason, 'product' => $product->title), function ($message) use ($common,$email) {
+                    $message->to($email, $common->email_recipient)->subject(config('app.name') . ' - New Order Placed');
+                $message->from($common->email, $common->email_recipient);
+            });
+        }
         } catch (\Exception $e) {
         dd($e);
             return false;
@@ -434,7 +442,7 @@ class Helper
 //        dd($common->email);
 
         $mail->MsgHTML($body);
-        $mail->addAddress($common->email, $common->email_recipient);
+        $mail->addAddress($common->alternate_email, $common->email_recipient);
         $mail->send();
         if ($mail) {
             return true;
