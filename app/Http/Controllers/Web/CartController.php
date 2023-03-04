@@ -871,7 +871,8 @@ class CartController extends Controller
                     }
                  
                     $calculation_box = Helper::calculationBox();
-                    echo json_encode(array('status' => 'true', 'message' => 'Address has been added successfully','calculation_box'=>$calculation_box , 'reload'=>$orderC));
+                    $default_currency = Helper::defaultCurrency();
+                    echo json_encode(array('status' => 'true', 'message' => 'Address has been added successfully','calculation_box'=>$calculation_box , 'reload'=>$orderC, 'default_currency'=>$default_currency));
                 }
             } else {
                 abort(403, 'You are not authorised');
@@ -958,6 +959,7 @@ class CartController extends Controller
                 'address' => 'required',
                 // 'zipcode' => 'regex:/^([0-9\+]*)$/|max:10',
             ]);
+           
             if ($account_type == "0") {
                 if(@$request->address){
                     

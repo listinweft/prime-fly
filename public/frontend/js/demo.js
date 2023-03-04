@@ -310,7 +310,22 @@ $(document).ready(function () {
         }
     });
 
-
+    $(document).on('change', '#shipping_state', function () {
+        var state_id = $(this).val();
+        if (state_id) {
+            $.ajax({
+                type: 'POST',async:false, dataType: 'json', url: base_url + '/get-value', data: {state_id}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, success: function (data) {
+                    if (data.status == false) {
+                        Toast.fire('Error !', data.message, "error");
+                    } else {
+                        console.log(data);
+                    }
+                }
+            })
+        }
+    });
     $(document).on('change', '#billing_country', function () {
         var country_id = $(this).val();
         if (country_id) {

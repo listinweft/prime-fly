@@ -1692,73 +1692,78 @@ $(document).ready(function () {
             });
         }
     }
-    // $(document).on('change', '.shipping-value-change', function (e) {
+    $(document).on('change', '.shipping-value-change', function (e) {
 
-    //     $(document).find('span.invalid-feedback').text('fdd');
-    //     e.preventDefault();
-    //     var field_name = $(this).attr('name');
-    //     var val = $(this).val();
-    //     // var addressChoose=$('.addressChoose').val();
-    //     var addressChoose = $('.addressChoose:checked').val();
-    //     var reload = $(this).data('reload');
-    //     // var _token = token;
-    //     $.ajax({
-    //         type: 'POST', dataType: 'json', data: $('#addShippingAddressForm').serialize(), headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }, url: base_url + '/' + 'update-customer-shipping-address', beforeSend: function() {
-    //             $(document).find('span.invalid-feedback').text('');
-    //         },
+        $(document).find('span.invalid-feedback').text('fdd');
+        e.preventDefault();
+        var field_name = $(this).attr('name');
+        var val = $(this).val();
+        // var addressChoose=$('.addressChoose').val();
+        var addressChoose = $('.addressChoose:checked').val();
+        var reload = $(this).data('reload');
+        // var _token = token;
+        $.ajax({
+            type: 'POST', dataType: 'json', data: $('#addShippingAddressForm').serialize(), headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/' + 'update-customer-shipping-address', beforeSend: function() {
+                $(document).find('span.invalid-feedback').text('');
+            },
 
-    //     })
+        })
 
-    //         .done(function (response) {
-    //             if (addressChoose == 'same') {
-    //                 if (field_name == 'country') {
-    //                     $('#billing_' + field_name).val(val).change();
-    //                 } else {
-    //                     $('#billing_' + field_name).val(val);
-    //                 }
-    //                 if (field_name == 'state') {
-    //                     $('#billing_' + field_name).val(val).change();
-    //                 } else {
-    //                     $('#billing_' + field_name).val(val);
-    //                 }
-    //             }
-    //             if (response.status == "true" && response.reload == true) {
-    //                 $('.error').addClass('d-none');
-    //                 $('.shipping_charge').text(response.calculation_box.shippingAmount);
-    //                 $('.tax_amount').text(response.calculation_box.tax_amount);
-    //                 $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
-    //                 $('.cart_final_total_span').text(response.calculation_box.final_total_with_tax);
-    //                 Toast.fire('Success', response.message, 'success');
-    //                 $('#confirm_payment').attr('disabled', false);
-    //                 setTimeout(() => {
-    //                     // window.location.reload();
+            .done(function (response) {
+                if (addressChoose == 'same') {
+                    if (field_name == 'country') {
+                        $('#billing_' + field_name).val(val).change();
+                    } else {
+                        $('#billing_' + field_name).val(val);
+                    }
+                    if (field_name == 'state') {
+                        $('#billing_' + field_name).val(val).change();
+                    } else {
+                        $('#billing_' + field_name).val(val);
+                    }
+                }
+                if (response.status == "true" && response.reload == true) {
+                    $('.error').addClass('d-none');
+                    // $('.shipping_amount').text(response.calculation_box.shippingAmount);
+                    // $('.tax_amount').text(response.calculation_box.tax_amount);
+                    // $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
+                    // $('.cart_final_total_span').text(response.calculation_box.final_total_with_tax);
 
-    //                 }, 1500);
-    //             }
-    //         })
+                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount+'.00');
+                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount+'.00');
+                    $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
+                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax+'.00');
+                    Toast.fire('Success', response.message, 'success');
+                    $('#confirm_payment').attr('disabled', false);
+                    setTimeout(() => {
+                        // window.location.reload();
+
+                    }, 1500);
+                }
+            })
 
 
-    //         .fail(function (response) {
+            .fail(function (response) {
 
-    //             // $(this).html(buttonText);
-    //             $.each(response.responseJSON.errors, function (field_name, error) {
+                // $(this).html(buttonText);
+                $.each(response.responseJSON.errors, function (field_name, error) {
 
-    //                 var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
-    //                 $("#addShippingAddressForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-    //                     .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-    //             });
-    //             if (addressChoose == 'same') {
-    //                 // $('')
-    //                 if (field_name == 'country') {
-    //                     $('#billing_' + field_name).val(val).change();
-    //                 } else {
-    //                     $('#billing_' + field_name).val(val);
-    //                 }
-    //             }
-    //         })
-    // });
+                    var msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                    $("#addShippingAddressForm").find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                        .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                });
+                if (addressChoose == 'same') {
+                    // $('')
+                    if (field_name == 'country') {
+                        $('#billing_' + field_name).val(val).change();
+                    } else {
+                        $('#billing_' + field_name).val(val);
+                    }
+                }
+            })
+    });
 
 
     $(".range_bar_sort").on("slidechange", function (event, ui) {

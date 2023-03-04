@@ -518,7 +518,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" id="account_type" name="account_type"
-                                value="{{(Auth::guard('customer')->check())?1:0}}">
+                                value="0">
                                 <input type="hidden" name="is_default" id="is_default" value="1">
 
                                 <input type="hidden" id="type" name="type" value="billing" class="choose">
