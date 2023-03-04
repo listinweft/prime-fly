@@ -242,7 +242,15 @@
                                                                                 $class = 'out-of-stock';
                                                                             }
                                                                             @endphp
-                                                                        
+                                                                         @php
+                                                                         if($product->frame_color != null){
+                                                                             $frameID = explode(',',$product->frame_color);
+                                                                             $frameColor = \App\Models\Frame::whereIn('id',$frameID)->first()->id;
+                                                                         }
+                                                                         else{
+                                                                             $frameColor = null;
+                                                                         }
+                                                                     @endphp
                                                                             <li>
                                                                                 <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
                                                                                         {{ (Auth::guard('customer')->check())?((app('wishlist')->get($orderProduct->productData->id))?'fill':''):'' }}"  data-id="{{$orderProduct->productData->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$orderProduct->productData->product_type_id}}"
@@ -258,7 +266,7 @@
                                                                             </li>
                                                                             <li>
                                                                               
-                                                                                <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$orderProduct->productData->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$orderProduct->productData->product_type_id}}">
+                                                                                <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$product->mount}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
                                                                                     <div class="iconBox">
                                                                                         <i class="fa-solid fa-cart-shopping"></i>
                                                                                     </div>
@@ -402,8 +410,16 @@
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                      
-                                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
+                                                                        @php
+                                                                            if($product->frame_color != null){
+                                                                                $frameID = explode(',',$product->frame_color);
+                                                                                $frameColor = \App\Models\Frame::whereIn('id',$frameID)->first()->id;
+                                                                            }
+                                                                            else{
+                                                                                $frameColor = null;
+                                                                            }
+                                                                        @endphp
+                                                                                                                    <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$product->mount}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
                                                                             <div class="iconBox">
                                                                                 <i class="fa-solid fa-cart-shopping"></i>
                                                                             </div>

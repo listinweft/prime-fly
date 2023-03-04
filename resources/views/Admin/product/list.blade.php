@@ -54,10 +54,10 @@
                                         <th>Gallery</th>
                                         <th>Offer</th>
                                         <th>Status</th>
-                                        <th>Featured</th>
-                                        <th>New Arrival</th>
-                                        <th>Best Seller</th>
-                                        <th >Display to Home</th>
+                                        <th>Most Relevent</th>
+                                        <th>Latest</th>
+                                        <th>Popular</th>
+                                        {{-- <th >Display to Home</th> --}}
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -127,15 +127,7 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-                                            <td >
-                                                <label class="switch">
-                                                    <input type="checkbox" class="bool_status"
-                                                           data-url='change-bool-status' data-table="Product"
-                                                           data-id="{{$product->id}}" data-field="display_to_home"
-                                                        {{($product->display_to_home == "Yes")?'checked':''}}>
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
+                                           
                                             <td>{{ date("d-M-Y", strtotime($product->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">

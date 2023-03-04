@@ -514,7 +514,19 @@ $(document).ready(function () {
 
 
         var frame_id = $('.frame.active').data('id');
+        if(frame_id == undefined){
+            var frame_id = $(this).data('frame');
+        }
+        else{
+            var frame_id = $('.frame.active').data('id');
+        }
         var mount = $('.mount.active').data('mount');
+        if(mount == undefined){
+            var mount = "yes";
+        }
+        else{
+            var mount = $('.mount.active').data('mount');
+        }
         var checkout = $(this).data('checkout');
         var cartText = $('.cart-action-span').html();
         var id = $(this).data('id');
@@ -585,7 +597,7 @@ $(document).ready(function () {
                         }
                     }
                     setTimeout(() => {
-                        location.reload();
+                        // location.reload();
                     }, 1000);
                 } else {
                  

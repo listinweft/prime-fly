@@ -149,6 +149,7 @@ class MailController extends Controller
     {
         $title = "Cart List";
         $cartItem = DatabaseStorageModel::get();
+     
         $customerList = Customer::get();
         $productList = Product::where('status', 'Active')->oldest('title')->get();
         return view('Admin.cart.cart_list', compact('cartItem', 'title', 'customerList', 'productList'));

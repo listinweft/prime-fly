@@ -132,27 +132,60 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Product</th>
+                                                            <th>Type</th>
+                                                            <th>Frame Colour</th>
+                                                            <th>Has Mount</th>
                                                             <th>Size</th>
-                                                            <th>Size Cost</th>
-                                                            <th>Qty</th>
-                                                            <th>Offer</th>
+                                                            <th>Quantity</th>
                                                             <th>Offer Amount</th>
                                                             <th>Cost</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         @if(count($item->cart_data)>0)
-                                                            @foreach($item->cart_data as $key=>$cart)
-                                                                <tr>
-                                                                    <td>{{ $loop->iteration }}</td>
-                                                                    <td>{{$cart->name}}</td>
-                                                                    <td>{{$cart->attributes->size_id}}</td>
-                                                                    <td>{{$cart->attributes->size_amount}}</td>
-                                                                    <td>{{$cart->quantity}}</td>
-                                                                    <td>{{ ($cart->attributes->offer!=0)?'Yes':'No'}}</td>
-                                                                    <td>{{$cart->attributes->currency}} {{$cart->attributes->offer_amount}}</td>
-                                                                    <td>{{$cart->attributes->currency}} {{$cart->price}}</td>
-                                                                </tr>
+                                                     @php
+                                                         $key=1;
+                                                     @endphp
+                                                            @foreach($item->cart_data as   $cart)
+                                                            <tr>
+                                                                <td>
+                                                                    {{$key}}
+                                                                </td>
+                                                               <td>
+                                                                {{$cart->attributes->currency}}   {{ $cart->price }}
+                                                               </td>
+                                                               <td>
+                                                                {{ $cart->attributes->type }}
+                                                               </td>
+                                                               <td>
+                                                                {{ $cart->attributes->frame }}
+                                                               </td>
+                                                               <td>
+                                                                {{ $cart->attributes->mount }}
+                                                               </td>
+                                                               <td>
+                                                                {{ $cart->attributes->size }}
+                                                               </td>
+                                                               <td>
+                                                                {{$cart->quantity}}
+                                                                </td>
+                                                                <td>{{$cart->attributes->currency}} {{$cart->attributes->offer_amount}}</td>
+                                                                <td>{{$cart->attributes->currency}} {{$cart->price}}</td>
+                                                            </tr>
+                                                        
+                                                                    {{-- 
+                                                                        
+                                                                        <td>@dump($cart)</td> --}}
+                                                                        {{-- 
+                                                                            <td>{{$cart->attributes->size_id}}</td>
+                                                                            <td>{{$cart->attributes->size_amount}}</td>
+                                                                            <td>{{$cart->quantity}}</td>
+                                                                            <td>{{ ($cart->attributes->offer!=0)?'Yes':'No'}}</td>
+                                                                            <td>{{$cart->attributes->currency}} {{$cart->attributes->offer_amount}}</td>
+                                                                            <td>{{$cart->attributes->currency}} {{$cart->price}}</td> --}}
+                                                                            @php
+                                                                                $key++;
+                                                                            @endphp
                                                             @endforeach
                                                         @endif
                                                         </tbody>
