@@ -155,7 +155,7 @@ Route::middleware(['web'])->group(function () {
 
 
     Route::post('state-list', [CartController::class, 'state_list']);
-
+    Route::post('b-state-list', [CartController::class, 'b_state_list']);
     Route::post('submit-order', [CartController::class, 'submit_order']);
     Route::post('cod-charge-apply', [CartController::class, 'cod_charge_apply']);
     Route::post('cancel-order', [CartController::class, 'cancel_order']);

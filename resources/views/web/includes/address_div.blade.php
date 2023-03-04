@@ -118,7 +118,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group" >
                                         <label for="">Country</label>
-                                        <select name="country" id="country" class="form-control form_select required shipping-login-value-change" required>
+                                        <select name="country" id="shipping_country" class="form-control form_select required shipping-login-value-change" required>
                                             <option selected disabled value="">Select Country*</option>
                                             @foreach($countries as $country)
                                             <option value="{{ $country->id }}"
@@ -167,16 +167,7 @@
 
             </div>
         </div>
-        <div class="headArea">
-            <h4>
-                Select Billing  Address
-            </h4>
-            <div class="right">
-                <button class="btn secondary_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#billingAddress" aria-controls="billingAddress"><i class="fa-solid fa-plus"></i> Add Address</button>
-                <div class="slick-address-nav2">
-                </div>
-            </div>
-        </div>
+       
         <div class="row">
             <div class="col-12">
                 <form action="" class="sameShipping">
@@ -193,6 +184,16 @@
             </div>
         </div>
         <div class="select_address_area billiing_address_form  @if(!Helper::checkConfirmOrder())  @else d-none @endif d-none">
+            <div class="headArea">
+                <h4>
+                    Select Billing  Address
+                </h4>
+                <div class="right">
+                    <button class="btn secondary_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#billingAddress" aria-controls="billingAddress"><i class="fa-solid fa-plus"></i> Add Address</button>
+                    <div class="slick-address-nav2">
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="select_shipping_address_slider">
@@ -272,7 +273,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group" >
-                                            <select  name="country" id="country"   class="form-control form_select billing-required billing-login-value-change" required>
+                                            <select  name="country" id="billing_country"   class="form-control form_select billing-required billing-login-value-change" required>
                                                 <option selected disabled value="">Select Country*</option>
                                                 @foreach($countries as $country)
                                                 <option value="{{ $country->id }}" {{(session('billing_country')==$country->id)?'selected':''}} >{{$country->title}}</option>
@@ -375,7 +376,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group" >
                                         <label for="">Country</label>
-                                        <select name="shipping_country" id="country" class="form-control form_select required shipping-value-change" required>
+                                        <select name="shipping_country" id="shipping_country" class="form-control form_select required shipping-value-change" required>
                                             <option selected disabled value="">Select Country*</option>
                                             @foreach($countries as $country)
                                             <option value="{{ $country->id }}"
@@ -482,7 +483,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group" >
                                             <label for="">Country</label>
-                                            <select  name="country" id="country"   class="form-control form_select billing-required billing-value-change" required>
+                                            <select  name="country" id="billing_country"   class="form-control form_select billing-required billing-value-change" required>
                                                 <option selected disabled value="">Select Country*</option>
                                                 @foreach($countries as $country)
                                                 <option value="{{ $country->id }}" {{(session('billing_country')==$country->id)?'selected':''}} >{{$country->title}}</option>

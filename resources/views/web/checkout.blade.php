@@ -101,7 +101,8 @@
                                                 </label>
                                                 <br>
                                                 <span class="error" id="confirm-order-error"></span>
-                                            </div>             
+                                            </div>     
+                                             
                                             @if(Auth::guard('customer')->check())
                                                 <div class="col-md-12  mb-4">
                                                 

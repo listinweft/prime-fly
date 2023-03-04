@@ -256,30 +256,30 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('change', '#country', function () {
-        var country_id = $(this).val();
-        if (country_id) {
-            $.ajax({
-                type: 'POST', dataType: 'json', url: base_url + '/customer/state-list', data: {country_id}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, success: function (data) {
-                    if (data.status == false) {
-                        Toast.fire('Error', data.message, "error");
-                    } else {
-                        if (data.states.length > 0) {
-                            $("#state").empty();
-                            $('#state').append('<option value="">Select State</option>');
-                            $.each(data.states, function (key, value) {
-                                $('#state').append('<option value="' + value.id + '"' + '>' + value.title + '</option>');
-                            });
-                        } else {
-                            $('#state').append('<option value="">No States Available</option>');
-                        }
-                    }
-                }
-            })
-        }
-    });
+    // $(document).on('change', '#country', function () {
+    //     var country_id = $(this).val();
+    //     if (country_id) {
+    //         $.ajax({
+    //             type: 'POST', dataType: 'json', url: base_url + '/customer/state-list', data: {country_id}, headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             }, success: function (data) {
+    //                 if (data.status == false) {
+    //                     Toast.fire('Error', data.message, "error");
+    //                 } else {
+    //                     if (data.states.length > 0) {
+    //                         $("#state").empty();
+    //                         $('#state').append('<option value="">Select State</option>');
+    //                         $.each(data.states, function (key, value) {
+    //                             $('#state').append('<option value="' + value.id + '"' + '>' + value.title + '</option>');
+    //                         });
+    //                     } else {
+    //                         $('#state').append('<option value="">No States Available</option>');
+    //                     }
+    //                 }
+    //             }
+    //         })
+    //     }
+    // });
 
 
     $(document).on('change', '#shipping_country', function () {

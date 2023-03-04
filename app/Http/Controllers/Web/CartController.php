@@ -570,15 +570,15 @@ class CartController extends Controller
 
     public function state_list(Request $request)
     {
-
-    
-        // session()->forget('state');
-        // session()->forget('billing_state');
-        // session()->forget('shipping_state_name');
-        // session()->forget('shipping_state');
-        // session()->forget('shipping_state_name');
-       $statesData = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
-        return response()->json(['status' => 'true', 'message' => $statesData]);
+        $shipping_charge = ShippingCharge::active()->pluck('state_id')->toArray();
+        $statesData = State::active()->whereIn('id',$shipping_charge)->where('country_id', $request->country_id)->get(['id', 'title']);
+        return response()->json(['status' => 'true', 'states' => $statesData]);
+     
+    }
+    public function b_state_list(Request $request)
+    {
+        $statesData = State::active()->where('country_id', $request->country_id)->get(['id', 'title']);
+        return response()->json(['status' => 'true', 'states' => $statesData]);
     }
     
     public function different_shipping_address(Request $request)
@@ -679,7 +679,7 @@ class CartController extends Controller
     public function update_customer_shipping_address(Request $request)
     {
       
-       
+  
         if (Auth::guard('customer')->check()) {
            
             if ($request->id != '0') {
@@ -704,6 +704,7 @@ class CartController extends Controller
                     // 'zipcode' => 'regex:/^([0-9\+]*)$/|max:10',
                 ]);
             }
+            
 
             $checkInShipping = $message = '';
             $customer_address->first_name = $request->first_name;
@@ -719,7 +720,10 @@ class CartController extends Controller
             // dd($customer_address);
             $checkInShipping = ShippingCharge::where('status','Active')->where('state_id' ,$request->state)->first();
             if($checkInShipping != ''){
-                $state_in_shipping = true;
+                $orderC = true;
+            }
+            else{
+                $orderC  = false;
             }
             if ($request->is_default) {
                 $message = 'Address has been added successfully';
@@ -740,7 +744,7 @@ class CartController extends Controller
                     session(['selected_billing_address' => $customer_address->id]);
                 }
                 $calculation_box = Helper::calculationBox();
-                echo json_encode(array('status' => 'true', 'message' => $message,'calculation_box'=>$calculation_box,'reload'=>"true"));
+                echo json_encode(array('status' => 'true', 'message' => $message,'calculation_box'=>$calculation_box,'reload'=>"true",'orderC' => $orderC));
             } else {
                 echo json_encode(array('status' => 'false', 'message' => "Error while " . $text . "ing the address, Please try after sometime"));
             }
