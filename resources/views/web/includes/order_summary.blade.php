@@ -52,6 +52,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="details">
+                           <span> {{ $row->quantity }} Items</span>
+                        </div>
                         <div class="price">
                             <ul class="price_area">
                                 @php
