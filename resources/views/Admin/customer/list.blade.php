@@ -58,17 +58,22 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{ $customer->first_name.' '.$customer->last_name}}</td>
-                                            <td>{{ $customer->user->email}}</td>
+                                            <td>{{ ($customer->user != null) ? $customer->user->email : ''}}</td>
                                             {{--<td>{{ $customer->user->username}}</td>--}}
-                                            <td>{{ $customer->user->phone }}</td>
+                                            <td>{{ ($customer->user != null)  ? $customer->user->phone : ''}}</td>
                                             <td>
+                                                @if ($customer->user != null)
+                                                    
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="User"
-                                                           data-field="status" data-pk="{{ $customer->user->id}}"
+                                                           data-field="status" data-pk="{{ $customer->user->id }}"
                                                         {{($customer->user->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
+                                                @else
+                                                    
+                                                @endif
                                             </td>
                                             <td>{{ date("d-M-Y", strtotime($customer->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">

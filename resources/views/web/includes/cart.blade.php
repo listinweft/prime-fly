@@ -3,21 +3,34 @@
 @php
 $sessionKey  =  Helper::getSessionKey();
 @endphp
-
+<style>
+    .cart-error{
+        padding: 36px;
+    padding-top: 5px;
+    color: red;
+    }
+    .cart-success{
+        padding: 36px;
+    padding-top: 5px;
+    color: green;
+    }
+</style>
 <div class="offcanvas offcanvas-end cartListRight" tabindex="-1" id="cartListRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 id="offcanvasRightLabel"><img  src="{{ asset('frontend/images/cartRight.jpg')}}" alt=""><span>(<span  class="cart-count">  {{ Helper::getCartItemCount()}}</span> Items )</span></h5>
         <button type="button" class="btn-close text-reset " data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-            @if($sessionKey)
-                @if (!Cart::session($sessionKey)->isEmpty())
-                <div class="orderProductSummary">
+        <span class="cart-error"></span>
+        <span class="cart-success"></span>
+        @if($sessionKey)
+        @if (!Cart::session($sessionKey)->isEmpty())
+        <div class="orderProductSummary">
                     @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                     @php
                     $product = App\Models\Product::find($row->attributes['product_id']);
                     @endphp
-
+<br>
                     <div class="item">
                         <div class="leftImgDetails">
                             <div class="imgBox">

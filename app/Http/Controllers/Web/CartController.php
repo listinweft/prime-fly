@@ -47,7 +47,18 @@ class CartController extends Controller
                 $message = "Item removed from wishlist";
                 $responseStatus = true;
             } else {
-                $cartItem = Cart::session($sessionKey)->getContent()->where('attributes.product_id', $product->id)->where('attributes.size', $request->size)->first();
+                $cartItem = Cart::session($sessionKey)->getContent()->where('attributes.product_id', $product->id)->where('attributes.size', $request->size);
+                $cartItem = Cart::session($sessionKey)->getContent()
+                ->where('attributes.product_id', $product->id)
+                ->where('attributes.size', $product->size);
+                if($product->frame != null){
+                    $cartItem = $cartItem->where('attributes.frame', $product->frame);
+                }
+                if($product->mount != null){
+                    $cartItem = $cartItem ->where('attributes.mount', $product->mount);
+                }
+
+                $cartItem = $cartItem->first();
                 if($request->cart_id != null){
 
                     if (Cart::session($sessionKey)->get($request->cart_id)) {
@@ -233,8 +244,16 @@ class CartController extends Controller
             //where condition in Darryldecode cart
             $cartItem = Cart::session($sessionKey)->getContent()
                     ->where('attributes.product_id', $product->id)
-                    ->where('attributes.size', $product->size)
-                    ->first();
+                    ->where('attributes.size', $product->size);
+                    if($product->frame != null){
+                        $cartItem = $cartItem->where('attributes.frame', $product->frame);
+                    }
+                    if($product->mount != null){
+                        $cartItem = $cartItem ->where('attributes.mount', $product->mount);
+                    }
+
+                    $cartItem = $cartItem->first();
+                 
           
             if ( $cartItem != null) {
                 // if item is already in the cart, just update the quantity

@@ -577,7 +577,7 @@ $(document).ready(function () {
                         //         $(".successModalForm").modal('hide');
                         //     }, 2000);
                         Toast.fire({
-                            title: "Done it", text: response.message, icon: "success"
+                            title: "", text: response.message, icon: "success"
                         });
 
                         if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "profile" || urlLastSegment == "wishlist") {
@@ -588,6 +588,7 @@ $(document).ready(function () {
                         location.reload();
                     }, 1000);
                 } else {
+                 
                     swal.fire({
                         title: "Oops", text: response.message, icon: "error"
                     });
@@ -650,13 +651,19 @@ $(document).ready(function () {
             },
             url: base_url + '/update-item-quantity',
             success: function (response) {
+                $('.cart-error').html('');
+                $('.cart-success').html('');
                 if (response.status == true) {
                     Toast.fire({
                         title: "", text: response.message, icon: "success"
                     });
+                    $('.cart-success').html('');
+                    $('.cart-success').html('<i class="fa fa-check" aria-hidden="true"></i>'+response.message);
                     // console.log();
                     $('.cart-count').html(response.productCount);
                 } else {
+                  
+                  $('.cart-error').html('<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'+response.message);
                     Toast.fire('Error', response.message, "error");
 
                 }
@@ -682,6 +689,7 @@ $(document).ready(function () {
                         $('.price'+id).html(response.default_currency+' '+response.total);
 
                     } else {
+                        
                         Toast.fire('Error', response.message, "error");
                         $this.val(response.qty);
                     }
