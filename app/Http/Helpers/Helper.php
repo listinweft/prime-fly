@@ -524,13 +524,16 @@ class Helper
             if ($guestCart->isNotEmpty()) {
                 $guestCartItems = $guestCart->toArray();
                 foreach ($guestCartItems as $item) {
+                  
                     $cart_request = new Request();
                     $cart_request->setMethod('POST');
-                    $product_id = $item['id'];
+                  
+                    $product_id = $item['attributes']['product_id'];
+                    $size = $item['attributes']['size'];
                     $cart_request->request->add(['product_id' => $item['id']]);
                     $cart_request->request->add(['qty' => $item['quantity']]);
                     $cart_request->request->add(['countRelative' => 1]);
-                    app(CartController::class)->cartAddItems($cart_request, $product_id, $sessionKey);
+                    app(CartController::class)->cartAddItems($cart_request, $product_id, $sessionKey,$size);
                 }
             }
         }

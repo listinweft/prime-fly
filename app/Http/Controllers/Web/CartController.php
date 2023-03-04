@@ -328,7 +328,7 @@ class CartController extends Controller
         
       
         $sessionKey = session('session_key');
-     
+    
         $calculation_box = Helper::calculationBox();
        
         $tag = $this->seo_content('Cart');
@@ -336,7 +336,6 @@ class CartController extends Controller
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
        
-
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
         return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box',
             'banner', 'featuredProducts'));
@@ -353,11 +352,13 @@ class CartController extends Controller
 
         if (Session::has('session_key')) {
             $sessionKey = session('session_key');
-           
+        
             if (!Cart::session($sessionKey)->isEmpty()) {
+                // dd(Cart::session($sessionKey)->getContent());
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
                     $product = Product::where([['status', 'Active'], ['id', $row->attributes->product_id]])->first();
                     $productPrice =ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
+                   
                    if($productPrice->stock == 0 && $productPrice->availability !='In Stock'){
                     return false;
                    }
@@ -373,6 +374,7 @@ class CartController extends Controller
 
     public function update_item_quantity(Request $request)
     {
+        
         if ($request->product_id) {
             if (Session::has('session_key')) {
                 $product = Product::find($request->product_id);
@@ -390,11 +392,13 @@ class CartController extends Controller
                         
                     ), 200, []);
                 } else {
+                 
                     Cart::session(session('session_key'))->update($request->id, [
+                        'product_id' => $product->id,
                         'quantity' => array(
                             'relative' => false,
                             'value' => $request->qty
-                        ),
+                        )
                     ]);
                     $cartItem = Cart::session(session('session_key'))->getContent();
                     foreach ( $cartItem as $row) {

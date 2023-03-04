@@ -143,20 +143,24 @@
                                                         </thead>
                                                         <tbody>
                                                         @if(count($item->cart_data)>0)
-                                                     @php
-                                                         $key=1;
-                                                     @endphp
+                                                            @php
+                                                                $key=1;
+                                                            @endphp
                                                             @foreach($item->cart_data as   $cart)
+                                                            @if(getType($cart) == 'object')
                                                             <tr>
                                                                 <td>
                                                                     {{$key}}
                                                                 </td>
-                                                               <td>
-                                                                @php
-                                                                    $productData = App\Models\Product::find($cart->attributes->product_id);
-                                                                @endphp
-                                                                {{ $productData->title }}
-                                                               </td>
+                                                                
+                                                               @php
+                                                                   $productData = App\Models\Product::find($cart->attributes->product_id);
+                                                                   @endphp
+                                                                   <td>
+                                                                  {{ $productData->title }}
+                                                                 </td>
+                                                              
+                                                               
                                                                <td>
                                                                 @php
                                                                     $productType = App\Models\ProductType::find($cart->attributes->type);
@@ -172,30 +176,29 @@
                                                                     
                                                                     
                                                                 @endif
-                                                               </td>
-                                                               <td>
-                                                                
-                                                                {{ $cart->attributes->mount }}
-                                                               </td>
-                                                               <td>
-                                                                @php
-                                                                    $sizeData = \App\Models\Size::find($cart->attributes->size);
-                                                                @endphp
-                                                                {{ $sizeData->title }}
-                                                               </td>
-                                                               <td>
-                                                                {{$cart->quantity}}
+                                                                <td>
+                                                                 
+                                                                 {{ $cart->attributes->mount }}
                                                                 </td>
-                                                                <td>{{$cart->attributes->currency}} {{$cart->attributes->offer_amount}}</td>
-                                                                <td>{{$cart->attributes->currency}} {{$cart->price}}</td>
-                                                            </tr>
-                                                        
-                                                                  
-                                                                            @php
-                                                                                $key++;
-                                                                            @endphp
+                                                                <td>
+                                                                 @php
+                                                                     $sizeData = \App\Models\Size::find($cart->attributes->size);
+                                                                 @endphp
+                                                                 {{ $sizeData->title }}
+                                                                </td>
+                                                                <td>
+                                                                 {{$cart->quantity}}
+                                                                 </td>
+                                                                 <td>{{$cart->attributes->currency}} {{$cart->attributes->offer_amount}}</td>
+                                                                 <td>{{$cart->attributes->currency}} {{$cart->price}}</td>
+                                                             </tr>
+                                                            @endif
+                                                            @php
+                                                            $key++;
+                                                        @endphp
                                                             @endforeach
                                                         @endif
+                                                           
                                                         </tbody>
                                                     </table>
                                                 </td>
