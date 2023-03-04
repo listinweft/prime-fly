@@ -1087,6 +1087,122 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('click', '.forgotpasswdform_submit_btn', function (e) {
+
+        e.preventDefault();
+
+        $this = $(this);
+        var buttonText = $this.html();
+        var url = $this.data('url');
+        var form_id = $this.closest("form").attr('id');
+
+
+
+        var modal_id = $this.closest(".modal").attr('id');
+        var formData = new FormData(document.getElementById(form_id));
+        console.log(formData);
+
+        var errors = false;
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+        $("#" + form_id + " .required").each(function (k, v) {
+            var field_name = $(v).attr('name');
+
+
+            if (!$(v).val().length) {
+                errors = true;
+                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
+
+
+                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
+                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+
+
+            } else {
+                if (field_name === 'email') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+            }
+        });
+        if (!errors) {
+            $this.html('Please Wait..');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+
+
+            })
+                .done(function (response) {
+
+
+                    console.log(response);
+                    $this.html(buttonText);
+                    $("#" + form_id)[0].reset();
+                    if (modal_id) {
+                        $("#" + modal_id).modal('hide');
+                    }
+                    if (response.status == "success") {
+                        $(".successModalForm").modal('show');
+                        document.getElementById("myspan").innerHTML=response.message;
+                        // const successModel = setTimeout(myGreeting, 2000);
+                        // function successModel(){
+
+                        // }
+                        // Toast.fire({title: "", text: response.message, icon: response.status});
+                    } else if (response.status == "success-reload") {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 800);
+
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
+                        if (response.redirect) {
+                            window.location.href = response.redirect;
+                        } else {
+                           setTimeout(() => {
+                            location.reload();
+                           }, 1000);
+                        }
+                    } else {
+                        $(".successModalForm").modal('show');
+                        $("#myspan").html(response.message);
+                            setTimeout(function(){
+                                $(".successModalForm").modal('hide');
+                            }, 800);
+                        // swal.fire({
+                        //     title: response.status, text: response.message, icon: response.status
+                        // });
+                    }
+                })
+                .fail(function (response) {
+                    $this.html(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    });
+                })
+        }
+    });
+
     $(document).on('click', '.review-form-btn', function (e) {
         e.preventDefault();
         // var _token = token;
