@@ -132,7 +132,7 @@
             <div class="col-12">
                 <ul class="listWrapper">
                    <li>
-                       <a href="" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
+                       <a href="{{ url('cart') }}" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
                            <img class="img-fluid"src="{{ asset('frontend/images/bottom-01.png')}}" alt="">
                            <p>Cart</p>
                        </a>
@@ -145,18 +145,23 @@
                                 <p>Account</p>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="login.php">Login</a></li>
-                                <li><a class="dropdown-item" href="register.php">Register</a></li>
+                                @if(Auth::guard('customer')->check())
+                                <li><a class="dropdown-item" href="{{ url('customer/account/profile') }}">My Account</a></li>
+                                <li><a class="dropdown-item" href="{{ url('logout') }}">Logout</a></li>
+                                @else
+                                <li><a class="dropdown-item" href="{{ url('login') }}">Login</a></li>
+                                <li><a class="dropdown-item" href="{{ url('register') }}">Register</a></li>
+                                @endif
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <a href="index.php">
+                        <a href="{{url('/')}}">
                             <img class="img-fluid"src="{{ asset('frontend/images/bottom-05.png')}}" alt="">
                         </a>
                     </li>
                     <li>
-                        <a href="category.php">
+                        <a href="{{('products')}}">
                             <img class="img-fluid"src="{{ asset('frontend/images/bottom-03.png')}}" alt="">
                             <p>Category</p>
                         </a>

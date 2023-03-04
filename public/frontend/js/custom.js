@@ -667,6 +667,10 @@ $(document).ready(function () {
                     Toast.fire('Error', response.message, "error");
 
                 }
+                setTimeout(() => {
+                    $('.cart-error').html('');
+                    $('.cart-success').html('');
+                }, 800);
             }
         });
     });
