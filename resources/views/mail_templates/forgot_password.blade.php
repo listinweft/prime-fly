@@ -72,15 +72,16 @@
             <table width="100%" cellspacing="0" cellpadding="0"
                    role="presentation"
                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                <tr style="border-collapse:collapse">
-                    <td align="left"
-                        style="padding:0;Margin:0;padding-bottom:5px;font-size:0">
-                        <a target="_blank" href="javascript:void(0)"
-                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494c45;font-size:16px"><img
-                            src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"
-                                alt
-                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                class="adapt-img" width="125"></a></td>
+                   <tr align="left" valign="top">
+                    <td colspan="5" align="left" valign="top">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                            <tr>
+                                <td><img style="width: 10vw; padding: 1vw;" src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"/>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </table>
         </td>
