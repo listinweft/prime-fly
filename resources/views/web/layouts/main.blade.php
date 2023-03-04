@@ -122,7 +122,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modal_close"></button>
                 </div>
                 <div class="modal-body">
                     <img class="img-fluid successIcon" src="{{ asset('frontend/images/svg/success.svg')}}" alt="">

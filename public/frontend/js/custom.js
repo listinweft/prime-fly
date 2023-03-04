@@ -930,7 +930,11 @@ $(document).ready(function () {
                         $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $("#successModal").modal('hide');
+                                $('#modal_close').on('hide.bs.modal', function (event) {
+                                    window.location.href = "/login";
+                                  })
                             });
+
                             window.location.href('/');
                     } else if (response.status == "success-reload") {
                         $("#successModal").modal('show');
