@@ -446,9 +446,10 @@
     var size = $('.size.active').data('id');
     $('#size_id').val(size);
 
-    $('.size').onclick(function(){
+    $('.size').on('click',function(){
     var size = $(this).data('id');
     $('#size_id').val(size);
 });
+
    </script>
 @endpush

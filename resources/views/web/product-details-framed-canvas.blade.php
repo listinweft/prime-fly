@@ -539,9 +539,15 @@ var frame_id = $('.frame.active').data('id');
 
  var mount = $('.mount.active').data('mount');
  $('#mount_id').val(mount);
- $('.size').onclick(function(){
+
+ $('.size').on('click',function(){
     var size = $(this).data('id');
     $('#size_id').val(size);
+});
+$('.mount').on('click',function(){
+    var mount = $(this).data('mount');
+  
+    $('#mount_id').val(mount);
 });
 </script>
 

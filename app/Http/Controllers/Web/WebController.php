@@ -114,7 +114,7 @@ class WebController extends Controller
     public function enquiry_store(Request $request)
     {
 
-        //dd($request->all());
+        // dd($request->all());
         $request->validate([
             'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
             'email' => 'required|email|max:255',

@@ -87,14 +87,10 @@
                                                 <td>{{ $enquiry->Frame->title ?? ''}}</td>
                                                 {{-- <td>{{ $enquiry->product->mount}}</td> --}}
                                                 <td>
-                                                    @if($enquiry->product != NULL)
-                                                    @if($enquiry->mount == "Yes")
-                                                        <span> With Mount</span>
-                                                    @elseif($enquiry->mount == "No")
-                                                        <span> No Mount</span>
-                                                        @else
-                                                        <span></span>
-                                                    @endif
+                                                    @if (@$enquiry->productType->id == 4)
+                                                       {{ $enquiry->mount}}
+                                                    @else
+                                                        
                                                     @endif
                                             </td>
                                                 <td>{{ $enquiry->Size->title  ?? ''}}</td>
