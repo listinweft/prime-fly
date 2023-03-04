@@ -1207,7 +1207,7 @@ $(document).ready(function () {
                         $("#myspan").html(response.message);
                             setTimeout(function(){
                                 $(".successModalForm").modal('hide');
-                            }, 800);
+                            }, 1000);
 
                         // Toast.fire({
                         //     title: "Success!", text: response.message, icon: "success"
@@ -1217,7 +1217,7 @@ $(document).ready(function () {
                         } else {
                            setTimeout(() => {
                             location.reload();
-                           }, 1000);
+                           }, 1200);
                         }
                     } else {
                         $(".successModalForm").modal('show');
