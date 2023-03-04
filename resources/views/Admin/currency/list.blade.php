@@ -57,7 +57,7 @@
                                     @foreach($currencyList as $currency)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            @if($currency->code=="AED" || $currency->code=="USD" || $currency->code=="INR")
+                                            @if($currency->code=="AED")
                                                 <td>
                                                     <a href="{{ url(Helper::sitePrefix().'currency/rate/create/'.$currency->id)}}">
                                                         {{ $currency->title }}

@@ -101,9 +101,9 @@ class HomeController extends Controller
 
 
         if (isset($request->type)) {
-            $home_heading = HomeHeading::type($request->type)->first();
+             $home_heading = HomeHeading::type($request->type)->first();
             if (!$home_heading) {
-                $home_heading = new HomeHeading;
+                 $home_heading = new HomeHeading;
             }
             $home_heading->type = $request->type;
             $home_heading->title = $request->homeTitle;
@@ -118,10 +118,12 @@ class HomeController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
+    
     public function ourcollection_create(Request $request)
     {
         $key = "Create";
         $title = "Create Our Collection";
+      
         $collect = Homecollection::active()->first();
         return view('Admin.home.collection.form', compact('key', 'title','collect'));
 
@@ -133,7 +135,7 @@ class HomeController extends Controller
         $key = "Create";
         $title = "Create Our Selection";
       
-       
+          $home_heading = HomeHeading::where('type','selection')->first();
          $productID =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',1)->first();
          $productID1 = DB::table('products')->where('copy',"no")->where('type','selection')->where('order',2)->first();
          $productID2 =  DB::table('products')->where('copy',"no")->where('type','selection')->where('order',3)->first();
@@ -145,7 +147,7 @@ class HomeController extends Controller
         $products = Product::active()->where('copy',"no")->get();
       
  
-        return view('Admin.selection.form', compact('key', 'title', 'products','productID','productID1','productID2','productID3','productID4','productID5','productID6','productID7'));
+        return view('Admin.selection.form', compact('key', 'title', 'products','productID','productID1','productID2','productID3','productID4','productID5','productID6','productID7','home_heading'));
 
     }
 

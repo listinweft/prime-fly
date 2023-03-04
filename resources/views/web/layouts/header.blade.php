@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li class="currency">
-                        <img class="img-fluid language-flag" src="{{ asset('frontend/images/currency/aed.png')}}" alt="">
+                    {!! Helper::printImage(@$defaultCurrency, 'image', 'image_webp', '', 'img-fluid') !!}
                         <select id="language-selector" class="currency-selection">
                         @foreach($currencies as $currency)
                                         <option data-id='{{ $currency->id}}' data-code='{{ $currency->code}}'
