@@ -23,7 +23,7 @@
 
                         </div> -->
                         <div class="form-group">
-                            <button class="btn primary_btn form_submit_btn" data-url="/forgot-password" ></button>
+                            <button class="btn primary_btn form_submit_btn" data-url="/forgot-password" >Reset Password</button>
                         </div>
                     </div>
                 </form>

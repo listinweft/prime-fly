@@ -29,9 +29,19 @@
                             <textarea name="" class="form-control form-message" placeholder="Message*"></textarea>
 
                         </div> -->
-                        <div class="form-group">
-                            <button class="btn primary_btn loginform_submit_btn" data-url="/login" >Login</button>
+                        {{-- <div class="form-group">
+                          
+                        </div> --}}
+                        <div class="col-12x ">
+                            <div class="form-group btnWrapper">
+                                <button class="btn primary_btn loginform_submit_btn" data-url="/login" >Login</button>
+                                <div class="btnRegister">
+                               
+                                    <a href="{{url('/forgot-password')}}">Forgotten password?</a>
+                                </div>
+                            </div>
                         </div>
+                       
                     </div>
                 </form>
                         <h6 class="or">OR</h6>

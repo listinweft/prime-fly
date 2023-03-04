@@ -101,7 +101,7 @@
                 removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: false,
+                required: true,
                 allowedFileTypes: ['image'],
                 // minImageWidth: 100,
                 // minImageHeight: 100,

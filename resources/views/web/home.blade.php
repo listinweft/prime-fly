@@ -32,9 +32,11 @@
 
                 <div class="homeSliderImages ">
                     @foreach ($homeBanners as $banner)
+                    <a href="{{@$banner->url}}">
                         <div class="item">
                             {!! Helper::printImage(@$banner, 'desktop_image', 'desktop_image_webp', '', 'img-fluid') !!}
                         </div>
+                    </a>
                     @endforeach
                 </div>
             </div>
