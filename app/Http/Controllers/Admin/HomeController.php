@@ -893,7 +893,7 @@ class HomeController extends Controller
 
         $testimonial = new Testimonial;
         if ($request->hasFile('image')) {
-           return  $testimonial->image_webp = Helper::uploadWebpImage($request->image, 'uploads/testimonial/image/webp/', $request->title);
+           $testimonial->image_webp = Helper::uploadWebpImage($request->image, 'uploads/testimonial/image/webp/', $request->title);
             $testimonial->image = Helper::uploadFile($request->image, 'uploads/testimonial/image/', $request->title);
         }
         $testimonial->name = $validatedData['name'];

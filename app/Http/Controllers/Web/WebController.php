@@ -463,6 +463,7 @@ class WebController extends Controller
             $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
             $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))
             ->where('copy','no')->latest()->get();
+         
             $relatedProducts = Product::active()->whereIn('id', explode(',', $product->related_product_id))
             ->where('copy','no')
             ->latest()->get();

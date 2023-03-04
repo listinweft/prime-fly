@@ -100,10 +100,8 @@
                 <h6>Contact</h6>
                 <ul class="list">
                     <li>{!! @$siteInformation->address!!}</li>
-                    <li><span>Ph  &ensp;  </span>: {!! @$siteInformation->phone!!}</li>
-                    <li><span>Mail </span>: {!! @$siteInformation->email!!}</li>
-                    </li>
-
+                    <li><span>Ph  &emsp;:</span><a href="mailto:{!! @$siteInformation->phone !!}"> {!! @$siteInformation->phone!!}</a></li>
+                    <li><span>Mail :</span><a href="mailto:{!! @$siteInformation->email !!}">{!! @$siteInformation->email!!}</a></li>
                 </ul>
             </div>
         </div>

@@ -120,16 +120,16 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label> Email*</label>
-                                    <input type="email" name="email" id="email" class="form-control required"
+                                    <label>Order Email*</label>
+                                    <input type="text" name="email" id="email" class="form-control required"
                                            placeholder="Email"
                                            value="{{ !empty($contact)?$contact->email:'' }}"
                                            maxlength="230">
                                     <div class="help-block with-errors" id="email_error"></div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label> Alternate Email</label>
-                                    <input type="email" name="alternate_email" id="alternate_email"
+                                    <label> Enquiry Email</label>
+                                    <input type="text" name="alternate_email" id="alternate_email"
                                            class="form-control" placeholder="Alternate Email"
                                            value="{{ !empty($contact)?$contact->alternate_email:'' }}"
                                            maxlength="230">

@@ -373,12 +373,11 @@ class Helper
             'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
             $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
             $message->from($common->email, $common->email_recipient);
-        });
-        //mail to admin
+        });        //mail to admin
         Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $common->email_recipient,
             'common' => $common, 'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'New Order Placed',
             'link' => $link), function ($message) use ($common,$contactAddress) {
-            $message->to($common->email, $common->email_recipient)->subject(config('app.name') . ' - New Order Placed');
+            $message->to([$common->email], $common->email_recipient)->subject(config('app.name') . ' - New Order Placed');
             $message->from($common->email, $common->email_recipient);
         });
         return true;

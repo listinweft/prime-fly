@@ -67,7 +67,7 @@
         </li>
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/usertestimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
+               class="nav-link {{ (Request::segment(3)=='usertestimonial')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>User Testimonial</p>
             </a>
@@ -84,7 +84,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='banner')?'block':'none' }}">
-   
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/product')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
@@ -139,7 +139,7 @@
                 <p>Faq</p>
             </a>
         </li>
-        
+
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/shipping-policy')}}"
                class="nav-link {{ (Request::segment(3)=='faq')?'active':'' }}">
@@ -539,7 +539,7 @@
 
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'product/frame')}}"
-               class="nav-link {{ (Request::segment(3)=='shape')?'active':'' }}">
+               class="nav-link {{ (Request::segment(3)=='frame')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Frame</p>
             </a>

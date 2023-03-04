@@ -8,6 +8,7 @@ use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use App\Models\ContactAddress;
 use Illuminate\Support\Facades\View;
+use Termwind\Components\Dd;
 
 class ContactController extends Controller
 {
@@ -28,11 +29,13 @@ class ContactController extends Controller
 
     public function contact_page_store(Request $request)
     {
-        //dd($request);
+        
+        
+       
         $validatedData = $request->validate([
             'contact_page_title' => 'required|min:2|max:230',
             'contact_request_title' => 'required|min:2|max:230',
-            'email' => 'required|email|min:3|max:50',
+            'email' => 'required|min:3|max:50',
             'email_recipient' => 'required|min:3|max:50',
             'phone' => 'regex:/^([0-9\+ ]*)$/|min:7|max:15',
             'payment_query' => 'regex:/^([0-9\+ ]*)$/|min:7|max:15',

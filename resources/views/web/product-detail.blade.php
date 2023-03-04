@@ -55,6 +55,11 @@
                     </div>
                     <div class="col-3 productDetailsLeftFirst" >
                         <div class="productDetailsThumbs ">
+                            <div class="fotorama__nav__frame">
+                                <div class="fotorama__thumb fotorama_horizontal_ratio ">
+                                    <img src="{{asset($product->thumbnail_image)}}" class="fotorama__img img-fluid">
+                                </div>
+                            </div>
                             @if($product->activeGalleries->count() > 0)
                                 @foreach ($product->activeGalleries as $gallery)
                                     <div class="fotorama__nav__frame ">
