@@ -801,11 +801,11 @@ $(document).ready(function () {
                         $(".successModalForm").modal('show');
                         document.getElementById("myspan").innerHTML=response.message;
 
-                            const myTimeout = setTimeout(myGreeting, 2000);
+                            const myTimeout = setTimeout(myGreeting, 4000);
 
                             function myGreeting() {
 
-                                 $('.successModalForm').delay(2000).fadeOut();
+                                 $('.successModalForm').delay(4000).fadeOut();
 
                                  window.location.reload();
 
