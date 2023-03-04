@@ -10,7 +10,7 @@
                             <div class="product-item-info">
                                 <div class="product-photo ">
                                     @php
-                                    $productPrice = \App\Models\ProductPrice::where('product_id',$product->id)->where('availability','In Stock')->where('stock','!=',0)->first();
+                                    $productPrice = \App\Models\ProductPrice::where('product_id',$yproduct->id)->where('availability','In Stock')->where('stock','!=',0)->first();
                                     $class = '';
                                     if ($productPrice->availability=='In Stock' && $productPrice->stock!=0) {
                                         $class = 'cart-action';
@@ -29,21 +29,21 @@
                                                 <ul>
                                                     <li>
                                                         <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
-                                                                {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}"  data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}"
-                                                                data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
+                                                                {{ (Auth::guard('customer')->check())?((app('wishlist')->get($yproduct->id))?'fill':''):'' }}"  data-id="{{$yproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$yproduct->product_type_id}}"
+                                                                data-bs-toggle="popover"  id="wishlist_check_{{$yproduct->id}}" 
                                                                 data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                             <div class="textIcon">
                                                                 Wishlist
                                                             </div>
-                                                            <div class="iconBox" id="wishlist_check_span_{{$product->id}}">
+                                                            <div class="iconBox" id="wishlist_check_span_{{$yproduct->id}}">
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </div>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         @php
-                                                        if($product->frame_color != null){
-                                                            $frameID = explode(',',$product->frame_color);
+                                                        if($yproduct->frame_color != null){
+                                                            $frameID = explode(',',$yproduct->frame_color);
                                                             $frameColor = \App\Models\Frame::whereIn('id',$frameID)->first()->id;
                                                         }
                                                         else{
@@ -51,7 +51,7 @@
                                                         }
                                                     @endphp
                                                         
-                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$product->mount}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
+                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$yproduct->mount}}" data-id="{{$yproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$yproduct->product_type_id}}">
                                                             <div class="iconBox">
                                                                 <i class="fa-solid fa-cart-shopping"></i>
                                                             </div>
@@ -93,21 +93,21 @@
                                         </ul>
                                         
                                         <ul class="type-review">
-                                        @if($product->product_categories->count() > 1)
+                                        @if($yproduct->product_categories->count() > 1)
                                             <li>
-                                            {{ $product->product_categories[0]->title }}, ...
+                                            {{ $yproduct->product_categories[0]->title }}, ...
                                             
                                             </li>
                                             @else
                                             <li>
-                                            {{ $product->product_categories[0]->title }}
+                                            {{ $yproduct->product_categories[0]->title }}
                                             
                                             </li>
                                             @endif
                                             
-                                            @if(Helper::averageRating($product->id)>0)
+                                            @if(Helper::averageRating($yproduct->id)>0)
                                             <li class="review">
-                                                <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
+                                                <i class="fa-solid fa-star"></i>{{ Helper::averageRating($yproduct->id)  }}
                                             </li>
                                             @endif
                                         </ul>

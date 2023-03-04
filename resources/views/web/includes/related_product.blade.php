@@ -27,7 +27,7 @@
                                             }
                                         @endphp
                                            @php
-                                           if($product->frame_color != null){
+                                           if($rproduct->frame_color != null){
                                                $frameID = explode(',',$rproduct->frame_color);
                                                $frameColor = \App\Models\Frame::whereIn('id',$frameID)->first()->id;
                                            }
@@ -39,20 +39,20 @@
                                                 <ul>
                                                     <li>
                                                         <a href="javascript:void(0)" class="my_wishlist {{ (Auth::guard('customer')->check())?'wishlist-action':'login-popup' }}
-                                                                {{ (Auth::guard('customer')->check())?((app('wishlist')->get($product->id))?'fill':''):'' }}"  data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}"
-                                                                data-bs-toggle="popover"  id="wishlist_check_{{$product->id}}" 
+                                                                {{ (Auth::guard('customer')->check())?((app('wishlist')->get($rproduct->id))?'fill':''):'' }}"  data-id="{{$rproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$rproduct->product_type_id}}"
+                                                                data-bs-toggle="popover"  id="wishlist_check_{{$rproduct->id}}" 
                                                                 data-bs-placement="left" data-bs-trigger="hover" data-bs-content="Wishlist">
                                                             <div class="textIcon">
                                                                 Wishlist
                                                             </div>
-                                                            <div class="iconBox" id="wishlist_check_span_{{$product->id}}">
+                                                            <div class="iconBox" id="wishlist_check_span_{{$rproduct->id}}">
                                                                 <i class="fa-regular fa-heart"></i>
                                                             </div>
                                                         </a>
                                                     </li>
                                                     <li>
                                                      
-                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$product->mount}}" data-id="{{$product->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$product->product_type_id}}">
+                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$rproduct->mount}}" data-id="{{$rproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$rproduct->product_type_id}}">
                                                             <div class="iconBox">
                                                                 <i class="fa-solid fa-cart-shopping"></i>
                                                             </div>
@@ -79,7 +79,7 @@
                                         @if(Helper::offerPrice($rproduct->id)!='')
                                             <li class="offer">
                                                 @php
-                                                    $offerId =Helper::offerId($product->id);
+                                                    $offerId =Helper::offerId($rproduct->id);
                                                 @endphp
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($rproduct->id,$productPrice->size_id,$offerId),2)}}
                                             </li>
@@ -94,7 +94,7 @@
                                         </ul>
                                         
                                         <ul class="type-review">
-                                        @if($product->product_categories->count() > 1)
+                                        @if($rproduct->product_categories->count() > 1)
                                             <li>
                                             {{ $rproduct->product_categories[0]->title }}, ...
                                             
