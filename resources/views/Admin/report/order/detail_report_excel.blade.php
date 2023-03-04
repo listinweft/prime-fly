@@ -27,20 +27,21 @@
         <td>Sub Total</td>
         <td style="border-right: 1px solid #f4f4f4;">Status</td>
     </tr>
-    @php $i=1@endphp@foreach($orderList as $order)
-        @if($order->orderProducts!=NULL)
+    @php $i=1 @endphp 
+    @foreach($orderList as $order)
+        @if($order->orderProducts->isNotEmpty())
             @php
                 $products = $order->orderProducts;
                 $productTotal = Order::getProductTotal($order->id);
                 $orderTotal = Order::getOrderTotal($order->id);
                 $cancelledTotal = Order::getCancelledProductTotal($order->id);
                 $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['codCharge'];
+                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
                 $orderStatus = OrderLog::where('order_product_id',$products[0]->id)->latest()->first();
             @endphp
             <tr>
                 <td colspan="1" rowspan="{{count($products)}}">{{ $i }}</td>
-                <td colspan="1" rowspan="{{count($products)}}">{{ 'PP'.$order->order_code }}</td>
+                <td colspan="1" rowspan="{{count($products)}}">{{ 'MBSHI'.$order->order_code }}</td>
                 @if($order->orderCustomer->user_type=="User")
                     <td colspan="1"
                         rowspan="{{count($products)}}">{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>

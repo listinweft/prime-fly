@@ -30,7 +30,7 @@
                                         <option value="">Select Order</option>
                                         @foreach($orderList['orderList'] as $order)
                                             <option
-                                                value="{{$order->orderData->id}}">{{'PP'.$order->orderData->order_code}}</option>
+                                                value="{{$order->orderData->id}}">{{'MH'.$order->orderData->order_code}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -43,8 +43,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Order Code</th>
-                                        <th>Product</th>
                                         <th>Customer</th>
+                                        <th>Product</th>
                                         <th>Cost</th>
                                         <th>Offer Amount</th>
                                         <th>Qty</th>

@@ -42,7 +42,8 @@
                                         <tr>
                                             <td>{{ $i }}</td>
                                             <td>{{ $customer->first_name.' '.$customer->last_name}}</td>
-                                            <td>{{ $customer->user->phone }}</td>
+
+                                            <td>{{ isset($customer->user) ? $customer->user->phone : '' }}</td>
                                             <td>
                                                 @foreach($customer->customerAddress as $address)
                                                     {!! $address->first_name .' '.$address->last_name !!}<br/>
@@ -54,10 +55,16 @@
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td>{{ $customer->user->email }}</td>
+                                            <td>{{ isset($customer->user) ? $customer->user->phone : '' }}</td>
                                             {{--<td>{{ $customer->user->username }}</td>--}}
-                                            <td><span
+                                            <td>
+                                                @if ($customer->user)
+                                                    
+                                                <span
                                                     style="color:{{ ($customer->status=='Active')?'green':'red' }}">{{ $customer->user->status }}</span>
+                                                @else
+                                                    
+                                                @endif
                                             </td>
                                             <td>{{ date("d-M-Y", strtotime($customer->created_at))  }}</td>
                                         </tr>

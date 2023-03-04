@@ -54,7 +54,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                <a href="{{url(Helper::sitePrefix().'order/view/'.$order['order']->id)}}">{{ 'PP'.$order['order']->order_code}}</a>
+                                                <a href="{{url(Helper::sitePrefix().'order/view/'.$order['order']->id)}}">{{ 'MBSHI'.$order['order']->order_code}}</a>
                                             </td>
                                             @if($order['order']->orderCustomer->user_type=="User")
                                                 <td>{{ $order['order']->orderCustomer->CustomerData->first_name.' '.$order['order']->orderCustomer->CustomerData->last_name }}</td>
