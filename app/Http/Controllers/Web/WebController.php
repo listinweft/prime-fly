@@ -673,7 +673,7 @@ class WebController extends Controller
                          else if ($input == "tag_id") {
                             $mainquery->where(function ($query) use ($inputs, $request, $input) {
                                 foreach ($request[$input] as $key => $reIn) {
-                                    $query->whereRaw("find_in_set('" . $reIn . "', products." . "$input)");
+                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
                                 }
                             });
                          }
