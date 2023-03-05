@@ -126,7 +126,7 @@
                                     @php
                                         $price = ($row->price * $row->quantity);
                                     @endphp
-                                    <h6 class="price{{$row->id}}">{{Helper::defaultCurrency()}} {{number_format(($price),2)}}</h6>
+                                    <h6 class="price{{$row->id}}">{{Helper::defaultCurrency()}} {{number_format(Helper::defaultCurrencyRate()*($price),2)}}</h6>
                                 </div>
                                 <div class="btns_area">
                                     @if(Auth::guard('customer')->check())
@@ -189,8 +189,8 @@
 </section>
 @endif
 
-@if(@$recently_viewed_products->isNotEmpty())
-    @include('web.includes.recently_viewed_products',['recentlyViewedProducts' => $recently_viewed_products])
+@if(@$related_products->isNotEmpty())
+    @include('web.includes.related_products',['related_products' => $related_products])
     @endif
 @endsection
 

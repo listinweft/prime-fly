@@ -91,7 +91,7 @@
                 <h6>  Subtotal {{ ($siteInformation->tax_type == 'Inside')? '(Tax Inclusive - '.$siteInformation->tax.'%)':''}}</h6>
             </div>
             <div class="right">
-                <h5 class="sub_totall">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
+                <h5 class="sub_totall">{{Helper::defaultCurrency()}} {{ number_format(Helper::defaultCurrencyRate()*Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
             </div>
         </li>
         @if($siteInformation->tax_type == 'Outside')

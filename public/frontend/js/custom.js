@@ -522,7 +522,7 @@ $(document).ready(function () {
         }
         var mount = $('.mount.active').data('mount');
         if(mount == undefined){
-            var mount = null;
+            var mount =  $(this).data('Yes')
         }
         else{
             var mount = $('.mount.active').data('mount');

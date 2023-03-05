@@ -184,7 +184,7 @@ class CartController extends Controller
       
         $product->price = $product->price;
         $product->frame = ($request->frame_id) ?$request->frame_id : null;
-        $product->mount = ($request->mount) ?$request->mount : null;
+        $product->mount = "Yes";
         $n = $product->id;
         $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
         $product->stock = $productPrice->stock;
@@ -335,9 +335,20 @@ class CartController extends Controller
         $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
-        $recently_viewed_products = Helper::getRecentProducts();
+        $productIds = Cart::session($sessionKey)->getContent()->pluck('attributes.product_id')->toArray();
+        
+        $products = Product::with('category')->where('status', 'Active')->whereIn('id', $productIds)->latest();
+
+        foreach($products as $product){
+            $product->category_id = explode(',',$product->category_id);
+        }
+       
+        //check if product is in products with explode category id
+        $related_products = Product::whereIn('category_id', $products->pluck('category_id')->toArray())  ->where('copy','no')->get();
+   
+       //get category id of products from the relation
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box','recently_viewed_products',
+        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box','related_products',
             'banner', 'featuredProducts'));
     }
 
@@ -454,7 +465,7 @@ class CartController extends Controller
         $default_currency = Helper::defaultCurrency();
         return response(array(
             'status' => true,
-            'total' => number_format($total,2),
+        'total' => number_format(   ($total),2),
             'defaulr_currency_rate' =>(Helper::defaultCurrencyRate()),
             'tax_amount' =>  number_format($calculation_box['tax_amount'],2),
             'shipping_amount' => number_format($calculation_box['shippingAmount'],2),

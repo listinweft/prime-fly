@@ -32,7 +32,7 @@
             </div>
 
 
-            <input type="hidden" name="is_description" id="is_description" value="1">
+            <input type="hidden" name="is_description" id="is_description" value="1" >
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="home_description">Description</label>

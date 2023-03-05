@@ -443,7 +443,10 @@ class Helper
 //        dd($common->email);
 
         $mail->MsgHTML($body);
-        $mail->addAddress($common->alternate_email, $common->email_recipient);
+        $emails = explode(',', $common->enquiry_emails);
+        foreach ($emails as $email) {
+            $mail->addAddress($email, $common->email_recipient);
+        }
         $mail->send();
         if ($mail) {
             return true;
@@ -632,7 +635,7 @@ class Helper
         
 
         // if ($productOfferSize) {
-        //     $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
+        //     $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);$rproduct
         // }
         // return $offer;
         $product = Product::find($productId);

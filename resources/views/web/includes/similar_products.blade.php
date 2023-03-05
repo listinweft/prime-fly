@@ -51,7 +51,7 @@
                                                         }
                                                     @endphp
                                                         
-                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="{{$yproduct->mount}}" data-id="{{$yproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$yproduct->product_type_id}}">
+                                                        <a href="javascript:void(0)" class="my_wishlist  cartBtn {{$class}}" data-frame="{{$frameColor}}" data-mount="Yes" data-id="{{$yproduct->id}}" data-size="{{$productPrice->size_id}}"  data-product_type_id="{{$yproduct->product_type_id}}">
                                                             <div class="iconBox">
                                                                 <i class="fa-solid fa-cart-shopping"></i>
                                                             </div>

@@ -68,7 +68,7 @@ class WebController extends Controller
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
       $selectionheading = HomeHeading::where('type','selection')->first();
-      $themes = Category::active()->oldest('sort_order')->get();
+      $themes = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
         $testimonials = Testimonial::active()->take(10)->get();
         $recentlyViewedProducts = Helper::getRecentProducts();
        

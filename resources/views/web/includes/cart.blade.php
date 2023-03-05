@@ -140,7 +140,7 @@ $sessionKey  =  Helper::getSessionKey();
             </div>
             <div class="sub_right">
                 @if($sessionKey)
-                <h5 class="sub_totall price{{@$product->id}}">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
+                <h5 class="sub_totall price{{@$product->id}}">{{Helper::defaultCurrency()}} {{ number_format(Helper::defaultCurrencyRate()*Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
                 @endif
             </div>
         </div>
