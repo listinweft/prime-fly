@@ -321,7 +321,7 @@ class WebController extends Controller
             $allProducts = Product::active()->first();
             $banner = Banner::type('product')->first();
             $subCategoryIds = implode('|', ((collect($shape->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
+            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',shape_id)")->orwhereRaw('CONCAT(",", `shape_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
             ->where('copy','no');
             $totalProducts = $condition->count();
             $products = $condition->where('copy','no')->latest()->take(12)->get();
@@ -337,7 +337,7 @@ class WebController extends Controller
             $typeValue = $short_url;
             $sort_value = 'latest';
             $title = ucfirst($shape->title);
-            $latestProducts = Product::active()->whereRaw("find_in_set('" . $shape->id . "',color_id)")->take(5)->latest()->get();
+            $latestProducts = Product::active()->whereRaw("find_in_set('" . $shape->id . "',shape_id)")->take(5)->latest()->get();
             return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount',
                 'colors', 'shape', 'banner', 'type', 'typeValue', 'latestProducts',
                 'title', 'sort_value'));
