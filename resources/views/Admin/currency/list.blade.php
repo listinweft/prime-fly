@@ -57,7 +57,7 @@
                                     @foreach($currencyList as $currency)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            @if($currency->code=="AED" || $currency->code=="INR")
+                                            @if($currency->code=="AED")
                                                 <td>
                                                     <a href="{{ url(Helper::sitePrefix().'currency/rate/create/'.$currency->id)}}">
                                                         {{ $currency->title }}
@@ -97,9 +97,12 @@
                                                     <a href="{{url(Helper::sitePrefix().'currency/edit/'.$currency->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Currency"><i
                                                             class="fas fa-edit"></i></a>
+                                                            @if($currency->code !=="AED")
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
                                                        title="Delete Currency" data-url="currency/delete"
                                                        data-id="{{$currency->id}}"><i class="fas fa-trash"></i></a>
+
+                                                       @endif
                                                 </div>
                                             </td>
                                         </tr>
