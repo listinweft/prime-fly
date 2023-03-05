@@ -30,7 +30,7 @@
                         <select id="language-selector" class="currency-selection">
                         @foreach($currencies as $currency)
                                         <option data-id='{{ $currency->id}}' data-code='{{ $currency->code}}'
-                                        {{ $defaultCurrency->code == $currency->code ? 'selected': '' }}
+                                        {{@$defaultCurrency->code == $currency->code ? 'selected': '' }}
                                         >{{ $currency->code}}</option>
                                     @endforeach
                         </select>
