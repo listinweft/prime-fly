@@ -89,6 +89,7 @@ class CurrencyController extends Controller
             $currency->image_webp = Helper::uploadWebpImage($request->image, 'uploads/currenc/image/webp/', $request->title);
             $currency->image = Helper::uploadFile($request->image, 'uploads/currency/image/', $request->title);
         }
+       
         $currency->title = $validatedData['title'];
         $currency->code = $validatedData['code'];
         $currency->symbol = $request->symbol ?? '';

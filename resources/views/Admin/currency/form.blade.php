@@ -108,6 +108,7 @@
             </div>
         </section>
     </div>
+   
     <script type="text/javascript">
         $(document).ready(function() {
             $("#image").fileinput({
@@ -129,7 +130,7 @@
                 maxImageHeight: 25,
                 maxFileSize: 512,
                 showRemove: true,
-                @if (isset($product_type) && $currency->image != null)
+                @if (isset($currency) && $currency->image != null)
                     initialPreview: ["{{ asset($currency->image) }}", ],
                     initialPreviewConfig: [{
                         caption: "{{ $currency->image != null ? last(explode('/', $currency->image)) : '' }}",
