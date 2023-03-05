@@ -416,6 +416,7 @@ class CartController extends Controller
         }
     }
     public function get_calc_value(Request $request){
+        
       $product = Product::find($request->product_id);
      
       $price = 0;
@@ -428,29 +429,36 @@ class CartController extends Controller
             $price =$offer_amount;
         }
         else{
-            $price = $product->price;
+            // $price = $product->price;
+            $cartPrice = Cart::session(session('session_key'))->get($request->id);
+            $price = $cartPrice->price;
           }
      
     
     }
-      
+    else{
+        $cartPrice = Cart::session(session('session_key'))->get($request->id);
+        $price = $cartPrice->price;
+    }
+    //get cart price 
+
       
       $qty = number_format($request->qty,2);
         $total = ($price*$qty);
 
-       
         
         $cart_session =  Cart::session(session('session_key'));
-        $cart = number_format($cart_session->getTotal(), 2);
+        $cart = number_format((Helper::defaultCurrencyRate())*$cart_session->getTotal(), 2);
    
         $calculation_box = Helper::calculationBox();
         $default_currency = Helper::defaultCurrency();
         return response(array(
             'status' => true,
-            'total' => number_format($total,2),
-            'tax_amount' =>  number_format($calculation_box['tax_amount'],2),
-            'shipping_amount' => number_format($calculation_box['shippingAmount'],2),
-            'cart_final_total' => number_format($calculation_box['final_total_with_tax'],2),
+            'total' => number_format((Helper::defaultCurrencyRate())*$total,2),
+            'defaulr_currency_rate' =>(Helper::defaultCurrencyRate()),
+            'tax_amount' =>  number_format((Helper::defaultCurrencyRate())*$calculation_box['tax_amount'],2),
+            'shipping_amount' => number_format((Helper::defaultCurrencyRate())*$calculation_box['shippingAmount'],2),
+            'cart_final_total' => number_format((Helper::defaultCurrencyRate())*$calculation_box['final_total_with_tax'],2),
             'cart' => $cart,
             'default_currency' => $default_currency,
         ), 200, []);
@@ -748,6 +756,7 @@ class CartController extends Controller
                     session(['selected_billing_address' => $customer_address->id]);
                 }
                 $calculation_box = Helper::calculationBox();
+                
                 echo json_encode(array('status' => 'true', 'message' => $message,'calculation_box'=>$calculation_box,'reload'=>"true",'orderC' => $orderC));
             } else {
                 echo json_encode(array('status' => 'false', 'message' => "Error while " . $text . "ing the address, Please try after sometime"));
@@ -871,6 +880,11 @@ class CartController extends Controller
                     }
                  
                     $calculation_box = Helper::calculationBox();
+                  $calculation_box['shippingAmount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['shippingAmount'],2);
+                  $calculation_box['tax_amount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['tax_amount'],2);
+                  $calculation_box['final_total_with_tax'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['final_total_with_tax'],2);
+             
+
                     $default_currency = Helper::defaultCurrency();
                     echo json_encode(array('status' => 'true', 'message' => 'Address has been added successfully','calculation_box'=>$calculation_box , 'reload'=>$orderC, 'default_currency'=>$default_currency));
                 }
@@ -1031,7 +1045,9 @@ class CartController extends Controller
                         session(['order_remarks' => $request->remarks]);
                     }
                     $calculation_box = Helper::calculationBox();
-
+                    $calculation_box['shippingAmount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['shippingAmount'],2);
+                    $calculation_box['tax_amount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['tax_amount'],2);
+                    $calculation_box['final_total_with_tax'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['final_total_with_tax'],2);
                     if(Session::has('selected_customer_address') && Session::has('selected_customer_billing_address')){
                         $address_selected=true;
                     }else{

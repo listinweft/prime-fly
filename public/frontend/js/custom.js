@@ -701,6 +701,7 @@ $(document).ready(function () {
                         $('.tax_amount').html(response.default_currency+' '+response.tax_amount);
                         $('.cart_final_total').html(response.default_currency+' '+response.cart_final_total);
                         $('.shipping_amount').html(response.default_currency+' '+response.shipping_amount);
+                       
                         $('.price'+id).html(response.default_currency+' '+response.total);
 
                     } else {
@@ -1850,10 +1851,10 @@ $(document).ready(function () {
                     // $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
                     // $('.cart_final_total_span').text(response.calculation_box.final_total_with_tax);
 
-                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount+'.00');
-                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount+'.00');
+                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount);
+                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount);
                     $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
-                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax+'.00');
+                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax);
                     Toast.fire('Success', response.message, 'success');
                     $('#confirm_payment').attr('disabled', false);
                     setTimeout(() => {

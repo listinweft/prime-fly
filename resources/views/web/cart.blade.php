@@ -124,7 +124,7 @@
                             <div class="total_price_btns">
                                 <div class="total_price">
                                     
-                                    <h6 class="price{{$product->id}}">{{Helper::defaultCurrency()}} {{number_format($row->price * $row->quantity,2)}}</h6>
+                                    <h6 class="price{{$row->id}}">  {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*number_format($row->price * $row->quantity,2))}}</h6>
                                 </div>
                                 <div class="btns_area">
                                     @if(Auth::guard('customer')->check())

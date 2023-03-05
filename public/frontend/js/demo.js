@@ -446,10 +446,10 @@ $(document).ready(function () {
                     }
                     $('.cod-charge').hide();
 
-                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount+'.00');
-                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount+'.00');
+                    $('.shipping_amount').text(response.default_currency+' '+response.calculation_box.shippingAmount);
+                    $('.tax_amount').text(response.default_currency+' '+response.calculation_box.tax_amount);
                     $('#grand_total_amount').val(response.calculation_box.final_total_with_tax);
-                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax+'.00');
+                    $('.cart_final_total').text(response.default_currency+' '+response.calculation_box.final_total_with_tax);
                     // $('.session').removeClass('d-none');
                     if(response.message == false){
 
