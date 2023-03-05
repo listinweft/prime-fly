@@ -132,11 +132,13 @@
                                 <div class="priceStatus">
                                     <div class="price">
                                         <ul class="price-area">
-                                            <li class="offer">
+                                        
+                                            <li >
                                          @php
                                                 $sizes = \App\Models\ProductPrice::where('product_id',$product->productData->id)->where('size_id',$size->id)->first();
                                          @endphp
                                             @if(Helper::offerPrice($product->productData->id)!='')
+                                       
                                             <li>
                                                 @php
                                                 $price = \App\Models\ProductPrice::where('product_id',$product->productData->id)->where('size_id',$product->size)->first();
@@ -149,9 +151,10 @@
                                             <li>
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
                                             </li>
-
+                                         
 
                                             @else
+                                            <li></li>
                                             <li>
                                               
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
@@ -160,6 +163,7 @@
 
                                             </li>
                                             @endif
+                                           
                                         </ul>
                                     </div>
                                     <div class="status">
@@ -202,7 +206,7 @@
                                             <h6>Subtotal   {{ ($order->tax_type == 'Inside')? '(Tax Inclusive - '.$order->tax.'%)':''}}</h6>
                                         </div>
                                         <div class="right">
-                                            <h5>{{$order->currency.' '.$orderTotal}}</h5>
+                                            <h5>{{$order->currency.' '.Helper::defaultCurrencyRate()*$orderTotal}}</h5>
                                         </div>
                                     </li>
                                     <li>
@@ -210,7 +214,7 @@
                                             <h6>Tax ({{$order->tax}}%)</h6>
                                         </div>
                                         <div class="right">
-                                            <h5>{{$order->currency.' '.$order->tax_amount}}</h5>
+                                            <h5>{{$order->currency.' '.Helper::defaultCurrencyRate()*$order->tax_amount}}</h5>
                                         </div>
                                     </li>
                                     @if($order->orderCoupons)
@@ -231,7 +235,7 @@
                                                 <h6>COD Charge</h6>
                                             </div>
                                             <div class="right">
-                                                <h5>{{$order->currency.' '.$order->cod_extra_charge}}</h5>
+                                                <h5>{{$order->currency.' '.Helper::defaultCurrencyRate()*$order->cod_extra_charge}}</h5>
                                             </div>
                                         </li>
                                     @endif
@@ -240,7 +244,7 @@
                                             <h6>Shipping Charge</h6>
                                         </div>
                                         <div class="right">
-                                            <h5>{{$order->currency.' '.$order->shipping_charge}}</h5>
+                                            <h5>{{$order->currency.' '.Helper::defaultCurrencyRate()*$order->shipping_charge}}</h5>
                                         </div>
                                     </li>
                                     @if(@$refundStatus)
@@ -259,7 +263,7 @@
                                             <h6>Total</h6>
                                         </div>
                                         <div class="right">
-                                            <h5>{{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?$orderGrandTotal['orderGrandTotal']:'0',2)}}</h5>
+                                            <h5>{{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?Helper::defaultCurrencyRate()*$orderGrandTotal['orderGrandTotal']:'0',2)}}</h5>
                                         </div>
                                     </li>
                                 </ul>

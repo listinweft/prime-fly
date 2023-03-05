@@ -91,7 +91,7 @@
                 <h6>  Subtotal {{ ($siteInformation->tax_type == 'Inside')? '(Tax Inclusive - '.$siteInformation->tax.'%)':''}}</h6>
             </div>
             <div class="right">
-                <h5 class="sub_totall">{{Helper::defaultCurrency()}} {{ number_format(Helper::defaultCurrencyRate()*Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
+                <h5 class="sub_totall">{{Helper::defaultCurrency()}} {{ number_format(Cart::session($sessionKey)->getSubTotal(),2)}}</h5>
             </div>
         </li>
         @if($siteInformation->tax_type == 'Outside')
@@ -100,7 +100,7 @@
                 <h6>Tax{{ ' ('. $siteInformation->tax . '% )' }}</h6>
             </div>
             <div class="right">
-                <h5 class="tax_amount">{{Helper::defaultCurrency()}} {{number_format(Helper::defaultCurrencyRate()*$calculation_box['tax_amount'],2)}}</h5>
+                <h5 class="tax_amount">{{Helper::defaultCurrency()}} {{number_format($calculation_box['tax_amount'],2)}}</h5>
             </div>
         </li>
         @endif
@@ -118,7 +118,7 @@
             </div>
             <div class="right">
                
-                <h5 class="shipping_amount">{{Helper::defaultCurrency()}} {{number_format(Helper::defaultCurrencyRate()*$calculation_box['shippingAmount'],2)}}</h5>
+                <h5 class="shipping_amount">{{Helper::defaultCurrency()}} {{number_format($calculation_box['shippingAmount'],2)}}</h5>
             </div>
         </li>
         <li class="@if (Request::is('cart')) d-none   @else couponLi  @endif ">
@@ -153,12 +153,12 @@
         @endif
     </ul>
     <div class="sub_total">
-        <input type="hidden" name="grand_total_amount" id="grand_total_amount" value="{{number_format(Helper::defaultCurrencyRate()*$calculation_box['final_total_with_tax'],2)}}">
+        <input type="hidden" name="grand_total_amount" id="grand_total_amount" value="{{number_format($calculation_box['final_total_with_tax'],2)}}">
         <div class="sub_left">
             <h6>Total</h6>
         </div>
         <div class="sub_right">
-            <h5 class="cart_final_total">{{Helper::defaultCurrency()}} {{number_format(Helper::defaultCurrencyRate()*$calculation_box['final_total_with_tax'],2)}}</h5>
+            <h5 class="cart_final_total">{{Helper::defaultCurrency()}} {{number_format($calculation_box['final_total_with_tax'],2)}}</h5>
         </div>
     </div>
     <div class="btnsBox @if (Request::is('cart'))  @else d-none  @endif ">

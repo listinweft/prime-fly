@@ -448,17 +448,17 @@ class CartController extends Controller
 
         
         $cart_session =  Cart::session(session('session_key'));
-        $cart = number_format((Helper::defaultCurrencyRate())*$cart_session->getTotal(), 2);
+        $cart = number_format($cart_session->getTotal(), 2);
    
         $calculation_box = Helper::calculationBox();
         $default_currency = Helper::defaultCurrency();
         return response(array(
             'status' => true,
-            'total' => number_format((Helper::defaultCurrencyRate())*$total,2),
+            'total' => number_format($total,2),
             'defaulr_currency_rate' =>(Helper::defaultCurrencyRate()),
-            'tax_amount' =>  number_format((Helper::defaultCurrencyRate())*$calculation_box['tax_amount'],2),
-            'shipping_amount' => number_format((Helper::defaultCurrencyRate())*$calculation_box['shippingAmount'],2),
-            'cart_final_total' => number_format((Helper::defaultCurrencyRate())*$calculation_box['final_total_with_tax'],2),
+            'tax_amount' =>  number_format($calculation_box['tax_amount'],2),
+            'shipping_amount' => number_format($calculation_box['shippingAmount'],2),
+            'cart_final_total' => number_format($calculation_box['final_total_with_tax'],2),
             'cart' => $cart,
             'default_currency' => $default_currency,
         ), 200, []);
@@ -1045,9 +1045,6 @@ class CartController extends Controller
                         session(['order_remarks' => $request->remarks]);
                     }
                     $calculation_box = Helper::calculationBox();
-                    $calculation_box['shippingAmount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['shippingAmount'],2);
-                    $calculation_box['tax_amount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['tax_amount'],2);
-                    $calculation_box['final_total_with_tax'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['final_total_with_tax'],2);
                     if(Session::has('selected_customer_address') && Session::has('selected_customer_billing_address')){
                         $address_selected=true;
                     }else{
