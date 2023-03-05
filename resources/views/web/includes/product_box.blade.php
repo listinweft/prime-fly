@@ -69,24 +69,16 @@
             </div>
             <ul class="price-area">
                 @if(Helper::offerPrice($product->id)!='')
-                    <li class="offer">
-                        @php
-                            $offerId =Helper::offerId($product->id);
+                @php
+                        $offerId =Helper::offerId($product->id);
                         @endphp
-                        {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}
-                    </li>
-                    <li>
-                        {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
-                    </li>
-                    @else
-                        <li>
-                            {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}
-                        </li>
-                    
-                    
-                    
-                    
-                        @endif
+                
+                <li class="offer"> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</li>
+                <li> {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}</li>
+                @else
+                <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</li>
+                @endif
+              
                                 </ul>
                                 <ul class="type-review">
                                 @if($product->product_categories->count() > 1)

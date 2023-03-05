@@ -131,6 +131,11 @@
                                 </div>
                                 <div class="priceStatus">
                                     <div class="price">
+                                        {{$product->qty}} items
+                                    </div>
+                                </div>
+                                <div class="priceStatus">
+                                    <div class="price">
                                         <ul class="price-area">
                                         
                                             <li >
@@ -138,7 +143,9 @@
                                                 $sizes = \App\Models\ProductPrice::where('product_id',$product->productData->id)->where('size_id',$size->id)->first();
                                          @endphp
                                             @if(Helper::offerPrice($product->productData->id)!='')
-                                       
+                                            <li>
+                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
+                                            </li>
                                             <li>
                                                 @php
                                                 $price = \App\Models\ProductPrice::where('product_id',$product->productData->id)->where('size_id',$product->size)->first();
@@ -148,9 +155,7 @@
                                                  @endphp
                                                 {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->productData->id,$product->size,$offerId),2)}}
                                             </li>
-                                            <li>
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
-                                            </li>
+                                           
                                          
 
                                             @else

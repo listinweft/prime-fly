@@ -16,6 +16,7 @@ use App\Models\Menu;
 use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductOfferSize;
 use App\Models\ProductPrice;
 use App\Models\ProductReview;
 use App\Models\RecentlyViewedProduct;
@@ -627,12 +628,27 @@ class Helper
 
     public static function offerPriceSize($productId,$sizeId,$offerId)
     {
-        $productOfferSize = DB::table('product_offer_size')->where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
+        // $productOfferSize = DB::table('product_offer_size')->where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
+        
 
-        if ($productOfferSize) {
-            $productOfferSize = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
+        // if ($productOfferSize) {
+        //     $offer = number_format($productOfferSize->price * self::defaultCurrencyRate(), 2);
+        // }
+        // return $offer;
+        $product = Product::find($productId);
+      
+        $offer = '';
+        if ($product) {
+                $offer =  ProductOfferSize::where('product_id',$productId)->where('size_id',$sizeId)->where('offer_id',$offerId)->first();
+            
+                if ($offer) {
+                  
+                    $offer = number_format($offer->price * self::defaultCurrencyRate(), 2);
+                }
+            
+              
         }
-        return $productOfferSize;
+        return $offer;
         
     }
     public static function offerPriceAmount($productId)
