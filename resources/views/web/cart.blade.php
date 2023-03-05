@@ -189,7 +189,7 @@
 </section>
 @endif
 
-@if(@$related_products->isNotEmpty())
+@if(@$related_products != null)
     @include('web.includes.related_products',['related_products' => $related_products])
     @endif
 @endsection

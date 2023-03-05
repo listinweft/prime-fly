@@ -330,21 +330,29 @@ class CartController extends Controller
         $sessionKey = session('session_key');
     
         $calculation_box = Helper::calculationBox();
-       
+    
         $tag = $this->seo_content('Cart');
         $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
-        $productIds = Cart::session($sessionKey)->getContent()->pluck('attributes.product_id')->toArray();
-        
-        $products = Product::with('category')->where('status', 'Active')->whereIn('id', $productIds)->latest();
-
-        foreach($products as $product){
-            $product->category_id = explode(',',$product->category_id);
+   
+        if($sessionKey != null){
+            
+            
+            $productIds = Cart::session($sessionKey)->getContent()->pluck('attributes.product_id')->toArray();
+            $products = Product::with('category')->where('status', 'Active')->whereIn('id', $productIds)->latest();
+    
+            foreach($products as $product){
+                $product->category_id = explode(',',$product->category_id);
+            }
+           
+            //check if product is in products with explode category id
+            $related_products = Product::whereIn('category_id', $products->pluck('category_id')->toArray())->where('copy','no')->get();
         }
-       
-        //check if product is in products with explode category id
-        $related_products = Product::whereIn('category_id', $products->pluck('category_id')->toArray())  ->where('copy','no')->get();
+        else{
+            $related_products = null;
+        }
+        
    
        //get category id of products from the relation
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
