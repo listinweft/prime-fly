@@ -485,13 +485,17 @@ $(document).ready(function () {
 
     /****************** cart action *************************/
 
-    $('.out-of-stock').on('click', function () {
+    $('.cartBtn').on('click', function () {
         //cart contain out of stock product
-        swal.fire({
-            title: "Oops",
-            text: "Sorry, this product is out of stock.",
-            type: "error"
-        });
+        if ($(this).hasClass('out-of-stock')) {
+            //cart contain out of stock product
+            
+            swal.fire({
+                title: "Oops",
+                text: "Sorry, this product is out of stock.",
+                type: "error"
+            });
+        }
     });
 
     $('.outOfStock').on('click', function () {
@@ -503,6 +507,11 @@ $(document).ready(function () {
         });
     });
     $(document).on('click', '.cart-action', function () {
+        //check this class have out-of-stock class
+       
+            
+
+
    // take value of active size class
         var size = $('.size.active').data('id');
         if(size == undefined){
