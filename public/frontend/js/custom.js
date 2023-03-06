@@ -485,7 +485,14 @@ $(document).ready(function () {
 
     /****************** cart action *************************/
 
-
+    $('.out-of-stock').on('click', function () {
+        //cart contain out of stock product
+        swal.fire({
+            title: "Oops",
+            text: "Sorry, this product is out of stock.",
+            type: "error"
+        });
+    });
 
     $('.outOfStock').on('click', function () {
         //cart contain out of stock product
