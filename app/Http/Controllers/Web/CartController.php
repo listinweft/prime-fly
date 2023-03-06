@@ -179,12 +179,21 @@ class CartController extends Controller
 
     public function cartAddItems($request, $product_id, $sessionKey,$size)
     {
-       
+
         $product = Product::find($product_id);
       
         $product->price = $product->price;
         $product->frame = ($request->frame_id) ?$request->frame_id : null;
-        $product->mount = "Yes";
+    
+       
+        if($request->type_id == '4' && $request->mount == null) {
+
+           $product->mount = "Yes";
+        }
+        else{
+            $product->mount = $request->mount;
+        }
+
         $n = $product->id;
         $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
         $product->stock = $productPrice->stock;

@@ -49,8 +49,8 @@
                                     @endif
                                     @if($row->attributes['mount'] != null)
                                     <li>
-                                        @if($row->attributes['mount'] == 'Yes')
                                         Mount :
+                                        @if($row->attributes['mount'] == 'Yes')
                                             <span> With Mount</span>
                                         @elseif($row->attributes['mount'] == 'No')
                                             <span> No Mount</span>
