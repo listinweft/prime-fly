@@ -189,9 +189,13 @@
                             @php
                              $productCategory = \DB::table('product_category')->where('id',$theme->id)->get();
                              //count of products under category id
-                                $count = \DB::table('product_category')->where('category_id',$theme->id)->count();
-                            @endphp
+                                $prdoucts = \App\Models\Product::where('copy','no')->get();
+                                $productIds = $prdoucts->pluck('id')->toArray();
 
+                                $count = \DB::table('product_category')->where('category_id',$theme->id)->whereIn('product_id',$productIds)->count();
+
+                            @endphp
+                           
                             <h6>{{@$count }} items</h6>
                         </div>
                     </div>

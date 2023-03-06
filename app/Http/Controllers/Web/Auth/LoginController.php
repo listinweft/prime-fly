@@ -304,7 +304,7 @@ class LoginController extends Controller
         $request->validate([
             'firstname' => 'required|string|min:2|max:255',
              'lastname' => 'required|string|min:2|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
+            'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
 //            'username' => 'required|string|max:255|unique:users,username',
             'phone' => 'required|min:7|max:15|unique:users,phone',
             'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],

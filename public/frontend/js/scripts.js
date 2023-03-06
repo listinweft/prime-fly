@@ -213,7 +213,7 @@ $('.blogRecentSlider').slick({
     slidesToShow: 4,
     slidesToScroll: 1,
     focusOnSelect: true,
-    autoplay: true,
+    autoplay: false,
     infinite: true,
     focusOnSelect: true,
     vertical: true,
