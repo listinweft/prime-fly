@@ -250,17 +250,34 @@
 
 <script>
    $(function() {
-    // var amount = $("#amount").val();
-    // alert(amount);
-    // let new_phrase = amount.replace('AED');
-    // alert(new_phrase);
+//     var amount = $("#amount").val();
+//     alert(amount);
+
+   
+    
+// var substring = amount.replace("AED", "");
+
+// var substrings = substring.replace("AED", "");
+
+// var substringss = substrings.replace("-", ",");
+// values=substringss.split(',');
+
+//      var min = values[0];
+
+//      var max = values[1];
+
+
+
+
+
+    
     $( "#slider-range" ).slider({
         range: true,
-        min: 1,
-        max: 5000,
-        values: [ 1, 5000 ],
+        min: {{ Helper::getMinPrice() }},
+        max: {{ Helper::getMaxPrice() }},
+        values: [ {{ Helper::getMinPrice() }}, {{ Helper::getMaxPrice() }} ],
         slide: function( event, ui ) {
-            $( "#amount" ).val( "AED" + ui.values[ 0 ] + " - AED" + ui.values[ 1 ] );
+            $( "#amount" ).val( "AED" + {{ Helper::getMinPrice() }} + " - AED" + {{ Helper::getMaxPrice() }} );
         }
     });
     $( "#amount" ).val( "AED" + $( "#slider-range" ).slider( "values", 0 ) +

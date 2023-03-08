@@ -68,9 +68,17 @@ class WebController extends Controller
         $ourcollection = Homecollection::active()->first();
       $homeHeadings = HomeHeading::where('type','testimonial')->first();
       $selectionheading = HomeHeading::where('type','selection')->first();
-      $themes = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
+      $prdts = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
+
+      $catIds = $prdts->pluck('id')->toArray();
+     $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
+     $catIdss = $prs->pluck('category_id')->toArray();
+
+     $themes =  Category::whereIn('id',$catIdss)->get();
+
+
         $testimonials = Testimonial::active()->take(10)->get();
-        $recentlyViewedProducts = Helper::getRecentProducts();
+    $recentlyViewedProducts = Helper::getRecentProducts();
        
       $catHomeHeadings = HomeHeading::where('type','category')->first();
      $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
@@ -95,7 +103,15 @@ class WebController extends Controller
         $histories = History::active()->oldest('sort_order')->get();
         $banner = Banner::type('about')->first();
         $catHomeHeadings = HomeHeading::where('type','category')->first();
-        $themes = Category::active()->oldest('sort_order')->get();
+
+        $Rprdts = Category::active()->oldest('sort_order')->get();
+
+        $catIds = $Rprdts->pluck('id')->toArray();
+        $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
+        $catIdss = $prs->pluck('category_id')->toArray();
+   
+        $themes =  Category::whereIn('id',$catIdss)->get();
+   
 
         return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
     }
@@ -206,7 +222,7 @@ class WebController extends Controller
         if ($blog) {
             $banner = $seo_data = $blog;
             $type = $short_url;
-            $recentBlogs = Blog::active()->latest('posted_date')->limit(10)->where('id', '!=', $blog->id)->get();
+            $recentBlogs = Blog::active()->latest('posted_date')->limit(4)->where('id', '!=', $blog->id)->get();
             $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
             $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
@@ -280,10 +296,19 @@ class WebController extends Controller
     }
     public function color($short_url)
     {
-        $color = Color::active()->where('id',$short_url)->first();
+        $color = Color::active()->where('title',$short_url)->first();
 
         if ($color) {
             $seo_data = $color;
+
+            if(@$seo_data->meta_title == '')
+            $seo_data->meta_title = $color->title;
+
+
+if(@$seo_data->meta_description == '')
+    $seo_data->meta_description = $color->title;
+if(@$seo_data->meta_keyword == '')
+    $seo_data->meta_keyword = $color->title;
 
             $allProducts = Product::active()->first();
             $banner = Banner::type('product')->first();
@@ -313,10 +338,19 @@ class WebController extends Controller
     }
     public function shape($short_url)
     {
-        $shape = Shape::active()->where('id',$short_url)->first();
+        $shape = Shape::active()->where('title',$short_url)->first();
 
         if ($shape) {
             $seo_data = $shape;
+
+            if(@$seo_data->meta_title == '')
+            $seo_data->meta_title = $shape->title;
+
+
+if(@$seo_data->meta_description == '')
+    $seo_data->meta_description = $shape->title;
+if(@$seo_data->meta_keyword == '')
+    $seo_data->meta_keyword = $shape->title;
             // $parentCategories = Category::active()->isParent()->get();
             $allProducts = Product::active()->first();
             $banner = Banner::type('product')->first();
@@ -405,11 +439,11 @@ class WebController extends Controller
                         }
                         if ($shapeIds) {
                             
-                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $shapeIds . '),"');
+                            $query->orWhereRaw('CONCAT(",", `shape_id`, ",") REGEXP ",(' . $shapeIds . '),"');
                         }
                         if ($colorIds) {
                             
-                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $colorIds . '),"');
+                            $query->orWhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $colorIds . '),"');
                         }
                     })->get();
         if ($products->isNotEmpty()) {
@@ -575,21 +609,47 @@ class WebController extends Controller
     public function filterCondition(Request $request)
     {
 
+        $currency = Helper::defaultCurrency();
 
-
+      
 
         $price_range = explode('-', str_replace('AED', '', $request->my_range));
+
+
+
+
+ 
 
 
          if (!empty($price_range)) {
 
 
+         $dcurrencyrate = Helper::defaultCurrencyRate();
+        
+
+       $initialvalue =  $price_range[0];
+      
+
+        $finalvalue=  $price_range[1];
+
+        $a =  $initialvalue/$dcurrencyrate;
+
+        $b = $finalvalue/$dcurrencyrate;
+
+       $firstprice = (round($a));
+
+       $secondprice = (round($b));
 
 
+       $priceranges=[$firstprice,$secondprice];
+      
+   
 
 
-             $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
-                $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
+     
+      
+             $condition = Product::active()->whereHas('productprices', function($query) use($priceranges){
+                $query->whereBetween('products_size_price.price', [$priceranges[0], $priceranges[1]]);
                 
              })->where('products.copy','no');
          }

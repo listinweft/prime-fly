@@ -1304,7 +1304,11 @@ class Helper
     {
         if (Auth::guard('customer')->check()) {
             $customer = Auth::guard('customer')->user()->customer;
-            $recent_products = RecentlyViewedProduct::with('product')->where(['customer_id' => $customer->id])->latest('updated_at')->take(15)->get();
+
+            $prs =  Product::where('copy','no')->get();
+            $pids = $prs->pluck('id')->toArray();   
+
+            $recent_products = RecentlyViewedProduct::with('product')->where(['customer_id' => $customer->id])->whereIn('product_id',$pids)->latest('updated_at')->take(20)->get();
         } else {
             // return empty collection
             $recent_products = collect();
@@ -1488,6 +1492,8 @@ class Helper
     {
         $price = 0;
         $getPrice = DB::table('products_size_price')->min('price');
+
+        
         if ($getPrice)
             $price = $getPrice;
         return $price;
@@ -1497,6 +1503,7 @@ class Helper
     {
         $price = 0;
         $getPrice = DB::table('products_size_price')->max('price');
+
         if ($getPrice)
             $price = $getPrice;
         return $price;

@@ -130,7 +130,7 @@
                                 <ul class="dropdown-menu">
                                     <div class="colorWrapper">
                                         @foreach ($colorItems as $color_item)
-                                        <a href="{{url('color/'.$color_item->id)}}" class="colorItemFilterClick ">
+                                        <a href="{{url('color/'.$color_item->title)}}" class="colorItemFilterClick ">
                                             <div class="colorBox" style="background:{{$color_item->code}}">
                                             </div>
                                             {{$color_item->title}}
@@ -161,7 +161,7 @@
                                         @php
                                         $shape = App\Models\Shape::find($side_menu_detail->shape_id)->first();
                                         @endphp
-                                        <a href="{{url('shape/'.$shape->id)}}" class="dropdown-item ">
+                                        <a href="{{url('shape/'.$shape->title)}}" class="dropdown-item ">
                                             <div class="iconBox">
                                                 {!! Helper::printImage($side_menu_detail,'image','image_webp','image_attribute','img-fluid') !!}
                                                 {{-- <img class="img-fluid"  src="{{ asset('frontend/images/menu/menu-08.png')}}" alt=""> --}}
@@ -282,7 +282,7 @@
                                                 <div class="shapeWrapper">
                                                     @foreach ($shapes as $shape)
                                                     <div class="shapeItem">
-                                                        <a href="{{url('shape/'.$shape->id)}}">
+                                                        <a href="{{url('shape/'.$shape->title)}}">
                                                             {!! Helper::printImage($shape,'image','image_webp','image_attribute','img-fluid') !!}
                                                             <h6>{{$shape->title}}</h6>
                                                         </a>
@@ -308,7 +308,7 @@
                                             <div class="col-12">
                                                 <div class="colorWrapper">
                                                     @foreach ($colors as $color)
-                                                    <a href="{{url('color/'.$color->id)}}" class="colorItemFilterClick ">
+                                                    <a href="{{url('color/'.$color->title)}}" class="colorItemFilterClick ">
                                                         <div class="colorBox" style="background:{{$color->code}}">
                                                         </div>
                                                         {{$color->title}}
