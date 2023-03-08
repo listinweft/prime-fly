@@ -31,10 +31,9 @@
                 </div>
             </div>
 
-
-            <input type="hidden" name="is_description" id="is_description" value="1" >
+            <input type="hidden" name="is_description" id="is_description" value="1"  >
                 <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12  {{@$type=="testimonial" ? 'd-none' : ''}} ">
                         <label for="home_description">Description</label>
                         <textarea class="form-control tinyeditor" id="home_description" name="homeDescription"
                                   placeholder="Description">{{@$home_heading->description}}</textarea>
