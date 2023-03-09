@@ -609,7 +609,7 @@ if(@$seo_data->meta_keyword == '')
     public function filterCondition(Request $request)
     {
 
-        $currency = Helper::defaultCurrency();
+        // $currency = Helper::defaultCurrency();
 
       
 
@@ -624,32 +624,33 @@ if(@$seo_data->meta_keyword == '')
          if (!empty($price_range)) {
 
 
-         $dcurrencyrate = Helper::defaultCurrencyRate();
+    //      $dcurrencyrate = Helper::defaultCurrencyRate();
         
 
-       $initialvalue =  $price_range[0];
+    //    $initialvalue =  $price_range[0];
       
 
-        $finalvalue=  $price_range[1];
+    //     $finalvalue=  $price_range[1];
 
-        $a =  $initialvalue/$dcurrencyrate;
+    //     $a =  $initialvalue/$dcurrencyrate;
 
-        $b = $finalvalue/$dcurrencyrate;
+    //     $b = $finalvalue/$dcurrencyrate;
 
-       $firstprice = (round($a));
+    //    $firstprice = (round($a));
 
-       $secondprice = (round($b));
+    //    $secondprice = (round($b));
 
 
-       $priceranges=[$firstprice,$secondprice];
+    //    $priceranges=[$firstprice,$secondprice];
       
    
 
 
      
       
-             $condition = Product::active()->whereHas('productprices', function($query) use($priceranges){
-                $query->whereBetween('products_size_price.price', [$priceranges[0], $priceranges[1]]);
+             $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
+                $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
+               
                 
              })->where('products.copy','no');
          }
