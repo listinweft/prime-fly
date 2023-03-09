@@ -753,11 +753,11 @@ if(@$seo_data->meta_keyword == '')
         //Sorting
         $sort_value = $request->sort_value;
         if ($sort_value == "new") {
-            $condition = $condition->oldest('new_arrival');
+            $condition = $condition->where('new_arrival','Yes');
         } elseif ($sort_value == "featured") {
-            $condition = $condition->oldest('is_featured');
+            $condition = $condition->where('is_featured','Yes');
         } elseif ($sort_value == "best") {
-            $condition = $condition->oldest('best_seller');
+            $condition = $condition->where('best_seller','Yes');
         } elseif ($sort_value == "asc") {
             $condition = $condition->oldest('title');
         } elseif ($sort_value == "desc") {
