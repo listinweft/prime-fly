@@ -77,19 +77,18 @@
                 <li> {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}</li>
                 @else
 
-                @if($product->productPrice->price == $product->productPricelatest->price)
+              
 
 
                
                
-                <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productPrice->price,2)}}</li>
-               @else
-               
-                <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productPrice->price,2)}}-{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productPricelatest->price,2)}}</li>
-              @endif
+                <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}</li>
+             
+               @endif
+                
               
               
-                @endif
+              
               
                                 </ul>
                                 <ul class="type-review">

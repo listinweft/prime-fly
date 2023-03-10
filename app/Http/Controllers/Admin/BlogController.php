@@ -85,11 +85,38 @@ class BlogController extends Controller
         $blog->video_thumbnail_image_attribute = $request->video_thumbnail_attribute ?? '';
 //        $blog->banner_title = $request->banner_title ?? '';
 //        $blog->banner_sub_title = $request->banner_sub_title ?? '';
-        $blog->banner_attribute = $request->banner_attribute ?? '';
-        $blog->meta_title = ($request->meta_title) ? $request->meta_title : '';
-        $blog->meta_description = ($request->meta_description) ? $request->meta_description : '';
-        $blog->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
-        $blog->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
+     $blog->banner_attribute = $request->banner_attribute ?? '';
+       $meta_title =    $blog->meta_title = ($request->meta_title) ? $request->meta_title : '';
+       $meta_description =   $blog->meta_description = ($request->meta_description) ? $request->meta_description : '';
+       $meta_keyword =   $blog->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
+       $other_meta_tag =   $blog->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
+
+        if($meta_title==''){
+            $blog->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $blog->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $blog->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $blog->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->other_meta_tag = $request->other_meta_tag ?? '';
+         }
+
+
         if ($blog->save()) {
             session()->flash('success', 'Blog "' . $request->title . '" has been added successfully');
             return redirect(Helper::sitePrefix() . 'blog/');
@@ -174,11 +201,36 @@ class BlogController extends Controller
 //        $blog->banner_title = $request->banner_title ?? '';
 //        $blog->banner_sub_title = $request->banner_sub_title ?? '';
         $blog->banner_attribute = $request->banner_attribute ?? '';
-        $blog->meta_title = ($request->meta_title) ? $request->meta_title : '';
-        $blog->meta_description = ($request->meta_description) ? $request->meta_description : '';
-        $blog->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
-        $blog->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
+        $meta_title =  $blog->meta_title = ($request->meta_title) ? $request->meta_title : '';
+        $meta_description = $blog->meta_description = ($request->meta_description) ? $request->meta_description : '';
+        $meta_keyword = $blog->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
+        $other_meta_tag = $blog->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
         $blog->updated_at = now();
+        if($meta_title==''){
+            $blog->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $blog->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $blog->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $blog->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $blog->other_meta_tag = $request->other_meta_tag ?? '';
+         }
+
         if ($blog->save()) {
             session()->flash('success', 'Blog "' . $request->title . '" has been updated successfully');
             return redirect(Helper::sitePrefix() . 'blog/');

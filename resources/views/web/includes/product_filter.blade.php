@@ -116,9 +116,11 @@
             <div class="priceRagerArea">
                 <div class="slider-range-wrap">
                 <div class="currencyBox">{{Helper::defaultCurrency()}}</div>
+
+                @php $dc = Helper::defaultCurrency(); @endphp
                     <div id="slider-range" class="range_bar_sort"></div>
                     <p class="range-value">
-                        <input type="text" id="amount" name="my_range"  value="AED{{ Helper::getMinPrice() }}-AED{{ Helper::getMaxPrice() }}"data-min="{{ Helper::getMinPrice() }}"
+                        <input type="text" id="amount" name="my_range"  value="{{ $dc }}{{ Helper::getMinPrice() }}-{{$dc}}{{ Helper::getMaxPrice() }}"data-min="{{ Helper::getMinPrice() }}"
                                                            data-max="{{ Helper::getMaxPrice() }}"
                                                            data-from="{{ Helper::getMinPrice() }}"
                                                            data-to="{{ Helper::getMaxPrice() }}">
@@ -277,11 +279,11 @@
         max: {{ Helper::getMaxPrice() }},
         values: [ {{ Helper::getMinPrice() }}, {{ Helper::getMaxPrice() }} ],
         slide: function( event, ui ) {
-            $( "#amount" ).val( "AED" + {{ Helper::getMinPrice() }} + " - AED" + {{ Helper::getMaxPrice() }} );
+            $( "#amount" ).val( "{{Helper::defaultCurrency()}}" + {{ Helper::getMinPrice() }} + " - {{Helper::defaultCurrency()}}" + {{ Helper::getMaxPrice() }} );
         }
     });
-    $( "#amount" ).val( "AED" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - AED" + $( "#slider-range" ).slider( "values", 1 ) );
+    $( "#amount" ).val( "{{Helper::defaultCurrency()}}" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - {{Helper::defaultCurrency()}}" + $( "#slider-range" ).slider( "values", 1 ) );
 });
 
 </script>

@@ -273,10 +273,35 @@ class ProductController extends Controller
       
         $product->product_type_id = $request->product_type_id;
         $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
-        $product->meta_title = $request->meta_title ?? '';
-        $product->meta_description = $request->meta_description ?? '';
-        $product->meta_keyword = $request->meta_keyword ?? '';
-        $product->other_meta_tag = $request->other_meta_tag ?? '';
+        $meta_title =  $product->meta_title = $request->meta_title ?? '';
+        $meta_description = $product->meta_description = $request->meta_description ?? '';
+        $meta_keyword = $product->meta_keyword = $request->meta_keyword ?? '';
+        $other_meta_tag = $product->other_meta_tag = $request->other_meta_tag ?? '';
+
+        if($meta_title==''){
+            $product->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $product->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $product->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $product->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $product->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $product->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $product->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $product->other_meta_tag = $request->other_meta_tag ?? '';
+         }
    
         if ($product->save()) {
 
@@ -559,10 +584,35 @@ class ProductController extends Controller
         
             $product->product_type_id = $request->product_type_id;
             $product->frame_color = ($request->frame_color) ? implode(',', $request->frame_color) : '';
-            $product->meta_title = $request->meta_title ?? '';
-            $product->meta_description = $request->meta_description ?? '';
-            $product->meta_keyword = $request->meta_keyword ?? '';
-            $product->other_meta_tag = $request->other_meta_tag ?? '';
+            $meta_title= $product->meta_title = $request->meta_title ?? '';
+            $meta_description= $product->meta_description = $request->meta_description ?? '';
+            $meta_keyword= $product->meta_keyword = $request->meta_keyword ?? '';
+            $other_meta_tag= $product->other_meta_tag = $request->other_meta_tag ?? '';
+
+            if($meta_title==''){
+                $product->meta_title = strtoupper($validatedData['title']) ;
+             }
+             else{
+                $product->meta_title = $request->meta_title ?? '';
+             }
+             if($meta_description==''){
+                $product->meta_description = strtoupper($validatedData['title']) ;
+             }
+             else{
+                $product->meta_description = $request->meta_description ?? '';
+             }
+             if($meta_keyword==''){
+                $product->meta_keyword = strtoupper($validatedData['title']) ;
+             }
+             else{
+                $product->meta_keyword = $request->meta_keyword ?? '';
+             }
+             if($other_meta_tag==''){
+                $product->other_meta_tag = strtoupper($validatedData['title']) ;
+             }
+             else{
+                $product->other_meta_tag = $request->other_meta_tag ?? '';
+             }
    
        
             if ($product->save()) {

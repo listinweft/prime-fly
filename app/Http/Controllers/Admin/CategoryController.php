@@ -73,10 +73,37 @@ class CategoryController extends Controller
         $category->banner_attribute = $request->banner_attribute ?? '';
         $category->banner_title = $request->banner_title ?? '';
         $category->banner_sub_title = $request->banner_sub_title ?? '';
-        $category->meta_title = $request->meta_title ?? '';
-        $category->meta_description = $request->meta_description ?? '';
-        $category->meta_keyword = $request->meta_keyword ?? '';
-        $category->other_meta_tag = $request->other_meta_tag ?? '';
+        $meta_title =  $category->meta_title = $request->meta_title ?? '';
+        $meta_description = $category->meta_description = $request->meta_description ?? '';
+        $meta_keyword=  $category->meta_keyword = $request->meta_keyword ?? '';
+        $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
+        if($meta_title==''){
+            $category->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $category->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $category->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $category->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->other_meta_tag = $request->other_meta_tag ?? '';
+         }
+
+
+
         if ($category->save()) {
             session()->flash('message', "Category '" . $category->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/category');
@@ -157,11 +184,37 @@ class CategoryController extends Controller
         $category->banner_attribute = $request->banner_attribute ?? '';
         $category->banner_title = $request->banner_title ?? '';
         $category->banner_sub_title = $request->banner_sub_title ?? '';
-        $category->meta_title = $request->meta_title ?? '';
-        $category->meta_description = $request->meta_description ?? '';
-        $category->meta_keyword = $request->meta_keyword ?? '';
-        $category->other_meta_tag = $request->other_meta_tag ?? '';
+        $meta_title =  $category->meta_title = $request->meta_title ?? '';
+        $meta_description =  $category->meta_description = $request->meta_description ?? '';
+        $meta_keyword = $category->meta_keyword = $request->meta_keyword ?? '';
+        $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
         $category->updated_at = now();
+
+        if($meta_title==''){
+            $category->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $category->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $category->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $category->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->other_meta_tag = $request->other_meta_tag ?? '';
+         }
+
         if ($category->save()) {
             session()->flash('message', "Category '" . $category->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/category');
@@ -265,10 +318,35 @@ class CategoryController extends Controller
         $sub_category->banner_attribute = $request->banner_attribute ?? '';
         $sub_category->banner_title = $request->banner_title ?? '';
         $sub_category->banner_sub_title = $request->banner_sub_title ?? '';
-        $sub_category->meta_title = ($request->meta_title) ? $request->meta_title : '';
-        $sub_category->meta_description = ($request->meta_description) ? $request->meta_description : '';
-        $sub_category->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
-        $sub_category->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
+        $meta_title = $sub_category->meta_title = ($request->meta_title) ? $request->meta_title : '';
+        $meta_description =  $sub_category->meta_description = ($request->meta_description) ? $request->meta_description : '';
+        $meta_keyword = $sub_category->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
+        $other_meta_tag =  $sub_category->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
+
+        if($meta_title==''){
+            $sub_category->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $sub_category->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $sub_category->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $sub_category->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->other_meta_tag = $request->other_meta_tag ?? '';
+         }
         if ($sub_category->save()) {
             session()->flash('message', "Sub-category '" . $sub_category->title . "' has been added successfully");
             return redirect(Helper::sitePrefix() . 'product/sub-category/');
@@ -348,11 +426,36 @@ class CategoryController extends Controller
         $sub_category->banner_attribute = $request->banner_attribute ?? '';
         $sub_category->banner_title = $request->banner_title ?? '';
         $sub_category->banner_sub_title = $request->banner_sub_title ?? '';
-        $sub_category->meta_title = ($request->meta_title) ? $request->meta_title : '';
-        $sub_category->meta_description = ($request->meta_description) ? $request->meta_description : '';
-        $sub_category->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
-        $sub_category->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
+        $meta_title =  $sub_category->meta_title = ($request->meta_title) ? $request->meta_title : '';
+        $meta_description = $sub_category->meta_description = ($request->meta_description) ? $request->meta_description : '';
+        $meta_keyword =  $sub_category->meta_keyword = ($request->meta_keyword) ? $request->meta_keyword : '';
+        $other_meta_tag = $sub_category->other_meta_tag = ($request->other_meta_tag) ? $request->other_meta_tag : '';
         $sub_category->updated_at = now();
+
+        if($meta_title==''){
+            $sub_category->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $sub_category->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $sub_category->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $sub_category->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $sub_category->other_meta_tag = $request->other_meta_tag ?? '';
+         }
         if ($sub_category->save()) {
             session()->flash('message', "Sub-category '" . $sub_category->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/sub-category');

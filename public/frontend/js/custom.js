@@ -1903,10 +1903,11 @@ $(document).ready(function () {
 
 
     $(".range_bar_sort").on("slidechange", function (event, ui) {
+       
 
 
 
-        $("#amount").val("AED" + $("#slider-range").slider("values", 0) + " - AED" + $("#slider-range").slider("values", 1));
+        $("#amount").val("{{Helper::defaultCurrency()}}" + $("#slider-range").slider("values", 0) + " - {{Helper::defaultCurrency()}}" + $("#slider-range").slider("values", 1));
         filterProducts();
     });
 

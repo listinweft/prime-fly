@@ -609,11 +609,13 @@ if(@$seo_data->meta_keyword == '')
     public function filterCondition(Request $request)
     {
 
-        // $currency = Helper::defaultCurrency();
+     $currency = Helper::defaultCurrency();
 
-      
+    //    return $request->my_range;
 
-        $price_range = explode('-', str_replace('AED', '', $request->my_range));
+        //  $price_range = explode('-', str_replace('AED', '', $request->my_range));
+
+        $price_range = explode('-', str_replace($currency, '', $request->my_range));
 
 
 
