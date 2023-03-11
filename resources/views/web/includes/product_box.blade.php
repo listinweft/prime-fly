@@ -79,7 +79,7 @@
 
               
 
-
+                <!-- <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}-{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}</li> -->
                
                
                 <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}</li>

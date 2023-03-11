@@ -615,7 +615,7 @@ if(@$seo_data->meta_keyword == '')
 
         //  $price_range = explode('-', str_replace('AED', '', $request->my_range));
 
-        $price_range = explode('-', str_replace($currency, '', $request->my_range));
+        $price_range = explode('-', str_replace('AED', '', $request->my_range));
 
 
 
