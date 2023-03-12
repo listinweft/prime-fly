@@ -55,9 +55,9 @@
                         </li>
                     </ul>
                     <div class="logoArea mt-auto">
-                        {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                        <!-- {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!} -->
                     
-                    
+                        <img class="img-fluid" src="{{ asset('frontend/images/productListLogo.png') }}" alt="">
                     </div>
                 </div>
             </div>
