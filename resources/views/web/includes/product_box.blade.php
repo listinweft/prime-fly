@@ -65,7 +65,7 @@
         <div class="product-details">
             <a href="{{ url('/product/'.$product->short_url) }}">
                 <div class="pro-name">
-                {{ $product->title }}
+                {{ ucfirst($product->title) }}
             </div>
             <ul class="price-area">
                 @if(Helper::offerPrice($product->id)!='')

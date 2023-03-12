@@ -589,7 +589,7 @@ if(@$seo_data->meta_keyword == '')
         if (isset($sort_value) && $sort_value == 'none') {
             $products = $condition->take(12)->get()->shuffle();
         } else {
-            $products = $condition->take(12)->get();
+            $products = $condition->take(12)->get()->shuffle();
 
           
             
