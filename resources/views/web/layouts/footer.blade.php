@@ -51,29 +51,47 @@
             <div class="col-lg-3 col-6 order-lg-2 mt-lg-0 mt-5 order-3">
                 <h6>Help</h6>
                 <ul class="list">
+                @if($siteInformation->faq)
                     <li>
                         <a href="{{url('faq')}}">FAQ's</a>
                     </li>
+
+                    @endif
+                    @if($siteInformation->privacy_policy)
                     <li>
 
                         <a href="{{url('privacy-policy')}}">Privacy policy</a>
                     </li>
+                    @endif
+                    @if($siteInformation->terms_and_conditions)
                     <li>
                     <a href="{{url('terms-and-conditions')}}">Terms and condition</a>
                     </li>
+                    @endif
+                    @if($siteInformation->return_policy)
                     <li>
                     <a href="{{url('return-policy')}}">Return & Refund Policy</a>
 
                     </li>
+
+                    @endif
+                    @if($siteInformation->payment_policy)
                     <li>
                         <a href="{{url('payment-policy')}}">Payment Policy</a>
                     </li>
+                    @endif
+                    @if($siteInformation->contact)
                     <li>
                         <a href="{{url('contact')}}">Contact Centre</a>
                     </li>
+                    @endif
+
+                    @if($siteInformation->shipping_policy)
+                    
                     <li>
                         <a href="{{url('shipping-policy')}}">Shipping Policy</a>
                     </li>
+                    @endif
                 </ul>
                 <div class="paymentAreaBox">
                     <h6>
