@@ -104,13 +104,14 @@ class WebController extends Controller
         $banner = Banner::type('about')->first();
         $catHomeHeadings = HomeHeading::where('type','category')->first();
 
-        $Rprdts = Category::active()->oldest('sort_order')->get();
+        $prdts = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
 
-        $catIds = $Rprdts->pluck('id')->toArray();
-        $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
-        $catIdss = $prs->pluck('category_id')->toArray();
-   
-        $themes =  Category::whereIn('id',$catIdss)->get();
+        $catIds = $prdts->pluck('id')->toArray();
+       $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
+       $catIdss = $prs->pluck('category_id')->toArray();
+  
+       $themes =  Category::whereIn('id',$catIdss)->get();
+  
    
 
         return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
