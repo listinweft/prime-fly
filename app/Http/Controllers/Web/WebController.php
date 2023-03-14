@@ -51,6 +51,7 @@ class WebController extends Controller
     public function __construct()
     {
         return $site = Helper::commonData();
+        
     }
 
     public function seo_content($page)

@@ -68,6 +68,7 @@
                         @foreach ($themes as $theme)
                         <a href="{{url('category/'.$theme->short_url)}}">
                             <div class="shopSectionItem shopSectionItemBg{{$n}}">
+                                
                                 <div class="wrapper">
                                     <div class="imgBox">
                                         {!! Helper::printImage(@$theme, 'image', 'image_webp', '', 'img-fluid') !!}
