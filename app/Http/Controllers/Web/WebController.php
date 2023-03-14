@@ -97,7 +97,10 @@ class WebController extends Controller
 
     public function about()
     {
+
+
         $seo_data = $this->seo_content('About');
+        
         $about = About::first();
         $homeHeadings = HomeHeading::get();
         $aboutFeatures = AboutFeature::active()->take(4)->oldest('sort_order')->get();

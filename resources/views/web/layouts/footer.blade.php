@@ -22,7 +22,9 @@
                 </ul>
 
                 <div class="socialArea">
+                      @if($siteInformation->instagram_url)
                     <h6>Connect With Us</h6>
+                      @endif
                     <div class="iconBox">
                         @if($siteInformation->instagram_url)
                             <a href="{{$siteInformation->instagram_url}}"><i class="fa-brands fa-instagram"></i></a>
@@ -103,6 +105,7 @@
                         <img class="img-fluid"src="{{ asset('frontend/images/icon-04.png')}}" alt="">
                         <img class="img-fluid"src="{{ asset('frontend/images/icon-05.png')}}" alt="">
                         <img class="img-fluid"src="{{ asset('frontend/images/icon-06.png')}}" alt="">
+                        
                     </div>
                 </div>
 <!--                    <img class="img-fluid paymentImg"src="{{ asset('frontend/images/securepayment.png')}}" alt="">-->
@@ -110,24 +113,16 @@
             <div class="col-lg-3 col-6 mt-lg-0 mt-5 order-lg-3 order-4">
                 <h6>Discover</h6>
                 <ul class="list">
+                    
+                   
+                                 @foreach ($shapes as $shape)
                     <li>
-                        <a href="">Art Prints</a>
+                        
+                        <a href="{{url('shape/'.$shape->title)}}">{{$shape->title}}</a>
                     </li>
-                    <li>
-                        <a href="">Prints with Wooden Frame</a>
-                    </li>
-                    <li>
-                        <a href="">Prints with Aluminium Frame</a>
-                    </li>
-                    <li>
-                        <a href="">Canvas Prints</a>
-                    </li>
-                    <li>
-                        <a href="">Framed Canvas Prints</a>
-                    </li>
-                    <li>
-                        <a href="">Need Something Printed?</a>
-                    </li>
+                    @endforeach
+                    
+                   
                     <img class="img-fluid googleImg"src="{{ asset('frontend/images/googleFooter.png')}}" alt="">
                 </ul>
             </div>

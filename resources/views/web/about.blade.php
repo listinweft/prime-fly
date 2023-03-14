@@ -84,6 +84,7 @@
                                   
                                     <h6>{{@$count }} items</h6>
                                 </div>
+                                
                             </div>
                         </a>
                             @php

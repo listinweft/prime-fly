@@ -174,7 +174,7 @@ $('.productDetailsThumbs').slick({
     slidesToScroll: 1,
     focusOnSelect: true,
     autoplay: false,
-    infinite: true,
+    infinite: false,
     vertical: true,
     verticalSwiping: true,
     asNavFor: '.productDetailsLargeImages',
