@@ -123,7 +123,7 @@
                     @endforeach
                     
                    
-                    <img class="img-fluid googleImg"src="{{ asset('frontend/images/googleFooter.png')}}" alt="">
+                     <img class="img-fluid googleImg"src="{{ asset('frontend/images/googleFooter.png')}}" alt="">
                 </ul>
             </div>
             <div class="col-lg-3 col-6 order-lg-4 order-lg-2 order-2">
@@ -142,7 +142,7 @@
                 <div class="col-12">
                     <ul>
                         <li>
-                            All Rights Reserved by ARTEMYST 2022
+                            All Rights Reserved by ARTEMYST 2023
                         </li>
                         <li>
                             Designed By <a href=""><img class="img-fluid"src="{{ asset('frontend/images/pentacodeLogo.png')}}" alt=""></a>
