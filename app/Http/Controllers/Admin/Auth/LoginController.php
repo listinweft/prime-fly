@@ -7,10 +7,10 @@ use App\Http\Helpers\Helper;
 use App\Models\PasswordReset;
 use App\Models\SiteInformation;
 use App\Models\User;
-
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
