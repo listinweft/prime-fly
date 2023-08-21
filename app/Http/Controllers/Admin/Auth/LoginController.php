@@ -7,6 +7,7 @@ use App\Http\Helpers\Helper;
 use App\Models\PasswordReset;
 use App\Models\SiteInformation;
 use App\Models\User;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
