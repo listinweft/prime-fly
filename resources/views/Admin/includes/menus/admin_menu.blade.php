@@ -43,21 +43,21 @@
         {{--                <p>Hot Deal</p>--}}
         {{--            </a>--}}
         {{--        </li>--}}
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/our-collection/create')}}"
                class="nav-link {{ (Request::segment(3)=='our-collection' && Request::segment(4)=='create')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Our Collection</p>
             </a>
-        </li>
+        </li> -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/our-selection/create')}}"
                class="nav-link {{ (Request::segment(3)=='our-selection' && Request::segment(4)=='create')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Our Selection</p>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
                class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
@@ -85,13 +85,13 @@
     </a>
     <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='banner')?'block':'none' }}">
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/product')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Product </p>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/blogs')}}"
                class="nav-link {{ (Request::segment(3)=='blogs')?'active':'' }}">
@@ -99,7 +99,7 @@
                 <p>Blog</p>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/cart')}}"
                class="nav-link {{ (Request::segment(3)=='cart')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
@@ -112,7 +112,7 @@
                 <i class="far fa-circle nav-icon"></i>
                 <p>Checkout</p>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/contact')}}"
                class="nav-link {{ (Request::segment(3)=='contact')?'active':'' }}">
@@ -306,28 +306,28 @@
         <p>Testimonial</p>
     </a>
 </li> -->
-
+<!-- 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'country')}}"
        class="nav-link {{ (Request::segment(2)=='country') && (Request::segment(3)!='shipping-charge')?'active':'' }}">
         <i class="nav-icon fas fa-globe"></i>
         <p>Country</p>
     </a>
-</li>
-<li class="nav-item">
+</li> -->
+<!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'currency')}}"
        class="nav-link {{ (Request::segment(2)=='currency') && (Request::segment(3)!='shipping-charge')?'active':'' }}">
        <i class="nav-icon fas fa-money-check"></i>
         <p>Currency</p>
     </a>
-</li>
-<li class="nav-item">
+</li> -->
+<!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'country/shipping-charge')}}"
        class="nav-link {{ (Request::segment(3)=='shipping-charge')?'active':'' }}">
         <i class="nav-icon fas fa-ship"></i>
         <p>Shipping charge</p>
     </a>
-</li>
+</li> -->
 <li class="nav-item {{ (Request::segment(2)=='seo')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='seo') ?'active':'' }}">
         <i class="nav-icon fas fa-asterisk"></i>
@@ -430,13 +430,13 @@
                 <p>Disclaimer</p>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'seo/products')}}"
                class="nav-link {{ (Request::segment(3)=='products')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Products</p>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'seo/login')}}"
                class="nav-link {{ (Request::segment(3)=='login')?'active':'' }}">
@@ -451,27 +451,27 @@
                 <p>My Account</p>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'seo/cart')}}"
                class="nav-link {{ (Request::segment(3)=='cart')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Cart</p>
             </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'seo/wishlist')}}"
                class="nav-link {{ (Request::segment(3)=='wishlist')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Wishlist</p>
             </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'seo/checkout')}}"
                class="nav-link {{ (Request::segment(3)=='checkout')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Checkout</p>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'seo/thank-you')}}"
                class="nav-link {{ (Request::segment(3)=='thank-you')?'active':'' }}">
@@ -489,7 +489,7 @@
     </ul>
 </li>
 
-<li class="nav-item {{ (Request::segment(2)=='product')?'menu-is-opening menu-open':'' }}">
+<!-- <li class="nav-item {{ (Request::segment(2)=='product')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='product')?'active':'' }}">
         <i class="nav-icon fas icon fas fa-info"></i>
         <p>
@@ -574,16 +574,16 @@
             </a>
         </li>
     </ul>
-</li>
+</li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'coupon')}}" class="nav-link {{ (Request::segment(2)=='coupon')?'active':'' }}">
         {{--        <i class="nav-icon fas fa-asterisk"></i>--}}
         <i class="nav-icon fas fa-money-bill-wave"></i>
         <p>Coupon</p>
     </a>
-</li>
-<li class="nav-item">
+</li> -->
+<!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'order')}}" class="nav-link {{ (Request::segment(2)=='order')?'active':'' }}">
         <i class="nav-icon fas fa-th"></i>
         <p>Order</p>
@@ -591,8 +591,8 @@
             <span class="badge badge-success pull-right">{{App\Models\Order::OrderCountByStatus('Processing')}}</span>
         </span>
     </a>
-</li>
-<li class="nav-item {{ (Request::segment(2)=='menu')?'menu-is-opening menu-open':'' }}">
+</li> -->
+<!-- <li class="nav-item {{ (Request::segment(2)=='menu')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='menu')?'active':'' }}">
         <i class="nav-icon fas fa-list"></i>
         <p>Menu
@@ -629,15 +629,15 @@
             </a>
         </li>
     </ul>
-</li>
-<li class="nav-item menu-report hide-menu {{ (Request::segment(2)=='report')?'menu-is-opening menu-open':'' }}">
+</li> -->
+<!-- <li class="nav-item menu-report hide-menu {{ (Request::segment(2)=='report')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='report')?'active':'' }}">
         <i class="nav-icon fas fa-file"></i>
         <p>Report
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='report')?'block':'none' }}">
+    <!-- <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='report')?'block':'none' }}">
         <li class="nav-item {{ (Request::segment(3)=='product')?'menu-is-opening menu-open':'' }}">
             <a href="#" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
@@ -785,9 +785,9 @@
                 </li>
             </ul>
         </li>
-    </ul>
-</li>
-<li class="nav-item menu-detail hide-menu">
+    </ul> -->
+</li> 
+<!-- <li class="nav-item menu-detail hide-menu">
     <a href="{{url(Helper::sitePrefix().'report/detail-report')}}"
        class="nav-link {{ (Request::segment(3)=='detail_report')?'active':'' }}">
         <i class="nav-icon fas fa-layer-group"></i>
@@ -795,8 +795,8 @@
             Detail Report
         </p>
     </a>
-</li>
-<li class="nav-item hide-menu{{ (Request::segment(2)=='mail')?'menu-is-opening menu-open':'' }}">
+</li> -->
+<!-- <li class="nav-item hide-menu{{ (Request::segment(2)=='mail')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='mail')?'active':'' }}">
         <i class="nav-icon fas fa-cart-plus"></i>
         <p>
@@ -820,4 +820,4 @@
             </a>
         </li>
     </ul>
-</li>
+</li> -->
