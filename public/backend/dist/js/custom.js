@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     if ($('.placeholder-cls').val() == '' || $('.placeholder-cls').val() == null) {
-        $('.placeholder-cls').val('alt="ARTEMYST"');
+        $('.placeholder-cls').val('alt="EMIRATI"');
     }
 
     if ($('.fancy').length > 0) {

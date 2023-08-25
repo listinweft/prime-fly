@@ -4,7 +4,7 @@ $(document).ready(function () {
         totalStars: 5,
         starShape: 'rounded',
         starSize: 15,
-        emptyColor: 'lightgray',
+        emptyColor: 'lightgray', 
         hoverColor: '#F3DB01',
         activeColor: '#F3DB01',
         useGradient: false,
