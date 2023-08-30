@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Admin\JournalController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdvertisementController;
@@ -280,6 +280,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('edit/{id}', [BlogController::class, 'blog_edit']);
         Route::post('edit/{id}', [BlogController::class, 'blog_update']);
         Route::post('delete', [BlogController::class, 'delete_blog']);
+    });
+    Route::prefix('journal')->group(function () {
+        Route::get('/', [JournalController::class, 'journal']);
+        Route::get('create', [JournalController::class, 'journal_create']);
+        Route::post('create', [JournalController::class, 'journal_store']);
+        Route::get('edit/{id}', [JournalController::class, 'journal_edit']);
+        Route::post('edit/{id}', [JournalController::class, 'journal_update']);
+        Route::post('delete', [JournalController::class, 'delete_journal']);
     });
 
     Route::prefix('bookings')->group(function () {
