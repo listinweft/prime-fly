@@ -11,7 +11,7 @@
     <a href="{{url(Helper::sitePrefix().'customer')}}"
        class="nav-link {{ (Request::segment(2)=='customer')?'active':'' }}">
         <i class="nav-icon fas fa-user"></i>
-        <p>Customer</p>
+        <p>Members</p>
     </a>
 </li>
 {{-- <li class="nav-item">
@@ -21,61 +21,7 @@
         <p>Guests</p>
     </a>
 </li> --}}
-<li class="nav-item {{ (Request::segment(2)=='home')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='home')?'active':'' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Home
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='home')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/banner')}}"
-               class="nav-link {{ (Request::segment(3)=='banner')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Sliders</p>
-            </a>
-        </li>
-        {{--        <li class="nav-item">--}}
-        {{--            <a href="{{url(Helper::sitePrefix().'home/hot-deal')}}"--}}
-        {{--               class="nav-link {{ (Request::segment(3)=='hot-deal')?'active':'' }}">--}}
-        {{--                <i class="far fa-circle nav-icon"></i>--}}
-        {{--                <p>Hot Deal</p>--}}
-        {{--            </a>--}}
-        {{--        </li>--}}
-        <!-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/our-collection/create')}}"
-               class="nav-link {{ (Request::segment(3)=='our-collection' && Request::segment(4)=='create')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Our Collection</p>
-            </a>
-        </li> -->
 
-        <!-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/our-selection/create')}}"
-               class="nav-link {{ (Request::segment(3)=='our-selection' && Request::segment(4)=='create')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Our Selection</p>
-            </a>
-        </li> -->
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/testimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Testimonials</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'home/usertestimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='usertestimonial')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>User Testimonial</p>
-            </a>
-        </li>
-
-
-    </ul>
-</li>
 <li class="nav-item {{ (Request::segment(2)=='banner')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='banner')?'active':'' }}">
         <i class="nav-icon fas fa-image"></i>
@@ -92,7 +38,7 @@
                 <p>Product </p>
             </a>
         </li> -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/blogs')}}"
                class="nav-link {{ (Request::segment(3)=='blogs')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
@@ -105,7 +51,7 @@
                 <i class="far fa-circle nav-icon"></i>
                 <p>Journal</p>
             </a>
-        </li>
+        </li> -->
         <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/cart')}}"
                class="nav-link {{ (Request::segment(3)=='cart')?'active':'' }}">
@@ -134,49 +80,49 @@
                 <p>About Us</p>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/my-account')}}"
                class="nav-link {{ (Request::segment(3)=='my-account')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>My Account</p>
             </a>
-        </li>
+        </li> -->
 
 
 
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/faq')}}"
                class="nav-link {{ (Request::segment(3)=='faq')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Faq</p>
             </a>
-        </li>
+        </li> -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/shipping-policy')}}"
                class="nav-link {{ (Request::segment(3)=='faq')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Shipping Policy</p>
             </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/payment-policy')}}"
                class="nav-link {{ (Request::segment(3)=='faq')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>payment-policy</p>
             </a>
-        </li>
+        </li> -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/privacy-policy')}}"
                class="nav-link {{ (Request::segment(3)=='privacy-policy')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Privacy Policy</p>
             </a>
-        </li>
+        </li> -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/terms-and-conditions')}}"
                class="nav-link {{ (Request::segment(3)=='terms-and-conditions')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
@@ -190,9 +136,9 @@
                 <i class="far fa-circle nav-icon"></i>
                 <p>Return Policy</p>
             </a>
-        </li>
+        </li> -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/shipping-policy')}}"
                class="nav-link {{ (Request::segment(3)=='shipping-policy')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
@@ -206,15 +152,15 @@
                 <i class="far fa-circle nav-icon"></i>
                 <p>Disclaimer</p>
             </a>
-        </li>
+        </li> -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/404')}}"
                class="nav-link {{ (Request::segment(3)=='404')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>404 </p>
             </a>
-        </li>
+        </li> -->
     </ul>
 </li>
 {{--
@@ -279,13 +225,13 @@
                 <p> Product </p>
             </a>
         </li> --}}
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry/bulk')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p> Bulk Enquiry </p>
             </a>
-        </li>
+        </li> -->
     </ul>
 </li>
 
@@ -342,166 +288,7 @@
         <p>Shipping charge</p>
     </a>
 </li> -->
-<li class="nav-item {{ (Request::segment(2)=='seo')?'menu-is-opening menu-open':'' }}">
-    <a href="#" class="nav-link {{ (Request::segment(2)=='seo') ?'active':'' }}">
-        <i class="nav-icon fas fa-asterisk"></i>
-        <p>SEO Data
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='seo')?'block':'none' }}">
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/home')}}"
-               class="nav-link {{ (Request::segment(3)=='home')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Home</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/about')}}"
-               class="nav-link {{ (Request::segment(3)=='about')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>About</p>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/team')}}"
-               class="nav-link {{ (Request::segment(3)=='team')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Team</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/testimonial')}}"
-               class="nav-link {{ (Request::segment(3)=='testimonial')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Testimonial</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/event')}}"
-               class="nav-link {{ (Request::segment(3)=='event')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Event</p>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/Faq')}}"
-               class="nav-link {{ (Request::segment(3)=='Faq')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>FAQ</p>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/blogs')}}"
-               class="nav-link {{ (Request::segment(3)=='blogs')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Blog</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/contact')}}"
-               class="nav-link {{ (Request::segment(3)=='contact')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Contact</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/privacy-policy')}}"
-               class="nav-link {{ (Request::segment(3)=='privacy-policy')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Privacy Policy</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/return-policy')}}"
-               class="nav-link {{ (Request::segment(3)=='return-policy')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Return Policy</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/shipping-policy')}}"
-               class="nav-link {{ (Request::segment(3)=='shipping-policy')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Shipping Policy</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/terms-and-conditions')}}"
-               class="nav-link {{ (Request::segment(3)=='terms-and-conditions')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Terms & Conditions</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/disclaimer')}}"
-               class="nav-link {{ (Request::segment(3)=='disclaimer')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Disclaimer</p>
-            </a>
-        </li>
-        <!-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/products')}}"
-               class="nav-link {{ (Request::segment(3)=='products')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Products</p>
-            </a>
-        </li> -->
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/login')}}"
-               class="nav-link {{ (Request::segment(3)=='login')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Login</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/my-account')}}"
-               class="nav-link {{ (Request::segment(3)=='my-account')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>My Account</p>
-            </a>
-        </li>
-        <!-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/cart')}}"
-               class="nav-link {{ (Request::segment(3)=='cart')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Cart</p>
-            </a>
-        </li> -->
-        <!-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/wishlist')}}"
-               class="nav-link {{ (Request::segment(3)=='wishlist')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Wishlist</p>
-            </a>
-        </li> -->
-        <!-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/checkout')}}"
-               class="nav-link {{ (Request::segment(3)=='checkout')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Checkout</p>
-            </a>
-        </li> -->
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/thank-you')}}"
-               class="nav-link {{ (Request::segment(3)=='thank-you')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Thank you</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'seo/extra')}}"
-               class="nav-link {{ (Request::segment(3)=='extra')?'active':'' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Extra Seo Data</p>
-            </a>
-        </li>
-    </ul>
-</li>
+<!--  -->
 
 <!-- <li class="nav-item {{ (Request::segment(2)=='product')?'menu-is-opening menu-open':'' }}">
     <a href="#" class="nav-link {{ (Request::segment(2)=='product')?'active':'' }}">

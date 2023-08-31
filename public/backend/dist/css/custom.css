@@ -118,8 +118,30 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
 
 .content-wrapper {
     background-image: url('../../dist/img/bg.jpg');
+    background-image: none;
+    background-size: contain;
+    padding: 0 20px;
 }
-
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #2aab43;
+    color: #fff;
+}
+.bg-warning {
+    background-color: #ff6066!important;
+    
+}
+.bg-warning, .bg-warning>a{
+    color: white !important;
+}
+.bg-info {
+    background-color:#666666!important;
+}
+.bg-success {
+    background-color: #33cc66!important;
+}
+.small-box{
+    border-radius: 10px;
+}
 .caption_note {
     font-size: 14px;
 }
@@ -216,4 +238,25 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+.layout-fixed .main-sidebar {
+    background-color: #fff;
+    box-shadow:none !important;
+    border-right: 1px solid #e1e1e1 !important;
+ }
+ [class*=sidebar-dark-] .sidebar a {
+    color: #7d7d7d;
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus{
+    color: #fff;
+    background-color: #2aab43;
+}
+[class*=sidebar-dark] .brand-link{
+    border-bottom: 0;
+}
+.navbar-white {
+    background-color: #f4f6f9;
+    color: #1f2d3d;
+    border-bottom: 0;
+    padding: 10px 20px;
 }

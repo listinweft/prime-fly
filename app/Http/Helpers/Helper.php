@@ -244,7 +244,7 @@ class Helper
             } else if ($field == 'author_image') {
                 $imageData .= '<img src="' . asset('frontend/images/blog/profile/blog_profile.jpg') . '" alt="Default Image"';
             } else {
-                $imageData .= '<img src="' . asset('frontend/images/default-image.jpg') . '" alt="Default Image"';
+                $imageData .= '<img src="' . asset('frontend/images/logo_emirati.png') . '" alt="Default Image"';
             }
         }
         if ($cssClass) {

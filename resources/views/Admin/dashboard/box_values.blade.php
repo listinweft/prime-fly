@@ -4,7 +4,7 @@
         <div class="small-box bg-info">
             <div class="inner">
                 <h3>{{$processingOrders}}</h3>
-                <p>ORDER PROCESSING</p>
+                <p>Total Members</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -19,7 +19,7 @@
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>{{$ohHoldOrders}}</h3>
-                <p>ORDER ON-HOLD</p>
+                <p>Total Journals</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -35,7 +35,7 @@
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3>{{$outOfStock}}</h3>
-                <p>OUT OF STOCK PRODUCTS</p>
+                <p>Total Blogs</p>
             </div>
             <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -52,7 +52,7 @@
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>{{$todaySales}}</h3>
-                <p>TODAY SALES</p>
+                <p>Total Events</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -66,7 +66,7 @@
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3>{{$monthSales}}</h3>
-                <p>THIS MONTH SALES</p>
+                <p>TOtal Enquiries</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -79,8 +79,8 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>{{$yearSales}}</h3>
-                <p>THIS YEAR SALES</p>
+                <h3>0</h3>
+                <p>Total Posts</p>
             </div>
             <div class="icon">
                 <i class="ion ion-person-add"></i>

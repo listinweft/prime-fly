@@ -1,6 +1,6 @@
-<li class="nav-item dropdown">
+<!-- <li class="nav-item dropdown">
     <a class="btn btn-xs btn-info mt-2" id="reload-application">Reload Page</a>
-</li>
+</li> -->
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="far fa-user"></i>
