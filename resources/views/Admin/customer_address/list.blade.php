@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Customer Address</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Member Address</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -48,8 +48,8 @@
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>Phone Number</th>
-                                        <th>Country</th>
-                                        <th>State</th>
+                                        <th>id/license</th>
+                                        <th>Wokplace</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>

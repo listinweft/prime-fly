@@ -51,94 +51,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="brand_name">Brand Name*</label>
-                                    <input type="text" name="brand_name" id="brand_name"
-                                           class="form-control required" placeholder="Brand Name" maxlength="230"
-                                           value="{{ old('brand_name', !empty($siteInformation)?$siteInformation->brand_name:'') }}">
-                                           
-                                    <div class="help-block with-errors" id="brand_name_error"></div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="logo"> Logo*</label>
-                                    <div class="file-loading">
-                                        <input id="logo" name="logo" type="file" accept="image/*">
-                                    </div>
-                                    <span class="caption_note">Note: uploaded images have a maximum size of <strong> 441x75</strong> pixels and can't be over 5KB</span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="logo_meta_tag"> Logo Attribute *</label>
-                                    <input type="text" id="logo_attribute" name="logo_attribute"
-                                           class="form-control required placeholder-cls"
-                                           placeholder="Alt='Logo Attribute'"
-                                           maxlength="230"
-                                           value="{{ !empty($siteInformation)?$siteInformation->logo_attribute:'' }}">
-                                       
+                            
+                           
+                           
+                               
                              
-                                    <div class="help-block with-errors" id="logo_attribute_error"></div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Shipping Charge(Default)*</label>
-                                    <input type="text" name="default_shipping_charge" id="default_shipping_charge"
-                                           class="form-control required" placeholder="Shipping Charge(Default)"
-                                           value="{{ old('default_shipping_charge', !empty($siteInformation)?$siteInformation->default_shipping_charge:'') }}">
-                                    <div class="help-block with-errors" id="default_shipping_charge_error"></div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Default COD Charge*</label>
-                                    <input type="text" name="cod_extra_charge" id="cod_extra_charge"
-                                           class="form-control required" placeholder="Default COD Charge"
-                                           value="{{ old('cod_extra_charge', !empty($siteInformation)?$siteInformation->cod_extra_charge:'') }}">
-                                    <div class="help-block with-errors" id="cod_extra_charge_error"></div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Product return days*</label>
-                                    <input type="text" name="return_days" id="return_days" class="form-control required"
-                                           placeholder="Product Return Days"
-                                           value="{{ old('return_days', !empty($siteInformation)?$siteInformation->return_days:'') }}">
-                                    <div class="help-block with-errors" id="return_days_error"></div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Tax Type*</label>
-                                    <select class="form-control required" id="tax_type" name="tax_type">
-                                        @foreach(["Inside"=>'Including', "Outside" =>'Excluding'] AS $tax_type_value => $tax_type_name)
-                                            <option value="{{ $tax_type_value }}"
-                                                {{ (old("tax_type", @$siteInformation->tax_type) == $tax_type_value)? "selected" : "" }}>
-                                                {{ $tax_type_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="help-block with-errors" id="tax_type_error"></div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Tax*</label>
-                                    <input type="text" name="tax" id="tax" class="form-control required"
-                                           placeholder="TAX"
-                                           value="{{ old('tax', !empty($siteInformation)?$siteInformation->tax:'') }}">
-                                    <div class="help-block with-errors" id="tax_error"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group col-md-12">
-                                        <label for="copyright">Copyright Text*</label>
-                                        <input type="text" name="copyright" id="copyright"
-                                               class="form-control required" maxlength="230"
-                                               placeholder="Copyright Text"
-                                               value="{{ old('copyright', !empty($siteInformation)?$siteInformation->copyright:'') }}">
-                                        <div class="help-block with-errors" id="copyright_error"></div>
-                                    </div>
-                                </div>
-{{--                                <div class="form-group col-md-6">--}}
-{{--                                    <label for="brand_name">Google Review URL</label>--}}
-{{--                                    <input type="text" name="google_review_url" id="google_review_url"--}}
-{{--                                           class="form-control" placeholder="Google Review URL"--}}
-{{--                                           value="{{ old('google_review_url', !empty($siteInformation)?$siteInformation->google_review_url:'') }}">--}}
-{{--                                    <div class="help-block with-errors" id="google_review_url_error"></div>--}}
-{{--                                </div>--}}
-                            </div>
+                              
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="privacy_policy">Privacy Policy</label>
@@ -154,13 +72,7 @@
                                               autocomplete="off">
                                         {{ old('terms_and_conditions', !empty($siteInformation)?$siteInformation->terms_and_conditions:'') }}</textarea>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="privacy_policy">Return Policy</label>
-                                    <textarea name="return_policy" id="return_policy"
-                                              placeholder="Return Policy"
-                                              class="form-control tinyeditor" autocomplete="off">
-                                        {{ old('return_policy', !empty($siteInformation)?$siteInformation->return_policy:'') }}</textarea>
-                                </div>
+                               
                                 <div class="form-group col-md-6">
                                     <label for="privacy_policy">Contact Detail</label>
                                     <textarea name="contact" id="contact"
@@ -168,13 +80,7 @@
                                               class="form-control tinyeditor" autocomplete="off">
                                         {{ old('contact', !empty($siteInformation)?$siteInformation->contact:'') }}</textarea>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="privacy_policy">Shipping Policy</label>
-                                    <textarea name="shipping_policy" id="shipping_policy"
-                                              placeholder="Shipping Policy"
-                                              class="form-control tinyeditor" autocomplete="off">
-                                        {{ old('shipping_policy', !empty($siteInformation)?$siteInformation->shipping_policy:'') }}</textarea>
-                                </div>
+                                
                                 <div class="form-group col-md-6">
                                     <label for="privacy_policy">Disclaimer</label>
                                     <textarea name="disclaimer" id="disclaimer"
@@ -182,13 +88,7 @@
                                               class="form-control tinyeditor" autocomplete="off">
                                         {{ old('disclaimer', !empty($siteInformation)?$siteInformation->disclaimer:'') }}</textarea>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="privacy_policy">Payment Policy</label>
-                                    <textarea name="payment_policy" id="payment_policy"
-                                              placeholder="payment_policy"
-                                              class="form-control tinyeditor" autocomplete="off">
-                                        {{ old('payment_policy', !empty($siteInformation)?$siteInformation->payment_policy:'') }}</textarea>
-                                </div>
+                              
                                 <div class="form-group col-md-12">
                                     <label for="privacy_policy">Faq's</label>
                                     <textarea name="faq" id="faq"
