@@ -259,6 +259,13 @@
         <p>Journal</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'event')}}"
+       class="nav-link {{ (Request::segment(2)=='event')?'active':''}}">
+        <i class="nav-icon fas fa-rss"></i>
+        <p>Event</p>
+    </a>
+</li>
 <!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'testimonial')}}"
        class="nav-link {{ (Request::segment(2)=='testimonial')?'active':''}}">

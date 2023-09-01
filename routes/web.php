@@ -289,6 +289,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('edit/{id}', [JournalController::class, 'journal_update']);
         Route::post('delete', [JournalController::class, 'delete_journal']);
     });
+    Route::prefix('event')->group(function () {
+        Route::get('/', [EventController::class, 'event']);
+        Route::get('create', [EventController::class, 'event_create']);
+        Route::post('create', [EventController::class, 'event_store']);
+        Route::get('edit/{id}', [EventController::class, 'event_edit']);
+        Route::post('edit/{id}', [EventController::class, 'event_update']);
+        Route::post('delete', [EventController::class, 'delete_event']);
+    });
 
     Route::prefix('bookings')->group(function () {
         Route::get('/', [BookingController::class, 'bookings']);
