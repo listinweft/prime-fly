@@ -79,6 +79,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                
                                 <div class="form-group col-md-6">
                                     <label> Posted Date*</label>
                                     <input type="date" max="2999-12-31" name="posted_date" id="posted_date"
@@ -111,7 +113,8 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    
+                                         <div class="form-group col-md-6">
                                         <label> Image Attribute</label>
                                         <input type="text" class="form-control placeholder-cls" id="image_attribute"
                                                name="image_attribute" placeholder="Alt='Banner Attribute'"
@@ -121,6 +124,21 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Auth Image*</label>
+                                        <div class="file-loading">
+                                            <input id="auth_image" name="auth_image" type="file">
+                                        </div>
+                                        <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
+                                        @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    
+                                </div>
+                                
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -303,6 +321,31 @@
                 showRemove: true,
                 @if(isset($blog) && $blog->image!=NULL)
                 initialPreview: ["{{asset($blog->image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$blog->image))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#auth_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                minImageWidth: 940,
+                minImageHeight: 430,
+                maxImageWidth: 940,
+                maxImageHeight: 430,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->author_image!=NULL)
+                initialPreview: ["{{asset($blog->author_image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{last(explode('/',$blog->image))}}",
                     width: "120px"

@@ -111,6 +111,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    
                                     <div class="form-group col-md-6">
                                         <label> Image Attribute</label>
                                         <input type="text" class="form-control placeholder-cls" id="image_attribute"
