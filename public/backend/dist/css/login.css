@@ -8,10 +8,8 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: 'Jost', sans-serif;
-    /* background: #0059BC; */
-    /* background: linear-gradient(to right, #A6C87C, #5B8BBA); */
-    background: url(../img/loginImage.jpg) center right;
-    background-size: cover;
+    background: #0059BC;
+    background: linear-gradient(to right, #47d175, #ffffff);  
 }
 
 .main {
@@ -24,7 +22,9 @@ body {
     border-radius: 10px;
     box-shadow: 5px 20px 50px #000;
 }
-
+.main.login_wrap{
+    background-color: white;
+}
 .align-center{
     text-align: center;
 }
@@ -109,21 +109,20 @@ input {
     background: #ECCFA3;;
     color: #000;
 }
-
 .login {
     height: 400px;
     background: #eee;
-    background: #A2D1EA;
+    background: #42d071;
     border-radius: 60% / 10%;
     transform: translateY(-135px);
     transition: .8s ease-in-out;
     position: relative;
-    bottom: 30px;
+    bottom: 50px;
+    color: white;
 }
-
 .login label {
     color: #2C70AE;
-    color: #212529;
+    color: #ffffff;
     transform: scale(.6);
 }
 

@@ -245,7 +245,7 @@ input[type=number] {
     border-right: 1px solid #e1e1e1 !important;
  }
  [class*=sidebar-dark-] .sidebar a {
-    color: #7d7d7d;
+    color: #212121;
 }
 [class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus{
     color: #fff;
@@ -260,3 +260,12 @@ input[type=number] {
     border-bottom: 0;
     padding: 10px 20px;
 }
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link {
+    color: #626262;
+}
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:hover {
+    background-color: rgba(255,255,255,.1);
+    color: #000;
+}
+

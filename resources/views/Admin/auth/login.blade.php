@@ -15,7 +15,7 @@
     </script>
 </head>
 <body>
-    <div class="main">
+    <div class="main login_wrap">
         <input type="checkbox" id="chk" aria-hidden="true">
         <div class=" alignText">
             <img src="{{ asset(@$siteInformation->logo) }}" class="animation__shake logo">
