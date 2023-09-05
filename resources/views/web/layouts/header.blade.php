@@ -11,12 +11,7 @@
                     <img class="img-fluid" src="{{ asset('frontend/images/hamburgerMenuIcon.png')}}" alt="">
                 </a>
             </div>
-            <div class="col-lg-4 col-6 artemyst">
-                <a href="{{url('/')}}">
-                    {!! Helper::printImage(@$siteInformation, 'logo','logo_webp','logo_attribute','img-fluid artemystLogo') !!}
-                    {{-- <img class="img-fluid artemystLogo" src="{{ asset('frontend/images/artemystLogo.png')}}" alt=""> --}}
-                </a>
-            </div>
+           
             <div class="col-lg-4 col-3 topRightArea">
                 <ul class="topRightAreaUl">
                     <li>
@@ -58,13 +53,11 @@
         </div>
     </div>
 </section>
-<!--Top Header End-->
+<!--Top Header End-->   
 <div class="offcanvas offcanvas-start hamburgerMenu" tabindex="-1" id="hamburgerMenu" aria-labelledby="offcanvasExampleLabel"
      data-bs-backdrop="true">
     <div class="offcanvas-header">
-        <a href="">
-            <img class="img-fluid artemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
-        </a>
+         
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -158,9 +151,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <div class="collapse navbar-collapse" id="main_nav">
-                <a href="{{url('/')}}">
-                    <img class="img-fluid headerArtemystLogo"  src="{{ asset('frontend/images/artemystLogo.png')}}" alt="">
-                </a>
+              
                 <ul class="navbar-nav m-auto">
                    
 
@@ -178,15 +169,7 @@
                             </a>
                         </li>
 
-                        <li class="cart">
-
-                            <a class="position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
-                                <img class="img-fluid"  src="{{ asset('frontend/images/bag.png')}}" alt="">
-                                <span class="position-absolute top-0 start-100  badge rounded-pill bg-danger cart-count">
-                                    {{ Helper::getCartItemCount()}}
-                            </span>
-                            </a>
-                        </li>
+                      
                         @if(Auth::guard('customer')->check())
                             <li>
                                 <a href="{{url('customer/account/wishlist')}}">
