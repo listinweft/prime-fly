@@ -3,9 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-6 order-1">
-                <a class="logo" href="index.php">
-                    <img class="img-fluid"src="{{ asset('frontend/images/artemyst-logoWhite.png')}}" alt="">
-                </a>
+               
                 <ul class="list">
                     <li>
                         <a href="{{url('about')}}">Our Story</a>
@@ -115,13 +113,6 @@
                 <ul class="list">
                     
                    
-                                 @foreach ($shapes as $shape)
-                    <li>
-                        
-                        <a href="{{url('shape/'.$shape->title)}}">{{$shape->title}}</a>
-                    </li>
-                    @endforeach
-                    
                    
                      <img class="img-fluid googleImg"src="{{ asset('frontend/images/googleFooter.png')}}" alt="">
                 </ul>
@@ -142,10 +133,10 @@
                 <div class="col-12">
                     <ul>
                         <li>
-                            All Rights Reserved by ARTEMYST 2023
+                            All Rights Reserved by Emirati 2023
                         </li>
                         <li>
-                            Designed By <a href=""><img class="img-fluid"src="{{ asset('frontend/images/pentacodeLogo.png')}}" alt=""></a>
+                            Designed By <a href="">Weft Technologies</a>
                         </li>
                     </ul>
                 </div>
@@ -159,12 +150,7 @@
         <div class="row">
             <div class="col-12">
                 <ul class="listWrapper">
-                   <li>
-                       <a href="{{ url('cart') }}" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartListRight" aria-controls="offcanvasRight">
-                           <img class="img-fluid"src="{{ asset('frontend/images/bottom-01.png')}}" alt="">
-                           <p>Cart</p>
-                       </a>
-                   </li>
+                   
                     <li>
                         <div class="dropdown">
                             <a class=" dropdown-toggle text-center" type="button" id="dropdownMenuButton1"
