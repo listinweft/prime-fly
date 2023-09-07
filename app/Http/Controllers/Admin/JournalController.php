@@ -56,9 +56,9 @@ class JournalController extends Controller
             $blog->image = Helper::uploadFile($request->image, 'uploads/blog/image/', $request->title);
         }
 
-        if ($request->hasFile('auth_image')) {
-            $blog->author_image_webp = Helper::uploadWebpImage($request->auth_image, 'uploads/blog/author_webp_image/', $request->title);
-            $blog->author_image = Helper::uploadFile($request->auth_image, 'uploads/blog/author_image/', $request->title);
+        if ($request->hasFile('author_image')) {
+            $blog->author_image_webp = Helper::uploadWebpImage($request->author_image, 'uploads/blog/author_webp_image/', $request->title);
+            $blog->author_image = Helper::uploadFile($request->author_image, 'uploads/blog/author_image/', $request->title);
         }
 
        

@@ -33,7 +33,7 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-                        @include('Admin.includes._heading_form',['type'=>'journal'])
+                        @include('Admin.includes._heading_form',['type'=>'event'])
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'event/create')}}"

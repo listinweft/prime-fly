@@ -39,6 +39,8 @@ use App\Models\SeoData;
 use App\Models\SiteInformation;
 use App\Models\Tag;
 use App\Models\Shape;
+use App\Models\Event;
+use App\Models\Journal;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,33 +67,30 @@ class WebController extends Controller
     {
         $seo_data = $this->seo_content('Home');
 
-        $homeBanners = HomeBanner::active()->oldest('sort_order')->get();
-        $ourcollection = Homecollection::active()->first();
-      $homeHeadings = HomeHeading::where('type','testimonial')->first();
-      $selectionheading = HomeHeading::where('type','selection')->first();
-      $prdts = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
+        $totalBlog = Blog::active()->count();
 
-      $catIds = $prdts->pluck('id')->toArray();
-     $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
-     $catIdss = $prs->pluck('category_id')->toArray();
+        $condition = Blog::active()->latest('posted_date');
 
-     $themes =  Category::whereIn('id',$catIdss)->get();
+        $blogs = $condition->take(3)->get();
 
+        $totalevent = Event::active()->count();
 
-        $testimonials = Testimonial::active()->take(10)->get();
-    $recentlyViewedProducts = Helper::getRecentProducts();
-       
-      $catHomeHeadings = HomeHeading::where('type','category')->first();
-     $products = Product::active()->where('display_to_home','Yes')->where('copy','no')->get();
-     $selection = Product::active()->where('copy','no')->where('type','selection')->orderBy('order')->limit(8)->get();
+        $condition = Event::active()->latest('posted_date');
+
+        $events = $condition->take(3)->get();
+
+        $totaljournal = Journal::active()->count();
+
+        $condition = Journal::active()->latest('posted_date');
+
+        $journals = $condition->take(10)->get();
+
+        
+
    
 
-    //   $ourcollection = Homecollection::active()->first();
-    //   return view('web.home', compact('seo_data', 'ourcollection','testimonials','homeHeadings','homeBanners','themes'));
-
-
-    //     return view('web.home', compact('seo_data', 'ourcollection'));
-        return view('web.home', compact('seo_data', 'ourcollection','catHomeHeadings','testimonials','homeHeadings','homeBanners','themes','products','selection','selectionheading','recentlyViewedProducts'));
+    
+        return view('web.home', compact('seo_data', 'blogs','events','journals'));
     }
 
 

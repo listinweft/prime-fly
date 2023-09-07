@@ -13,7 +13,7 @@
                                 <a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{url(Helper::sitePrefix().'blog')}}">Event</a></li>
+                                <a href="{{url(Helper::sitePrefix().'event')}}">Event</a></li>
                             <li class="breadcrumb-item active">{{$key}}</li>
                         </ol>
                     </div>

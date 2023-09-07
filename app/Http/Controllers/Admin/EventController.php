@@ -25,7 +25,7 @@ class EventController extends Controller
     {
         $title = "Event List";
         $home_heading = HomeHeading::type('event')->first();
-        $type = 'event';
+        $type = 'Event';
         $blogList = Event::get();
         return view('Admin.eventview.list', compact('blogList', 'title', 'type', 'home_heading'));
     }
@@ -127,7 +127,7 @@ class EventController extends Controller
     public function event_edit($id)
     {
         $key = "Update";
-        $title = "Blog Update";
+        $title = "Event Update";
         $blog = Event::find($id);
         if ($blog != null) {
             return view('Admin.eventview.form', compact('key', 'blog', 'title'));

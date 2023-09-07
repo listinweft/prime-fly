@@ -129,10 +129,10 @@
                                     <div class="form-group col-md-6">
                                         <label>Auth Image*</label>
                                         <div class="file-loading">
-                                            <input id="auth_image" name="auth_image" type="file">
+                                            <input id="author_image" name="author_image" type="file">
                                         </div>
                                         <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
-                                        @error('image')
+                                        @error('author_image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -327,7 +327,7 @@
                 }]
                 @endif
             });
-            $("#auth_image").fileinput({
+            $("#author_image").fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -347,7 +347,7 @@
                 @if(isset($blog) && $blog->author_image!=NULL)
                 initialPreview: ["{{asset($blog->author_image)}}",],
                 initialPreviewConfig: [{
-                    caption: "{{last(explode('/',$blog->image))}}",
+                    caption: "{{last(explode('/',$blog->author_image))}}",
                     width: "120px"
                 }]
                 @endif

@@ -1,4 +1,4 @@
-
+<!-- 
 <footer>
     <div class="container">
         <div class="row">
@@ -106,7 +106,7 @@
                         
                     </div>
                 </div>
-<!--                    <img class="img-fluid paymentImg"src="{{ asset('frontend/images/securepayment.png')}}" alt="">-->
+
             </div>
             <div class="col-lg-3 col-6 mt-lg-0 mt-5 order-lg-3 order-4">
                 <h6>Discover</h6>
@@ -215,8 +215,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
 <script src="{{ asset('frontend/xzoom/js/setup.js')}}"></script>
-<!-- <script  src="{{ asset('frontend/js/scripts.min.js')}}"></script> -->
-<!-- <script  src="{{ asset('frontend/js/custom.min.js')}}"></script> -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 
@@ -242,7 +241,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
 <script  src="{{ asset('frontend/js/form-select2_new.min.js')}}"></script>
 
-<!--    <script src="assets/owlcarousel/owl.carousel.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xzoom/1.0.15/xzoom.min.js"></script>
@@ -254,7 +252,7 @@
 <script  src="{{ asset('frontend/js/custom.js')}}"></script>
 <script  src="{{ asset('frontend/js/scripts.js')}}"></script>
 <script  src="{{ asset('frontend/js/demo.js')}}"></script>
-<!--    <script src="https://code.jquery.com/jquery-2.2.4.min.js')}}"></script>-->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
@@ -292,4 +290,4 @@ setTimeout(function () {
 </script>
 @endif
 </body>
-</html>
+</html> -->
