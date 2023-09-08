@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DealController;
 use App\Http\Controllers\Admin\EnquiryController;
-use App\Http\Controllers\Admin\FAQController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\MenuController;
