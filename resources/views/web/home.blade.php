@@ -537,7 +537,7 @@
 
             @endif
         </section>
-        @if($blogs->isNotEmpty())
+        @if($events->isNotEmpty())
         <section class="col-12 home_event">
             <div class="container"> 
                 <div class="col-12 text-center section_head">
@@ -569,7 +569,7 @@
                                             </div>
                                             <div class="eventgrid_desc">
                                                 <h4> {!! $event->title !!}</h4>
-                                                <p>{!! strlen($event->description) > 100  ? substr($event->description, 0, 100) . '...' : $event->description !!}</p>
+                                                {!! strlen($event->description) > 100  ? substr($event->description, 0, 100) . '...' : $event->description !!}
 
                                             </div>
                                         </div>
