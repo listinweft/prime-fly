@@ -78,7 +78,8 @@ class FaqController extends Controller
             'answer'=>'required|min:2|max:230',
         ]);
         $faq = Faq::find($id);
-        
+        $faq->question = $validatedData['question'];
+        $faq->answer = $validatedData['answer'];
 
         if ($faq->save()) {
             session()->flash('success', 'Faq "' . $request->title . '" has been updated successfully');
