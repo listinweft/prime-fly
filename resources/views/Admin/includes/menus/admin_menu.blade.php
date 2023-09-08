@@ -266,6 +266,13 @@
         <p>Event</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'faq')}}"
+       class="nav-link {{ (Request::segment(2)=='faq')?'active':''}}">
+        <i class="nav-icon fas fa-rss"></i>
+        <p>Faqs</p>
+    </a>
+</li>
 <!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'testimonial')}}"
        class="nav-link {{ (Request::segment(2)=='testimonial')?'active':''}}">

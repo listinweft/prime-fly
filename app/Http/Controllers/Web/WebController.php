@@ -38,7 +38,7 @@ use App\Models\Size;
 use App\Models\SeoData;
 use App\Models\SiteInformation;
 use App\Models\Tag;
-use App\Models\Shape;
+use App\Models\Faq;
 use App\Models\Event;
 use App\Models\Journal;
 use App\Models\Testimonial;
@@ -85,12 +85,18 @@ class WebController extends Controller
 
         $journals = $condition->take(10)->get();
 
+
+       
+
+    
+      $faqs = Faq::latest()->take(5)->get();
+        
         
 
    
 
     
-        return view('web.home', compact('seo_data', 'blogs','events','journals'));
+        return view('web.home', compact('seo_data', 'blogs','events','journals','faqs'));
     }
 
 

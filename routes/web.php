@@ -474,13 +474,13 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
 
     Route::prefix('faq')->group(function () {
-        Route::get('/', [FAQController::class, 'faq']);
-        Route::get('create', [FAQController::class, 'faq_create']);
-        Route::post('create', [FAQController::class, 'faq_store']);
-        Route::get('edit/{id}', [FAQController::class, 'faq_edit']);
-        Route::post('edit/{id}', [FAQController::class, 'faq_update']);
-        Route::post('delete/', [FAQController::class, 'delete_faq']);
-        Route::post('delete_multiple', [FAQController::class, 'delete_multiple_faq']);
+        Route::get('/', [FaqController::class, 'faqs']);
+        Route::get('create', [FaqController::class, 'faqs_create']);
+        Route::post('create', [FaqController::class, 'faqs_store']);
+        Route::get('edit/{id}', [FaqController::class, 'faqs_edit']);
+        Route::post('edit/{id}', [FaqController::class, 'faqs_update']);
+        Route::post('delete/', [FaqController::class, 'delete_faqs']);
+        Route::post('delete_multiple', [FaqController::class, 'delete_multiple_faqs']);
     });
 
     Route::prefix('guests')->group(function () {

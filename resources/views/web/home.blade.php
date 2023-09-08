@@ -453,7 +453,7 @@
                         <path d="M1034.9 396.74L1081.23 502.91" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M1052.92 377.97L1103.34 493.51" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M1073.93 366.05L1137.73 512.28" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M1097.67 360.38L1163.65 511.61" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                       <path d="M1097.67 360.38L1163.65 511.61" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M1124.59 362.03L1180.75 490.75" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M1157.28 376.88L1192.11 456.7" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M1190.16 426.08L1152.59 512.2" stroke="#3F3F3F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -609,7 +609,7 @@
                                         </div>
                                         <div class="blog_desc">
                                             <h4 {{ $blog->title }}</h4>
-                                            <p>  {!! $blog->description !!}</p>
+                                            <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
                                             <a href="{{ url('blog/'.$blog->short_url) }}" class="common-btn mt-4">Read</a>
                                         </div>
                                     </div>
@@ -626,41 +626,44 @@
                 @endif
 
 
-        <section class="col-12 home_faq">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <div class="row align-items-center">
-                            <div class="col-lg-4 text-center" data-aos="fade-right" data-aos-duration="500">
-                                <h3>
-                                    FREQUENTLY <br> ASKED QUESTIONS
-                                </h3>
-                            </div> 
-                            <div class="col-lg-8 faq_accord" data-aos="fade-left" data-aos-duration="500">
-                                <div class="accordion" id="accordionExample">
-                                    <div class="accordion-item">
-                                      <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            What is ESoAn? 
-            
-                                        </button>
-                                      </h2>
-                                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            All ESoAn/EJoAn commitments are done on voluntary bases by dedicated professionals sacrificing their  own time and resources for the betterment of the speciality. 
-                                        </div>
-                                      </div>
-                                    </div>
-                                   
-                                    
-                                   
-                            </div>
-                        </div>
-                    </div> 
+                <section class="col-12 home_faq">
+                <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center" data-aos="fade-right" data-aos-duration="500">
+                    <h3>FREQUENTLY <br> ASKED QUESTIONS</h3>
                 </div> 
-            </div>  
+                <div class="col-lg-8 faq_accord" data-aos="fade-left" data-aos-duration="500">
+                    <div class="accordion" id="accordionExample">
+                        @foreach ($faqs as $index => $faq)
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button @if ($index === 0){{ 'collapsed' }} @endif"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ $index }}"
+                                            aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
+                                            aria-controls="collapse{{ $index }}">
+                                            {!! $faq->question !!}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ $index }}" class="accordion-collapse collapse @if ($index === 0){{ 'show' }} @endif"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                    {!! $faq->answer !!}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
         </section>
-   
     @endsection
 @push('scripts')
 
