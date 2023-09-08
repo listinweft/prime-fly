@@ -609,7 +609,7 @@
                                         </div>
                                         <div class="blog_desc">
                                             <h4 {{ $blog->title }}</h4>
-                                            <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
+                                             {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}
                                             <a href="{{ url('blog/'.$blog->short_url) }}" class="common-btn mt-4">Read</a>
                                         </div>
                                     </div>
