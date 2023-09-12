@@ -248,28 +248,28 @@
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'blog')}}"
        class="nav-link {{ (Request::segment(2)=='blog')?'active':''}}">
-        <i class="nav-icon fas fa-rss"></i>
+        <i class="fas fa-blog nav-icon"></i>
         <p>Blog</p>
     </a>
 </li>
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'journal')}}"
        class="nav-link {{ (Request::segment(2)=='journal')?'active':''}}">
-        <i class="nav-icon fas fa-rss"></i>
+        <i class="fas fa-book nav-icon"></i>
         <p>Journal</p>
     </a>
 </li>
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'event')}}"
        class="nav-link {{ (Request::segment(2)=='event')?'active':''}}">
-        <i class="nav-icon fas fa-rss"></i>
+        <i class="fas fa-calendar nav-icon"></i>
         <p>Event</p>
     </a>
 </li>
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'faq')}}"
        class="nav-link {{ (Request::segment(2)=='faq')?'active':''}}">
-        <i class="nav-icon fas fa-rss"></i>
+        <i class="nav-icon fas fa-question-circle"></i>
         <p>Faqs</p>
     </a>
 </li>
