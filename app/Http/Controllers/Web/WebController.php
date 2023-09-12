@@ -89,7 +89,8 @@ class WebController extends Controller
        
 
     
-      $faqs = Faq::latest()->take(5)->get();
+        $faqs = Faq::active()->latest()->take(5)->get();
+
         
         
 

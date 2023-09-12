@@ -13,6 +13,7 @@ use App\Models\HomeBanner;
 use App\Models\HomeHeading;
 use App\Models\MeasurementUnit;
 use App\Models\Brand;
+use App\Models\Faq;
 use App\Models\ProductType;
 
 use App\Models\Tag;
