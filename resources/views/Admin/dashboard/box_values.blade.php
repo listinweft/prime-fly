@@ -7,7 +7,7 @@
                 <p>Total Members</p>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-users"></i>
             </div>
             <!-- <a href="{{url(Helper::sitePrefix().'report/order/processing')}}" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i></a> -->
@@ -22,7 +22,7 @@
                 <p>Total Journals</p>
             </div>
             <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="journal-icon fas fa-book"></i>
             </div>
             <!-- <a href="{{url(Helper::sitePrefix().'report/order/on hold')}}" class="small-box-footer">More info
                 <i
@@ -38,7 +38,7 @@
                 <p>Total Blogs</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="blog-icon fas fa-file-alt"></i>
             </div>
             <!-- <a href="{{url(Helper::sitePrefix().'report/product/out-of-stock')}}" class="small-box-footer">More info <i
                     class="fas fa-arrow-circle-right"></i></a> -->
@@ -55,7 +55,7 @@
                 <p>Total Events</p>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="total-events-icon fas fa-calendar"></i>
             </div>
             {{--            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
         </div>
@@ -66,10 +66,10 @@
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3>{{$monthSales}}</h3>
-                <p>TOtal Enquiries</p>
+                <p>Total Enquiries</p>
             </div>
             <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="total-enquiries-icon fas fa-question-circle"></i>
             </div>
             {{--            <a href="{{url('job/Completed')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
         </div>
@@ -83,7 +83,7 @@
                 <p>Total Posts</p>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="otal-posts-icon fas fa-pencil-alt"></i>
             </div>
             {{--            <a href="{{url('pending-jobs')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
         </div>
