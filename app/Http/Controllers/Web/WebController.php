@@ -18,6 +18,7 @@ use App\Models\Deal;
 use App\Models\Enquiry;
 use App\Models\Frame;
 use App\Models\CurrencyRate;
+use App\Models\Shape;
 
 use App\Models\History;
 use App\Models\HomeAdvertisement;
@@ -132,7 +133,7 @@ class WebController extends Controller
     {
         $seo_data = $this->seo_content('Contact');
         $contact = SiteInformation::first();
-        $contactAddresses = ContactAddress::active()->get();
+          $contactAddresses = ContactAddress::active()->get();
         $banner = Banner::type('contact')->first();
         return view('web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses'));
     }
@@ -143,21 +144,22 @@ class WebController extends Controller
 
         // dd($request->all());
         $request->validate([
-            'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
+            'firstname' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
             'email' => 'required|email|max:255',
-            'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
+             'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
             // 'subject' => 'required',
-            'message' => 'required',
+            // 'message' => 'required',
         ]);
 
         $contact = new Enquiry();
 
 
         $contact->type = $request->type;
-        $contact->name = $request->name;
+        $contact->name = $request->firstname;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
-        $contact->message = $request->message;
+       
+        $contact->message = $request->message ?? "nothing send";
         $contact->product_id = $request->product_id ?? NULL;
         $contact->product_type_id = $request->product_type_id ?? NULL;
         $contact->size_id = $request->size_id ?? NULL;
@@ -180,7 +182,7 @@ class WebController extends Controller
         }
         if ($contact->save()) {
 
-            $sendContactMail = Helper::sendContactMail($contact, $type);
+             $sendContactMail = Helper::sendContactMail($contact, $type);
             if ($sendContactMail) {
 
                 return response()->json(['status' => 'success',
@@ -617,167 +619,8 @@ if(@$seo_data->meta_keyword == '')
             'title', 'type', 'typeValue', 'sort_value','shapescount'));
     }
 
-    public function filterCondition(Request $request)
-    {
 
-     $currency = Helper::defaultCurrency();
-
-    //    return $request->my_range;
-
-        //  $price_range = explode('-', str_replace('AED', '', $request->my_range));
-
-        $price_range = explode('-', str_replace('AED', '', $request->my_range));
-
-
-
-
- 
-
-
-         if (!empty($price_range)) {
-
-
-    //      $dcurrencyrate = Helper::defaultCurrencyRate();
-        
-
-    //    $initialvalue =  $price_range[0];
-      
-
-    //     $finalvalue=  $price_range[1];
-
-    //     $a =  $initialvalue/$dcurrencyrate;
-
-    //     $b = $finalvalue/$dcurrencyrate;
-
-    //    $firstprice = (round($a));
-
-    //    $secondprice = (round($b));
-
-
-    //    $priceranges=[$firstprice,$secondprice];
-      
    
-
-
-     
-      
-             $condition = Product::active()->whereHas('productprices', function($query) use($price_range){
-                $query->whereBetween('products_size_price.price', [$price_range[0], $price_range[1]]);
-               
-                
-             })->where('products.copy','no');
-         }
-
-         else{
-
-            $condition = Product::active()->where('copy','no');
-
-
-
-         }
-
-
-
-
-        $inputs = [];
-        if ($request->input_field != NULL) {
-            $inputs = explode(',', $request->input_field);
-        }
-
-
-
-        if ($request->pageType == "category" && !in_array('category_id', $inputs)) {
-            $category = Category::active()->where('short_url', $request->typeValue)->first();
-            if ($category) {
-
-  
-
-                if($request->category_id){
-                    if(in_array($category->id, $request->category_id)) {
-                        $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::get_all_sub_categories($category->id)->pluck('id')))->toArray()));
-                        $condition = $condition->whereRaw("(FIND_IN_SET('" . $category->id . "',products.category_id)")->orwhereRaw('CONCAT(",", products.sub_category_id, ",") REGEXP ",(' . $subCategoryIds . '),")');
-                    }
-                }
-                if($request->sub_category_id){
-                    if(in_array($category->id, $request->sub_category_id)) {
-                        $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::get_all_sub_categories($category->id)->pluck('id')))->toArray()));
-                        $condition = $condition->whereRaw("(FIND_IN_SET('" . $category->id . "',products.category_id)")->orwhereRaw('CONCAT(",", products.sub_category_id, ",") REGEXP ",(' . $subCategoryIds . '),")');
-                    }
-                }
-          
-
-        }
-        } elseif ($request->pageType == "search_result") {
-            $condition = $condition->Where('title', 'like', '%' . $request->typeValue . '%');
-        } elseif ($request->pageType == "deal") {
-            $deal = Deal::where([['short_url', $request->typeValue], ['status', 'Active']])->first();
-            if ($deal) {
-                $condition = $condition->whereIn('id', explode(',', $deal->products));
-            }
-        }
-
-
-        //color filtering
-        if ($request->input_field != NULL) {
-            $condition = $condition->where(function ($mainquery) use ($inputs, $request) {
-                {
-                    foreach ($inputs as $input) {
-                        if ($input == "category_id" || $input == "sub_category_id") {
-                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
-                                foreach ($request[$input] as $key => $reIn) {
-                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
-                                }
-                            });
-                         }
-                        //  (and(category=portrait or category=landscape)and(color=green or color=red))
-                         else if ($input == "color_id") {
-                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
-                                foreach ($request[$input] as $key => $reIn) {
-                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
-                                }
-                            });
-                         }
-                         else if ($input == "shape_id") {
-                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
-                                foreach ($request[$input] as $key => $reIn) {
-                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
-                                }
-                            });
-                         }
-                         else if ($input == "tag_id") {
-                            $mainquery->where(function ($query) use ($inputs, $request, $input) {
-                                foreach ($request[$input] as $key => $reIn) {
-                                    $query->OrwhereRaw("find_in_set('" . $reIn . "', products." . "$input)");
-                                }
-                            });
-                         }
-                         else {
-                            $query->whereIn($input, $request[$input]);
-                        }
-                    }
-                }
-            });
-        }
-        return $condition;
-    }
-
-    public function sortCondition(Request $request, $condition)
-    {
-        //Sorting
-        $sort_value = $request->sort_value;
-        if ($sort_value == "new") {
-            $condition = $condition->where('new_arrival','Yes');
-        } elseif ($sort_value == "featured") {
-            $condition = $condition->where('is_featured','Yes');
-        } elseif ($sort_value == "best") {
-            $condition = $condition->where('best_seller','Yes');
-        } elseif ($sort_value == "asc") {
-            $condition = $condition->oldest('title');
-        } elseif ($sort_value == "desc") {
-            $condition = $condition->latest('title');
-        }
-        return $condition;
-    }
 
     public function productLoadMore(Request $request)
     {
@@ -964,10 +807,10 @@ if(@$seo_data->meta_keyword == '')
     public function privacy_policy()
     {
         $seo_data = $this->seo_content('Privacy Policy');
-        $banner = Banner::type('privacy-policy')->first();
+        $policydata= SiteInformation::first();
         $field = 'privacy_policy';
         $title = 'Privacy Policy';
-        return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
+        return view('web.policy', compact('policydata', 'seo_data', 'field', 'title'));
     }
 
     public function return_policy()
@@ -999,20 +842,22 @@ if(@$seo_data->meta_keyword == '')
     {
         $seo_data = $this->seo_content('Terms and Conditions');
 
-        $banner = Banner::type('terms-and-conditions')->first();
+        $policydata= SiteInformation::first();
         $field = 'terms_and_conditions';
         $title = 'Terms and Conditions';
-        return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
+        return view('web.terms', compact('policydata', 'seo_data', 'field', 'title'));
     }
 
     public function faq()
     {
         $seo_data = $this->seo_content('faq');  
+        $faqs = Faq::active()->latest()->take(10)->get();
 
-         $banner = Banner::type('faq')->first();
+        
         $field = 'faq';
         $title = 'faq';
-        return view('web.policy', compact('banner', 'seo_data', 'field', 'title'));
+        
+        return view('web.faq', compact( 'seo_data','faqs', 'field', 'title'));
     }
     public function currency_set(Request $request)
     {

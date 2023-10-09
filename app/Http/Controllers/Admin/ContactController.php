@@ -109,9 +109,7 @@ class ContactController extends Controller
         $contact = ContactAddress::find(1);
         if ($contact) {
             return view('Admin.contact_address.form', compact('key', 'contact', 'title'));
-        } else {
-            return view('Admin.error.404');
-        }
+        } 
     }
 
     public function contact_address_create()
