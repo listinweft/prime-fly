@@ -56,11 +56,7 @@ Route::middleware(['web'])->group(function () {
         return view('web.product-details');
     });
 
-    Route::get('/invoice',function(){
-        $order = \App\Models\Order::find(9);
-       Helper::sendOrderPlacedMail($order,'0');
-    });
-
+    
 
     Route::get('about', [WebController::class, 'about']);
     Route::post('currency_set', [WebController::class, 'currency_set']);
@@ -88,7 +84,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('product-load-more', [WebController::class, 'productLoadMore']);
     Route::post('review-load-more', [WebController::class, 'reviewLoadMore']);
     Route::post('main-search', [WebController::class, 'main_search']);
-    Route::get('search/{search_param}', [WebController::class, 'main_search_products']);
+    Route::get('search/{search_param}', [WebController::class, 'main_search_blogs']);
     Route::post('submit-review', [WebController::class, 'submit_review']);
     Route::post('product-review', [WebController::class, 'product_review']);
     Route::get('service/{short_url}', [WebController::class, 'service_detail']);

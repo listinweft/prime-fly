@@ -101,6 +101,46 @@ class WebController extends Controller
         return view('web.home', compact('seo_data', 'blogs','events','journals','faqs'));
     }
 
+    // public function main_search_blogs($search_param)
+    // {
+    //     $condition = Blog::active()->where('title', 'LIKE', "%{$search_param}%")->where('copy','no');
+    //     $totalblogs = $condition->count();
+    //     $blogs = $condition->latest()->take(30)->get();
+        
+    //     $offset = $blogs->count();
+    //     $loading_limit = 15;
+    //     $type = "search_result";
+    //     $typeValue = $search_param;
+       
+       
+      
+    //     $title = 'Search result of ' . $search_param;
+    //     $latestProducts = Product::active()->take(5)->latest()->get();
+    //     return view('web.products', compact('blogs', 'totalblogs', 'offset',
+    //         'loading_limit',
+    //         'type', 'typeValue',  'title'));
+    // }
+
+    
+    public function main_search(Request $request)
+    {
+        // $searchResult = array();
+        // $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+
+
+        $searchResult = array();
+    
+               
+                $blogs = Blog::active()->Where('title', 'LIKE', "%{$request->search_param}%")->get();
+        if ($blogs->isNotEmpty()) {
+            foreach ($blogs as $blog) {
+                
+                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('blog/' . $blog->short_url));
+            }
+        }
+        return response()->json(['status' => true, 'message' => $searchResult]);
+    }
+
 
     public function about()
     {
@@ -210,9 +250,9 @@ class WebController extends Controller
 
         $condition = Blog::active()->latest('posted_date');
 
-        $blogs = $condition->take(6)->get();
-        $offset = $blogs->count() + 4;
-        $loading_limit = 6;
+        $blogs = $condition->take(3)->get();
+        $offset = $blogs->count() + 1;
+        $loading_limit = 3;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
             'blogs', 'totalBlog', 'offset', 'loading_limit'));
     }
@@ -235,7 +275,7 @@ class WebController extends Controller
         if ($blog) {
             $banner = $seo_data = $blog;
             $type = $short_url;
-            $recentBlogs = Blog::active()->latest('posted_date')->limit(4)->where('id', '!=', $blog->id)->get();
+            $recentBlogs = Blog::active()->latest('posted_date')->limit(3)->where('id', '!=', $blog->id)->get();
             $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
             $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
@@ -275,123 +315,8 @@ class WebController extends Controller
     }
 
 
-    public function category($short_url)
-    {
-        $category = Category::active()->shortUrl($short_url)->first();
-        if ($category) {
-            $seo_data = $category;
-            $parentCategories = Category::active()->isParent()->get();
-            $banner = Banner::type('product')->first();
-            $subCategoryIds = implode('|', ((collect($category->id)->merge(Helper::getAllSubCategories($category->id)->pluck('id')))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $category->id . "',category_id)")->orwhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
-            ->where('copy','no');
-            $totalProducts = $condition->count();
-            $products = $condition->where('copy','no')->latest()->take(12)->get();
-
-            $colors = Color::active()->oldest('title')->get();
-            $offset = $products->count();
-            $loading_limit = 15;
-            $type = "category";
-            $colors = Color::active()->oldest('title')->get();
-            $shapes = Shape::latest()->get();
-            $tags = Tag::latest()->get();
-            $shapescount = count($shapes);
-            $typeValue = $short_url;
-            $sort_value = 'latest';
-            $title = ucfirst($category->title);
-            $latestProducts = Product::active()->whereRaw("find_in_set('" . $category->id . "',category_id)")->take(5)->latest()->get();
-            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount',
-                'parentCategories', 'colors', 'category', 'banner', 'type', 'typeValue', 'latestProducts',
-                'title', 'sort_value'));
-        } else {
-            return view('web.404');
-        }
-    }
-    public function color($short_url)
-    {
-        $color = Color::active()->where('title',$short_url)->first();
-
-        if ($color) {
-            $seo_data = $color;
-
-            if(@$seo_data->meta_title == '')
-            $seo_data->meta_title = $color->title;
-
-
-if(@$seo_data->meta_description == '')
-    $seo_data->meta_description = $color->title;
-if(@$seo_data->meta_keyword == '')
-    $seo_data->meta_keyword = $color->title;
-
-            $allProducts = Product::active()->first();
-            $banner = Banner::type('product')->first();
-            $subCategoryIds = implode('|', ((collect($color->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $color->id . "',color_id)")->orwhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
-            ->where('copy','no');
-            $totalProducts = $condition->count();
-            $products = $condition->where('copy','no')->latest()->take(12)->get();
-
-            $colors = Color::active()->oldest('title')->get();
-            $offset = $products->count();
-            $loading_limit = 15;
-            $type = "category";
-            $colors = Color::active()->oldest('title')->get();
-            $shapes = Shape::latest()->get();
-            $tags = Tag::latest()->get();
-            $shapescount = count($shapes);
-            $typeValue = $short_url;
-            $sort_value = 'latest';
-            $title = ucfirst($color->title);
-            $latestProducts = Product::active()->whereRaw("find_in_set('" . $color->id . "',color_id)")->take(5)->latest()->get();
-            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount', 'colors', 'color', 'banner', 'type', 'typeValue', 'latestProducts',
-                'title', 'sort_value'));
-        } else {
-            return view('web.404');
-        }
-    }
-    public function shape($short_url)
-    {
-        $shape = Shape::active()->where('title',$short_url)->first();
-
-        if ($shape) {
-            $seo_data = $shape;
-
-            if(@$seo_data->meta_title == '')
-            $seo_data->meta_title = $shape->title;
-
-
-if(@$seo_data->meta_description == '')
-    $seo_data->meta_description = $shape->title;
-if(@$seo_data->meta_keyword == '')
-    $seo_data->meta_keyword = $shape->title;
-            // $parentCategories = Category::active()->isParent()->get();
-            $allProducts = Product::active()->first();
-            $banner = Banner::type('product')->first();
-            $subCategoryIds = implode('|', ((collect($shape->id))->toArray()));
-            $condition = Product::active()->whereRaw("(FIND_IN_SET('" . $shape->id . "',shape_id)")->orwhereRaw('CONCAT(",", `shape_id`, ",") REGEXP ",(' . $subCategoryIds . '),")')
-            ->where('copy','no');
-            $totalProducts = $condition->count();
-            $products = $condition->where('copy','no')->latest()->take(12)->get();
-
-            $colors = Color::active()->oldest('title')->get();
-            $offset = $products->count();
-            $loading_limit = 15;
-            $type = "category";
-            $colors = Color::active()->oldest('title')->get();
-            $shapes = Shape::latest()->get();
-            $tags = Tag::latest()->get();
-            $shapescount = count($shapes);
-            $typeValue = $short_url;
-            $sort_value = 'latest';
-            $title = ucfirst($shape->title);
-            $latestProducts = Product::active()->whereRaw("find_in_set('" . $shape->id . "',shape_id)")->take(5)->latest()->get();
-            return view('web.products', compact('seo_data', 'products', 'totalProducts', 'offset', 'loading_limit','shapes','tags','shapescount',
-                'colors', 'shape', 'banner', 'type', 'typeValue', 'latestProducts',
-                'title', 'sort_value'));
-        } else {
-            return view('web.404');
-        }
-    }
+   
+   
     public function deal($short_url)
     {
         if ($short_url) {
@@ -423,222 +348,18 @@ if(@$seo_data->meta_keyword == '')
         }
     }
 
-    public function main_search(Request $request)
-    {
-        // $searchResult = array();
-        // $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+   
 
 
-        $searchResult = array();
-    
-                $categories = Category::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $tags = Tag::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $shapes = Shape::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $colors = Color::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
-                $categoryIds = implode('', $categories->pluck('id')->toArray());
-                $tagIds = implode('', $tags->pluck('id')->toArray());
-                $shapeIds = implode('', $shapes->pluck('id')->toArray());
-                $colorIds = implode('', $colors->pluck('id')->toArray());
-                $products = Product::active()->where('copy','no')
-                    ->where(function ($query) use ($categoryIds, $tagIds,$shapeIds,$colorIds,$request) {
-                        $query->orWhere('title', 'LIKE', "%{$request->search_param}%");
-                        if ($categoryIds) {
-                            $query->orWhereRaw('CONCAT(",", `category_id`, ",") REGEXP ",(' . $categoryIds . '),"');
-                            $query->orWhereRaw('CONCAT(",", `sub_category_id`, ",") REGEXP ",(' . $categoryIds . '),"');
-                        }
-                        if ($tagIds) {
-                            
-                            $query->orWhereRaw('CONCAT(",", `tag_id`, ",") REGEXP ",(' . $tagIds . '),"');
-                        }
-                        if ($shapeIds) {
-                            
-                            $query->orWhereRaw('CONCAT(",", `shape_id`, ",") REGEXP ",(' . $shapeIds . '),"');
-                        }
-                        if ($colorIds) {
-                            
-                            $query->orWhereRaw('CONCAT(",", `color_id`, ",") REGEXP ",(' . $colorIds . '),"');
-                        }
-                    })->get();
-        if ($products->isNotEmpty()) {
-            foreach ($products as $product) {
-                if (Helper::offerPrice($product->id) != '') {
-                    $offerPrice = Helper::offerPrice($product->id);
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->id;
-                } else {
-                    $price = Helper::defaultCurrency() . ' ' . Helper::defaultCurrencyRate() * $product->productprice->price;
-                }
-                $searchResult[] = array("id" => $product->id, "title" => $product->title, 'price' => $price, 'offer_price' => $offerPrice ?? '', 'image' => ($product->thumbnail_image != NULL && File::exists(public_path($product->thumbnail_image))) ? asset($product->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('product/' . $product->short_url));
-            }
-        }
-        return response()->json(['status' => true, 'message' => $searchResult]);
-    }
+ 
 
-
-    public function main_search_products($search_param)
-    {
-        $condition = Product::active()->where('title', 'LIKE', "%{$search_param}%")->where('copy','no');
-        $totalProducts = $condition->count();
-        $products = $condition->latest()->take(30)->get();
-        $parentCategories = Category::active()->isParent()->get();
-        $colors = Color::active()->oldest('title')->get();
-        $colors = Color::active()->get();
-        $offset = $products->count();
-        $loading_limit = 15;
-        $type = "search_result";
-        $typeValue = $search_param;
-        $shapes = Shape::latest()->get();
-        $shapescount = count($shapes);
-        $tags = Tag::latest()->get();
-        $banner = Banner::type('search')->first();
-        $sort_value = 'latest';
-        $title = 'Search result of ' . $search_param;
-        $latestProducts = Product::active()->take(5)->latest()->get();
-        return view('web.products', compact('products', 'totalProducts', 'offset',
-            'loading_limit', 'parentCategories', 'colors', 'colors',
-            'type', 'typeValue', 'latestProducts', 'sort_value', 'title', 'banner','shapes','tags','shapescount'));
-    }
-
-    public function product_detail($short_url)
-    {
-        $product = Product::active()->shortUrl($short_url)->with('activeGalleries')->first();
-        if ($product) {
-            Helper::addRecentProduct($product);
-            $products = Product::active()->where('title',$product->title)->with('activeGalleries')->get();
-            $productTypeIds = $products->pluck('product_type_id')->toArray();
-            $productTypes = ProductType::whereIn('id',$productTypeIds)->active()->get();
-
-            $sizes = Size::active()->get();
-            $banner = $seo_data = $product;
-            $addOns = Product::active()->whereIn('id', explode(',', $product->add_on_id))->latest()->get();
-            $similarProducts = Product::active()->whereIn('id', explode(',', $product->similar_product_id))
-            ->where('copy','no')->latest()->get();
-         
-            $relatedProducts = Product::active()->whereIn('id', explode(',', $product->related_product_id))
-            ->where('copy','no')
-            ->latest()->get();
-            $productTags = Tag::active()->whereIn('id', explode(',', $product->tag_id))->latest()->get();
-            $productFrames = Frame::whereIn('id', explode(',', $product->frame_color))->latest()->get();
-            $specifications = ProductSpecificationHead::active()->with('specifications')
-                ->where('product_id', $product->id)->orderby('sort_order')->get();
-            $averageRatings = Helper::averageRating($product->id);
-            $totalRatings = Helper::ratingCount($product->id);
-            $totalReviews = Helper::reviewCount($product->id);
-            $reviews = $product->activeReviews->take(2);
-            $review_offset = $reviews->count();
-            $starPercent1 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 1) * 100 / $totalReviews) : 0;
-            $starPercent2 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 2) * 100 / $totalReviews) : 0;
-            $starPercent3 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 3) * 100 / $totalReviews) : 0;
-            $starPercent4 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 4) * 100 / $totalReviews) : 0;
-            $starPercent5 = $totalReviews > 0 ? round(Helper::ratingCount($product->id, 5) * 100 / $totalReviews) : 0;
-            
-
-            if($product->product_type_id == 1){
-                return view('web.product-detail', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
-            }
-            elseif($product->product_type_id == 2){
-                return view('web.product-details-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
-            }
-            elseif($product->product_type_id == 3){
-                return view('web.product-details-stretched-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames','products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
-            }
-            elseif($product->product_type_id == 4){
-                return view('web.product-details-framed-canvas', compact('seo_data', 'product', 'addOns', 'similarProducts','productTypes','sizes','productFrames', 'products',
-                'relatedProducts', 'productTags', 'starPercent1', 'starPercent2', 'starPercent3', 'starPercent4','totalRatings', 'reviews', 'review_offset',
-                'starPercent5', 'totalReviews', 'averageRatings', 'banner', 'specifications'));
-            }
-
-        } else {
-            return view('web.404');
-        }
-
-
-    }
-
-    public function check_price(){
-        $size = request()->id;
-        $product_id = request()->product_id;
-
-        $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
-        if($productOffer){
-            $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-            $productPrice =  Helper::defaultCurrency().' '.number_format($productPrice->price * Helper::defaultCurrencyRate(), 2);
-            if(Helper::offerPriceSize($product_id,$size,$productOffer->id)){
-                $offerPrice =   Helper::defaultCurrency().' '.Helper::offerPriceSize($product_id,$size,$productOffer->id);
-            }
-            else
-            {
-                $offerPrice = null;
-            }
-        //return` offer price and product price
-        $product = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-        return response(array('offerPrice' => $offerPrice, 'productPrice' => $productPrice,'availabilty' => $product->availability));
-
-        }
-        else{
-               $product_price = ProductPrice::where('product_id',request()->product_id)->where('size_id',request()->id)->first();
-            
-              $productPrice =  Helper::defaultCurrency().' '.number_format($product_price->price * Helper::defaultCurrencyRate(), 2);
-              
-              $product = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-              return response(array('productPrice' => $productPrice,'availabilty' => $product->availability));
-        }
-
-    }
-    public function filter_product(Request $request)
-    {
-
-
-
-        $condition = $this->filterCondition($request);
-        $condition = $this->sortCondition($request, $condition);
-        $totalProducts = $condition->count();
-        $sort_value = $request->sort_value;
-        if (isset($sort_value) && $sort_value == 'none') {
-            $products = $condition->take(12)->get()->shuffle();
-        } else {
-            $products = $condition->take(12)->get()->shuffle();
-
-          
-            
-        }
-        $offset = $products->count();
-        $title = 'Filtered Products';
-        $type = $request->pageType;
-       $typeValue = $request->typeValue;
-       $shapes = Shape::latest()->get();
-       $shapescount = count($shapes);
-
-
-        return view('web.includes.product_list', compact('products', 'totalProducts', 'offset',
-            'title', 'type', 'typeValue', 'sort_value','shapescount'));
-    }
+   
+ 
 
 
    
 
-    public function productLoadMore(Request $request)
-    {
-        $offset = $request->loading_offset;
-        $loading_limit = $request->loading_limit;
-        $condition = $this->filterCondition($request);
-        $condition = $this->sortCondition($request, $condition);
-        $totalProducts = $condition->count();
-        $products = $condition->latest()->skip($offset)->take($loading_limit)->get();
-        $offset += $products->count();
-        $title = $request->title;
-        $type = $request->pageType;
-        $typeValue = $request->typeValue;
-        $sort_value = $request->sort_value;
-        $latestProducts = Product::active()->take(6)->latest()->get();
-        return view('web.includes.product_list_inner', compact('products', 'totalProducts', 'offset',
-            'title', 'type', 'typeValue', 'sort_value', 'latestProducts'));
-    }
+  
     public function reviewLoadMore(Request $request)
     {
         $product = Product::active()->where('id', $request->product_id)->first();
@@ -651,95 +372,6 @@ if(@$seo_data->meta_keyword == '')
         return view('web.includes._review_inner', compact('reviews', 'totalRatings', 'review_offset'));
     }
 
-
-    public function add_compare_product(Request $request)
-    {
-        $compare = Helper::addCompareProduct($request->product_id);
-        if ($compare == 'added') {
-            $message = 'Product Added to Compare.';
-        } else {
-            $message = 'Product Removed form compare.';
-        }
-        return response()->json(['status' => 'success', 'message' => $message]);
-    }
-
-    public function compare_products()
-    {
-        $banner = Banner::type('compare')->first();
-        $seo_data = $this->seo_content('compare');
-        $products = collect();
-        if (Session::has('compare_products')) {
-            $compare_products = Session::get('compare_products');
-            $products = Product::whereIn('id', $compare_products)->get();
-
-        }
-        return view('web.compare-products', compact('seo_data', 'banner', 'products'));
-    }
-
-    // public function submit_review(Request $request)
-    // {
-    //     if (Auth::guard('customer')->check()) {
-    //         $request->validate([
-    //             'rating' => 'required',
-    //         ]);
-    //         $email = Auth::guard('customer')->user()->email;
-    //         $name = Helper::loggedCustomerName();
-    //     } else {
-    //         $request->validate([
-    //             'rating' => 'required',
-    //             'email' => 'required|email',
-    //             'designation' => 'required',
-    //             'name' => 'required',
-    //             'message' => 'required',
-    //         ]);
-    //         $email = $request->email;
-    //         $name = $request->name;
-    //     }
-    //     $review = new ProductReview();
-    //     $review->email = $email;
-    //     $review->name = $name;
-    //     $review->rating = round($request->rating);
-    //     $review->review = $request->review;
-    //     $review->product_id = $request->product_id;
-    //     if ($review->save()) {
-    //         return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);
-    //     } else {
-    //         return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);
-    //     }
-    // }
-
-    public function product_review(Request $request)
-    {
-      
-        if (Auth::guard('customer')->check()) {
-            $request->validate([
-                'message' => 'required',
-            ]);
-            $email = Auth::guard('customer')->user()->email;
-            $name = Helper::loggedCustomerName();
-        } else {
-
-            $request->validate([
-                'rating' => 'required',
-                'email' => 'required|email',
-                'name' => 'required',
-                'message' => 'required',
-            ]);
-            $email = $request->email;
-            $name = $request->name;
-        }
-        $review = new ProductReview();
-        $review->email = $email;
-        $review->name = $name;
-        $review->rating = round($request->rating);
-        $review->review = $request->message;
-        $review->product_id = $request->product_id;
-        if ($review->save()) {
-            return response()->json(['status' => 'success-reload', 'message' => 'Review successfully posted']);
-        } else {
-            return response()->json(['status' => 'error', 'type' => 'error', 'message' => 'Error while submit the review']);
-        }
-    }
     public function submit_review(Request $request)
     {
         // dd($request->all());
@@ -859,77 +491,6 @@ if(@$seo_data->meta_keyword == '')
         
         return view('web.faq', compact( 'seo_data','faqs', 'field', 'title'));
     }
-    public function currency_set(Request $request)
-    {
-        if ($request->currency) {
-            $changed = false;
-            $currency = Currency::where('code', $request->currency)->first();
-            $defaultCurrency = Currency::where('is_default', 1)->first();
-            $currencyRate = CurrencyRate::where([['other_currency_id', $currency->id], ['currency_id', $defaultCurrency->id]])->first();
-            if ($request->currency == $defaultCurrency->code) {
-                session(['currency_rate' => '1']);
-                session(['currency' => $defaultCurrency->code]);
-                $currencyRate = 1;
-                $changed = true;
-            } else {
-                if ($currencyRate != NULL) {
-                    session(['currency_rate' => $currencyRate->conversion_rate]);
-                    session(['currency' => $currency->code]);
-                    $currencyRate = $currencyRate->conversion_rate;
-                    $changed = true;
-
-
-                    $updatecurrency = Currency::where('id',$currency->id)
-                      ->update(['is_default' =>1
-                    ]);
-
-                   $data[]= $currency->id;
-
-                    $updatecurrencys = Currency::whereNotIn('id',$data)
-                    ->update(['is_default' =>0
-                  ]);
-
-
-
-                } else {
-                    return response(array(
-                        'status' => false,
-                        'message' => 'Currency rate not fixed yet..!',
-                    ), 200, []);
-                }
-            }
-            if ($changed == true) {
-                if (Session::has('session_key')) {
-                    $sessionKey = session('session_key');
-                  
-                        if (Session::has('currency')) {
-                            $currency_rate = session('currency_rate');
-                        } else {
-                            $currency_rate = 1;
-                        }
-                        
-                    
-                }
-                // if (Session::has('coupon_base_value')) {
-                //     $coupon_value = session('coupon_base_value') * $currencyRate;
-                //     session(['coupon_value' => $coupon_value]);
-                // }
-                return response(array(
-                    'status' => true,
-                    'message' => "Currency changed to '" . $currency->code . "'",
-                ), 200, []);
-            } else {
-                return response(array(
-                    'status' => false,
-                    'message' => 'Error while changing the currency',
-                ), 200, []);
-            }
-        } else {
-            return response(array(
-                'status' => false,
-                'message' => 'Currency input not found',
-            ), 200, []);
-        }
-    }
+   
 
 }

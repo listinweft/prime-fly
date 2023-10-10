@@ -1,42 +1,27 @@
+@if($blogs->isNotEmpty())
 
+@foreach( $blogs as $blog )
 
+<div class="col-lg-4" data-aos="fade-up" data-aos-duration="800">
+    <div class="col-12 blog_grid">
+        <div class="blog_thumb">
+        {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
+        </div>
+        <div class="blog_desc">
+            <h4> {{ $blog->title }}</h4>
+           <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
 
-            @if($blogs->isNotEmpty())
+            <a href="{{ url('blog/'.$blog->short_url) }}" class="common-btn mt-4">Read</a>
+        </div>
+    </div>
+</div>
 
-            @foreach( $blogs as $blog )
-                <div class="col-lg-4 col-md-6 marginBottom">
-                    <div class="blogCard">
-                        <div class="blogImage">
-                        {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
-                        </div>
-                        <div class="blogDetails">
-                            <h6>
-                                {{ $blog->title }}
-                            </h6>
-                            <div class="textArea">
-
-                                {!! $blog->description !!}
-
-
-                            </div>
-                            <div class="btnDateWrapper">
-                                <a class="primary_btn" href="{{ url('blog/'.$blog->short_url) }}">Read More</a>
-                                <div class="date">
-                                    {{ date('d-m-Y', strtotime($blog->posted_date)) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                @if($loop->last)
-                <div class="appendHere_{{$offset}}"></div>
-            @endif
-                @endforeach
-                @endif
-
-            </div>
-            <input type="hidden" id="totalBlogs" name="total_blogs" value="{{$totalBlog}}">
+@if($loop->last)
+<div class="appendHere_{{$offset}}"></div>
+@endif
+@endforeach
+@endif
+<input type="hidden" id="totalBlogs" name="total_blogs" value="{{$totalBlog}}">
         <input type="hidden" id="blog_loading_offset" name="blog_loading_offset" value="{{$offset}}">
         <input type="hidden" id="blog_loading_limit" name="blog_loading_limit" value="{{$loading_limit}}">
 
@@ -48,6 +33,3 @@
             </div>
 
             @endif
-
-
-        </div>

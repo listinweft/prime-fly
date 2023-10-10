@@ -55,7 +55,7 @@ class LoginController extends Controller
             } else {
                 $sessionKey = Auth::guard('customer')->user()->customer->id;
                 session(['session_key' => $sessionKey]);
-                Helper::transferGuestCartToUser($sessionKey);
+                // Helper::transferGuestCartToUser($sessionKey);
                  return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in','redirect'=> '/']);
 
             }
@@ -460,7 +460,7 @@ class LoginController extends Controller
                         Auth::guard('customer')->login($user);
                         $sessionKey = Auth::guard('customer')->user()->customer->id;
                         session(['session_key' => $sessionKey]);
-                        Helper::transferGuestCartToUser($sessionKey);
+                        // Helper::transferGuestCartToUser($sessionKey);
                     } else {
                         return redirect('/')->with('login-errors', 'Account is inactive, Please contact site owner');
                     }
@@ -484,7 +484,7 @@ class LoginController extends Controller
                             DB::commit();
                             $sessionKey = $customer->id;
                             session(['session_key' => $sessionKey]);
-                            Helper::transferGuestCartToUser($sessionKey);
+                            // Helper::transferGuestCartToUser($sessionKey);
                             Auth::guard('customer')->login($user);
                         } else {
                             DB::rollBack();

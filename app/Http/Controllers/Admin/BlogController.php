@@ -45,7 +45,7 @@ class BlogController extends Controller
             'description' => 'required',
             'posted_date' => 'required',
             'author' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:512',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = new Blog;
         if ($request->hasFile('image')) {
@@ -145,7 +145,7 @@ class BlogController extends Controller
             'description' => 'required',
             'posted_date' => 'required',
             'author' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            'image' => 'image|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = Blog::find($id);
         if ($request->hasFile('image')) {
