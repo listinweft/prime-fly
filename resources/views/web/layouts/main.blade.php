@@ -9,8 +9,8 @@
     <meta name="keywords" content="{!! @$seo_data->meta_keyword !!}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>{{ config('app.name') }} - {!! @$seo_data->meta_title !!}</title>
-    {!! @$seo_data->other_meta_tag !!}
-    {!! @$siteInformation->header_tag !!}
+    <!-- {!! @$seo_data->other_meta_tag !!}
+    {!! @$siteInformation->header_tag !!} -->
 
     <script type="text/javascript">
         // var base_url = "{{ url('/') }}";
@@ -18,10 +18,12 @@
     
     <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css')}}">
-    <!-- <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css')}}"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css')}}">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
     <link href="{{ asset('frontend/css/style.css')}}" rel="stylesheet" />
     <link href="{{ asset('frontend/css/styleA.css')}}" rel="stylesheet" />
+    <link href="{{ asset('frontend/css/responsive.css')}}" rel="stylesheet" />
     @stack('styles')
     
     <script type="text/javascript">

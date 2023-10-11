@@ -257,6 +257,12 @@ class WebController extends Controller
             'blogs', 'totalBlog', 'offset', 'loading_limit'));
     }
 
+    public function event()
+    {
+        
+        return view('web.event');
+    }
+
     public function blogLoadMore(Request $request)
     {
         $offset = $request->offset;

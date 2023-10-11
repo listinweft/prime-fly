@@ -6,7 +6,7 @@
                 <div class="col-lg-6 banner-text">
                     <h1 data-aos="fade-down" data-aos-duration="1000">The home of Anesthesiology healthcare practitioners in the united arab emirtates</h1>
                     <p data-aos="fade-down" data-aos-duration="1500">Multidisciplinary online society to promote quality, <br> safety, research and collaboration.</p>
-                    <a href="about.html" class="common-btn" data-aos="fade-down" data-aos-duration="2000">About Us</a>
+                    <a href="{{ url('about') }}" class="common-btn" data-aos="fade-down" data-aos-duration="2000">About Us</a>
                 </div>
                 <div class="banner-img" data-aos="fade-up" data-aos-duration="1500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1202" height="515" viewBox="0 0 1202 515" fill="none">
@@ -471,9 +471,9 @@
         </section>
         <section class="col-12 home_about">
             <div class="container"> 
-                <div class="col-12 text-center section_head" data-aos="fade-down" data-aos-duration="1000">
+                <div class="col-12 text-center section_head position-relative" data-aos="fade-down" data-aos-duration="1000">
                     <h2 class="mb-4">EMIRATI SOCIETY OF <br> ANESTHSESIOLOGY</h2>
-                    <a href="about.html" class="common-btn">About Us</a>
+                    <a href="{{ url('about') }}" class="common-btn">About Us</a>
                 </div>
             </div>
             <div class="col-12 homeabout_image">
@@ -501,7 +501,7 @@
         </section>
         <section class="col-12 secondary_banner">
             <div class="d-flex justify-content-center">
-                <div class="col-6" >
+                <div class="col-xl-6 col-md-9" >
                     <h2 data-aos="fade-down" data-aos-duration="1000">CONTINUOUS MEDICAL EDUCATION  AND PROFESSIONAL DEVELOPMENT</h2>
                 </div> 
             </div>
@@ -511,7 +511,7 @@
                 <div class="col-12 text-center section_head">
                     <h2 class="mb-2" data-aos="fade-down" data-aos-duration="500">EMIRATI JOURNAL OF <br> ANESTHESIOLOGY</h2>
                     <p data-aos="fade-down" data-aos-duration="800">The Journal of the Emirati Society of Anesthesiology</p>
-                    <a href="about.html" class="common-btn" data-aos="fade-down" data-aos-duration="1000">Know more</a>
+                    <a href="{{ url('about') }}" class="common-btn" data-aos="fade-down" data-aos-duration="1000">Know more</a>
                 </div>
             </div>
             @if($journals->isNotEmpty())
@@ -541,15 +541,15 @@
         <section class="col-12 home_event">
             <div class="container"> 
                 <div class="col-12 text-center section_head">
-                    <h2 class="mb-4" data-aos="fade-down" data-aos-duration="500">EVENTS</h2> 
+                    <h2 class="mb-sm-4 mb-3" data-aos="fade-down" data-aos-duration="500">EVENTS</h2> 
                 </div>
-                <div class="col-12 events_grid_wrapper">
+                <div class="col-12">
                     <div class="row justify-content-center">
-                        <div class="col-10">
-                            <div class="row">
+                        <div class="col-xl-10 col-md-12 col-sm-9">
+                            <div class="row events_grid_wrapper">
                                
                             @foreach( $events as $event )
-                                <div class="col-lg-4" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
                                     <div class="col-12 events_grid">
                                         <!-- <img src="{{ asset('frontend/images/events.png')}}"/> -->
                                         {!! Helper::printImage($event, 'image', 'image_webp', '', 'img-fluid') !!}
@@ -564,21 +564,31 @@
                                             ?>
 
                                             <h4><?php echo $day; ?></h4>
-                                            <p>month <?php echo $month; ?> <?php echo $year; ?></p>
+                                            <p><?php echo $month; ?> <?php echo $year; ?></p>
 
                                             </div>
                                             <div class="eventgrid_desc">
                                                 <h4> {!! $event->title !!}</h4>
-                                                {!! strlen($event->description) > 100  ? substr($event->description, 0, 100) . '...' : $event->description !!}
-
+                                                <p><a href="#0">{!! strlen($event->description) > 100  ? substr($event->description, 0, 100) . '...' : $event->description !!}</a></p>
+                                                <div class="d-flex flex-wrap eventgrid_">
+                                                    <div class="eventgrid_author_wraper d-flex">
+                                                        <div class="eventgrid_img"><img src="{{asset('frontend/images/meeting-author.png')}}" alt=""></div>
+                                                        <div class="eventgrid_author">
+                                                            <div class="m-0">
+                                                                <h6>Indira Shree</h6>
+                                                                <p>Study Power CEO</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
 
-                                <div class="col-12 text-center mt-5">
-                                    <a href="about.html" class="common-btn">View  More Events</a>
+                                <div class="col-12 text-center mt-xl-5 mt-4 mb-0">
+                                    <a href="{{ url('event') }}" class="common-btn">View  More Events</a>
                                 </div>
                             </div>
                         </div> 
@@ -598,17 +608,17 @@
                 </div>
                 <div class="col-12 blogs_grid_wrapper">
                     <div class="row justify-content-center">
-                        <div class="col-10">
-                            <div class="row">
+                        <div class="col-xxl-10 col-md-12 col-sm-9 col-12">
+                            <div class="row blog-item-wraper">
                                 
                             @foreach( $blogs as $blog )
-                                <div class="col-lg-4" data-aos="fade-up" data-aos-duration="800">
+                                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800">
                                     <div class="col-12 blog_grid">
                                         <div class="blog_thumb">
                                         {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
                                         </div>
                                         <div class="blog_desc">
-                                            <h4 {{ $blog->title }}</h4>
+                                            <h4> {{ $blog->title }}</h4>
                                              {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}
                                             <a href="{{ url('blog/'.$blog->short_url) }}" class="common-btn mt-4">Read</a>
                                         </div>
