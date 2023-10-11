@@ -67,7 +67,7 @@
                             </div>
                             <div class="reaction-stati">
                                 <div class="row align-items-center">
-                                    <div class="col-md-6">
+                                    <div class="col-sm-6">
                                         <div class="reaction-stati-box">
                                             <div class="reaction-stati-image-wraper">
                                                 <div class="reaction-stati-image"><img src="{{ asset('frontend/images/blog/avatar-1.png')}}" alt=""></div>
@@ -77,7 +77,7 @@
                                             <div class="reaction-stati-count">233 Likes</div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-sm-6">
                                         <div class="like-share-wraper">
                                             <div class="like-share-item">
                                                 <div class="like-btn">
@@ -245,14 +245,14 @@
                             
                         @foreach( $recentBlogs as $blog)
 
-                            <div class="col-lg-4" data-aos="fade-up" data-aos-duration="800">
+                            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800">
                                 <div class="col-12 blog_grid">
                                     <div class="blog_thumb">
                                     {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
                                     </div>
                                     <div class="blog_desc">
                                         <h4> {{ $blog->title }}</h4>
-                                        <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
+                                        <p class="mb-0">{{ strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description }}</p>
                                         <a href="{{ url('blog/'.$blog->short_url) }}" class="common-btn mt-4">Read</a>
                                     </div>
                                 </div>

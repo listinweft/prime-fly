@@ -2,14 +2,14 @@
 
 @foreach( $blogs as $blog )
 
-<div class="col-lg-4" data-aos="fade-up" data-aos-duration="800">
+<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800">
     <div class="col-12 blog_grid">
         <div class="blog_thumb">
         {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
         </div>
         <div class="blog_desc">
-            <h4> {{ $blog->title }}</h4>
-           <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
+            <h4> {{$blog->title}}</h4>
+           <p class="mb-0"> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
 
             <a href="{{ url('blog/'.$blog->short_url) }}" class="common-btn mt-4">Read</a>
         </div>
@@ -27,8 +27,12 @@
 
             @if($totalBlog>$offset)
             <div class="row">
-                <div class="col-12 text-center more-section-{{$offset}}">
-                    <a class="primary_btn load-more-button">Load More</a>
+                <div class="mt-0 col-12 text-center more-section-{{$offset}}">
+                    <a class="load-more-button">Load More
+                        <div class="stage">
+                            <div class="dot-flashing"></div>
+                        </div>
+                    </a>
                 </div>
             </div>
 

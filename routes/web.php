@@ -80,6 +80,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('product/{short_url}', [WebController::class, 'product_detail']);
     // Route::get('product/{short_url}/{type_id}', [WebController::class, 'product_detail_type']);
     Route::post('product/check-price', [WebController::class, 'check_price']);
+    Route::get('event', [WebController::class, 'event']);
 
     Route::get('category/{short_url}', [WebController::class, 'category']);
     Route::get('shape/{short_url}', [WebController::class, 'shape']);

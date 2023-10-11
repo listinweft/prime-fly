@@ -135,6 +135,8 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script  src="{{ asset('frontend/js/custom.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
+    <script  src="{{ asset('frontend/js/lenis.min.js')}}"></script>
+    <script  src="{{ asset('frontend/js/main.js')}}"></script>
   
     <script>
     AOS.init();

@@ -305,6 +305,12 @@ class WebController extends Controller
         return view('web._journal_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
     }
 
+    public function event()
+    {
+        
+        return view('web.event');
+    }
+
     public function blogLoadMore(Request $request)
     {
         $offset = $request->offset;

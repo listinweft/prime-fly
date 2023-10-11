@@ -5,7 +5,7 @@
 
 <main class="blog-page">
             <section class="blogs mt-76">
-                <div class="blog-container">
+                <div class="container">
                     <div class="custom-search">
                         <form action="#0">
                             <div class="form-grid">
@@ -15,7 +15,7 @@
                             <ul id="search-result-append-here"></ul>
                         </div>
                         </form>
-                        <div class="search-icon"><img src="{{ asset('frontend/images/icon/search-icon.png')}}" alt=""></div>
+                        <div class="search-icon"><img src="{{asset('frontend/images/icon/search-icon.png')}}" alt=""></div>
                     </div>
                     <section>
                         <div class="blogs_grid_wrapper">

@@ -1,7 +1,30 @@
 
 
 /*----------------- commom styles start -------------------*/
+html.lenis {
+    height: auto;
+  }
+  
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
 
+
+.wrapper{
+    overflow: hidden;
+}
 .form-grid{
     margin-bottom: 28px;
     width: 100%;
@@ -66,6 +89,33 @@ form{
 /*----------------- common style end -----------------------*/
 
 /*----------------- Header start -------------------*/
+.toggle-icon{
+    height: 10px;
+    width: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    margin-left: 25px;
+    cursor: pointer;
+}
+.toggle-bar{
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    /* position: absolute; */
+    left: 0;
+}
+.backdrop{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.84);
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: none;
+}
 
 .user-login-box{
     border: 1px solid rgba(0,0,0,0.09);
@@ -74,6 +124,7 @@ form{
     display: flex;
     align-items: center;
     position: relative;
+    width: fit-content;
 }
 .user-login-image{
     border-radius: 50%;
@@ -92,6 +143,13 @@ form{
 
 /*----------------- Header end --------------------*/
 
+.blog_desc h4{
+    overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+           line-clamp: 1; 
+   -webkit-box-orient: vertical;
+}
 
 /*----------------- Login page start -------------------*/
 .login{
@@ -206,6 +264,69 @@ form{
 .blog_desc{
     max-width: 360px;
 }
+.load-more-button{
+    color: rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+.dot-flashing {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.1);
+    animation: dot-flashing 0.5s infinite linear alternate;
+    animation-delay: 0.2s;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.1);
+    animation: dot-flashing 0.5s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.1);
+    animation: dot-flashing 0.5s infinite alternate;
+    animation-delay: 0.5s;
+  }
+  
+  @keyframes dot-flashing {
+    0% {
+      background-color: rgba(0,0,0,0.1);
+    }
+    50%, 100% {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+  .stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 45px;
+    margin-left: 5px;
+  }
 
 /*----------------- Blog page end ---------------------*/
 
@@ -280,7 +401,7 @@ form{
     color: #6C6C6C;
     font-size: 20px;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 2;
 }
 .news-letter-form-box, .news-letter-form-box input{
     border-radius: var(--main-system-10-px, 10px);
@@ -299,7 +420,7 @@ form{
     color: #FFF;
     font-size: 18px;
     font-weight: 600;
-    line-height: 34px;
+    line-height: 1.8;
 }
 .news-letter-form input::placeholder{
     color: #FFF;
@@ -509,7 +630,7 @@ form{
     color: #3E3B3B;
     font-size: 15px;
     font-weight: 400;
-    line-height: 35px;
+    line-height: 2.3;
     margin-bottom: 28px;
     max-width: 996px;
 }
@@ -889,21 +1010,30 @@ form{
 }
 .eventgrid_author_wraper{
     flex-shrink: 0;
-    margin-right: 5px;
+    width: 100%;
 }
 .eventgrid_img{
     width: 36px;
     height: 36px;
     border-radius: 50%;
     margin-right: 12px;
+    flex-shrink: 0;
 }
-.eventgrid_img img{
+.eventgrid_author{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.eventgrid_author > div{
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.eventgrid_author_wraper .eventgrid_img img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-}
-.eventgrid_author{
 }
 .eventgrid_author h6{
     color: #0F1121;
@@ -1432,10 +1562,10 @@ form{
     line-height: 25.5px;
 }
 
-.accordion-flush .accordion-item{
+.faq-contents .accordion-flush .accordion-item{
     border-bottom: 0;
 }
-.accordion-button:focus{
+.faq-contents .accordion-button:focus{
     border: none;
     box-shadow: none;
 }
@@ -1455,7 +1585,7 @@ form{
     position: absolute;
     left: 0;
 }
-.accordion-button{
+.faq-contents .accordion-button{
     padding-left: 84px;
     color: #000;
     font-size: 15px;
@@ -1463,27 +1593,27 @@ form{
     line-height: 25.5px; 
     background: transparent;
 }
-.accordion-button:not(.collapsed){
+.faq-contents .accordion-button:not(.collapsed){
     background: transparent;
     box-shadow: none;
 }
-.accordion-body{
+.faq-contents .accordion-body{
     padding: 0 15px 0 84px;
 }
-.accordion .accordion-item{
+.faq-contents .accordion .accordion-item{
     margin-bottom: 30px;
 }
-.accordion-body p{
+.faq-contents .accordion-body p{
     margin-bottom: 15px;
     color: #393939;
     font-size: 15px;
     font-weight: 400;
     line-height: 23px;
 }
-.accordion-body p:last-child{
+.faq-contents .accordion-body p:last-child{
     margin-bottom: 0;
 }
-.accordion-button::after{
+.faq-contents .accordion-button::after{
     display: none;
 }
 .faq-contents .row [class*="col-"]{
@@ -1491,3 +1621,231 @@ form{
 }
 
 /*--------------- faq page end ---------------------*/
+
+/*--------------- About page conti.... ------------*/
+
+.honary_members{
+    padding: 86px 0 96px 0;
+}
+
+.honary_members h2{
+    color: #686868;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 60px;
+}
+
+.honorary-sub-head{
+    font-size: 35px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 0;
+}
+.honorary_abudhabi .honorary-sub-head{
+    color: #FF000A;
+}
+.honorary_dubai .honorary-sub-head{
+    color: #1A6A00;
+}
+.member_grid_wraper > [class*='col-']{
+    margin-top: 36px;
+}
+.member_grid{
+    height: 100%;
+    background: #F5F6F5; 
+    border-radius: 33px;
+    overflow: hidden;
+    /* border-top-right-radius: 0;
+    border-top-left-radius: 0;   */
+}
+.member_img{
+    border-radius: 33px;
+    border: 0.5px solid #BAB7B7;
+    background: #FFF;
+    height: 290px;
+    text-align: center;
+    padding: 25px 25px 0 25px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.member_img img{
+    max-width: 100%;
+}
+.member_summery{
+    padding: 65px 50px 36px 36px; 
+    margin-top: -36px;
+    position: relative;
+}
+.member_summery h4{
+    color: #FF000A;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 14px;
+}
+.member_summery p{
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+.honorary_dubai .member_summery h4{
+    color: #1A6A00;
+}
+.honorary_abudhabi{
+    margin-bottom: 42px;
+}
+
+
+.vision_mision{
+    padding-top: 76px;
+    background: #2C2D2C;
+    position: relative;
+}
+.vision_mision .container{
+    position: relative;
+}
+.vision_mision-header h4{
+    color: #EE2C0D;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 108px;
+}
+
+.vision_mision-content{
+    padding: 40px 0 40px 100px;
+}
+.vision_mision-content h4{
+    color: #FFF;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+.vision_mision-content p{
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.9;
+}
+.vision_mision-img-left img{
+    max-width: 100%;
+}
+.vision_mision-img-left > .row > [class*='col-']{
+    padding: 0 5px;
+}
+.vision_mision-img-left > .row > [class*='col-'] img:not(:first-child){
+    margin-top: 10px;
+}
+.vision_mision-img-left > .row > [class*='col-'] > img{
+    object-fit: cover;
+    object-position: center;
+}
+.our-logo .vision_mision-content{
+    padding-left: 60px;
+}
+.vm-vector{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    max-width: 510px;
+}
+.our-team-hrader h4{
+    color: #4B4B4B;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 34px;
+}
+
+.our-team{
+    padding: 84px 0 65px 0;
+}
+.our-team-header h4{
+    color: #4B4B4B;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 84px;
+}
+.our-team-item{
+    text-align: center;
+    max-width: 326px;
+    margin: auto;
+}
+.our-team-item-image{
+    width: 326px;
+    height: 326px;
+    border-radius: 50%;
+    border: 1px solid #848383;
+    margin: auto;
+    margin-bottom: 28px;
+    overflow: hidden;
+}
+.our-team-item-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.our-team-item-content h6, .our-team-item-content p{
+    font-size: 20px;
+    text-align: center;
+}
+.our-team-item-content h6{
+    color: #000;
+    font-weight: 600;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+.our-team-item-content p{
+    color: #5A5A5A;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+.our-team-wraper .row [class*='col-']:not(:last-child){
+    margin-bottom: 25px;
+}
+.whor_we_desc{
+    padding: 40px 120px;
+}
+.whor_we_img img{
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.founder_icon_left {
+    flex-shrink: 0;
+}
+.founder_icon_right{
+    width: 100%;
+    max-width: 415px;
+}
+.homeabout_bgimg{
+    max-height: 100%;
+    object-fit: contain;
+}
+.vision_mision-content p{
+    margin-bottom: 0;
+}
+
+/*--------------- About page conti.... end ------------*/
+
+.banner-img svg{
+    height: auto;
+}
+.accordion-item:last-of-type .accordion-button.collapsed{
+    border-radius: 0;
+}

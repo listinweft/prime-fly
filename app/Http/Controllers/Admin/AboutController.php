@@ -25,7 +25,7 @@ class AboutController extends Controller
 
     public function about()
     {
-        $key = "Update";
+        $key =        "Update";
         $title = "About";
         $about = About::first();
         return view('Admin.about.form', compact('key', 'title', 'about'));
