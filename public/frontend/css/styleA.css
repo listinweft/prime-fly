@@ -85,6 +85,9 @@ form{
     left: 39px;
     top: 13px;
 }
+.form-control:focus{
+    box-shadow: none;
+}
 
 /*----------------- common style end -----------------------*/
 
@@ -169,7 +172,7 @@ form{
     font-family: Inter;
     font-size: 50px;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 0.7;
     margin-bottom: 46px;
 }
 .login-left{
@@ -234,6 +237,21 @@ form{
     color: #FF000A;
     padding-top: 4px;
     padding-left: 10PX;
+}
+.btnRegister{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.btnRegister p{
+    margin-bottom: 0;
+    color: rgba(0, 0, 0, 0.55);
+}
+.btnRegister a{
+    display: inline-block;
+    padding-left: 7px;
+    color: #EE2C0D;
+    font-weight: 500;
 }
 
 /*----------------- Login page end -------------------*/
@@ -837,7 +855,7 @@ form{
     color: #000;
     font-size: 20px;
     font-weight: 500;
-    line-height: 24.388px;
+    line-height: 1.2;
     margin-bottom: 6px;
 }
 .user-comment p{
@@ -845,7 +863,7 @@ form{
     color: #000;
     font-size: 15px;
     font-weight: 400;
-    line-height: 24.388px;
+    line-height: 1.7;
 }
 .comment-reply-author{
     display: flex;
@@ -973,7 +991,7 @@ form{
     font-family: Inter;
     font-size: 40px;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 0.9;
     margin-bottom: 38px;
 }
 .related-blogs .blogs_grid_wrapper .row > [class*='col-'] {
@@ -1848,4 +1866,10 @@ form{
 }
 .accordion-item:last-of-type .accordion-button.collapsed{
     border-radius: 0;
+}
+.rgstr_condtn_desc p{
+    margin-bottom: 0;
+}
+.register-form-left h2{
+    margin-top: 30px;
 }

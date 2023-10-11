@@ -11,25 +11,41 @@
                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
                         <li><a href="{{ url('contact') }}">Contact Us</a></li>
 
-                        <a href="#0" class="common-btn mt-4 d-sm-none">Log In</a>
+                        <!-- <a href="#0" class="common-btn mt-4 d-sm-none">Log In</a> -->
+
+                        @if(Auth::guard('customer')->check())
                         <div class="user-login-box mt-4 d-sm-none">
                             <div class="user-login-image"><img src="{{ asset('frontend/images/user-login.png') }}" alt=""></div>
                             <div class="user-login-name">Grace Kelly</div>
                         </div>
-                    </ul>
-                    <div>
-                        
-                       
-
-                        @if(Auth::guard('customer')->check())
-                        <a href="{{ url('logout') }}" class="common-btn">Log Out</a>
+                        <a href="{{ url('logout') }}" class="common-btn mt-4 d-sm-none">Log Out</a>
                         <!-- User is logged in, display logout button -->
                         
                             @else
                                 <!-- User is not logged in, display login button -->
-                                <a href="{{ url('login') }}" class="common-btn">Log In</a>
+                                <a href="{{ url('login') }}" class="common-btn mt-4 d-sm-none">Log In</a>
                             @endif
+                        <!-- <div class="user-login-box mt-4 d-sm-none">
+                            <div class="user-login-image"><img src="{{ asset('frontend/images/user-login.png') }}" alt=""></div>
+                            <div class="user-login-name">Grace Kelly</div>
+                        </div> -->
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        
+                       
 
+                        @if(Auth::guard('customer')->check())
+                        <a href="{{ url('logout') }}" class="common-btn d-none d-sm-block">Log Out</a>
+                        <!-- User is logged in, display logout button -->
+                        
+                            @else
+                                <!-- User is not logged in, display login button -->
+                                <a href="{{ url('login') }}" class="common-btn d-none d-sm-block">Log In</a>
+                            @endif
+                        <div class="toggle-icon d-lg-none">
+                            <div class="toggle-bar one"></div>
+                            <div class="toggle-bar two"></div>
+                        </div>
 
                     </div>
                 </div>
