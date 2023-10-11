@@ -65,6 +65,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('blogs', [WebController::class, 'blogs']);
     Route::post('blog-load-more', [WebController::class, 'blogLoadMore']);
     Route::get('blog/{short_url}', [WebController::class, 'blog_detail']);
+    Route::get('journal/{short_url}', [WebController::class, 'jopurnal_detail']);
 
     Route::get('journals', [WebController::class, 'journals']);
     Route::post('journal-load-more', [WebController::class, 'journalLoadMore']);

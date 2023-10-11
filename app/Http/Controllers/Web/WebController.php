@@ -332,6 +332,21 @@ class WebController extends Controller
             return view('web.404');
         }
     }
+    public function journal_detail($short_url)
+    {
+         $blog = Journal::active()->shortUrl($short_url)->first();
+        if ($blog) {
+            $banner = $seo_data = $blog;
+            $type = $short_url;
+            // $recentBlogs = Journal::active()->latest('posted_date')->limit(3)->where('id', '!=', $blog->id)->get();
+            // $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
+            // $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
+            return view('web.journal', compact('blog',  'banner', 'seo_data',
+                'type'));
+        } else {
+            return view('web.404');
+        }
+    }
 
 
     public function products()
