@@ -1359,6 +1359,7 @@ $(document).ready(function () {
             if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
                 blogLoadMoreData();
                 journalLoadMoreData();
+                //  eventLoadMoreData();
             }
         });
          $(".load-more-product").each(function () {
@@ -1454,7 +1455,7 @@ $(document).ready(function () {
             }
         });
     }
- 
+    
 
     $(document).on('click', '.address-form', function (e) {
         e.preventDefault();
@@ -1822,6 +1823,12 @@ $(document).ready(function () {
       
         desktopSearchjournal(search_param);
     });
+    $(document).on('keyup', '#main-search-event', function () {
+        var search_param = $(this).val();
+      
+        desktopSearchevent(search_param);
+    });
+
 
 
     function desktopSearch(search_param) {
@@ -1893,6 +1900,45 @@ $(document).ready(function () {
                         } else {
                             var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
                             $('#search-result-journal-append-here').html(result);
+                            $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
+                        }
+                    } else {
+                        Toast.fire('Error', 'Error while retrieving the search results', 'error');
+                    }
+                }
+            });
+        }
+    }
+    function desktopSearchevent(search_param) {
+        if (search_param) {
+            $.ajax({
+                type: 'POST', dataType: 'json', data: {search_param: search_param}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/main-search-event', success: function (response) {
+
+                   
+                    if (response.status == true) { 
+                        var resp = response.message;
+                        var len = response.message.length;
+                        if (len > 0) {
+
+                            $('#search-result-event-append-here').html('');
+                            for (var i = 0; i < len; i++) {
+                                var id = resp[i]['id'];
+                                var title = resp[i]['title'];
+                               
+                                var image = resp[i]['image'];
+                                var link = resp[i]['link'];
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
+                               
+                                result += "</div></div>" + "</a></li>";
+                                $('#search-result-event-append-here').append(result);
+                                $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
+                            }
+                            $('.searchResult').show();
+                        } else {
+                            var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
+                            $('#search-result-event-append-here').html(result);
                             $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
                         }
                     } else {
