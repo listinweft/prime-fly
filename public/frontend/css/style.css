@@ -1,0 +1,617 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap');
+body{
+    font-family: 'Inter', sans-serif;
+}
+a{
+    text-decoration: none;
+}
+img{
+    max-width: 100%;
+}
+.common-btn{
+    background: #EE2C0D; 
+    padding: 15px 40px;
+    border-radius: 50px;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.6;
+    transition: all 0.2s ease-in;
+    z-index: 1;
+    position: relative;
+    display:  inline-block;
+}
+.common-btn:hover{
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.liststyle-none li{
+    list-style: none;
+}
+
+/* End common */
+.header{
+    border-bottom:1px solid #f6f6f6;
+    padding: 15px 15px 5px;
+}
+.header li a{ 
+    text-decoration: none;
+    padding: 10px 25px;
+    color: #7A7777;
+    font-size: 15px; 
+    font-weight: 600;
+}
+.banner{
+    position: relative;
+}
+.banner-text{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+}
+.banner-text h1{
+    color: #7B7B7B;  
+    font-weight: 800; 
+    text-transform: uppercase;
+    font-size: 42px;
+    line-height: 1.5;
+    
+}
+.banner-text p{
+    color: #8F8F8F;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+.banner-img{
+    position: absolute;
+    bottom: 0;
+    width: 60%;
+    right:50px;
+}
+.banner-img svg{
+    width: 100%;
+    height: 450px;
+}
+.red{ 
+    stroke-dasharray: 20;
+    animation: blink 3s infinite;
+}
+@keyframes blink {
+    0% {fill:#FC343C}
+    50% {fill:#19cb54}
+    100% {fill:#FC343C}
+  }
+  .green{ 
+    stroke-dasharray: 20;
+    animation: blinkg 3s infinite;
+}
+@keyframes blinkg {
+    0% {fill:#19cb54}
+    50% {fill:#FC343C}
+    100% {fill:#19cb54}
+  }
+  .sky{
+    fill: #FC343C;
+  }
+  .skyoutline,.skyoutline1{
+    display: none;
+  }
+.skyoutline, .sky{
+    z-index: 0;
+    transform: translateX(0);
+    animation: sky 18s infinite;
+}
+.skyoutline1, .sky1{
+    z-index: 0;
+    transform: translateX(0);
+    animation: sky 26s infinite;
+}
+@keyframes sky {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(40%);}
+    100% {transform: translateX(0);}
+  }
+
+.home_about{
+    background: linear-gradient(178deg, #EDFFED 0%, rgba(237, 255, 237, 0.00) 100%);
+    padding-top: 108px;
+    position: relative;
+}
+.section_head{
+    z-index: 1;
+}
+.section_head h2{
+    color: #696868;
+    text-align: center; 
+    font-size: 50px; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    line-height: 1.3;
+    z-index: 1;
+}
+.homeabout_bgimg{
+    left: 0;
+    right: 0;
+    top: 25px;
+    position: absolute;
+    width: 320px;
+    margin: auto;
+    z-index: 0;
+}
+.homeabout_image{
+    margin-top: -150px;
+}
+.homeabout_grid{
+    width: 19.5%;
+    z-index: 1;
+}
+.homeabout_grid img{
+    width: 100%;
+    margin-top: 10px;
+}
+.secondary_banner{ 
+   padding:200px 15px;
+}
+.secondary_banner{
+    background-image: url("../images/secondarybanner.jpg");
+    background-position:center;
+    background-size: cover;
+    position: relative;
+    margin-top: 10px;
+}
+.secondary_banner:after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(51, 204, 102); 
+    z-index: 0;
+    mix-blend-mode: multiply;
+}
+.secondary_banner h2{
+    color: #FFF;
+    text-align: center; 
+    font-size: 44px; 
+    font-weight: 800;
+    line-height:1.3;
+    text-transform: uppercase;
+    z-index: 1;
+    position: relative;
+    margin-bottom: 0;
+}
+.home_journal{
+    padding-top: 108px;
+    padding-bottom: 40px;
+}
+.home_event{
+    padding: 70px 15px 40px;
+    background:linear-gradient(0deg, #EDFFED 0%, rgba(237, 255, 237, 0.00) 100%); 
+} 
+.events_grid{
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 0.804px solid #DCDCDC;
+}
+.eventgrid_date h4{
+    color: #EE2C0D; 
+    font-size: 48px; 
+    font-weight: 700;
+    margin-bottom: 0;
+}
+.eventgrid_desc p a {
+    color: #6F707A;
+    font-size: 12px;
+    line-height: 1.6;
+    display: block;
+}
+.eventgrid_date p{
+    color: #6F707A; 
+    font-size: 14.226px; 
+    font-weight: 400; 
+}
+.eventgrid_desc h4{
+    color: #4E4D4D; 
+    font-size: 25px; 
+    font-weight: 700;
+    line-height:1.4; /* 134.375% */
+    margin-bottom: 5px;
+}
+.event_grid_descrp{
+    padding: 20px;
+}
+.eventgrid_desc{
+    padding-left:15px;
+}
+.home_blogs{
+    padding: 50px 15px;
+}
+.blog_thumb{
+    border-radius: 29.741px;
+    border: 0.5px solid #B6B6B6;
+}
+.blog_desc{
+    padding:20px;
+}
+.blog_desc h4{
+    color: #4E4D4D; 
+    font-size: 25px; 
+    font-weight: 700;
+    line-height:1.4; /* 134.375% */
+    margin-bottom: 5px;
+}
+.blog_desc p{
+    color: #6F707A;
+    font-size: 12px;
+    line-height: 1.6;
+    display: block;
+}
+.home_faq{
+    padding: 80px 15px;
+    background: linear-gradient(187deg, rgba(255, 0, 10, 0.06) 38.36%, rgba(255, 0, 10, 0.01) 94.3%);
+}
+.home_faq h3{
+    color: #FF000A; 
+    font-size: 40px; 
+    font-weight: 600;
+}
+.faq_accord{
+    padding-left:80px;
+}
+.faq_accord .accordion-header button{
+    font-size: 18px;
+    font-weight: 600;
+    background-color: transparent;
+    border-bottom: 1px solid #8F8C8C;
+    padding: 20px 0;
+}
+.faq_accord .accordion-item{
+    background-color: transparent;
+    border: 0;
+}
+.faq_accord .accordion-button:not(.collapsed){
+    border-bottom: 0;
+    box-shadow: none; 
+}
+.faq_accord  .accordion-button:focus{
+    border:0;
+    box-shadow: none;
+}
+.faq_accord .accordion-body{
+    font-size: 16px;
+    padding: 20px 0;
+    font-weight: 400;
+}
+.journal_carousel{
+    margin-top: 40px;
+}
+.journel-grid-item{
+    padding:20px;
+    padding-top: 50px;
+   
+    border-radius: 30px;
+}
+.owl-item:nth-child(1n) .journel-grid-item{
+    background-color: #D2FBFF;
+    
+}
+.owl-item:nth-child(2n) .journel-grid-item{
+    background-color: #FFE6EF;
+}
+.owl-item:nth-child(3n) .journel-grid-item{
+   
+    background-color: #EFF3F8; 
+}
+.journal-grid-content h4{
+    font-size: 32px;
+    font-weight: 600;
+}
+.journal-grid-content p{
+   min-height: 140px;
+}
+.journal-grid-logo a{
+    background-color: white;
+    border-radius: 50px;
+    padding: 10px 30px;
+    color: #4E4D4D;
+}
+.journal-botm-logo{
+    background-color: white;
+    width: 100%;
+    border-radius: 30px;
+    padding: 70px 70px;
+}
+.aboutus_section{
+    padding: 120px 15px;
+}
+.aboutus_left h2{
+    color: #686868;  
+    font-size: 40px; 
+    font-weight: 500;
+    line-height: 1.4; /* 85% */
+}
+.aboutus_left p{
+    color: #7B7B7B;  
+    font-size: 20px; 
+    font-weight: 400;
+    line-height: 1.8; /* 190% */
+}
+.aboutus_right{
+    text-align: right;
+    position: relative;
+}
+.aboutus_right .about-img1{
+    width:90%;
+}
+.aboutus_right .about-img2{
+    position: absolute;
+    left:0;
+    bottom: -60px;
+}
+.whor_we{
+    background: #EFFFEF;
+}
+.whor_we_img img{
+    width: 100%;
+}
+.whor_we_desc{
+    padding: 0px 120px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+.whor_we_desc h2{
+    color: #EE2C0D;  
+    font-size: 50px; 
+    font-weight: 600;
+    line-height: 1.4;
+}
+.whor_we_desc p{
+    color: #7B7B7B;  
+    font-size: 20px; 
+    font-weight: 400;
+    line-height: 1.8
+}
+.whor_we_founder{
+    margin-top: 80px;
+}
+.founder_icon_left{
+    width:25%
+}
+.founder_icon_left img{
+    width: 100%;
+}
+.founder_icon_right{
+    width: 60%;
+    padding-left: 30px;
+}
+.founder_icon_right h4{
+    color: #EE2C0D;  
+    font-size: 25px; 
+    font-weight: 600;
+    line-height: 1.3; 
+}
+.founder_icon_right p{
+    color:  #000;  
+    font-size: 18px; 
+    font-weight: 500;
+    line-height: 1.6; 
+    margin-bottom: 0;
+}
+
+/************************* Become a Member *****************/
+.register{
+    padding:85px 15px
+}
+.register-condition{
+    padding: 100px 15px 70px;
+    background: linear-gradient(0deg, #EDFFED 1.24%, rgba(237, 255, 237, 0.00) 76.77%);
+}
+.register-condition h2{
+    color: #4B4B4B;
+    text-align: center;  
+    font-size: 50px; 
+    font-weight: 600;
+    line-height: 1.1; 
+}
+.register-form-left h2{
+    color: #EE2C0D;
+    text-align: center; 
+    font-size: 40px; 
+    font-weight: 600;
+    line-height: normal;
+}
+.register-form-right h4{
+    font-size: 30px;
+    font-weight: 600;
+}
+.register-form-right  .form-grid input[type="submit"]{
+    border: 0.5px solid #BAB6B6;
+    background: #EE2C0D;
+    color:white;
+    padding:15px 30px ;
+    width:50%;
+    margin: auto;
+    font-size: 20px;
+    font-weight: 400;
+}
+.register-condition-wrap .rgster-condtn-grid{
+    border-radius: 30px;
+    background: #FC343C;
+    color:white;
+    padding:30px 30px ;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+}
+.register-condition-wrap .col-lg-4:nth-child(even) .rgster-condtn-grid{
+    background: #19CB54; 
+}
+.register-form-right .form-grid{
+    margin-bottom: 0;
+}
+.register-condition-wrap .rgster-condtn-grid p{
+    margin-bottom: 0;
+    font-weight: 500;
+}
+.register-condition-wrap .col-lg-4{
+    margin-bottom: 30px;
+}
+.rgstr_condtn_desc{
+    padding: 15px 80px;
+}
+.rgstr_condtn_desc p{
+    color: #262525;
+    text-align: center; 
+    font-size: 16px; 
+    font-weight: 600;
+    line-height: 2.2;  
+}
+
+/* ********************** Event Details **************** */
+.event-details-content{
+    padding: 110px 15px;
+    background: #EFFFEF;
+}
+.event-details-content h1{
+    color: #4E4D4D;  
+    font-size: 50px; 
+    font-weight: 700;
+    line-height: normal;
+}
+.event-details-desc p{
+    color: #3E3B3B;
+    text-align: justify; 
+    font-size: 15px; 
+    font-weight: 400;
+    line-height: 2.2; /* 233.333% */
+}
+/*********************** Journal *************************/
+.journal-list{
+    padding: 80px 15px;
+}
+.journal-list-grid{
+    margin-bottom: 20px;
+}
+.journal-list-grid:nth-child(1n + 1) .journel-grid-item{
+    background-color: #D2FBFF;
+    
+}
+.journal-list-grid:nth-child(2n + 1) .journel-grid-item{
+    background-color: #FFE6EF;
+}
+.journal-list-grid:nth-child(3n + 1) .journel-grid-item{
+   
+    background-color: #EFF3F8; 
+}
+.journal-grid-logo a { 
+    font-weight: 600;
+}
+/* ********************* privacy content ******************* */
+.privacy-content{
+    padding: 80px 15px;
+}
+.privacy-head h1{
+    color: #EE2C0D;  
+    font-size: 50px; 
+    font-weight: 600; 
+}
+.privacy-head h5{
+    color: #EE2C0D; 
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.5px; /* 196.154% */    
+}
+.privacy-head {
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #A9A9A9;;
+
+}
+/* ********************* Responsive ********************* */
+@media (min-width:1600px) {
+    .container{
+        max-width: 1490px;
+    }
+}
+@media(max-width:1600px){
+    .banner-text h1{ 
+        font-size: 30px;
+    }
+    .banner-img {
+        width: 60%;
+    }
+    .banner-img svg {
+        width: 100%;
+        height: 390px 
+    }
+    .banner-text p{
+        font-size: 14px;
+    }
+    .common-btn { 
+        padding: 10px 25px;
+        font-size: 13px;
+    }
+    .logo {
+        width: 190px;
+    }
+    .header li a { 
+        padding: 10px 20px; 
+        font-size: 13px; 
+    }
+    .section_head h2{
+        font-size: 32px;
+    }
+    .home_about{
+        padding-top: 60px;
+    }
+    .homeabout_bgimg{ 
+        width: 230px; 
+    }
+    .homeabout_image {
+        margin-top: -80px;
+    }
+    .secondary_banner h2{
+        font-size: 30px;
+    }
+    .secondary_banner{ 
+        padding:155px 15px;
+     }
+     .home_event {
+        padding:50px 15px 40px; 
+    }
+     .eventgrid_date h4{ 
+        font-size:28px;  
+    }
+    .eventgrid_desc h4,.blog_desc h4{
+        font-size: 16px;
+        line-height: 1.4
+    }
+    .eventgrid_date p{ 
+        font-size: 11px;  
+    }
+    .home_faq h3{ 
+        font-size: 30px;  
+    }
+    .faq_accord .accordion-header button{
+        font-size:15px;
+        font-weight: 600;
+    }
+    .faq_accord .accordion-body{
+        font-size: 13px;
+    }
+    .home_journal{
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+}
