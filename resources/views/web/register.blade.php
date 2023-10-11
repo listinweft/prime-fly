@@ -51,53 +51,56 @@
                     </div>
                     <div class="col-lg-6 register-form-right">
                         <h4 class="mb-3">Register</h4>
+                        <form action="" id="registerForm">
                         <div class="row">
                             <div class="col-lg-6 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="First Name"/>
-                                    <div class="validation-msg">Please re-enter first name</div>
+                                    <input type="text" placeholder="First Name" name="firstname" id="firstname" class="required"/>
+                                  
                                 </div> 
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="Last Name"/>
-                                    <div class="validation-msg">Please re-enter last name</div>
+                                    <input type="text" placeholder="Last Name" name="lastname" id="lastname" class="required"/>
+                                    
                                 </div> 
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="User Name"/>
-                                    <div class="validation-msg">Please re-enter username</div>
+                                    <input type="email" placeholder="Email" class="required" id="email" name="email"/>
+                                   
                                 </div> 
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <div class="form-grid">
-                                    <input type="password" placeholder="Password"/>
-                                    <div class="validation-msg">Please re-enter password</div>
+                                    <input type="password" placeholder="Password" id="password" name="password" class="required"/>
+                                    
                                 </div> 
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="Address"/>
-                                    <div class="validation-msg">Please re-enter address</div>
+                                    <input type="text" placeholder="Address" id="address" name="address" class="required"/>
+                                  
                                 </div> 
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="Work place"/>
-                                <div class="validation-msg">Please re-enter work place</div>
+                                    <input type="text" placeholder="Work place" name="workplace" id="workplace" class="required"/>
+                               
                                 </div> 
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="Id/License"/>
-                                    <div class="validation-msg">Please re-enter id/license</div>
+                                    <input type="text" placeholder="Id/License" name="licence"  id="licence" class="required"/>
+                                  
                                 </div> 
                             </div>
                             <div class="col-12 text-center form-grid">
-                                <input type="submit" value="Submit"/>
+                                <input type="submit"  class="primary_btn registerform_submit_btn" data-url="/register" value="Submit"/>
                             </div>
                         </div>
+                        </form>
+                        
                     </div>
                 </div>
             </div>

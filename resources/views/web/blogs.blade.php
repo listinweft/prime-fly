@@ -15,7 +15,7 @@
                             <ul id="search-result-append-here"></ul>
                         </div>
                         </form>
-                        <div class="search-icon"><img src="images/icon/search-icon.png" alt=""></div>
+                        <div class="search-icon"><img src="{{ asset('frontend/images/icon/search-icon.png')}}" alt=""></div>
                     </div>
                     <section>
                         <div class="blogs_grid_wrapper">

@@ -134,30 +134,75 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script  src="{{ asset('frontend/js/custom.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
   
     <script>
-        AOS.init();
-      </script>
-      
-    <script>
-        $('.journal_carousel').owlCarousel({
-            stagePadding:80,
-            loop:true,
-            margin:30,
-            nav:true,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:4
-                }
+    AOS.init();
+</script>
+
+<script>
+    $('.journal_carousel').owlCarousel({
+        stagePadding:80,
+        loop:true,
+        margin:30,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:4
             }
+        }
+    });
+</script>
+
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
+    var swal = Swal.mixin({
+        backdrop: true,
+        showConfirmButton: true,
+    });
+
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+    });
+</script>
+
+@if(Session::has('success'))
+<script>
+    setTimeout(function () {
+        Toast.fire({
+            title: "",
+            text: '{{ Session::get('success') }}',
+            icon: 'success'
         });
-    </script>
+    }, 0); // Delay set to 0 to execute immediately
+</script>
+@endif
+
+@if(Session::has('error'))
+<script>
+    setTimeout(function () {
+        Toast.fire({
+            title: "Error!",
+            text: '{{ Session::get('error') }}',
+            icon: 'error'
+        });
+    }, 0); // Delay set to 0 to execute immediately
+</script>
+@endif
+
 </body>
 </html>
      

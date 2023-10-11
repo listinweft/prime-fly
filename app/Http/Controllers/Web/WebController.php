@@ -140,6 +140,24 @@ class WebController extends Controller
         }
         return response()->json(['status' => true, 'message' => $searchResult]);
     }
+    public function main_search_journal(Request $request)
+    {
+        // $searchResult = array();
+        // $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+
+
+        $searchResult = array();
+    
+               
+                $blogs = Journal::active()->Where('title', 'LIKE', "%{$request->search_param}%")->get();
+        if ($blogs->isNotEmpty()) {
+            foreach ($blogs as $blog) {
+                
+                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('blog/' . $blog->short_url));
+            }
+        }
+        return response()->json(['status' => true, 'message' => $searchResult]);
+    }
 
 
     public function about()
@@ -255,6 +273,36 @@ class WebController extends Controller
         $loading_limit = 3;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
             'blogs', 'totalBlog', 'offset', 'loading_limit'));
+    }
+    public function journals()
+    {
+         $banner = Banner::type('journals')->first();
+         $heading = HomeHeading::type('journal')->first();
+        $seo_data = $this->seo_content('Blogs');
+        $latestBlog = Journal::active()->latest('posted_date')->first();
+
+        // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
+
+        $totalBlog = Journal::active()->count();
+
+        $condition = Journal::active()->latest('posted_date');
+
+        $blogs = $condition->take(3)->get();
+        $offset = $blogs->count() + 1;
+        $loading_limit = 3;
+        return view('web.journals', compact('seo_data', 'banner', 'latestBlog', 'heading',
+            'blogs', 'totalBlog', 'offset', 'loading_limit'));
+    }
+    public function journalLoadMore(Request $request)
+    {
+        $offset = $request->offset;
+        $loading_limit = $request->loading_limit;
+        $condition = Journal::active()->latest('posted_date');
+        $totalBlog = $condition->count();
+        $blogs = $condition->latest('posted_date')->skip($offset)->take($loading_limit)->get();
+        $offset += $blogs->count();
+
+        return view('web._journal_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
     }
 
     public function blogLoadMore(Request $request)

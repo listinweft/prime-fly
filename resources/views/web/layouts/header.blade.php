@@ -12,7 +12,19 @@
                         <li><a href="{{ url('contact') }}">Contact Us</a></li>
                     </ul>
                     <div>
-                        <a href="" class="common-btn">Log In</a>
+                        
+                       
+
+                        @if(Auth::guard('customer')->check())
+                        <a href="{{ url('logout') }}" class="common-btn">Log Out</a>
+                        <!-- User is logged in, display logout button -->
+                        
+                            @else
+                                <!-- User is not logged in, display login button -->
+                                <a href="{{ url('login') }}" class="common-btn">Log In</a>
+                            @endif
+
+
                     </div>
                 </div>
             </div>

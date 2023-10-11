@@ -995,9 +995,9 @@ $(document).ready(function () {
                                 $(".successModal").modal('hide');
                             }, 2000);
 
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
                         if (response.redirect) {
                             window.location.href = response.redirect;
                         } else {
@@ -1358,6 +1358,7 @@ $(document).ready(function () {
 
             if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
                 blogLoadMoreData();
+                journalLoadMoreData();
             }
         });
          $(".load-more-product").each(function () {
@@ -1417,6 +1418,30 @@ $(document).ready(function () {
             type: 'POST', data: {total_blogs: total_blogs, offset: offset, loading_limit: loading_limit}, headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }, url: base_url + '/blog-load-more', success: function (response) {
+                if (response != 0) {
+                    $('.appendHere_' + offset).after(response).remove();
+                    $('.more-section-' + offset).remove();
+                    $('.load-more-product').html(btnHtml);
+                } else {
+                    swal.fire({
+                        title: 'Error', text: 'Some error occurred', icon: 'error'
+                    });
+                }
+            }
+        });
+    }
+    function journalLoadMoreData() {
+        var total_blogs = $('#totaljournals').val();
+
+        var offset = $('#journal_loading_offset').val();
+        var loading_limit = $('#journal_loading_limit').val();
+
+        var btnHtml = $('.load-more-product').html();
+        $('.load-more-button').html('Please wait..!');
+        $.ajax({
+            type: 'POST', data: {total_blogs: total_blogs, offset: offset, loading_limit: loading_limit}, headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, url: base_url + '/journal-load-more', success: function (response) {
                 if (response != 0) {
                     $('.appendHere_' + offset).after(response).remove();
                     $('.more-section-' + offset).remove();
@@ -1792,6 +1817,12 @@ $(document).ready(function () {
       
         desktopSearch(search_param);
     });
+    $(document).on('keyup', '#main-search-journal', function () {
+        var search_param = $(this).val();
+      
+        desktopSearchjournal(search_param);
+    });
+
 
     function desktopSearch(search_param) {
         if (search_param) {
@@ -1823,6 +1854,45 @@ $(document).ready(function () {
                         } else {
                             var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
                             $('#search-result-append-here').html(result);
+                            $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
+                        }
+                    } else {
+                        Toast.fire('Error', 'Error while retrieving the search results', 'error');
+                    }
+                }
+            });
+        }
+    }
+    function desktopSearchjournal(search_param) {
+        if (search_param) {
+            $.ajax({
+                type: 'POST', dataType: 'json', data: {search_param: search_param}, headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }, url: base_url + '/main-search-journal', success: function (response) {
+
+                   
+                    if (response.status == true) { 
+                        var resp = response.message;
+                        var len = response.message.length;
+                        if (len > 0) {
+
+                            $('#search-result-journal-append-here').html('');
+                            for (var i = 0; i < len; i++) {
+                                var id = resp[i]['id'];
+                                var title = resp[i]['title'];
+                               
+                                var image = resp[i]['image'];
+                                var link = resp[i]['link'];
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
+                               
+                                result += "</div></div>" + "</a></li>";
+                                $('#search-result-journal-append-here').append(result);
+                                $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
+                            }
+                            $('.searchResult').show();
+                        } else {
+                            var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
+                            $('#search-result-journal-append-here').html(result);
                             $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
                         }
                     } else {
