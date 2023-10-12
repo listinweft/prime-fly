@@ -1036,6 +1036,7 @@ form{
     border-radius: 50%;
     margin-right: 12px;
     flex-shrink: 0;
+    overflow: hidden;
 }
 .eventgrid_author{
     display: flex;
@@ -1880,4 +1881,10 @@ form{
 }
 .register-form-left h2{
     margin-top: 30px;
+}
+.journal-grid-logo a{
+    text-transform: uppercase;
+}
+.journal-grid-logo a svg{
+    margin-left: 10px;
 }
