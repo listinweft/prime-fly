@@ -69,7 +69,7 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('journals', [WebController::class, 'journals']);
     Route::post('journal-load-more', [WebController::class, 'journalLoadMore']);
-    // Route::get('journal/{short_url}', [WebController::class, 'journal_detail']);
+    Route::get('journal/{short_url}', [WebController::class, 'journal_detail']);
     Route::post('booking', [WebController::class, 'booking']);
     Route::get('contact', [WebController::class, 'contact']);
     Route::post('enquiry', [WebController::class, 'enquiry_store']);
@@ -80,7 +80,8 @@ Route::middleware(['web'])->group(function () {
     Route::get('product/{short_url}', [WebController::class, 'product_detail']);
     // Route::get('product/{short_url}/{type_id}', [WebController::class, 'product_detail_type']);
     Route::post('product/check-price', [WebController::class, 'check_price']);
-    Route::get('event', [WebController::class, 'event']);
+    Route::get('events', [WebController::class, 'events']);
+    Route::post('event-load-more', [WebController::class, 'eventLoadMore']);
 
     Route::get('category/{short_url}', [WebController::class, 'category']);
     Route::get('shape/{short_url}', [WebController::class, 'shape']);
@@ -92,6 +93,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('main-search', [WebController::class, 'main_search']);
     Route::get('search/{search_param}', [WebController::class, 'main_search_blogs']);
     Route::post('main-search-journal', [WebController::class, 'main_search_journal']);
+    Route::post('main-search-event', [WebController::class, 'main_search_event']);
     Route::post('submit-review', [WebController::class, 'submit_review']);
     Route::post('product-review', [WebController::class, 'product_review']);
     Route::get('service/{short_url}', [WebController::class, 'service_detail']);
