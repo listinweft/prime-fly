@@ -1582,6 +1582,7 @@ form{
 
 .faq-contents .accordion-flush .accordion-item{
     border-bottom: 0;
+    background: transparent;
 }
 .faq-contents .accordion-button:focus{
     border: none;
@@ -1610,13 +1611,20 @@ form{
     font-weight: 400;
     line-height: 25.5px; 
     background: transparent;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 .faq-contents .accordion-button:not(.collapsed){
     background: transparent;
     box-shadow: none;
 }
-.faq-contents .accordion-body{
+/* .faq-contents .accordion-body{
     padding: 0 15px 0 84px;
+} */
+.faq-contents .accordion-body{
+    padding-left: 84px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .faq-contents .accordion .accordion-item{
     margin-bottom: 30px;

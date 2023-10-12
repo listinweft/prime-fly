@@ -378,6 +378,26 @@
 
 /*--------------------- Register page end ------------------*/
 
+/*-------------------- Faq page start -------------------*/
+
+.faq-page {
+    padding: calc(70px - 10px) 0 calc(40px - 6px) 0;
+}
+.faq-header h1{
+    font-size: calc(50px - 8px);
+}
+.faq-header {
+    margin-bottom: calc(70px - 10px);
+}
+.faq-contents .row [class*="col-"] {
+    padding: 0 calc(70px - 10px);
+}
+.faq-contents .accordion .accordion-item {
+    margin-bottom: calc(30px - 5px);
+}
+
+/*------------------- faq page end ---------------------*/
+
 }
 
 @media(max-width: 1400px){
@@ -758,6 +778,33 @@
     margin-top: calc(30px - 5px);
 }
 /*--------------------- Register page end ------------------*/
+
+/*-------------------- Faq page start -------------------*/
+
+.faq-page {
+    padding: calc(70px - 10px*2) 0 calc(40px - 6px*2) 0;
+}
+.faq-header h1{
+    font-size: calc(50px - 8px*2);
+}
+.faq-header {
+    margin-bottom: calc(70px - 10px*2);
+}
+.faq-contents .row [class*="col-"] {
+    padding: 0 calc(70px - 10px*2);
+}
+.faq-contents .accordion .accordion-item {
+    margin-bottom: calc(30px - 5px*2);
+}
+.faq-number{
+    font-size: 18px;
+}
+.faq-contents .accordion-button, .faq-contents .accordion-body{
+    padding-left: calc(84px - 13px);
+}
+
+/*------------------- faq page end ---------------------*/
+
 }
 
 @media(max-width: 991px){
@@ -998,6 +1045,17 @@
 
     /*--------------------- Register page end -----------------*/
 
+    /*--------------------- faq page start ------------------*/
+
+    .faq-header {
+        margin-bottom: calc(70px - 10px*3);
+    }
+    .faq-contents .row [class*="col-"] {
+        padding: 0 calc(70px - 10px*3);
+    }
+
+    /*--------------------- faq page end --------------------*/
+
 }
 @media(max-width: 767px){
     .credential-links ul li:not(:last-child) {
@@ -1109,6 +1167,14 @@
         padding-right: 0;
     }
     /*-------------------- register page end -----------------*/
+
+    /*--------------------- faq page start ------------------*/
+
+    .faq-contents .row [class*="col-"] {
+        padding: 0 12px;
+    }
+
+    /*--------------------- faq page end --------------------*/
 
 }
 
@@ -1348,4 +1414,24 @@
     
 
     /*---------------------- register page end ----------------*/
+
+    /*--------------------- faq page start ------------------*/
+    .faq-header h1 {
+        font-size: calc(50px - 8px*2.6);
+    }
+
+    .faq-header {
+        margin-bottom: calc(70px - 10px*3.6);
+    }
+    .faq-page {
+        padding: calc(70px - 10px*3) 0 calc(40px - 6px*3) 0;
+    }
+    .faq-contents .accordion-button, .faq-contents .accordion-body {
+        padding-left: calc(84px - 13px*1.6);
+    }
+    .faq-number {
+        font-size: 16px;
+    }
+
+    /*--------------------- faq page end --------------------*/
 }
