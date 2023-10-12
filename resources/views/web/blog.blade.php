@@ -101,31 +101,34 @@
                             </div>
                             <div class="comment-wraper">
                                 <div class="comment-form">
-                                    <form action="#0" method="post">
-                                        <div class="form-grid">
-                                            <input type="text" placeholder="Write a Comment.....">
-                                            <div class="comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt=""></div>
+                                                                <form action="{{ route('comments.store') }}" method="post">
+                                    @csrf
+                                    <div class="form-grid">
+                                        <input type="text" name="comment_content" placeholder="Write a Comment.....">
+                                        <div class="comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png') }}" alt=""></div>
+                                        <input type="hidden" name="blog_id" value="{{$blog->id}}">
+                                    </div>
+                                    <div class="comment-sending">
+                                        <div class="comment-sending-field">
+                                            <input type="submit" value="">
                                         </div>
-                                        <div class="comment-sending">
-                                            <div class="comment-sending-field">
-                                                <input type="submit" value="">
-                                            </div>
-                                            <div class="comment-send-icon">
-                                                <svg width="36" height="27" viewBox="0 0 36 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <div class="comment-send-icon">
+                                        <svg width="36" height="27" viewBox="0 0 36 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M1.95784 11.4649C1.98149 11.6931 2.18159 11.8975 2.40641 11.9215L15.1245 13.2815C16.2544 13.4024 16.2556 13.5981 15.1245 13.7191L2.40641 15.0791C2.18232 15.103 1.98109 15.3113 1.95784 15.5357L0.916158 25.5887C0.892512 25.8169 1.04991 25.9347 1.25324 25.8572L33.3102 13.645C33.52 13.5651 33.5136 13.433 33.3102 13.3556L1.25324 1.14339C1.04343 1.06347 0.892909 1.18751 0.916158 1.41188L1.95784 11.4649ZM2.06993 12.7104C1.61893 12.6621 1.21487 12.2519 1.16893 11.8085L0.00466939 0.572505C-0.0419434 0.122654 0.265735 -0.110418 0.690407 0.0513618L35.2237 13.2069C35.6491 13.3689 35.6484 13.6319 35.2237 13.7937L0.690407 26.9492C0.265072 27.1113 -0.0412724 26.8715 0.00466939 26.4281L1.16893 15.1921C1.21554 14.7422 1.61642 14.3387 2.06993 14.2902L9.05034 13.5438C9.27503 13.5198 9.27041 13.4803 9.05034 13.4568L2.06993 12.7104Z" fill="#ABABAB"/>
-                                                </svg>                                                
-                                            </div>
+                                                </svg>                                                  
                                         </div>
-                                    </form>
+                                    </div>
+                                </form>
+
                                 </div>
-                                <!-- Comment listing -->
+                              
                                 <div class="comment-listing-wraper">
                                     <h4>Comments</h4>
                                     <div class="comment-listing-item-wraper">
-                                        <div class="comment-item">
+                                        <!-- <div class="comment-item">
                                             <div class="user-comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-1.png') }}" alt=""></div>
                                             <div class="user-comment-section">
-                                                <div class="user-comment">
+                                                <div class=" -comment">
                                                     <h5>Sam Morgan</h5>
                                                     <p>Eget quis orci id feugiat. Sed vel non adipiscing scelerisque purus. Morbi fusce odio faucibus enim facilisis vulputate.</p>
                                                     <div class="comment-share-like">
@@ -140,14 +143,14 @@
                                                             </svg>                                                                                                                       
                                                         </div>
                                                     </div>
-                                                    <!-- if comment has reply -->
+                                                    
                                                     <div class="comment-reply">
                                                         <div class="comment-reply-author">
                                                             <div class="comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt=""></div>
                                                             <div class="reply-comment-container">
                                                                 <div class="comment-author">Sonia Guptha</div>
                                                                 <div class="reply">
-                                                                    <!-- <p>Eget quis orci id feugiat. Sed vel non adipiscing scelerisque purus. Morbi fusce odio faucibus enim facilisis vulputate. Congue tristique eu risus consequat enim egestas enim nunc.</p> -->
+                                                                   
                                                                     <form action="#0">
                                                                         <div class="form-grid mb-0">
                                                                             <textarea name="" id="" placeholder="Type here...."></textarea>
@@ -165,11 +168,11 @@
                                                         </div>
                                                     </div>
                                                     
-                                                    <!--// if comment has reply -->
+                                                  
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="comment-item">
+                                        </div> -->
+                                        <!-- <div class="comment-item">
                                             <div class="user-comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-2.png')}}" alt=""></div>
                                             <div class="user-comment-section">
                                                 <div class="user-comment">
@@ -187,7 +190,7 @@
                                                             </svg>                                                                                                                       
                                                         </div>
                                                     </div>
-                                                    <!-- if comment has reply -->
+                                                  
                                                     <div class="comment-reply">
                                                         <div class="comment-reply-author">
                                                             <div class="comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt=""></div>
@@ -201,41 +204,87 @@
                                                         </div>
                                                     </div>
                                                     
-                                                    <!--// if comment has reply -->
+                                                
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="comment-item">
-                                            <div class="user-comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt=""></div>
-                                            <div class="user-comment-section">
-                                                <div class="user-comment">
-                                                    <h5>Sam Morgan</h5>
-                                                    <p>Eget quis orci id feugiat. Sed vel non adipiscing scelerisque purus. Morbi fusce odio faucibus enim facilisis vulputate.</p>
-                                                    <div class="comment-share-like">
-                                                        <div class="comment-share-like-item">
+                                        </div> -->
+                                        @foreach($comments as $comment)
+                                                <div class="comment-item">
+                                                    <div class="user-comment-avatar">
+                                                        <img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt="">
+                                                    </div>
+                                                    <div class="user-comment-section">
+                                                        <div class="user-comment">
+                                                            <h5>{{ $comment->user->customer->first_name }}</h5>
+                                                            <p>{{ $comment->content }}</p>
+                                                            <div class="comment-actions">
+                                                                
+                                                            <div class="comment-share-like">
+                                                        <div class="comment-share-like-item" id="svg-container">
                                                             <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M8.49992 14.5352C8.22838 14.5352 7.95703 14.432 7.75033 14.2255L1.38117 7.86499C-0.412875 6.07324 -0.466228 3.16727 1.26245 1.38718C2.13129 0.492721 3.29746 0 4.54631 0C5.76884 0 6.91735 0.474701 7.78018 1.33648L8.49957 2.05498L9.21718 1.33665C10.0804 0.474701 11.2289 0 12.4512 0C13.7011 0 14.8678 0.492368 15.7365 1.38647C17.4661 3.16638 17.4134 6.07271 15.6188 7.86481L9.24951 14.2255C9.04281 14.4318 8.77146 14.5352 8.49992 14.5352ZM4.54631 0.723624C3.4948 0.723624 2.51289 1.13826 1.78149 1.89139C0.327001 3.38916 0.376821 5.83934 1.89244 7.35301L8.2616 13.7135C8.39321 13.8448 8.60698 13.8444 8.73824 13.7135L15.1076 7.35284C16.6235 5.83881 16.6728 3.38845 15.2175 1.89068C14.4862 1.13808 13.5038 0.723624 12.4512 0.723624C11.422 0.723624 10.4551 1.12307 9.72881 1.84846L8.75591 2.82224C8.61458 2.96392 8.38562 2.96357 8.24428 2.82259L7.26891 1.84846C6.54264 1.12307 5.57575 0.723624 4.54631 0.723624Z" fill="black"/>
-                                                            </svg>                                                            
+                                                            </svg> 
+                                                            <div class="like-btn">
+                                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                                             </svg>  -->
+                                                             <div class="like-btn" >
+   
+                                                                 </div>   
+                                                              </div>                                                       
                                                         </div>
-                                                        <div class="comment-share-like-item">
+                                                        <div class="comment-share-like-item reply-btn">
                                                             <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M5.23536 3.70609H10.6361L7.66016 0.730194C7.49483 0.564867 7.49483 0.289323 7.66016 0.123995C7.82549 -0.0413318 8.10103 -0.0413318 8.26636 0.123995L11.9036 3.8163C11.9587 3.87141 11.9587 3.87141 11.9587 3.92652C12.0138 4.03674 12.0138 4.14696 11.9587 4.25718C11.9587 4.31229 11.9036 4.31229 11.9036 4.36739L8.21125 8.0597C8.15614 8.11481 8.04592 8.16992 7.93571 8.16992C7.82549 8.16992 7.71527 8.11481 7.66016 8.0597C7.49483 7.89437 7.49483 7.61883 7.66016 7.4535L10.6361 4.47761H5.23536C2.81056 4.47761 0.826635 6.46154 0.826635 8.88634C0.826635 9.98852 1.26751 11.0907 1.98393 11.9173C2.81056 12.7991 4.02296 13.3502 5.23536 13.3502C5.4558 13.3502 5.67623 13.5155 5.67623 13.791C5.67623 14.0666 5.51091 14.2319 5.23536 14.2319C3.80253 14.2319 2.36969 13.6257 1.37773 12.5786C0.495981 11.5867 0 10.3192 0 8.99656C0 6.07578 2.31458 3.70609 5.23536 3.70609Z" fill="black"/>
                                                             </svg>                                                                                                                       
                                                         </div>
                                                     </div>
+                                                    <div class="reply-btn" onclick="toggleReplyForm(this)">Reply</div>
                                                 </div>
                                             </div>
+                                                              
+
+                                            <!-- Reply form -->
+                                            <div class="reply-form-template" style="display: none;">
+                                                <div class="reply">
+                                                <form action="{{ route('reply_comment', ['commentId' => $comment->id]) }}" method="post">
+                                                        @csrf
+                                                        <div class="form-grid mb-0">
+                                                            <textarea name="reply_content" placeholder="Type your reply here...."></textarea>
+                                                        </div>
+                                                        <div class="post-comment">
+                                                            <div class="post-comment-btn">
+                                                                <input type="submit" value="Post Reply">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                            @if($comment->replies && $comment->replies->count() > 0)
+                                        <div class="reply-messages">
+                                            <h6>Replies:</h6>
+                                            <ul>
+                                                @foreach($comment->replies as $reply)
+                                                    <li>{{ $reply->content }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                         </div>
                                     </div>
-                                </div>
-                                <!-- // Comment listing -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                                @endforeach
 
-            <!-- Related Blogs -->
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+       
             <section class="related-blogs">
             @if($recentBlogs->isNotEmpty())
                 <div class="container">
@@ -264,7 +313,7 @@
                 </div>
                 @endif
             </section>
-            <!-- //Related Blogs -->
+         
 
         </main>
         
@@ -272,8 +321,47 @@
     
     @push('scripts')
 
+
+    <script>
+      @stack('scripts')
+
+      function toggleReplyForm(replyBtn) {
+    const replyForm = replyBtn.parentElement.parentElement.nextElementSibling;
+    if (replyForm) {
+        replyForm.style.display = (replyForm.style.display === 'none' || replyForm.style.display === '') ? 'block' : 'none';
+    }
+}
+
+function toggleLike() {
+    const notFilledHeart = document.getElementById('not-filled-heart');
+    const filledHeart = document.getElementById('filled-heart');
+
+    if (notFilledHeart.style.display === 'none') {
+        notFilledHeart.style.display = 'block';
+        filledHeart.style.display = 'none';
+    } else {
+        notFilledHeart.style.display = 'none';
+        filledHeart.style.display = 'block';
+    }
+}
+
+
+
+
+
+
+
+
+ </script>
+  <script>
+    function toggleSvg() {
+      var svgContainer = document.getElementById('svg-container');
+      svgContainer.style.display = (svgContainer.style.display === 'none' || svgContainer.style.display === '') ? 'block' : 'none';
+    }
+  </script>
+
 @endpush
-<!--Blog Listing Page End -->
+
 
 
 

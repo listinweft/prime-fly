@@ -46,6 +46,11 @@
           href="{{asset('backend/tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-punk.min.css')}}"/>
     <link rel="stylesheet" type="text/css"
           href="https://louisameline.github.io/tooltipster-follower/dist/css/tooltipster-follower.min.css"/>
+          <style>
+    .svg-container {
+      display: none;
+    }
+  </style>
     @yield('styles')
     <script type="text/javascript">
         var base_url = "{{ url(Helper::sitePrefix()) }}";

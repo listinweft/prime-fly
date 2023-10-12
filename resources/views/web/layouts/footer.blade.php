@@ -14,10 +14,10 @@
                             <div class="footer-link-wraper">
                                 <div class="footer-links">
                                     <ul>
-                                        <li><a href="#0">Home</a></li>
-                                        <li><a href="#0">Journals</a></li>
-                                        <li><a href="#0">Events</a></li>
-                                        <li><a href="#0">Blogs</a></li>
+                                        <li><a href="{{ url('/') }}">Home</a></li>
+                                        <li><a href="{{ url('journals') }}">Journals</a></li>
+                                        <li><a href="{{ url('events') }}">Events</a></li>
+                                        <li><a href="{{ url('blogs') }}">Blogs</a></li>
                                     </ul>
                                 </div>
                                 <div class="news-letter-wraper">

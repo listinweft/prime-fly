@@ -31,4 +31,9 @@ class Blog extends Model
     {
         return $query->where('short_url', $short_url);
     }
+
+        public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

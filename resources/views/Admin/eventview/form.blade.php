@@ -121,6 +121,21 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label> Image Attribute</label>
+                                        <input id="author_image" name="author_image" type="file">
+                                        <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
+                                        @error('author_image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+
+
+                                    
+
+                                    
                                 </div>
 
                                 
@@ -354,6 +369,32 @@
                 initialPreview: ["{{asset($blog->mobile_banner)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ last(explode('/',$blog->mobile_banner))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
+            $("#author_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 940,
+                // minImageHeight: 430,
+                // maxImageWidth: 940,
+                // maxImageHeight: 430,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->author_image!=NULL)
+                initialPreview: ["{{asset($blog->author_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$blog->author_image))}}",
                     width: "120px"
                 }]
                 @endif

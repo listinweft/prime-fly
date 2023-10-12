@@ -141,7 +141,7 @@
                                 <div class="form-row">
 
                                 <div class="form-group col-md-12">
-                                    <label for="description">Alternate Description</label>
+                                    <label for="description">Author Description</label>
                                     <textarea class="form-control tinyeditor reset" id="alternate_description"
                                               name="alternate_description">{!! isset($blog)?$blog->alternate_description:'' !!}</textarea>
                                 </div>
@@ -300,11 +300,11 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 940,
-                minImageHeight: 430,
-                maxImageWidth: 940,
-                maxImageHeight: 430,
-                maxFileSize: 512,
+                // minImageWidth: 940,
+                // minImageHeight: 430,
+                // maxImageWidth: 940,
+                // maxImageHeight: 430,
+                // maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->author_image!=NULL)
                 initialPreview: ["{{asset($blog->author_image)}}",],

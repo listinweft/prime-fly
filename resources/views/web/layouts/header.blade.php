@@ -5,8 +5,8 @@
                
                     <ul class="menu-container d-lg-flex justify-content-between liststyle-none mb-0 p-0">
                         <li><a href="{{ url('about') }}">About Us</a></li>
-                        <li><a href="journals.html">Journals</a></li>
-                        <li><a href="{{ url('event') }}">Events</a></li>
+                        <li><a href="{{ url('journals') }}">Journals</a></li>
+                        <li><a href="{{ url('events') }}">Events</a></li>
                         <li><a href="{{ url('faq') }}">FAQ</a></li>
                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
                         <li><a href="{{ url('contact') }}">Contact Us</a></li>

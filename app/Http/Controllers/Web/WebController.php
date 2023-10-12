@@ -19,6 +19,8 @@ use App\Models\Enquiry;
 use App\Models\Frame;
 use App\Models\CurrencyRate;
 use App\Models\Shape;
+use App\Models\Reply;
+
 
 use App\Models\History;
 use App\Models\HomeAdvertisement;
@@ -36,6 +38,7 @@ use App\Models\ProductReview;
 use App\Models\ProductSpecificationHead;
 use App\Models\ProductType;
 use App\Models\Size;
+use App\Models\Comment;
 use App\Models\SeoData;
 use App\Models\SiteInformation;
 use App\Models\Tag;
@@ -101,25 +104,84 @@ class WebController extends Controller
         return view('web.home', compact('seo_data', 'blogs','events','journals','faqs'));
     }
 
-    // public function main_search_blogs($search_param)
-    // {
-    //     $condition = Blog::active()->where('title', 'LIKE', "%{$search_param}%")->where('copy','no');
-    //     $totalblogs = $condition->count();
-    //     $blogs = $condition->latest()->take(30)->get();
-        
-    //     $offset = $blogs->count();
-    //     $loading_limit = 15;
-    //     $type = "search_result";
-    //     $typeValue = $search_param;
-       
-       
-      
-    //     $title = 'Search result of ' . $search_param;
-    //     $latestProducts = Product::active()->take(5)->latest()->get();
-    //     return view('web.products', compact('blogs', 'totalblogs', 'offset',
-    //         'loading_limit',
-    //         'type', 'typeValue',  'title'));
-    // }
+    public function store_comment(Request $request)
+    {
+        $user = Auth::guard('customer')->user();  // Get the authenticated user
+    
+        // Validate the request data
+        $validatedData = $request->validate([
+            'comment_content' => 'required|string|max:255',
+        ]);
+    
+        // Create a new comment with the correct user_id
+        $comment = Comment::create([
+            'content' => $validatedData['comment_content'],
+            'likes' => 0,
+            'user_id' => $user->id, 
+            'blog_id' => $request->blog_id ?? null,
+            'journal_id' => $request->journal_id ?? null,
+
+
+        ]);
+    
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Comment added successfully!');
+    }
+    
+
+    public function reply(Request $request, $commentId)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'reply_content' => 'required|string|max:255', // Updated to 'reply_content'
+        ]);
+
+        $user = Auth::guard('customer')->user();
+
+        // Find the parent comment
+        $parentComment = Comment::findOrFail($commentId);
+
+        // Create a new reply associated with the parent comment
+        $reply = Reply::create([
+            'content' => $validatedData['reply_content'], // Updated to 'reply_content'
+            // 'likes' => 0,
+            'user_id' => $user->id,
+            'comment_id' => $parentComment->id,
+            // other reply attributes you might have
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Reply added successfully!');
+    }
+    public function likeComment($commentId)
+{
+    $user = Auth::user();
+    $comment = Comment::findOrFail($commentId);
+
+    // Check if the user hasn't already liked the comment
+    if (!$user->hasLikedComment($comment)) {
+        $comment->likes += 1;
+        $comment->save();
+        $user->likedComments()->attach($commentId);
+    }
+
+    return redirect()->back()->with('success', 'Comment liked!');
+}
+
+public function unlikeComment($commentId)
+{
+    $user = Auth::user();
+    $comment = Comment::findOrFail($commentId);
+
+    // Check if the user has liked the comment
+    if ($user->hasLikedComment($comment)) {
+        $comment->likes -= 1;
+        $comment->save();
+        $user->likedComments()->detach($commentId);
+    }
+
+    return redirect()->back()->with('success', 'Comment unliked!');
+}
 
     
     public function main_search(Request $request)
@@ -375,8 +437,12 @@ class WebController extends Controller
             $recentBlogs = Blog::active()->latest('posted_date')->limit(3)->where('id', '!=', $blog->id)->get();
             $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
             $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
+
+            $comments = Comment::where('blog_id', $blog->id)->get();
+
+        
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
-                'previousBlog', 'nextBlog','type'));
+                'previousBlog', 'nextBlog','type','comments'));
         } else {
             return view('web.404');
         }
@@ -387,8 +453,22 @@ class WebController extends Controller
         if ($blog) {
             $banner = $seo_data = $blog;
             $type = $short_url;
+            $comments = Comment::where('journal_id', $blog->id)->get();
            
             return view('web.journal', compact('blog',  'banner', 'seo_data',
+                'type','comments'));
+        } else {
+            return view('web.404');
+        }
+    }
+    public function event_detail($short_url)
+    {
+         $blog = Event::active()->shortUrl($short_url)->first();
+        if ($blog) {
+            $banner = $seo_data = $blog;
+            $type = $short_url;
+           
+            return view('web.event_detail', compact('blog',  'banner', 'seo_data',
                 'type'));
         } else {
             return view('web.404');

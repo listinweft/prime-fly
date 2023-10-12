@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\JournalController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdvertisementController;
@@ -57,6 +58,11 @@ Route::middleware(['web'])->group(function () {
     });
 
     
+    Route::post('/comments', [WebController::class, 'store_comment'])->name('comments.store');
+    Route::post('/comments/{commentId}/reply', [WebController::class, 'reply'])->name('reply_comment');
+   
+
+
 
     Route::get('about', [WebController::class, 'about']);
     Route::post('currency_set', [WebController::class, 'currency_set']);
@@ -70,6 +76,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('journals', [WebController::class, 'journals']);
     Route::post('journal-load-more', [WebController::class, 'journalLoadMore']);
     Route::get('journal/{short_url}', [WebController::class, 'journal_detail']);
+    Route::get('event/{short_url}', [WebController::class, 'event_detail']);
     Route::post('booking', [WebController::class, 'booking']);
     Route::get('contact', [WebController::class, 'contact']);
     Route::post('enquiry', [WebController::class, 'enquiry_store']);

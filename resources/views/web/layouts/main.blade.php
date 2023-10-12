@@ -24,6 +24,11 @@
     <link href="{{ asset('frontend/css/style.css')}}" rel="stylesheet" />
     <link href="{{ asset('frontend/css/styleA.css')}}" rel="stylesheet" />
     <link href="{{ asset('frontend/css/responsive.css')}}" rel="stylesheet" />
+    <style>
+    .like-btn svg {
+      cursor: pointer;
+    }
+  </style>
     @stack('styles')
     
     <script type="text/javascript">

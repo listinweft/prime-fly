@@ -10,8 +10,15 @@
                                     {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
                                         <div class="d-flex event_grid_descrp">
                                             <div class="eventgrid_date">
-                                                <h4>28</h4>
-                                                <p>Oct 2023</p>
+                                         <?php    $postDate = $blog->posted_date; // Replace with your actual date variable
+
+$day = date('d', strtotime($postDate));
+$month = date('M', strtotime($postDate));
+$year = date('Y', strtotime($postDate));
+?>
+
+<h4><?php echo $day; ?></h4>
+<p><?php echo $month; ?> <?php echo $year; ?></p>
                                             </div>
                                             <div class="eventgrid_desc">
                                                 <h4>{{$blog->title}}</h4>
@@ -21,10 +28,10 @@
                                                         <div class="eventgrid_img"> {!! Helper::printImage($blog, 'author_image', 'author_image_webp', '', 'img-fluid') !!}</div>
                                                         <div class="eventgrid_author">
                                                             <div>
-                                                                <h6>Indira Shree</h6>
-                                                                <p>Study Power CEO</p>
+                                                                <h6>{{$blog->author}}</h6>
+                                                                
                                                             </div>
-                                                            <!-- <a href="#0" class="meeting-btn">View Event</a> -->
+                                                            <a href="{{ url('event/'.$blog->short_url) }}" class="meeting-btn">View Event</a>
                                                         </div>
                                                     </div>
                                                 </div>
