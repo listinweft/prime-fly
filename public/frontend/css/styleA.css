@@ -1419,17 +1419,19 @@ form{
     width: 100%;
 }
 .contact-left{
-    width: 800px;
+    /* width: 800px; */
     flex-shrink: 0;
     position: relative;
+    width: 41vw;
 }
 .contact-right{
     /* max-width: 914px; */
     width: 100%;
-    padding-left: 170px;
+    /* padding-left: 170px; */
     padding-top: 40px;
     padding-bottom: 40px;
     padding-right: 30px;
+    padding-left: 9vw;
 }
 .contact-left .contatct-image{
     width: 633px;
@@ -1460,7 +1462,7 @@ form{
     color: #FFF;
     font-size: 40px;
     font-weight: 700;
-    line-height: 34px; 
+    line-height: 1; 
     margin-bottom: 10px;
 }
 .contact-us-content h3{
@@ -1477,12 +1479,13 @@ form{
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 .contact-us-content ul li a{
     color: #FFF;
     font-size: 12px;
     font-weight: 400;
-    line-height: 23px;
+    line-height: 2;
 }
 .contact-us-content ul li{
     position: relative;
@@ -1507,7 +1510,10 @@ form{
     padding: 0;
     padding-left: 8rem;
 }
-.contact-social-icons ul li{
+
+.contact-social-icons ul li a{
+    display: block;
+    line-height: 1;
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -1515,9 +1521,17 @@ form{
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: 0.3s linear;
 }
-.contact-social-icons ul li a{
-    display: block;
+.contact-social-icons ul li a:hover{
+    background-color: #EE2C0D;
+}
+.contact-social-icons ul li a:hover svg path{
+    transition: 0.3s linear;
+}
+.contact-social-icons ul li a:hover svg path{
+    fill: #fff;
 }
 .contact-social-icons ul li:not(:last-child){
     margin-right: 10px;
@@ -1542,6 +1556,37 @@ form{
 .contact-right textarea{
     min-height: 120px;
 }
+
+
+/*-- C new ---*/
+
+.contact-page{
+    display: block;
+    max-width: 100%;
+    padding: 146px 0 46px 0;
+    position: relative;
+}
+.contatct-image{
+    position: absolute;
+    width: 633px;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+.contact-us-content-wraper{
+    position: static;
+    width: 100%;
+}
+.contact-us-content{
+    height: auto;
+}
+.contact-left{
+    width: 100%;
+}
+.contact-us-content-container{
+    max-width: 100%;
+}
+/*---// C new ---*/
 
 /*---------------- Contact page end -----------------*/ 
 
@@ -1911,4 +1956,7 @@ form{
     font-weight: 600;
     padding-top: 16px;
     margin-bottom: 12px;
+}
+.event-details-content h1{
+    margin-bottom: 0;
 }

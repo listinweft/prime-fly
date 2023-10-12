@@ -429,6 +429,49 @@
 
 /*----------------- privacy policy page end ------------------*/
 
+/*---------------- single event start -------------------*/
+
+.event-details-content {
+    padding: calc(110px - 18px) 15px;
+}
+.event-details-content h1 {
+    font-size: calc(50px - 8px);
+}
+
+/*--------------- single event end --------------------*/
+
+/*--------------- contact page start -----------------*/
+.contact-page{
+    padding: calc(146px - 24px) 0 calc(46px - 8px) 0;
+}
+.contatct-image{
+    width: calc(633px - 100px);
+}
+
+.contact-us-content {
+    padding: calc(114px - 18px) calc(100px - 15px);
+}
+.contact-us-icon svg{
+    width: calc(154px - 25px);
+}
+.contact-us-icon {
+    margin-bottom: calc(20px - 2px);
+}
+.contact-us-content h1{
+    font-size: calc(40px - 6px);
+}
+.contact-social-icons {
+    padding: calc(46px - 8px) 0;
+}
+.contact-right{
+    padding-left: 7vw;
+}
+.contact-us-content ul{
+    margin-bottom: calc(20px - 2px);
+}
+
+/*-------------- contact page end ------------------*/
+
 }
 
 @media(max-width: 1400px){
@@ -678,6 +721,49 @@
 }
 
 /*----------------- privacy policy page end ------------------*/
+
+/*---------------- single event start -------------------*/
+
+.event-details-content {
+    padding: calc(110px - 18px*2) 15px;
+}
+.event-details-content h1 {
+    font-size: calc(50px - 8px*1.6);
+}
+
+/*--------------- single event end --------------------*/
+
+/*--------------- contact page start -----------------*/
+.contact-page{
+    padding: calc(146px - 24px*2) 0 calc(46px - 8px*2) 0;
+}
+.contatct-image{
+    width: calc(633px - 100px*2);
+}
+
+.contact-us-content {
+    padding: calc(114px - 18px*2) calc(100px - 15px*2);
+}
+.contact-us-icon svg{
+    width: calc(154px - 25px*2);
+}
+.contact-us-icon {
+    margin-bottom: calc(20px - 2px*2);
+}
+.contact-us-content h1{
+    font-size: calc(40px - 6px*2);
+}
+.contact-social-icons {
+    padding: calc(46px - 8px*2) 0;
+}
+.contact-right{
+    padding-left: 7vw;
+}
+.contact-us-content ul{
+    margin-bottom: calc(20px - 2px*2);
+}
+
+/*-------------- contact page end ------------------*/
     
 }
 
@@ -882,6 +968,38 @@
 }
 
 /*----------------- privacy policy page end ------------------*/
+
+/*--------------- contact page start -----------------*/
+.contact-page{
+    padding: calc(146px - 24px*3) 0 calc(46px - 8px*3) 0;
+}
+.contatct-image{
+    width: calc(633px - 100px*2);
+}
+
+.contact-us-content {
+    padding: calc(114px - 18px*3) calc(100px - 15px*3);
+}
+.contact-us-icon svg{
+    width: calc(154px - 25px*2.6);
+}
+.contact-us-icon {
+    margin-bottom: calc(20px - 2px*2);
+}
+.contact-us-content h1{
+    font-size: calc(40px - 6px*2.6);
+}
+.contact-social-icons {
+    padding: calc(46px - 8px*3) 0;
+}
+.contact-right{
+    padding-left: 7vw;
+}
+.contact-us-content ul{
+    margin-bottom: calc(20px - 2px*2);
+}
+
+/*-------------- contact page end ------------------*/
 
 }
 
@@ -1134,6 +1252,25 @@
 
     /*--------------------- faq page end --------------------*/
 
+    /*------------------ contact page start --------------*/
+    .contatct-image{
+        max-height: 550px;
+        width: 100%;
+    }
+    .contact-right{
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+    }
+    .contact-social-icons ul{
+        padding-left: 0;
+        justify-content: center;
+    }
+    .contact-page-form-wraper{
+        padding-top: 70px;
+    }
+    /*------------------ contact page end --------------*/
+
 }
 @media(max-width: 767px){
     .credential-links ul li:not(:last-child) {
@@ -1253,6 +1390,22 @@
     }
 
     /*--------------------- faq page end --------------------*/
+
+    /*-------------------- contact page start ----------------*/
+    .contatct-image{
+        max-height: calc(585px - 70px);
+    }
+    .contact-page {
+        padding: calc(146px - 24px*4) 0 calc(46px - 8px*3) 0;
+    }
+    .contact-page-form-wraper{
+        max-width: 100%;
+    }
+    .contact-right{
+        padding-right: 0;
+        padding-top: 0;
+    }
+    /*-------------------- contact page end -----------------*/
 
 }
 
@@ -1551,5 +1704,32 @@
     margin-bottom: calc(40px - 6px*2.9);
 }
 /*----------------- privacy policy page end -----------------*/
+
+/*---------------- contact page start -----------------*/
+.contact-page{
+    padding-top: 0;
+}
+.contact-us-content {
+    padding: 25px 25px;
+}
+.contatct-image{
+    position: static;
+    height: auto;
+    max-height: none;
+}
+.contatct-image img{
+    max-height: 300px;
+}
+.contact-left{
+    margin-top: -50%;
+}
+.contact-page-form-wraper {
+    padding-top: 20px;
+}
+.contact-right{
+    padding-bottom: 20px;
+}
+
+/*---------------- contact age end --------------------*/
 
 }
