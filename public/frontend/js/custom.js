@@ -1851,9 +1851,9 @@ $(document).ready(function () {
                                
                                 var image = resp[i]['image'];
                                 var link = resp[i]['link'];
-                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<img src='" + image + "' alt=''>" + "<div class='name'>" + title + "</div>";
                                
-                                result += "</div></div>" + "</a></li>";
+                                result += "</div>" + "</a></li>";
                                 $('#search-result-append-here').append(result);
                                 $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
                             }
@@ -1890,9 +1890,9 @@ $(document).ready(function () {
                                
                                 var image = resp[i]['image'];
                                 var link = resp[i]['link'];
-                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<img src='" + image + "' alt=''>" + "<div class='name'>" + title + "</div>";
                                
-                                result += "</div></div>" + "</a></li>";
+                                result += "</div>" + "</a></li>";
                                 $('#search-result-journal-append-here').append(result);
                                 $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
                             }
@@ -1929,9 +1929,9 @@ $(document).ready(function () {
                                
                                 var image = resp[i]['image'];
                                 var link = resp[i]['link'];
-                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='row flxBx'><div class='col-lg-2 col-md-3 col-4 imgBx'><img src='" + image + "' alt=''></div>" + "<div class='col-lg-10 col-md-9  col-8 txtBx' style='padding-left: 25px;'>" + "<div class='name'>" + title + "</div>";
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<img src='" + image + "' alt=''>" + "<div class='name'>" + title + "</div>";
                                
-                                result += "</div></div>" + "</a></li>";
+                                result += "</div>" + "</a></li>";
                                 $('#search-result-event-append-here').append(result);
                                 $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
                             }

@@ -15,7 +15,7 @@
 
                         @if(Auth::guard('customer')->check())
                         <div class="user-login-box mt-4 d-sm-none">
-                            <div class="user-login-image"><img src="{{ asset('frontend/images/user-login.png') }}" alt=""></div>
+                            <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
                             <div class="user-login-name">Grace Kelly</div>
                         </div>
                         <a href="{{ url('logout') }}" class="common-btn mt-4 d-sm-none">Log Out</a>
@@ -26,7 +26,7 @@
                                 <a href="{{ url('login') }}" class="common-btn mt-4 d-sm-none">Log In</a>
                             @endif
                         <!-- <div class="user-login-box mt-4 d-sm-none">
-                            <div class="user-login-image"><img src="{{ asset('frontend/images/user-login.png') }}" alt=""></div>
+                            <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
                             <div class="user-login-name">Grace Kelly</div>
                         </div> -->
                     </ul>
@@ -35,7 +35,11 @@
                        
 
                         @if(Auth::guard('customer')->check())
-                        <a href="{{ url('logout') }}" class="common-btn d-none d-sm-block">Log Out</a>
+                        <!-- <a href="{{ url('logout') }}" class="common-btn d-none d-sm-block">Log Out</a> -->
+                        <div class="user-login-box d-none d-sm-block">
+                            <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
+                            <div class="user-login-name">Grace Kelly</div>
+                        </div>
                         <!-- User is logged in, display logout button -->
                         
                             @else

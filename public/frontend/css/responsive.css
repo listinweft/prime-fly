@@ -764,6 +764,10 @@
 }
 
 /*-------------- contact page end ------------------*/
+
+.searchResult ul li a{
+    padding: 12px 24px;
+}
     
 }
 

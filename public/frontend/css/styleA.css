@@ -84,6 +84,7 @@ form{
     position: absolute;
     left: 39px;
     top: 13px;
+    z-index: 2;
 }
 .form-control:focus{
     box-shadow: none;
@@ -135,6 +136,8 @@ form{
     width: 40px;
     position: absolute;
     left: 8px;
+    overflow: hidden;
+    top: 7px;
 }
 .user-login-name{
     color: #7A7777;
@@ -344,6 +347,9 @@ form{
     overflow: hidden;
     width: 45px;
     margin-left: 5px;
+  }
+  .blogs_grid_wrapper{
+    margin-top: 26px;
   }
 
 /*----------------- Blog page end ---------------------*/
@@ -1078,6 +1084,9 @@ form{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.events_grid_wrapper{
+    margin-top: 26px;
 }
 /*------------------ Event page end -----------------*/
 
@@ -1959,4 +1968,47 @@ form{
 }
 .event-details-content h1{
     margin-bottom: 0;
+}
+
+.searchResult {
+    background-color: #fff5f6;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    top: 40px;
+    overflow: hidden;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.searchResult ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+.searchResult ul li:first-child{
+    padding-top: 25px;
+}
+.searchResult ul li:not(:last-child){
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.searchResult ul li img{
+    display: block;
+}
+.searchResult ul li a{
+    color: #646464;
+    display: block;
+    padding: 12px 42px;
+    font-size: 15px;
+    font-weight: 400;
+    transition: 0.5s ease;
+}
+.searchResult ul li a:hover{
+    /* background-color: rgba(0, 0, 0, 0.04); */
+    font-weight: 500;
+}
+.search-bx{
+    z-index: 2;
 }

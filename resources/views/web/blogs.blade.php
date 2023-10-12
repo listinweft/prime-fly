@@ -8,7 +8,7 @@
                 <div class="container">
                     <div class="custom-search">
                         <form action="#0">
-                            <div class="form-grid">
+                            <div class="form-grid mb-0 search-bx">
                                 <input type="search" name="" id="main-search" placeholder="Search">
                             </div>
                             <div class="searchResult">
