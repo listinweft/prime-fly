@@ -73,6 +73,12 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-grid">
+                                    <input type="tel" name="phone" id="phone" class="required" placeholder="Phone Number">
+                                   
+                                </div> 
+                            </div>
+                            <div class="col-12 mb-3">
+                                <div class="form-grid">
                                     <input type="password" placeholder="Password" id="password" name="password" class="required"/>
                                     
                                 </div> 
