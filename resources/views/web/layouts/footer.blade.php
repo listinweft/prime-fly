@@ -3,14 +3,14 @@
             <div class="footer-top">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-lg-5">
                             <div class="footer-logo-wraper">
                                 <a href="#0"><img src=" {{ asset('frontend/images/logo.png') }}" alt=""></a>
                                
                                 <a href="#0"><img src="{{ asset('frontend/images/logo-journal.png') }}" alt=""></a>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-lg-7">
                             <div class="footer-link-wraper">
                                 <div class="footer-links">
                                     <ul>
@@ -46,7 +46,7 @@
                     <div class="credentials">
                         <div class="credentials-container">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-lg-8">
                                     <div class="credential-links">
                                         <ul>
                                             <li>
@@ -78,7 +78,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-lg-4">
                                     <ul class="social-icons">
                                         <li><a href="#0">
                                             <svg width="13" height="23" viewBox="0 0 13 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,10 +115,10 @@
             <div class="credit-section">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-md-6">
                             <p>All rights © ESoAn 2023</p>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-xl-4 col-md-6">
                             <ul class="credit-links">
                                 <li><a href="#0">Support</a></li>
                                 <li><a href="#0">Terms & Conditions</a></li>

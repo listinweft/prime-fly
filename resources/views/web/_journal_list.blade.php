@@ -4,7 +4,7 @@
 
 
 
-<div class="col-lg-4 journal-list-grid">
+<div class="col-lg-4 journal-list-grid" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 journel-grid-item">
                                     <div class="journal-grid-content">
                                         <h4>{{ $blog->title }}</h4>
@@ -34,7 +34,11 @@
             @if($totalBlog>$offset)
             <div class="row">
                 <div class="col-12 text-center more-section-{{$offset}}">
-                    <a class="primary_btn load-more-button">Load More</a>
+                    <a class="load-more-button">Load More
+                        <div class="stage">
+                            <div class="dot-flashing"></div>
+                        </div>
+                    </a>
                 </div>
             </div>
 

@@ -4,16 +4,16 @@
 <main class="faq-page">
     <img src="{{ asset('frontend/images/faq-banner.png')}}" alt="" class="faq-bckdrop">
 
-    <div class="container">
+    <div class="container position-relative">
         <div class="faq-header">
-            <h1>Frequently Asked Questions</h1>
+            <h1>Frequently Asked <br> Questions</h1>
             <p>Id volutpat aliquet eget soenim. Sed auctor feugiat volutpat metus vitae laoreet sed </p>
         </div>
 
         <div class="faq-contents">
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="row">
-                    <div class="col-md-6">   @php   $i = 1; @endphp
+                    <div class="col-lg-6">   @php   $i = 1; @endphp
                         @foreach($faqs->slice(0, 5) as $faq)
 
                      
@@ -28,14 +28,14 @@
                                 <div id="flush-collapse{{ $faq->id }}" class="accordion-collapse collapse"
                                      aria-labelledby="flush-heading{{ $faq->id }}" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
-                                        <p>{!! $faq->answer !!}</p>
+                                    {!! $faq->answer !!}
                                     </div>
                                 </div>
                             </div>
                           @php   $i++; @endphp
                         @endforeach
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-lg-6">
                     @php   $i = 6; @endphp
                         @foreach($faqs->slice(5) as $faq)
                   

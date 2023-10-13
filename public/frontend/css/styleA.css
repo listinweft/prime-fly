@@ -84,6 +84,10 @@ form{
     position: absolute;
     left: 39px;
     top: 13px;
+    z-index: 2;
+}
+.form-control:focus{
+    box-shadow: none;
 }
 
 /*----------------- common style end -----------------------*/
@@ -132,6 +136,8 @@ form{
     width: 40px;
     position: absolute;
     left: 8px;
+    overflow: hidden;
+    top: 7px;
 }
 .user-login-name{
     color: #7A7777;
@@ -169,7 +175,7 @@ form{
     font-family: Inter;
     font-size: 50px;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 0.7;
     margin-bottom: 46px;
 }
 .login-left{
@@ -234,6 +240,21 @@ form{
     color: #FF000A;
     padding-top: 4px;
     padding-left: 10PX;
+}
+.btnRegister{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.btnRegister p{
+    margin-bottom: 0;
+    color: rgba(0, 0, 0, 0.55);
+}
+.btnRegister a{
+    display: inline-block;
+    padding-left: 7px;
+    color: #EE2C0D;
+    font-weight: 500;
 }
 
 /*----------------- Login page end -------------------*/
@@ -326,6 +347,9 @@ form{
     overflow: hidden;
     width: 45px;
     margin-left: 5px;
+  }
+  .blogs_grid_wrapper{
+    margin-top: 26px;
   }
 
 /*----------------- Blog page end ---------------------*/
@@ -837,7 +861,7 @@ form{
     color: #000;
     font-size: 20px;
     font-weight: 500;
-    line-height: 24.388px;
+    line-height: 1.2;
     margin-bottom: 6px;
 }
 .user-comment p{
@@ -845,7 +869,7 @@ form{
     color: #000;
     font-size: 15px;
     font-weight: 400;
-    line-height: 24.388px;
+    line-height: 1.7;
 }
 .comment-reply-author{
     display: flex;
@@ -973,7 +997,7 @@ form{
     font-family: Inter;
     font-size: 40px;
     font-weight: 500;
-    line-height: 34px;
+    line-height: 0.9;
     margin-bottom: 38px;
 }
 .related-blogs .blogs_grid_wrapper .row > [class*='col-'] {
@@ -1018,6 +1042,7 @@ form{
     border-radius: 50%;
     margin-right: 12px;
     flex-shrink: 0;
+    overflow: hidden;
 }
 .eventgrid_author{
     display: flex;
@@ -1059,6 +1084,9 @@ form{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.events_grid_wrapper{
+    margin-top: 26px;
 }
 /*------------------ Event page end -----------------*/
 
@@ -1400,17 +1428,19 @@ form{
     width: 100%;
 }
 .contact-left{
-    width: 800px;
+    /* width: 800px; */
     flex-shrink: 0;
     position: relative;
+    width: 41vw;
 }
 .contact-right{
     /* max-width: 914px; */
     width: 100%;
-    padding-left: 170px;
+    /* padding-left: 170px; */
     padding-top: 40px;
     padding-bottom: 40px;
     padding-right: 30px;
+    padding-left: 9vw;
 }
 .contact-left .contatct-image{
     width: 633px;
@@ -1441,7 +1471,7 @@ form{
     color: #FFF;
     font-size: 40px;
     font-weight: 700;
-    line-height: 34px; 
+    line-height: 1; 
     margin-bottom: 10px;
 }
 .contact-us-content h3{
@@ -1458,12 +1488,13 @@ form{
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 .contact-us-content ul li a{
     color: #FFF;
     font-size: 12px;
     font-weight: 400;
-    line-height: 23px;
+    line-height: 2;
 }
 .contact-us-content ul li{
     position: relative;
@@ -1488,7 +1519,10 @@ form{
     padding: 0;
     padding-left: 8rem;
 }
-.contact-social-icons ul li{
+
+.contact-social-icons ul li a{
+    display: block;
+    line-height: 1;
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -1496,9 +1530,17 @@ form{
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: 0.3s linear;
 }
-.contact-social-icons ul li a{
-    display: block;
+.contact-social-icons ul li a:hover{
+    background-color: #EE2C0D;
+}
+.contact-social-icons ul li a:hover svg path{
+    transition: 0.3s linear;
+}
+.contact-social-icons ul li a:hover svg path{
+    fill: #fff;
 }
 .contact-social-icons ul li:not(:last-child){
     margin-right: 10px;
@@ -1523,6 +1565,37 @@ form{
 .contact-right textarea{
     min-height: 120px;
 }
+
+
+/*-- C new ---*/
+
+.contact-page{
+    display: block;
+    max-width: 100%;
+    padding: 146px 0 46px 0;
+    position: relative;
+}
+.contatct-image{
+    position: absolute;
+    width: 633px;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+.contact-us-content-wraper{
+    position: static;
+    width: 100%;
+}
+.contact-us-content{
+    height: auto;
+}
+.contact-left{
+    width: 100%;
+}
+.contact-us-content-container{
+    max-width: 100%;
+}
+/*---// C new ---*/
 
 /*---------------- Contact page end -----------------*/ 
 
@@ -1564,6 +1637,7 @@ form{
 
 .faq-contents .accordion-flush .accordion-item{
     border-bottom: 0;
+    background: transparent;
 }
 .faq-contents .accordion-button:focus{
     border: none;
@@ -1592,13 +1666,20 @@ form{
     font-weight: 400;
     line-height: 25.5px; 
     background: transparent;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 .faq-contents .accordion-button:not(.collapsed){
     background: transparent;
     box-shadow: none;
 }
-.faq-contents .accordion-body{
+/* .faq-contents .accordion-body{
     padding: 0 15px 0 84px;
+} */
+.faq-contents .accordion-body{
+    padding-left: 84px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .faq-contents .accordion .accordion-item{
     margin-bottom: 30px;
@@ -1848,4 +1929,86 @@ form{
 }
 .accordion-item:last-of-type .accordion-button.collapsed{
     border-radius: 0;
+}
+.rgstr_condtn_desc p{
+    margin-bottom: 0;
+}
+.register-form-left h2{
+    margin-top: 30px;
+}
+.journal-grid-logo a{
+    text-transform: uppercase;
+}
+.journal-grid-logo a svg{
+    margin-left: 10px;
+}
+.privacy-head h5{
+    margin-bottom: 0;
+}
+.privacy-content-details p, .privacy-content-details ul li{
+    color: #393939;
+    font-size: 15px;
+    line-height: 25.5px;
+    margin-bottom: 12px;
+}
+.privacy-content-details ul{
+    margin: 0;
+    padding-left: 20px;
+    margin-bottom: 12px;
+}
+.privacy-content-details ul li{
+    margin-bottom: 6px;
+}
+
+.privacy-content-details h1, .privacy-content-details h2, .privacy-content-details h3, .privacy-content-details h4, .privacy-content-details h5, .privacy-content-details h6 {
+    color: #262626;
+    font-weight: 600;
+    padding-top: 16px;
+    margin-bottom: 12px;
+}
+.event-details-content h1{
+    margin-bottom: 0;
+}
+
+.searchResult {
+    background-color: #fff5f6;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    top: 40px;
+    overflow: hidden;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.searchResult ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+.searchResult ul li:first-child{
+    padding-top: 25px;
+}
+.searchResult ul li:not(:last-child){
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.searchResult ul li img{
+    display: block;
+}
+.searchResult ul li a{
+    color: #646464;
+    display: block;
+    padding: 12px 42px;
+    font-size: 15px;
+    font-weight: 400;
+    transition: 0.5s ease;
+}
+.searchResult ul li a:hover{
+    /* background-color: rgba(0, 0, 0, 0.04); */
+    font-weight: 500;
+}
+.search-bx{
+    z-index: 2;
 }

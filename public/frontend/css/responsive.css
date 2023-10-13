@@ -329,6 +329,149 @@
 
 /*---------------------- Single blog end -------------------*/
 
+/*---------------------- login page start -----------------*/
+
+.login-form-box{
+    max-width: calc(576px - 90px);
+}
+.login-form-box .logo {
+    margin-bottom: calc(68px - 10px);
+}
+.login-form-box h1{
+    font-size: calc(50px - 8px);
+    margin-bottom: calc(46px - 8px);
+}
+.form-grid input[type="submit"]{
+    font-size: calc(26px - 4px);
+}
+.img-content{
+    font-size: calc(50px - 8px);
+    padding: calc(80px - 13px);
+}
+
+/*---------------------- login page end -------------------*/
+
+/*--------------------- Register page start ----------------*/
+
+.register {
+    padding: calc(85px - 13px) 15px;
+}
+.register-form-left h2{
+    font-size: calc(40px - 6px);
+}
+.register-condition {
+    padding: calc(100px - 15px) 15px calc(70px - 10px);
+}
+.register-condition h2{
+    font-size: calc(50px - 8px);
+}
+.register-condition-wrap .rgster-condtn-grid{
+    padding: calc(30px - 5px) calc(30px - 5px);
+}
+.register-condition-wrap [class*='col-']{
+    margin-bottom: calc(30px - 5px);
+}
+.rgstr_condtn_desc {
+    padding: 15px calc(80px - 13px);
+}
+
+
+/*--------------------- Register page end ------------------*/
+
+/*-------------------- Faq page start -------------------*/
+
+.faq-page {
+    padding: calc(70px - 10px) 0 calc(40px - 6px) 0;
+}
+.faq-header h1{
+    font-size: calc(50px - 8px);
+}
+.faq-header {
+    margin-bottom: calc(70px - 10px);
+}
+.faq-contents .row [class*="col-"] {
+    padding: 0 calc(70px - 10px);
+}
+.faq-contents .accordion .accordion-item {
+    margin-bottom: calc(30px - 5px);
+}
+
+/*------------------- faq page end ---------------------*/
+
+/*------------------ journal page start ----------------*/
+
+.journal-list {
+    padding: calc(80px - 13px) 15px;
+}
+
+/*------------------ journal page end ------------------*/
+
+/*------------------ single journal page start ---------------*/
+
+.journal-author {
+    padding: calc(46px - 7px) 0 calc(70px - 10px) 0;
+}
+.journal-author-content {
+    padding: calc(30px - 5px) calc(36px - 6px);
+}
+
+/*------------------ single journal page end -----------------*/
+
+/*----------------- privacy policy page start -----------------*/
+
+.privacy-head {
+    padding-bottom: calc(30px - 5px);
+    margin-bottom: calc(40px - 6px);
+}
+.privacy-head h1{
+    font-size: calc(50px - 8px);
+}
+
+/*----------------- privacy policy page end ------------------*/
+
+/*---------------- single event start -------------------*/
+
+.event-details-content {
+    padding: calc(110px - 18px) 15px;
+}
+.event-details-content h1 {
+    font-size: calc(50px - 8px);
+}
+
+/*--------------- single event end --------------------*/
+
+/*--------------- contact page start -----------------*/
+.contact-page{
+    padding: calc(146px - 24px) 0 calc(46px - 8px) 0;
+}
+.contatct-image{
+    width: calc(633px - 100px);
+}
+
+.contact-us-content {
+    padding: calc(114px - 18px) calc(100px - 15px);
+}
+.contact-us-icon svg{
+    width: calc(154px - 25px);
+}
+.contact-us-icon {
+    margin-bottom: calc(20px - 2px);
+}
+.contact-us-content h1{
+    font-size: calc(40px - 6px);
+}
+.contact-social-icons {
+    padding: calc(46px - 8px) 0;
+}
+.contact-right{
+    padding-left: 7vw;
+}
+.contact-us-content ul{
+    margin-bottom: calc(20px - 2px);
+}
+
+/*-------------- contact page end ------------------*/
+
 }
 
 @media(max-width: 1400px){
@@ -494,6 +637,137 @@
     }
 
     /*---------------- single blog end ----------------*/
+
+/*---------------------- login page start -----------------*/
+
+    .login-form-box{
+        max-width: calc(576px - 90px*1.6);
+    }
+    .login-form-box .logo {
+        margin-bottom: calc(68px - 10px*1.6);
+    }
+    .login-form-box h1{
+        font-size: calc(50px - 8px*1.6);
+        margin-bottom: calc(46px - 8px*1.6);
+    }
+    .form-grid input[type="submit"]{
+        font-size: calc(26px - 4px*1.6);
+    }
+    .img-content{
+        font-size: calc(50px - 8px*1.6);
+        padding: calc(80px - 13px*1.6);
+    }
+    .form-grid{
+        margin-bottom: calc(28px - 4px);
+    }
+
+/*---------------------- login page end -------------------*/
+
+/*--------------------- Register page start ----------------*/
+
+.register-form-left h2{
+    font-size: calc(40px - 6px*1.5);
+}
+.register-condition {
+    padding: calc(100px - 15px*2) 15px calc(70px - 10px*2);
+}
+.register-condition h2{
+    font-size: calc(50px - 8px*1.6);
+}
+.register-condition-wrap .rgster-condtn-grid{
+    padding: calc(30px - 5px*2) calc(30px - 5px*2);
+}
+.register-condition-wrap [class*='col-']{
+    margin-bottom: calc(30px - 5px*2);
+}
+.rgstr_condtn_desc {
+    padding: 15px calc(80px - 13px*2);
+}
+.form-grid input, .form-grid textarea{
+    font-size: 15px;
+}
+
+/*--------------------- Register page end ------------------*/
+
+/*------------------ journal page start ----------------*/
+
+.journal-list {
+    padding: calc(80px - 13px*2) 15px;
+}
+
+/*------------------ journal page end ------------------*/
+
+/*------------------ single journal page start ---------------*/
+
+.journal-author {
+    padding: calc(46px - 7px*2) 0 calc(70px - 10px*2) 0;
+}
+.journal-author-content {
+    padding: calc(30px - 5px*2) calc(36px - 6px*2);
+}
+
+/*------------------ single journal page end -----------------*/
+
+/*----------------- privacy policy page start -----------------*/
+.privacy-content {
+    padding: calc(80px - 13px) 15px;
+}
+.privacy-head {
+    padding-bottom: calc(30px - 5px*2);
+    margin-bottom: calc(40px - 6px*2);
+}
+.privacy-head h1{
+    font-size: calc(50px - 8px*2);
+}
+
+/*----------------- privacy policy page end ------------------*/
+
+/*---------------- single event start -------------------*/
+
+.event-details-content {
+    padding: calc(110px - 18px*2) 15px;
+}
+.event-details-content h1 {
+    font-size: calc(50px - 8px*1.6);
+}
+
+/*--------------- single event end --------------------*/
+
+/*--------------- contact page start -----------------*/
+.contact-page{
+    padding: calc(146px - 24px*2) 0 calc(46px - 8px*2) 0;
+}
+.contatct-image{
+    width: calc(633px - 100px*2);
+}
+
+.contact-us-content {
+    padding: calc(114px - 18px*2) calc(100px - 15px*2);
+}
+.contact-us-icon svg{
+    width: calc(154px - 25px*2);
+}
+.contact-us-icon {
+    margin-bottom: calc(20px - 2px*2);
+}
+.contact-us-content h1{
+    font-size: calc(40px - 6px*2);
+}
+.contact-social-icons {
+    padding: calc(46px - 8px*2) 0;
+}
+.contact-right{
+    padding-left: 7vw;
+}
+.contact-us-content ul{
+    margin-bottom: calc(20px - 2px*2);
+}
+
+/*-------------- contact page end ------------------*/
+
+.searchResult ul li a{
+    padding: 12px 24px;
+}
     
 }
 
@@ -634,6 +908,103 @@
         margin-bottom: calc(50px - 8px*3);
     }
     /*---------------- single blog end ----------------*/
+
+    /*--------------------- Register page start ----------------*/
+
+
+.register-condition {
+    padding: calc(100px - 15px*3) 15px calc(70px - 10px*3);
+}
+.register-form-right h4{
+    font-size: calc(30px - 5px);
+}
+.register-condition h2{
+    font-size: calc(50px - 8px*2);
+}
+
+.rgstr_condtn_desc {
+    padding: 15px calc(80px - 13px*3);
+}
+.rgstr_condtn_desc p{
+    font-size: 15px
+}
+.register-form-left h2{
+    margin-top: calc(30px - 5px);
+}
+/*--------------------- Register page end ------------------*/
+
+/*-------------------- Faq page start -------------------*/
+
+.faq-page {
+    padding: calc(70px - 10px*2) 0 calc(40px - 6px*2) 0;
+}
+.faq-header h1{
+    font-size: calc(50px - 8px*2);
+}
+.faq-header {
+    margin-bottom: calc(70px - 10px*2);
+}
+.faq-contents .row [class*="col-"] {
+    padding: 0 calc(70px - 10px*2);
+}
+.faq-contents .accordion .accordion-item {
+    margin-bottom: calc(30px - 5px*2);
+}
+.faq-number{
+    font-size: 18px;
+}
+.faq-contents .accordion-button, .faq-contents .accordion-body{
+    padding-left: calc(84px - 13px);
+}
+
+/*------------------- faq page end ---------------------*/
+
+/*----------------- privacy policy page start -----------------*/
+.privacy-content {
+    padding: calc(80px - 13px*2) 15px;
+}
+.privacy-head {
+    padding-bottom: calc(30px - 5px*2.6);
+    margin-bottom: calc(40px - 6px*2.6);
+}
+.privacy-head h1{
+    font-size: calc(50px - 8px*2.6);
+}
+
+/*----------------- privacy policy page end ------------------*/
+
+/*--------------- contact page start -----------------*/
+.contact-page{
+    padding: calc(146px - 24px*3) 0 calc(46px - 8px*3) 0;
+}
+.contatct-image{
+    width: calc(633px - 100px*2);
+}
+
+.contact-us-content {
+    padding: calc(114px - 18px*3) calc(100px - 15px*3);
+}
+.contact-us-icon svg{
+    width: calc(154px - 25px*2.6);
+}
+.contact-us-icon {
+    margin-bottom: calc(20px - 2px*2);
+}
+.contact-us-content h1{
+    font-size: calc(40px - 6px*2.6);
+}
+.contact-social-icons {
+    padding: calc(46px - 8px*3) 0;
+}
+.contact-right{
+    padding-left: 7vw;
+}
+.contact-us-content ul{
+    margin-bottom: calc(20px - 2px*2);
+}
+
+/*-------------- contact page end ------------------*/
+
 }
 
 @media(max-width: 991px){
@@ -686,7 +1057,9 @@
     /* .menu-container li:not(:last-child){
         margin-bottom: 20px;
     } */
-
+    .toggle-icon{
+        margin-left: 18px;
+    }
     /*------------------- Header end -----------------*/
 
     .blog-item-wraper [class*='col-']:not(:last-child){
@@ -828,6 +1201,80 @@
         margin: calc( 60px - 10px*3.6) 0 calc(50px - 8px*3.6) 0;
     }
     /*--------------- single blog end --------------*/
+
+    /*---------------------- login page start -------------------*/
+
+    .login-left{
+        padding: calc(60px - 20px);
+    }
+    .img-content {
+        font-size: calc(50px - 8px*2.6);
+        padding: calc(80px - 13px*3);
+    }
+    /*---------------------- login page end -------------------*/
+
+    /*--------------------- Register page start ---------------*/
+
+    .register {
+        padding: calc(85px - 13px*3) 15px;
+    }
+    .register-condition {
+        padding: calc(100px - 15px*4) 15px calc(70px - 10px*4);
+        padding-top: 20px;
+    }
+    .register-condition h2 {
+        font-size: calc(50px - 8px*2.6);
+        margin-bottom: 30px;
+    }
+    .rgstr_condtn_desc {
+        padding: 15px calc(80px - 13px*4);
+    }
+    .rgstr_condtn_desc p{
+        line-height: 1.95;
+    }
+    .register-form-left h2 {
+        margin-top: calc(30px - 5px*2);
+    }
+    .register-form-right{
+        margin-top: 25px;
+    }
+    .register-form-right h4{
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    /*--------------------- Register page end -----------------*/
+
+    /*--------------------- faq page start ------------------*/
+
+    .faq-header {
+        margin-bottom: calc(70px - 10px*3);
+    }
+    .faq-contents .row [class*="col-"] {
+        padding: 0 calc(70px - 10px*3);
+    }
+
+    /*--------------------- faq page end --------------------*/
+
+    /*------------------ contact page start --------------*/
+    .contatct-image{
+        max-height: 550px;
+        width: 100%;
+    }
+    .contact-right{
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+    }
+    .contact-social-icons ul{
+        padding-left: 0;
+        justify-content: center;
+    }
+    .contact-page-form-wraper{
+        padding-top: 70px;
+    }
+    /*------------------ contact page end --------------*/
+
 }
 @media(max-width: 767px){
     .credential-links ul li:not(:last-child) {
@@ -907,6 +1354,63 @@
     }
 
     /*--------------- single blog end ------------------*/
+
+    /*---------------------- login page start -------------------*/
+
+    .login{
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .img-content{
+        justify-content: center;
+        align-items: center;
+    }
+    .login-left{
+        padding: 60px 20px;
+    }
+    .login-right{
+        height: 170px;
+    }
+    /*---------------------- login page end -------------------*/
+
+    /*--------------------- register page start ----------------*/
+    .register-form-right {
+        margin-top: 15px;
+    }
+    .register {
+        padding: calc(85px - 13px*3) 15px;
+        padding-bottom: 30px;
+    }
+    .rgstr_condtn_desc{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /*-------------------- register page end -----------------*/
+
+    /*--------------------- faq page start ------------------*/
+
+    .faq-contents .row [class*="col-"] {
+        padding: 0 12px;
+    }
+
+    /*--------------------- faq page end --------------------*/
+
+    /*-------------------- contact page start ----------------*/
+    .contatct-image{
+        max-height: calc(585px - 70px);
+    }
+    .contact-page {
+        padding: calc(146px - 24px*4) 0 calc(46px - 8px*3) 0;
+    }
+    .contact-page-form-wraper{
+        max-width: 100%;
+    }
+    .contact-right{
+        padding-right: 0;
+        padding-top: 0;
+    }
+    /*-------------------- contact page end -----------------*/
+
 }
 
 @media(max-width: 575px){
@@ -1101,4 +1605,135 @@
     .form-grid input, .form-grid textarea{
         font-size: 14px;
     }
+
+    /*---------------------- login page start -------------------*/
+
+    .login-form-box .logo {
+        margin-bottom: calc(68px - 10px*3.3);
+    }
+    .login-form-box h1 {
+        font-size: calc(50px - 8px*3);
+        margin-bottom: calc(46px - 8px*3.6);
+    }
+    .form-grid input[type="submit"]{
+        min-width: auto;
+    }
+    .login-left{
+        padding-bottom: 23px;
+    }
+    .img-content{
+        font-weight: 600;
+    }
+    /*---------------------- login page end -------------------*/
+
+    /*---------------------- register page start --------------*/
+
+    .register-form-left h2 {
+        font-size: calc(40px - 6px*2);
+        margin-top: 15px;
+    }
+    .register-form-right {
+        margin-top: 9px;
+    }
+    .register-condition {
+        padding: calc(100px - 15px*5) 15px calc(70px - 10px*5);
+        padding-top: 10px;
+    }
+    .register-condition h2 {
+        font-size: calc(50px - 8px*3);
+        margin-bottom: 20px;
+    }
+    .register-condition-wrap [class*='col-'] {
+        margin-bottom: calc(30px - 5px*2.6);
+    }
+    
+
+    /*---------------------- register page end ----------------*/
+
+    /*--------------------- faq page start ------------------*/
+    .faq-header h1 {
+        font-size: calc(50px - 8px*2.6);
+    }
+
+    .faq-header {
+        margin-bottom: calc(70px - 10px*3.6);
+    }
+    .faq-page {
+        padding: calc(70px - 10px*3) 0 calc(40px - 6px*3) 0;
+    }
+    .faq-contents .accordion-button, .faq-contents .accordion-body {
+        padding-left: calc(84px - 13px*1.6);
+    }
+    .faq-number {
+        font-size: 16px;
+    }
+
+    /*--------------------- faq page end --------------------*/
+
+    /*------------------ journal page start ----------------*/
+
+    .journal-list {
+        padding: calc(80px - 13px*3) 15px;
+    }
+
+    /*------------------ journal page end ------------------*/
+
+    /*------------------ single journal page start ---------------*/
+
+    .journal-author-item{
+        display: block;
+    }
+    .journal-author-image{
+        width: 100%;
+        height: 360px;
+    }
+    .journal-author-image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+
+/*------------------ single journal page end -----------------*/
+
+/*----------------- privacy policy page start -----------------*/
+.privacy-content {
+    padding: calc(80px - 13px*3.5) 15px;
+}
+.privacy-head h1 {
+    font-size: calc(50px - 8px*2.9);
+}
+.privacy-head {
+    padding-bottom: calc(30px - 5px*2.9);
+    margin-bottom: calc(40px - 6px*2.9);
+}
+/*----------------- privacy policy page end -----------------*/
+
+/*---------------- contact page start -----------------*/
+.contact-page{
+    padding-top: 0;
+}
+.contact-us-content {
+    padding: 25px 25px;
+}
+.contatct-image{
+    position: static;
+    height: auto;
+    max-height: none;
+}
+.contatct-image img{
+    max-height: 300px;
+}
+.contact-left{
+    margin-top: -50%;
+}
+.contact-page-form-wraper {
+    padding-top: 20px;
+}
+.contact-right{
+    padding-bottom: 20px;
+}
+
+/*---------------- contact age end --------------------*/
+
 }

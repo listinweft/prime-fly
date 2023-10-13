@@ -9,9 +9,9 @@
         <section class="col-12 journal-list">
             <div class="container">
                 <div class="row justify-content-center"> 
-                    <div class="col-lg-10">
+                    <div class="col-xxl-10">
                         <div class="row justify-content-between">
-                            <div class="col-12 mb-5">
+                            <div class="col-12 mb-xxl-5 mb-md-4 mb-3">
                                 <div class="custom-search">
                                     <form action="#0">
                                         <div class="form-grid">

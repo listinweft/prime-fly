@@ -25,7 +25,7 @@
 
                     </form>
                     <div class="btnRegister">
-                                    <p>Create an Account</p>
+                                    <p>Not registered?</p>
                                     <a href="{{url('/register')}}">Register</a>
                                 </div>
                 </div>

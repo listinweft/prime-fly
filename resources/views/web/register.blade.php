@@ -4,7 +4,7 @@
 <section class="register">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 text-center register-form-left">
+                    <div class="col-lg-6 text-center register-form-left" data-aos="fade-right" data-aos-duration="1000">
                         <svg xmlns="http://www.w3.org/2000/svg" width="255" height="248" viewBox="0 0 255 248" fill="none">
                             <path d="M143.621 120.475L218.558 37.3984" stroke="#F2EDF0" stroke-width="10.5315" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M225.61 173.757L143.621 120.476V203.736" stroke="#F2EDF0" stroke-width="10.5315" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,31 +47,37 @@
                             <path d="M41.2148 160.882C45.0753 162.382 49.5976 162.073 53.2154 160.065" stroke="#726B6E" stroke-width="1.40418" stroke-miterlimit="10" stroke-linecap="round"/>
                             <path d="M58.2191 121.828C60.7265 121.614 63.2413 121.394 65.7488 121.181C66.4694 121.122 67.2489 121.07 67.8813 121.431C68.5136 121.798 68.8666 122.534 68.9622 123.262C69.1975 125.181 68.9254 126.975 67.3739 128.254C66.2562 129.174 64.8664 129.688 63.5061 130.174C50.3805 134.858 36.9976 138.792 23.4235 141.946C20.5631 142.608 17.7027 143.24 14.8349 143.873C12.548 144.373 8.40816 145.152 9.42291 141.784C10.2171 139.152 12.6363 136.924 15.2026 136.078C14.6437 133.012 14.1437 130.174 14.357 127.07C14.5776 123.96 15.6585 120.798 17.938 118.68C19.4969 117.232 21.497 116.364 23.4456 115.519C26.6884 114.121 29.9385 112.724 33.1813 111.32C37.2476 109.57 41.7699 107.783 45.9759 109.173C48.4908 110.004 50.5423 111.893 52.0424 114.077C53.5498 116.254 57.2264 119.372 58.2191 121.828Z" fill="#EE2C0D"/>
                           </svg>
-                          <h2>Become a Member</h2>
+                          <h2 class="mb-0">Become a Member</h2>
                     </div>
-                    <div class="col-lg-6 register-form-right">
-                        <h4 class="mb-3">Register</h4>
+                    <div class="col-lg-6 register-form-right" data-aos="fade-up" data-aos-duration="1000">
+                        <h4 class="mb-lg-3">Register</h4>
                         <form action="" id="registerForm">
                         <div class="row">
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-grid">
                                     <input type="text" placeholder="First Name" name="firstname" id="firstname" class="required"/>
                                   
                                 </div> 
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-grid">
                                     <input type="text" placeholder="Last Name" name="lastname" id="lastname" class="required"/>
                                     
                                 </div> 
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-grid">
                                     <input type="email" placeholder="Email" class="required" id="email" name="email"/>
                                    
                                 </div> 
                             </div>
-                            <div class="col-lg-6 mb-3">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-grid">
+                                    <input type="tel" name="phone" id="phone" class="required" placeholder="Phone Number">
+                                   
+                                </div> 
+                            </div>
+                            <div class="col-12 mb-3">
                                 <div class="form-grid">
                                     <input type="password" placeholder="Password" id="password" name="password" class="required"/>
                                     
@@ -108,35 +114,35 @@
         <section class="register-condition">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8 register-condition-wrap">
-                        <h2 class="mb-5">MEMBER’S BENEFITS <br> AND CONDITIONS</h2>
+                    <div class="col-xl-8 col-lg-10 register-condition-wrap">
+                        <h2 class="mb-lg-5" data-aos="fade-up" data-aos-duration="1000">MEMBER’S BENEFITS <br> AND CONDITIONS</h2>
                         <div class="row ">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 rgster-condtn-grid">
                                     <p>Full access to EJoAn</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 rgster-condtn-grid">
                                     <p>Full access to society blog </p>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 rgster-condtn-grid">
                                     <p>Ability to network and connect with society members </p>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 rgster-condtn-grid">
                                     <p>Discounted rate "when applicable" and priority registration to society events</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 rgster-condtn-grid">
                                     <p>Nomination as a reviewer for submitted articles with credits </p>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="col-12 rgster-condtn-grid">
                                     <p>Regular newsletter 
                                         and updates 
@@ -144,7 +150,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 text-center rgstr_condtn_desc">
+                        <div class="col-12 text-center rgstr_condtn_desc mb-0" data-aos="fade-up" data-aos-duration="1000">
                             <p>Membership in the Society is limited to healthcare practitioners who are practising clinical anesthesiology within the United Arab Emirates and have a UAE-based phone number. Honorary membership can be granted by the Society to nominated individuals after fulfilling set criteria. Website posts will be approved by the admin team before appearing on the website and will be removed or updated if required. By joining the ESoAn, members accept our Privacy policy and agree to adhere to our terms and conditions that are published on our website.  
                             </p>
                         </div>
