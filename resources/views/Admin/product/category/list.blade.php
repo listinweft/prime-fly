@@ -33,18 +33,18 @@
                                 {{ session('message') }}
                             </div>
                         @endif
-                       @if($type == 'Category')
+                       <!-- @if($type == 'Category')
                          @include('Admin.includes.heading_form2',['type'=>'category'])
-                        @endif
+                        @endif -->
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 @if($type=="Category")
-                                    <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/create')}}"
+                                    <a href="{{url(Helper::sitePrefix().'about/'.$urlType.'/create')}}"
                                        class="btn btn-success pull-right">Add Category <i
                                             class="fa fa-plus-circle pull-right mt-1 ml-2"></i>
                                     </a>
                                 @elseif($type=="Sub Category")
-                                    <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/create')}}"
+                                    <a href="{{url(Helper::sitePrefix().'about/'.$urlType.'/create')}}"
                                        class="btn btn-success pull-right">Add Sub-category <i
                                             class="fa fa-plus-circle pull-right mt-1 ml-2"></i>
                                     </a>
@@ -59,11 +59,11 @@
                                         @if($type=="Sub Category")
                                             <th>Category</th>
                                         @endif
-                                        <th>Sort Order</th>
+                                        <!-- <th>Sort Order</th> -->
                                         <th>Status</th>
 
                                     
-                                        <th>Display to home</th>
+                                        <!-- <th>Display to home</th> -->
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -76,7 +76,7 @@
                                             @if($type=="Sub Category")
                                                 <td>{{$category->parent->title}}</td>
                                             @endif
-                                            <td>
+                                            <!-- <td>
                                                 <input type="text" name="gallery_order"
                                                        id="gallery_order_{{$loop->iteration}}"
                                                        data-table="Category" data-id="{{ $category->id }}"
@@ -84,7 +84,7 @@
 
                                                        class="common_sort_order" style="width:25%"
                                                        value="{{$category->sort_order}}">
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
@@ -95,7 +95,7 @@
                                                 </label>
                                             </td>
 
-                                            <td>
+                                            <!-- <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="bool_status"
                                                            data-url='change-bool-status' data-table="Category"
@@ -103,15 +103,15 @@
                                                         {{($category->display_to_home == "Yes")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
-                                            </td>
+                                            </td> -->
                                             <td>{{ date("d-M-Y", strtotime($category->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/edit/'.$category->id)}}"
+                                                    <a href="{{url(Helper::sitePrefix().'about/'.$urlType.'/edit/'.$category->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit {{$type}}"><i
                                                             class="fas fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       data-url="product/{{$urlType}}/delete"
+                                                       data-url="about/{{$urlType}}/delete"
                                                        data-id="{{$category->id}}"
                                                        title="Delete {{$type}}"><i class="fas fa-trash"></i></a>
                                                 </div>

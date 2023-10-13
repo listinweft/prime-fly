@@ -20,6 +20,7 @@ use App\Models\Frame;
 use App\Models\CurrencyRate;
 use App\Models\Shape;
 use App\Models\Reply;
+use App\Models\WhoWeAre;
 
 
 use App\Models\History;
@@ -247,8 +248,11 @@ public function unlikeComment($commentId)
         $seo_data = $this->seo_content('About');
         
         $about = About::first();
+        $who = WhoWeAre::first();
+         $aboutFeatures = AboutFeature::get();
         $homeHeadings = HomeHeading::get();
-        $aboutFeatures = AboutFeature::active()->take(4)->oldest('sort_order')->get();
+        $categoriesCount = Category::active()->whereNull('parent_id')->get();
+        // $aboutFeatures = AboutFeature::active()->take(4)->oldest('sort_order')->get();
         $histories = History::active()->oldest('sort_order')->get();
         $banner = Banner::type('about')->first();
         $catHomeHeadings = HomeHeading::where('type','category')->first();
@@ -263,7 +267,7 @@ public function unlikeComment($commentId)
   
    
 
-        return view('web.about', compact('seo_data', 'about', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
+        return view('web.about', compact('seo_data', 'about','who','categoriesCount', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
     }
 
 

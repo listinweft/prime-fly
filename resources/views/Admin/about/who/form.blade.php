@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
                                <div class="form-group col-md-6">
-                                   <label> Sub Title</label>
+                                   <label> Founder Title</label>
                                    <input type="text" name="subtitle" id="subtitle" placeholder="Sub Title"
                                           class="form-control " autocomplete="off"
                                           value="{{ isset($about)?$about->subtitle:'' }}">
@@ -79,13 +79,23 @@
                                     @enderror
                                 </div>
                                 {{-- <div class="form-row"> --}}
-                                    <div class="form-group col-md-6">
-                                        <label> Alternative Description*</label>
+                                    <!-- <div class="form-group col-md-6">
+                                        <label> Founder Description*</label>
                                         <textarea name="feature_description" id="feature_description"
                                                   class="form-control required tinyeditor" placeholder="Description"
                                         >{{ old('feature_description', isset($about)?$about->feature_description:'') }}</textarea>
                                         <div class="help-block with-errors" id="description_error"></div>
                                         @error('feature_description')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div> -->
+                                    <div class="form-group col-md-6">
+                                        <label> founder Description*</label>
+                                        <textarea name="alternative_description" id="alternative_description"
+                                                  class="form-control required tinyeditor" placeholder="Description"
+                                        >{{ old('feature_description', isset($about)?$about->alternative_description:'') }}</textarea>
+                                        <div class="help-block with-errors" id="alternative_description_error"></div>
+                                        @error('alternative_description')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -102,6 +112,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                
                                 <div class="form-group col-md-6">
                                     <label> Image Attribute</label>
                                     <input type="text" class="form-control placeholder-cls" id="image_attribute"
@@ -117,7 +128,7 @@
                             <div class="form-row">
 
                                 <div class="form-group col-md-6">
-                                    <label>Second Image*</label>
+                                    <label>Founder Image*</label>
                                     <div class="file-loading">
                                         <input id="banner_image" name="banner_image" type="file">
                                     </div>
@@ -184,10 +195,10 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 498,
-                minImageHeight: 619,
-                maxImageWidth: 498,
-                maxImageHeight: 619,
+                minImageWidth: 922,
+                minImageHeight: 964,
+                maxImageWidth: 922,
+                maxImageHeight: 964,
                 showRemove: true,
                 @if(isset($about) && $about->image!=NULL)
                 initialPreview: ["{{asset($about->image)}}",],
@@ -208,10 +219,10 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 324,
-                minImageHeight: 404,
-                maxImageWidth: 324,
-                maxImageHeight: 404,
+                // minImageWidth: 324,
+                // minImageHeight: 404,
+                // maxImageWidth: 324,
+                // maxImageHeight: 404,
                 showRemove: true,
                 @if(isset($about) && $about->banner_image!=NULL)
                 initialPreview: ["{{asset($about->banner_image)}}",],

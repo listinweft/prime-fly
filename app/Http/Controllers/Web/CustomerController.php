@@ -37,32 +37,39 @@ class CustomerController extends Controller
         return $seo_data;
     }
 
-    public function account($tab)
-    {
+     public function account()
+     {
 
   
         if (Auth::guard('customer')->check()) {
             $seo_data = $this->seo_content('My-Account');
-            $banner = Banner::type('my-account')->first();
+            // $banner = Banner::type('my-account')->first();
             $user = Auth::guard('customer')->user();
             $customer = $user->customer;
             $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
-            $countries = Country::where('status', 'Active')->get();
+           
         //    return $states = State::where('status', 'Active')->get();
-            $latestProducts = Product::where('status', 'Active')->take(5)->latest()->get();
-            $orders = OrderCustomer::with(['orderData' => function ($q) {
-                $q->with(['orderProducts' => function ($t) {
-                    $t->with('productData');
-                    $t->with('colorData');
-                }]);
-            }])->where('customer_id', Auth::guard('customer')->user()->customer->id)->latest()->get();
-            return view('web.profile', compact('customer', 'customerAddresses', 'countries',
-                'tab', 'latestProducts', 'orders', 'seo_data', 'banner', 'user', 'customer'));
+          
+            return view('web.profile', compact('customer', 'customerAddresses', 
+                  'seo_data',  'user', 'customer'));
         } else {
             abort(403, 'You are not authorised');
         }
     }
-
+    // public function account()
+    // {
+    //     if (Auth::guard('customer')->check()) {
+    //         $seo_data = $this->seo_content('My-Account');
+    //         $user = Auth::guard('customer')->user();
+    //         $customer = $user->customer;
+    //         $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
+    
+    //         return view('livewire.profile-updater', compact('customer', 'customerAddresses', 'seo_data', 'user'));
+    //     } else {
+    //         abort(403, 'You are not authorised');
+    //     }
+    // }
+    
    
     public function update_profile(Request $request)
     {

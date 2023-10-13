@@ -38,17 +38,13 @@
                         <div class="row justify-content-between align-items-center">
                             <div class="col-xl-5 col-lg-6 aboutus_left">
                                 <h2 data-aos="fade-down" data-aos-duration="1000">About Us</h2>
-                                <p data-aos="fade-up" data-aos-duration="1000">At the Emirati Society of Anesthesiology, We aim to bring together all healthcare practitioners involved in 
-                                    conducting clinical Anesthesiology throughout the United Arab Emirates to promote a culture of collaborative 
-                                    work that would enhance the quality of patient care. We aim to promote education,  research, and evidence-based 
-                                    practice to benefit our patients and members by sharing knowledge and expertise during our scientific meetings
-                                     and through the publication of our high-quality, peer-reviewed scientific journal that will also celebrate the 
-                                     legacy and historical achievements of our local pioneers in the field of clinical Anesthesiology.  
+                                <p data-aos="fade-up" data-aos-duration="1000">{!! $about->description !!} 
                                 </p>
                             </div>
                             <div class="col-xl-5 col-lg-5 aboutus_right">
-                                <img class="about-img1" data-aos="fade-down" data-aos-duration="1000" src="{{asset('frontend/images/about1.png')}}"/>
-                                <img class="about-img2" data-aos="fade-up" data-aos-duration="1000" src="{{asset('frontend/images/about2.png')}}"/>
+                            <img class="about-img1" data-aos="fade-down" data-aos-duration="1000" src="{{$about->image}}" />
+
+                                <img class="about-img2" data-aos="fade-up" data-aos-duration="1000" src="{{$about->banner_image}}"/>
                             </div>
                         </div>
                     </div>
@@ -62,20 +58,18 @@
                 </div>
                 <div class="col-lg-6 whor_we_desc">
                     <h2 data-aos="fade-down" data-aos-duration="1000">WHO ARE WE?</h2>
-                    <p data-aos="fade-up" data-aos-duration="1000">A multidisciplinary, diverse group of multinational talented healthcare practitioners directly involved in
-                    conducting clinical Anesthesiology throughout the United Arab Emirates, including Physician anesthesiologists, 
-                    anesthesia technologists, and anesthesia nurses. Our focus is to deliver the best person-centered, evidence-based
-                    healthcare, guide the next generations of anesthesiology practitioners, and engage in academic and research 
-                    activities to shape the future of our specialitiy in the  United Arab Emirates and beyond. 
+                    <p data-aos="fade-up" data-aos-duration="1000">{!! $who->description !!}
                     </p>
                     <div class="col-12 whor_we_founder">
                         <div class="d-sm-flex justify-content-start align-items-center">
                             <div class="founder_icon_left" data-aos="fade-right" data-aos-duration="1000">
-                                <img class="about-img1" src="{{asset('frontend/images/founder.png')}}"/>
+                                <!-- <img class="about-img1" src="{{asset('frontend/images/founder.png')}}"/> -->
+                                {!! Helper::printImage($who, 'banner_image','banner_image_webp','image_attribute', 'img-fluid') !!}
+                               
                             </div>
                             <div class="founder_icon_right" data-aos="fade-left" data-aos-duration="1000">
-                                <h4>Dr Mhamad Ghiyath Al Hashimi <br> Consultant Anesthesiologist  </h4>
-                                <p>Founder, General Secretary, and <br> Editor in Chief of Society Journal </p>
+                                <h4>{!! $who->subtitle !!}  </h4>
+                                <p>{!! $who->alternative_description !!} </p>
                             </div>
                         </div>
                     </div>
@@ -85,49 +79,42 @@
         <section class="col-12 honary_members">
             <div class="container">
                 <h2 class="text-center" data-aos="fade-up" data-aos-duration="1000">Honorary Members</h2>
-                <div class="col-12 honorary_abudhabi">
-                    <div class="col-12">
-                        <h3 class="honorary-sub-head" data-aos="fade-up" data-aos-duration="1000">Abu Dhabi</h3>
-                    </div> 
-                    <div class="row member_grid_wraper">
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="member_grid p-0">
-                                <div class="member_img">
-                                    <img src="{{asset('frontend/images/honorary-avatar-male.png')}}" />
-                                </div>
-                                <div class="member_summery">
-                                    <h4>Dr. Awadh Ali Ahmed 
-                                        Almuqadam Almahri</h4>
-                                    <p>Consultant Anaesthesiologist</p>
-                                </div>
+                @php
+    $categories = \App\Models\Category::active()->whereNull('parent_id')->get();
+@endphp
+
+@foreach($categories as $category)
+    <div class="col-12 honorary_abudhabi">
+        <div class="col-12">
+            <h3 class="honorary-sub-head" data-aos="fade-up" data-aos-duration="1000">{{ $category->title }}</h3>
+        </div> 
+
+         @php
+            $aboutFeaturesForCategory = $aboutFeatures->where('category_id', $category->id);
+           
+        @endphp 
+
+        @if($aboutFeaturesForCategory->isNotEmpty()) 
+            <div class="row member_grid_wraper">
+                @foreach($aboutFeaturesForCategory as $aboutFeature)
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="member_grid p-0">
+                            <div class="member_img">
+                                <img src="{{$aboutFeature->image}}" />
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="member_grid p-0">
-                                <div class="member_img">
-                                    <img src="{{asset('frontend/images/Dr-Abdelaziz-Eisa-Abdullah-Masoud-AlKalbani.png')}}"/>
-                                </div>
-                                <div class="member_summery">
-                                    <h4>Dr. Abdelaziz Eisa Abdullah Masoud AlKalbani</h4>
-                                    <p>Consultant Anesthesiologist <br>
-                                        (Co-Founder of Society)</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
-                            <div class="member_grid p-0">
-                                <div class="member_img">
-                                    <img src="{{asset('frontend/images/honorary-avatar-male.png')}}" />
-                                </div>
-                                <div class="member_summery">
-                                    <h4>Dr. Aaref Obaid Mohamed M. A. Al Kabi</h4>
-                                    <p>Consultant Anesthesiologist</p>
-                                </div>
+                            <div class="member_summery">
+                                <h4>{{ $aboutFeature->title }}</h4>
+                                <p>{!!$aboutFeature->description !!}</p>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 honorary_dubai">
+                 @endforeach 
+            </div>
+         @endif 
+    </div>
+@endforeach
+
+                <!-- <div class="col-12 honorary_dubai">
                     <div class="col-12">
                         <h3 class="honorary-sub-head" data-aos="fade-up" data-aos-duration="1000">Dubai</h3>
                     </div> 
@@ -169,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
         <section class="col-12 vision_mision">

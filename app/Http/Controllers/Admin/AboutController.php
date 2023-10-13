@@ -7,6 +7,9 @@ use App\Http\Helpers\Helper;
 use App\Models\About;
 use App\Models\AboutFeature;
 use App\Models\History;
+use App\Models\WhoWeAre;
+use App\Models\Category;
+
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +33,58 @@ class AboutController extends Controller
         $about = About::first();
         return view('Admin.about.form', compact('key', 'title', 'about'));
     }
+    public function who_we_are()
+    {
+        $key =     "Update";
+        $title = "who We are";
+        $about = WhoWeAre::first();
+        return view('Admin.about.who.form', compact('key', 'title', 'about'));
+    }
+    public function who_store(Request $request)
+    {
+  
+        $validatedData = $request->validate([
+            'title' => 'required|min:2|max:255',
+            'subtitle' => 'required|min:2|max:255',
+            'description' => 'required',
+             'alternative_description' => 'required',
+        ]);
+        if ($request->id == 0) {
+            $about = new WhoWeAre;
+        } else {
+            $about = WhoWeAre::find($request->id);
+            $about->updated_at = now();
+        }
+        if ($request->hasFile('image')) {
+            Helper::deleteFile($about, 'image');
+            Helper::deleteFile($about, 'image_webp');
+
+            $about->image_webp = Helper::uploadWebpImage($request->image, 'uploads/image/webp/', $request->title);
+            $about->image = Helper::uploadFile($request->image, 'uploads/image/', $request->title);
+        }
+        if ($request->hasFile('banner_image')) {
+            Helper::deleteFile($about, 'banner_image');
+            Helper::deleteFile($about, 'banner_image_webp');
+
+            $about->banner_image_webp = Helper::uploadWebpImage($request->banner_image, 'uploads/image/webp/', $request->title);
+            $about->banner_image = Helper::uploadFile($request->banner_image, 'uploads/image/', $request->title);
+        }
+
+        
+        $about->title = $validatedData['title'];
+        $about->subtitle = $validatedData['subtitle'];
+        $about->description = $validatedData['description'];
+         $about->alternative_description = $validatedData['alternative_description'];
+        $about->image_attribute = $request->image_attribute ?? '';
+        
+        if ($about->save()) {
+            session()->flash('success', 'About details has been updated successfully');
+            return redirect(Helper::sitePrefix() . 'about/who-we-are');
+        } else {
+            return back()->with('error', 'Error while updating the About details');
+        }
+    }
+
 
     public function about_store(Request $request)
     {
@@ -38,6 +93,7 @@ class AboutController extends Controller
             'title' => 'required|min:2|max:255',
             'subtitle' => 'required|min:2|max:255',
             'description' => 'required',
+          
             // 'alternative_description' => 'required',
         ]);
         if ($request->id == 0) {
@@ -114,7 +170,8 @@ class AboutController extends Controller
     {
         $about = "Create";
         $title = "Create About Feature";
-        return view('Admin.about.feature.form', compact('about', 'title'));
+        $categories = Category::active()->whereNull('parent_id')->get();
+        return view('Admin.about.feature.form', compact('about', 'title','categories'));
     }
 
     public function feature_store(Request $request)
@@ -122,12 +179,19 @@ class AboutController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
             'image' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
         ]);
+        
         $aboutFeature = new AboutFeature;
         if ($request->hasFile('image')) {
             $aboutFeature->image = Helper::uploadFile($request->image, 'uploads/about/feature/', $request->title);
         }
         $aboutFeature->title = $validatedData['title'];
+        $aboutFeature->description = $validatedData['description'];
+        $aboutFeature->category_id = $validatedData['category_id'];
+
+
         $sort_order = AboutFeature::latest('sort_order')->first();
         if ($sort_order) {
             $sort_number = ($sort_order->sort_order + 1);
@@ -140,7 +204,7 @@ class AboutController extends Controller
         }
         if ($aboutFeature->save()) {
             session()->flash('success', "About Feature '" . $request->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'about/feature');
+            return redirect(Helper::sitePrefix() . 'about/honarary');
         } else {
             return back()->with('error', 'Error while creating the about Feature');
         }
@@ -150,9 +214,10 @@ class AboutController extends Controller
     {
         $about = "Update";
         $title = "Update About Feature";
+        $categories = Category::active()->whereNull('parent_id')->get();
         $aboutFeature = AboutFeature::find($id);
         if ($aboutFeature) {
-            return view('Admin.about.feature.form', compact('about', 'aboutFeature', 'title'));
+            return view('Admin.about.feature.form', compact('about', 'aboutFeature', 'title','categories'));
         } else {
             return view('Admin.error.404');
         }
@@ -163,17 +228,23 @@ class AboutController extends Controller
         $aboutFeature = AboutFeature::find($id);
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
-            // 'image' => 'required',
+            //  'image' => 'required',
+             'description' => 'required',
+             'category_id' => 'required',
+             
         ]);
         if ($request->hasFile('image')) {
             Helper::deleteFile($aboutFeature, 'image');
             $aboutFeature->image = Helper::uploadFile($request->image, 'uploads/about/feature/', $request->title);
         }
         $aboutFeature->title = $validatedData['title'];
+        $aboutFeature->description = $validatedData['description'];
+        $aboutFeature->category_id = $validatedData['category_id'];
+
         $aboutFeature->updated_at = now();
         if ($aboutFeature->save()) {
             session()->flash('success', "About Feature'" . $request->title . "' has been updated successfully");
-            return redirect(Helper::sitePrefix() . 'about/feature');
+            return redirect(Helper::sitePrefix() . 'about/honarary');
         } else {
             return back()->with('error', 'Error while updating the About Feature');
         }

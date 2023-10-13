@@ -44,10 +44,10 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
-            'short_url' => 'required|unique:categories,short_url,NULL,id,deleted_at,NULL',
-            'icon' => 'image|mimes:png|max:512',
-            'image' => 'image|mimes:jpeg,png,jpg|max:512',
-            'image_attribute' => 'required',
+            // 'short_url' => 'required|unique:categories,short_url,NULL,id,deleted_at,NULL',
+            // 'icon' => 'image|mimes:png|max:512',
+            // 'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            // 'image_attribute' => 'required',
         ]);
         $category = new Category;
         if ($request->hasFile('icon')) {
@@ -67,46 +67,46 @@ class CategoryController extends Controller
             $category->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/category/mobile_banner/', $request->short_url);
         }
         $category->title = $validatedData['title'];
-        $category->short_url = $validatedData['short_url'];
-        $category->parent_id = null;
-        $category->image_attribute = $request->image_attribute ?? '';
-        $category->banner_attribute = $request->banner_attribute ?? '';
-        $category->banner_title = $request->banner_title ?? '';
-        $category->banner_sub_title = $request->banner_sub_title ?? '';
-        $meta_title =  $category->meta_title = $request->meta_title ?? '';
-        $meta_description = $category->meta_description = $request->meta_description ?? '';
-        $meta_keyword=  $category->meta_keyword = $request->meta_keyword ?? '';
-        $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
-        if($meta_title==''){
-            $category->meta_title = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->meta_title = $request->meta_title ?? '';
-         }
-         if($meta_description==''){
-            $category->meta_description = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->meta_description = $request->meta_description ?? '';
-         }
-         if($meta_keyword==''){
-            $category->meta_keyword = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->meta_keyword = $request->meta_keyword ?? '';
-         }
-         if($other_meta_tag==''){
-            $category->other_meta_tag = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->other_meta_tag = $request->other_meta_tag ?? '';
-         }
+        // $category->short_url = $validatedData['short_url'];
+        // $category->parent_id = null;
+        // $category->image_attribute = $request->image_attribute ?? '';
+        // $category->banner_attribute = $request->banner_attribute ?? '';
+        // $category->banner_title = $request->banner_title ?? '';
+        // $category->banner_sub_title = $request->banner_sub_title ?? '';
+        // $meta_title =  $category->meta_title = $request->meta_title ?? '';
+        // $meta_description = $category->meta_description = $request->meta_description ?? '';
+        // $meta_keyword=  $category->meta_keyword = $request->meta_keyword ?? '';
+        // $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
+        // if($meta_title==''){
+        //     $category->meta_title = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->meta_title = $request->meta_title ?? '';
+        //  }
+        //  if($meta_description==''){
+        //     $category->meta_description = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->meta_description = $request->meta_description ?? '';
+        //  }
+        //  if($meta_keyword==''){
+        //     $category->meta_keyword = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->meta_keyword = $request->meta_keyword ?? '';
+        //  }
+        //  if($other_meta_tag==''){
+        //     $category->other_meta_tag = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->other_meta_tag = $request->other_meta_tag ?? '';
+        //  }
 
 
 
         if ($category->save()) {
             session()->flash('message', "Category '" . $category->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/category');
+            return redirect(Helper::sitePrefix() . 'about/category');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the content");
         }
@@ -132,10 +132,10 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $validatedData = $request->validate([
             'title' => 'required|min:2|max:255',
-            'short_url' => 'required|unique:categories,short_url,' . $id,
-            'icon' => 'image|mimes:png|max:512',
-            'image' => 'image|mimes:jpeg,png,jpg|max:512',
-            'image_attribute' => 'required',
+            // 'short_url' => 'required|unique:categories,short_url,' . $id,
+            // 'icon' => 'image|mimes:png|max:512',
+            // 'image' => 'image|mimes:jpeg,png,jpg|max:512',
+            // 'image_attribute' => 'required',
         ]);
         if ($request->hasFile('icon')) {
             if (File::exists(public_path($category->icon))) {
@@ -178,46 +178,46 @@ class CategoryController extends Controller
             $category->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/category/mobile_banner/', $request->short_url);
         }
         $category->title = $validatedData['title'];
-        $category->short_url = $validatedData['short_url'];
-        $category->parent_id = null;
-        $category->image_attribute = $request->image_attribute ?? '';
-        $category->banner_attribute = $request->banner_attribute ?? '';
-        $category->banner_title = $request->banner_title ?? '';
-        $category->banner_sub_title = $request->banner_sub_title ?? '';
-        $meta_title =  $category->meta_title = $request->meta_title ?? '';
-        $meta_description =  $category->meta_description = $request->meta_description ?? '';
-        $meta_keyword = $category->meta_keyword = $request->meta_keyword ?? '';
-        $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
-        $category->updated_at = now();
+        // $category->short_url = $validatedData['short_url'];
+        // $category->parent_id = null;
+        // $category->image_attribute = $request->image_attribute ?? '';
+        // $category->banner_attribute = $request->banner_attribute ?? '';
+        // $category->banner_title = $request->banner_title ?? '';
+        // $category->banner_sub_title = $request->banner_sub_title ?? '';
+        // $meta_title =  $category->meta_title = $request->meta_title ?? '';
+        // $meta_description =  $category->meta_description = $request->meta_description ?? '';
+        // $meta_keyword = $category->meta_keyword = $request->meta_keyword ?? '';
+        // $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
+        // $category->updated_at = now();
 
-        if($meta_title==''){
-            $category->meta_title = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->meta_title = $request->meta_title ?? '';
-         }
-         if($meta_description==''){
-            $category->meta_description = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->meta_description = $request->meta_description ?? '';
-         }
-         if($meta_keyword==''){
-            $category->meta_keyword = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->meta_keyword = $request->meta_keyword ?? '';
-         }
-         if($other_meta_tag==''){
-            $category->other_meta_tag = strtoupper($validatedData['title']) ;
-         }
-         else{
-            $category->other_meta_tag = $request->other_meta_tag ?? '';
-         }
+        // if($meta_title==''){
+        //     $category->meta_title = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->meta_title = $request->meta_title ?? '';
+        //  }
+        //  if($meta_description==''){
+        //     $category->meta_description = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->meta_description = $request->meta_description ?? '';
+        //  }
+        //  if($meta_keyword==''){
+        //     $category->meta_keyword = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->meta_keyword = $request->meta_keyword ?? '';
+        //  }
+        //  if($other_meta_tag==''){
+        //     $category->other_meta_tag = strtoupper($validatedData['title']) ;
+        //  }
+        //  else{
+        //     $category->other_meta_tag = $request->other_meta_tag ?? '';
+        //  }
 
         if ($category->save()) {
             session()->flash('message', "Category '" . $category->title . "' has been updated successfully");
-            return redirect(Helper::sitePrefix() . 'product/category');
+            return redirect(Helper::sitePrefix() . 'about/category');
         } else {
             return back()->withInput($request->input())->withErrors("Error while updating the content");
         }

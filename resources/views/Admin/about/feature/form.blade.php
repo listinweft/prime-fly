@@ -55,17 +55,50 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="number"> Number*</label>
-                                    <input type="number" class="form-control required" min="0"
-                                           id="number" name="number" placeholder="Number"
-                                           value="{{ isset($aboutFeature)?$aboutFeature->number:'' }}">
-                                    <div class="help-block with-errors" id="number_error"></div>
-                                    @error('number')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description*</label>
+                                    <textarea class="form-control tinyeditor required reset" id="description"
+                                              name="description">{!! isset($aboutFeature)?$aboutFeature->description:'' !!}</textarea>
+                                    <div class="help-block with-errors" id="description_error"></div>
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label> Category*</label>
+                                                                        <select class="form-control select2 productGetDrop" name="category_id" id="category_id">
+                                        <option value="">Select Option</option>
+                                        @foreach($categories as $cat)
+                                            <option value="{{$cat->id}}" {{ $aboutFeature->category_id == $cat->id ? 'selected' : '' }}>
+                                                {{$cat->title}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    <div class="help-block with-errors" id="category_id_error"></div>
+                                </div>
+                               
                             </div>
+                            <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Image*</label>
+                                        <div class="file-loading">
+                                            <input id="image" name="image" type="file">
+                                        </div>
+                                        <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
+                                        @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    
+                                         <div class="form-group col-md-6">
+                                        <label> Image Attribute</label>
+                                        <input type="text" class="form-control placeholder-cls" id="image_attribute"
+                                               name="image_attribute" placeholder="Alt='Banner Attribute'"
+                                               value="{{ isset($blog)?$blog->image_attribute:'' }}">
+                                        @error('image_attribute')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
@@ -79,4 +112,41 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                minImageWidth: 359,
+                
+                minImageHeight: 288,
+                maxImageWidth: 359,
+                maxImageHeight: 288,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($aboutFeature) && $aboutFeature->image!=NULL)
+                initialPreview: ["{{asset($aboutFeature->image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$aboutFeature->image))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+          
+
+           
+
+           
+
+        });
+    </script>
+
 @endsection

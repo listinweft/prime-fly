@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('replies', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('comment_id');
-            $table->text('content');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
-
-            
+        Schema::table('who_we_ares', function (Blueprint $table) {
+            $table->longText('alternative_description')->nullable()->after('description');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('replies');
+        Schema::table('who_we_ares', function (Blueprint $table) {
+            $table->dropColumn('alternative_description');
+        });
     }
 };

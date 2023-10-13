@@ -18,10 +18,13 @@
                         <!-- <a href="#0" class="common-btn mt-4 d-sm-none">Log In</a> -->
 
                         @if(Auth::guard('customer')->check())
+                        <a href="#0">
                         <div class="user-login-box mt-4 d-sm-none">
                             <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
                             <div class="user-login-name">Grace Kelly</div>
                         </div>
+                        </a>
+                        
                         <a href="{{ url('logout') }}" class="common-btn mt-4 d-sm-none">Log Out</a>
                         <!-- User is logged in, display logout button -->
                         
@@ -40,10 +43,14 @@
 
                         @if(Auth::guard('customer')->check())
                         <!-- <a href="{{ url('logout') }}" class="common-btn d-none d-sm-block">Log Out</a> -->
+                        <a href="{{ route('customer.account') }}">
+
                         <div class="user-login-box d-none d-sm-block">
                             <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
                             <div class="user-login-name">Grace Kelly</div>
                         </div>
+                        </a>
+                        
                         <!-- User is logged in, display logout button -->
                         
                             @else

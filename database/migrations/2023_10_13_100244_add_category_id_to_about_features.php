@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('replies', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('about_features', function (Blueprint $table) {
+            $table->unsignedBigInteger('category_id')->nullable()->after('description');
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('replies');
+        Schema::table('about_features', function (Blueprint $table) {
+            $table->dropColumn('category_id');
+        });
     }
 };

@@ -538,6 +538,61 @@ img{
     border-bottom: 1px solid #A9A9A9;;
 
 }
+.editable {
+    position: relative; 
+    transition: all 0.3s linear;
+}
+.user-profile input{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+    font-family: 'Inter', sans-serif;
+    border:0;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+    transition: all 0.3s linear;
+}
+.profilename input{
+    color: #7d7d7d;
+    font-size: 18px;
+    font-weight: 700;
+}
+.profile_designation input{
+    color: #8d8a8a;
+    font-size: 14px;
+    font-weight: 400;
+}
+.user-credentials input{
+    color: #514f50;
+    font-size: 17px;
+    font-weight: 300;
+}
+.user-profile textarea{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 1;
+    font-family: 'Inter', sans-serif;
+}
+.user-profile-details textarea{
+    color: #919191;
+    font-size: 12px;
+    font-weight: 400; 
+    border:0;
+    border-bottom: 1px solid #f1eeee;
+}
+.user-prof-btn{
+    margin-top: 20px;
+    display: none;
+}
+.user-prof-btn .common-btn{
+    padding: 5px 24px;
+    margin: 0 5px;
+}
+.user-prof-btn .common-btn.cancel-btn{
+    background: #5f5f5f;
+}
 /* ********************* Responsive ********************* */
 @media (min-width:1600px) {
     .container{

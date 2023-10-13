@@ -183,7 +183,7 @@ Route::middleware(['web'])->group(function () {
 
 /******************************** Customer Routes ************************************/
 Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function () {
-    Route::get('account/{tab}', [CustomerWebController::class, 'account']);
+    Route::get('account/', [CustomerWebController::class, 'account'])->name('customer.account');;
     Route::post('update-profile', [CustomerWebController::class, 'update_profile']);
     Route::post('change-password', [CustomerWebController::class, 'change_password_store']);
     Route::post('profile-image', [CustomerWebController::class, 'profile_image_upload']);
@@ -248,13 +248,26 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/', [AboutController::class, 'about']);
         Route::post('/', [AboutController::class, 'about_store']);
 
-        Route::prefix('feature')->group(function () {
+        Route::prefix('honarary')->group(function () {
             Route::get('/', [AboutController::class, 'feature']);
             Route::get('create', [AboutController::class, 'feature_create']);
             Route::post('create', [AboutController::class, 'feature_store']);
             Route::get('edit/{id}', [AboutController::class, 'feature_edit']);
             Route::post('edit/{id}', [AboutController::class, 'feature_update']);
             Route::post('delete', [AboutController::class, 'delete_feature']);
+        });
+        Route::prefix('who-we-are')->group(function () {
+            Route::get('/', [AboutController::class, 'who_we_are']);
+            Route::post('/', [AboutController::class, 'who_store']);
+           
+        });
+        Route::prefix('category')->group(function () {
+            Route::get('/', [CategoryController::class, 'category_list']);
+            Route::get('create', [CategoryController::class, 'category_create']);
+            Route::post('create', [CategoryController::class, 'category_store']);
+            Route::get('edit/{id}', [CategoryController::class, 'category_edit']);
+            Route::post('edit/{id}', [CategoryController::class, 'category_update']);
+            Route::post('delete', [CategoryController::class, 'delete_category']);
         });
     });
 

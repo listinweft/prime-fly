@@ -178,22 +178,36 @@
         <i class="nav-icon fas fa-th-list"></i>
         <p>About</p>
     </a>
-    {{-- <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='about')?'block':'none' }}"> --}}
-        {{-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'about')}}"
-               class="nav-link {{ (Request::segment(2)=='about' && Request::is(Helper::sitePrefix().'about'))?'active':'' }}">
+ <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='about')?'block':'none' }}"> 
+    <!-- <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'about/who-we-are')}}"
+               class="nav-link {{ (Request::segment(3)=='who-we-are' && Request::is(Helper::sitePrefix().'who-we-are'))?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Who We Are</p>
             </a>
-        </li> --}}
-        {{--        <li class="nav-item">--}}
-        {{--            <a href="{{url(Helper::sitePrefix().'about/feature')}}"--}}
-        {{--               class="nav-link {{ (Request::segment(3)=='feature')?'active':'' }}">--}}
-        {{--                <i class="far fa-circle nav-icon"></i>--}}
-        {{--                <p>About Feature</p>--}}
-        {{--            </a>--}}
-        {{--        </li>--}}
-    {{-- </ul> --}}
+        </li>  -->
+               <li class="nav-item">
+                  <a href="{{url(Helper::sitePrefix().'about/who-we-are')}}"
+                 class="nav-link {{ (Request::segment(3)=='who-we-are')?'active':'' }}">
+                     <i class="far fa-circle nav-icon"></i>
+                   <p>Who We Are</p>
+                   </a>
+               </li>
+               <li class="nav-item">
+                  <a href="{{url(Helper::sitePrefix().'about/category')}}"
+                 class="nav-link {{ (Request::segment(3)=='category')?'active':'' }}">
+                     <i class="far fa-circle nav-icon"></i>
+                   <p>category</p>
+                   </a>
+               </li>
+               <li class="nav-item">
+                  <a href="{{url(Helper::sitePrefix().'about/honarary')}}"
+                 class="nav-link {{ (Request::segment(3)=='honarary')?'active':'' }}">
+                     <i class="far fa-circle nav-icon"></i>
+                   <p>honorary Mmbers</p>
+                   </a>
+               </li>
+     </ul> 
 </li>
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'contact')}}"
