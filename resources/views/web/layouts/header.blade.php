@@ -5,10 +5,14 @@
                
                     <ul class="menu-container d-lg-flex justify-content-between liststyle-none mb-0 p-0">
                         <li><a href="{{ url('about') }}">About Us</a></li>
+                        @if(Auth::guard('customer')->check())
                         <li><a href="{{ url('journals') }}">Journals</a></li>
+                        @endif
                         <li><a href="{{ url('events') }}">Events</a></li>
                         <li><a href="{{ url('faq') }}">FAQ</a></li>
+                        @if(Auth::guard('customer')->check())
                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
+                        @endif
                         <li><a href="{{ url('contact') }}">Contact Us</a></li>
 
                         <!-- <a href="#0" class="common-btn mt-4 d-sm-none">Log In</a> -->
