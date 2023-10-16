@@ -22,6 +22,7 @@ class ProfileUpdater extends Component
 
     public function updateProfile()
     {
+        
         $request = request();
         $user = Auth::guard('customer')->user();
         $customer = $user->customer;
@@ -51,6 +52,30 @@ class ProfileUpdater extends Component
             session()->flash('error', 'Error while updating the profile, Please try after sometime');
         }
     }
+
+    public function save()
+{
+    // Validate the data
+    $this->validate([
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'phone_number' => 'required|numeric',
+    ]);
+
+    // Update the user's profile
+    $user = Auth::guard('customer')->user();
+    $customer = $user->customer;
+
+    $customer->first_name = $this->first_name;
+    $customer->last_name = $this->last_name;
+    $customer->save();
+
+    $user->phone = $this->phone_number;
+    $user->save();
+
+    // Optionally show a success message
+    session()->flash('success', 'Profile has been updated successfully');
+}
 
     public function render()
     {

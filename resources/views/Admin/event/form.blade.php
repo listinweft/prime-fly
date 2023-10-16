@@ -198,8 +198,8 @@
                 allowedFileTypes: ['image'],
                 minImageWidth: 458,
                 minImageHeight: 320,
-                maxImageWidth: 458,
-                maxImageHeight: 320,
+                // maxImageWidth: 458,
+                // maxImageHeight: 320,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($event) && $event->image!=NULL)

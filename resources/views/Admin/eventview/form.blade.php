@@ -283,8 +283,8 @@
                 allowedFileTypes: ['image'],
                 minImageWidth: 443,
                 minImageHeight: 271,
-                maxImageWidth: 443,
-                maxImageHeight: 271,
+                // maxImageWidth: 443,
+                // maxImageHeight: 271,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->image!=NULL)

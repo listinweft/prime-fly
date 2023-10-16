@@ -183,8 +183,8 @@ Route::middleware(['web'])->group(function () {
 
 /******************************** Customer Routes ************************************/
 Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function () {
-    Route::get('account/', [CustomerWebController::class, 'account'])->name('customer.account');;
-    Route::post('update-profile', [CustomerWebController::class, 'update_profile']);
+    Route::get('account/', [CustomerWebController::class, 'account'])->name('customer.account');
+    Route::post('update-profile', [CustomerWebController::class, 'update_profile'])->name('update.profile');
     Route::post('change-password', [CustomerWebController::class, 'change_password_store']);
     Route::post('profile-image', [CustomerWebController::class, 'profile_image_upload']);
 

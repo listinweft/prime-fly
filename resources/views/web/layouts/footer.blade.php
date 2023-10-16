@@ -15,9 +15,14 @@
                                 <div class="footer-links">
                                     <ul>
                                         <li><a href="{{ url('/') }}">Home</a></li>
+                                        @if(Auth::guard('customer')->check())
                                         <li><a href="{{ url('journals') }}">Journals</a></li>
+                                        @endif
+                                        @if(Auth::guard('customer')->check())
                                         <li><a href="{{ url('events') }}">Events</a></li>
+                                        @endif
                                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
+                                       
                                     </ul>
                                 </div>
                                 <div class="news-letter-wraper">
@@ -38,7 +43,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="validation-msg">Please enter valid email</div>
+                                    <!-- <div class="validation-msg">Please enter valid email</div> -->
                                 </div>
                             </div>
                         </div>
@@ -121,8 +126,8 @@
                         <div class="col-xl-4 col-md-6">
                             <ul class="credit-links">
                                 <li><a href="#0">Support</a></li>
-                                <li><a href="#0">Terms & Conditions</a></li>
-                                <li><a href="#0">Privacy Policy</a></li>
+                                <li><a href="{{ url('terms-and-conditions') }}">Terms & Conditions</a></li>
+                                <li><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
                             </ul>
                         </div>
                     </div>

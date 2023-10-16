@@ -2,12 +2,12 @@
 <div class="user-profile sticky-top">
                         <div class="user-profile-icon"><img src="{{ asset('frontend/images/user-profile.png')}}" alt="" srcset=""></div>
                         <div class="user-profile-details">
-                            <h4 class="editable profilename" wire:model="name">Grace Kelly</h4>
+                            <h4 class="editable profilename">Grace Kelly</h4>
                             <h6 class="editable profile_designation"  wire:model="designation">Certified Anesthesia Technologist <span class="profile_edit_icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path d="M6.81511 2.37012H2.29225C1.94952 2.37012 1.62083 2.50626 1.37849 2.74861C1.13615 2.99095 1 3.31964 1 3.66236V12.7081C1 13.0508 1.13615 13.3795 1.37849 13.6219C1.62083 13.8642 1.94952 14.0003 2.29225 14.0003H11.338C11.6807 14.0003 12.0094 13.8642 12.2517 13.6219C12.4941 13.3795 12.6302 13.0508 12.6302 12.7081V8.18523" stroke="#7A7777" stroke-width="1.04007" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M11.6613 1.40145C11.9183 1.14441 12.2669 1 12.6304 1C12.994 1 13.3426 1.14441 13.5996 1.40145C13.8567 1.65849 14.0011 2.00712 14.0011 2.37064C14.0011 2.73415 13.8567 3.08278 13.5996 3.33982L7.46145 9.47799L4.87695 10.1241L5.52308 7.53962L11.6613 1.40145Z" stroke="#7A7777" stroke-width="1.04007" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg></span></h6>
-                            <p class="editable profile_desc" wire:model="description"> Id volutpat aliquet eget sollicitudin enim. Sed auctor viverra vehicula leo. Vulputate feugiat volutpat metus vitae laoreet sed felis. Ut metus amet lectus lectus habitant purus ipsum</p>
+                            <p class="editable profile_desc"> Id volutpat aliquet eget sollicitudin enim. Sed auctor viverra vehicula leo. Vulputate feugiat volutpat metus vitae laoreet sed felis. Ut metus amet lectus lectus habitant purus ipsum</p>
                         </div>
                         <div class="user-activity-count">
                             <ul>

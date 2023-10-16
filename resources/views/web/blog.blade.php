@@ -99,6 +99,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(Auth::guard('customer')->check())
                             <div class="comment-wraper">
                                 <div class="comment-form">
                                                                 <form action="{{ route('comments.store') }}" method="post">
@@ -284,7 +285,7 @@
                                                 </div>
                                             </section>
 
-       
+       @endif
             <section class="related-blogs">
             @if($recentBlogs->isNotEmpty())
                 <div class="container">

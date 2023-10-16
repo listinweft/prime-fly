@@ -511,7 +511,7 @@
                 <div class="col-12 text-center section_head">
                     <h2 class="mb-2" data-aos="fade-down" data-aos-duration="500">EMIRATI JOURNAL OF <br> ANESTHESIOLOGY</h2>
                     <p data-aos="fade-down" data-aos-duration="800">The Journal of the Emirati Society of Anesthesiology</p>
-                    <a href="{{ url('about') }}" class="common-btn" data-aos="fade-down" data-aos-duration="1000">Know more</a>
+                    <a href="{{ url('journals') }}" class="common-btn" data-aos="fade-down" data-aos-duration="1000">Know more</a>
                 </div>
             </div>
             @if($journals->isNotEmpty())
@@ -526,7 +526,9 @@
                         <p>{!! strlen($journal->description) > 100  ? substr($journal->description, 0, 100) . '...' : $journal->description !!}</p>
                     </div>
                     <div class="journal-grid-logo">
+                    @if(Auth::guard('customer')->check())
                         <a href="">Read More</a>
+                        @endif
                         <div class="journal-botm-logo mt-4">
                         {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}
                         </div>
@@ -537,6 +539,7 @@
 
             @endif
         </section>
+        @if(Auth::guard('customer')->check())
         @if($events->isNotEmpty())
         <section class="col-12 home_event">
             <div class="container"> 
@@ -597,7 +600,7 @@
             </div>
         </section> 
         @endif
-
+      @endif
         @if($blogs->isNotEmpty())
 
        

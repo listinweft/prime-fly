@@ -73,21 +73,24 @@ class CustomerController extends Controller
    
     public function update_profile(Request $request)
     {
-        
+       
+
         if (Auth::guard('customer')->check()) {
             $user = Auth::guard('customer')->user();
             $customer = $user->customer;
-            $request->validate([
-                // 'first_name' => 'required|string|min:2|max:30',
-                'first_name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:customers,first_name,'.$customer->id,
+//             $request->validate([
+//                 // 'first_name' => 'required|string|min:2|max:30',
+//                 'first_name' => 'required|max:255|unique:customers,first_name,'.$customer->id,
                
-                'last_name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:customers,last_name,'.$customer->id,
-//                'username' => 'required|min:2|max:60|unique:users,username,' . $user->id,
-                'phone_number' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20|unique:users,phone,' . $user->id,
-            ]);
+//                 // 'last_name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:customers,last_name,'.$customer->id,
+// //                'username' => 'required|min:2|max:60|unique:users,username,' . $user->id,
+//                 'phone_number' => 'required|min:7|max:20|unique:users,phone,' . $user->id,
+//             ]);
             DB::beginTransaction();
             $customer->first_name = $request->first_name;
-            $customer->last_name = $request->last_name;
+            $customer->designation = $request->designation;
+            $customer->description = $request->description;
+            // $customer->last_name = $request->last_name;
             $customer->updated_at = now();
             if ($customer->save()) {
                 $user->phone = $request->phone_number;
