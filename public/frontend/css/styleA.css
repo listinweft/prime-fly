@@ -89,6 +89,9 @@ form{
 .form-control:focus{
     box-shadow: none;
 }
+.common-btn{
+    border: none;
+}
 
 /*----------------- common style end -----------------------*/
 
@@ -1397,7 +1400,10 @@ form{
 }
 .empty-post svg{
     height: auto;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
+}
+.empty-post-icon-relation{
+    margin-bottom: 30px;  
 }
 .empty-post p{
     color: #616161;
@@ -2110,4 +2116,27 @@ form{
 .is-user-login.active{
     max-height: 100px;
     visibility: visible;
+}
+
+.empty-post-icon-relation{
+    position: relative;
+}
+.empty-post-field{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+.empty-post-field input{
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+.empty-post-icon{
+    position: relative;
+    z-index: 0;
 }

@@ -227,10 +227,10 @@
                         </div>
                         <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                             <div class="our-team-item">
-                                <div class="our-team-item-image"><img src="{{asset('frontend/images/team/team-3.jpg')}}" alt=""></div>
+                                <div class="our-team-item-image"><img src="{{asset('frontend/images/team/team-5.jpg')}}" alt=""></div>
                                 <div class="our-team-item-content">
-                                    <h6>Dr Shebeen Hamza</h6>
-                                    <p> Editor EJoAn </p>
+                                    <h6>Dr Awadh Ali Ahmed Almugadam Almahri</h6>
+                                    <p> Honorary Chair </p>
                                 </div>
                             </div>
                         </div>
