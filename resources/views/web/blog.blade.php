@@ -18,7 +18,7 @@
                         <div class="blog-content-area">
                             <h1 class="single-blog-title">{{ $blog->title }}</h1>
                             <p class="blog-overview">Indira Sree  |   March 2022   |   Study Power CEO</p>
-                            <div class="featured-image"> {!! Helper::printImage($blog, 'video_thumbnail_image', 'video_thumbnail_image_webp', 'video_thumbnail_image_attribute', 'img-fluid') !!}</div>
+                            <div class="featured-image"><img src="https://images.pexels.com/photos/2280551/pexels-photo-2280551.jpeg" alt=""></div>
                             <div class="the-content">
                                 <h2>{!! $blog->description !!} </h2>
                                                
