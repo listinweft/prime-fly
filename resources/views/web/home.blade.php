@@ -555,7 +555,7 @@
                                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
                                     <div class="col-12 events_grid">
                                         <!-- <img src="{{ asset('frontend/images/events.png')}}"/> -->
-                                        {!! Helper::printImage($event, 'image', 'image_webp', '', 'img-fluid') !!}
+                                        <a href="{{ url('event/'.$event->short_url) }}">{!! Helper::printImage($event, 'image', 'image_webp', '', 'img-fluid') !!}</a>
                                         <div class="d-flex justify-content-between event_grid_descrp">
                                             <div class="eventgrid_date">
                                                                                         <?php
@@ -571,9 +571,9 @@
 
                                             </div>
                                             <div class="eventgrid_desc">
-                                                <h4> {!! $event->title !!}</h4>
-                                                <p><a href="#0">{!! strlen($event->description) > 100  ? substr($event->description, 0, 100) . '...' : $event->description !!}</a></p>
-                                                <div class="d-flex flex-wrap eventgrid_">
+                                                <a href="{{ url('event/'.$event->short_url) }}"><h4> {!! $event->title !!}</h4></a>
+                                                <p><a href="{{ url('event/'.$event->short_url) }}">{!! strlen($event->description) > 100  ? substr($event->description, 0, 100) . '...' : $event->description !!}</a></p>
+                                                <!-- <div class="d-flex flex-wrap eventgrid_">
                                                     <div class="eventgrid_author_wraper d-flex">
                                                         <div class="eventgrid_img"><img src="{{asset('frontend/images/meeting-author.png')}}" alt=""></div>
                                                         <div class="eventgrid_author">
@@ -583,7 +583,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>

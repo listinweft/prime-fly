@@ -129,6 +129,7 @@ form{
     align-items: center;
     position: relative;
     width: fit-content;
+    cursor: pointer;
 }
 .user-login-image{
     border-radius: 50%;
@@ -2011,4 +2012,102 @@ form{
 }
 .search-bx{
     z-index: 2;
+}
+
+
+.is-user-nav{
+    position: absolute;
+    width: 170px;
+    z-index: 2;
+    top: 60px;
+    right: 0;
+    box-shadow: 0px 9px 17px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transform: translateY(30px);
+    transition: 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+.is-user-nav.active{
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+.is-user-nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.is-user-nav ul li a{
+    display: block;
+    padding: 10px 13px;
+    background-color: #fff;
+    color: #7A7777;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    padding-left: 38px;
+}
+.is-user-nav ul li:last-child a{
+    border: none;
+}
+.header li a:hover, .footer-links ul li a:hover{
+    color: #EE2C0D !important;
+}
+.is-user-nav ul li a span{
+    position: absolute;
+    left: 13px;
+    top: 11px;
+}
+.is-user-nav p{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+.is-user-nav p span{
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    color: #2C2D2C;
+}
+.is-user-login{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.3s ease;
+    visibility: hidden;
+}
+.is-user-login li a{
+    color: #fff;
+    display: block !important;
+    font-size: 14px !important;
+    font-weight: 400;
+}
+.is-user-login li:not(:last-child){
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+.mob-login{
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.09);
+    padding: 9px 28px 16px 9px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+}
+.user-account-dropdown{
+    position: absolute;
+    right: 0;
+    color: #fff;
+}
+.is-user-login.active{
+    max-height: 100px;
+    visibility: visible;
 }

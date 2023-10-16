@@ -21,4 +21,20 @@ function raf(time) {
   requestAnimationFrame(raf)
 }
 
-requestAnimationFrame(raf)
+requestAnimationFrame(raf);
+
+$('.user-login-box').click(function(){
+    $('.is-user-nav').addClass('active');
+});
+
+$(document).click(function(e) { 
+var target = e.target; 
+if (!$(target).is('.user-login-box') && !$(target).parents().is('.user-login-box')) 
+  {
+     $('.is-user-nav').removeClass('active'); 
+    }
+});
+
+$('.mob-login').click(function(){
+    $('.is-user-login').toggleClass('active');
+});

@@ -44,14 +44,14 @@
                             <div class="col-xl-5 col-lg-5 aboutus_right">
                             <img class="about-img1" data-aos="fade-down" data-aos-duration="1000" src="{{$about->image}}" />
 
-                                <img class="about-img2" data-aos="fade-up" data-aos-duration="1000" src="{{$about->banner_image}}"/>
+                                <!-- <img class="about-img2" data-aos="fade-up" data-aos-duration="1000" src="{{$about->banner_image}}"/> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="col-12 whor_we">
+        <section class="col-12 whor_we" hidden>
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="col-lg-6 whor_we_img">
                     <img class="about-img1" src="{{asset('frontend/images/who_r_we.png')}}"/>
