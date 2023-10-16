@@ -125,7 +125,7 @@
                         </div>
                         <div class="col-xl-4 col-md-6">
                             <ul class="credit-links">
-                                <li><a href="#0">Support</a></li>
+                                <!-- <li><a href="#0">Support</a></li> -->
                                 <li><a href="{{ url('terms-and-conditions') }}">Terms & Conditions</a></li>
                                 <li><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
                             </ul>
