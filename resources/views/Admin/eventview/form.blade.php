@@ -309,8 +309,8 @@
                 allowedFileTypes: ['image'],
                 minImageWidth: 940,
                 minImageHeight: 430,
-                maxImageWidth: 940,
-                maxImageHeight: 430,
+                // maxImageWidth: 940,
+                // maxImageHeight: 430,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->video_thumbnail_image!=NULL)
@@ -335,8 +335,8 @@
                 allowedFileTypes: ['image'],
                 minImageWidth: 1920,
                 minImageHeight: 500,
-                maxImageWidth: 1920,
-                maxImageHeight: 500,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 500,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->desktop_banner!=NULL)
@@ -361,8 +361,8 @@
                 allowedFileTypes: ['image'],
                 minImageWidth: 960,
                 minImageHeight: 450,
-                maxImageWidth: 960,
-                maxImageHeight: 450,
+                // maxImageWidth: 960,
+                // maxImageHeight: 450,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->mobile_banner!=NULL)

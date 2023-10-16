@@ -302,7 +302,7 @@ public function unlikeComment($commentId)
         $contact->email = $request->email;
         $contact->phone = $request->phone;
        
-        $contact->message = $request->message ?? "nothing send";
+        $contact->message = $request->message;
         $contact->product_id = $request->product_id ?? NULL;
         $contact->product_type_id = $request->product_type_id ?? NULL;
         $contact->size_id = $request->size_id ?? NULL;
