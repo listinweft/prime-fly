@@ -51,6 +51,7 @@
                     </div>
                     <div class="col-lg-6 register-form-right" data-aos="fade-up" data-aos-duration="1000">
                         <h4 class="mb-lg-3">Register</h4>
+                        <p class="mb-xxl-4 mb-3">Anesthesiology doctors, claim your exclusive spot in our community through a secure registration process</p>
                         <form action="" id="registerForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
