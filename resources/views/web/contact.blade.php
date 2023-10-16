@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-grid">
-                                        <textarea name="" id="message" placeholder="Type Your message" required class=""></textarea>
+                                        <textarea name="message" id="message" placeholder="Type Your message" required class=""></textarea>
                                     
                                     </div>
                                 </div>
