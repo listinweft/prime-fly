@@ -7,7 +7,7 @@
 
 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000">
                                     <div class="col-12 events_grid">
-                                    {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}
+                                    <a href="{{ url('event/'.$blog->short_url) }}">{!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</a>
                                         <div class="d-flex event_grid_descrp">
                                             <div class="eventgrid_date">
                                          <?php    $postDate = $blog->posted_date; // Replace with your actual date variable
@@ -21,9 +21,9 @@ $year = date('Y', strtotime($postDate));
 <p><?php echo $month; ?> <?php echo $year; ?></p>
                                             </div>
                                             <div class="eventgrid_desc">
-                                                <h4>{{$blog->title}}</h4>
+                                                <a href="{{ url('event/'.$blog->short_url) }}"><h4>{{$blog->title}}</h4></a>
                                                 <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
-                                                <div class="d-flex flex-wrap eventgrid_">
+                                                <!-- <div class="d-flex flex-wrap eventgrid_">
                                                     <div class="eventgrid_author_wraper d-flex">
                                                         <div class="eventgrid_img"> {!! Helper::printImage($blog, 'author_image', 'author_image_webp', '', 'img-fluid') !!}</div>
                                                         <div class="eventgrid_author">
@@ -34,7 +34,7 @@ $year = date('Y', strtotime($postDate));
                                                             <a href="{{ url('event/'.$blog->short_url) }}" class="meeting-btn">View Event</a>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>

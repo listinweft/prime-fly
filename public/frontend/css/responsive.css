@@ -2,6 +2,12 @@
 
 @media(max-width: 1600px){
 
+    /*-------------- Header start --------------*/
+    .user-login-name, .is-user-nav ul li a{
+        font-size: 13px;
+    }
+    /*-------------- Header end --------------*/
+
     /*---------------- Home page start ----------------*/
     .journal-grid-content h4{
         font-size: calc(32px - 5px);
@@ -1026,6 +1032,7 @@
         z-index: 3;
         padding-top: 30px !important;
         padding-left: 20px !important;
+        padding-right: 20px !important;
         transition: 0.3s linear;
     }
     .menu-container.active{
