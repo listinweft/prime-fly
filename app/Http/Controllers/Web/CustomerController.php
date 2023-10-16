@@ -10,6 +10,7 @@ use App\Models\CustomerAddress;
 use App\Models\OrderCustomer;
 use App\Models\Product;
 use App\Models\SeoData;
+use App\Models\CustomerPost; 
 use App\Models\State;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
@@ -287,5 +288,24 @@ class CustomerController extends Controller
             abort(403, 'You are not authorised');
         }
     }
+
+   
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $pdfData = file_get_contents($file); // Get the PDF data as binary
     
+            // Save to the database
+            $customerPost = new CustomerPost;
+            $customerPost->pdf_data = $pdfData;
+            $customerPost->user_id = $request->user_id;
+            $customerPost->type = $request->type;
+            $customerPost->save();
+    
+            return response()->json(['message' => 'File uploaded successfully'], 200);
+        }
+    
+        return response()->json(['error' => 'No file uploaded.'], 400);
+    }
 }

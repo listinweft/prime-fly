@@ -186,6 +186,14 @@
                 <p>Who We Are</p>
             </a>
         </li>  -->
+
+        <li class="nav-item">
+                  <a href="{{url(Helper::sitePrefix().'about')}}"
+                 class="nav-link {{ (Request::segment(2)=='about')?'active':'' }}">
+                     <i class="far fa-circle nav-icon"></i>
+                   <p>About-us</p>
+                   </a>
+               </li>
                <li class="nav-item">
                   <a href="{{url(Helper::sitePrefix().'about/who-we-are')}}"
                  class="nav-link {{ (Request::segment(3)=='who-we-are')?'active':'' }}">
@@ -204,7 +212,7 @@
                   <a href="{{url(Helper::sitePrefix().'about/honarary')}}"
                  class="nav-link {{ (Request::segment(3)=='honarary')?'active':'' }}">
                      <i class="far fa-circle nav-icon"></i>
-                   <p>honorary Mmbers</p>
+                   <p>honorary Members</p>
                    </a>
                </li>
      </ul> 
@@ -285,6 +293,13 @@
        class="nav-link {{ (Request::segment(2)=='faq')?'active':''}}">
         <i class="nav-icon fas fa-question-circle"></i>
         <p>Faqs</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'blog/custome-blog')}}"
+       class="nav-link {{ (Request::segment(3)=='blog/custome-blog')?'active':''}}">
+        <i class="nav-icon fas fa-question-circle"></i>
+        <p>Customer-posts</p>
     </a>
 </li>
 <!-- <li class="nav-item">

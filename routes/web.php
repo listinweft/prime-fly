@@ -192,6 +192,11 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
     Route::post('update-customer-address', [CustomerWebController::class, 'createAddress']);
     Route::post('delete-address', [CustomerWebController::class, 'delete_address']);
 
+    Route::post('upload', [CustomerWebController::class, 'upload'])->name('file.upload');;
+
+   
+
+
     Route::post('set-default-address', [CustomerWebController::class, 'set_default_address']);
 
 
@@ -300,11 +305,15 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     Route::prefix('blog')->group(function () {
         Route::get('/', [BlogController::class, 'blog']);
+    Route::get('/custome-blog', [BlogController::class, 'custome_blog']);
+    Route::get('/pdf/{id}', [BlogController::class, 'show'])->name('pdf.show');
         Route::get('create', [BlogController::class, 'blog_create']);
         Route::post('create', [BlogController::class, 'blog_store']);
         Route::get('edit/{id}', [BlogController::class, 'blog_edit']);
         Route::post('edit/{id}', [BlogController::class, 'blog_update']);
         Route::post('delete', [BlogController::class, 'delete_blog']);
+        Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+
     });
     Route::prefix('journal')->group(function () {
         Route::get('/', [JournalController::class, 'journal']);

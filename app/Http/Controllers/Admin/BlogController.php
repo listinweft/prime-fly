@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Blog;
 use App\Models\HomeHeading;
+use App\Models\CustomerPost;
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -27,6 +28,37 @@ class BlogController extends Controller
         $type = 'Blog';
         $blogList = Blog::get();
         return view('Admin.blog.list', compact('blogList', 'title', 'type', 'home_heading'));
+    }
+
+                public function show($id)
+            {
+                // Logic to retrieve and display the blog item with the given ID
+                                $customerPost = CustomerPost::findOrFail($id);
+
+                    // Assuming the PDF is stored in the 'pdf_data' attribute as binary data
+                    $pdfData = $customerPost->pdf_data;
+
+                   
+
+                    // Generate a dynamic file name based on type and ID
+                    $fileName = 'pdf_' . $customerPost->type . '_' . $id . '.pdf';
+
+                    // Set the headers for file download
+                    $headers = [
+                        'Content-Type' => 'application/pdf',
+                        'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                    ];
+
+    return Response::make($pdfData, 200, $headers);
+            }
+
+    public function custome_blog()
+    {
+        $title = "Members Blog List";
+        // $home_heading = HomeHeading::type('blog')->first();
+        $type = 'Blog';
+        $blogList = CustomerPost::get();
+        return view('Admin.blog.list_customer', compact('blogList', 'title', 'type',));
     }
 
     public function blog_create()

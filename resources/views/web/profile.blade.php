@@ -201,11 +201,20 @@
                             <div class="tab-pane fade" id="pills-Journals" role="tabpanel" aria-labelledby="pills-Journals-tab" tabindex="0">
                                 <!-- if posts  empty -->
 
-                                <form>
+                                <form id="uploadForm" enctype="multipart/form-data">
+
+                                <input type="hidden" name="type" value="journal">
+
+                                @php   $user = Auth::guard('customer')->user();
+                                
+                                
+                                @endphp
+                                
+                                <input type="hidden" name="user_id" value="{{$user->id}}">
 
 
                                 <div class="empty-post">
-                                    <input type="file" name="file" id="file">
+                                <input type="file" name="file" id="file" accept=".pdf,.doc,.docx">
                                     <svg width="136" height="97" viewBox="0 0 136 97" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M110.464 96.8883H25.5359C11.433 96.8883 0 85.4553 0 71.3523C0 57.2494 11.433 45.8164 25.5359 45.8164H110.464C124.567 45.8164 136 57.2494 136 71.3523C136 85.4553 124.567 96.8883 110.464 96.8883Z" fill="#D2D0D0"/>
                                         <path d="M68.0034 90.6268C87.8368 90.6268 103.915 74.5487 103.915 54.7153C103.915 34.8819 87.8368 18.8037 68.0034 18.8037C48.1699 18.8037 32.0918 34.8819 32.0918 54.7153C32.0918 74.5487 48.1699 90.6268 68.0034 90.6268Z" fill="#599AF2"/>
@@ -217,9 +226,14 @@
                                     </svg>
                                     <p>No post yet, upload your first post and become a part of the community</p>   
                                     <h4>Upload Your First Post</h4> 
-                                    <a href="" class="common-btn">Post</a>                            
+                                    <button type="submit" class="common-btn">Post</button>                     
                                 </div>
                                  </form>
+
+                                 <div id="formContainer">
+
+
+</div>
 
 
 
@@ -350,5 +364,44 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
 
 
     </script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#uploadForm').submit(function(event) {
+      event.preventDefault();
+
+      var formData = new FormData(this);
+      formData.append('type', 'journal');
+
+      $.ajax({
+        url: '/customer/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+          console.log('File uploaded successfully:', response);
+
+          // Display success message under the form
+          $('#formContainer').append('<p style="color: green;">File uploaded successfully</p>');
+          window.location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error('Error uploading file:', error);
+
+          // Display error message under the form
+          $('#formContainer').append('<p style="color: red;">Error uploading file: ' + xhr.responseText + '</p>');
+        }
+      });
+    });
+  });
+</script>
+
+
+
   @endpush
 @endsection

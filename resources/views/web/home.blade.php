@@ -591,7 +591,7 @@
                                 @endforeach
 
                                 <div class="col-12 text-center mt-xl-5 mt-4 mb-0">
-                                    <a href="{{ url('event') }}" class="common-btn">View  More Events</a>
+                                    <a href="{{ url('events') }}" class="common-btn">View  More Events</a>
                                 </div>
                             </div>
                         </div> 
