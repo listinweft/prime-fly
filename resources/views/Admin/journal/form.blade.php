@@ -353,10 +353,10 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 1920,
+                minImageWidth: 1000,
                 minImageHeight: 500,
-                maxImageWidth: 1920,
-                maxImageHeight: 500,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 500,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->desktop_banner!=NULL)
