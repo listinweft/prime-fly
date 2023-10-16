@@ -76,7 +76,7 @@
                 </div>
             </div>
         </section>
-        <section class="col-12 honary_members">
+        <!-- <section class="col-12 honary_members">
             <div class="container">
                 <h2 class="text-center" data-aos="fade-up" data-aos-duration="1000">Honorary Members</h2>
                 @php
@@ -112,7 +112,7 @@
             </div>
          @endif 
     </div>
-@endforeach
+@endforeach -->
 
                 <!-- <div class="col-12 honorary_dubai">
                     <div class="col-12">
@@ -157,8 +157,11 @@
                         </div>
                     </div>
                 </div> -->
-            </div>
-        </section>
+            <!-- </div>
+        </section> -->
+
+
+        
         <section class="col-12 vision_mision">
             <img src="{{asset('frontend/images/vm-vector.png')}}" alt="" class="vm-vector">
             <div class="container">
