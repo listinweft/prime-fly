@@ -436,6 +436,8 @@ public function unlikeComment($commentId)
     public function blog_detail($short_url)
     {
          $blog = Blog::active()->shortUrl($short_url)->first();
+         $blog = Blog::active()->shortUrl($short_url)->first();
+         
         if ($blog) {
             $banner = $seo_data = $blog;
             $type = $short_url;
@@ -686,6 +688,22 @@ public function unlikeComment($commentId)
         
         return view('web.faq', compact( 'seo_data','faqs', 'field', 'title'));
     }
-   
+    public function like($commentId)
+    {
+        $comment = Blog::findOrFail($commentId);
+        $comment->likes = 1;  // Set likes to 1 when liking a comment
+        $comment->save();
+    
+        return response()->json(['success' => true, 'action' => 'like']);
+    }
+    
+    public function unlike($commentId)
+    {
+        $comment = Blog::findOrFail($commentId);
+        $comment->likes = 0;  // Set likes to 0 when unliking a comment
+        $comment->save();
+    
+        return response()->json(['success' => true, 'action' => 'unlike']);
+    }
 
 }
