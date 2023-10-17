@@ -45,73 +45,86 @@
                                     {{ session('error') }}
                                 </div>
                             @endif
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Title*</label>
-                                    <input type="text" name="title" id="title" placeholder="Title"
-                                           class="form-control for_canonical_url required" autocomplete="off"
-                                           value="{{ @$blog->title }}">
-                                    <div class="help-block with-errors" id="title_error"></div>
-                                    @error('title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Short URL*</label>
-                                    <input type="text" name="short_url" id="short_url" placeholder="Short URL"
-                                           class="form-control required" autocomplete="off"
-                                           value="{{ @$blog->short_url }}">
-                                    <div class="help-block with-errors" id="short_url_error"></div>
-                                    @error('short_url')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Author*</label>
-                                    <input type="text" name="author" id="author" placeholder="Author"
-                                           class="form-control required" autocomplete="off"
-                                           value="{{ @$blog->author }}">
-                                    <div class="help-block with-errors" id="author_error"></div>
-                                    @error('author')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Posted Date*</label>
-                                    <input type="date" max="2999-12-31" name="posted_date" id="posted_date"
-                                           placeholder=""
-                                           class="form-control required" autocomplete="off"
-                                           value="{{ @$blog->posted_date }}">
-                                    <div class="help-block with-errors" id="posted_date_error"></div>
-                                    @error('posted_date')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="description">Description*</label>
-                                    <textarea class="form-control tinyeditor required reset" id="description"
-                                              name="description">{!! isset($blog)?$blog->description:'' !!}</textarea>
-                                    <div class="help-block with-errors" id="description_error"></div>
-                                </div>
-                            </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label>Image*</label>
-                                        <div class="file-loading">
-                                            <input id="image" name="image" type="file">
+                            <div class="row">
+                                <div class="col-lg-8 content-leftbar">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label> Title*</label>
+                                            <input type="text" name="title" id="title" placeholder="Title"
+                                                class="form-control for_canonical_url required" autocomplete="off"
+                                                value="{{ @$blog->title }}">
+                                            <div class="help-block with-errors" id="title_error"></div>
+                                            @error('title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div> 
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label for="description">Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="description"
+                                                    name="description">{!! isset($blog)?$blog->description:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="description_error"></div>
                                         </div>
-                                        <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
-                                        @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                        <div class="form-group col-md-6">
+                                                                <label>Banner Image</label>
+                                                                <div class="file-loading">
+                                                                    <input id="desktop_banner" name="desktop_banner" type="file" accept="image/*">
+                                                                </div>
+                                                                <span class="caption_note">Note: Image size should be minimum of 1920 x 340</span>
+                                                                @error('desktop_banner')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
                                     </div>
-                                    
+                                </div>
+                                <div class="col-lg-4 content-rightbar">
+                                    <div class="form-row"> 
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label> Short URL*</label>
+                                            <input type="text" name="short_url" id="short_url" placeholder="Short URL"
+                                                class="form-control required" autocomplete="off"
+                                                value="{{ @$blog->short_url }}">
+                                            <div class="help-block with-errors" id="short_url_error"></div>
+                                            @error('short_url')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label>Thumbnail Image*</label>
+                                            <div class="file-loading">
+                                                <input id="image" name="image" type="file">
+                                            </div>
+                                            <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
+                                            @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label> Author*</label>
+                                            <input type="text" name="author" id="author" placeholder="Author"
+                                                class="form-control required" autocomplete="off"
+                                                value="{{ @$blog->author }}">
+                                            <div class="help-block with-errors" id="author_error"></div>
+                                            @error('author')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label> Posted Date*</label>
+                                            <input type="date" max="2999-12-31" name="posted_date" id="posted_date"
+                                                placeholder=""
+                                                class="form-control required" autocomplete="off"
+                                                value="{{ @$blog->posted_date }}">
+                                            <div class="help-block with-errors" id="posted_date_error"></div>
+                                            @error('posted_date')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+  
+
+                                <!-- <div class="form-row"> 
                                     <div class="form-group col-md-6">
                                         <label> Image Attribute</label>
                                         <input type="text" class="form-control placeholder-cls" id="image_attribute"
@@ -120,8 +133,7 @@
                                         @error('image_attribute')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
-
+                                    </div> 
                                     <div class="form-group col-md-6">
                                         <label> Image Attribute</label>
                                         <input id="author_image" name="author_image" type="file">
@@ -129,14 +141,8 @@
                                         @error('author_image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
-                                    </div>
-
-
-
-                                    
-
-                                    
-                                </div>
+                                    </div> 
+                                </div> -->
 
                                 
                                   
@@ -144,7 +150,7 @@
                                 </div>
 
                             
-                                <div class="form-row">
+                                <!-- <div class="form-row">
 
                                 <div class="form-group col-md-12">
                                     <label for="description">Alternate Description</label>
@@ -186,8 +192,8 @@
                                 {{--                                                                <div class="invalid-feedback">{{ $message }}</div>--}}
                                 {{--                                                                @enderror--}}
                                 {{--                                                            </div>--}}
-                                {{--                                                        </div>--}}
-                                                        <div class="form-row">
+                                {{--                                                        </div>--}} -->
+                                                        <!-- <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label> Desktop Banner</label>
                                                                 <div class="file-loading">
@@ -218,26 +224,32 @@
 {{--                                                                <div class="invalid-feedback">{{ $message }}</div>--}}
 {{--                                                                @enderror--}}
 {{--                                                            </div>--}}
-                                                        </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label> Meta Title</label>
-                                    <textarea class="form-control" id="meta_title" name="meta_title"
-                                              placeholder="Meta Title">{{ isset($blog)?$blog->meta_title:'' }}</textarea>
-                                    @error('meta_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label> Meta Description</label>
-                                    <textarea class="form-control" id="meta_description" name="meta_description"
-                                              placeholder="Meta Description">{{ isset($blog)?$blog->meta_description:'' }}</textarea>
-                                    @error('meta_description')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-row">
+                                                        </div> -->
+
+
+                                                        <div class="card-header"> SEO</div>
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                    <div class="form-row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label> Meta Title</label>
+                                                                            <textarea class="form-control" id="meta_title" name="meta_title"
+                                                                                    placeholder="Meta Title">{{ isset($blog)?$blog->meta_title:'' }}</textarea>
+                                                                            @error('meta_title')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label> Meta Description</label>
+                                                                            <textarea class="form-control" id="meta_description" name="meta_description"
+                                                                                    placeholder="Meta Description">{{ isset($blog)?$blog->meta_description:'' }}</textarea>
+                                                                            @error('meta_description')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Meta Keyword</label>
                                     <textarea class="form-control" id="meta_keyword" name="meta_keyword"
@@ -255,6 +267,11 @@
                                     @enderror
                                 </div>
                             </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>                            
+                            
+                            
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"

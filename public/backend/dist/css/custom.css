@@ -269,3 +269,41 @@ input[type=number] {
     color: #000;
 }
 
+.card-info:not(.card-outline)>.card-header {
+    background-color: #4f4f4f;
+}
+.card-title { 
+    font-size: 1.3rem; 
+}
+.content-rightbar{
+    padding-left:50px;
+}
+.btn-primary { 
+    background-color: #429352;
+    border-color: #429352; 
+}
+.card-info:not(.card-outline)>.card-header {
+    background-color: #f4f6f9;
+}
+.card-info:not(.card-outline)>.card-header, .card-info:not(.card-outline)>.card-header a {
+    color: #000;
+    font-weight: 500;
+}
+.card-body { 
+    padding: 2.5rem 1.25rem;
+}
+.file-preview-frame{
+    display: grid;
+}
+.theme-explorer-fas .explorer-frame .kv-file-content {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+}
+.theme-explorer-fas .explorer-frame .kv-file-content img{
+    object-fit: contain;
+    height: auto !important;
+}
+.theme-explorer-fas .file-preview .table,.theme-explorer-fas .file-preview .table td{
+    border:0;
+}

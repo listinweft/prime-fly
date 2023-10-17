@@ -58,14 +58,14 @@
                              
                               
                             <div class="form-row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12 mb-5">
                                     <label for="privacy_policy">Privacy Policy</label>
                                     <textarea name="privacy_policy" id="privacy_policy"
                                               placeholder="Privacy Policy"
                                               class="form-control tinyeditor" autocomplete="off">
                                         {{ old('privacy_policy', !empty($siteInformation)?$siteInformation->privacy_policy:'') }}</textarea>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12 mb-5">
                                     <label for="terms_and_conditions">Terms & Conditions</label>
                                     <textarea name="terms_and_conditions" id="terms_and_conditions"
                                               placeholder="Terms & Conditions" class="form-control tinyeditor"
@@ -73,7 +73,7 @@
                                         {{ old('terms_and_conditions', !empty($siteInformation)?$siteInformation->terms_and_conditions:'') }}</textarea>
                                 </div>
                                
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="privacy_policy">Contact Detail</label>
                                     <textarea name="contact" id="contact"
                                               placeholder="Contact Detail"
@@ -95,7 +95,7 @@
                                               placeholder="FAQ's"
                                               class="form-control tinyeditor" autocomplete="off">
                                         {{ old('faq', !empty($siteInformation)?$siteInformation->faq:'') }}</textarea>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="card-footer">
