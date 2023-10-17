@@ -188,13 +188,14 @@
 
 @if(Session::has('success'))
 <script>
+    
     setTimeout(function () {
         Toast.fire({
             title: "",
             text: '{{ Session::get('success') }}',
             icon: 'success'
         });
-    }, 0); // Delay set to 0 to execute immediately
+    }, 10); // Delay set to 0 to execute immediately
 </script>
 @endif
 

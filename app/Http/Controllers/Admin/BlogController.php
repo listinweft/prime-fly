@@ -7,6 +7,8 @@ use App\Http\Helpers\Helper;
 use App\Models\Blog;
 use App\Models\HomeHeading;
 use App\Models\CustomerPost;
+use App\Models\Customer;
+use App\Models\User;
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -65,7 +67,12 @@ class BlogController extends Controller
     {
         $key = "Create";
         $title = "Create Blog";
-        return view('Admin.blog.form', compact('key', 'title'));
+
+         $customers = Customer::get();
+
+    // Extract first names from the associated users
+  
+        return view('Admin.blog.form', compact('key', 'title','customers'));
     }
 
     public function blog_store(Request $request)
@@ -77,6 +84,7 @@ class BlogController extends Controller
             'description' => 'required',
             'posted_date' => 'required',
             'author' => 'required',
+            'user_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = new Blog;
@@ -106,6 +114,7 @@ class BlogController extends Controller
         }
 
         $blog->title = $validatedData['title'];
+        $blog->user_id = $validatedData['user_id'];
         $blog->short_url = $validatedData['short_url'];
         $blog->description = $validatedData['description'];
         $blog->author = $validatedData['author'];
@@ -162,8 +171,10 @@ class BlogController extends Controller
         $key = "Update";
         $title = "Blog Update";
         $blog = Blog::find($id);
+        $user = $blog->user_id;
+        $customers = Customer::get();
         if ($blog != null) {
-            return view('Admin.blog.form', compact('key', 'blog', 'title'));
+            return view('Admin.blog.form', compact('key', 'blog', 'title','user','customers'));
         } else {
             return view('Admin.error.404');
         }
@@ -177,6 +188,7 @@ class BlogController extends Controller
             'description' => 'required',
             'posted_date' => 'required',
             'author' => 'required',
+            'user_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = Blog::find($id);
@@ -221,6 +233,7 @@ class BlogController extends Controller
         }
 
         $blog->title = $validatedData['title'];
+        $blog->user_id = $validatedData['user_id'];
         $blog->short_url = $validatedData['short_url'];
         $blog->description = $validatedData['description'];
         $blog->author = $validatedData['author'];

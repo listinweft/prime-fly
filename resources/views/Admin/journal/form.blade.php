@@ -79,6 +79,20 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                <div class="form-group col-md-6">
+                                    <label> Members*</label>
+                                     <select class="form-control select2 productGetDrop" name="user_id" id="user_id">
+                                        <option value="">Select Option</option>
+                                        @foreach($customers as $customers)
+                                            <option value="{{$customers->user_id}}" {{ $user  == $customers->user_id ? 'selected' : '' }}>
+                                                {{$customers->first_name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    <div class="help-block with-errors" id="user_id_error"></div>
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label> Posted Date*</label>
                                     <input type="date" max="2999-12-31" name="posted_date" id="posted_date"

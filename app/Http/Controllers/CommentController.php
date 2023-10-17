@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comment; // Assuming you have a Comment model
 use Auth;
+use App\Models\User;
 
 
 
@@ -54,34 +55,23 @@ class CommentController extends Controller
         return redirect()->back()->with('success', 'Reply added successfully!');
     }
     public function likeComment($commentId)
-{
-    $user = Auth::user();
-    $comment = Comment::findOrFail($commentId);
-
-    // Check if the user hasn't already liked the comment
-    if (!$user->hasLikedComment($comment)) {
-        $comment->likes += 1;
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->likes = 1;  // Set likes to 1 when liking a comment
         $comment->save();
-        $user->likedComments()->attach($commentId);
+    
+        return response()->json(['success' => true, 'action' => 'like']);
     }
-
-    return redirect()->back()->with('success', 'Comment liked!');
-}
-
-public function unlikeComment($commentId)
-{
-    $user = Auth::user();
-    $comment = Comment::findOrFail($commentId);
-
-    // Check if the user has liked the comment
-    if ($user->hasLikedComment($comment)) {
-        $comment->likes -= 1;
+    
+    public function unlikeComment($commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->likes = 0;  // Set likes to 0 when unliking a comment
         $comment->save();
-        $user->likedComments()->detach($commentId);
+    
+        return response()->json(['success' => true, 'action' => 'unlike']);
     }
-
-    return redirect()->back()->with('success', 'Comment unliked!');
-}
+    
 
 
 }

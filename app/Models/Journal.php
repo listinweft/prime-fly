@@ -31,8 +31,13 @@ class Journal extends Model
     {
         return $query->where('short_url', $short_url);
     }
-        public function comments()
+    //     public function comments()
+    // {
+    //     return $this->morphMany(Comment::class, 'commentable');
+    // }
+
+    public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->hasMany(Comment::class, 'journal_id', 'id');
     }
 }

@@ -60,7 +60,8 @@ Route::middleware(['web'])->group(function () {
     
     Route::post('/comments', [WebController::class, 'store_comment'])->name('comments.store');
     Route::post('/comments/{commentId}/reply', [WebController::class, 'reply'])->name('reply_comment');
-   
+    Route::post('/like/comment/{commentId}', [CommentController::class, 'likeComment'])->name('comment.like');
+    Route::post('/unlike/comment/{commentId}', [CommentController::class, 'unlikeComment'])->name('comment.unlike');
 
 
 

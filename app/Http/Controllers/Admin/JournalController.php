@@ -11,6 +11,8 @@ use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+use App\Models\Customer;
+use App\Models\User;
 
 class JournalController extends Controller
 {
@@ -35,8 +37,9 @@ class JournalController extends Controller
     {
         $key = "Create";
         $title = "Create Journal";
+        $customers = Customer::get();
         
-        return view('Admin.journal.form', compact('key', 'title'));
+        return view('Admin.journal.form', compact('key', 'title','customers'));
     }
 
     public function journal_store(Request $request)
@@ -48,6 +51,7 @@ class JournalController extends Controller
             'description' => 'required',
             'posted_date' => 'required',
             'author' => 'required',
+            'user_id' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:512',
         ]);
         $blog = new Journal;
@@ -74,6 +78,7 @@ class JournalController extends Controller
         }
 
         $blog->title = $validatedData['title'];
+        $blog->user_id = $validatedData['user_id'];
         $blog->short_url = $validatedData['short_url'];
         $blog->description = $validatedData['description'];
         $blog->author = $validatedData['author'];
@@ -130,8 +135,11 @@ class JournalController extends Controller
         $key = "Update";
         $title = "Journal Update";
         $blog = Journal::find($id);
+
+        $user = $blog->user_id;
+        $customers = Customer::get();
         if ($blog != null) {
-            return view('Admin.journal.form', compact('key', 'blog', 'title'));
+            return view('Admin.journal.form', compact('key', 'blog', 'title','customers','user'));
         } else {
             return view('Admin.error.404');
         }
@@ -145,6 +153,7 @@ class JournalController extends Controller
             'description' => 'required',
             'posted_date' => 'required',
             'author' => 'required',
+            'user_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:512',
         ]);
         $blog = Journal::find($id);
@@ -189,6 +198,7 @@ class JournalController extends Controller
         }
 
         $blog->title = $validatedData['title'];
+        $blog->user_id = $validatedData['user_id'];
         $blog->short_url = $validatedData['short_url'];
         $blog->description = $validatedData['description'];
         $blog->author = $validatedData['author'];

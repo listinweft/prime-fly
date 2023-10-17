@@ -12,6 +12,8 @@ use App\Models\Product;
 use App\Models\SeoData;
 use App\Models\CustomerPost; 
 use App\Models\State;
+use App\Models\Blog;
+use App\Models\Journal;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,12 +49,18 @@ class CustomerController extends Controller
             // $banner = Banner::type('my-account')->first();
             $user = Auth::guard('customer')->user();
             $customer = $user->customer;
+
+            $journals = Journal::where('user_id', $customer->user_id)->get();
+            $blogs = Blog::where('user_id', $customer->user_id)->get();
+            $userBlogsCount = Blog::where('user_id', $customer->user_id)->count();
+            $userJournalsCount = Journal::where('user_id', $customer->user_id)->count();
+
             $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
            
-        //    return $states = State::where('status', 'Active')->get();
+       
           
             return view('web.profile', compact('customer', 'customerAddresses', 
-                  'seo_data',  'user', 'customer'));
+                  'seo_data',  'user', 'customer','blogs','journals','userBlogsCount','userJournalsCount'));
         } else {
             abort(403, 'You are not authorised');
         }

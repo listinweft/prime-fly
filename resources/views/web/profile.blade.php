@@ -24,10 +24,10 @@
                         <div class="user-activity-count">
                             <ul>
                                 <li>
-                                    <p>Journals <span>4</span></p>
+                                    <p>Journals <span>{{$userJournalsCount}}</span></p>
                                 </li>
                                 <li>
-                                    <p>Blogs <span>6</span></p>
+                                    <p>Blogs <span>{{$userBlogsCount}}</span></p>
                                 </li>
                             </ul>
                         </div>
@@ -79,13 +79,16 @@
                             <div class="tab-pane fade show active" id="pills-Blogs" role="tabpanel" aria-labelledby="pills-Blogs-tab" tabindex="0">
                                 <div class="user-activity-item-wraper">
                                     <div class="row">
+                                        
+                                        
+                                    @foreach( $blogs as $blog )
                                         <div class="col-md-4">
                                             <div class="user-activity-item">
-                                                <div class="user-activity-item-image"><img src="{{ asset('frontend/images/user-profile-blog-1.jpg')}}" alt=""></div>
+                                                <div class="user-activity-item-image"> {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
                                                         <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
-                                                        <div class="active-user-name">Grace Kelly</div>
+                                                        <div class="active-user-name">{{@$customer->first_name}}</div>
                                                     </div>
                                                     <div class="active-user-achievement">
                                                         <div class="active-user-achievement-item">
@@ -102,99 +105,16 @@
                                                                     <path d="M15.4071 7.77417C15.1881 3.97157 12.142 0.925517 8.33943 0.686611C6.18928 0.547249 4.15857 1.28388 2.60568 2.77704C1.11252 4.23039 0.256434 6.281 0.296252 8.39134C0.375887 12.3731 3.68076 15.678 7.64262 15.7974C9.01633 15.8373 10.3701 15.4988 11.5647 14.8219L14.9094 15.7775C14.9492 15.7974 14.989 15.7974 15.0288 15.7974C15.1284 15.7974 15.2478 15.7576 15.3075 15.678C15.4071 15.5784 15.4469 15.4192 15.4071 15.2798L14.3718 12.0745C15.1483 10.7804 15.5066 9.28724 15.4071 7.77417ZM13.6551 11.7161C13.5556 11.8754 13.5356 12.0546 13.5954 12.2338L14.4315 14.802L11.7837 14.0455C11.5846 13.9857 11.3855 14.0056 11.2063 14.1251C10.1312 14.7224 8.91679 15.0409 7.68244 15.0011C4.13866 14.9015 1.17224 11.9351 1.11252 8.37143C1.0727 6.48009 1.82923 4.64847 3.20295 3.33449C4.4572 2.12005 6.10964 1.46306 7.86162 1.46306C8.00098 1.46306 8.16025 1.46306 8.29961 1.48297C11.704 1.70196 14.4116 4.42948 14.6107 7.83389C14.6904 9.2076 14.3718 10.5415 13.6551 11.7161Z" fill="#484848"/>
                                                                 </svg>                                                                    
                                                             </div>
-                                                            <div class="active-user-achievement-item-count">8</div>
+                                                            <div class="active-user-achievement-item-count"> {{ $blog->comments->count() }}</div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="user-activity-item">
-                                                <div class="user-activity-item-image"><img src="{{ asset('frontend/images/user-profile-blog-2.jpg')}}" alt=""></div>
-                                                <div class="user-activity-item-content">
-                                                    <div class="active-user">
-                                                        <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
-                                                        <div class="active-user-name">Grace Kelly</div>
-                                                    </div>
-                                                    <div class="active-user-achievement">
-                                                        <div class="active-user-achievement-item">
-                                                            <div class="active-user-achievement-item-icon">
-                                                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M8.899 15.8875C8.61471 15.8875 8.33062 15.7795 8.11421 15.5633L1.44601 8.90418C-0.43226 7.02831 -0.488118 3.98589 1.32172 2.12223C2.23136 1.18578 3.45228 0.669922 4.75977 0.669922C6.03969 0.669922 7.24212 1.16691 8.14547 2.06915L8.89863 2.82138L9.64994 2.06933C10.5537 1.16691 11.7561 0.669922 13.0358 0.669922C14.3444 0.669922 15.5659 1.18541 16.4754 2.12149C18.2861 3.98497 18.231 7.02776 16.3522 8.904L9.68379 15.5633C9.46738 15.7793 9.18328 15.8875 8.899 15.8875ZM4.75977 1.42752C3.65888 1.42752 2.63087 1.86162 1.86513 2.65011C0.342354 4.2182 0.394513 6.78342 1.98129 8.36816L8.64949 15.0273C8.78728 15.1647 9.01108 15.1644 9.14851 15.0273L15.8169 8.36798C17.404 6.78287 17.4556 4.21746 15.9319 2.64937C15.1664 1.86144 14.1378 1.42752 13.0358 1.42752C11.9582 1.42752 10.946 1.84572 10.1856 2.60516L9.16701 3.62467C9.01904 3.773 8.77933 3.77263 8.63136 3.62504L7.61019 2.60516C6.84982 1.84572 5.83753 1.42752 4.75977 1.42752Z" fill="#484848"/>
-                                                                </svg>                                                                    
-                                                            </div>
-                                                            <div class="active-user-achievement-item-count">56</div>
-                                                        </div>
-                                                        <div class="active-user-achievement-item">
-                                                            <div class="active-user-achievement-item-icon">
-                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M15.4071 7.77417C15.1881 3.97157 12.142 0.925517 8.33943 0.686611C6.18928 0.547249 4.15857 1.28388 2.60568 2.77704C1.11252 4.23039 0.256434 6.281 0.296252 8.39134C0.375887 12.3731 3.68076 15.678 7.64262 15.7974C9.01633 15.8373 10.3701 15.4988 11.5647 14.8219L14.9094 15.7775C14.9492 15.7974 14.989 15.7974 15.0288 15.7974C15.1284 15.7974 15.2478 15.7576 15.3075 15.678C15.4071 15.5784 15.4469 15.4192 15.4071 15.2798L14.3718 12.0745C15.1483 10.7804 15.5066 9.28724 15.4071 7.77417ZM13.6551 11.7161C13.5556 11.8754 13.5356 12.0546 13.5954 12.2338L14.4315 14.802L11.7837 14.0455C11.5846 13.9857 11.3855 14.0056 11.2063 14.1251C10.1312 14.7224 8.91679 15.0409 7.68244 15.0011C4.13866 14.9015 1.17224 11.9351 1.11252 8.37143C1.0727 6.48009 1.82923 4.64847 3.20295 3.33449C4.4572 2.12005 6.10964 1.46306 7.86162 1.46306C8.00098 1.46306 8.16025 1.46306 8.29961 1.48297C11.704 1.70196 14.4116 4.42948 14.6107 7.83389C14.6904 9.2076 14.3718 10.5415 13.6551 11.7161Z" fill="#484848"/>
-                                                                </svg>                                                                    
-                                                            </div>
-                                                            <div class="active-user-achievement-item-count">8</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="user-activity-item">
-                                                <div class="user-activity-item-image"><img src="{{ asset('frontend/images/user-profile-blog-3.jpg')}}" alt=""></div>
-                                                <div class="user-activity-item-content">
-                                                    <div class="active-user">
-                                                        <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
-                                                        <div class="active-user-name">Grace Kelly</div>
-                                                    </div>
-                                                    <div class="active-user-achievement">
-                                                        <div class="active-user-achievement-item">
-                                                            <div class="active-user-achievement-item-icon">
-                                                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M8.899 15.8875C8.61471 15.8875 8.33062 15.7795 8.11421 15.5633L1.44601 8.90418C-0.43226 7.02831 -0.488118 3.98589 1.32172 2.12223C2.23136 1.18578 3.45228 0.669922 4.75977 0.669922C6.03969 0.669922 7.24212 1.16691 8.14547 2.06915L8.89863 2.82138L9.64994 2.06933C10.5537 1.16691 11.7561 0.669922 13.0358 0.669922C14.3444 0.669922 15.5659 1.18541 16.4754 2.12149C18.2861 3.98497 18.231 7.02776 16.3522 8.904L9.68379 15.5633C9.46738 15.7793 9.18328 15.8875 8.899 15.8875ZM4.75977 1.42752C3.65888 1.42752 2.63087 1.86162 1.86513 2.65011C0.342354 4.2182 0.394513 6.78342 1.98129 8.36816L8.64949 15.0273C8.78728 15.1647 9.01108 15.1644 9.14851 15.0273L15.8169 8.36798C17.404 6.78287 17.4556 4.21746 15.9319 2.64937C15.1664 1.86144 14.1378 1.42752 13.0358 1.42752C11.9582 1.42752 10.946 1.84572 10.1856 2.60516L9.16701 3.62467C9.01904 3.773 8.77933 3.77263 8.63136 3.62504L7.61019 2.60516C6.84982 1.84572 5.83753 1.42752 4.75977 1.42752Z" fill="#484848"/>
-                                                                </svg>                                                                    
-                                                            </div>
-                                                            <div class="active-user-achievement-item-count">56</div>
-                                                        </div>
-                                                        <div class="active-user-achievement-item">
-                                                            <div class="active-user-achievement-item-icon">
-                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M15.4071 7.77417C15.1881 3.97157 12.142 0.925517 8.33943 0.686611C6.18928 0.547249 4.15857 1.28388 2.60568 2.77704C1.11252 4.23039 0.256434 6.281 0.296252 8.39134C0.375887 12.3731 3.68076 15.678 7.64262 15.7974C9.01633 15.8373 10.3701 15.4988 11.5647 14.8219L14.9094 15.7775C14.9492 15.7974 14.989 15.7974 15.0288 15.7974C15.1284 15.7974 15.2478 15.7576 15.3075 15.678C15.4071 15.5784 15.4469 15.4192 15.4071 15.2798L14.3718 12.0745C15.1483 10.7804 15.5066 9.28724 15.4071 7.77417ZM13.6551 11.7161C13.5556 11.8754 13.5356 12.0546 13.5954 12.2338L14.4315 14.802L11.7837 14.0455C11.5846 13.9857 11.3855 14.0056 11.2063 14.1251C10.1312 14.7224 8.91679 15.0409 7.68244 15.0011C4.13866 14.9015 1.17224 11.9351 1.11252 8.37143C1.0727 6.48009 1.82923 4.64847 3.20295 3.33449C4.4572 2.12005 6.10964 1.46306 7.86162 1.46306C8.00098 1.46306 8.16025 1.46306 8.29961 1.48297C11.704 1.70196 14.4116 4.42948 14.6107 7.83389C14.6904 9.2076 14.3718 10.5415 13.6551 11.7161Z" fill="#484848"/>
-                                                                </svg>                                                                    
-                                                            </div>
-                                                            <div class="active-user-achievement-item-count">8</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="user-activity-item">
-                                                <div class="user-activity-item-image"><img src="{{ asset('frontend/images/user-profile-blog-4.jpg')}}" alt=""></div>
-                                                <div class="user-activity-item-content">
-                                                    <div class="active-user">
-                                                        <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
-                                                        <div class="active-user-name">Grace Kelly</div>
-                                                    </div>
-                                                    <div class="active-user-achievement">
-                                                        <div class="active-user-achievement-item">
-                                                            <div class="active-user-achievement-item-icon">
-                                                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M8.899 15.8875C8.61471 15.8875 8.33062 15.7795 8.11421 15.5633L1.44601 8.90418C-0.43226 7.02831 -0.488118 3.98589 1.32172 2.12223C2.23136 1.18578 3.45228 0.669922 4.75977 0.669922C6.03969 0.669922 7.24212 1.16691 8.14547 2.06915L8.89863 2.82138L9.64994 2.06933C10.5537 1.16691 11.7561 0.669922 13.0358 0.669922C14.3444 0.669922 15.5659 1.18541 16.4754 2.12149C18.2861 3.98497 18.231 7.02776 16.3522 8.904L9.68379 15.5633C9.46738 15.7793 9.18328 15.8875 8.899 15.8875ZM4.75977 1.42752C3.65888 1.42752 2.63087 1.86162 1.86513 2.65011C0.342354 4.2182 0.394513 6.78342 1.98129 8.36816L8.64949 15.0273C8.78728 15.1647 9.01108 15.1644 9.14851 15.0273L15.8169 8.36798C17.404 6.78287 17.4556 4.21746 15.9319 2.64937C15.1664 1.86144 14.1378 1.42752 13.0358 1.42752C11.9582 1.42752 10.946 1.84572 10.1856 2.60516L9.16701 3.62467C9.01904 3.773 8.77933 3.77263 8.63136 3.62504L7.61019 2.60516C6.84982 1.84572 5.83753 1.42752 4.75977 1.42752Z" fill="#484848"/>
-                                                                </svg>                                                                    
-                                                            </div>
-                                                            <div class="active-user-achievement-item-count">56</div>
-                                                        </div>
-                                                        <div class="active-user-achievement-item">
-                                                            <div class="active-user-achievement-item-icon">
-                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M15.4071 7.77417C15.1881 3.97157 12.142 0.925517 8.33943 0.686611C6.18928 0.547249 4.15857 1.28388 2.60568 2.77704C1.11252 4.23039 0.256434 6.281 0.296252 8.39134C0.375887 12.3731 3.68076 15.678 7.64262 15.7974C9.01633 15.8373 10.3701 15.4988 11.5647 14.8219L14.9094 15.7775C14.9492 15.7974 14.989 15.7974 15.0288 15.7974C15.1284 15.7974 15.2478 15.7576 15.3075 15.678C15.4071 15.5784 15.4469 15.4192 15.4071 15.2798L14.3718 12.0745C15.1483 10.7804 15.5066 9.28724 15.4071 7.77417ZM13.6551 11.7161C13.5556 11.8754 13.5356 12.0546 13.5954 12.2338L14.4315 14.802L11.7837 14.0455C11.5846 13.9857 11.3855 14.0056 11.2063 14.1251C10.1312 14.7224 8.91679 15.0409 7.68244 15.0011C4.13866 14.9015 1.17224 11.9351 1.11252 8.37143C1.0727 6.48009 1.82923 4.64847 3.20295 3.33449C4.4572 2.12005 6.10964 1.46306 7.86162 1.46306C8.00098 1.46306 8.16025 1.46306 8.29961 1.48297C11.704 1.70196 14.4116 4.42948 14.6107 7.83389C14.6904 9.2076 14.3718 10.5415 13.6551 11.7161Z" fill="#484848"/>
-                                                                </svg>                                                                    
-                                                            </div>
-                                                            <div class="active-user-achievement-item-count">8</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
+
+
+
                                         <!-- <div class="col-12">
                                             <div class="post-upload-btn-wraper">
                                                 <div class="post-upload-field">
@@ -208,8 +128,59 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            
                             <div class="tab-pane fade" id="pills-Journals" role="tabpanel" aria-labelledby="pills-Journals-tab" tabindex="0">
-                                <!-- if posts  empty -->
+                            <div class="user-activity-item-wraper">
+                                    <div class="row">
+                                        
+                                        
+                                    @foreach( $journals as $journal )
+                                        <div class="col-md-4">
+                                            <div class="user-activity-item">
+                                                <div class="user-activity-item-image"> {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}</div>
+                                                <div class="user-activity-item-content">
+                                                    <div class="active-user">
+                                                        <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
+                                                        <div class="active-user-name">{{@$customer->first_name}}</div>
+                                                    </div>
+                                                    <div class="active-user-achievement">
+                                                        <div class="active-user-achievement-item">
+                                                            <div class="active-user-achievement-item-icon">
+                                                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M8.899 15.8875C8.61471 15.8875 8.33062 15.7795 8.11421 15.5633L1.44601 8.90418C-0.43226 7.02831 -0.488118 3.98589 1.32172 2.12223C2.23136 1.18578 3.45228 0.669922 4.75977 0.669922C6.03969 0.669922 7.24212 1.16691 8.14547 2.06915L8.89863 2.82138L9.64994 2.06933C10.5537 1.16691 11.7561 0.669922 13.0358 0.669922C14.3444 0.669922 15.5659 1.18541 16.4754 2.12149C18.2861 3.98497 18.231 7.02776 16.3522 8.904L9.68379 15.5633C9.46738 15.7793 9.18328 15.8875 8.899 15.8875ZM4.75977 1.42752C3.65888 1.42752 2.63087 1.86162 1.86513 2.65011C0.342354 4.2182 0.394513 6.78342 1.98129 8.36816L8.64949 15.0273C8.78728 15.1647 9.01108 15.1644 9.14851 15.0273L15.8169 8.36798C17.404 6.78287 17.4556 4.21746 15.9319 2.64937C15.1664 1.86144 14.1378 1.42752 13.0358 1.42752C11.9582 1.42752 10.946 1.84572 10.1856 2.60516L9.16701 3.62467C9.01904 3.773 8.77933 3.77263 8.63136 3.62504L7.61019 2.60516C6.84982 1.84572 5.83753 1.42752 4.75977 1.42752Z" fill="#484848"/>
+                                                                </svg>                                                                    
+                                                            </div>
+                                                            <div class="active-user-achievement-item-count">56</div>
+                                                        </div>
+                                                        <div class="active-user-achievement-item">
+                                                            <div class="active-user-achievement-item-icon">
+                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M15.4071 7.77417C15.1881 3.97157 12.142 0.925517 8.33943 0.686611C6.18928 0.547249 4.15857 1.28388 2.60568 2.77704C1.11252 4.23039 0.256434 6.281 0.296252 8.39134C0.375887 12.3731 3.68076 15.678 7.64262 15.7974C9.01633 15.8373 10.3701 15.4988 11.5647 14.8219L14.9094 15.7775C14.9492 15.7974 14.989 15.7974 15.0288 15.7974C15.1284 15.7974 15.2478 15.7576 15.3075 15.678C15.4071 15.5784 15.4469 15.4192 15.4071 15.2798L14.3718 12.0745C15.1483 10.7804 15.5066 9.28724 15.4071 7.77417ZM13.6551 11.7161C13.5556 11.8754 13.5356 12.0546 13.5954 12.2338L14.4315 14.802L11.7837 14.0455C11.5846 13.9857 11.3855 14.0056 11.2063 14.1251C10.1312 14.7224 8.91679 15.0409 7.68244 15.0011C4.13866 14.9015 1.17224 11.9351 1.11252 8.37143C1.0727 6.48009 1.82923 4.64847 3.20295 3.33449C4.4572 2.12005 6.10964 1.46306 7.86162 1.46306C8.00098 1.46306 8.16025 1.46306 8.29961 1.48297C11.704 1.70196 14.4116 4.42948 14.6107 7.83389C14.6904 9.2076 14.3718 10.5415 13.6551 11.7161Z" fill="#484848"/>
+                                                                </svg>                                                                    
+                                                            </div>
+                                                            <div class="active-user-achievement-item-count">{{ $journal->comments->count() }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @endforeach
+                                        <!-- <div class="col-12">
+                                            <div class="post-upload-btn-wraper">
+                                                <div class="post-upload-field">
+                                                    <input type="file" name="file" id="file">
+                                                </div>
+                                                <div class="post-upload-btn">
+                                                    <button type="submit" class="common-btn">Post</button>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>    
+                            <!-- if posts  empty -->
 
                                 <form id="uploadForm" enctype="multipart/form-data">
 

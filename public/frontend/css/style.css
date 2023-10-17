@@ -593,6 +593,25 @@ img{
 .user-prof-btn .common-btn.cancel-btn{
     background: #5f5f5f;
 }
+.like-button{
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+}
+.like-button svg.unliked{
+    display:block
+}
+.like-button svg.liked{
+    display:none;
+}
+.like-button.liked svg.unliked{
+    display:none
+}
+.like-button.liked svg.liked{
+    fill: red; 
+    display: block;
+}
 /* ********************* Responsive ********************* */
 @media (min-width:1600px) {
     .container{

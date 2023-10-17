@@ -26,5 +26,13 @@ public function replies()
     {
         return $this->hasMany(Reply::class);
     }
+    public function blog()
+{
+    return $this->belongsTo(Blog::class, 'blog_id', 'id');
+}
+public function journal()
+{
+    return $this->belongsTo(Journal::class, 'journal_id', 'id');
+}
 
 }

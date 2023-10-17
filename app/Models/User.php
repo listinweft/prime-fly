@@ -88,4 +88,19 @@ class User extends Authenticatable
         {
             return $this->hasMany(Comment::class);
         }
+
+        public function hasLikedComment($comment)
+        {
+            return $this->likedComments()->where('comment_id', $comment->id)->exists();
+        }
+    
+        /**
+         * Define the relationship between User and liked comments.
+         *
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+         */
+        public function likedComments()
+        {
+            return $this->belongsToMany(Comment::class, 'user_comment_likes', 'user_id', 'comment_id');
+        }
 }
