@@ -51,7 +51,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="form-row">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Title*</label>
                                     <input type="text" name="contact_page_title" id="title" placeholder="Title"
@@ -78,14 +80,15 @@
                                               autocomplete="off">{{ @$contact->address }}</textarea>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label> Description</label>
+                                    <label> Address 2</label>
                                     <textarea name="description" id="description" placeholder="description"
                                               class="form-control tinyeditor" autocomplete="off"
                                     >{{ @$contact->description }}</textarea>
                                 </div>
                             </div>
-
-                            <div class="form-row">
+                                </div>
+                                <div class="col-lg-6">
+                                <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Phone Number</label>
                                     <input type="text" name="phone" id="phone"
@@ -109,16 +112,15 @@
                                            maxlength="15">
                                     <div class="help-block with-errors" id="whatsapp_number_error"></div>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <div class="form-group">
                                         <label for="google_review"> Google Review URL</label>
                                         <input type="text" name="google_review_url" id="google_review_url"
                                                class="form-control" placeholder="Google Review URL"
                                                value="{{ !empty($contact)?$contact->google_review_url:'' }}"></div>
                                     <div class="help-block with-errors" id="google_review_url_error"></div>
-                                </div>
-                            </div>
-                            <div class="form-row">
+                                </div> -->
+                             
                               
                                 <div class="form-group col-md-6">
                                     <label> Enquiry Email</label>
@@ -127,9 +129,6 @@
                                            value="{{ !empty($contact)?$contact->alternate_email:'' }}"
                                            maxlength="230">
                                 </div>
-                            </div>
-                            <div class="form-row">
-                              
                                 <div class="form-group col-md-6">
                                     <label> Enquiry Recieving Emails</label>
                                     <input type="text" name="enquiry_emails" id="enquiry_emails"
@@ -137,8 +136,6 @@
                                            value="{{ !empty($contact)?$contact->enquiry_emails:'' }}"
                                            maxlength="230">
                                 </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Email Recipient Name*</label>
                                     <input type="text" name="email_recipient" id="email_recipient"
@@ -148,15 +145,6 @@
                                            maxlength="230">
                                     <div class="help-block with-errors" id="email_recipient_error"></div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Follow Us Title</label>
-                                    <input type="text" name="follow_title" id="follow_title"
-                                           class="form-control" placeholder="Follow Us Title"
-                                           value="{{ !empty($contact)?$contact->follow_title:'' }}"
-                                           maxlength="230">
-                                </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label> Facebook</label>
                                     <input type="text" name="facebook_url" id="facebook_url" class="form-control"
@@ -169,9 +157,7 @@
                                            placeholder="Instagram"
                                            value="{{ !empty($contact)?$contact->instagram_url:'' }}"
                                            maxlength="230">
-                                </div>
-                            </div>
-                            <div class="form-row">
+                                </div> 
                                 <div class="form-group col-md-6">
                                     <label> Twitter</label>
                                     <input type="text" name="twitter_url" id="twitter_url" class="form-control"
@@ -184,9 +170,7 @@
                                     <input type="text" name="linkedin_url" id="linkedin_url" class="form-control"
                                            placeholder="Linkedin"
                                            value="{{ !empty($contact)?$contact->linkedin_url:'' }}" maxlength="230">
-                                </div>
-                            </div>
-                            <div class="form-row">
+                                </div> 
                                 <div class="form-group col-md-6">
                                     <label> Youtube</label>
                                     <input type="text" name="youtube_url" id="youtube_url" class="form-control"
@@ -200,15 +184,40 @@
                                            placeholder="Pinterest"
                                            value="{{ !empty($contact)?$contact->pinterest_url:'' }}"
                                            maxlength="230">
-                                </div>
-                            </div>
-                            <div class="form-row">
+                                </div> 
                                 <div class="form-group col-md-6">
                                     <label> Snapchat</label>
                                     <input type="text" name="snapchat_url" id="snapchat_url" class="form-control"
                                            placeholder="Snapchat"
                                            value="{{ !empty($contact)?$contact->snapchat_url:'' }}" maxlength="230">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label> Google Map</label>
+                                    <input type="text" name="google_map" id="google_map" class="form-control"
+                                           placeholder="Google Map"
+                                           value="{{ !empty($contact)?$contact->google_map:'' }}">
+                                    <span
+                                        style='color:green;font-size:14px;'>Note: src from google map iframe</span>
+                                </div>
+                            </div> 
+                                </div>
+                            </div>
+                            
+                            
+
+                            
+                            <!-- <div class="form-row">
+                                
+                                <div class="form-group col-md-4">
+                                    <label>Follow Us Title</label>
+                                    <input type="text" name="follow_title" id="follow_title"
+                                           class="form-control" placeholder="Follow Us Title"
+                                           value="{{ !empty($contact)?$contact->follow_title:'' }}"
+                                           maxlength="230">
+                                </div>
+                            </div> -->
+                            <div class="form-row">
+                                
                                 {{-- <div class="form-group col-md-6">
                                     <label> Career EMail</label>
                                     <input type="email" name="career_email" id="career_email" class="form-control"
@@ -218,17 +227,10 @@
                             </div> --}}
                             {{-- <div class="form-row"> --}}
 
-                                <div class="form-group col-md-6">
-                                    <label> Google Map</label>
-                                    <input type="text" name="google_map" id="google_map" class="form-control"
-                                           placeholder="Google Map"
-                                           value="{{ !empty($contact)?$contact->google_map:'' }}">
-                                    <span
-                                        style='color:green;font-size:14px;'>Note: src from google map iframe</span>
-                                </div>
+                                
                             </div>
 
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Phone Image*</label>
                                 <div class="file-loading">
@@ -293,7 +295,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> -->
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
