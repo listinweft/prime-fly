@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('customer_posts', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('blog_id');
+            $table->unsignedBigInteger('journal_id');
             $table->unsignedBigInteger('user_id');
+            // Add any other columns or constraints you need for the 'likes' table
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('customer_posts', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('likes');
     }
 };

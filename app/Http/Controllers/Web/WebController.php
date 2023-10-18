@@ -21,7 +21,7 @@ use App\Models\CurrencyRate;
 use App\Models\Shape;
 use App\Models\Reply;
 use App\Models\WhoWeAre;
-
+use App\Models\Like;
 
 use App\Models\History;
 use App\Models\HomeAdvertisement;
@@ -155,35 +155,7 @@ class WebController extends Controller
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Reply added successfully!');
     }
-    public function likeComment($commentId)
-{
-    $user = Auth::user();
-    $comment = Comment::findOrFail($commentId);
 
-    // Check if the user hasn't already liked the comment
-    if (!$user->hasLikedComment($comment)) {
-        $comment->likes += 1;
-        $comment->save();
-        $user->likedComments()->attach($commentId);
-    }
-
-    return redirect()->back()->with('success', 'Comment liked!');
-}
-
-public function unlikeComment($commentId)
-{
-    $user = Auth::user();
-    $comment = Comment::findOrFail($commentId);
-
-    // Check if the user has liked the comment
-    if ($user->hasLikedComment($comment)) {
-        $comment->likes -= 1;
-        $comment->save();
-        $user->likedComments()->detach($commentId);
-    }
-
-    return redirect()->back()->with('success', 'Comment unliked!');
-}
 
     
     public function main_search(Request $request)
@@ -447,12 +419,26 @@ public function unlikeComment($commentId)
 
             $comments = Comment::where('blog_id', $blog->id)->get();
 
-        
-            return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
-                'previousBlog', 'nextBlog','type','comments'));
-        } else {
-            return view('web.404');
+            $totalLikes = Like::where('blog_id', $blog->id)->count();
+
+
+            $user = Auth::guard('customer')->user();
+           $like = null;
+        if ($user) {
+             $like = Like::where('blog_id', $blog->id)
+                ->where('user_id', $user->id)
+                ->first();
+                return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
+                'previousBlog', 'nextBlog','type','comments','like','totalLikes'));
         }
+
+        else{
+            return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
+                'previousBlog', 'nextBlog','type','comments','totalLikes'));
+        }
+         
+
+    }
     }
     public function journal_detail($short_url)
     {
@@ -461,12 +447,34 @@ public function unlikeComment($commentId)
             $banner = $seo_data = $blog;
             $type = $short_url;
             $comments = Comment::where('journal_id', $blog->id)->get();
-           
+            $totalLikes = Like::where('journal_id', $blog->id)->count();
+
+            $user = Auth::guard('customer')->user();
+            $like = null;
+
+
+            if ($user) {
+                $like = Like::where('journal_id', $blog->id)
+                   ->where('user_id', $user->id)
+                   ->first();
+                   return view('web.journal', compact('blog',  'banner', 'seo_data',
+                   'type','comments','like','totalLikes'));
+   
+           }
+           else{
             return view('web.journal', compact('blog',  'banner', 'seo_data',
-                'type','comments'));
-        } else {
-            return view('web.404');
-        }
+            'type','comments' ,'totalLikes'));
+           }
+
+           
+
+
+        } 
+
+
+
+       
+     
     }
     public function event_detail($short_url)
     {
@@ -688,22 +696,115 @@ public function unlikeComment($commentId)
         
         return view('web.faq', compact( 'seo_data','faqs', 'field', 'title'));
     }
-    public function like($commentId)
-    {
-        $comment = Blog::findOrFail($commentId);
-        $comment->likes = 1;  // Set likes to 1 when liking a comment
-        $comment->save();
+     // Make sure to import the Like model
+
+     public function likeBlog($blogId)
+     {
+         $user = Auth::guard('customer')->user();
+     
+         $like = Like::where('blog_id', $blogId)
+                     ->where('user_id', $user->id)
+                     ->first();
+     
+         if (!$like) {
+             Like::create([
+                 'blog_id' => $blogId,
+                 'user_id' => $user->id,
+                 'likes' => 1,
+             ]);
+     
+             // Update like count in the Blog model
+             $blog = Blog::findOrFail($blogId);
+             $blog->likes += 1;
+             $blog->save();
+     
+             return response()->json(['success' => true, 'action' => 'like']);
+         }
+     
+         return response()->json(['success' => true, 'action' => 'none']);
+     }
+     
+     public function unlikeBlog($blogId)
+     {
+         $user = Auth::guard('customer')->user();
+     
+         $like = Like::where('blog_id', $blogId)
+                     ->where('user_id', $user->id)
+                     ->first();
+     
+         if ($like) {
+             $like->delete();
+     
+             // Update like count in the Blog model
+             $blog = Blog::findOrFail($blogId);
+             if ($blog->likes > 0) {
+                 $blog->likes -= 1;
+                 $blog->save();
+             }
+     
+             return response()->json(['success' => true, 'action' => 'unlike']);
+         }
+     
+         return response()->json(['success' => true, 'action' => 'none']);
+     }
+     
+   
+
     
-        return response()->json(['success' => true, 'action' => 'like']);
+    public function likeJournal($blogId)
+    {
+
+       
+        $user = Auth::guard('customer')->user();
+     
+         $like = Like::where('journal_id', $blogId)
+                     ->where('user_id', $user->id)
+                     ->first();
+     
+         if (!$like) {
+             Like::create([
+                 'journal_id' => $blogId,
+                 'user_id' => $user->id,
+                 'likes' => 1,
+             ]);
+     
+             // Update like count in the Blog model
+            //  $blog = Journal::findOrFail($blogId);
+            //  $blog->likes += 1;
+            //  $blog->save();
+     
+             return response()->json(['success' => true, 'action' => 'like']);
+         }
+     
+         return response()->json(['success' => true, 'action' => 'none']);
     }
     
-    public function unlike($commentId)
+    public function unlikeJournal($blogId)
     {
-        $comment = Blog::findOrFail($commentId);
-        $comment->likes = 0;  // Set likes to 0 when unliking a comment
-        $comment->save();
-    
-        return response()->json(['success' => true, 'action' => 'unlike']);
+        $user = Auth::guard('customer')->user();
+     
+         $like = Like::where('journal_id', $blogId)
+                     ->where('user_id', $user->id)
+                     ->first();
+     
+         if ($like) {
+             $like->delete();
+     
+             // Update like count in the Blog model
+             $blog = Journal::findOrFail($blogId);
+             if ($blog->likes > 0) {
+                 $blog->likes -= 1;
+                 $blog->save();
+             }
+     
+             return response()->json(['success' => true, 'action' => 'unlike']);
+         }
+     
+         return response()->json(['success' => true, 'action' => 'none']);
     }
+    
+
+
+    
 
 }

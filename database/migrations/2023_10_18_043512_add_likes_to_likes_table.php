@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('customerposts', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+        Schema::table('likes', function (Blueprint $table) {
+            $table->boolean('likes')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('customerposts', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+        Schema::table('likes', function (Blueprint $table) {
+            $table->dropColumn('likes');
         });
     }
 };

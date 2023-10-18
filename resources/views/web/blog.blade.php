@@ -76,7 +76,7 @@
                               <div class="reaction-stati-image"><img src="{{ asset('frontend/images//blog/avatar-2.png')}}" alt=""></div>
                               <div class="reaction-stati-image"><img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt=""></div>
                            </div>
-                           <div class="reaction-stati-count">233 Likes</div>
+                           <div class="reaction-stati-count">{{ $totalLikes }} Likes</div>
                         </div>
                      </div>
                      <div class="col-sm-6">
@@ -86,10 +86,9 @@
                                  <svg width="34" height="30" viewBox="0 0 34 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M16.9998 29.0704C16.4568 29.0704 15.9141 28.864 15.5007 28.451L2.76233 15.73C-0.825751 12.1465 -0.932457 6.33453 2.52489 2.77436C4.26258 0.985442 6.59492 0 9.09263 0C11.5377 0 13.8347 0.949403 15.5604 2.67296L16.9991 4.10996L18.4344 2.67331C20.1607 0.949403 22.4578 0 24.9025 0C27.4023 0 29.7357 0.984736 31.473 2.77295C34.9321 6.33277 34.8268 12.1454 31.2377 15.7296L18.499 28.451C18.0856 28.8637 17.5429 29.0704 16.9998 29.0704ZM9.09263 1.44725C6.9896 1.44725 5.02578 2.27652 3.56298 3.78277C0.654003 6.77832 0.753643 11.6787 3.78488 14.706L16.5232 27.427C16.7864 27.6896 17.214 27.6888 17.4765 27.427L30.2152 14.7057C33.2471 11.6776 33.3457 6.7769 30.4349 3.78136C28.9725 2.27616 27.0076 1.44725 24.9025 1.44725C22.8439 1.44725 20.9102 2.24613 19.4576 3.69691L17.5118 5.64448C17.2292 5.92785 16.7712 5.92714 16.4886 5.64518L14.5378 3.69691C13.0853 2.24613 11.1515 1.44725 9.09263 1.44725Z" fill="black"/>
                                  </svg>
-                                 Like
-                                 <!-- <button class="like-button2 {{ $blog->likes > 0 ? 'liked' : '' }}" data-blog-id="{{ $blog->id }}">
-            {{ $blog->likes > 0 ? 'Unlike' : 'Like' }}
-        </button> -->
+                                 <button class="like-button2 {{ $like && $like->likes == 1 ? 'liked' : '' }}" data-blog-id="{{ $blog->id }}">
+    {{ $like && $like->likes == 1 ? 'Unlike' : 'Like' }}
+</button>
                                                 <!-- <svg class="unliked" xmlns="http://www.w3.org/2000/svg" width="34" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                                                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                                                 </svg>
@@ -287,7 +286,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-<script>
+<!-- <script>
     const likeButtons = document.querySelectorAll('.like-button');
 
 likeButtons.forEach(button => {
@@ -332,46 +331,70 @@ likeButtons.forEach(button => {
 });
 
 
-</script>
-
-
+</script> -->
 
 
 
 <script>
-   // Get the like button
-const likeButton2 = document.querySelector('.like-button2');
+    const commentLikeButtons = document.querySelectorAll('.like-button');
 
-// Set an initial state for like status
-let isLiked = false;
+    commentLikeButtons.forEach(button => {
+        let isLiked = button.classList.contains('liked');
+        const commentId = button.getAttribute('data-comment-id');
+        const url = `/like/comment/${commentId}`;
 
-likeButton2.addEventListener('click', function () {
-    const blogId = this.getAttribute('data-blog-id');
-    const url = `/like/blog/${blogId}`;
+        button.addEventListener('click', function () {
+            const url = isLiked ? `/unlike/comment/${commentId}` : `/like/comment/${commentId}`;
 
-    axios.get(url)
-        .then(response => {
-            if (response.data.success) {
-                if (isLiked) {
-                    // If already liked, clicking unlikes the blog
-                    likeButton2.classList.remove('liked');
-                    toastr.success('Blog unliked!');
-                } else {
-                    // If not liked, clicking likes the blog
-                    likeButton2.classList.add('liked');
-                    toastr.success('Blog liked!');
+            axios.post(url)
+                .then(response => {
+                    if (response.data.success) {
+                        if (isLiked) {
+                            // If already liked, clicking unlikes the comment
+                            button.classList.remove('liked');
+                            toastr.success('Comment unliked!');
+                        } else {
+                            // If not liked, clicking likes the comment
+                            button.classList.add('liked');
+                            toastr.success('Comment liked!');
+                        }
+
+                        // Toggle the liked state
+                        isLiked = !isLiked;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
+
+<script>
+    const likeButton2 = document.querySelector('.like-button2');
+    let isLiked = {{ $like && $like->likes == 1 ? 'true' : 'false' }};
+
+    likeButton2.addEventListener('click', function () {
+        const blogId = this.getAttribute('data-blog-id');
+        const url = isLiked ? `/unlike/blog/${blogId}` : `/like/blog/${blogId}`;
+
+        axios.get(url)
+            .then(response => {
+                if (response.data.success) {
+                    if (isLiked) {
+                        likeButton2.classList.remove('liked');
+                        likeButton2.innerText = 'Like';
+                        toastr.success('Blog unliked!');
+                    } else {
+                        likeButton2.classList.add('liked');
+                        likeButton2.innerText = 'Unlike';
+                        toastr.success('Blog liked!');
+                    }
+
+                    isLiked = !isLiked;
                 }
-
-                // Toggle the liked state
-                isLiked = !isLiked;
-            }
-        })
-        .catch(error => console.error('Error:', error));
-});
-
-
-
-
+            })
+            .catch(error => console.error('Error:', error));
+    });
 </script>
 
 

@@ -8,7 +8,7 @@
     <meta name="description" content="{!! @$seo_data->meta_description !!}"/>
     <meta name="keywords" content="{!! @$seo_data->meta_keyword !!}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <title>{{ config('app.name') }} - {!! @$seo_data->meta_title !!}</title>
+    <title>Emirati society of anesthesiology - {!! @$seo_data->meta_title !!}</title>
     <!-- {!! @$seo_data->other_meta_tag !!}
     {!! @$siteInformation->header_tag !!} -->
 

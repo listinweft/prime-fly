@@ -62,9 +62,14 @@ Route::middleware(['web'])->group(function () {
     Route::post('/comments/{commentId}/reply', [WebController::class, 'reply'])->name('reply_comment');
     Route::post('/like/comment/{commentId}', [CommentController::class, 'likeComment'])->name('comment.like');
     Route::post('/unlike/comment/{commentId}', [CommentController::class, 'unlikeComment'])->name('comment.unlike');
-    Route::get('/like/blog/{blog}', [WebController::class, 'like'])->name('like.blog');
 
-    Route::post('/unlike/blog/{blog}/unlike', [WebController::class, 'unlikeBlog'])->name('unlike.blog');
+    Route::get('/like/blog/{blog}', [WebController::class, 'likeBlog'])->name('like.blog');
+
+    Route::get('/unlike/blog/{blog}/', [WebController::class, 'unlikeBlog'])->name('unlike.blog');
+
+    Route::get('/like/journal/{journal}', [WebController::class, 'likeJournal'])->name('like.journal');
+
+    Route::get('/unlike/journal/{journal}/', [WebController::class, 'unlikeJournal'])->name('unlike.journal');
 
 
 
