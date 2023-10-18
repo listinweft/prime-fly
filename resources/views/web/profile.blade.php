@@ -13,11 +13,17 @@
                         <!-- <div class="user-profile-icon"><img src="{{ asset('frontend/images/default-user.png')}}" alt="" srcset=""></div> -->
                         <div class="user-profile-image">
                             <div class="circle">
-                                <img class="profile-pic" src="{{ asset('frontend/images/default-user.png')}}">
+                           
+                                @if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                    {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                @else
+                                    <img src="{{ asset('frontend/images/user-profile.png') }}" alt="Default Profile Image" class="img-fluid">
+                                @endif
+
                             </div>
                             <div class="p-image user-prof-btn" style="display: none;">
                                 <i class="bi bi-camera-fill upload-button"></i>
-                                <input class="file-upload" type="file" accept="image/*"/>
+                                <input class="file-upload" type="file" accept="image/*" name="profileImage"/>
                             </div>
                         </div>
                         <div class="user-profile-details">
@@ -96,7 +102,7 @@
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
-                                                        <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
+                                                        <div class="active-user-image">  {!! Helper::printImage($user, 'profile_image','profile_image_webp','image_attribute', 'img-fluid') !!}</div>
                                                         <div class="active-user-name">{{@$customer->first_name}}</div>
                                                     </div>
                                                     <div class="active-user-achievement">
@@ -184,7 +190,7 @@
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
-                                                        <div class="active-user-image"><img src="{{ asset('frontend/images/user-profile.png')}}" alt=""></div>
+                                                        <div class="active-user-image">  {!! Helper::printImage($user, 'profile_image','profile_image_webp','image_attribute', 'img-fluid') !!}</div>
                                                         <div class="active-user-name">{{@$customer->first_name}}</div>
                                                     </div>
                                                     <div class="active-user-achievement">
@@ -296,35 +302,49 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
     <script>
         $(document).ready(function() {
 
-            console.log('Document is ready!');
+            var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
+    $(".file-upload").on('change', function() {
+        readURL(this);
+    });
+    $(".upload-button").on('click', function() {
+   $(".file-upload").click();
+});
 
-            $('#updateProfileForm').on('submit', function(e) {
-        e.preventDefault();  // Prevent the default form submission behavior
-
-        var formData = $(this).serialize();
+    $('#updateProfileForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        var formData = new FormData(this);
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        // Your AJAX logic here
+        // Append the profile image file to the FormData
+        var profileImage = $(".file-upload")[0].files[0];
+        formData.append('profileImage', profileImage);
+
         $.ajax({
             url: '/customer/update-profile',
             type: 'POST',
             data: formData,
+            processData: false,
+            contentType: false,
             headers: {
                 'X-CSRF-TOKEN': csrfToken
             },
             success: function(response) {
-
-                window.location.reload();
-        // Update the UI with the success message
-      
-
-        // You can also hide the form or do other UI updates if needed
-
-        console.log('Form submitted successfully. Response:', response);
-    },
+                
+                $('.profile-pic').attr('src', response.image_url);
+                 window.location.reload();
+                console.log('Form submitted successfully. Response:', response);
+            },
             error: function(error) {
-                // Handle the error
                 console.error('Error submitting the form:', error);
             }
         });
@@ -439,30 +459,30 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
 });
 
 
-$(document).ready(function() {
+// $(document).ready(function() {
 
     
-var readURL = function(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+// var readURL = function(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('.profile-pic').attr('src', e.target.result);
-        }
+//         reader.onload = function (e) {
+//             $('.profile-pic').attr('src', e.target.result);
+//         }
 
-        reader.readAsDataURL(input.files[0]);
-    }
-}
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
 
 
-$(".file-upload").on('change', function(){
-    readURL(this);
-});
+// $(".file-upload").on('change', function(){
+//     readURL(this);
+// });
 
-$(".upload-button").on('click', function() {
-   $(".file-upload").click();
-});
-});
+// $(".upload-button").on('click', function() {
+//    $(".file-upload").click();
+// });
+// });
 </script>
 <script>
   $(document).ready(function() {

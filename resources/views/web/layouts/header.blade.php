@@ -1,7 +1,8 @@
 <section class="col-12 header">
             <div class="container">
                 <div class="d-flex flex-wrap justify-content-between align-items-center">
-                <a href="{{ url('/') }}"><img class="logo" src="{{ asset('frontend/images/logo.png') }}" /></a>
+                <a href="{{ url('/') }}"><img class="logo" src="{{ asset('frontend/images/logo.png') }}" />
+            </a>
                
                     <ul class="menu-container d-lg-flex justify-content-between liststyle-none mb-0 p-0">
                         <li><a href="{{ url('about') }}">About Us</a></li>
@@ -34,6 +35,8 @@
                         <a href="#0">
                         <div class="user-login-box mob-login mt-4 d-sm-none">
                             <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
+
+                            
                             <div class="user-login-name">{{$customer->first_name}}</div>
                             <div class="user-account-dropdown"><i class="bi bi-chevron-down"></i></div>
                         </div>
@@ -69,7 +72,11 @@
                         <!-- <a href="{{ url('logout') }}" class="common-btn d-none d-sm-block">Log Out</a> -->
                         
                         <div class="user-login-box d-none d-sm-block">
-                            <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
+                            <div class="user-login-image">@if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                    {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                @else
+                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="Default Profile Image" class="img-fluid">
+                                @endif</div>
                             <div class="user-login-name">{{$customer->first_name}}</div>
                             <div class="is-user-nav">
                                 <ul>

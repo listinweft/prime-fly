@@ -84,6 +84,8 @@ class CustomerController extends Controller
    
     public function update_profile(Request $request)
     {
+
+        // dd($request->all());
        
 
         if (Auth::guard('customer')->check()) {
@@ -98,6 +100,20 @@ class CustomerController extends Controller
 //                 'phone_number' => 'required|min:7|max:20|unique:users,phone,' . $user->id,
 //             ]);
             DB::beginTransaction();
+           // Display the profile image
+
+           if ($request->hasFile('profileImage')) {  // Update to 'profileImage' as per request data
+            // Delete the existing profile image if it exists
+            if (File::exists(public_path($user->profile_image))) {
+                File::delete(public_path($user->profile_image));
+            }
+        
+            // Upload the new profile image
+            $user->profile_image = Helper::uploadFile($request->file('profileImage'), 'uploads/customer/profile_image/', $user->email);  // Update to 'profileImage' as per request data
+           
+        }
+        
+           
             $customer->first_name = $request->first_name;
             $customer->designation = $request->designation;
             $customer->description = $request->description;
