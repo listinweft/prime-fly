@@ -2294,3 +2294,6 @@ img {
     }
 }
 /*--------------- Thank you page end ----------------*/
+.user-profile-details textarea, .user-profile-details input{
+    outline: none;
+}
