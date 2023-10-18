@@ -75,7 +75,7 @@
                             <div class="user-login-image">@if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
                                     {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
                                 @else
-                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="Default Profile Image" class="img-fluid">
+                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
                                 @endif</div>
                             <div class="user-login-name">{{$customer->first_name}}</div>
                             <div class="is-user-nav">
