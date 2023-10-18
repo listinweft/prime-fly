@@ -41,7 +41,7 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                       
+                                        <th>type</th>
                                         <th>type</th>
                                           <th>Pdf</th>
                                         
@@ -53,7 +53,7 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
 
-                                           
+                                            <td>{{$blog->user->customer->first_name}}</td>
                                           <td>  {{ $blog->type }}</td>
                                        
                                       

@@ -404,18 +404,14 @@ $(document).ready(function () {
                         if (modal_id) {
                             $("#" + modal_id).hide();
                         }
-                        // $("#successModal").modal('show');
+                       // Redirect to thanku.blade.php
+            window.location.href = '/thankyou'; // Adjust the URL if necessary
 
-                        //     document.getElementById("myspan").innerHTML=response.message;
-
-                        //     const myTimeout = setTimeout(myGreeting, 2000);
-
-                        //     function myGreeting() {
-
-                        //          $('#successModal').delay(2000).fadeOut();
-
-                                 window.location.reload();
-                            // }
+        // Reload the page after a delay (e.g., 2000 milliseconds)
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 500);
+                                        
                     } else if (response.status == "login-success") {
                         swal({
                             title: "Success!", text: response.message, type: 'success'
@@ -777,7 +773,7 @@ $(document).ready(function () {
     //     }
     // });
     $(document).on('click', '.form_submit_btn', function (e) {
-        alert("dfd");
+        
 
         e.preventDefault();
 

@@ -70,6 +70,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/like/journal/{journal}', [WebController::class, 'likeJournal'])->name('like.journal');
 
     Route::get('/unlike/journal/{journal}/', [WebController::class, 'unlikeJournal'])->name('unlike.journal');
+    Route::get('/thankyou', [WebController::class, 'thankYouPage'])->name('thankyou');
 
 
 
@@ -201,7 +202,8 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
     Route::post('update-customer-address', [CustomerWebController::class, 'createAddress']);
     Route::post('delete-address', [CustomerWebController::class, 'delete_address']);
 
-    Route::post('upload', [CustomerWebController::class, 'upload'])->name('file.upload');;
+    Route::post('upload', [CustomerWebController::class, 'upload'])->name('file.upload');
+    Route::post('uploads', [CustomerWebController::class, 'uploads'])->name('file.uploads');
 
    
 

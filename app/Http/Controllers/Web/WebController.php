@@ -189,7 +189,7 @@ class WebController extends Controller
         if ($blogs->isNotEmpty()) {
             foreach ($blogs as $blog) {
                 
-                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('blog/' . $blog->short_url));
+                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('journal/' . $blog->short_url));
             }
         }
         return response()->json(['status' => true, 'message' => $searchResult]);
@@ -207,7 +207,7 @@ class WebController extends Controller
         if ($blogs->isNotEmpty()) {
             foreach ($blogs as $blog) {
                 
-                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('blog/' . $blog->short_url));
+                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('event/' . $blog->short_url));
             }
         }
         return response()->json(['status' => true, 'message' => $searchResult]);
@@ -768,10 +768,10 @@ class WebController extends Controller
                  'likes' => 1,
              ]);
      
-             // Update like count in the Blog model
-            //  $blog = Journal::findOrFail($blogId);
-            //  $blog->likes += 1;
-            //  $blog->save();
+           
+             $blog = Journal::findOrFail($blogId);
+             $blog->likes += 1;
+             $blog->save();
      
              return response()->json(['success' => true, 'action' => 'like']);
          }
@@ -803,7 +803,11 @@ class WebController extends Controller
          return response()->json(['success' => true, 'action' => 'none']);
     }
     
-
+    public function thankYouPage()
+    {
+        return view('web.thank_you'); 
+    }
+    
 
     
 

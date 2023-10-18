@@ -28,18 +28,23 @@
                                 <div class="news-letter-wraper">
                                     <p class="news-letter-head">SUBSCRIBE TO OUR EXCLUSIVE NWESLETTER</p>
                                     <div class="news-letter-form-box">
-                                        <form action="#0">
+                                        <form action="#0" id="newsletterForm">
                                             <div class="news-letter-form">
-                                                <input type="email" name="" id="" placeholder="Your Email">
+                                                <input type="email" name="email" id="email" placeholder="Your Email" class="required">
                                                 <div class="news-letter-form-submit">
                                                     <div class="news-letter-form-field">
-                                                        <input type="submit" value="">
+                                                        <input type="submit" value="" class="form_submit_btn" data-url="/newsletter">
                                                     </div>
-                                                    <div class="form-submit-text">Subscribe <span><svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M10.9957 0.906927C10.9445 0.357021 10.4572 -0.0472596 9.90729 0.00394142L0.946051 0.838311C0.396144 0.889512 -0.00813605 1.37681 0.043065 1.92671C0.094266 2.47662 0.58156 2.8809 1.13147 2.8297L9.09701 2.08804L9.83867 10.0536C9.88988 10.6035 10.3772 11.0078 10.9271 10.9566C11.477 10.9054 11.8813 10.4181 11.8301 9.86817L10.9957 0.906927ZM1.76962 12.4862L10.7696 1.63814L9.23038 0.361127L0.230384 11.2091L1.76962 12.4862Z" fill="#FF000A"/>
-                                                        </svg>
-                                                        </span></div>
-                                                </div>
+                                                    
+                                                    <div class="form-submit-text">
+                                                       Subscribe 
+                                                            <span><svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M10.9957 0.906927C10.9445 0.357021 10.4572 -0.0472596 9.90729 0.00394142L0.946051 0.838311C0.396144 0.889512 -0.00813605 1.37681 0.043065 1.92671C0.094266 2.47662 0.58156 2.8809 1.13147 2.8297L9.09701 2.08804L9.83867 10.0536C9.88988 10.6035 10.3772 11.0078 10.9271 10.9566C11.477 10.9054 11.8813 10.4181 11.8301 9.86817L10.9957 0.906927ZM1.76962 12.4862L10.7696 1.63814L9.23038 0.361127L0.230384 11.2091L1.76962 12.4862Z" fill="#FF000A"/>
+                                                            </svg> 
+                                                            </span>
+                                                         
+                                                    </div>
+                                                </div> 
                                             </div>
                                         </form>
                                     </div>

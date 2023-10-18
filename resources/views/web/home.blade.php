@@ -523,7 +523,7 @@
                 <div class="item journel-grid-item">
                     <div class="journal-grid-content">
                         <h4>{!! $journal->title !!}</h4>
-                        <p>{!! strlen($journal->description) > 100  ? substr($journal->description, 0, 100) . '...' : $journal->description !!}</p>
+                        {!! strlen($journal->description) > 100  ? substr($journal->description, 0, 100) . '...' : $journal->description !!} 
                     </div>
                     <div class="journal-grid-logo">
                     @if(Auth::guard('customer')->check())

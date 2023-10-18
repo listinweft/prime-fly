@@ -32,27 +32,31 @@ class BlogController extends Controller
         return view('Admin.blog.list', compact('blogList', 'title', 'type', 'home_heading'));
     }
 
-                public function show($id)
-            {
-                // Logic to retrieve and display the blog item with the given ID
-                                $customerPost = CustomerPost::findOrFail($id);
-
-                    // Assuming the PDF is stored in the 'pdf_data' attribute as binary data
-                    $pdfData = $customerPost->pdf_data;
-
-                   
-
-                    // Generate a dynamic file name based on type and ID
-                    $fileName = 'pdf_' . $customerPost->type . '_' . $id . '.pdf';
-
-                    // Set the headers for file download
-                    $headers = [
-                        'Content-Type' => 'application/pdf',
-                        'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-                    ];
-
-    return Response::make($pdfData, 200, $headers);
-            }
+    public function show($id)
+    {
+        // Logic to retrieve and display the blog item with the given ID
+        $customerPost = CustomerPost::findOrFail($id);
+    
+        // Extract the file path and generate the file name
+        $filePath = public_path($customerPost->pdf_data);
+        $fileName = 'pdf_' . $customerPost->type . '_' . $id . '.pdf';
+    
+        // Check if the file exists
+        if (file_exists($filePath)) {
+            // Set the headers for file download
+            $headers = [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            ];
+    
+            // Serve the file for download
+            return response()->file($filePath, $headers);
+        } else {
+            // Handle the case where the file doesn't exist
+            return response()->json(['error' => 'File not found'], 404);
+        }
+    }
+    
 
     public function custome_blog()
     {
@@ -60,6 +64,9 @@ class BlogController extends Controller
         // $home_heading = HomeHeading::type('blog')->first();
         $type = 'Blog';
         $blogList = CustomerPost::get();
+
+      
+
         return view('Admin.blog.list_customer', compact('blogList', 'title', 'type',));
     }
 

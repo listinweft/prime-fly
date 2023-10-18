@@ -8,7 +8,7 @@
                                 <div class="col-12 journel-grid-item">
                                     <div class="journal-grid-content">
                                         <h4>{{ $blog->title }}</h4>
-                                        <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!}</p>
+                                         {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!} 
                                     </div>
                                     <div class="journal-grid-logo">
                                     @if(Auth::guard('customer')->check())

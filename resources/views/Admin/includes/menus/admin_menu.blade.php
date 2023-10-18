@@ -240,13 +240,13 @@
                 <p>Contact Page</p>
             </a>
         </li>
-        {{-- <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'enquiry/product')}}"
+     <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'enquiry/newsletter')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p> Product </p>
+                <p> News Letter </p>
             </a>
-        </li> --}}
+        </li> 
         <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'enquiry/bulk')}}"
                class="nav-link {{ (Request::segment(3)=='product')?'active':'' }}">
@@ -296,12 +296,13 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{url(Helper::sitePrefix().'blog/custome-blog')}}"
-       class="nav-link {{ (Request::segment(3)=='blog/custome-blog')?'active':''}}">
+    <a href="{{ url(Helper::sitePrefix().'blog/custome-blog') }}"
+       class="nav-link {{ request()->is(Helper::sitePrefix().'blog/custome-blog*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-question-circle"></i>
         <p>Customer-posts</p>
     </a>
 </li>
+
 <!-- <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'testimonial')}}"
        class="nav-link {{ (Request::segment(2)=='testimonial')?'active':''}}">

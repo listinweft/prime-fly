@@ -43,6 +43,12 @@
         </div>
     </div>
 </section> -->
+@push('scripts')
+ <script>
+ setTimeout(function() {
+    window.location.href = '/';
+                        }, 2000);
 
-
+</script>
+@endpush
 @endsection

@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
@@ -298,22 +300,53 @@ class CustomerController extends Controller
     }
 
    
+ 
+
     public function upload(Request $request)
-    {
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $pdfData = file_get_contents($file); // Get the PDF data as binary
-    
-            // Save to the database
-            $customerPost = new CustomerPost;
-            $customerPost->pdf_data = $pdfData;
-            $customerPost->user_id = $request->user_id;
-            $customerPost->type = $request->type;
-            $customerPost->save();
-    
-            return response()->json(['message' => 'File uploaded successfully'], 200);
-        }
-    
-        return response()->json(['error' => 'No file uploaded.'], 400);
+{
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+
+        // Generate a unique filename using timestamp and a random string
+        $fileName = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+        // Move the file to the public folder with the dynamic filename
+        $path = $file->move(public_path('uploads/pdf'), $fileName);
+
+        // Save the file path to the database
+        $customerPost = new CustomerPost;
+        $customerPost->pdf_data = 'uploads/pdf/' . $fileName;  // Update the path based on your folder structure
+        $customerPost->user_id = $request->user_id;
+        $customerPost->type = $request->type;
+        $customerPost->save();
+
+        return response()->json(['message' => 'File uploaded successfully'], 200);
     }
+
+    return response()->json(['error' => 'No file uploaded.'], 400);
+}
+public function uploads(Request $request)
+{
+    if ($request->hasFile('files')) {
+        $file = $request->file('files');
+
+        // Generate a unique filename using timestamp and a random string
+        $fileName = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+        // Move the file to the public folder with the dynamic filename
+        $path = $file->move(public_path('uploads/pdf'), $fileName);
+
+        // Save the file path to the database
+        $customerPost = new CustomerPost;
+        $customerPost->pdf_data = 'uploads/pdf/' . $fileName;  // Update the path based on your folder structure
+        $customerPost->user_id = $request->user_id;
+        $customerPost->type = $request->type;
+        $customerPost->save();
+
+        return response()->json(['message' => 'File uploaded successfully'], 200);
+    }
+
+    return response()->json(['error' => 'No file uploaded.'], 400);
+}
+
 }

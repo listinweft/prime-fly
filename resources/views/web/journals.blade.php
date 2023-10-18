@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row justify-content-center"> 
                     <div class="col-xxl-10">
-                        <div class="row justify-content-between">
+                        <div class="row justify-content-center">
                             <div class="col-12 mb-xxl-5 mb-md-4 mb-3">
                                 <div class="custom-search">
                                     <form action="#0">

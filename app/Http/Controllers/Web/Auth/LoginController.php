@@ -369,10 +369,12 @@ public function register(Request $request)
         'firstname' => 'required|string|min:2|max:255',
         'lastname' => 'required|string|min:2|max:255',
         'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+        'phone' => 'required|string|unique:users,phone,NULL,id,deleted_at,NULL',
+
         'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
     ]);
 
-    // Start a database transaction
+    
     DB::beginTransaction();
 
     try {
@@ -400,7 +402,7 @@ public function register(Request $request)
         // Commit the transaction
         DB::commit();
 
-        Auth::guard('customer')->login($user);
+        Auth::guard('customer')->logout();
 
         if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
             return response()->json([
