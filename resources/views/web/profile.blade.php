@@ -91,7 +91,7 @@
                                         
                                         
                                     @foreach( $blogs as $blog )
-                                        <div class="col-md-4">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
@@ -146,7 +146,7 @@
                                         
                                         
                                     @foreach( $journals as $journal )
-                                        <div class="col-md-4">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
