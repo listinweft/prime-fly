@@ -1257,6 +1257,7 @@ form{
 }
 .user-credentials ul li{
     padding: 9px 0;
+    min-height: 54px;
 }
 .user-credentials ul li:not(:last-child){
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -1274,6 +1275,72 @@ form{
     position: absolute;
     left: 0;
     top: 0;
+}
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: inline-block;
+}
+
+.file-upload {
+    display: none;
+}
+.circle {
+    border-radius: 100% !important;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    position: static;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.p-image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  color: #666666;
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  line-height: 1;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p-image i{
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    line-height: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.p-image:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+.upload-button {
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  color: #999;
+}
+.user-profile-image{
+    position: relative;
+    width: fit-content;
+    margin-bottom: 25px;
 }
 
 /*----------- tab start ----------*/
@@ -1302,7 +1369,7 @@ form{
   border-radius:3px;
   background-color: #33CC66;
   position:absolute;
-  z-index:1200;
+  z-index: 0;
   bottom:0;
   transition:all .4s linear;
   
@@ -1418,7 +1485,7 @@ form{
     color: #B5B5B5;
     font-size: 30px;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 1.2;
 }
 
 
@@ -2227,3 +2294,6 @@ form{
     }
 }
 /*--------------- Thank you page end ----------------*/
+.user-profile-details textarea, .user-profile-details input{
+    outline: none;
+}

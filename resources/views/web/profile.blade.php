@@ -6,11 +6,20 @@
             <div class="container">
                 <div class="user-activity-container">
               
-         <div class="user-profile sticky-top">
+         <div class="user-profile sticky-lg-top">
 
          <form action="javascript:void(0);" method="POST" id="updateProfileForm">
     
-                        <div class="user-profile-icon"><img src="{{ asset('frontend/images/user-profile.png')}}" alt="" srcset=""></div>
+                        <!-- <div class="user-profile-icon"><img src="{{ asset('frontend/images/default-user.png')}}" alt="" srcset=""></div> -->
+                        <div class="user-profile-image">
+                            <div class="circle">
+                                <img class="profile-pic" src="{{ asset('frontend/images/default-user.png')}}">
+                            </div>
+                            <div class="p-image user-prof-btn" style="display: none;">
+                                <i class="bi bi-camera-fill upload-button"></i>
+                                <input class="file-upload" type="file" accept="image/*"/>
+                            </div>
+                        </div>
                         <div class="user-profile-details">
                           
                         <h4 class="editable profilename" name="first_name"> {{@$customer->first_name}}</h4>
@@ -55,8 +64,8 @@
                         </div>
                         <div class="user-prof-btn">
                             <div class="d-flex flex-wrap justify-content-start">
-                            <button type="button" class="common-btn cancel-btn">Cancel</button>
-            <button type="submit" class="common-btn">Save</button>
+                            <!-- <button type="button" class="common-btn cancel-btn">Cancel</button> -->
+            <button type="submit" class="common-btn mt-3">Save</button>
                                 
                             </div>
                         </div>
@@ -82,7 +91,7 @@
                                         
                                         
                                     @foreach( $blogs as $blog )
-                                        <div class="col-md-4">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
@@ -170,7 +179,7 @@
                                         
                                         
                                     @foreach( $journals as $journal )
-                                        <div class="col-md-4">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-item-content">
@@ -427,6 +436,32 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
   $('#file').change(function() {
   var file = $('#file')[0].files[0].name;
   $('.file-name').text(file);
+});
+
+
+$(document).ready(function() {
+
+    
+var readURL = function(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.profile-pic').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+$(".file-upload").on('change', function(){
+    readURL(this);
+});
+
+$(".upload-button").on('click', function() {
+   $(".file-upload").click();
+});
 });
 </script>
 <script>
