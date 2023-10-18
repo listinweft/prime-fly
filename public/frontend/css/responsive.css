@@ -478,6 +478,56 @@
 
 /*-------------- contact page end ------------------*/
 
+/*-------------- my account page start ------------*/
+
+.user-profile {
+    width: calc(485px - 80px);
+    padding: calc(55px - 8px) calc(70px - 11px*2);
+    margin-top: 3rem;
+}
+.circle {
+    width: calc(100px - 15px);
+    height: calc(100px - 15px);
+}
+.user-profile-image{
+    margin-bottom: calc(25px - 4px);
+}
+.user-profile-details h4{
+    font-size: calc(25px - 4px);
+}
+.user-profile-details {
+    margin-bottom: calc(30px - 5px);
+}
+.user-activity-count ul li{
+    margin-bottom: calc(48px - 8px);
+}
+.user-credentials ul li a{
+    font-size: calc(18px - 2px);
+    padding-left: calc(40px - 6px);
+}
+.nav-link{
+    font-size: calc(22px - 3px);
+}
+.tab-content {
+    padding-top: calc(34px - 5px);
+}
+.empty-post {
+    max-width: 325px;
+    min-height: calc(580px - 96px);
+}
+.empty-post svg{
+    width: calc(136px - 22px);
+}
+.empty-post-icon-relation {
+    margin-bottom: calc(30px - 5px);
+}
+.empty-post h4 {
+    margin-bottom: calc(22px - 3px);
+    font-size: calc(30px - 5px);
+}
+
+/*-------------- my account page end ------------*/
+
 }
 
 @media(max-width: 1400px){
@@ -774,6 +824,18 @@
 .searchResult ul li a{
     padding: 12px 24px;
 }
+
+/*------------- my account page start --------------*/
+
+.empty-post-icon-relation {
+    margin-bottom: calc(30px - 5px*2);
+}
+.user-credentials ul li a {
+    font-size: calc(18px - 2px*1.6);
+    padding-left: calc(40px - 6px*1.6);
+}
+
+/*------------- my account page end ----------------*/
     
 }
 
@@ -782,7 +844,10 @@
     .blog_thumb{
         height: 220px;
     }
-
+    .header li a {
+        padding: 10px 13px;
+        font-size: 13px;
+    }
     /*------------- About page start --------------*/
 
     .aboutus_section {
@@ -1010,6 +1075,14 @@
 }
 
 /*-------------- contact page end ------------------*/
+
+/*-------------- my account page start -------------*/
+.user-profile {
+    width: calc(485px - 80px*1.5);
+    padding: calc(55px - 8px*2) calc(70px - 11px*3);
+    margin-top: 3rem;
+}
+/*-------------- my account page end --------------*/
 
 }
 
@@ -1281,6 +1354,28 @@
         padding-top: 70px;
     }
     /*------------------ contact page end --------------*/
+
+    /*------------------ my account page start ------------*/
+    .user-profile{
+        margin-top: 0;
+        width: 100%;
+        padding: 20px 20px;
+    }
+    .user-activity-container{
+        display: block;
+    }
+    .user-activity{
+        padding-left: 0;
+        margin-top: 30px;
+    }
+    .my-account {
+        margin: 40px 0 30px 0;
+    }
+    .empty-post{
+        min-height: auto;
+    }
+    
+    /*------------------ my account page end --------------*/
 
 }
 @media(max-width: 767px){
@@ -1742,5 +1837,20 @@
 }
 
 /*---------------- contact age end --------------------*/
+
+/*---------------- my account page start --------------*/
+
+.circle {
+    width: calc(100px - 15px*1.6);
+    height: calc(100px - 15px*1.6);
+}
+.user-activity-count ul li {
+    margin-bottom: calc(48px - 8px*1.6);
+}
+.user-activity-count ul li:not(:last-child) {
+    margin-right: 10px;
+}
+
+/*---------------- my account page end ---------------*/
 
 }

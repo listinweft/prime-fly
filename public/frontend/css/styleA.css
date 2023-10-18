@@ -1257,6 +1257,7 @@ form{
 }
 .user-credentials ul li{
     padding: 9px 0;
+    min-height: 54px;
 }
 .user-credentials ul li:not(:last-child){
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -1291,7 +1292,7 @@ form{
     overflow: hidden;
     width: 100px;
     height: 100px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(0, 0, 0, 0.2);
     position: static;
 }
 img {
@@ -1368,7 +1369,7 @@ img {
   border-radius:3px;
   background-color: #33CC66;
   position:absolute;
-  z-index:1200;
+  z-index: 0;
   bottom:0;
   transition:all .4s linear;
   
@@ -1484,7 +1485,7 @@ img {
     color: #B5B5B5;
     font-size: 30px;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 1.2;
 }
 
 

@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="user-activity-container">
               
-         <div class="user-profile sticky-top">
+         <div class="user-profile sticky-lg-top">
 
          <form action="javascript:void(0);" method="POST" id="updateProfileForm">
     
