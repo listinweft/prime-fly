@@ -408,9 +408,7 @@ $(document).ready(function () {
             window.location.href = '/thankyou'; // Adjust the URL if necessary
 
         // Reload the page after a delay (e.g., 2000 milliseconds)
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 500);
+                       
                                         
                     } else if (response.status == "login-success") {
                         swal({
