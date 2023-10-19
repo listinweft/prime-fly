@@ -43,7 +43,7 @@
                                 <table class="table table-bordered table-hover dataTable">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>Sl.No</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         {{--<th>Username</th>--}}

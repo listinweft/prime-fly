@@ -326,7 +326,7 @@ class WebController extends Controller
         $condition = Blog::active()->latest('posted_date');
 
         $blogs = $condition->take(3)->get();
-        $offset = $blogs->count() + 1;
+        $offset = $blogs->count() + 0;
         $loading_limit = 3;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
             'blogs', 'totalBlog', 'offset', 'loading_limit'));
@@ -345,7 +345,7 @@ class WebController extends Controller
         $condition = Journal::active()->latest('posted_date');
 
         $blogs = $condition->take(3)->get();
-        $offset = $blogs->count() + 1;
+        $offset = $blogs->count() + 0;
         $loading_limit = 3;
         return view('web.journals', compact('seo_data', 'banner', 'latestBlog', 'heading',
             'blogs', 'totalBlog', 'offset', 'loading_limit'));
@@ -387,7 +387,7 @@ class WebController extends Controller
        $condition = Event::active()->latest('posted_date');
 
        $blogs = $condition->take(3)->get();
-       $offset = $blogs->count() + 1;
+       $offset = $blogs->count() + 0;
        $loading_limit = 3;
        return view('web.events', compact('seo_data', 'banner', 'latestBlog', 'heading',
        'blogs', 'totalBlog', 'offset', 'loading_limit'));

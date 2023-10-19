@@ -14,7 +14,7 @@
                                     Home
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Enquiry List</li>
+                            <li class="breadcrumb-item active">Contact Page</li>
                         </ol>
                     </div>
                 </div>
