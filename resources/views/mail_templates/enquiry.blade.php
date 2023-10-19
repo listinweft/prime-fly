@@ -77,7 +77,7 @@
                         style="padding:0;Margin:0;padding-bottom:5px;font-size:0">
                         <a target="_blank" href="javascript:void(0)"
                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494c45;font-size:16px"><img
-                            src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"
+                            src=""
                                 alt
                                 style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
                                 class="adapt-img" width="125"></a></td>
