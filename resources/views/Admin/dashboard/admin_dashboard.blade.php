@@ -29,28 +29,5 @@
     </div>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-        google.charts.load('current', {'packages': ['bar']});
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Date', 'Sales'],
-                @foreach ($chartInfo as $info => $value)
-                    {!! "['" . $info . "', " . $value . "]," !!}
-                    @endforeach
-            ]);
-
-            var options = {
-                chart: {
-                    title: 'Bar Graph | Sales',
-                    subtitle: 'Date, and Sales:',
-                },
-                bars: 'vertical'
-            };
-            var chart = new google.charts.Bar(document.getElementById('barchart'));
-            chart.draw(data, google.charts.Bar.convertOptions(options));
-        }
-    </script>
+    
 @endsection

@@ -393,6 +393,9 @@ public function register(Request $request)
         $customer = new Customer;
         $customer->first_name = $request['firstname'];
         $customer->last_name = $request['lastname'];
+        $customer->address = $request['address'];
+        $customer->licenc = $request['licence'];
+        $customer->workplace = $request['workplace'];
         $customer->user_id = $user->id;
 
         if (!$customer->save()) {

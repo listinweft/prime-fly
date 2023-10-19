@@ -99,13 +99,21 @@
                                 </div>
                             </div>
                             <div class="comment-wraper">
+                            @php
+                                        $user = Auth::guard('customer')->user();
+                                        $customer = $user->customer;
+                                    @endphp
                                 <div class="comment-form">
                                 <div class="comment-form">
                                                                 <form action="{{ route('comments.store') }}" method="post">
                                     @csrf
                                     <div class="form-grid">
                                         <input type="text" name="comment_content" placeholder="Write a Comment.....">
-                                        <div class="comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png') }}" alt=""></div>
+                                        <div class="comment-avatar">@if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                    {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                @else
+                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
+                                @endif</div>
                                         <input type="hidden" name="journal_id" value="{{$blog->id}}">
                                     </div>
                                     <div class="comment-sending">
@@ -129,7 +137,11 @@
                                     @foreach($comments as $comment)
                         <div class="comment-item">
                            <div class="user-comment-avatar">
-                              <img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt="">
+                           @if (!empty(Helper::printImage($comment->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                    {!! Helper::printImage($comment->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                @else
+                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
+                                @endif
                            </div>
                            <div class="user-comment-section">
                               <div class="user-comment">
@@ -181,7 +193,11 @@
                                     <div class="comment-reply">
                                        @foreach($comment->replies as $reply) 
                                        <div class="comment-reply-author">
-                                          <div class="comment-avatar"><img src="{{ asset('frontend/images/blog/avatar-3.png')}}" alt=""></div>
+                                          <div class="comment-avatar">@if (!empty(Helper::printImage($reply->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                    {!! Helper::printImage($reply->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                @else
+                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
+                                @endif</div>
                                           <div class="reply-comment-container">
                                              <div class="comment-author">Sonia</div>
                                              <div class="reply">
@@ -312,10 +328,12 @@ const likeButton2 = document.querySelector('.like-button2');
                         likeButton2.classList.remove('liked');
                         likeButton2.innerText = 'Like';
                         toastr.success('Journal unliked!');
+                        window.location.reload();
                     } else {
                         likeButton2.classList.add('liked');
                         likeButton2.innerText = 'Unlike';
                         toastr.success('Journal liked!');
+                        window.location.reload();
                     }
 
                     isLiked = !isLiked;

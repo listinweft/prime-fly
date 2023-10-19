@@ -5,22 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Category;
-use App\Models\Coupon;
-use App\Models\Color;
+use App\Models\CustomerPost;
 use App\Models\Customer;
 use App\Models\HomeAdvertisement;
 use App\Models\HomeBanner;
 use App\Models\HomeHeading;
 use App\Models\MeasurementUnit;
 use App\Models\Brand;
+use App\Models\Blog;
+use App\Models\Event;
 use App\Models\Faq;
 use App\Models\ProductType;
-
-use App\Models\Tag;
 use App\Models\HotDeal;
 use App\Models\KeyFeature;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Journal;
 use App\Models\Latest;
 use App\Models\SiteInformation;
 use App\Models\Testimonial;
@@ -44,46 +44,15 @@ class HomeController extends Controller
     public function admin_dashboard()
     {
         $title = "Dashboard";
-        $processingOrders = Order::OrderCountByStatus('Processing');
-        $ohHoldOrders = Order::OrderCountByStatus('On Hold');
-        $outOfStock = Product::active()->where('quantity', 'Out of stock')->count();
-        $today_start = date('Y-m-d') . ' 00:00:00';
-        $today_end = date('Y-m-d') . ' 23:59:59';
-        $todaySales = Order::SalesByDate($today_start, $today_end, 1);
-        $month_start = date('Y-m-01') . ' 00:00:00';
-        $month_end = date('Y-m-d') . ' 23:59:59';
-        $monthSales = Order::SalesByDate($month_start, $month_end, 1);
-        $year_start = date('Y-01-01') . ' 00:00:00';
-        $year_end = date('Y-m-d') . ' 23:59:59';
-        $yearSales = Order::SalesByDate($year_start, $year_end, 1);
-        $latestProducts = Product::active()->latest()->take(6)->get();
-        $currentMonthOnProcessing = Order::OrderCountByStatus('Processing', $month_start, $month_end);
-        $totalOrders = Order::boxValues();
-        $currentMonthOnHold = Order::OrderCountByStatus('On Hold', $month_start, $month_end);
-        $currentMonthCompleted = Order::OrderCountByStatus('Completed', $month_start, $month_end);
-        $currentMonthCancelled = Order::OrderCountByStatus('Cancelled', $month_start, $month_end);
-        $currentMonthRefunded = Order::OrderCountByStatus('Refunded', $month_start, $month_end);
-        $currentMonthFailed = Order::OrderCountByStatus('Failed', $month_start, $month_end);
-        $monthNetSales = Order::SalesByDate($month_start, $month_end, 0);
-        $monthProducts = Order::ProductOrderCustomerCount($month_start, $month_end);
-        $monthOrders = Order::ProductOrderCustomerCount($month_start, $month_end);
-        $monthNewCustomers = Order::ProductOrderCustomerCount($month_start, $month_end);
-        $latestMembers = Customer::with('user')->whereHas('user', function ($query) {
-            return $query->active();
-        })->latest()->take(8)->get();
-        $totalProducts = Order::ProductOrderCustomerCount();
-        $totalCustomers = Order::ProductOrderCustomerCount();
-        $totalActiveCoupons = Coupon::where('status', 'Active')->count();
-        $totalActiveOrders = Order::OrderCountByStatus('Processing');
-        $latestOrders = Order::latest()->take(10)->get();
-        $chartInfo = Order::ChartInfo($month_start, $month_end);
+        
+        $Totaljournal = Journal::active()->count();
+        $Totalcustomer = Customer::count();
+        $Totalblog = Blog::active()->count();
+        $TotalPost = CustomerPost::count();
+        $Totalevents = Event::count();
 
-        return view('Admin.dashboard.admin_dashboard', compact('processingOrders', 'currentMonthOnHold',
-            'latestProducts', 'latestOrders', 'chartInfo', 'totalOrders', 'totalActiveCoupons', 'totalActiveOrders',
-            'latestMembers', 'totalProducts', 'totalCustomers', 'monthNetSales', 'monthProducts', 'monthOrders',
-            'monthNewCustomers', 'currentMonthCompleted', 'currentMonthCancelled', 'currentMonthRefunded',
-            'currentMonthFailed', 'currentMonthOnProcessing', 'ohHoldOrders', 'outOfStock', 'todaySales', 'monthSales',
-            'yearSales'));
+        
+        return view('Admin.dashboard.admin_dashboard', compact('title','Totaljournal','TotalPost','Totalblog','Totalevents','Totalcustomer'));
 
     }
     public function product_validate(){
@@ -360,7 +329,7 @@ class HomeController extends Controller
     public function status_change(Request $request)
     {
 
-        $table = $request->table;
+         $table = $request->table;
         $state = $request->state;
         $primary_key = $request->primary_key;
         $field = $request->field ?? 'status';

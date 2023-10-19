@@ -5,13 +5,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Blog</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Customer Posts</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Blog</li>
+                            <li class="breadcrumb-item active">Customer posts</li>
                         </ol>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>type</th>
+                                        <th>Member</th>
                                         <th>type</th>
                                           <th>Pdf</th>
                                         

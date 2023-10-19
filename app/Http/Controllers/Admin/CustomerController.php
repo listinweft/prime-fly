@@ -190,10 +190,10 @@ class CustomerController extends Controller
 
     public function address($customer_id)
     {
-        $customer = Customer::find($customer_id);
-        $title = "Address List - " . $customer->first_name;
-        $addressList = CustomerAddress::where('customer_id', $customer_id)->get();
-        return view('Admin.customer_address.list', compact('addressList', 'title', 'customer_id'));
+        $Customer = Customer::find($customer_id);
+        $title = "Address List - " . $Customer->first_name;
+    //   return   $addressList = CustomerAddress::where('customer_id', $customer_id)->get();
+        return view('Admin.customer_address.list', compact('Customer', 'title',));
 
     }
 

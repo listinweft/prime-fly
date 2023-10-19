@@ -434,7 +434,7 @@ class WebController extends Controller
 
         else{
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
-                'previousBlog', 'nextBlog','type','comments','totalLikes'));
+                'previousBlog', 'nextBlog','type','comments','totalLikes','like'));
         }
          
 
@@ -463,7 +463,7 @@ class WebController extends Controller
            }
            else{
             return view('web.journal', compact('blog',  'banner', 'seo_data',
-            'type','comments' ,'totalLikes'));
+            'type','comments' ,'totalLikes','like'));
            }
 
            

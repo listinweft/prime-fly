@@ -5,14 +5,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Member Address</h1>
+                        <h1><i class="nav-icon fas fa-bell"></i>Customer Details</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'customer/')}}">Customer</a>
-                            </li>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'customer')}}">Customers</a></li>
                             <li class="breadcrumb-item active">{{$title}}</li>
                         </ol>
                     </div>
@@ -22,72 +21,42 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
-                        @if (session('success'))
-                            <div class="alert alert-success" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session('success') }}
-                            </div>
-                        @elseif(session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <div class="card card-success card-outline">
-                            <div class="card-header">
-                                {{-- <a href="{{url(Helper::sitePrefix().'customer/address/create/'.$customer_id)}}"
-                                   class="btn btn-success pull-right">Add Customer Address <i
-                                        class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a> --}}
+                    <div class="col-md-12">
+                        <div class="card card-primary card-tabs">
+                            <div class="card-header p-0 pt-1">
+                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+                                           href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
+                                           aria-selected="true">Basic Information</a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-hover dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Phone Number</th>
-                                        <th>id/license</th>
-                                        <th>Wokplace</th>
-                                        <th>Status</th>
-                                        <th>Created Date</th>
-                                        <th class="not-sortable">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($addressList as $address)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{ $address->first_name.' '.$address->last_name }}</td>
-                                            <td>{!! $address->address !!}</td>
-                                            <td>{{ $address->phone }}</td>
-                                            <td>{{ $address->state->country->title }}</td>
-                                            <td>{{ $address->state->title }}</td>
-                                            <td>
-                                                <label class="switch">
-                                                    <input type="checkbox" class="status_check"
-                                                           data-url="/status-change" data-table="CustomerAddress"
-                                                           data-field="status" data-pk="{{ $address->id}}"
-                                                        {{($address->status=="Active")?'checked':''}}>
-                                                    <span class="slider"></span>
-                                                </label>
-                                            </td>
-                                            <td>{{ date("d-M-Y", strtotime($address->created_at))  }}</td>
-                                            <td class="text-right py-0 align-middle">
-                                                <div class="btn-group btn-group-sm">
-                                                    {{-- <a href="{{url(Helper::sitePrefix().'customer/address/edit/'.$address->id)}}"
-                                                       class="btn btn-success mr-2 tooltips" title="Edit Address"><i
-                                                            class="fas fa-edit"></i></a> --}}
-                                                    <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       title="Delete address" data-url="customer/address/delete"
-                                                       data-id="{{$address->id}}"><i class="fas fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                <div class="tab-content" id="custom-tabs-one-tabContent">
+                                    <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+                                         aria-labelledby="custom-tabs-one-home-tab">
+                                        <div class="post">
+                                            <strong><i class="fas fa-user mr-1"></i> Name</strong>
+                                            <p class="text-muted">{{$Customer->first_name}}</p>
+                                            <hr>
+                                            <!-- <strong><i class="fas fa-envelope mr-1"></i> Designation</strong>
+                                            <p class="text-muted">{{$Customer->first_name}}</p>
+                                            <hr> -->
+                                            <strong><i class="fas fa-star mr-1"></i>Address</strong>
+                                            <p class="text-muted">{{$Customer->address}}</p>
+                                            <hr>
+                                            <strong><i class="fas fa-envelope mr-1"></i>Work place</strong>
+                                            <p class="text-muted">{{$Customer->workplace}}</p>
+                                            <hr>
+                                            <strong><i class="fas fa-address-book mr-1"></i>id/Licence</strong>
+                                            <p class="text-muted">{{$Customer->licenc}}</p>
+                                            <hr>
+                                            
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

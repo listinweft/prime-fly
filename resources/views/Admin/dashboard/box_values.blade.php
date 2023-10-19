@@ -3,7 +3,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>{{$processingOrders}}</h3>
+                <h3>{{$Totalcustomer}}</h3>
                 <p>Total Members</p>
             </div>
             <div class="icon">
@@ -18,7 +18,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>{{$ohHoldOrders}}</h3>
+                <h3>{{$Totaljournal}}</h3>
                 <p>Total Journals</p>
             </div>
             <div class="icon">
@@ -34,7 +34,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>{{$outOfStock}}</h3>
+                <h3>{{$Totalblog}}</h3>
                 <p>Total Blogs</p>
             </div>
             <div class="icon">
@@ -51,7 +51,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>{{$todaySales}}</h3>
+                <h3>{{$Totalevents}}</h3>
                 <p>Total Events</p>
             </div>
             <div class="icon">
@@ -61,25 +61,13 @@
         </div>
     </div>
     <!-- ./col -->
-    <div class="col-lg-4 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3>{{$monthSales}}</h3>
-                <p>Total Enquiries</p>
-            </div>
-            <div class="icon">
-                <i class="total-enquiries-icon fas fa-question-circle"></i>
-            </div>
-            {{--            <a href="{{url('job/Completed')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
-        </div>
-    </div>
+    
     <!-- ./col -->
     <div class="col-lg-4 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{$TotalPost}}</h3>
                 <p>Total Posts</p>
             </div>
             <div class="icon">
