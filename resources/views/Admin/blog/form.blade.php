@@ -105,12 +105,12 @@
                                     <label> Members*</label>
                                      <select class="form-control select2 productGetDrop" name="user_id" id="user_id">
                                         <option value="">Select Option</option>
-                                                        @foreach ($customers as $customer)
-                                    <option value="{{ $customer->user_id }}" @if($customer->user_id == $user) selected @endif>
-                                        {{ $customer->first_name }}
-                                    </option>
-                                @endforeach
-                                    </select>
+                                        @foreach ($customers as $customer)
+                                <option value="{{ $customer->user_id }}" @if($customer->user_id == $user) selected @endif>
+                                    {{ $customer->first_name }}
+                                </option>
+                            @endforeach
+                                                            </select>
 
                                     <div class="help-block with-errors" id="user_id_error"></div>
                                 </div>

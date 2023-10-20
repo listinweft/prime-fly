@@ -5,9 +5,9 @@
                     <div class="row">
                         <div class="col-lg-5">
                             <div class="footer-logo-wraper">
-                                <a href="#0"><img src=" {{ asset('frontend/images/logo.png') }}" alt=""></a>
+                                <a href="{{ url('/') }}"><img src=" {{ asset('frontend/images/logo.png') }}" alt=""></a>
                                
-                                <a href="#0"><img src="{{ asset('frontend/images/logo-journal.png') }}" alt=""></a>
+                                <a href="{{ url('/journals') }}"><img src="{{ asset('frontend/images/logo-journal.png') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-7">

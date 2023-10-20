@@ -74,12 +74,12 @@ class BlogController extends Controller
     {
         $key = "Create";
         $title = "Create Blog";
-
+        $user = null;
          $customers = Customer::get();
 
     // Extract first names from the associated users
   
-        return view('Admin.blog.form', compact('key', 'title','customers'));
+        return view('Admin.blog.form', compact('key', 'title','customers','user'));
     }
 
     public function blog_store(Request $request)

@@ -612,6 +612,10 @@ img{
     fill: red; 
     display: block;
 }
+.share-links img{
+    width: 30px;
+    margin-left:5px;
+}
 /* ********************* Responsive ********************* */
 @media (min-width:1600px) {
     .container{
@@ -688,4 +692,9 @@ img{
         padding-top: 60px;
         padding-bottom: 40px;
     }
+    /* Initially hide the share-links */
+.share-links {
+    display: none;
+}
+
 }

@@ -441,7 +441,11 @@ class WebController extends Controller
     }
     }
     public function journal_detail($short_url)
-    {
+    { 
+        
+        
+        if(Auth::guard('customer')->check())
+        {
          $blog = Journal::active()->shortUrl($short_url)->first();
         if ($blog) {
             $banner = $seo_data = $blog;
@@ -466,10 +470,19 @@ class WebController extends Controller
             'type','comments' ,'totalLikes','like'));
            }
 
-           
+        }
+
+
+        
 
 
         } 
+        else
+        {
+
+            return redirect()->route('register');
+
+        }
 
 
 

@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-grid">
-                                    <input type="text" placeholder="Last Name" name="lastname" id="lastname" class="required"/>
+                                    <input type="text" placeholder="Last Name" name="lastname" id="lastname" class=""/>
                                     
                                 </div> 
                             </div>

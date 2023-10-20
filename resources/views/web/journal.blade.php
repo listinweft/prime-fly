@@ -9,16 +9,20 @@
                         <div class="blog-share-left position-sticky">
                             <p>966 <span>Shares</span> </p>
                             <ul>
-                                <li><a href="#0"><img src="{{ asset('frontend/images/icon/facebook.png')}}" alt=""></a></li>
-                                <li><a href="#0"><img src="{{ asset('frontend/images/icon/twitter.png')}}" alt=""></a></li>
-                                <li><a href="#0"><img src="{{ asset('frontend/images/icon/whatsapp.png')}}" alt=""></a></li>
-                                <li><a href="#0"><img src="{{ asset('frontend/images/icon/linkedIn.png')}}" alt=""></a></li>
+                                <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ url('blog/'.$blog->short_url) }}">
+                                    <img src="{{ asset('frontend/images/icon/facebook.png')}}" alt=""></a></li>
+                                <li><a href="https://twitter.com/intent/tweet?url={{ url('blog/'.$blog->short_url) }}&text={{ urlencode($blog->title) }}">
+                                    <img src="{{ asset('frontend/images/icon/twitter.png')}}" alt=""></a></li>
+                                <li><a href="https://api.whatsapp.com/send?text={{ urlencode($blog->title) }} - {{ url('blog/'.$blog->short_url) }}">
+                                    <img src="{{ asset('frontend/images/icon/whatsapp.png')}}" alt=""></a></li>
+                                <li><a href="https://www.linkedin.com/shareArticle?url={{ url('blog/'.$blog->short_url) }}">
+                                    <img src="{{ asset('frontend/images/icon/linkedIn.png')}}" alt=""></a></li>
                             </ul>
                         </div>
                         <div class="blog-content-area">
                             <h1 class="single-blog-title">{{ $blog->title }}</h1>
                             <p class="blog-overview">Sam Smith  |   March 2022   |   Study Power CEO</p>
-                            <div class="featured-image"> {!! Helper::printImage($blog, 'image','image_webp','image_attribute', 'img-fluid') !!}</div>
+                            <div class="featured-image"> {!! Helper::printImage($blog, 'desktop_banner','desktop_banner_webp','image_attribute', 'img-fluid') !!}</div>
                             <div class="the-content">
                                 <h2>{!! $blog->description !!}</h2>
                                 
@@ -87,12 +91,33 @@
                                                 Like -->
                                             </div>
                                             <div class="like-share-item">
-                                                <div class="like-btn">
+                                                <div class="like-btn share-buttonss">
                                                     <svg width="39" height="34" viewBox="0 0 39 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M38.2234 12.5084L24.3737 0.190831C24.265 0.0941065 24.1307 0.0308773 23.9869 0.00876393C23.8431 -0.0133494 23.696 0.00659694 23.5633 0.066199C23.4306 0.125801 23.3179 0.222515 23.2389 0.344683C23.1599 0.466852 23.1179 0.609261 23.118 0.754746V5.40922C19.7072 5.28153 16.3126 5.93906 13.1962 7.33106C10.0797 8.72307 7.32465 10.8124 5.14352 13.4378C2.9624 16.0632 1.4135 19.1545 0.61632 22.4733C-0.180863 25.7921 -0.205025 29.2497 0.545696 32.5794C0.579994 32.7312 0.660433 32.8688 0.775984 32.9732C0.891535 33.0775 1.03654 33.1436 1.19112 33.1623C1.22131 33.1661 1.25171 33.168 1.28214 33.1681C1.42227 33.1679 1.55959 33.1288 1.67875 33.0551C1.79792 32.9814 1.89424 32.876 1.95693 32.7506C5.85635 24.9402 13.3552 20.7938 23.118 21.0317V25.3891C23.1179 25.5346 23.1599 25.677 23.2389 25.7992C23.3179 25.9214 23.4306 26.0181 23.5633 26.0777C23.696 26.1373 23.8431 26.1572 23.9869 26.1351C24.1307 26.113 24.265 26.0498 24.3737 25.953L38.2234 13.6359C38.303 13.5651 38.3667 13.4783 38.4103 13.3811C38.4539 13.284 38.4765 13.1787 38.4765 13.0721C38.4765 12.9656 38.4539 12.8603 38.4103 12.7632C38.3667 12.666 38.303 12.5792 38.2234 12.5084ZM24.6269 23.7086V20.3031C24.6269 20.1089 24.552 19.9222 24.4179 19.7818C24.2837 19.6414 24.1006 19.5581 23.9066 19.5493C18.8037 19.3168 14.2365 20.1976 10.3309 22.1666C6.7434 23.9669 3.73762 26.7442 1.65987 30.1785C1.30672 27.263 1.57562 24.3058 2.44886 21.5019C3.3221 18.698 4.77983 16.111 6.72593 13.9116C8.67202 11.7122 11.0623 9.95038 13.739 8.74227C16.4158 7.53415 19.3182 6.90721 22.255 6.90279C22.773 6.90279 23.2947 6.92224 23.8168 6.96071C23.9203 6.9684 24.0243 6.95464 24.1223 6.9203C24.2202 6.88596 24.31 6.83177 24.386 6.76113C24.4621 6.69049 24.5227 6.60491 24.5642 6.50976C24.6056 6.41461 24.627 6.31193 24.6269 6.20814V2.43449L36.5866 13.0719L24.6269 23.7086Z" fill="black"/>
                                                     </svg>                                                                                                        
                                                 </div>
                                                 Share
+                                                <div class="share-links">
+        <!-- WhatsApp Share Link -->
+        <a href="whatsapp://send?text=Check out this blog: <?php echo url('blog/' . $blog->short_url); ?>" target="_blank">
+        <img src="{{ asset('frontend/images/icon/whatsapp.png')}}" alt="">   
+        </a>
+
+        <!-- Twitter Share Link -->
+        <a href="https://twitter.com/share?url=<?php echo url('blog/' . $blog->short_url); ?>&text=Check out this blog" target="_blank">
+        <img src="{{ asset('frontend/images/icon/twitter.png')}}" alt="">
+        </a>
+
+        <!-- LinkedIn Share Link -->
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo url('blog/' . $blog->short_url); ?>" target="_blank">
+        <img src="{{ asset('frontend/images/icon/linkedIn.png')}}" alt="">
+        </a>
+
+        <!-- Facebook Share Link -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url('blog/' . $blog->short_url); ?>" target="_blank">
+        <img src="{{ asset('frontend/images/icon/facebook.png')}}" alt="">
+        </a>
+                           </div>
                                             </div>
                                         </div>
                                     </div>
@@ -139,8 +164,8 @@
                            <div class="user-comment-avatar">
                            @if (!empty(Helper::printImage($comment->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
                                     {!! Helper::printImage($comment->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
-                                @else
-                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
+                               @else
+                                    <img src="{{ asset('frontend/images/user_img_de.png') }}" alt="" class="img-fluid">
                                 @endif
                            </div>
                            <div class="user-comment-section">
@@ -196,10 +221,11 @@
                                           <div class="comment-avatar">@if (!empty(Helper::printImage($reply->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
                                     {!! Helper::printImage($reply->user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
                                 @else
-                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
-                                @endif</div>
+                                    <img src="{{ asset('frontend/images/user_img_de.png') }}" alt="" class="img-fluid">
+                                @endif
+                            </div>
                                           <div class="reply-comment-container">
-                                             <div class="comment-author">Sonia</div>
+                                             <div class="comment-author">{{ $reply->user->customer->first_name }}</div>
                                              <div class="reply">
                                                 <p>{{ $reply->content }}</p>
                                              </div>
@@ -346,7 +372,15 @@ const likeButton2 = document.querySelector('.like-button2');
 </script>
 
 
-
+<script>
+$(document).ready(function() {
+    $(".share-buttonss").click(function() {
+    
+        // Toggle the visibility of the share-links when the "Share" button is clicked
+        $(".share-links").slideToggle();
+    });
+});
+</script>
 
 
 

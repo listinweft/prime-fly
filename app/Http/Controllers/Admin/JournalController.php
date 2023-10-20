@@ -38,8 +38,9 @@ class JournalController extends Controller
         $key = "Create";
         $title = "Create Journal";
         $customers = Customer::get();
+        $user = null;
         
-        return view('Admin.journal.form', compact('key', 'title','customers'));
+        return view('Admin.journal.form', compact('key', 'title','customers','user'));
     }
 
     public function journal_store(Request $request)

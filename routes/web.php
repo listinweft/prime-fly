@@ -135,7 +135,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('login', [CustomerLoginController::class, 'login']);
     Route::get('logout', [CustomerLoginController::class, 'logout']);
     Route::get('register', [CustomerLoginController::class, 'register_form']);
-    Route::post('register', [CustomerLoginController::class, 'register']);
+    Route::post('register', [CustomerLoginController::class, 'register'])->name('register');;
     Route::get('forgot-password', [CustomerLoginController::class, 'forgot_password_form']);
     Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
     Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);

@@ -527,7 +527,7 @@
                     </div>
                     <div class="journal-grid-logo">
                     @if(Auth::guard('customer')->check())
-                        <a href="">Read More</a>
+                        <a href="{{ url('journals') }}">Read More</a>
                         @endif
                         <div class="journal-botm-logo mt-4">
                         {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}
