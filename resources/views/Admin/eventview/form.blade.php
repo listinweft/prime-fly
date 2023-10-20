@@ -350,7 +350,7 @@
                 dropZoneEnabled: false,
                 required: false,
                 allowedFileTypes: ['image'],
-                minImageWidth: 1920,
+                minImageWidth: 1000,
                 minImageHeight: 500,
                 // maxImageWidth: 1920,
                 // maxImageHeight: 500,

@@ -95,11 +95,14 @@
                                 <div class="user-activity-item-wraper">
                                     <div class="row">
                                         
-                                        
+                                    @if($blogs->isNotEmpty())
                                     @foreach( $blogs as $blog )
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div>
+                                                <div class="user-activity-title">
+                                                    <h4>Loremipsum</4>
+                                                </div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
                                                         <div class="active-user-image">  {!! Helper::printImage($user, 'profile_image','profile_image_webp','image_attribute', 'img-fluid') !!}</div>
@@ -127,6 +130,39 @@
                                             </div>
                                         </div>
                                         @endforeach
+                                        @endif
+                                        @if($Customerblogs->isNotEmpty())
+                                        @foreach( $Customerblogs as $Customerblog )
+                                        <div class="col-xl-4 col-sm-6">
+                                            <div class="user-activity-item">
+                                                <div class="user-activity-item-image"><img src="{{ asset('frontend/images/doc.png')}}"> <span class="status_bar">Pending for approvel</span> </div>
+                                                <div class="user-activity-title">
+                                                    <h4>{{$Customerblog->pdf_data}}</4>
+                                                </div>
+                                                <div class="user-activity-item-content">
+                                                    <div class="active-user">
+                                                        <div class="active-user-image">  </div>
+                                                        <div class="active-user-name"></div>
+                                                    </div>
+                                                    <div class="active-user-achievement">
+                                                        <div class="active-user-achievement-item">
+                                                            <div class="active-user-achievement-item-icon">
+                                                                                                                                  
+                                                            </div>
+                                                            <div class="active-user-achievement-item-count"></div>
+                                                        </div>
+                                                        <div class="active-user-achievement-item">
+                                                            <div class="active-user-achievement-item-icon">
+                                                                                                                             
+                                                            </div>
+                                                            <div class="active-user-achievement-item-count"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                        @endif
 
 
 
@@ -183,7 +219,7 @@
                             <div class="user-activity-item-wraper">
                                     <div class="row">
                                         
-                                        
+                                    @if($journals->isNotEmpty())
                                     @foreach( $journals as $journal )
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
@@ -216,6 +252,40 @@
                                         </div>
 
                                         @endforeach
+                                        @endif
+                                        @if($Customerjournals->isNotEmpty())
+                                    @foreach( $Customerjournals as $Customerjournal )
+                                        <div class="col-xl-4 col-sm-6">
+                                            <div class="user-activity-item">
+                                                <div class="user-activity-item-image"><img src="{{ asset('frontend/images/doc.png')}}"> <span class="status_bar">Pending for approval</span></div>
+                                                <div class="user-activity-title">
+                                                    <h4>{{$Customerjournal->pdf_data}}</4>
+                                                </div>
+                                                <div class="user-activity-item-content">
+                                                    <div class="active-user">
+                                                        <div class="active-user-image">  </div>
+                                                        <div class="active-user-name"></div>
+                                                    </div>
+                                                    <div class="active-user-achievement">
+                                                        <div class="active-user-achievement-item">
+                                                            <div class="active-user-achievement-item-icon">
+                                                                                                                            
+                                                            </div>
+                                                            <div class="active-user-achievement-item-count"></div>
+                                                        </div>
+                                                        <div class="active-user-achievement-item">
+                                                            <div class="active-user-achievement-item-icon">
+                                                                                                                          
+                                                            </div>
+                                                            <div class="active-user-achievement-item-count"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @endforeach
+                                        @endif
                                         <!-- <div class="col-12">
                                             <div class="post-upload-btn-wraper">
                                                 <div class="post-upload-field">

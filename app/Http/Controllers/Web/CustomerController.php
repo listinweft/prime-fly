@@ -58,11 +58,18 @@ class CustomerController extends Controller
             $userJournalsCount = Journal::where('user_id', $customer->user_id)->count();
 
             $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
-           
+            $Customerblogs = CustomerPost::where('user_id', $customer->user_id)
+                ->where('type', 'blog')
+                ->get();
+                  $Customerjournals = CustomerPost::where('user_id', $customer->user_id)
+                ->where('type', 'journal')
+                ->get();
+
+            
        
           
             return view('web.profile', compact('customer', 'customerAddresses', 
-                  'seo_data',  'user', 'customer','blogs','journals','userBlogsCount','userJournalsCount'));
+                  'seo_data',  'user', 'customer','blogs','journals','userBlogsCount','userJournalsCount','Customerblogs','Customerjournals'));
         } else {
             abort(403, 'You are not authorised');
         }
@@ -114,6 +121,7 @@ class CustomerController extends Controller
         }
         
            
+            
             $customer->first_name = $request->first_name;
             $customer->designation = $request->designation;
             $customer->description = $request->description;

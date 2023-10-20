@@ -73,13 +73,13 @@
                 <p>Contact</p>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/about')}}"
                class="nav-link {{ (Request::segment(3)=='about')?'active':'' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>About Us</p>
             </a>
-        </li>
+        </li> -->
         <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'banner/my-account')}}"
                class="nav-link {{ (Request::segment(3)=='my-account')?'active':'' }}">

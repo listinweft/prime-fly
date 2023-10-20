@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomerPost extends Model
 {
+protected $fillable = ['doc_name'];
     use HasFactory;
     protected $table = 'customerposts';
 

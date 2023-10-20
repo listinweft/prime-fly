@@ -1396,6 +1396,9 @@ img {
     object-fit: cover;
     object-position: center;
 }
+.user-activity-title h4{
+    font-size: 15px;
+}
 .user-activity-item-content{
     display: flex;
     align-items: center;

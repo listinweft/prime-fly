@@ -92,7 +92,7 @@ class BlogController extends Controller
             'posted_date' => 'required',
             'author' => 'required',
             'user_id' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:7990',
+            'image' => 'required|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = new Blog;
         if ($request->hasFile('image')) {

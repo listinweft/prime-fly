@@ -997,7 +997,7 @@ $(document).ready(function () {
                         } else {
                            setTimeout(() => {
                             location.reload();
-                           }, 1000);
+                           }, 4000);
                         }
                     } else {
                         $(".successModalForm").modal('show');

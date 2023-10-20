@@ -151,7 +151,7 @@
                         </div> 
                     </div>
                   </div>
-                  <div class="form-row">
+                  <!-- <div class="form-row">
                      <div class="form-group col-md-6">
                         <label> Title*</label>
                         <input type="text" name="title" id="title" placeholder="Title"
@@ -203,7 +203,7 @@
                            name="description">{!! isset($blog)?$blog->description:'' !!}</textarea>
                         <div class="help-block with-errors" id="description_error"></div>
                      </div>
-                  </div>
+                  </div> -->
                   <!--   <div class="form-row">
                      <div class="form-group col-md-6">
                         <label>Image*</label>
