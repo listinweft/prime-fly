@@ -99,7 +99,7 @@
                                                 Share
                                                 <div class="share-links">
         <!-- WhatsApp Share Link -->
-        <a href="whatsapp://send?text=Check out this blog: <?php echo url('blog/' . $blog->short_url); ?>" target="_blank">
+        <a href="https://api.whatsapp.com/send?text={{ urlencode($blog->title) }} - {{ url('blog/'.$blog->short_url) }}" target="_blank">
         <img src="{{ asset('frontend/images/icon/whatsapp.png')}}" alt="">   
         </a>
 

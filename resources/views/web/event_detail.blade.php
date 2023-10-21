@@ -11,10 +11,28 @@
                 </div> 
                 <div class="row">
                     <div class="col-lg-6 event-details-desc pe-5">
-                        <p>{!! $blog->description !!}</p>
+                    @php $originalText =  $blog->description;
+
+
+$textLength = strlen($originalText);
+
+
+$splitPoint = ceil($textLength / 2);
+
+
+$part1 = substr($originalText, 0, $splitPoint);
+$part2 = substr($originalText, $splitPoint);
+
+
+
+@endphp
+
+                        <p>{!!$part1!!}</p>
                     </div>
                     <div class="col-lg-6  event-details-desc ps-5">
-                        <p>{!! $blog->alternate_description !!}</p>
+
+
+                        <p>{!!$part2!!}</p>
                     </div>
                 </div>
             </div>
