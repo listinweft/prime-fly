@@ -20,7 +20,7 @@
             </div>
             <div class="blog-content-area">
                <h1 class="single-blog-title">{{ $blog->title }}</h1>
-               <p class="blog-overview">Indira Sree  |   March 2022   |   Study Power CEO</p>
+               <p class="blog-overview"></p>
                <div class="featured-image"> {!! Helper::printImage($blog, 'desktop_banner','desktop_banner_webp','image_attribute', 'img-fluid') !!}</div>
                <div class="the-content">
                   <h2>{!! $blog->description !!} </h2>
