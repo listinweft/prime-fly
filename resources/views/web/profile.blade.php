@@ -101,7 +101,7 @@
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div>
                                                 <div class="user-activity-title">
-                                                    <h4>Loremipsum</4>
+                                                    <h4>{{ $blog->title }}</4>
                                                 </div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
@@ -136,8 +136,12 @@
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"><img src="{{ asset('frontend/images/doc.png')}}"> <span class="status_bar">Pending for approvel</span> </div>
-                                                <div class="user-activity-title">
-                                                    <h4>{{$Customerblog->pdf_data}}</4>
+                                                                                                    <div class="user-activity-title">
+                                                                                                    @php
+                                                        $customerblog = $Customerblog->pdf_data;
+                                                        $modifiedString = str_replace("uploads/pdf/", "", $customerblog);
+                                                    @endphp
+                                                    <h4>{{$modifiedString}}</4>
                                                 </div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
@@ -224,6 +228,9 @@
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"> {!! Helper::printImage($journal, 'image', 'image_webp', '', 'img-fluid') !!}</div>
+                                                <div class="user-activity-title">
+                                                    <h4>{{ $journal->title }}</4>
+                                                </div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">
                                                         <div class="active-user-image">  {!! Helper::printImage($user, 'profile_image','profile_image_webp','image_attribute', 'img-fluid') !!}</div>
@@ -259,7 +266,11 @@
                                             <div class="user-activity-item">
                                                 <div class="user-activity-item-image"><img src="{{ asset('frontend/images/doc.png')}}"> <span class="status_bar">Pending for approval</span></div>
                                                 <div class="user-activity-title">
-                                                    <h4>{{$Customerjournal->pdf_data}}</4>
+                                                @php
+                                                        $customerblog = $Customerjournal->pdf_data;
+                                                        $modifiedString = str_replace("uploads/pdf/", "", $customerblog);
+                                                    @endphp
+                                                    <h4>{{$modifiedString}}</4>
                                                 </div>
                                                 <div class="user-activity-item-content">
                                                     <div class="active-user">

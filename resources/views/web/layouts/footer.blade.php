@@ -202,7 +202,7 @@
             text: '{{ Session::get('success') }}',
             icon: 'success'
         });
-    }, 10); // Delay set to 0 to execute immediately
+    }, 10000); // Delay set to 0 to execute immediately
 </script>
 @endif
 

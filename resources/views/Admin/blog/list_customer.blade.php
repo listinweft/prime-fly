@@ -43,7 +43,9 @@
                                         <th>#</th>
                                         <th>Member</th>
                                         <th>type</th>
+                                     
                                           <th>Pdf</th>
+                                          <th>status</th>
                                         
                                         
                                     </tr>
@@ -58,9 +60,18 @@
                                        
                                       
                                       
-
+                                          
                                          
                                            <td>  <a href="{{ route('pdf.show', ['id' => $blog->id]) }}" download>Download PDF</a></td>
+                                           <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" class="status_check"
+                                                           data-url="/status-change" data-table="CustomerPost"
+                                                           data-field="status" data-pk="{{ $blog->id}}"
+                                                        {{($blog->status=="Active")?'checked':''}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </td>
 
                                             
                                             

@@ -60,9 +60,13 @@ class CustomerController extends Controller
             $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
             $Customerblogs = CustomerPost::where('user_id', $customer->user_id)
                 ->where('type', 'blog')
+                ->where('status', 'Inactive')
+
                 ->get();
                   $Customerjournals = CustomerPost::where('user_id', $customer->user_id)
                 ->where('type', 'journal')
+                ->where('status', 'Inactive')
+
                 ->get();
 
             

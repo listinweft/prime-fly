@@ -983,17 +983,19 @@ $(document).ready(function () {
 
                             window.location.href('/');
                     } else if (response.status == "success-reload") {
-                        $("#successModal").modal('show');
-                        $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModal").modal('hide');
-                            }, 2000);
+                        // $("#successModal").modal('show');
+                        // $("#myspan").html(response.message);
+                        //     setTimeout(function(){
+                        //         $(".successModal").modal('hide');
+                        //     }, 2000);
 
                         Toast.fire({
                             title: "Success!", text: response.message, icon: "success"
                         });
                         if (response.redirect) {
-                            window.location.href = response.redirect;
+                            setTimeout(function () {
+                                window.location.href = response.redirect;
+                            }, 3000);
                         } else {
                            setTimeout(() => {
                             location.reload();
