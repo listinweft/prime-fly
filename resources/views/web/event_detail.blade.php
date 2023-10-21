@@ -2,7 +2,7 @@
 @section('content')
 
 <section class="col-12 event-details p-0">
-            <img src="{{asset('frontend/images/event-details.jpg')}}" alt="Event Details">
+{!! Helper::printImage($blog, 'desktop_banner','desktop_banner_webp','image_attribute', 'img-fluid') !!}
         </section> 
         <section class="col-12 event-details-content">
             <div class="container">
