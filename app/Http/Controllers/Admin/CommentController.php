@@ -1,36 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Models\Comment; // Assuming you have a Comment model
-use Auth;
+use App\Http\Controllers\Controller;
+use App\Http\Helpers\Helper;
+use App\Models\Comment;
+use App\Models\HomeHeading;
+use App\Models\CustomerPost;
+use App\Models\Customer;
 use App\Models\User;
-
-
+use App\Models\SiteInformation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\View;
 
 class CommentController extends Controller
 {
     
-    public function store(Request $request)
+    public function commments()
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'comment_content' => 'required|string|max:255', // Updated to 'comment_content'
-        ]);
-
-        // Create a new comment
-        $comment = Comment::create([
-            'content' => $validatedData['comment_content'], // Updated to 'comment_content'
-           
-
-            'likes' => 0,
-            'user_id' => Auth::guard('customer')->user()->id, // Save the authenticated user's ID
-        ]);
-
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Comment added successfully!');
+        $title = "Comment List";
+      
+        $type = 'Comments';
+        $blogList = Comment::get();
+        return view('Admin.comment.list', compact('blogList', 'title', 'type'));
     }
+
 
     public function reply(Request $request, $commentId)
     {

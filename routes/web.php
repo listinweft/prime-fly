@@ -135,7 +135,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('login', [CustomerLoginController::class, 'login']);
     Route::get('logout', [CustomerLoginController::class, 'logout']);
     Route::get('register', [CustomerLoginController::class, 'register_form']);
-    Route::post('register', [CustomerLoginController::class, 'register'])->name('register');;
+    Route::post('register', [CustomerLoginController::class, 'register'])->name('register');
     Route::get('forgot-password', [CustomerLoginController::class, 'forgot_password_form']);
     Route::post('forgot-password', [CustomerLoginController::class, 'forgot_password']);
     Route::get('reset-password/{token}', [CustomerLoginController::class, 'reset_password']);
@@ -326,6 +326,17 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
     });
+    // Route::prefix('comment')->group(function () {
+    //     Route::get('/', [CommentController::class, 'blog']);
+   
+    //     Route::get('create', [CommentController::class, 'comment_create']);
+    //     Route::post('create', [CommentController::class, 'comment_store']);
+    //     Route::get('edit/{id}', [CommentController::class, 'commet_edit']);
+    //     Route::post('edit/{id}', [CommentController::class, 'comment_update']);
+    //     Route::post('delete', [CommentController::class, 'delete_comment']);
+        
+
+    // });
     Route::prefix('journal')->group(function () {
         Route::get('/', [JournalController::class, 'journal']);
         Route::get('create', [JournalController::class, 'journal_create']);
