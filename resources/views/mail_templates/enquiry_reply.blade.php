@@ -113,7 +113,7 @@
                 </tr> 
                 <tr align="left" valign="top">
                     <td valign="middle" colspan="5" style="padding: 0 20px;">
-                        <p style="font-size:14px;line-height:22px;">We have received your message and our team is currently reviewing it. In the meantime, if you have any urgent matters or additional information to share, please don't hesitate to contact us directly at [Contact Email/Phone].</p>
+                        <p style="font-size:14px;line-height:22px;">We have received your message and our team is currently reviewing it. In the meantime, if you have any urgent matters or additional information to share, please don't hesitate to contact us directly at <a href="tel:+971505218456">+971505218456</a>.</p>
                          
                         <p>Thank you for your patience, and we look forward to assisting you.</p>
                     </td>
