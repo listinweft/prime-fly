@@ -117,7 +117,7 @@
                 <tr align="left" valign="top">
                     <td valign="middle" colspan="5" style="padding: 0 20px;">
                         <p style="font-size:14px;line-height:22px;">Please keep these credentials secure and do not share them with anyone.</p>
-                        <p>If you have any questions or need further assistance, feel free to reach out to our support team at.<a href="tel:+971505218456">+971505218456</a></p></br>
+                        <p>If you have any questions or need further assistance, feel free to reach out to our support team at <a href="tel:+971505218456">+971505218456</a></p></br>
                         <p>Thank you for joining <a href="">esoan.org</a>. We look forward to your active participation!</p>
                     </td>
                 </tr>

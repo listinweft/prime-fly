@@ -134,7 +134,7 @@
                         <br/> 
                         <p>Please review and address this inquiry at your earliest convenience. If further information is required, kindly reach out to the contact directly using the provided email address.</p>
                         <br/> 
-                        <p style="font-size:14px;line-height:22px;padding-top:0px;">Thank you for your prompt attention to this matter.<br/><br/> Best regards, </br>Team
+                        <p style="font-size:14px;line-height:22px;padding-top:0px;">Thank you for your prompt attention to this matter.<br/><br/> Best regards, <br/></br>Team
                             Esoan</p>
                         <br/><br/>
                     </td>

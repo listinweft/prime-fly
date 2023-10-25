@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <title>ARTEMYST</title> -->
+    <!-- <title>Esoan</title> -->
+    <link rel="shortcut icon" href="{{ asset('frontend/images/favicon.jpeg')}}" type="image/x-icon">
     <meta name="title" content="{!! @$seo_data->meta_title !!}">
     <meta name="description" content="{!! @$seo_data->meta_description !!}"/>
     <meta name="keywords" content="{!! @$seo_data->meta_keyword !!}"/>
