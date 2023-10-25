@@ -280,7 +280,7 @@ class Helper
 
     public static function sendCredentials($user, $name, $password)
     {
-        $subject = config('app.name') . " - Send Credentials";
+        $subject = "Thank you for registering with us";
         $mail = self::mailConf($subject);
         $searchArr = ["{name}", "{email}", "{phone}", "{password}", "{owner}"];
         $replaceArr = [$name, $user->email, $user->phone, $password, config('app.name')];
@@ -343,7 +343,7 @@ class Helper
     public static function sendContactMail($contact, $type = Null)
     {
         $common = SiteInformation::first();
-        $subject = config('app.name') . ' - ' . $type;
+        $subject = "Contact form submission details";
         $mail = self::mailConf($subject);
         if ($contact->type == 'product') {
             $searchArr = ["{name}", "{email}", "{product}", "{phone}", "{message}", "{type}", "{site_name}"];
@@ -370,7 +370,7 @@ class Helper
 
     public static function sendReply($enquiry)
     {
-        $subject = config('app.name') . ' - Enquiry Reply';
+        $subject = "Thank you for contacting us";
         $mail = self::mailConf($subject);
         $searchArr = ["{name}", "{message}", "{reply}", "{site_name}"];
         $replaceArr = [$enquiry->name, $enquiry->message, $enquiry->reply, config('app.name')];

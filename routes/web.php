@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Admin\JournalController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Admin\CommentsController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdministrationController;
 use App\Http\Controllers\Admin\AdvertisementController;
@@ -326,17 +327,18 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
     });
-    // Route::prefix('comment')->group(function () {
-    //     Route::get('/', [CommentController::class, 'blog']);
+    Route::prefix('comment')->group(function () {
+        Route::get('/', [CommentsController::class, 'comment']);
    
-    //     Route::get('create', [CommentController::class, 'comment_create']);
-    //     Route::post('create', [CommentController::class, 'comment_store']);
-    //     Route::get('edit/{id}', [CommentController::class, 'commet_edit']);
-    //     Route::post('edit/{id}', [CommentController::class, 'comment_update']);
-    //     Route::post('delete', [CommentController::class, 'delete_comment']);
+        Route::get('create', [CommentsController::class, 'comment_create']);
+        Route::post('create', [CommentsController::class, 'comment_store']);
+        Route::get('edit/{id}', [CommentsController::class, 'comment_edit']);
+        Route::post('edit/{id}', [CommentsController::class, 'comment_update']);
+        Route::get('show/{id}', [CommentsController::class, 'show']);
+        Route::post('delete', [CommentsController::class, 'delete_comment']);
         
 
-    // });
+    });
     Route::prefix('journal')->group(function () {
         Route::get('/', [JournalController::class, 'journal']);
         Route::get('create', [JournalController::class, 'journal_create']);

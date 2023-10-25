@@ -64,75 +64,70 @@
     </style>
 </head>
 <body style="background-color:#fff;font-family:Arial, Helvetica, sans-serif;">
-<table class="container" width="680" border="0" cellspacing="0" cellpadding="0" align="center"
-       style="border-left:solid 1px #d9dadb;border-right:solid 1px #d9dadb;border-top:solid 1px #d9dadb;border-bottom:solid 1px #d9dadb; ">
-       <tr style="border-collapse:collapse">
-        <td class="es-m-p20b" align="left"
-            style="padding:0;Margin:0;width:173px">
-            <table width="100%" cellspacing="0" cellpadding="0"
-                   role="presentation"
-                   style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                <tr style="border-collapse:collapse">
-                    <td align="left"
-                        style="padding:0;Margin:0;padding-bottom:5px;font-size:0">
-                        <a target="_blank" href="javascript:void(0)"
-                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494c45;font-size:16px"><img
-                            src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"
-                                alt
-                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                class="adapt-img" width="125"></a></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+    <table class="container" width="680" border="0" cellspacing="0" cellpadding="0" align="center"
+       style="border-left:solid 0px #d9dadb;border-right:solid 0px #d9dadb;border-top:solid 0px #d9dadb;border-bottom:solid 0px #d9dadb; ">
     <tr>
 
-        <td style="border-style: solid; border-color: #00afef; border-width: 2px; width:640px;">
+        <td style="border-style: solid; border-color: #b2cbb2; border-width: 2px; width:640px;background: white;">
             <table class="container" width="640" border="0" cellspacing="0" cellpadding="0" align="center">
-
                 <tr align="left" valign="top">
-                    <td valign="middle" colspan="5">
-                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear {name}, <br/>
-                            Reply for your contact request ,<br/><br/></p>
-                    </td>
-                </tr>
-                <tr align="left" valign="top">
-                    <td valign="middle" colspan="5">
-                        <h2 style="font-size:14px;line-height:22px;padding-top:5px;text-transform:uppercase;"><u>Your
-                                query details</u></h2><br/>
-                    </td>
-                </tr>
-
-                <tr align="center" valign="top">
-                    <td valign="middle" colspan="5">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:41px;">
+                    <td colspan="5" align="left" valign="top">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
                             <tr>
-                                <td style="padding:5px;font-weight:bold;">Message</td>
-                                <td style="padding:5px;font-weight:bold;">:</td>
-                                <td style="padding:5px;font-weight:bold;">{message}</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:5px;font-weight:bold;">Reply</td>
-                                <td style="padding:5px;font-weight:bold;">:</td>
-                                <td style="padding:5px;font-weight:bold;">{reply}</td>
+                                <td style="text-align: center;">
+                                    <img style="width: 10vw; padding: 1vw;"  src="https://demo.wefttechnologies.com/emirati-email/logo.png"/>
+                                </td> 
                             </tr>
                         </table>
                     </td>
                 </tr>
 
                 <tr align="left" valign="top">
-                    <td valign="middle" colspan="5">
-                        <br/><br/>
-                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Thanks & Regards<br/>Team
-                            {site_name}</p>
-                        <br/><br/>
+                    <td valign="middle" colspan="5" style="background: #EDFFED;padding-top: 20px;">
+                        <img width="680px" src="https://demo.wefttechnologies.com/emirati-email/email-banner.png"/>
+                    </td>
+                         
+                </tr>
+
+                <tr align="left" valign="top">
+                    <td valign="middle" colspan="5" style="padding: 20px 20px 0;">
+                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear {name}, <br/><br/> 
+                            Thank you for reaching out to us through the esoan.org contact form. We appreciate your interest and value your feedback.</p>
+                        </td>
+                </tr> 
+                <tr align="center" valign="top">
+                    <td valign="middle" colspan="5" style="padding: 0 20px;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:0px;">
+                            <tr>
+                                <td style="padding:5px 0;font-weight:bold;">Message</td>
+                                <td style="padding:5px 0;font-weight:bold;">:</td>
+                                <td style="padding:5px 0;font-weight:bold;">{message}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px 0;font-weight:bold;">Reply</td>
+                                <td style="padding:5px 0;font-weight:bold;">:</td>
+                                <td style="padding:5px 0;font-weight:bold;">{reply}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr> 
+                <tr align="left" valign="top">
+                    <td valign="middle" colspan="5" style="padding: 0 20px;">
+                        <p style="font-size:14px;line-height:22px;">We have received your message and our team is currently reviewing it. In the meantime, if you have any urgent matters or additional information to share, please don't hesitate to contact us directly at [Contact Email/Phone].</p>
+                         
+                        <p>Thank you for your patience, and we look forward to assisting you.</p>
+                    </td>
+                </tr>
+                <tr align="left" valign="top">
+                    <td valign="middle" colspan="5" style="padding: 0 20px 30px;"> 
+                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Warm regards,<br/>Team Esoan
+                        </p> 
                     </td>
                 </tr>
                 <br/>
             </table>
         </td>
     </tr>
-</table>
-
+</table> 
 </body>
 </html>
