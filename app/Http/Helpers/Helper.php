@@ -359,10 +359,7 @@ class Helper
 //        dd($common->email);
 
         $mail->MsgHTML($body);
-        $emails = explode(',', $common->enquiry_emails);
-        foreach ($emails as $email) {
-            $mail->addAddress($email, $common->email_recipient);
-        }
+        $mail->addAddress($common->enquiry_emails, $common->email_recipient);
         $mail->send();
         if ($mail) {
             return true;

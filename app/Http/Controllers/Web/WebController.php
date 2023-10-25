@@ -297,15 +297,14 @@ class WebController extends Controller
         }
         if ($contact->save()) {
 
-            //  $sendContactMail = Helper::sendContactMail($contact, $type);
-            // if ($sendContactMail) {
+            $sendContactMail = Helper::sendContactMail($contact, $type);
+            if ($sendContactMail) {
 
                 return response()->json(['status' => 'success',
-                    'message' => $type . ' has been submitted successfully']);
-            // } else {
-            //     return response()->json(['status' => 'success',
-            //         'message' => "Contact request has been submitted successfully,Can't sent the mail right now"]);
-            // }
+                    'message' => "Contact request has been submitted successfully,Can't sent the mail right now"]);
+
+                
+            } 
         } else {
             return response()->json(['status' => 'error', 'message' => 'Error : Error while submitting the request']);
         }
