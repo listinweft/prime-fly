@@ -6,34 +6,17 @@
         </section> 
         <section class="col-12 event-details-content">
             <div class="container">
-                <div class="col-lg-6 col-md-6 col-sm-12 mb-5">
+                
+                <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-8 col-sm-12 mb-5 text-center">
                     <h1>{{$blog->title}}</h1>
                 </div> 
-                <div class="row">
-                    <div class="col-lg-6 event-details-desc pe-5">
-                    @php $originalText =  $blog->description;
+                    <div class="col-lg-8 col-md-8 event-details-desc pe-5 text-center">
+                  
 
-
-$textLength = strlen($originalText);
-
-
-$splitPoint = ceil($textLength / 2);
-
-
-$part1 = substr($originalText, 0, $splitPoint);
-$part2 = substr($originalText, $splitPoint);
-
-
-
-@endphp
-
-                        <p>{!!$part1!!}</p>
+                        <p>{!! $blog->description;!!}</p>
                     </div>
-                    <div class="col-lg-6  event-details-desc ps-5">
-
-
-                        <p>{!!$part2!!}</p>
-                    </div>
+                   
                 </div>
             </div>
         </section>
