@@ -174,6 +174,7 @@
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
 <script>
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
@@ -202,9 +203,11 @@
             text: '{{ Session::get('success') }}',
             icon: 'success'
         });
-    }, 10000); // Delay set to 0 to execute immediately
+    }, 0); // Delay set to 0 to execute immediately
 </script>
 @endif
+
+
 
 @if(Session::has('error'))
 <script>

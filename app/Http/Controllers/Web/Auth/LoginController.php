@@ -407,19 +407,19 @@ public function register(Request $request)
 
         Auth::guard('customer')->logout();
 
-        // if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
-        //     return response()->json([
-        //         'status' => 'success-reload',
-        //         'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
-        //         'redirect' => '/login'
-        //     ]);
-        // }
+        if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
+            return response()->json([
+                'status' => 'success-reload',
+                'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
+                'redirect' => '/login'
+            ]);
+        }
 
-        return response()->json([
-            'status' => 'success-reload',
-            'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
-            'redirect' => '/login'
-        ]);
+        // return response()->json([
+        //     'status' => 'success-reload',
+        //     'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
+        //     'redirect' => '/login'
+        // ]);
 
         throw new \Exception('Failed to send credentials.');
     } catch (\Exception $e) {

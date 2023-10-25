@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
@@ -17,14 +17,14 @@ use Illuminate\Support\Facades\View;
 class CommentController extends Controller
 {
     
-    public function commments()
-    {
-        $title = "Comment List";
+    // public function commments()
+    // {
+    //     $title = "Comment List";
       
-        $type = 'Comments';
-        $blogList = Comment::get();
-        return view('Admin.comment.list', compact('blogList', 'title', 'type'));
-    }
+    //     $type = 'Comments';
+    //     $blogList = Comment::get();
+    //     return view('Admin.comment.list', compact('blogList', 'title', 'type'));
+    // }
 
 
     public function reply(Request $request, $commentId)

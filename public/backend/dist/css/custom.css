@@ -307,3 +307,9 @@ input[type=number] {
 .theme-explorer-fas .file-preview .table,.theme-explorer-fas .file-preview .table td{
     border:0;
 }
+.left_profile_nav{
+    background-color: white;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.8;
+}
