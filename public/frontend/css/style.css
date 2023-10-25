@@ -490,7 +490,7 @@ img{
 }
 .event-details-desc p{
     color: #3E3B3B;
-    text-align: justify; 
+    text-align: center; 
     font-size: 15px; 
     font-weight: 400;
     line-height: 2.2; /* 233.333% */
