@@ -170,7 +170,7 @@
                            </div>
                            <div class="user-comment-section">
                               <div class="user-comment">
-                                 <h5>{{ $comment->user->customer->first_name }}</h5>
+                                 <h5>{{ @$comment->user->customer->first_name }}</h5>
                                  <p>{{ $comment->content }}</p>
                                  <div class="comment-actions">
                                     <div class="comment-share-like flex-wrap">
@@ -225,7 +225,7 @@
                                 @endif
                             </div>
                                           <div class="reply-comment-container">
-                                             <div class="comment-author">{{ $reply->user->customer->first_name }}</div>
+                                             <div class="comment-author">{{ @$reply->user->customer->first_name }}</div>
                                              <div class="reply">
                                                 <p>{{ $reply->content }}</p>
                                              </div>
