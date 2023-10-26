@@ -355,7 +355,14 @@ class CustomerController extends Controller
         $customerPost->type = $request->type;
         $customerPost->save();
 
-        return response()->json(['message' => 'File uploaded successfully'], 200);
+        $user = Auth::guard('customer')->user();
+        $customer = $user->customer;
+        if (Helper::sendpost($user,$customer)) {
+           
+            return response()->json([ 'message' => 'File uploaded successfully']);
+        }
+
+       
     }
 
     return response()->json(['error' => 'No file uploaded.'], 400);
@@ -388,7 +395,14 @@ public function uploads(Request $request)
         $customerPost->type = $request->type;
         $customerPost->save();
 
-        return response()->json(['message' => 'File uploaded successfully'], 200);
+        $user = Auth::guard('customer')->user();
+        $customer = $user->customer;
+        if (Helper::sendpost($user,$customer)) {
+           
+            return response()->json([ 'message' => 'File uploaded successfully']);
+        }
+
+       
     }
 
     return response()->json(['error' => 'No file uploaded.'], 400);

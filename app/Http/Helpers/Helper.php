@@ -385,6 +385,23 @@ class Helper
             return false;
         }
     }
+    public static function sendpost($user,$customer)
+    {
+        $subject = "your post uploded .";
+        $mail = self::mailConf($subject);
+        $searchArr = ["{name}",  "{site_name}"];
+        $replaceArr = [$customer->first_name, config('app.name')];
+        $body = file_get_contents(resource_path('views/mail_templates/post.blade.php'));
+        $body = str_replace($searchArr, $replaceArr, $body);
+        $mail->MsgHTML($body);
+        $mail->addAddress($user->email, $customer->first_name);
+        $mail->send();
+        if ($mail) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static function sendCustomerNewpassword($user, $password)
     {
