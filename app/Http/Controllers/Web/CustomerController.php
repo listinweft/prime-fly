@@ -300,7 +300,7 @@ class CustomerController extends Controller
     }
     public function change_password_store(Request $request)
     {
-       
+     
         
         if (Auth::guard('customer')->check()) {
             $request->validate([
@@ -315,7 +315,7 @@ class CustomerController extends Controller
             if ($user->save()) {
               
                 if (Helper::sendCustomerNewpassword($user, $request->password)) {
-                    return response()->json(['status' => 'success', 'message' => 'Password has been changed successfully']);
+                    return response()->json(['status' => 'success2', 'message' => 'Password has been changed successfully']);
                 } else {
                     return response()->json(['status' => 'success', 'message' => "Password has been changed successfully,Can't send the credentials mail right now"]);
                 }

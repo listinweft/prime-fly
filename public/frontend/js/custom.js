@@ -1080,15 +1080,14 @@ $(document).ready(function () {
 
                     }
 
-                    else if (response.status == "error2") {
+                    else if (response.status == "success2") {
 
                         Toast.fire({
-                            title: "Success!", text: response.message, icon: "error"
+                            title: "Success!", text: response.message, icon: "success"
                         });
-                        // $("#successModal2").modal('show');
-
-                        // $("#myspan2").html(response.message);
-                        // $("#mail").val(response.mail);
+                        setTimeout(() => {
+                            window.location.href = base_url/customer/account;
+                        }, 500);
 
 
                     }

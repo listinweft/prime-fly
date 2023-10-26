@@ -380,15 +380,15 @@
                     <div class="change-password-form-wraper">
                                 <div class="w-100">
                                     <h4>Change Password</h4>
-                                    <form action="#0">
+                                    <form action="#0" id="newpassword">
                                         <div class="form-grid">
-                                            <input type="password" name="New Password" id="" placeholder="New Password" class="position-relative w-100">
+                                            <input type="password" name="password" id="New Password" placeholder="New Password" class="position-relative w-100 required">
                                         </div>
                                         <div class="form-grid">
-                                            <input type="password" name="Re-enter Password" id="" placeholder="Re-enter Password" class="position-relative w-100">
+                                            <input type="password" name="password_confirmation" id="Re-enter-Password" placeholder="Re-enter Password" class="position-relative w-100 required">
                                         </div>
                                         <div class="form-grid mb-0">
-                                             <input type="submit" value="Change Password" class="loginform_submit_btn">
+                                             <input type="submit" value="Change Password" class="loginform_submit_btn" data-url="/customer/change-password">
                                         </div>
                                     </form>
                                 </div>
