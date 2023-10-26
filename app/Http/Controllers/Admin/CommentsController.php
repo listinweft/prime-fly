@@ -10,6 +10,8 @@ use App\Models\CustomerPost;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Reply;
+
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -86,18 +88,25 @@ public function comment_edit($id)
 
     public function delete_comment(Request $request)
     {
-        if (isset($request->id) && $request->id != null) {
-            $blog = Comment::find($request->id);
-            if ($blog) {
+        if (isset($request->id) && $request->id !== null) {
+            $comment = Comment::find($request->id);
+        
+            if ($comment) {
+                // Delete associated replies
+                 $deletedRepliesCount = Reply::where('comment_id', $comment->id)->delete();
+        
+              
+                    // Delete the comment
+                    if ($comment->forceDelete()) {
+                        return response()->json(['status' => true]);
+                    } else {
+                        return response()->json(['status' => false, 'message' => 'Failed to delete the comment']);
+                    }
                 
-                if ($blog->delete()) {
-                    return response()->json(['status' => true]);
-                } else {
-                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
-                }
             } else {
-                return response()->json(['status' => false, 'message' => 'Model class not found']);
+                return response()->json(['status' => false, 'message' => 'Comment not found']);
             }
         }
+        
     }
 }
