@@ -974,7 +974,11 @@ $(document).ready(function () {
                 if (response.status == "success") {
                     // Handle success
                 } else if (response.status == "success-reload") {
-                    // Handle success and redirection
+
+                      Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                   
                 } else {
                     // Handle other error responses
                 }
