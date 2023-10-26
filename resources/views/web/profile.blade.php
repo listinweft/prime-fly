@@ -17,7 +17,7 @@
                                 @if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
                                     {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
                                 @else
-                                    <img src="{{ asset('frontend/images/user-profile.png') }}" alt="Default Profile Image" class="img-fluid">
+                                    <img src="{{ asset('frontend/images/user-profile.png') }}" alt="Default Profile Image">
                                 @endif
 
                             </div>
@@ -67,6 +67,9 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="password-change position-relative">
+                            <a href="#0" class="change-password-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Change Password?</a>
                         </div>
                         <div class="user-prof-btn">
                             <div class="d-flex flex-wrap justify-content-start">
@@ -367,6 +370,35 @@
                 </div>
             </div>
         </main>
+
+        <!-- password change modal start -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content overflow-hidden">
+                <div class="pass-change position-relative">
+                    <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+                    <div class="change-password-form-wraper">
+                                <div class="w-100">
+                                    <h4>Change Password</h4>
+                                    <form action="#0">
+                                        <div class="form-grid">
+                                            <input type="password" name="New Password" id="" placeholder="New Password" class="position-relative w-100">
+                                        </div>
+                                        <div class="form-grid">
+                                            <input type="password" name="Re-enter Password" id="" placeholder="Re-enter Password" class="position-relative w-100">
+                                        </div>
+                                        <div class="form-grid mb-0">
+                                             <input type="submit" value="Change Password" class="loginform_submit_btn">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- password change modal end -->
+
         @push('scripts')
         <script>
         AOS.init();
@@ -646,7 +678,14 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
 });
 </script>
 
-
+<script>
+    $('.change-password-link').click(function(){
+        $('.pass-change').toggleClass('d-block');
+    });
+    // $('.profile_edit_icon').click(function(){
+    //     $('.password-change').toggleClass('d-block')
+    // });
+</script>
 
   @endpush
 @endsection

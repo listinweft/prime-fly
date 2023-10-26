@@ -1852,5 +1852,11 @@
 }
 
 /*---------------- my account page end ---------------*/
-
+.change-password-form-wraper{
+    padding: 60px 20px 40px 20px;
+}
+.change-password-form-wraper h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
 }

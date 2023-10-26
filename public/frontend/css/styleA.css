@@ -2329,3 +2329,71 @@ img {
     border: 0;
     box-shadow: none;
 }
+.password-change{
+    margin-top: 15px;
+}
+.change-password-link{
+    display: block;
+    color: #FF000A;
+    font-size: 13px;
+}
+.pass-change{
+    display: none;
+}
+/* .pass-change input[type='password']{
+    font-size: 13px;
+    padding: 12px 0;
+    outline: none;
+} */
+.user-profile-image .circle img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.change-password-form-wraper{
+    max-width: 500px;
+    margin: auto;
+    padding: 75px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.change-password-form-wraper h4{
+    color: #EE2C0D;
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 0.7;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.pass-change .close-btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background: #EE2C0D;
+    color: #fff;
+    border: none;
+    outline: none;
+    overflow: hidden;
+}
+.change-password-form-banner{
+    height: 100%;
+}
+.change-password-form-banner img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.pass-change .form-grid input[type="submit"]{
+    font-size: 18px;
+}
