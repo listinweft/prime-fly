@@ -332,6 +332,13 @@ class CustomerController extends Controller
 
     public function upload(Request $request)
 {
+
+    
+    // Set a custom error message for the "file" field
+    $request->validate([
+        'file' => 'required|file',
+    ]);
+  
     if ($request->hasFile('file')) {
         $file = $request->file('file');
 
@@ -355,6 +362,16 @@ class CustomerController extends Controller
 }
 public function uploads(Request $request)
 {
+
+
+   
+    $request->validate([
+        'files' => 'required|file',
+    ]);
+  
+  
+   
+    
     if ($request->hasFile('files')) {
         $file = $request->file('files');
 

@@ -187,6 +187,10 @@
         <div class="empty-post-field">
             <input type="file" name="files" id="files" accept=".pdf,.doc,.docx">
         </div>
+        <div id="formContainers">
+
+
+  </div>
         <div class="empty-post-icon">
             <svg width="136" height="97" viewBox="0 0 136 97" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M110.464 96.8883H25.5359C11.433 96.8883 0 85.4553 0 71.3523C0 57.2494 11.433 45.8164 25.5359 45.8164H110.464C124.567 45.8164 136 57.2494 136 71.3523C136 85.4553 124.567 96.8883 110.464 96.8883Z" fill="#D2D0D0"/>
@@ -209,10 +213,7 @@
 </div>
  </form>
 
- <div id="formContainers">
-
-
-  </div>
+ 
                                     </div>
                                 </div>
                             </div>
@@ -328,6 +329,10 @@
                                         <div class="empty-post-field">
                                             <input type="file" name="file" id="file" accept=".pdf,.doc,.docx">
                                         </div>
+                                        <div id="formContainer">
+
+
+                              </div>
                                         <div class="empty-post-icon">
                                             <svg width="136" height="97" viewBox="0 0 136 97" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M110.464 96.8883H25.5359C11.433 96.8883 0 85.4553 0 71.3523C0 57.2494 11.433 45.8164 25.5359 45.8164H110.464C124.567 45.8164 136 57.2494 136 71.3523C136 85.4553 124.567 96.8883 110.464 96.8883Z" fill="#D2D0D0"/>
@@ -350,10 +355,7 @@
                                 </div>
                                  </form>
 
-                                 <div id="formContainer">
-
-
-                                  </div>
+                                
 
 
 
@@ -503,36 +505,56 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
 <script>
   $(document).ready(function() {
     $('#uploadForm').submit(function(event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      var formData = new FormData(this);
-      formData.append('type', 'journal');
+        var formData = new FormData(this);
+        formData.append('type', 'journal');
 
-      $.ajax({
-        url: '/customer/upload',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-          console.log('File uploaded successfully:', response);
+        $.ajax({
+            url: '/customer/upload',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log('File uploaded successfully:', response);
 
-          // Display success message under the form
-          $('#formContainer').append('<p style="color: green;">File uploaded successfully</p>');
-          window.location.reload();
-        },
-        error: function(xhr, status, error) {
-          console.error('Error uploading file:', error);
+                // Display success message under the form
+                $('#formContainer').append('<p style="color: green;">File uploaded successfully</p>');
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error uploading file:', error);
 
-          // Display error message under the form
-          $('#formContainer').append('<p style="color: red;">Error uploading file: ' + xhr.responseText + '</p>');
-        }
-      });
+                // Check if the response contains validation errors
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorHtml = '<ul>';
+
+                    // Loop through the validation errors and build the error message
+                    $.each(errors, function (field, messages) {
+                        $.each(messages, function (key, message) {
+                            errorHtml += '<li>' + message + '</li>';
+                        });
+                    });
+
+                    errorHtml += '</ul>';
+
+                    // Display the validation errors under the form
+                    $('#formContainer').append('<div style="color: red;">Error uploading file: ' + errorHtml + '</div>');
+                } else {
+                    
+                    // Display a generic error message
+                    $('#formContainer').append('<p style="color: red;">An error occurred while uploading the file.</p>');
+                }
+            }
+        });
     });
-  });
+});
+
 
   $('#file').change(function() {
   var file = $('#file')[0].files[0].name;
@@ -566,38 +588,57 @@ $(".slider").css({"left":+ actPosition.left,"width": actWidth});
 // });
 </script>
 <script>
-  $(document).ready(function() {
+ $(document).ready(function() {
     $('#uploadForms').submit(function(event) {
-      event.preventDefault();
+        event.preventDefault();
 
-      var formData = new FormData(this);
-      formData.append('type', 'blog');
+        var formData = new FormData(this);
+        formData.append('type', 'blog');
 
-      $.ajax({
-        url: '/customer/uploads',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-          console.log('File uploaded successfully:', response);
+        $.ajax({
+            url: '/customer/uploads',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log('File uploaded successfully:', response);
 
-          // Display success message under the form
-          $('#formContainers').append('<p style="color: green;">File uploaded successfully</p>');
-          window.location.reload();
-        },
-        error: function(xhr, status, error) {
-          console.error('Error uploading file:', error);
+                // Display success message under the form
+                $('#formContainers').append('<p style="color: green;">File uploaded successfully</p>');
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error uploading file:', error);
 
-          // Display error message under the form
-          $('#formContainers').append('<p style="color: red;">Error uploading file: ' + xhr.responseText + '</p>');
-        }
-      });
+                // Check if the response contains validation errors
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorHtml = '<ul>';
+
+                    // Loop through the validation errors and build the error message
+                    $.each(errors, function (field, messages) {
+                        $.each(messages, function (key, message) {
+                            errorHtml += '<li>' + message + '</li>';
+                        });
+                    });
+
+                    errorHtml += '</ul>';
+
+                    // Display the validation errors under the form
+                    $('#formContainers').append('<div style="color: red;">Error uploading file: ' + errorHtml + '</div>');
+                } else {
+                    // Display a generic error message
+                    $('#formContainers').append('<p style="color: red;">An error occurred while uploading the file.</p>');
+                }
+            }
+        });
     });
-  });
+});
+
 
   $('#files').change(function() {
   var file = $('#files')[0].files[0].name;

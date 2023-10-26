@@ -943,6 +943,18 @@ $(document).ready(function () {
                             .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
                 }
+                if (field_name === 'phone') {
+                    var phoneRegex = /^\d+$/; // Match one or more digits
+                    if (!phoneRegex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error invalid-feedback invalidMessage" for="phone">Please enter a valid phone number with only digits</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+                
+                
+                
             }
         });
         if (!errors) {

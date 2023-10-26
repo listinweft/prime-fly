@@ -298,8 +298,15 @@
 <li class="nav-item">
     <a href="{{ url(Helper::sitePrefix().'blog/custome-blog') }}"
        class="nav-link {{ request()->is(Helper::sitePrefix().'blog/custome-blog*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-question-circle"></i>
+        <i class="nnav-icon fas fa-newspaper"></i>
         <p>Customer-posts</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ url(Helper::sitePrefix().'comment') }}"
+       class="nav-link {{ request()->is(Helper::sitePrefix().'comment/') ? 'active' : '' }}">
+        <i class="nnav-icon fas fa-comment"></i>
+        <p>Manage Comments</p>
     </a>
 </li>
 
