@@ -65,7 +65,7 @@ class CustomerController extends Controller
                 ->get();
                   $Customerjournals = CustomerPost::where('user_id', $customer->user_id)
                 ->where('type', 'journal')
-                ->where('status', 'Inactive')
+                ->where('status', 'Inactive') 
 
                 ->get();
 

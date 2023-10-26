@@ -775,6 +775,7 @@ form{
     top: 20px;
     z-index: 1;
     flex-shrink: 0;
+    overflow: hidden;
 }
 .comment-avatar img{
     height: 100%;
@@ -832,6 +833,7 @@ form{
     width: 70px;
     border-radius: 50%;
     flex-shrink: 0;
+    overflow: hidden;
 }
 .user-comment-avatar img{
     height: 100%;
@@ -1415,6 +1417,7 @@ img {
     border-radius: 50%;
     flex-shrink: 0;
     margin-right: 7px;
+    overflow: hidden;
 }
 .active-user-image img{
     height: 100%;
@@ -2300,4 +2303,29 @@ img {
 /*--------------- Thank you page end ----------------*/
 .user-profile-details textarea, .user-profile-details input{
     outline: none;
+}
+.like-button2 {
+    padding: 0;
+}
+.like-button2 svg{
+    margin: 0;
+}
+.like-button2 svg.liked {
+    display: none;
+}
+.like-button2.liked svg.liked {
+    fill: red;
+    display: block;
+}
+.like-button2 svg.unliked {
+    display: block;
+}
+.like-button2.liked svg.unliked {
+    display: none;
+}
+.like-button2 {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
 }
