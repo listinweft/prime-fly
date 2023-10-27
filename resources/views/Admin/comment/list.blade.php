@@ -60,12 +60,12 @@
                                             
                                          
                                             <td class="text-right py-0 align-middle">
-                                                <div class="btn-group btn-group-sm">
+                                                <div class="btn-group btn-group-sm align-items-center">
                                                     <a href="{{url(Helper::sitePrefix().'comment/edit/'.$blog->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Comment"><i
                                                             class="fas fa-edit"></i></a>
                                                             <a href="{{url(Helper::sitePrefix().'comment/show/'.$blog->id)}}"
-                                                       class="fa fa-eye fa-lg" title="show Comment"><i
+                                                       class="fa fa-eye fa-lg mr-2" title="show Comment"><i
                                                             ></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
                                                        title="Delete Comment" data-url="comment/delete"

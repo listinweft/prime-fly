@@ -72,7 +72,7 @@
                      </ul>
                   </div>
                </div>
-               <div class="reaction-stati">
+               <div class="reaction-stati mb-0">
                   <div class="row align-items-center">
                      <div class="col-sm-6">
                         <div class="reaction-stati-box">
@@ -167,6 +167,7 @@
                      </div>
                   </div>
                </div>
+</div>
                @if(Auth::guard('customer')->check())
                @php
                                         $user = Auth::guard('customer')->user();
@@ -238,20 +239,33 @@
                                        </div>
                                        <!-- Reply form -->
                                        <div class="col-12 reply-form-template" style="display: none;">
-                                          <div class="reply">
-                                             <form action="{{ route('reply_comment', ['commentId' => $comment->id]) }}" method="post">
-                                                @csrf
-                                                <div class="form-grid mb-0">
-                                                   <textarea name="reply_content" placeholder="Type your reply here...."></textarea>
+                                          <div class="comment-reply">
+                                             <div class="comment-reply-author">
+                                             <div class="comment-avatar">@if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                                {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                                @else
+                                                <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
+                                             @endif</div>
+                                                <div class="reply-comment-container">
+                                                   <div class="comment-author">{{ @$user->customer->first_name}}</div>
+                                                   <div class="reply">
+                                                   <form action="{{ route('reply_comment', ['commentId' => $comment->id]) }}" method="post">
+                                                      @csrf
+                                                      <div class="form-grid mb-0">
+                                                         <textarea name="reply_content" placeholder="Type your reply here...."></textarea>
+                                                      </div>
+                                                      <div class="post-comment">
+                                                         <div class="post-comment-btn">
+                                                            <input type="submit" value="">
+                                                         </div>
+                                                         <div class="post-comment-btn-icon"><i class="bi bi-send"></i></div>
+                                                      </div>
+                                                   </form>
                                                 </div>
-                                                <div class="post-comment">
-                                                   <div class="post-comment-btn">
-                                                      <input type="submit" value="">
-                                                   </div>
-                                                   <div class="post-comment-btn-icon"><i class="bi bi-send"></i></div>
                                                 </div>
-                                             </form>
+                                             </div>
                                           </div>
+                                          
                                        </div>
                                     </div>
                                  </div>
@@ -284,7 +298,6 @@
                      </div>
                   </div>
                </div>
-            </div>
          </div>
       </div>
    </section>

@@ -16,7 +16,7 @@
                         </p>
                     </a>
                 </li>
-                @include('Admin.includes.menus.'.Helper::loggedUserType().'_menu');
+                @include('Admin.includes.menus.'.Helper::loggedUserType().'_menu')
             </ul>
         </nav>
     </div>
