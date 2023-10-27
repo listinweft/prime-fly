@@ -7,7 +7,7 @@
             <div class="blog-share-left position-sticky">
                <p>966 <span>Shares</span> </p>
                <ul>
-                  <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ url('blog/'.$blog->short_url) }}" class="share-button facebook"><img src="{{ asset('frontend/images/icon/facebook.png')}}" alt=""></a></li>
+                  <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ url('blog/'.$blog->short_url) }}" class="share-button"><img src="{{ asset('frontend/images/icon/facebook.png')}}" alt=""></a></li>
                   <li><a href="https://twitter.com/intent/tweet?url={{ url('blog/'.$blog->short_url) }}&text={{ urlencode($blog->title) }}"><img src="{{ asset('frontend/images/icon/twitter.png')}}" alt=""></a></li>
                   <li>
     <a href="https://api.whatsapp.com/send?text={{ url('blog/'.$blog->short_url) }}">
