@@ -24,10 +24,13 @@
                         </div>
 
                     </form>
-                    <div class="btnRegister">
-                                    <p>Not registered?</p>
-                                    <a href="{{url('/register')}}">Register</a>
-                                </div>
+                    <div class="btnRegister d-block d-sm-flex align-items-center w-100">
+                        <div class="w-100 d-flex">
+                            <p>Not registered?</p>
+                            <a href="{{url('/register')}}">Register</a>
+                        </div>
+                        <a href="{{ url('forgot-password') }}" class="forgot-password-link">Forgot Password?</a>
+                    </div>
                 </div>
             </div>
             <div class="login-right">
