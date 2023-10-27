@@ -1539,6 +1539,9 @@
 .forgot-password .login-form-box h1{
     font-size: calc(36px - 6px*2.3);
 }
+.forgot-password .form-grid input[type="submit"] {
+    font-size: 18px;
+}
 /*------------- Forgot password page end --------------*/
 
 }
