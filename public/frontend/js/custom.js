@@ -1065,9 +1065,7 @@ $(document).ready(function () {
                     if (modal_id) {
                         $("#" + modal_id).modal('hide');
                     }
-                    // if (response.status == "success-reload") {
-                    //     Toast.fire({title: "", text: response.message, icon: response.status});
-                    // }
+                   
                     if (response.status == "success-reload") {
 
 
@@ -1077,6 +1075,18 @@ $(document).ready(function () {
                         setTimeout(() => {
                             window.location.href = base_url;
                         }, 1000);
+
+                    }
+
+                   else  if (response.status == "success-reload2") {
+
+
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        setTimeout(() => {
+                            window.location.href = base_url;
+                        }, 500);
 
                     }
 
@@ -1095,12 +1105,7 @@ $(document).ready(function () {
                         Toast.fire({
                             title: "error!", text: response.message, icon: "error"
                         });
-                        // $(".successModalForm").modal('show');
-                        // $("#myspan").html(response.message);
-                        //     setTimeout(function(){
-                        //         $(".successModalForm").modal('hide');
-                        //     }, 2000);
-
+                       
                     }
                 })
                 .fail(function (response) {
@@ -1115,6 +1120,8 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.forgotpasswdform_submit_btn', function (e) {
+
+        
 
         e.preventDefault();
 
@@ -1183,40 +1190,22 @@ $(document).ready(function () {
                     if (modal_id) {
                         $("#" + modal_id).modal('hide');
                     }
-                    if (response.status == "success") {
-                        $(".successModalForm").modal('show');
-                        document.getElementById("myspan").innerHTML=response.message;
-                        // const successModel = setTimeout(myGreeting, 2000);
-                        // function successModel(){
+                    
+                    
+                   
+                     if (response.status == "success") {
+                       
+                        
 
-                        // }
-                        // Toast.fire({title: "", text: response.message, icon: response.status});
-                    } else if (response.status == "success-reload") {
-                        $(".successModalForm").modal('show');
-                        $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 1500);
-
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
-                        if (response.redirect) {
-                            window.location.href = response.redirect;
-                        } else {
-                           setTimeout(() => {
-                            location.reload();
-                           }, 1500);
-                        }
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        
                     } else {
-                        $(".successModalForm").modal('show');
-                        $("#myspan").html(response.message);
-                            setTimeout(function(){
-                                $(".successModalForm").modal('hide');
-                            }, 800);
-                        // swal.fire({
-                        //     title: response.status, text: response.message, icon: response.status
-                        // });
+                        
+                        swal.fire({
+                            title: response.status, text: response.message, icon: response.status
+                        });
                     }
                 })
                 .fail(function (response) {

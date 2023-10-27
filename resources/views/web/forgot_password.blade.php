@@ -1,28 +1,7 @@
 
 @extends('web.layouts.main')
 @section('content')
-<!-- <section class="loginSection position-relative">
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-xxl-5 col-xl-6 col-lg-7 myAccountContainer">
-                    <div class="myAccountForm">
-                        <h3>Forgot Password</h3>
-                        <form action="" id="forgot">
-                    <div class="row">
-                        <div class="form-group">
-                            <img src="{{asset('frontend/images/icon-email.png')}}" alt="">
-                            <input type="text" class="form-control required" id="email" name="email" placeholder="Email*">
-                        </div>
-                        <div class="form-group">
-                            <button class="btn primary_btn forgotpasswdform_submit_btn  form_submit_btn" data-url="/forgot-password" id="forgotpasswdform_submit_btn">Send</button>
-                        </div>
-                    </div>
-                </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
+
 
     <div class="wrapper">
         <section class="login forgot-password">
@@ -37,7 +16,7 @@
                         </div>
                         <div class="form-grid mb-0">
                             <!-- <input type="submit" value="Login"  class="loginform_submit_btn" data-url="/login"> -->
-                            <input type="submit" value="Send" class="loginform_submit_btn btn primary_btn forgotpasswdform_submit_btn  form_submit_btn" data-url="/forgot-password" id="forgotpasswdform_submit_btn">
+                            <input type="submit" value="Send" class="forgotpasswdform_submit_btn" data-url="/forgot-password" id="forgotpasswdform_submit_btn">
                         </div>
 
                     </form>

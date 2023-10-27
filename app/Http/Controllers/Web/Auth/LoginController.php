@@ -91,7 +91,7 @@ class LoginController extends Controller
 
     public function forgot_password(Request $request)
     {
-      $user = User::where('email', $request->email)->where('user_type', 'Customer')->first();
+       $user = User::where('email', $request->email)->where('user_type', 'Customer')->first();
 
         if ($user) {
             $token = Str::random(64);
@@ -135,6 +135,7 @@ class LoginController extends Controller
     public function reset_password($token)
     {
 
+      
         $title = 'Reset Password';
         $password_reset = PasswordReset::where('token', $token)->first();
         if ($password_reset) {
@@ -266,6 +267,7 @@ class LoginController extends Controller
 
     {
 
+
         $password_reset = PasswordReset::where('token', $request->token)->first();
         if ($password_reset) {
             $request->validate([
@@ -279,11 +281,12 @@ class LoginController extends Controller
                     'password' => Hash::make($request->password),
                 ]);
                 if ($reset_password) {
+                   
                     PasswordReset::where(['email' => $password_reset->email])->delete();
-                    $name = $user->customer->first_name . ' ' . $user->customer->last_name;
-                    Helper::sendCredentials($user, $name, $request->password);
+                    $name = $user->customer->first_name;
+                     Helper::sendCredentials($user, $name, $request->password);
                     return response()->json([
-                        'status' => 'success-reload',
+                        'status' => 'success-reload2',
                         'message' => 'Password has been reset successfully, Please sign-in using your new password',
                         'redirect' => url('/')
                     ]);
@@ -293,7 +296,8 @@ class LoginController extends Controller
             } else {
                 return response()->json(['status' => 'error', 'message' => "Invalid Email"]);
             }
-        } else {
+          } 
+         else {
             return response()->json(['status' => 'error', 'message' => 'Invalid token!']);
         }
     }

@@ -1,34 +1,7 @@
 
 @extends('web.layouts.main')
 @section('content')
-<!-- <section class="loginSection position-relative">
-        <div class="container position-relative">
-            <div class="row">
-                <div class="col-xxl-5 col-xl-6 col-lg-7 myAccountContainer">
-                    <div class="myAccountForm">
-                        <h3>Reset Password Error</h3>
-                        <form action="" id="forgot">
-                    <div class="row">
-                        <div class="form-group">
-                            <img src="{{asset('frontend/images/loginPassword.png')}}" alt="">
-                            <input type="password" class="form-control required" id="password" name="password" placeholder="New Password*">
-                            <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                        </div>
-                        <div class="form-group">
-                            <img src="{{asset('frontend/images/loginPasswordRe.png')}}" alt="">
-                            <input type="password" class="form-control required" id="password_confirmation" name="password_confirmation" placeholder="Re-type Password*">
-                            <span toggle="#password_confirmation" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn primary_btn form_submit_btn" data-url="/reset-password/{{$token}}" >Reset Password</button>
-                        </div>
-                    </div>
-                </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
+
 
     <div class="wrapper">
         <section class="login forgot-password reset-password">
@@ -55,7 +28,9 @@
                         </div>
                         <div class="form-grid mb-0">
                             <!-- <button class="btn primary_btn form_submit_btn" data-url="/reset-password/{{$token}}" >Reset Password</button> -->
-                            <input type="submit" value="Reset Password" class="loginform_submit_btn  form_submit_btn" data-url="/reset-password/{{$token}}">
+                            <input type="submit" value="Reset Password" class="loginform_submit_btn" data-url="/reset-password/{{$token}}">
+
+                          
                         </div>
 
                     </form>
