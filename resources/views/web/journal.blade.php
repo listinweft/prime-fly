@@ -374,12 +374,16 @@ const likeButton2 = document.querySelector('.like-button2');
                         likeButton2.classList.remove('liked');
                         // likeButton2.innerText = 'Like';
                         toastr.success('Journal unliked!');
-                        window.location.reload();
+                        setTimeout(function(){
+   window.location.reload(1);
+}, 3000);
                     } else {
                         likeButton2.classList.add('liked');
                         // likeButton2.innerText = 'Unlike';
                         toastr.success('Journal liked!');
-                        window.location.reload();
+                        setTimeout(function(){
+   window.location.reload(1);
+}, 3000);
                     }
 
                     isLiked = !isLiked;
