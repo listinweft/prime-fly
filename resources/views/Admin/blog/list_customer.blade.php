@@ -55,7 +55,8 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
 
-                                            <td>{{$blog->user->customer->first_name}}</td>
+                                            <td>{{$blog->user->customer->first_name ?? 'Customer Not Found'}}
+</td>
                                           <td>  {{ $blog->type }}</td>
                                        
                                       
