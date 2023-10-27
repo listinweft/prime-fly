@@ -330,4 +330,21 @@ class BlogController extends Controller
             }
         }
     }
+
+    public function delete_post(Request $request)
+    {
+        if (isset($request->id) && $request->id != null) {
+            $blog = CustomerPost::find($request->id);
+            if ($blog) {
+                
+                if ($blog->delete()) {
+                    return response()->json(['status' => true]);
+                } else {
+                    return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
+                }
+            } else {
+                return response()->json(['status' => false, 'message' => 'Model class not found']);
+            }
+        }
+    }
 }

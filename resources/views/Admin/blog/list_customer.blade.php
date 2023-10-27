@@ -46,7 +46,7 @@
                                      
                                           <th>Pdf</th>
                                           <th>status</th>
-                                        
+                                        <th>action</th>
                                         
                                     </tr>
                                     </thead>
@@ -72,6 +72,14 @@
                                                         {{($blog->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
+                                            </td>
+                                            <td class="text-right py-0 align-middle">
+                                                <div class="btn-group btn-group-sm">
+                                                   
+                                                    <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
+                                                       title="Delete Blog" data-url="blog/deletes"
+                                                       data-id="{{$blog->id}}"><i class="fas fa-trash"></i></a>
+                                                </div>
                                             </td>
 
                                             

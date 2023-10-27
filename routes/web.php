@@ -324,6 +324,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('edit/{id}', [BlogController::class, 'blog_edit']);
         Route::post('edit/{id}', [BlogController::class, 'blog_update']);
         Route::post('delete', [BlogController::class, 'delete_blog']);
+        Route::post('deletes', [BlogController::class, 'delete_post']);
         Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
     });
