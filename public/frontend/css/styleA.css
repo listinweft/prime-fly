@@ -2395,3 +2395,16 @@ img {
 .pass-change .form-grid input[type="submit"]{
     font-size: 18px;
 }
+
+.forgot-password-link{
+    flex-shrink: 0;
+}
+/*------------- Forgot password page start --------------*/
+.forgot-password{
+    height: auto;
+    min-height: 700px;
+}
+.forgot-password .login-form-box h1{
+    font-size: 36px;
+}
+/*------------- Forgot password page end --------------*/

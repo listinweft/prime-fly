@@ -528,6 +528,15 @@
 
 /*-------------- my account page end ------------*/
 
+/*------------- Forgot password page start --------------*/
+.forgot-password{
+    min-height: calc(700px - 100px);
+}
+.forgot-password .login-form-box h1{
+    font-size: calc(36px - 6px);
+}
+/*------------- Forgot password page end --------------*/
+
 }
 
 @media(max-width: 1400px){
@@ -836,6 +845,14 @@
 }
 
 /*------------- my account page end ----------------*/
+/*------------- Forgot password page start --------------*/
+.forgot-password{
+    min-height: calc(700px - 100px*2);
+}
+.forgot-password .login-form-box h1{
+    font-size: calc(36px - 6px*1.5);
+}
+/*------------- Forgot password page end --------------*/
     
 }
 
@@ -1512,6 +1529,17 @@
         padding-top: 0;
     }
     /*-------------------- contact page end -----------------*/
+    /*------------- Forgot password page start --------------*/
+.forgot-password{
+    min-height: auto;
+}
+.forgot-password .login-left {
+    padding: 50px 20px 30px 20px;
+}
+.forgot-password .login-form-box h1{
+    font-size: calc(36px - 6px*2.3);
+}
+/*------------- Forgot password page end --------------*/
 
 }
 
@@ -1858,5 +1886,17 @@
 .change-password-form-wraper h4 {
     font-size: 20px;
     margin-bottom: 20px;
+}
+.btnRegister{
+    text-align: center;
+    font-size: 14px;
+}
+
+.btnRegister > div{
+    justify-content: center;
+}
+.forgot-password-link{
+    padding-top: 7px;
+    padding-left: 0;
 }
 }
