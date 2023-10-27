@@ -2408,3 +2408,20 @@ img {
     font-size: 36px;
 }
 /*------------- Forgot password page end --------------*/
+
+/*------------- Reset password page start --------------*/
+.showPass{
+    position: absolute;
+    right: 25px;
+    top: 18px;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+}
+.reset-password .form-grid input:not([type='submit']){
+    padding-right: 60px;
+}
+.forgot-password .form-grid input[type="submit"]{
+    font-size: 20px;
+}
+/*------------- Reset password page end --------------*/
