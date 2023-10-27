@@ -168,7 +168,7 @@ class CustomerController extends Controller
                         $user->profile_image = null;
                         $user->profile_image_webp = null;
                         $user->save();
-                        if ($user->delete() && $customer->delete()) {
+                        if ($user->forceDelete() && $customer->forceDelete()) {
                             DB::commit();
                             return response()->json(['status' => true,]);
                         } else {
