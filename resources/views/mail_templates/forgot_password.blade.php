@@ -1,4 +1,4 @@
-
+<!--new design-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -63,54 +63,56 @@
         }
     </style>
 </head>
-<body style="background-color:#fff;font-family:Arial, Helvetica, sans-serif;">
+<body style="background-color:#f4f4f4;font-family:Arial, Helvetica, sans-serif;">
 <table class="container" width="680" border="0" cellspacing="0" cellpadding="0" align="center"
-       style="border-left:solid 1px #d9dadb;border-right:solid 1px #d9dadb;border-top:solid 1px #d9dadb;border-bottom:solid 1px #d9dadb; ">
-       <tr style="border-collapse:collapse">
-        <td class="es-m-p20b" align="left"
-            style="padding:0;Margin:0;width:173px">
-            <table width="100%" cellspacing="0" cellpadding="0"
-                   role="presentation"
-                   style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                   <tr align="left" valign="top">
+       style="border-left:solid 0px #d9dadb;border-right:solid 0px #d9dadb;border-top:solid 0px #d9dadb;border-bottom:solid 0px #d9dadb; ">
+    <tr>
+
+        <td style="border-style: solid; border-color: #b2cbb2; border-width: 2px; width:640px;background: white;">
+            <table class="container" width="640" border="0" cellspacing="0" cellpadding="0" align="center">
+                <tr align="left" valign="top">
                     <td colspan="5" align="left" valign="top">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
                             <tr>
-                                <td><img style="width: 10vw; padding: 1vw;" src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"/>
-                                </td>
-                                <td></td>
+                                <td style="text-align: center;">
+                                    <img style="width: 10vw; padding: 1vw;"  src="https://demo.wefttechnologies.com/emirati-email/logo.png"/>
+                                </td> 
                             </tr>
                         </table>
                     </td>
                 </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-
-        <td style="border-style: solid; border-color: #00afef; border-width: 2px; width:640px;">
-            <table class="container" width="640" border="0" cellspacing="0" cellpadding="0" align="center">
 
                 <tr align="left" valign="top">
-                    <td valign="middle" colspan="5">
-                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear {name}, <br/><br/>
-                            Please click below link to reset your password,<br/><br/></p>
+                    <td valign="middle" colspan="5" style="background: #EDFFED;padding-top: 20px;">
+                        <img width="680px" src="https://demo.wefttechnologies.com/emirati-email/email-banner.png"/>
                     </td>
-                </tr>
-                <tr align="left" valign="top">
-                    <td valign="middle" colspan="5">
-                        <h2 style="font-size:14px;line-height:22px;padding-top:5px;text-transform:uppercase;">
-                            <a href="{link}">CLICK TO RESET PASSWORD</a>
-                        </h2><br/>
-                    </td>
+                         
                 </tr>
 
                 <tr align="left" valign="top">
-                    <td valign="middle" colspan="5">
-                        <br/><br/>
-                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Thanks & Regards<br/>Team {owner}
-                        </p>
-                        <br/><br/>
+                    <td valign="middle" colspan="5" style="padding: 20px 20px 0;text-align: center;">
+                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear {name}, <br/>   
+                            <p> Please click below link to reset your password,</p>
+                        </td>
+                </tr>
+
+                <tr align="center" valign="top">
+                    <td valign="middle" colspan="5" style="padding: 0 20px;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:0px;text-align: center;">
+                            <tr>
+                                <td style="padding:5px 0;font-weight:bold;">
+                                    <h2 style="font-size:14px;line-height:22px;padding-top:5px;text-transform:uppercase;">
+                                        <a href="{link}">CLICK TO RESET PASSWORD</a>
+                                    </h2><br/>
+                                </td>  
+                            </tr> 
+                        </table>
+                    </td>
+                </tr> 
+                <tr align="left" valign="top">
+                    <td valign="middle" colspan="5" style="padding: 0 20px 30px;text-align: center;"> 
+                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Warm regards,<br/>Team Esoan
+                        </p> 
                     </td>
                 </tr>
                 <br/>
@@ -121,3 +123,4 @@
 
 </body>
 </html>
+ 
