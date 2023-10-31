@@ -7,10 +7,7 @@
                     <ul class="menu-container d-lg-flex justify-content-between liststyle-none mb-0 p-0">
                         <li><a href="{{ url('about') }}">About Us</a></li>
                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
-                        @if(Auth::guard('customer')->check())
-    <li><a href="{{ url('journals') }}">Journals</a></li>
-    <li><a href="{{ url('events') }}">Events</a></li>
-      @endif
+                        
 
                         <li><a href="{{ url('faq') }}">FAQ</a></li>
                       
