@@ -9,13 +9,9 @@
                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
                         @if(Auth::guard('customer')->check())
                         <li><a href="{{ url('journals') }}">Journals</a></li>
-                        @endif
-                        @if(Auth::guard('customer')->check())
                         <li><a href="{{ url('events') }}">Events</a></li>
-
-
-                        
                         @endif
+                       
                         <li><a href="{{ url('faq') }}">FAQ</a></li>
                       
                        
