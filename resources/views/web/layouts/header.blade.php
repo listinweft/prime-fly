@@ -8,10 +8,14 @@
                         <li><a href="{{ url('about') }}">About Us</a></li>
                         <li><a href="{{ url('blogs') }}">Blogs</a></li>
                         @if(Auth::guard('customer')->check())
-    <li><a href="{{ url('journals') }}">Journals</a></li>
-    <li><a href="{{ url('events') }}">Events</a></li>
-      @endif
+                        <li><a href="{{ url('journals') }}">Journals</a></li>
+                        @endif
+                        @if(Auth::guard('customer')->check())
+                        <li><a href="{{ url('events') }}">Events</a></li>
 
+
+                        
+                        @endif
                         <li><a href="{{ url('faq') }}">FAQ</a></li>
                       
                        
@@ -22,8 +26,6 @@
 
                         @if(Auth::guard('customer')->check())
 
-                        
-
                                                         @php
                                         $user = Auth::guard('customer')->user();
                                         $customer = $user->customer;
@@ -32,11 +34,7 @@
                    
                         <a href="#0">
                         <div class="user-login-box mob-login mt-4 d-sm-none">
-                            <div class="user-login-image">@if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
-                                    {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
-                                @else
-                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
-                                @endif</div>
+                            <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
 
                             
                             <div class="user-login-name">{{$customer->first_name}}</div>
