@@ -32,7 +32,11 @@
                    
                         <a href="#0">
                         <div class="user-login-box mob-login mt-4 d-sm-none">
-                            <div class="user-login-image"><img src="{{ asset('frontend/images/default-user.png') }}" alt=""></div>
+                            <div class="user-login-image">@if (!empty(Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid')))
+                                    {!! Helper::printImage($user, 'profile_image', 'profile_image_webp', 'image_attribute', 'img-fluid') !!}
+                                @else
+                                    <img src="{{ asset('frontend/images/default-user.png') }}" alt="" class="img-fluid">
+                                @endif</div>
 
                             
                             <div class="user-login-name">{{$customer->first_name}}</div>
