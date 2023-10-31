@@ -22,6 +22,8 @@
 
                         @if(Auth::guard('customer')->check())
 
+                        
+
                                                         @php
                                         $user = Auth::guard('customer')->user();
                                         $customer = $user->customer;
