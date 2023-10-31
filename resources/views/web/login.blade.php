@@ -12,11 +12,11 @@
                     <h1>Login </h1>
                     <form action="#0" id="login"> 
                         <div class="form-grid">
-                            <input type="email"  placeholder="Email/ User Name" class="form-control required" id="username" name="username">
+                            <input type="email"  placeholder="Email/ User Name" class="form-control required" id="username" name="username" autocomplete="off">
                            
                         </div>
                         <div class="form-grid">
-                            <input type="password"  placeholder="Password" class="form-control required" id="password" name="password">
+                            <input type="password"  placeholder="Password" class="form-control required" id="password" name="password" autocomplete="off">
                             
                         </div>
                         <div class="form-grid mb-0">
