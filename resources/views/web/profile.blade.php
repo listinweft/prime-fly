@@ -116,7 +116,7 @@
                                 </a>
                             </li>
                             <li class="nav-item" data-section="logout">
-                                <a href="javascript:void(0);">
+                                <a href="{{ url('logout/') }}">
                                     <img src="{{ asset('frontend/img/logout-icon.svg')}}"/>
                                     Logout
                                 </a>
@@ -131,8 +131,13 @@
                     <div class="d-flex justify-content-center flex-wrap">
                         <div class="b2b_upload text-center">
                             <div class="upload_user">
-                                <img class="upload_user_img" src="{{ asset('frontend/img/common-user.png')}}" alt="user">
-                                <img class="upload_user_cam" src="{{ asset('frontend/img/camer.png')}}" alt="camera">
+                                @if($customer->user->profile_image)
+                            {!! Helper::printImage($customer->user, 'profile_image', 'profile_image_webp', '', 'img-fluid') !!}
+                            @else
+                               
+                                <img class="upload_user_img" src="{{ asset('frontendimg/common-user.png')}}" alt="user">
+
+                                @endif
                                 <input type="file" name="myfile"/>
                             </div>
                             <h3>Orders & Bookings</h3>
@@ -177,6 +182,19 @@
                 </div>
             </div>
         @endforeach
+        @else
+        <div class="col-lg-12">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-lg-4 no-booking text-center">
+                                    <img src="{{ asset('frontend/img/no-booking.png')}}"/>
+                                    <h4>You haven’t made any bookings</h4>
+                                    <p>Lorem agtuineo pertiqe debozihri </p>
+                                    <div class="col-12 text-center mt-3">
+                                        <a href="/" class="btn-style-2"><div class="btn-in">View More</div></a>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
     @endif
 </div>
 

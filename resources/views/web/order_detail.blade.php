@@ -23,7 +23,7 @@
                         <div class="order_details_header">
                             <ul>
                                 <li>
-                                    Order ID : ARTMYT# {{$order->order_code}}
+                                    Order ID : Primefly# {{$order->order_code}}
                                 </li>
                                 <li>
                                     Placed Order on  {{date('d-m-Y',strtotime($order->created_at))}}

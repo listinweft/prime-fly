@@ -48,12 +48,11 @@
                                         <th>#</th>
                                         <th>Code</th>
                                         <th>Customer</th>
-                                        <th>Total</th>
-                                        <th>Tax</th>
+                                     
                                        
                                         <th>Order Total</th>
                                       
-                                        <th>Payment Method</th>
+                                        <!-- <th>Payment Method</th> -->
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -70,7 +69,7 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ 'SPEEDWINGS#'.$order->order_code }}</td>
+                                                <td>{{ 'Primefly#'.$order->order_code }}</td>
                                                 @if(@$order->orderCustomer->user_type=="User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
@@ -81,12 +80,11 @@
                                                 <td></td>
                                                 @endif
                                                 @endif
-                                                <td>{{ number_format($productTotal,2) }}</td>
-                                                <td>{{ $order->tax_amount }}</td>
+                                                
                                                
                                                 <td>{{ number_format($orderTotal,2).' '.$order->currency }}</td>
                                                 
-                                                <td>{{ $order->payment_method }}</td>
+                                                <!-- <td>{{ $order->payment_method }}</td> -->
                                                 <td>{{ date("d-M-Y", strtotime($order->created_at))  }}</td>
                                                 <td class="text-right py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">

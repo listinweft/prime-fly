@@ -53,14 +53,11 @@ class LoginController extends Controller
         
         
 
-        // if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'], $remember)) {
+        
             if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
 
                 
-            // if (Auth::guard('customer')->user()->is_verified == 0) {
-
-            //     return response()->json(['status' => 'error2', 'message' => 'Account not verified, Please register with your email','mail'=>$request->username]);
-            // }
+           
             if (Auth::guard('customer')->user()->status == 'Inactive') {
                 Auth::guard('customer')->logout();
                 return response()->json(['status' => 'error', 'message' => 'Account is inactive, Please contact your site owner']);
