@@ -47,9 +47,12 @@
                             <option>Qatur Airways</option>
                         </select>
                     </div>
-                    <div class="booking_field">
+                    <div class="booking_field" id="flight_no_select">
                         <input type="text" class="form-control" name="flight_number" placeholder="Flight Number" />
                     </div>
+                    <!-- <div class="booking_field">
+                        <input type="text" class="form-control" name="flight_number" placeholder="Flight Number" />
+                    </div> -->
                     <div class="booking_field">
                         <div class="guest-number-input-item">
                             <div class="g-input-text">Count</div>
