@@ -6,11 +6,15 @@
 @foreach( $blogs as $blog )
                         <div class="col-md-4 col-sm-6 blog-item-grid">
                             <div class="blog-item">
-                                <a href="single-blog.html"><div class="blog-item-image">{!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div></a>
+                                <a href="{{ url('blog/'.@$blog->short_url) }}"><div class="blog-item-image">{!! Helper::printImage($blog, 'image', 'image_webp', '', 'img-fluid') !!}</div></a>
                                 <div class="blog-item-content">
                                     <a href="single-blog.html"><h3>{{ $blog->title }}</h3></a>
-                                    {!! $blog->description !!}
-                                    <a href="single-blog.html" class="btn-style-2"><div class="btn-in">Read More</div></a>
+
+
+                                  <p>  {!! strlen($blog->description) > 200  ? substr($blog->description, 0, 200) . '...' : $blog->description !!} </p>
+
+                                    
+                                    <a href="{{ url('blog/'.@$latestBlog->short_url) }}" class="btn-style-2"><div class="btn-in">Read More</div></a>
                                 </div>
                             </div>
                         </div>

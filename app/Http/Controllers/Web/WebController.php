@@ -786,28 +786,17 @@ class WebController extends Controller
             $banner = $seo_data = $blog;
             $type = $short_url;
             $recentBlogs = Blog::active()->latest('posted_date')->limit(3)->where('id', '!=', $blog->id)->get();
-            $previousBlog = Blog::active()->latest('posted_date')->where('id', '<', $blog->id)->first();
-            $nextBlog = Blog::active()->latest('posted_date')->where('id', '>', $blog->id)->first();
+            $latestBlogs = Blog::active()->latest('posted_date')->limit(4)->where('id', '!=', $blog->id)->get();
+         
 
-            $comments = Comment::where('blog_id', $blog->id)->get();
-
-            $totalLikes = Like::where('blog_id', $blog->id)->count();
+            
 
 
-            $user = Auth::guard('customer')->user();
-           $like = null;
-        if ($user) {
-             $like = Like::where('blog_id', $blog->id)
-                ->where('user_id', $user->id)
-                ->first();
-                return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
-                'previousBlog', 'nextBlog','type','comments','like','totalLikes'));
-        }
+           
 
-        else{
             return view('web.blog', compact('blog', 'recentBlogs', 'banner', 'seo_data',
-                'previousBlog', 'nextBlog','type','comments','totalLikes','like'));
-        }
+                'latestBlogs','type'));
+        
          
 
     }

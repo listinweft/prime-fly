@@ -46,23 +46,24 @@
                                
                                 <div class="d-flex flex-wrap">
                                     <div class="col-lg-6 pe-4">
-                                        <a href="single-blog.html">
+                                        <a href="{{ url('blog/'.@$latestBlog->short_url) }}">
                                             <div class="featured-blog-item-image mb-3">
                                             {!! Helper::printImage($latestBlog, 'image', 'image_webp', '', 'img-fluid') !!}
 
                                             
                                             </div>
                                         </a>
-                                        <a href="single-blog.html">
+                                        <a href="{{ url('blog/'.@$latestBlog->short_url) }}">
                                             <div class="recent-blog-item-content">
                                                 <span class="mb-2">{{ date('d-m-Y', strtotime($latestBlog->posted_date)) }}</span>
                                                 <h4>{{ $latestBlog->title }}</h4> 
                                                 {!! $latestBlog->description !!}
+                                              
                                                 
                                             </div> 
                                         </a>
                                         <div class="col-12 text-start mt-3">
-                                            <a href="#" class="btn-style-2"><div class="btn-in">Read More</div></a>
+                                            <a href="{{ url('blog/'.@$latestBlog->short_url) }}" class="btn-style-2"><div class="btn-in">Read More</div></a>
                                           </div>
                                     </div>
                                     <div class="col-lg-6 recent-blog-item-wraper">
@@ -71,10 +72,10 @@
                                         <div class="recent-blog-item">
                                             <div class="row align-items-center">
                                                 <div class="col-sm-5">
-                                                    <a href="single-blog.html"><div class="recent-blog-item-image">{!! Helper::printImage($lastthree, 'image', 'image_webp', '', 'img-fluid') !!}</div></a>
+                                                    <a href="{{ url('blog/'.@$lastthree->short_url) }}"><div class="recent-blog-item-image">{!! Helper::printImage($lastthree, 'image', 'image_webp', '', 'img-fluid') !!}</div></a>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <a href="single-blog.html"> 
+                                                    <a href="{{ url('blog/'.@$lastthree->short_url) }}"> 
                                                         <div class="recent-blog-item-content">
                                                             <h4>{{ $lastthree->title }}</h4>
                                                             {!! $lastthree->description !!}
