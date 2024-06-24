@@ -64,7 +64,7 @@
                                                     name="description">{!! isset($blog)?$blog->description:'' !!}</textarea>
                                             <div class="help-block with-errors" id="description_error"></div>
                                         </div>
-                                        <div class="form-group col-md-12 mb-4">
+                                        <!-- <div class="form-group col-md-12 mb-4">
                                                                 <label> Banner image</label>
                                                                 <div class="file-loading">
                                                                     <input id="desktop_banner" name="desktop_banner" type="file" accept="image/*">
@@ -73,7 +73,7 @@
                                                                 @error('desktop_banner')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
-                                                            </div>
+                                                            </div> -->
 
                                     </div>
                                 </div>
@@ -101,19 +101,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="form-group col-md-12 mb-4">
-                                    <label> Members*</label>
-                                     <select class="form-control select2 productGetDrop" name="user_id" id="user_id">
-                                        <option value="">Select Option</option>
-                                        @foreach ($customers as $customer)
-                                <option value="{{ $customer->user_id }}" @if($customer->user_id == $user) selected @endif>
-                                    {{ $customer->first_name }}
-                                </option>
-                            @endforeach
-                                                            </select>
-
-                                    <div class="help-block with-errors" id="user_id_error"></div>
-                                </div>
+                                       
                                 <div class="form-group col-md-12 mb-4">
                                             <label>Thumbnail Image*</label>
                                             <div class="file-loading">
@@ -124,7 +112,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div class="form-group col-md-12 mb-4">
+                                        <!-- <div class="form-group col-md-12 mb-4">
                                             <label> Author*</label>
                                             <input type="text" name="author" id="author" placeholder="Author"
                                                 class="form-control required" autocomplete="off"
@@ -133,8 +121,8 @@
                                             @error('author')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div>
-                                        <div class="form-group col-md-12 mb-4">
+                                        </div> -->
+                                        <!-- <div class="form-group col-md-12 mb-4">
                                             <label>Auth Image*</label>
                                             <div class="file-loading">
                                                 <input id="author_image" name="author_image" type="file">
@@ -143,7 +131,7 @@
                                             @error('author_image')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div> 
+                                        </div>  -->
                                         
                                     </div>
                                 </div>
@@ -330,10 +318,10 @@
                 dropZoneEnabled: false,
                 required: true,
                 allowedFileTypes: ['image'],
-                minImageWidth: 443,
-                minImageHeight: 271,
-                // maxImageWidth: 443,
-                // maxImageHeight: 271,
+                // minImageWidth: 443,
+                // minImageHeight: 271,
+                // // maxImageWidth: 443,
+                // // maxImageHeight: 271,
                 maxFileSize: 512,
                 showRemove: true,
                 @if(isset($blog) && $blog->image!=NULL)

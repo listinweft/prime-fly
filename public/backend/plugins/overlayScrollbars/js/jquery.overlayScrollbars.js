@@ -5276,7 +5276,7 @@
                      *      <div class="os-resize-observer-host"></div>
                      *      <div class="os-padding">
                      *          <div class="os-viewport">
-                     *              <div class="os-content"></div>
+                     *              <div class=""></div>
                      *          </div>
                      *      </div>
                      *      <div class="os-scrollbar os-scrollbar-horizontal ">
@@ -5296,7 +5296,7 @@
                      * 
                      * On a Textarea Element The if checks only whether:
                      * - the targetElement has the class "os-textarea" 
-                     * - the targetElement is inside a element with the class "os-content" 
+                     * - the targetElement is inside a element with the class "" 
                      * 
                      * If that's the case, its assumed the DOM has already the following structure:
                      * (The ".os-textarea" (textarea) element is the targetElement)
@@ -5305,7 +5305,7 @@
                      *      <div class="os-resize-observer-host"></div>
                      *      <div class="os-padding os-text-inherit">
                      *          <div class="os-viewport os-text-inherit">
-                     *              <div class="os-content os-text-inherit">
+                     *              <div class=" os-text-inherit">
                      *                  <div class="os-textarea-cover"></div>
                      *                  <textarea class="os-textarea os-text-inherit"></textarea>
                      *              </div>

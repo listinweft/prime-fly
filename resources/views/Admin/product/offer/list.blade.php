@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Product Offer - {{$product->title}}</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Service Price - {{$product->title}}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -13,7 +13,7 @@
                             </li>
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'product/product_list')}}">Product</a>
                             </li>
-                            <li class="breadcrumb-item active">Product Offer - {{$product->title}}</li>
+                            <li class="breadcrumb-item active">Service  B2b - {{$product->title}}</li>
                         </ol>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'product/offer/create/'.$product_id)}}"
-                                   class="btn btn-success pull-right">Add Offer <i
+                                   class="btn btn-success pull-right">Add Price <i
                                         class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
@@ -46,11 +46,10 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
-                                        {{-- <th>Price</th> --}}
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Status</th>
+                                        <th>Partner</th> 
+                                        <th>Price</th> 
+                                       
+                                        <!-- <th>Status</th> -->
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -59,11 +58,12 @@
                                     @foreach($offerList as $offer)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $offer->title }}</td>
-                                            {{-- <td>{{ $offer->price }}</td> --}}
-                                            <td>{{ $offer->start_date }}</td>
-                                            <td>{{ $offer->end_date }}</td>
-                                            <td>
+                                            <td>{{ $offer->user->customer->first_name }}</td>
+                                           
+                                             <td>{{ $offer->price }}</td> 
+
+                                           
+                                            <!-- <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="Offer"
@@ -73,7 +73,7 @@
                                                            @if($offer->status == "Active") checked="checked" @endif>
                                                     <span class="slider"></span>
                                                 </label>
-                                            </td>
+                                            </td> -->
                                             <td>{{ date("d-M-Y", strtotime($offer->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">

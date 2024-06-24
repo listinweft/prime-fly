@@ -30,7 +30,7 @@ class ShippingCharge extends Model
         if ($shippingCharge != NULL) {
             if ($shippingCharge->type == "free") {
                 if ($shippingCharge->free_shipping_type == "min") {
-                    if (($shippingCharge->min_amount * Helper::defaultCurrencyRate()) <= $grand_total) {
+                    if (($shippingCharge->min_amount ) <= $grand_total) {
                         $shippingAmount = '0.00';
                     } else {
                         $shippingAmount = $shippingCharge->fixed_price;
@@ -44,7 +44,7 @@ class ShippingCharge extends Model
         } else {
             $shippingAmount = $siteInformation->default_shipping_charge;
         }
-        return $shippingAmount * Helper::defaultCurrencyRate();
+        return $shippingAmount;
     }
 
     public function state()

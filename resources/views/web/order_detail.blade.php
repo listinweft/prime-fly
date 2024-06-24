@@ -162,7 +162,8 @@
                                             <li></li>
                                             <li>
                                               
-                                                {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}}
+                                                <!-- {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$sizes->price,2)}} -->
+                                                {{INR' '.number_format($sizes->price,2)}}
                                             </li>
                                             <li>
 

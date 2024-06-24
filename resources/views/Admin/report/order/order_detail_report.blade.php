@@ -5,13 +5,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i>Detailed Booking Report </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">{{$title}} </li>
+                            <li class="breadcrumb-item active">Detailed Booking Report </li>
                         </ol>
                     </div>
                 </div>
@@ -74,13 +74,13 @@
                                         <div class="col-sm-2">
                                             <select class="form-control select2" id="order_report_product"
                                                     name="order_report_product">
-                                                <option value="">Select Product</option>
+                                                <option value="">Select service</option>
                                                 @foreach($productList as $product)
                                                     <option value="{{$product->id}}">{{$product->title}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <!-- <div class="col-sm-2">
                                             <select class="form-control select2" id="order_report_coupon"
                                                     name="order_report_coupon">
                                                 <option value="">Select Coupon</option>
@@ -88,12 +88,12 @@
                                                     <option value="{{$coupon->id}}">{{$coupon->code}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="col-sm-2">
                                             <button class="btn btn-primary" id="order-detail-search-result">Search
                                             </button>
-                                            <button class="btn btn-danger" id="clear-search-result" disabled>Clear
-                                            </button>
+                                           <button class="btn btn-danger" id="clear-search-result" onclick="window.location.href='{{ route('admin.report.detail-report') }}'" disabled>Clear</button>
+
                                         </div>
                                     </div>
                                 </form>
@@ -106,7 +106,7 @@
                                        style="margin-bottom: 10px;float: right;">Export Result &nbsp&nbsp<i
                                             class="fa fa-file-excel-o"></i></a>
                                 </div>
-                                <div class="card-body" id="filter-detailed-result">
+                                <div class="card-body" id="filter--result">
                                     @include('Admin/report/order/box_values')
                                     <div class="records--list-report" style="overflow-x: scroll;">
                                         @include('Admin.report.order.detail_report_excel')

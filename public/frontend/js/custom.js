@@ -189,6 +189,10 @@ $(document).ready(function () {
         });
     });
 
+
+    
+    
+
     $(document).on('click','.tabLink',function(){
         var tab = $(this).data('tab');
         if(tab=="wishlist"){
@@ -506,67 +510,58 @@ $(document).ready(function () {
         });
     });
     $(document).on('click', '.cart-action', function () {
-        //check this class have out-of-stock class
-       
-            
-
-
-   // take value of active size class
-        var size = $('.size.active').data('id');
-        if(size == undefined){
-            var size = $(this).data('size');
-        }
-        else{
-            var size = $('.size.active').data('id');
-        }
-        var type_id   = $('.size.active').data('product_type_id');
-        if(type_id == undefined){
-            var type_id = $(this).data('product_type_id');
-        }
-        else{
-            var type_id   = $('.size.active').data('product_type_id');
-        }
-
-
-        var frame_id = $('.frame.active').data('id');
-        if(frame_id == undefined){
-            var frame_id = $(this).data('frame');
-        }
-        else{
-            var frame_id = $('.frame.active').data('id');
-        }
-        var mount = $('.mount.active').data('mount');
-        if(mount == undefined){
-            var mount =  $(this).data('Yes')
-        }
-        else{
-            var mount = $('.mount.active').data('mount');
-        }
+        var id = $(this).data('id');
+        var totalprice = $(this).data('price');
+        var totalguest = $(this).data('guest');
+        var setdate = $(this).data('setdate');
+        var origin = $(this).data('origin');
+        var destination = $(this).data('destination');
+        var travel_sector = $(this).data('travel_sector');
+        var flight_number = $(this).data('flight_number');
+        var entry_date = $(this).data('entry_date');
+        var travel_type = $(this).data('travel_type');
+        var terminal = $(this).data('terminal');
+        var entry_time = $(this).data('entry_time');
+        var exit_time = $(this).data('exit_time');
+        var bag_count = $(this).data('bag_count');
+        
+        var qty = 1;
         var checkout = $(this).data('checkout');
         var cartText = $('.cart-action-span').html();
-        var id = $(this).data('id');
-        var qty = $('.qty').val();
-        var cartText = $('.cart-action-span').html();
-        if ($(this).data('relative') == undefined) {
-            var countRelative = 1;
-        } else {
-            var countRelative = 0;
-        }
+        var countRelative = $(this).data('relative') === undefined ? 1 : 0;
         var attrArray = [];
+    
         $('.attrSelect').each(function () {
             var attrId = $(this).val();
             var attrLabel = $(this).data('label');
-            var combined = attrLabel+' : '+attrId;
+            var combined = attrLabel + ' : ' + attrId;
             attrArray.push(combined);
         });
+    
         var attributeList = attrArray.join(",");
         $('.cart-action-span').html('Loading..');
-
+    
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: { size : size, type_id: type_id, product_id: id,qty: qty, countRelative: countRelative,attributeList:attributeList,
-                frame_id:frame_id,mount:mount,
+            data: {
+                product_id: id,
+                qty: qty,
+                totalprice: totalprice,
+                totalguest: totalguest,
+                setdate: setdate,
+                countRelative: countRelative,
+                attributeList: attributeList,
+                origin: origin,
+                destination: destination,
+                travel_sector: travel_sector,
+                flight_number: flight_number,
+                entry_date: entry_date,
+                travel_type: travel_type,
+                terminal: terminal,
+                entry_time: entry_time,
+                exit_time: exit_time,
+                bag_count: bag_count
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -574,55 +569,44 @@ $(document).ready(function () {
             url: base_url + '/add-cart',
             success: function (response) {
                 $('.cart-action-span').html(cartText);
-                $('.cart-count').html(response.count);
+    
                 if (response.status == true) {
+                    $('.cart-count').html(response.count);
                     if (checkout == 1) {
                         window.location.href = base_url + '/checkout';
                     } else {
-
                         $('.count').html(response.count);
                         $('.cartCount').html(response.count);
                         $('.cartTotal').html(response.cartTotal);
-                        if (/[,\-]/.test(id)) {
-
-                            var idArray = id.split(',');
-                            var i;
-                            for (i = 0; i < idArray.length; ++i) {
-                                $('#addoncheck' + idArray[i]).prop('disabled', true);
-                                $('#wishlist_check_' + idArray[i]).removeClass('fill');
-                                $('#wishlistBox_' + idArray[i]).remove();
-                            }
-                        } else {
-
-                            $('#wishlist_check_' + id).removeClass('fill');
-                            $('#wishlistBox_' + id).remove();
-                        }
-                        // $(".successModalForm").modal('show');
-
-                        //     $("#myspan").html(response.message);
-                        //     setTimeout(function(){
-                        //         $(".successModalForm").modal('hide');
-                        //     }, 2000);
                         Toast.fire({
-                            title: "", text: response.message, icon: "success"
+                            title: "Done it",
+                            text: response.message,
+                            icon: "success"
                         });
-
-                        if (urlLastSegment == "cart" || urlLastSegment == "checkout" || urlLastSegment == "profile" || urlLastSegment == "wishlist") {
+    
+                        if (urlLastSegment == "cart" || urlLastSegment == "checkout") {
                             location.reload();
                         }
                     }
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
                 } else {
-                 
                     swal.fire({
-                        title: "Oops", text: response.message, icon: "error"
+                        title: "Oops",
+                        text: response.message,
+                        icon: "error"
                     });
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+                swal.fire({
+                    title: "Error",
+                    text: "An error occurred while processing your request. Please try again.",
+                    icon: "error"
+                });
             }
         });
     });
+    
 
     $(document).on('click', '.remove-cart-item', function () {
         var id = $(this).data('id');
@@ -644,9 +628,11 @@ $(document).ready(function () {
                     // }, function () {
                     //     // window.location.reload();
                     // });
+                    Toast.fire('success', response.message, "success");
                     setTimeout(() => {
                         location.reload();
                     }, 800);
+
                 } else {
                     Toast.fire('Error', response.message, "error");
                 }
@@ -770,6 +756,95 @@ $(document).ready(function () {
     //         $('#confirm-order-error').html('Please accept the terms & condition').css({'color':'red'});
     //     }
     // });
+
+    
+    $(document).on('click', '#confirm_payment', function (e) {
+        e.preventDefault();
+    
+        
+           
+           
+           
+           
+           
+           var payment_method ="COD";
+
+         
+
+           
+            if (payment_method) {
+                $(this).text("Please Wait...")
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: base_url + '/submit-order', 
+
+                     data: { payment_method: payment_method},
+                     headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                 
+                    success: function (response) {
+                        $('.order-submit-loader').hide();
+                        if (response.status == true) {
+                         
+                            swal.fire({
+                                title: "", text: response.message, type: "success", icon: "success",
+                            });
+                                
+                                setTimeout(() => {
+                                    $('#submit-loader').hide();
+                                    window.location.href = base_url + response.data;
+                                    
+                                }, 900);
+                                // if (result.isConfirmed) {
+                                //     $('#submit-loader').hide();
+                                //     window.location.href = base_url + response.data;
+                                // }
+                           
+                        } else {
+                            if (response.status == 'online-payment') {
+                                window.location.href = response.url;
+                            } else {
+                                swal.fire({
+                                    confirmButtonColor: '#3085d6',
+                                    title: "", text: response.message, type: "success", icon: "success",
+                                });
+                                setTimeout(() => {
+                                    $('#submit-loader').hide();
+                                    window.location.href = base_url + response.data;
+                                    
+                                }, 900);
+                                    // if (result.isConfirmed) {
+                                    // }
+                            
+                            }
+                            thisData.text("Confirm Order");
+                        }
+                    },
+                    error: function (response) {
+                        thisData.text("Confirm Order");
+                        $('#confirm_payment').removeAttr('disabled');
+                        
+                        $(this).prop('disabled', false);
+                        $(this).text("Confirm Order")
+
+                    }
+                });
+            } else {
+                $(this).prop('disabled', false);
+                var payment_error = 'Select payment method';
+                $('#payment-method-error').html(payment_error).css({'color': 'red'});
+                Toast.fire('Error', payment_error, "error");
+            }
+        
+           
+            // $.notify('Please accept the terms & condition', "error");
+        
+    });
     $(document).on('click', '.form_submit_btn', function (e) {
         
 
@@ -841,24 +916,16 @@ $(document).ready(function () {
                         $("#" + modal_id).modal('hide');
                     }
                     if (response.status == "success") {
-                        // $(".successModalForm").modal('show');
-                        // document.getElementById("myspan").innerHTML=response.message;
 
-                            const myTimeout = setTimeout(myGreeting, 4000);
-
-                            function myGreeting() {
-
-                                //  $('.successModalForm').delay(4000).fadeOut();
-
-                                 window.location.reload();
+                       
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        setTimeout(() => {
+                            window.location.href = base_url;
+                        }, 2000);
 
 
-                              }
-                        // const successModel = setTimeout(myGreeting, 2000);
-                        // function successModel(){
-
-                        // }
-                     Toast.fire({title: "", text: response.message, icon: response.status});
                     } else if (response.status == "success-reload") {
                         $(".successModalForm").modal('show');
                         $("#myspan").html(response.message);
@@ -902,6 +969,7 @@ $(document).ready(function () {
     });
     $(document).on('click', '.registerform_submit_btn', function (e) {
         e.preventDefault();
+        
     
         $this = $(this);
         var buttonText = $this.html();
@@ -935,13 +1003,16 @@ $(document).ready(function () {
                     }
                 }
                 if (field_name === 'phone') {
+                    var phoneNumber = $(v).val().replace(/\s/g, ''); // Remove all whitespace characters
                     var phoneRegex = /^\d+$/; // Match one or more digits
-                    if (!phoneRegex.test($(v).val())) {
+                
+                    if (!phoneRegex.test(phoneNumber)) {
                         errors = true;
-                        msg = '<span class="error invalid-feedback invalidMessage" for="phone">Please enter a valid phone number with only digits</span>';
+                        msg = '<span class="error invalid-feedback invalidMessage" for="phone">Please enter a valid phone number with only digits and no spaces</span>';
                         $('#' + form_id).find('input[name="' + field_name + '"]').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
                 }
+                
             }
         });
     
@@ -1074,7 +1145,7 @@ $(document).ready(function () {
                         });
                         setTimeout(() => {
                             window.location.href = base_url;
-                        }, 1000);
+                        }, 2000);
 
                     }
 
@@ -1302,21 +1373,24 @@ $(document).ready(function () {
 
 
 
-
+    $('.load-more-button').click(function(e) {
+        e.preventDefault();
+        blogLoadMoreData();
+    });
 
     $(window).scroll(function () {
-        $(".load-more-button").each(function () {
-            var WindowTop = $(window).scrollTop();
-            var WindowBottom = WindowTop + $(window).height();
-            var ElementTop = $(this).offset().top;
-            var ElementBottom = ElementTop + $(this).height();
+        // $(".load-more-button").each(function () {
+        //     var WindowTop = $(window).scrollTop();
+        //     var WindowBottom = WindowTop + $(window).height();
+        //     var ElementTop = $(this).offset().top;
+        //     var ElementBottom = ElementTop + $(this).height();
 
-            if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
-                blogLoadMoreData();
-                journalLoadMoreData();
-                //  eventLoadMoreData();
-            }
-        });
+        //     if ((ElementBottom <= WindowBottom) && ElementTop >= WindowTop) {
+        //         blogLoadMoreData();
+        //         // journalLoadMoreData();
+               
+        //     }
+        // });
          $(".load-more-product").each(function () {
             var WindowTop = $(window).scrollTop();
             var WindowBottom = WindowTop + $(window).height();

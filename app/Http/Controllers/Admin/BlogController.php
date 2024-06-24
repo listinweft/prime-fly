@@ -90,8 +90,8 @@ class BlogController extends Controller
             'short_url'=>'required|unique:blogs,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
             'description' => 'required',
             'posted_date' => 'required',
-            'author' => 'required',
-            'user_id' => 'required',
+            // 'author' => 'required',
+            // 'user_id' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = new Blog;
@@ -121,10 +121,10 @@ class BlogController extends Controller
         }
 
         $blog->title = $validatedData['title'];
-        $blog->user_id = $validatedData['user_id'];
+        // $blog->user_id = $validatedData['user_id'];
         $blog->short_url = $validatedData['short_url'];
         $blog->description = $validatedData['description'];
-        $blog->author = $validatedData['author'];
+        $blog->author = $request->author ?? '';
         $blog->posted_date = $validatedData['posted_date'];
         $blog->sub_title = $request->sub_title ?? '';
         $blog->alternate_description = $request->alternate_description ?? '';
@@ -178,10 +178,10 @@ class BlogController extends Controller
         $key = "Update";
         $title = "Blog Update";
         $blog = Blog::find($id);
-        $user = $blog->user_id;
-        $customers = Customer::get();
+        // $user = $blog->user_id;
+        // $customers = Customer::get();
         if ($blog != null) {
-            return view('Admin.blog.form', compact('key', 'blog', 'title','user','customers'));
+            return view('Admin.blog.form', compact('key', 'blog', 'title',));
         } else {
             return view('Admin.error.404');
         }
@@ -194,8 +194,8 @@ class BlogController extends Controller
             'short_url'=>'required|unique:blogs,short_url,' . $id . ',id,deleted_at,NULL|min:2|max:255',
             'description' => 'required',
             'posted_date' => 'required',
-            'author' => 'required',
-            'user_id' => 'required',
+            // 'author' => 'required',
+            // 'user_id' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg|max:7990',
         ]);
         $blog = Blog::find($id);
@@ -240,10 +240,10 @@ class BlogController extends Controller
         }
 
         $blog->title = $validatedData['title'];
-        $blog->user_id = $validatedData['user_id'];
+        // $blog->user_id = $validatedData['user_id'];
         $blog->short_url = $validatedData['short_url'];
         $blog->description = $validatedData['description'];
-        $blog->author = $validatedData['author'];
+        $blog->author = $request->author ?? '';
         $blog->posted_date = $validatedData['posted_date'];
         $blog->sub_title = $request->sub_title ?? '';
         $blog->alternate_description = $request->alternate_description ?? '';

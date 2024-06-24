@@ -68,23 +68,7 @@
                 {{ ucfirst($product->title) }}
             </div>
             <ul class="price-area">
-                @if(Helper::offerPrice($product->id)!='')
-                @php
-                        $offerId =Helper::offerId($product->id);
-                        @endphp
                 
-                <li class="offer"> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$productPrice->price,2)}}</li>
-                <li> {{Helper::defaultCurrency().' '.number_format(Helper::offerPriceSize($product->id,$productPrice->size_id,$offerId),2)}}</li>
-                @else
-
-              
-
-                <!-- <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}-{{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}</li> -->
-               
-               
-                <li> {{Helper::defaultCurrency().' '.number_format(Helper::defaultCurrencyRate()*$product->productprice->price,2)}}</li>
-             
-               @endif
                 
               
               
@@ -92,23 +76,7 @@
               
                                 </ul>
                                 <ul class="type-review">
-                                @if($product->product_categories->count() > 1)
-                                    <li>
-                                    {{ $product->product_categories[0]->title }}, ...
-                                    
-                                    </li>
-                                    @else
-                                    <li>
-                                    {{ $product->product_categories[0]->title }}
-                                    
-                                    </li>
-                                    @endif
-                                
-                                    @if(Helper::averageRating($product->id)>0)
-                                    <li class="review">
-                                        <i class="fa-solid fa-star"></i>{{ Helper::averageRating($product->id)  }}
-                                    </li>
-                                    @endif
+                              
                                 </ul>
                             </a>
                         </div>

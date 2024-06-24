@@ -59,6 +59,7 @@ class CustomerController extends Controller
         $user->email = $request->email;
 //        $user->username = $request->username;
         $user->phone = $request->phone;
+        $user->btype = $request->btype;
         $user->password = Hash::make($request->password);
         $user->created_by = Auth::id();
         if ($request->hasFile('profile_image')) {
@@ -117,6 +118,7 @@ class CustomerController extends Controller
         if ($customer->save()) {
             $user->email = $request->email;
             $user->phone = $request->phone;
+            $user->btype = $request->btype;
             $user->updated_by = Auth::id();
             $user->image_attribute = $request->image_attribute;
             $user->updated_at = now();

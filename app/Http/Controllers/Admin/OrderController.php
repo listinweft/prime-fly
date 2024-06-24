@@ -33,7 +33,29 @@ class OrderController extends Controller
         $boxValues = Order::boxValues();
         return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues'));
     }
+   
+    public function index()
+    {
+        $orders = Order::latest()->get();
+        return view('admin.calendar', compact('orders'));
+    }
 
+    public function getOrders()
+    {
+        $orders = Order::latest()->get();
+
+        // Format timestamps as strings for FullCalendar
+        $formattedOrders = $orders->map(function ($order) {
+            return [
+                'id'=> $order->id,
+                'title' => $order->order_code,
+                'start' => $order->created_at->toIso8601String(), // Convert timestamp to ISO 8601 format
+                'end' => $order->created_at->toIso8601String(),
+            ];
+        });
+
+        return response()->json(['orders' => $formattedOrders]);
+    }
     public function order_filter(Request $request)
     {
         if ($request->date_range) {
@@ -259,7 +281,7 @@ class OrderController extends Controller
                         }])->with('orderCustomer')->with('orderCoupons')->find($request->order_id);
                     }
                     $produtName = $orderProduct->productData->title;
-                    $orderMail = Order::sendOrderStatusMail($orderData, $request->status, $produtName);
+                    // $orderMail = Order::sendOrderStatusMail($orderData, $request->status, $produtName);
                     DB::commit();
                     return response()->json(['status' => 'true', 'message' => 'Order status has been changed successfully']);
                 } else {

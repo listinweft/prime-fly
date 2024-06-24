@@ -1,0 +1,618 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'); 
+
+* {
+  font-family: "Inter", sans-serif; 
+  font-weight:400; 
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+    color: inherit;
+}
+.btn{
+    border-radius: 30px;
+    padding: 10px 30px;
+}
+.form-control{
+    border-radius: 9px;
+}
+.btn-primary{ 
+    background-image: linear-gradient(to right, #7B45F6, #338DF2); 
+}
+.btn-primary-outline{
+    color: #6758F4;
+    background-color: white;
+    border: 1px solid #E1E7EE;
+}
+.bg-light-orange{
+ background-color: #FDF8F4;
+}
+.btn-style-2 {
+    position: relative;
+    display: inline-block;
+    padding: 1px;
+    font-size: 17px;
+    color: #151525;
+    border-radius: 30px;
+    overflow: hidden;
+    background: linear-gradient(to right,#5aa6ff,#ff767e,#ffbd8c);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+@media (max-width: 1600px) {
+    .btn-style-2 {
+        font-size:calc(17px - 2px)
+    }
+}
+
+@media (max-width: 1400px) {
+    .btn-style-2 {
+        font-size:calc(16px - 2px*1.6);
+        font-weight: 500
+    }
+}
+
+.btn-style-2 .btn-in {
+    padding: 15px 30px;
+    background: #fff;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: .3s ease
+}
+
+@media (max-width: 1600px) {
+    .btn-style-2 .btn-in {
+        padding:calc(13px - 2px) calc(30px - 5px)
+    }
+}
+
+@media (max-width: 1400px) {
+    .btn-style-2 .btn-in {
+        padding:calc(12px - 2px*2) calc(30px - 5px*2)
+    }
+}
+
+.btn-style-2:hover {
+    background: linear-gradient(to right, #5aa6ff, #ff767e );
+    color: #fff
+}
+
+.btn-style-2:hover .btn-in {
+    background: linear-gradient(to right, #5aa6ff, #ff767e);
+    color: #fff
+}
+/********************* Choose ************************/
+.choose-user-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+.choose-user{
+    width: 230px;
+    height: 200px;
+    padding: 15px;
+    border:1px solid #E1E7EE;
+    border-radius: 20px;
+    margin: 0 5px;
+    text-align: center;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.choose-user img{
+    border-radius: 100%;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    object-position: top;
+    border:1px solid #DFDFDF;
+    transition: 0.15s all linear;
+}
+.choose-user:hover img{
+    transform: scale(1.07);
+}
+.choose-user p{
+    color: #86888B;
+    font-weight:600;
+    font-size:18px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.choose-user:hover p{
+    color: #6758F4;
+}
+/**************** Public register ****************/
+.register-wrap{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+ .BtoB_back{
+    padding: 50px 15px 10px 80px;
+    position: absolute;
+    top: 0;
+ }
+ .BtoB_back a {
+    border-radius: 15px;
+    border: 1px solid #E1E7EE;
+    padding: 10px 20px;
+    color: #707070;
+    font-size: 14px;
+    font-weight: 600;
+}
+.BtoB_back a svg{
+    height: 12px;
+}
+.register_form{
+    border:1px solid #F5F5F5;
+    border-radius: 10px;
+    padding: 40px;
+    margin-top: 20px;
+    background-color: white;
+    z-index: 1;
+    position: relative;
+}
+.register_form_grid{
+    width: 100%;
+}
+.register_form_grid input,.profile_form_grid input{
+    border: 1px solid #E1E7EE;
+    border-radius: 9px;
+    padding:10px 15px;
+    font-size: 15px; 
+    width: 100%;
+    font-weight: 400;
+}
+.profile_form_grid select{
+    border: 1px solid #E1E7EE;
+    border-radius: 9px;
+    padding:10px 15px;
+    font-size: 15px; 
+    width: 100%;
+    font-weight: 400;
+}
+.register_form_grid input::placeholder,.profile_form_grid input::placeholder{
+    color: rgb(0 0 0 / 30%);
+}
+.register_form_grid label,.profile_form_grid label{
+    color: #707070;
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+}
+.register_form_grid,.profile_form_grid{
+    margin-bottom: 10px;
+}
+.register_form_grid .iti,.profile_form_grid .iti { 
+    width: 100%;
+}
+.iti__selected-country-primary{
+    border-right: 1px solid #ebebeb;
+}
+.iti .iti__selected-dial-code{
+    font-size: 15px;
+    color: #707070
+}
+.register_form_grid .btn,.profile_form_grid .btn {
+    border-radius: 20px;
+    padding: 6px 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+/* ********************* Corporate login *********** */
+.eye{
+    position: absolute;
+    right:15px;
+    top: 35%;
+    cursor: pointer;
+    fill: #D9D9D9;
+}
+.eye-open{
+    display: none;
+}
+/********************** OTP **************************/
+.otp_wrap {
+    padding: 100px 15px 30px;
+}
+.otp_toursit img{
+    width: 350px;
+}
+.otp_toursit{
+    margin-bottom:20px;
+}
+.b2b-check{
+    margin-top: 10px;
+}
+.b2b-check label{
+    font-size: 12px;
+    color: #707070;
+}
+.b2b-check a{
+    color:#506FF3;
+}
+.b2b-check a.whtsap{
+    color: #25D366;
+}
+.otp-content-button{
+    margin-top: 15px;
+}
+.otp-content-button .btn{
+    border-radius: 20px;
+    padding: 6px 30px;
+    font-size: 13px;
+    font-weight: 600;
+}
+/********************** OTP Verification ************/
+.otp_grid h4{
+    color: #86888B;
+    font-size: 24px;
+    font-weight: 600;
+}
+.otp_grid p{
+    color:#707070;
+    font-size: 13px;
+}
+.otp_form_grid{
+    margin: 0 3px;
+}
+.otp_form_grid input{
+    border: 1px solid #E1E7EE;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-weight: 400;
+    width: 35px;
+    height: 38px;
+}
+/*********************** public profile2  ***********/
+.b2b-header{
+    padding: 10px 80px 10px 30px;
+    border-bottom:1px solid rgb(225 231 238 / 36%);
+}
+.b2b-logo{
+    width:220px
+}
+.b2b-logo img{
+    width:70px;
+}
+.b2b-header-search{
+    width: 65%;
+}
+.b2b-header-search .input-group>.form-control{ 
+    width: auto;
+}
+.b2b-header-search .input-group{
+    display: flex;
+    flex-wrap: nowrap;
+    width:25%;
+}
+.b2b-header-search input{
+    font-size: 13px;
+    border-left: 0;
+    padding-left: 0;
+    outline: none;
+    border-top-right-radius:0.375rem;
+    border-bottom-right-radius:0.375rem;
+    border-color: #EBEEF2;
+    color: #C7CED9;
+    font-weight: 400;
+}
+.b2b-header-search input::placeholder{
+    color: #C7CED9;
+    font-weight: 400;
+}
+.b2b-header-search .input-group-text{
+    background-color: transparent;
+    border-right: 0;
+    border-color: #EBEEF2;
+    color: #C7CED9;
+}
+.b2b-header-profile{
+    width: 20%;
+}
+.header-cart{ 
+    margin-right: 10px;
+}
+.header-cart img{
+    width: 18px; 
+}
+.header-user img{
+    width:30px;
+    height:30px;
+    object-fit: cover;
+    object-position: top;
+    border: 2px solid #B8BFCC;
+    border-radius: 100%;
+}
+.header-user img:hover{
+    border-color: #6758F4;
+}
+.b2b-side-nav {
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #338DF2, #7B45F6);
+    width: 220px;
+    padding: 30px;
+}
+.menu-profile img{
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    object-position: top; 
+    border-radius: 100%;
+    margin-right: 10px;
+}
+.menu-profile h4{
+    font-size: 14px;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 2px;
+    font-weight: 400;
+}
+.menu-profile p{
+    font-size: 11px;
+    color: #fff;
+    margin-bottom: 0;
+    font-weight: 300;
+}
+.menu-head{
+    margin-top:30px;
+}
+.menu-head h4{
+    padding-bottom: 7px;
+    border-bottom:1px solid rgb(255 255 255 / 38%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+}
+.top-menu li {
+    list-style: none;
+    margin:12px 0;
+    display: block;
+    position: relative;
+}
+.top-menu li a{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.top-menu li a:before{
+    content: "";
+    position: absolute;
+    width: 2px;
+    background-color: #fff;
+    height: 100%; 
+    left: -7px;
+    top: 0px;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+} 
+.top-menu li a:hover:before{
+    opacity: 1;
+}
+.top-menu li a{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+}
+.top-menu li a img{
+    width: 18px;
+    margin-right: 8px;
+}
+.top-menu li.active a:before{
+    content: "";
+    position: absolute;
+    width: 2px;
+    background-color: #fff;
+    height: 100%; 
+    left: -7px;
+    top: 0px;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+.b2b-dash-content{
+    width: 83%;
+}
+.b2b_order-summery{
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgb(225 231 238 / 55%);
+    margin-top: 15px;
+}
+.b2b_smmry_header {
+    background-color: #FDF8F4;
+    padding: 5px 20px;
+}
+ 
+.b2b_order-summery p,.b2b_order-summery a{
+    font-size: 14px;
+    margin:5px;
+    color: #959595;
+}
+.b2b_order-summery a{
+    text-decoration: underline;
+}
+.b2b_order-summery h4{
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 0;
+    color: #959595;
+}
+.b2b_order-summery b{
+    font-weight:500;
+    margin-right:15px;
+}
+.b2b_order-summery span{
+    margin-right:15px;
+}
+.b2b_smmry_content{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.b2b_smmry_content{
+    padding: 10px 20px;
+}
+.b2b_upload h3{
+    color:#86888B;
+    font-size: 20px;
+    margin-top: 20px;
+}
+.b2b_upload{
+    padding: 40px 40px 15px;
+}
+.upload_user{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+.upload_user_img{
+    border: 3px solid #B8BFCC;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+.upload_user_cam {
+    position: absolute;
+    bottom: 0;
+    width: 30px;
+    right: 0px;
+}
+.upload_user input{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.no-booking img{
+    width: 70%;
+    margin-top: 20px;
+}
+.no-booking h4{
+    color: #86888B;
+    margin-top: 20px;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.no-booking p{
+    font-size: 14px;
+    color: #707070;
+}
+/* ******************** Corporate profile ********** */
+.corporate_logo{
+    width: 100px;
+}
+.menu-profile img.corprate_prfile_img{
+    width: 80px;
+    height: auto;
+}
+/********************** Public profile ************* */
+ .profile-form h4{
+    font-size: 16px;
+        color: #86888B;
+        margin-bottom: 15px;
+ }
+ /* Design your scrollbar */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #724ff6;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+}
+
+/* Make your scrollbar visible when it is focused */
+
+::-webkit-scrollbar-thumb:focus {
+    background-color: #cfcfcf;
+}
+
+/* Make your scrollbar keyboard accessible */
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:focus {
+    background-color: #aaa;
+}
+/********************** responsive *******************/
+@media(max-width:1680px){
+    .BtoB_form img{
+        width: 95px;
+    }
+    .register_form{
+        padding:20px 30px;
+    }
+    .register_form_grid input{ 
+        font-size: 12px; 
+    }
+    .profile_form_grid input,.profile_form_grid select{
+        padding:8px 15px;
+        font-size: 12px; 
+    }
+    .iti .iti__selected-dial-code{
+        font-size: 12px; 
+    }
+    .register_form_grid label,.profile_form_grid label{ 
+        font-size: 12px;
+    }
+    .register_form h4{
+        font-size: 20px;
+        color: #86888B;
+    }
+    .register_form_grid .btn,.profile_form_grid .btn{
+        border-radius:20px;
+        padding: 6px 30px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .botm-illstrater{
+        position:absolute;
+        bottom: 0;
+        left: 0;
+        z-index:-1;
+    }
+    .otp_grid h4{ 
+        font-size: 20px;
+    }
+    .otp_grid p{ 
+        font-size: 11px;
+    }
+    .menu-head h4{ 
+        font-size: 13px; 
+    }
+    .top-menu li a{ 
+        font-size: 12px;
+    }
+    .b2b_order-summery p,.b2b_order-summery a{
+        font-size: 13px; 
+    }
+    .b2b_order-summery h4{ 
+        font-size: 15px;
+    }
+    .no-booking p{
+        font-size: 13px; 
+    }
+}
+@media(max-width:1300px){
+
+}

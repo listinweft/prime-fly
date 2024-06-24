@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <input type="button" id="bannertypeSubmit" data-type=""
-                                           name="btn_save" data-url="/home/banner/banner-type-store" value="Submit"
+                                           name="btn_save" data-url="/home/slider-banner/banner-type-store" value="Submit"
                                            class="btn btn-primary pull-left">
                                     <button type="reset" class="btn btn-default">Cancel</button>
                                     <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
@@ -80,7 +80,7 @@
 
                         <div class="card card-success card-outline">
                             <div class="card-header">
-                                <a href="{{url(Helper::sitePrefix().'home/banner/create')}}"
+                                <a href="{{url(Helper::sitePrefix().'home/slider-banner/create')}}"
                                    class="btn btn-success pull-right">Add
                                     Slider <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
@@ -130,11 +130,11 @@
                                             <td>{{ date("d-M-Y", strtotime($banner->created_at)) }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="{{url(Helper::sitePrefix().'home/banner/edit/'.$banner->id)}}"
+                                                    <a href="{{url(Helper::sitePrefix().'home/slider-banner/edit/'.$banner->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Banner"><i
                                                             class="fas fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       title="Delete Banner" data-url="home/banner/delete"
+                                                       title="Delete Banner" data-url="home/slider-banner/delete"
                                                        data-id="{{$banner->id}}"><i class="fas fa-trash"></i></a>
                                                 </div>
                                             </td>

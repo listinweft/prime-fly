@@ -354,7 +354,7 @@
                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left" style="padding:0;Margin:0"><p
-                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#494c45;font-size:16px">
+                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#659C35;font-size:16px">
                                                                     <br></p></td>
                                                         </tr>
                                                     </table>
@@ -374,7 +374,7 @@
                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left" style="padding:0;Margin:0"><p
-                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#494c45;font-size:16px">
+                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#659C35;font-size:16px">
                                                                     <br></p></td>
                                                         </tr>
                                                     </table>
@@ -390,8 +390,8 @@
                                                             <td align="left"
                                                                 style="padding:0;Margin:0;padding-bottom:5px;font-size:0">
                                                                 <a target="_blank" href="javascript:void(0)"
-                                                                   style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494c45;font-size:16px"><img
-                                                                    src="https://pentacodesdemos.com/artemyst/uploads/site/logo1677048558.png"
+                                                                   style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#659C35;font-size:16px"><img
+                                                                        src="{{ asset('') }}"
                                                                         alt
                                                                         style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
                                                                         class="adapt-img" width="125"></a></td>
@@ -412,7 +412,7 @@
                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left" style="padding:0;Margin:0"><p
-                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#494c45;font-size:16px">
+                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#659C35;font-size:16px">
                                                                     <br></p></td>
                                                         </tr>
                                                     </table>
@@ -444,7 +444,7 @@
                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                         <tr style="border-collapse:collapse">
                                                             <td align="center" style="padding:0;Margin:0"><h2
-                                                                    style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:26px;font-style:normal;font-weight:bold;color:#494c45">{{ $title }}</h2>
+                                                                    style="Margin:0;line-height:31px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:26px;font-style:normal;font-weight:bold;color:#659c35">{{ $title }}</h2>
                                                             </td>
                                                         </tr>
                                                         @if($common->email_recipient != $name)
@@ -480,7 +480,7 @@
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left"
                                                                 style="Margin:0;padding-bottom:10px;padding-top:20px;padding-left:20px;padding-right:20px">
-                                                                <h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#494c45">
+                                                                <h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#659c35">
                                                                     SUMMARY:</h4></td>
                                                         </tr>
                                                         <tr style="border-collapse:collapse">
@@ -496,7 +496,7 @@
                                                                             Order ID #:
                                                                         </td>
                                                                         <td style="padding:0;Margin:0"><strong><span
-                                                                                    style="font-size:14px;line-height:21px">{{'PP'.$order->order_code}}</span></strong>
+                                                                                    style="font-size:14px;line-height:21px">{{'TOS'.$order->order_code}}</span></strong>
                                                                         </td>
                                                                     </tr>
                                                                     <tr style="border-collapse:collapse">
@@ -545,16 +545,14 @@
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left"
                                                                 style="Margin:0;padding-bottom:10px;padding-top:20px;padding-left:20px;padding-right:20px">
-                                                                <h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#494c45">
+                                                                <h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#659c35">
                                                                     SHIPPING ADDRESS:</h4></td>
                                                         </tr>
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left"
                                                                 style="padding:0;Margin:0;padding-bottom:20px;padding-left:20px;padding-right:20px">
-                                                                <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">{{$order->orderCustomer->shippingAddress->first_name.' '.$order->orderCustomer->shippingAddress->last_name}}</p>
-                                                                <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">{{$order->orderCustomer->shippingAddress->address}}</p>
-                                                                <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">{{$order->orderCustomer->shippingAddress->state->country->title}}
-                                                                    ,{{$order->orderCustomer->shippingAddress->state->title}}</p>
+                                                                <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">{{$order->orderCustomer->CustomerData->first_name}}</p>
+                                                               
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -598,7 +596,7 @@
                                                                     style="padding:0;Margin:0;font-size:0"><a
                                                                         target="_blank"
                                                                         href="{{ url('product/'.$product->productData->short_url) }}"
-                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494c45;font-size:14px"><img
+                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#659C35;font-size:14px"><img
                                                                             class="adapt-img"
                                                                             src="{{asset($product->productData->thumbnail_image)}}"
                                                                             alt
@@ -622,57 +620,41 @@
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="left" class="es-m-txt-l"
                                                                     style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#494c45">
+                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                         <strong>{{$product->productData->title}}</strong>
                                                                     </h3></td>
                                                             </tr>
-                                                            @php
-                                                            $frame = App\Models\Frame::where('id',$product->frame)->first();
-                                                            $type = App\Models\ProductType::where('id',$product->type)->first();
-                                                               $size = App\Models\Size::where('id',$product->size)->first();
-                                                        @endphp
-                                                          @if($type)
+                                                            @if($product->size_type!="Custom" && $product->size!=0)
                                                                 <tr style="border-collapse:collapse">
                                                                     <td align="left" class="es-m-txt-l"
                                                                         style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#494c45">
+                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                             <strong><span
-                                                                                    style="color:#000000"> Type : </span>&nbsp; {{ $type->title }}
+                                                                                    style="color:#000000">Size:</span>&nbsp;{{$product->sizeData->size}}
                                                                             </strong></h3></td>
                                                                 </tr>
                                                             @endif
-                                                            @if($frame)
+                                                            @if($product->color!=0)
                                                                 <tr style="border-collapse:collapse">
                                                                     <td align="left" class="es-m-txt-l"
                                                                         style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#494c45">
+                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                             <strong><span
-                                                                                    style="color:#000000"> Frame : </span>&nbsp; {{ $frame->title }}
+                                                                                    style="color:#000000">Color:</span>&nbsp;{{$product->colorData->title}}
                                                                             </strong></h3></td>
                                                                 </tr>
-                                                                @endif
-                                                                @if($size)
-                                                                <tr style="border-collapse:collapse">
-                                                                    <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#494c45">
-                                                                            <strong><span
-                                                                                    style="color:#000000"> Size : </span>&nbsp;{{ $size->title }}
-                                                                            </strong></h3></td>
-                                                                </tr>
-                                                                @endif
-                                                            
+                                                            @endif
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="left" class="es-m-txt-l"
                                                                     style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#494c45">
+                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                         <strong><span style="color:#000000">Qty:</span>&nbsp;{{$product->qty}}
                                                                         </strong></h3></td>
                                                             </tr>
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="left" class="es-m-txt-l"
                                                                     style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#494c45">
+                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                         <strong><span
                                                                                 style="color:#000000">Price:</span>&nbsp;{{$order->currency}} {{$product->cost}}
                                                                         </strong></h3></td>
@@ -721,7 +703,7 @@
                                                                                 Subtot<strong>al
                                                                                     ({{count($order->orderProducts)}}
                                                                                     items):</strong></h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#494c45">
+                                                                        <td style="padding:0;Margin:0;color:#659c35">
                                                                             <strong> {{$order->currency.' '.$orderTotal}}</strong>
                                                                         </td>
                                                                     </tr>
@@ -730,7 +712,7 @@
                                                                             <td style="padding:0;Margin:0"><h4
                                                                                     style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
                                                                                     Gift Wrapper Charge:</h4></td>
-                                                                            <td style="padding:0;Margin:0;color:#494c45">
+                                                                            <td style="padding:0;Margin:0;color:#659c35">
                                                                                 <strong> {{$order->currency.' '.$order->gift_wrapper_charge}}</strong>
                                                                             </td>
                                                                         </tr>
@@ -739,7 +721,7 @@
                                                                         <td style="padding:0;Margin:0"><h4
                                                                                 style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
                                                                                 Tax:</h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#494c45">
+                                                                        <td style="padding:0;Margin:0;color:#659c35">
                                                                             <strong> {{$order->currency}} {{$order->tax_amount}}</strong>
                                                                         </td>
                                                                     </tr>
@@ -747,7 +729,7 @@
                                                                         <td style="padding:0;Margin:0"><h4
                                                                                 style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
                                                                                 Shipping Charge:</h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#494c45">
+                                                                        <td style="padding:0;Margin:0;color:#659c35">
                                                                             <strong> {{$order->currency}} {{$order->shipping_charge}}</strong>
                                                                         </td>
                                                                     </tr>
@@ -779,7 +761,7 @@
                                                                         <td style="padding:0;Margin:0"><h4
                                                                                 style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
                                                                                 Order Total:</h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#494c45">
+                                                                        <td style="padding:0;Margin:0;color:#659c35">
                                                                             <strong> {{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?$orderGrandTotal['orderGrandTotal']:'0',2)}}</strong>
                                                                         </td>
                                                                     </tr>
@@ -817,8 +799,8 @@
                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#333333;width:600px"
                                    cellspacing="0" cellpadding="0" bgcolor="#333333" align="center">
                                 <tr style="border-collapse:collapse">
-                                    <td style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center center;background-color:#494c45"
-                                        bgcolor="#494c45" align="left">
+                                    <td style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center center;background-color:#659c35"
+                                        bgcolor="#659C35" align="left">
                                         <table width="100%" cellspacing="0" cellpadding="0"
                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                             <tr style="border-collapse:collapse">
@@ -841,8 +823,8 @@
                                     </td>
                                 </tr>
                                 <tr style="border-collapse:collapse">
-                                    <td style="Margin:0;padding-bottom:15px;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center center;background-color:#494c45"
-                                        bgcolor="#494c45" align="left">
+                                    <td style="Margin:0;padding-bottom:15px;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center center;background-color:#659c35"
+                                        bgcolor="#659C35" align="left">
                                         <table width="100%" cellspacing="0" cellpadding="0"
                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                             <tr style="border-collapse:collapse">

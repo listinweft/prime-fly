@@ -40,8 +40,8 @@ class FaqController extends Controller
     {
       
         $validatedData = $request->validate([
-            'question' => 'required|min:2|max:230',
-            'answer'=>'required|min:2|max:230',
+            'question' => 'required|min:2',
+            'answer'=>'required|min:2',
             
         ]);
         $blog = new Faq;
@@ -74,8 +74,9 @@ class FaqController extends Controller
     public function faqs_update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'question' => 'required|min:2|max:230',
-            'answer'=>'required|min:2|max:230',
+            'question' => 'required|min:2',
+            'answer'=>'required|min:2',
+            
         ]);
         $faq = Faq::find($id);
         $faq->question = $validatedData['question'];

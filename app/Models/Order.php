@@ -809,11 +809,13 @@ class Order extends Model
             DB::enableQueryLog();
             $orderIds = $orders->pluck('id')->toArray();//dd($orderIds);
             $productOrders = Product::where('id', '=', $product)->first();
-            $variants = Product::where('similar_product_id', '=', $product)->get();
+            // $variants = Product::where('similar_product_id', '=', $product)->get();
+            $variants = Product::where('id', '=', $product)->get();
             $productOrders = OrderProduct::whereIn('product_id', $variants->pluck('id')->toArray())->whereIn('order_id', $orderIds)->get();
+            // $productOrders = OrderProduct::whereIn('order_id', $orderIds)->get();
             $quries = DB::getQueryLog();
-            //dd($quries);
-            //dd($productOrders);
+            // dd($quries);
+            // dd($productOrders);
             $orders = Order::whereIn('id', $productOrders->pluck('order_id')->toArray())->get();
         }
         if ($coupon != NULL) {

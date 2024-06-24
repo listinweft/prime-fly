@@ -87,6 +87,16 @@ class Category extends Model
     {
         return $this->activeChildren()->with('activeChildrenRecursive');
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(CategoryGallery::class, 'category_id', 'id');
+    }
+
+    public function activeGalleries()
+    {
+        return $this->hasMany(CategoryGallery::class)->active();
+    }
  
  
 }

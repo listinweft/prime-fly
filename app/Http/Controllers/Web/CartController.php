@@ -73,7 +73,7 @@ class CartController extends Controller
                 $item = $wish_list->add(array(
                     'id' => $product->id,
                     'name' => $product->title,
-                    'price' => Helper::defaultCurrencyRate() * $product->price,
+                    'price' =>  $product->price,
                     'quantity' => 1,
                   
                     'attributes' => array(
@@ -101,51 +101,183 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        
-       if($request->size == null){
-        $sizes = ProductPrice::where('product_id',$request->product_id)->get();
-        $sizeID = $sizes->map(function($item) {
-            return $item->size_id;
-        })->toArray();
-        $sizes = \App\Models\Size::whereIn('id',$sizeID)->get();
-        $size= $sizes->first()->id;
-        }
-        else{
-            $size = $request->size;
-        }
+        // Log the incoming request data for debugging purposes
+        \Log::info($request->all());
+    
+        // Initialize the session
         $sessionKey = $this->setSession();
+        $addStatus = true;
+    
+        // Handle multiple product IDs
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-             
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey,$size);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time);
+                if (!$addStatus) {
+                    break; // If adding any product fails, stop the loop
+                }
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey,$size);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time);
         }
+    
         $count = 0;
         foreach (Cart::session($sessionKey)->getContent() as $row) {
             $count += $row->quantity;
         }
+    
         if ($addStatus) {
             $message = "Item added to cart successfully";
             $cartItem = Cart::session($sessionKey)->getContent();
-            return response(array(
+            return response()->json([
                 'status' => true,
                 'data' => $cartItem,
                 'message' => $message,
-                'count' => $count,//$cartItem->count(),
+                'count' => $count,
                 'cartTotal' => number_format(Cart::session($sessionKey)->getSubTotal(), 2)
-            ), 200, []);
+            ]);
         } else {
             $message = "Item seems to be low stock..!";
-            return response(array(
+            return response()->json([
                 'status' => false,
                 'message' => $message,
-                'count' => $count,//$cartItem->count(),
+                'count' => $count,
                 'cartTotal' => number_format(Cart::session($sessionKey)->getSubTotal(), 2)
-            ), 200, []);
+            ]);
         }
+    }
+    
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest,$setdate,$origin,$destination,$travel_sector,$flight_number,$entry_date,$travel_type,$terminal,$bag_count,$exit_time,$entry_time)
+    {
+       
+
+        $origin = $origin ?? '';
+        $destination = $destination ?? '';
+        $travel_sector = $travel_sector ?? '';
+        $flight_number = $flight_number ?? '';
+        $entry_date = $entry_date ?? '';
+        $travel_type = $travel_type ?? '';
+        $bag_count = $bag_count ?? '';
+        $entry_time = $entry_time ?? '';
+        $exit_time = $exit_time ?? '';
+
+        // \Log::info($request->all());
+
+
+        $product = Product::find($product_id);
+        if (!$product) {
+            return response()->json(['status' => false, 'message' => 'Product not found']);
+        }
+    
+        $count = [];
+        $qty = ($request->qty) ? $request->qty : 1;  // Ensure qty is an integer
+    
+        if (Cart::session($sessionKey)->isEmpty()) {
+            $count[$product_id] = 0;
+        } else {
+            foreach (Cart::session($sessionKey)->getContent() as $row) {
+                $count[$row->id] = $row->quantity;
+            }
+        }
+    
+        if (isset($count[$product_id])) {
+            $productCount = $count[$product_id] + $qty;
+        } else {
+            $productCount = $qty;
+        }
+    
+        if ($productCount > $product->stock) {
+            return response()->json(['status' => false, 'message' => 'Not enough stock available']);
+        }
+    
+        $offer_amount = '0.00';
+        $offer_id = '0';
+        $product_price = $totalprice;
+    
+        $attrText = '';
+        if ($request->attributeList != NULL) {
+            $attributeArray = is_array($request->attributeList) ? $request->attributeList : explode(',', $request->attributeList);
+            foreach ($attributeArray as $attr) {
+                $attrText .= "<span>" . $attr . "</span><br/>";
+            }
+        }
+    
+        try {
+            // Remove the product if it already exists in the cart
+            if (Cart::session($sessionKey)->get($product->id)) {
+                Cart::session($sessionKey)->remove($product->id);
+            }
+    
+            // Add the product to the cart session
+            Cart::session($sessionKey)->add([
+                'id' => $product->id,
+                'name' => $product->title,
+                'price' => $totalprice,
+                 'quantity' => $qty,
+                 'guest' => $totalguest,
+                'attributes' => [  'guest' => $totalguest,
+                'entry_date' => $entry_date,
+                'travel_type' => $travel_type,
+                'setdate' => $setdate,
+                'origin' => $origin,
+                'destination' => $destination,
+                'travel_sector' => $travel_sector,
+                'flight_number' => $flight_number,
+              'terminal'=> $terminal,
+              'entry_time' => $entry_time,
+             'exit_time' => $exit_time,
+              'bag_count' => $bag_count,], 
+                  'conditions' => [],
+                   
+            ]);
+    
+            // Remove the product from the wishlist if it exists
+            $wish_list = app('wishlist');
+            if ($wish_list->get($product->id)) {
+                $wish_list->remove($product->id);
+            }
+    
+            return response()->json(['status' => true, 'message' => 'Product added to cart']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    
+    
+    public function cart()
+    {
+
+       
+        $sessionKey = session('session_key');
+
+
+    //    return Cart::session($sessionKey)->getContent();
+        // $cartItems = Cart::session($sessionKey)->getContent();
+
+        // foreach ($cartItems as $item) {
+        //     echo "Product ID: " . $item->id . "<br>";
+        //     echo "Product Name: " . $item->name . "<br>";
+        //     echo "Price: " . $item->price . "<br>";
+        //     echo "Quantity: " . $item->quantity . "<br>";
+        //     echo "Guest: " . $item->guest . "<br>"; // Ensure 'guest' is correctly accessed
+        //     echo "Attributes: " . json_encode($item->attributes) . "<br>";
+        //     echo "Conditions: " . json_encode($item->conditions) . "<br>";
+        //     echo "<br>";
+        // }
+        
+        
+         
+       
+        $calculation_box = Helper::calculationBox();
+        
+        $tag = $this->seo_content('Cart');
+        $banner = Banner::type('cart')->first();
+        $featuredProducts = Product::active()->featured()->get();
+        $cartContents = $this->cartData();
+   
+        $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
+        return view('web.cart', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
+            'banner', 'featuredProducts'));
     }
 
     public function setSession()
@@ -177,198 +309,18 @@ class CartController extends Controller
         return $sessionKey;
     }
 
-    public function cartAddItems($request, $product_id, $sessionKey,$size)
-    {
-
-        $product = Product::find($product_id);
-      
-        $product->price = $product->price;
-        $product->frame = ($request->frame_id) ?$request->frame_id : null;
+  
+   
     
-       
-        if($request->type_id == '4' && $request->mount == null) {
+    
 
-           $product->mount = "Yes";
-        }
-        else{
-            $product->mount = $request->mount;
-        }
-
-        $n = $product->id;
-        $productPrice = ProductPrice::where('product_id',$product_id)->where('size_id',$size)->first();
-        $product->stock = $productPrice->stock;
-        $product->price = $productPrice->price;
-        $product->size = $productPrice->size_id;
-        $count = [];
-        $qty = ($request->qty) ? $request->qty : '1';
-        if (Cart::session($sessionKey)->isEmpty()) {
-            $count[$product_id] = 0;
-        } else {
-            foreach (Cart::session($sessionKey)->getContent() as $row) {
-                $count[$row->id] = $row->quantity;
-            }
-        }
-        if (isset($count[$product_id])) {
-            $productCount = $count[$product_id] + $qty;
-        } else {
-            $productCount = $qty;
-        }
-        if ($productCount > $product->stock) {
-           
-            $returnStatus = false;
-        } else {
-            if (Helper::offerPrice($product->id) != '') {
-                
-                $productOffer = Offer::where('product_id',$product_id)->where('status','Active')->first();
-                $offer_amount = Helper::offerPriceSize($product->id,$product->size,$productOffer->id);
-                if($offer_amount != null){
-                   
-                    $offer_id = Helper::offerId($product->id);
-                    $product_price = $offer_amount;
-                }
-                else{
-                    $offer_amount = '0.00';
-                    $offer_id = '0';
-                    $product_price = Helper::defaultCurrencyRate() * $product->price;
-                }
-             
-            
-            } else {
-                $offer_amount = '0.00';
-                $offer_id = '0';
-                $product_price = Helper::defaultCurrencyRate() * $product->price;
-                
-            }
-            $attrText = '';
-            if ($request->attributeList != NULL) {
-                if (strpos($request->attributeList, ',') !== false) {
-                    $attributeArray = explode(',', $request->attributeList);
-                } else {
-                    $attributeArray = $request->attributeList;
-                }
-                foreach ($attributeArray as $attr) {
-                    $attrText .= "<span>" . $attr . "</span><br/>";
-                }
-            }
-            //where condition in Darryldecode cart
-            $cartItem = Cart::session($sessionKey)->getContent()
-                    ->where('attributes.product_id', $product->id)
-                    ->where('attributes.size', $product->size);
-                    if($product->frame != null){
-                        $cartItem = $cartItem->where('attributes.frame', $product->frame);
-                    }
-                    if($product->mount != null){
-                        $cartItem = $cartItem ->where('attributes.mount', $product->mount);
-                    }
-
-                    $cartItem = $cartItem->first();
-                 
-          
-            if ( $cartItem != null) {
-                // if item is already in the cart, just update the quantity
-
-                Cart::session($sessionKey)->update($cartItem->id, [
-                    'product_id' => $product->id,
-                    'quantity' => array(
-                        'relative' => ($request->countRelative == 1) ? true : false,
-                        'value' => $qty,
-                    ),
-                    'attributes' => array(
-                        'product_id' => $product->id,
-                        'currency' => Helper::defaultCurrency(),
-                        'color' => $product->color_id,
-                        'offer' => $offer_id,
-                        'size' => $product->size,
-                        'type' => $product->product_type_id,
-                        'offer_amount' => $offer_amount,
-                        'base_price' => $product->price,
-                        'mount' => $product->mount,
-                        'frame' => $product->frame,
-                      
-                    ),
-                ]);
-            } else {
-              
-
-
-                $wish_list = app('wishlist');
-                if ($wish_list->get($product->id)) {
-                    $wish_list->remove($product->id);
-                }
-       
-                Cart::session($sessionKey)->add(array(
-                
-                    'id' => uniqid(),
-                    'product_id' => $product->id,
-                    'name' => $product->title,
-                    'price' => $product_price,
-                   
-                    'quantity' => $qty, // need to change as per user input
-                    'attributes' => array(
-                        'product_id' => $product->id,
-                        'currency' => Helper::defaultCurrency(),
-                        'color' => $product->color_id,
-                        'offer' => $offer_id,
-                        'offer_amount' => $offer_amount,
-                        'base_price' => $product_price,
-                 
-                        'size' => $product->size,
-                        'type' => $product->product_type_id,
-                        'mount' => $product->mount,
-                        'frame' => $product->frame,
-                    ),
-                ));
-            }
-            $returnStatus = true;
-        }
-      
-        //add session key to helper class
-        Helper::setSessionKey($sessionKey);
-        return $returnStatus;
-    }
 
     public function open_cart_modal()
     {
         return view('web.modals.cart_modal');
     }
 
-    public function cart()
-    {
-        
-      
-        $sessionKey = session('session_key');
-    
-        $calculation_box = Helper::calculationBox();
-    
-        $tag = $this->seo_content('Cart');
-        $banner = Banner::type('cart')->first();
-        $featuredProducts = Product::active()->featured()->get();
-        $cartContents = $this->cartData();
    
-        if($sessionKey != null){
-            
-            
-            $productIds = Cart::session($sessionKey)->getContent()->pluck('attributes.product_id')->toArray();
-            $products = Product::with('category')->where('status', 'Active')->whereIn('id', $productIds)->latest();
-    
-            foreach($products as $product){
-                $product->category_id = explode(',',$product->category_id);
-            }
-           
-            //check if product is in products with explode category id
-            $related_products = Product::whereIn('category_id', $products->pluck('category_id')->toArray())->where('copy','no')->get();
-        }
-        else{
-            $related_products = null;
-        }
-        
-   
-       //get category id of products from the relation
-        $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-        return view('web.cart', compact('sessionKey',  'tag', 'cartAdDetail','calculation_box','related_products',
-            'banner', 'featuredProducts'));
-    }
-
     public function seo_content($page)
     {
         $seo_data = SeoData::page($page)->first();
@@ -377,19 +329,11 @@ class CartController extends Controller
 
     public function cartData()
     {
-
         if (Session::has('session_key')) {
             $sessionKey = session('session_key');
-        
             if (!Cart::session($sessionKey)->isEmpty()) {
-                // dd(Cart::session($sessionKey)->getContent());
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-                    $product = Product::where([['status', 'Active'], ['id', $row->attributes->product_id]])->first();
-                    $productPrice =ProductPrice::where('product_id',$product->id)->where('size_id',$row->attributes['size'])->first();
-                   
-                   if($productPrice->stock == 0 && $productPrice->availability !='In Stock'){
-                    return false;
-                   }
+                    $product = Product::where([['status', 'Active'], ['id', $row->id]])->first();
                     if ($product == NULL) {
                         if (Cart::session($sessionKey)->get($row->id)) {
                             Cart::session($sessionKey)->remove($row->id);
@@ -402,17 +346,14 @@ class CartController extends Controller
 
     public function update_item_quantity(Request $request)
     {
-        
         if ($request->product_id) {
             if (Session::has('session_key')) {
                 $product = Product::find($request->product_id);
-                $productPrice = ProductPrice::where('product_id', $request->product_id)->where('size_id',$request->size)->first(); 
-          
-                $item = Cart::session(session('session_key'))->get($request->id);
+                $item = Cart::session(session('session_key'))->get($request->product_id);
                $productCount=0;
       
                 
-                if ($request->qty > $productPrice->stock) {
+                if ($request->qty > $product->stock) {
                     return response(array(
                         'status' => false,
                         'message' => 'Item seems to be low stock..!',
@@ -420,13 +361,11 @@ class CartController extends Controller
                         
                     ), 200, []);
                 } else {
-                 
-                    Cart::session(session('session_key'))->update($request->id, [
-                        'product_id' => $product->id,
+                    Cart::session(session('session_key'))->update($request->product_id, [
                         'quantity' => array(
                             'relative' => false,
                             'value' => $request->qty
-                        )
+                        ),
                     ]);
                     $cartItem = Cart::session(session('session_key'))->getContent();
                     foreach ( $cartItem as $row) {
@@ -483,7 +422,7 @@ class CartController extends Controller
         return response(array(
             'status' => true,
         'total' => number_format(   ($total),2),
-            'defaulr_currency_rate' =>(Helper::defaultCurrencyRate()),
+           
             'tax_amount' =>  number_format($calculation_box['tax_amount'],2),
             'shipping_amount' => number_format($calculation_box['shippingAmount'],2),
             'cart_final_total' => number_format($calculation_box['final_total_with_tax'],2),
@@ -494,7 +433,6 @@ class CartController extends Controller
     }
     public function remove_cart_item(Request $request)
     {
-      
         if ($request->cart_id) {
             if (Session::has('session_key')) {
                 $sessionKey = session('session_key');
@@ -502,11 +440,11 @@ class CartController extends Controller
                     Cart::session($sessionKey)->remove($request->cart_id);
                     $message = "Item removed from cart successfully";
                     $icon = "fa-times";
-                    $type = "error";
+                    $type = "success";
                 } else {
                     $message = "Item not found";
                     $icon = "fa fa-check";
-                    $type = "error";
+                    $type = "success";
                 }
                 if (!Cart::session($sessionKey)->isEmpty()) {
                     $cartItem = Cart::session($sessionKey)->getContent();
@@ -560,52 +498,46 @@ class CartController extends Controller
         }
     }
 
+    public function preview()
+    {
+   
+        $sessionKey = session('session_key');
+
+
+        
+         
+       
+        $calculation_box = Helper::calculationBox();
+        
+        $tag = $this->seo_content('Cart');
+        $banner = Banner::type('cart')->first();
+        $featuredProducts = Product::active()->featured()->get();
+        $cartContents = $this->cartData();
+   
+        $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
+        return view('web.preview', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
+            'banner', 'featuredProducts'));
+    }
+
     public function checkout()
     {
    
-        if (Session::has('session_key')) {
-            $sessionKey = session('session_key');
-            $customerAddresses = $billing_states = $shipping_states = [];
-            if (!Cart::session($sessionKey)->isEmpty()) {
-                $productIds = Cart::session($sessionKey)->getContent()->pluck('id')->toArray();
-                $relatedProducts = Product::where('status', 'Active')->whereIn('id', $productIds)->latest()->get();
-                if (Auth::guard('customer')->check()) {
-                    $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
-                }
-                $calculation_box = Helper::calculationBox();
-                $seo_data = $this->seo_content('Checkout');
-                $banner = Banner::type('Checkout')->first();
-                $cartContents = $this->cartData();
-                $featuredProducts = Product::active()->featured()->get();
-                $checkoutAdDetail = Advertisement::active()->type('checkout')->latest()->get();
-                $countries = Country::active()->get();
-                if (Session::has('billing_country')) {
-                    $billing_states = State::active()->where('country_id', session('billing_country'))->latest()->get();
-                }
-                if (Session::has('shipping_country')) {
-                    $shipping_states = State::active()->where('country_id', session('shipping_country'))->latest()->get();
-                }
-                $customerAddress = CustomerAddress::where('is_default','Yes')->first();
-                
-                  
-                $siteInformation = SiteInformation::first();
-                $orderConfirm = Helper::checkConfirmOrder();
-                $orderC = false;
-                if($orderConfirm == "true"){
-                    $orderC = true;
-                }
-                else{
-                    $orderC = false;
-                }
-                return view('web.checkout', compact('sessionKey', 'calculation_box', 'seo_data',
-                    'banner', 'featuredProducts', 'checkoutAdDetail', 'countries', 'relatedProducts', 'billing_states',
-                    'shipping_states', 'siteInformation', 'customerAddresses','orderC'));
-            } else {
-                return redirect('/cart');
-            }
-        } else {
-            return redirect('/cart');
-        }
+        $sessionKey = session('session_key');
+
+
+        
+         
+       
+        $calculation_box = Helper::calculationBox();
+        
+        $tag = $this->seo_content('Cart');
+        $banner = Banner::type('cart')->first();
+        $featuredProducts = Product::active()->featured()->get();
+        $cartContents = $this->cartData();
+   
+        $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
+        return view('web.checkout', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
+            'banner', 'featuredProducts'));
     }
 
     public function state_list(Request $request)
@@ -908,9 +840,9 @@ class CartController extends Controller
                     }
                  
                     $calculation_box = Helper::calculationBox();
-                  $calculation_box['shippingAmount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['shippingAmount'],2);
-                  $calculation_box['tax_amount'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['tax_amount'],2);
-                  $calculation_box['final_total_with_tax'] = number_format(Helper::defaultCurrencyRate()*$calculation_box['final_total_with_tax'],2);
+                  $calculation_box['shippingAmount'] = number_format($calculation_box['shippingAmount'],2);
+                  $calculation_box['tax_amount'] = number_format($calculation_box['tax_amount'],2);
+                  $calculation_box['final_total_with_tax'] = number_format($calculation_box['final_total_with_tax'],2);
              
 
                     $default_currency = Helper::defaultCurrency();
@@ -1277,64 +1209,56 @@ class CartController extends Controller
             if (!Cart::session($sessionKey)->isEmpty()) {
                 $calculation_box = Helper::calculationBox();
                 $siteInformation = SiteInformation::first();
-                if (Auth::guard('customer')->check()) {
-                    $billingAddress = Session::has('selected_billing_address');
-                    $shippingAddress = Session::has('selected_shipping_address');
-                } else {
-                    if (Session::has('billing_address') && Session::has('shipping_address')) {
-                        $billingAddress = session('billing_address');
-                        $shippingAddress = session('shipping_address');
-                    } else {
-                        $billingAddress = $shippingAddress = NULL;
-                    }
-                }
-                if ($billingAddress != NULL && $shippingAddress != NULL) {
+                
+                
                     $orderCode = Order::order_code();
                     $order = new Order();
                     $order->order_code = $orderCode;
                     $order->payment_method = $request->payment_method;
-                    if ($request->payment_method == 'COD') {
-                        $order->cod_extra_charge = $siteInformation->cod_extra_charge * Helper::defaultCurrencyRate();
-                    } else {
+                    
                         $order->cod_extra_charge = 0;
-                    }
-                    if (Session::has('order_remarks')) {
-                        $order->remarks = session('order_remarks');
-                    }
-                    $currency = Helper::defaultCurrency();
-                    $currency_rate = Helper::defaultCurrencyRate();
+                 
+                   
+                        $order->remarks = "good";
+                  
+                   
                     $tax_amount = $calculation_box['tax_amount'];
                     $order->tax = $siteInformation->tax;
                     $order->tax_type = $siteInformation->tax_type;
                     $order->tax_amount = $tax_amount;
                     $order->shipping_charge = $calculation_box['shippingAmount'];
-                    $order->currency = $currency;
-                    $order->currency_charge = $currency_rate;
+                    $order->currency = "INR";
+                    $order->currency_charge = 25;
                     if ($order->save()) {
                         $order_customer = new OrderCustomer;
                         $order_customer->order_id = $order->id;
                         if (Auth::guard('customer')->check()) {
                             $order_customer->user_type = 'User';
                             $order_customer->customer_id = Auth::guard('customer')->user()->customer->id;
-                            $order_customer->billing_address = session('selected_billing_address');
-                            $order_customer->shipping_address = session('selected_shipping_address');
-                        } else {
-                            $order_customer->user_type = 'Guest';
-                          
-                            $billingAddress = $this->saveAddress('billing');
-                            if ($billingAddress) {
-                                $order_customer->billing_address = $billingAddress->id;
-                            }
-                            $shippingAddress = $this->saveAddress('shipping');
-                            if ($shippingAddress) {
-                                $order_customer->shipping_address = $shippingAddress->id;
-                            }
+                            $order_customer->billing_address = "demo";
+                            $order_customer->shipping_address = "demo";
+                        } 
+
+                        else
+                        {
+
+                            return response(array(
+                                'status' => true,
+                                'message' => 'Please login ',
+                                'data' => '/',
+                            ), 200, []);
+
+
                         }
+
+                       
+
+
                         if ($order_customer->save()) {
                             $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
                             foreach (Cart::session(session('session_key'))->getContent() as $row) {
                           
-                                $product_id = $row->attributes->product_id;
+                                $product_id = $row->id;
                                 $product = Product::find( $product_id);
                                 $detail = new OrderProduct;
                                 $detail->order_id = $order->id;
@@ -1344,38 +1268,42 @@ class CartController extends Controller
                                 } else {
                                     $detail->product_id =  $product_id;
                                 }
-                                $detail->qty = $row->quantity;
-                                $detail->size = $row->attributes->size;
-                                $detail->mount = $row->attributes->mount;
-                                $detail->type = $row->attributes->type;
-                                $detail->frame = $row->attributes->frame;
-                                $detail->cost = $row->price;
-                                $detail->offer_id = $row->attributes->offer;
-                                $detail->offer_amount = $row->attributes->offer_amount;
-                                $detail->total = $row->price * $row->quantity;
-                                $productTotal = $row->price * $row->quantity;
-                                // apply coupon value to products and save to order products
+                                $detail->qty = $detail->qty ?? 0;
+                              
+                                $detail->cost = $detail->cost ?? 0;
+                                $detail->offer_id = $detail->offer_id ?? 0;
+                                $detail->offer_amount = $detail->offer_amount ?? 0;
+                                $detail->total = $row->price ?? 0;
+                                $productTotal = $row->price ?? 0;
                                 $coupon_value = 0;
-                                if (Session::has('coupons')) {
-                                    foreach (Session::get('coupons') as $session_coupon) {
-                                        $couponProductTotal = 0;
-                                    
-                                        foreach ($session_coupon['products'] as $couponProduct) {
-                                           
-                                            //get cart item based on attribute id
-                                          
-                                          
-                                            $item = Cart::session(session('session_key'))->get($couponProduct);
-                                           
-                                            $couponProductTotal += $item->price * $item->quantity;
-                                        }
-                                        if (in_array($row->id, $session_coupon['products'])) {
-                                            $coupon_value += (($session_coupon['coupon_value'] / $couponProductTotal) * $productTotal);
-                                        }
-                                    }
-                                }
-                                $detail->coupon_value = $coupon_value;
-                                $detail->coupon_after_price = $productTotal - $coupon_value;
+                                $detail->coupon_value = 0;
+                                $detail->coupon_after_price = 0;
+
+                                $detail->entry_date =  $row->attributes['entry_date'] ?? 0;
+                                $detail->exit_date =  $row->attributes['setdate'] ?? 0;
+                                $detail->travel_sector =  $row->attributes['travel_sector'] ?? 0;
+                                $detail->flight_number =  $row->attributes['flight_number'] ?? 0;
+                                $detail->travel_type =  $row->attributes['travel_type'] ?? 0;
+                                $detail->origin =  $row->attributes['origin'] ?? 0;
+                                $detail->destination =  $row->attributes['destination'] ?? 0;
+
+
+
+                                $detail->guest = $row->guest ?? 0;
+                                $detail->terminal = $detail->terminal ?? 0;
+                                $detail->bag_count = $detail->bag_count ?? 0;
+
+                                $detail->flight_number = $detail->flight_number ?? 0;
+                                $detail->flight_name = $detail->flight_name ?? 0;
+
+                                $detail->entry_time = $detail->entry_time ?? 0;
+                                $detail->exit_time = $detail->exit_time ?? 0;
+
+                               
+                               
+                               
+                                
+                               
                                 if ($detail->save()) {
                                     $order_log = new OrderLog;
                                     $order_log->order_product_id = $detail->id;
@@ -1392,20 +1320,7 @@ class CartController extends Controller
                             }
                             if (empty($notSaved) && empty($orderNotSaved)) {
                                 $couponSavedErrorArray = $couponSavedSuccessArray = [];
-                                if (Session::has('coupons')) {
-                                    foreach (Session::get('coupons') as $session_coupon) {
-                                        $couponData = Coupon::where('code', $session_coupon['code'])->first();
-                                        $order_coupon = new OrderCoupon;
-                                        $order_coupon->order_id = $order->id;
-                                        $order_coupon->coupon_id = $couponData->id;
-                                        $order_coupon->coupon_value = $session_coupon['coupon_value'];
-                                        if ($order_coupon->save()) {
-                                            $couponSavedSuccessArray[] = 1;
-                                        } else {
-                                            $couponSavedErrorArray[] = 1;
-                                        }
-                                    }
-                                }
+                               
                                 if (empty($couponSavedErrorArray)) {
                                     if ($request->payment_method == 'COD') {
                                         $response = $this->order_success($order->id);
@@ -1426,21 +1341,7 @@ class CartController extends Controller
                                         'data' => '/',
                                     ), 200, []);
                                 }
-                            } else {
-                                /*if(empty($alreadyExist)){
-                                    return response(array(
-                                        'status' => true,
-                                        'message' => 'Error while adding the product',
-                                        'data' => 'home',
-                                    ),200,[]);
-                                }else{*/
-                                return response(array(
-                                    'status' => true,
-                                    'message' => 'Some products are out of stock, Please remove them and complete your purchase',
-                                    'data' => 'home',
-                                ), 200, []);
-                                /*}*/
-                            }
+                            } 
                         }
                     } else {
                         return response(array(
@@ -1448,13 +1349,7 @@ class CartController extends Controller
                             'message' => 'Error while place the order',
                         ), 200, []);
                     }
-                } else {
-                    return response(array(
-                        'status' => true,
-                        'message' => 'Please choose billing and shipping address before proceed',
-                        'data' => '/checkout',
-                    ), 200, []);
-                }
+                 
             } else {
                 return response(array(
                     'status' => true,
@@ -1465,7 +1360,7 @@ class CartController extends Controller
         } else {
             return response(array(
                 'status' => true,
-                'message' => 'Cart is empty',
+                'message' => 'Cart is empty',  
                 'data' => '/cart',
             ), 200, []);
         }
@@ -1486,49 +1381,37 @@ class CartController extends Controller
                 $orderNotSaved[] = 1;
             }
             $product = Product::find($order_product->product_id);
-           $productPrice = ProductPrice::where('product_id', $order_product->product_id)->where('size_id',$order_product->size)->first();
- 
-            $quantity = $productPrice->stock - $order_product->quantity;
-            $productPrice->stock = ($quantity > 0) ? $quantity : '0';
-            if ($productPrice->stock == 0) {
-                $productPrice->avilability = 'Out of Stock';
-            }
-            if ($productPrice->save()) {
-                $saved[] = 1;
-            } else {
-                $notSaved[] = 1;
-            }
+           
         }
-        if (empty($notSaved) && empty($orderNotSaved)) {
-            DB::commit();
+       
+           
             $this->clear_order_cart_sessions();
+
+
             if (Helper::sendOrderPlacedMail($order->id, '1')) {
                 return array(
                     'status' => true,
-                    'message' => 'Order "ARTMYST#' . $order->order_code . '" has been placed successfully',
+                    'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully',
                     'data' => '/response/' . $order->id,
                 );
             } else {
                 return array(
                     'status' => true,
-                    'message' => 'Order "ARTMYST#' . $order->order_code . '" has been placed successfully, error while send the mail',
+                    'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully, error while send the mail',
                     'data' => '/response/' . $order->id,
                 );
             }
-        } else {
-            DB::rollBack();
-            return array(
-                'status' => false,
-                'message' => 'Error while placing the order',
-                'data' => 'home',
-            );
-        }
+       
     }
 
 
     public function clear_order_cart_sessions()
     {
-        Cart::session(session('session_key'))->clear();
+        $sessionKey = session('session_key');
+
+    // Clear all items in the cart session
+    Cart::session($sessionKey)->clear();
+
         session()->forget('session_key');
         session()->forget('selected_billing_address');
         session()->forget('selected_shipping_address');
@@ -1551,8 +1434,7 @@ class CartController extends Controller
             session()->forget($addressType . '_country');
             session()->forget($addressType . '_state');
         }
-    }
-
+    } 
     public function response($order_id)
     {
         $order = Order::find($order_id);

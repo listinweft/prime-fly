@@ -16,19 +16,15 @@ use App\Models\Latest;
 use App\Models\ContactAddress;
 use App\Models\Deal;
 use App\Models\Enquiry;
-use App\Models\Frame;
+use App\Models\Location;
 use App\Models\CurrencyRate;
-use App\Models\Shape;
-use App\Models\Reply;
-use App\Models\WhoWeAre;
-use App\Models\Like;
-
 use App\Models\History;
 use App\Models\HomeAdvertisement;
 use App\Models\HomeBanner;
 use App\Models\HomeGetQuote;
 use App\Models\HomeHeading;
 use App\Models\HotDeal;
+use App\Models\LocationGallery;
 use App\Models\KeyFeature;
 use App\Models\Newsletter;
 use App\Models\Offer;
@@ -52,6 +48,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use DateTime;
+
 
 class WebController extends Controller
 {
@@ -70,94 +70,517 @@ class WebController extends Controller
 
     public function home()
     {
-        $seo_data = $this->seo_content('Home');
-
-        $totalBlog = Blog::active()->count();
-
-        $condition = Blog::active()->latest('posted_date');
-
-        $blogs = $condition->take(3)->get();
-
-        $totalevent = Event::active()->count();
-
-        $condition = Event::active()->latest('posted_date');
-
-        $events = $condition->take(3)->get();
-
-        $totaljournal = Journal::active()->count();
-
-        $condition = Journal::active()->latest('posted_date');
-
-        $journals = $condition->take(10)->get();
-
-
-       
-
-    
-        $faqs = Faq::active()->latest()->take(5)->get();
-
-        
-             
       
 
-   
+        $seo_data = $this->seo_content('Home');
+        $locations = Location::active()->get();
+        $blogs = Blog::active()->latest()->take(3)->get();
 
-    
-        return view('web.home', compact('seo_data', 'blogs','events','journals','faqs'));
+        $categorys = Category::whereNull('parent_id')->get();
+        $testimonials = Testimonial::active()->get();
+       
+        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials'));
     }
 
-    public function store_comment(Request $request)
+    public function getLocations(Request $request)
     {
-        $user = Auth::guard('customer')->user();  // Get the authenticated user
-    
-        // Validate the request data
-        $validatedData = $request->validate([
-            'comment_content' => 'required|string|max:255',
-        ]);
-    
-        // Create a new comment with the correct user_id
-        $comment = Comment::create([
-            'content' => $validatedData['comment_content'],
-            'likes' => 0,
-            'user_id' => $user->id, 
-            'blog_id' => $request->blog_id ?? null,
-            'journal_id' => $request->journal_id ?? null,
-
-
-        ]);
-    
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Comment added successfully!');
+        $travelSector = $request->input('travel_sector');
+         $locations = Location::where('travel_sector', $travelSector)->get();
+        
+        return response()->json($locations);
     }
-    
 
-    public function reply(Request $request, $commentId)
+    public function search_booking(Request $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'reply_content' => 'required|string|max:255', // Updated to 'reply_content'
+
+       
+        // Validate request
+        $request->validate([
+            'datepicker' => 'required',
+            'travel_type' => 'required',
+            'travel_sector' => 'required|string',
+            'origin' => 'required',
+            'destination' => 'required',
+            'flight_number' => 'required|string',
+            'adults' => 'required|integer|min:1',
+            'infants' => 'required|integer|min:0',
+            'children' => 'required|integer|min:0',
+             'category' => 'required|integer'
         ]);
 
-        $user = Auth::guard('customer')->user();
+        // Collect data
+        $data = $request->all();
 
-        // Find the parent comment
-        $parentComment = Comment::findOrFail($commentId);
+        // $category = $request->category;
 
-        // Create a new reply associated with the parent comment
-        $reply = Reply::create([
-            'content' => $validatedData['reply_content'], // Updated to 'reply_content'
-            // 'likes' => 0,
-            'user_id' => $user->id,
-            'comment_id' => $parentComment->id,
-            // other reply attributes you might have
+        // Calculate total amounts for all matching products 
+        $totalAmounts = $this->calculateTotalAmounts($data);
+
+        // Pass total amounts to the view
+     $category = Category::where('id',$data['category'])->first();
+
+
+        return response()->json([
+            'success' => true,
+            'total_amounts' => $totalAmounts,
+            'category' => $category->title, 
         ]);
-
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Reply added successfully!');
     }
+
+    private function calculateTotalAmounts($data)
+    {
+        // Fetch all products that match the location_id and service_type
+
+
+        $products = Product::select('products.*', 'locations.title as location_title')
+        ->join('locations', function ($join) use ($data) {
+            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
+                 ->where('products.service_type', $data['travel_type']);
+        })
+        ->when($data['travel_type'] == "departure", function ($query) use ($data) {
+            return $query->where('locations.id', $data['origin']);
+        })
+        ->when($data['travel_type'] == "arrival", function ($query) use ($data) {
+            return $query->where('locations.id', $data['destination']);
+        })
+        ->when($data['travel_type'] == "transit_type", function ($query) use ($data) {
+            return $query->where('locations.id', $data['destination']);
+        })
+
+        ->where('products.category_id', $data['category'])
+        ->groupBy('products.id')
+        ->get();
+
+        if ($products->isEmpty()) {
+            return []; // or handle the case where no product is found
+        }
+    
+        $result = [];
+
+        $guest = $data['adults'] + $data['infants']+$data['children'];
+
+        $setdate =  $data['datepicker'];
+
+        foreach ($products as $product) {
+            $adultPrice = $product->price;
+    
+            // Fetch prices from the product_size_price table
+            $infantPrice = ProductPrice::where('product_id', $product->id)
+                                       ->where('size_id', 1) // Assuming size_id 1 is for infants
+                                       ->value('price');
+    
+            $childrenPrice = ProductPrice::where('product_id', $product->id)
+                                         ->where('size_id', 2) // Assuming size_id 2 is for children
+                                         ->value('price');
+    
+            // Calculate the total amount
+            if ($data['adults'] > 1) {
+                $exceptadult = $data['adults'] - 1;
+                $totalAmount = (1 * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice) + ($exceptadult * $product->additional_price);
+            } else {
+                $totalAmount = ($data['adults'] * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice);
+            }
+    
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title, // Add location title to the result array
+                'total_amount' => $totalAmount,
+                'setdate' => $setdate,
+                'totalguest'=> $guest,
+                'origin'=> $data['origin'],
+                'destination' => $data['destination'],
+                'flight_number'=>$data['flight_number'],
+                'travel_sector'=>$data['travel_sector'],
+                'entry_date'=>$setdate,
+                'travel_type'=>$data['travel_type']
+                
+
+            ];
+        }
+    
+        return $result;
+    }
+    
+    public function search_booking_baggage(Request $request)
+    {
+
+    //  return    $request->all();
+        // Validate request
+        $request->validate([
+            'terminal' => 'required',
+            'origin' => 'required',
+            'destination' => 'required',
+            'flight_number' => 'required|string',
+            'adults' => 'required|integer',
+            'category' => 'required|integer'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+            })
+            ->where('products.category_id', $data['category']) // Add category filter
+            ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+            ->where('locations.id', $data['origin'])
+            ->groupBy('products.id')
+            ->get();
+    
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+        $result = [];
+
+        $category = Category::where('id',$data['category'])->first();
+
+        $guest = $data['adults'];
+
+        $setdate =  $data['datepicker'];
+    
+        foreach ($products as $product) {
+            $totalAmount = $data['adults'] * $product->price;
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Add total amount to the result array
+                'setdate' => $setdate,
+                'totalguest'=> $guest,
+                'origin'=> $data['origin'],
+                'destination'=>$data['destination'],
+                'flight_number'=>$data['flight_number'],
+                'terminal' =>$data['terminal'],
+
+               
+            ];
+        }
+    
+        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
+    }
+    
+
+    public function search_booking_lounch(Request $request)
+    {
+
+    //  return    $request->all();
+        // Validate request
+        $request->validate([
+            'terminal' => 'required|string',
+            'origin' => 'required|integer',
+            'destination' => 'required|integer',
+            'flight_number' => 'required|string',
+            'adults' => 'required|integer',
+            'category' => 'required|integer'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+            })
+            ->where('products.category_id', $data['category']) // Add category filter
+            ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+            ->where('locations.id', $data['origin'])
+            ->groupBy('products.id')
+            ->get();
+    
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+
+        $guest = $data['adults'];
+
+        $setdate =  $data['entry_date'];
+
+        $result = [];
+
+        $category = Category::where('id',$data['category'])->first();
+    
+        foreach ($products as $product) {
+            $totalAmount = $data['adults'] * $product->price;
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Add total amount to the result array
+                'setdate'=> $setdate,
+                'totalguest'=>$guest
+               
+            ];
+        }
+    
+        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
+    }
+
+    public function search_booking_porter(Request $request)
+    {
+
+    //  return    $request->all();
+        // Validate request
+        $request->validate([
+            
+            'travel_type' => 'required',
+            'travel_sector' => 'required|string',
+            'origin' => 'required',
+            'destination' => 'required',
+            'flight_number' => 'required|string',
+            'count' => 'required|integer',
+            'category' => 'required|integer'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        $products = Product::select('products.*', 'locations.title as location_title')
+        ->join('locations', function ($join) use ($data) {
+            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
+                 ->where('products.service_type', $data['travel_type']);
+        })
+        ->when($data['travel_type'] == "departure", function ($query) use ($data) {
+            return $query->where('locations.id', $data['origin']);
+        })
+        ->when($data['travel_type'] == "arrival", function ($query) use ($data) {
+            return $query->where('locations.id', $data['destination']);
+        })
+        ->when($data['travel_type'] == "transit_type", function ($query) use ($data) {
+            return $query->where('locations.id', $data['destination']);
+        })
+
+        ->where('products.category_id', $data['category'])
+        ->groupBy('products.id')
+        ->get();
+        
+        $category = Category::where('id',$data['category'])->first();
+
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+
+        $guest = $data['count'];
+
+        $setdate =  $data['entry_date'];
+
+
+        $result = [];
 
 
     
+        foreach ($products as $product) {
+            $totalAmount = $data['count'] * $product->price;
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Add total amount to the result array
+                'setdate'=> $setdate,
+                'totalguest'=>$guest,
+                'origin'=> $data['origin'],
+                'destination'=>$data['destination'],
+                'flight_number'=>$data['flight_number'],
+                'travel_sector'=>$data['travel_sector'],
+                'entry_date'=>$setdate,
+                'travel_type'=>$data['travel_type']
+                
+                
+            ];
+        }
+    
+        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
+    }
+
+
+
+    public function search_booking_entry_ticket(Request $request)
+    {
+
+    //  return    $request->all();
+        // Validate request
+        $request->validate([
+            'terminal' => 'required|string',
+            'origin' => 'required|integer',
+            'count' => 'required|integer',
+            'category' => 'required|integer',
+            'exit_time' => 'required',
+            'entry_time' => 'required'
+
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+            })
+            ->where('products.category_id', $data['category']) // Add category filter
+          
+            ->where('locations.id', $data['origin'])
+            ->groupBy('products.id')
+            ->get();
+    
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+        $result = [];
+
+        $category = Category::where('id',$data['category'])->first();
+
+        
+
+        
+        $guest = $data['count'];
+
+        $setdate =  $data['entry_date'];
+    
+        foreach ($products as $product) {
+            $totalAmount = $data['count'] * $product->price;
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Add total amount to the result array
+                'setdate' => $setdate,
+                'totalguest' => $guest,
+                'origin' => $data['origin'],
+                'terminal' => $data['terminal'],
+                'entry_date' => $data['entry_date'],
+                'exit_date' => $data['exit_date'],
+                'entry_time' => $data['entry_time'],
+                'exit_time' => $data['exit_time'],
+               
+            ];
+        }
+    
+        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
+    }
+    
+
+    public function search_booking_cloakroom(Request $request)
+{
+    // Validate request
+    $request->validate([
+        'terminal' => 'required|string',
+        'origin' => 'required|integer',
+         'count' => 'required|integer', // Number of bags
+        'origin' => 'required',
+        'terminal' => 'required',
+        'entry_date' => 'required',
+        'exit_date' => 'required',
+        'entry_time' =>'required',
+        'exit_time' => 'required',
+    ]);
+
+    // Collect data
+    $data = $request->all();
+
+    // Calculate the duration in hours
+    $entryDateTime = new DateTime($data['entry_date'] . ' ' . $data['entry_time']);
+    $exitDateTime = new DateTime($data['exit_date'] . ' ' . $data['exit_time']);
+    $interval = $entryDateTime->diff($exitDateTime);
+    $hours = $interval->days * 24 + $interval->h + ($interval->i > 0 ? 1 : 0); // Round up if there are any minutes
+
+    // Fetch products based on travel type and locations
+    $products = Product::select('products.*', 'locations.title as location_title')
+        ->join('locations', function ($join) {
+            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+        })
+        ->where('products.category_id', $data['category']) // Add category filter
+        ->where('locations.id', $data['origin'])
+        ->groupBy('products.id')
+        ->get();
+
+    if ($products->isEmpty()) {
+        return response()->json(['success' => false, 'message' => 'No products found']);
+    }
+
+    $result = [];
+
+    $category = Category::where('id', $data['category'])->first();
+
+    foreach ($products as $product) {
+        // Fetch pricing details from product
+        $basePrice = $product->price; // Assuming the column name is base_price
+        $additionalHourPrice = $product->additional_hourly_price; // Assuming the column name is additional_hour_price
+        $additionalBagPrice = $product->additional_price; // Assuming the column name is additional_bag_price
+
+        // Calculate total amount
+        $totalAmount = $basePrice;
+        if ($hours > 4) {
+            $totalAmount += ($hours - 4) * $additionalHourPrice;
+        }
+        if ($data['count'] > 2) {
+
+
+        
+            $totalAmount += ($data['count'] - 2) * $additionalBagPrice;
+        }
+
+        $guest = $data['count'] ;
+
+        $setdate =  $data['exit_date'];
+
+        $result[] = [
+            'product' => $product,
+            'location_title' => $product->location_title,
+            'total_amount' => $totalAmount, // Use the calculated total amount
+            'setdate' => $setdate,
+            'totalguest' => $guest,
+            'origin' => $data['origin'],
+             'terminal' => $data['terminal'],
+             'entry_date' => $data['entry_date'],
+             'exit_date' => $data['exit_date'],
+             'entry_time' => $data['entry_time'],
+             'exit_time' => $data['exit_time'],
+             'bag_count' => $data['count']
+        ];
+    }
+
+    return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
+}
+
+    
+    
+    
+
+    public function service_detail($short_url)
+    {
+        
+        $category = Category::active()->shortUrl($short_url)->first();
+
+        if ($category) {
+       
+        $locations = Location::active()->get();
+        $blogs = Blog::active()->get();
+        $testimonials = Testimonial::active()->get();
+         $subcategories = Category::where('parent_id',$category->id)->active()->get();
+       
+        return view('web.service_detail', compact('blogs','locations','testimonials','category','subcategories'));
+
+        }
+    }
+    public function package(Request $request, $total_amount = null, $categorys = null)
+    {
+        // Retrieve and decode the total amounts parameter
+      $totalAmounts = $request->total_amount ? json_decode(base64_decode($request->total_amount), true) : null;
+
+        // Handle if the total amounts data is not available
+        if (is_null($totalAmounts)) {
+            return redirect()->back()->with('error', 'Invalid or missing total amounts data.');
+        }
+
+    
+        // Pass the total amounts to the view
+        return view('web.package', compact('totalAmounts', 'categorys'));
+    }
+
+  
     public function main_search(Request $request)
     {
         // $searchResult = array();
@@ -253,6 +676,15 @@ class WebController extends Controller
         return view('web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses'));
     }
 
+
+    public function support()
+    {
+       
+
+        $categorys = Category::whereNull('parent_id')->get();
+        return view('web.support',compact('categorys'));
+    }
+
     //enquiry and bulk enquiry storing
     public function enquiry_store(Request $request)
     {
@@ -318,7 +750,7 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
 
-        // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
+        $latestThreeBlogs = Blog::active()->take(3)->latest('posted_date')->get();
 
         $totalBlog = Blog::active()->count();
 
@@ -328,70 +760,11 @@ class WebController extends Controller
         $offset = $blogs->count() + 0;
         $loading_limit = 3;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
-            'blogs', 'totalBlog', 'offset', 'loading_limit'));
-    }
-    public function journals()
-    {
-         $banner = Banner::type('journals')->first();
-         $heading = HomeHeading::type('journal')->first();
-        $seo_data = $this->seo_content('Blogs');
-        $latestBlog = Journal::active()->latest('posted_date')->first();
-
-        // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
-
-        $totalBlog = Journal::active()->count();
-
-        $condition = Journal::active()->latest('posted_date');
-
-        $blogs = $condition->take(3)->get();
-        $offset = $blogs->count() + 0;
-        $loading_limit = 3;
-        return view('web.journals', compact('seo_data', 'banner', 'latestBlog', 'heading',
-            'blogs', 'totalBlog', 'offset', 'loading_limit'));
-    }
-    public function journalLoadMore(Request $request)
-    {
-        $offset = $request->offset;
-        $loading_limit = $request->loading_limit;
-        $condition = Journal::active()->latest('posted_date');
-        $totalBlog = $condition->count();
-        $blogs = $condition->latest('posted_date')->skip($offset)->take($loading_limit)->get();
-        $offset += $blogs->count();
-
-        return view('web._journal_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
-    }
-    public function eventLoadMore(Request $request)
-    {
-        $offset = $request->offset;
-        $loading_limit = $request->loading_limit;
-        $condition = Event::active()->latest('posted_date');
-        $totalBlog = $condition->count();
-        $blogs = $condition->latest('posted_date')->skip($offset)->take($loading_limit)->get();
-        $offset += $blogs->count();
-
-        return view('web._event_list', compact('blogs', 'loading_limit', 'totalBlog', 'offset', 'blogs'));
-    }
-    public function events()
-    {
-        
-        $banner = Banner::type('journals')->first();
-        $heading = HomeHeading::type('journal')->first();
-       $seo_data = $this->seo_content('Blogs');
-       $latestBlog = Event::active()->latest('posted_date')->first();
-
-       // $latestThreeBlogs = Blog::active()->skip(1)->take(3)->latest('posted_date')->get();
-
-       $totalBlog = Event::active()->count();
-
-       $condition = Event::active()->latest('posted_date');
-
-       $blogs = $condition->take(3)->get();
-       $offset = $blogs->count() + 0;
-       $loading_limit = 3;
-       return view('web.events', compact('seo_data', 'banner', 'latestBlog', 'heading',
-       'blogs', 'totalBlog', 'offset', 'loading_limit'));
+            'blogs', 'totalBlog', 'offset', 'loading_limit','latestThreeBlogs'));
     }
 
+
+  
     public function blogLoadMore(Request $request)
     {
         $offset = $request->offset;
@@ -407,7 +780,7 @@ class WebController extends Controller
     public function blog_detail($short_url)
     {
          $blog = Blog::active()->shortUrl($short_url)->first();
-         $blog = Blog::active()->shortUrl($short_url)->first();
+       
          
         if ($blog) {
             $banner = $seo_data = $blog;
@@ -438,69 +811,33 @@ class WebController extends Controller
          
 
     }
+
     }
-    public function journal_detail($short_url)
-    { 
-        
-        
-        if(Auth::guard('customer')->check())
-        {
-         $blog = Journal::active()->shortUrl($short_url)->first();
-        if ($blog) {
-            $banner = $seo_data = $blog;
-            $type = $short_url;
-            $comments = Comment::where('journal_id', $blog->id)->get();
-            $totalLikes = Like::where('journal_id', $blog->id)->count();
+ 
 
-            $user = Auth::guard('customer')->user();
-            $like = null;
-
-
-            if ($user) {
-                $like = Like::where('journal_id', $blog->id)
-                   ->where('user_id', $user->id)
-                   ->first();
-                   return view('web.journal', compact('blog',  'banner', 'seo_data',
-                   'type','comments','like','totalLikes'));
-   
-           }
-           else{
-            return view('web.journal', compact('blog',  'banner', 'seo_data',
-            'type','comments' ,'totalLikes','like'));
-           }
-
-        }
-
-
-        
-
-
-        } 
-        else
-        {
-
-            return redirect()->route('register');
-
-        }
-
-
-
-       
-     
-    }
-    public function event_detail($short_url)
+    public function location_detail($short_url)
     {
-         $blog = Event::active()->shortUrl($short_url)->first();
+          $blog = Location::where('title',$short_url)->first();
+       
+         
         if ($blog) {
-            $banner = $seo_data = $blog;
-            $type = $short_url;
            
-            return view('web.event_detail', compact('blog',  'banner', 'seo_data',
-                'type'));
-        } else {
-            return view('web.404');
-        }
+            $type = $blog->title;
+            $categorys = Category::whereNull('parent_id')->get();
+
+            $faqs = Faq::active()->latest()->take(5)->get();
+
+             $gallery = LocationGallery::where('location_id',$blog->id)->get();
+
+           
+            return view('web.location', compact('blog', 'type','categorys','faqs','gallery'));
+        
+         
+
     }
+    
+    }
+  
 
 
     public function products()
@@ -567,14 +904,6 @@ class WebController extends Controller
 
    
 
-
- 
-
-   
- 
-
-
-   
 
   
     public function reviewLoadMore(Request $request)
@@ -708,112 +1037,9 @@ class WebController extends Controller
         
         return view('web.faq', compact( 'seo_data','faqs', 'field', 'title'));
     }
-     // Make sure to import the Like model
-
-     public function likeBlog($blogId)
-     {
-         $user = Auth::guard('customer')->user();
      
-         $like = Like::where('blog_id', $blogId)
-                     ->where('user_id', $user->id)
-                     ->first();
-     
-         if (!$like) {
-             Like::create([
-                 'blog_id' => $blogId,
-                 'user_id' => $user->id,
-                 'likes' => 1,
-             ]);
-     
-             // Update like count in the Blog model
-             $blog = Blog::findOrFail($blogId);
-             $blog->likes += 1;
-             $blog->save();
-     
-             return response()->json(['success' => true, 'action' => 'like']);
-         }
-     
-         return response()->json(['success' => true, 'action' => 'none']);
-     }
-     
-     public function unlikeBlog($blogId)
-     {
-         $user = Auth::guard('customer')->user();
-     
-         $like = Like::where('blog_id', $blogId)
-                     ->where('user_id', $user->id)
-                     ->first();
-     
-         if ($like) {
-             $like->delete();
-     
-             // Update like count in the Blog model
-             $blog = Blog::findOrFail($blogId);
-             if ($blog->likes > 0) {
-                 $blog->likes -= 1;
-                 $blog->save();
-             }
-     
-             return response()->json(['success' => true, 'action' => 'unlike']);
-         }
-     
-         return response()->json(['success' => true, 'action' => 'none']);
-     }
-     
-   
-
     
-    public function likeJournal($blogId)
-    {
-
-       
-        $user = Auth::guard('customer')->user();
-     
-         $like = Like::where('journal_id', $blogId)
-                     ->where('user_id', $user->id)
-                     ->first();
-     
-         if (!$like) {
-             Like::create([
-                 'journal_id' => $blogId,
-                 'user_id' => $user->id,
-                 'likes' => 1,
-             ]);
-     
-           
-             $blog = Journal::findOrFail($blogId);
-             $blog->likes += 1;
-             $blog->save();
-     
-             return response()->json(['success' => true, 'action' => 'like']);
-         }
-     
-         return response()->json(['success' => true, 'action' => 'none']);
-    }
     
-    public function unlikeJournal($blogId)
-    {
-        $user = Auth::guard('customer')->user();
-     
-         $like = Like::where('journal_id', $blogId)
-                     ->where('user_id', $user->id)
-                     ->first();
-     
-         if ($like) {
-             $like->delete();
-     
-             // Update like count in the Blog model
-             $blog = Journal::findOrFail($blogId);
-             if ($blog->likes > 0) {
-                 $blog->likes -= 1;
-                 $blog->save();
-             }
-     
-             return response()->json(['success' => true, 'action' => 'unlike']);
-         }
-     
-         return response()->json(['success' => true, 'action' => 'none']);
-    }
     
     public function thankYouPage()
     {

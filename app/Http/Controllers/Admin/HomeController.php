@@ -45,14 +45,14 @@ class HomeController extends Controller
     {
         $title = "Dashboard";
         
-        $Totaljournal = Journal::active()->count();
+        $Totaljournal = Order::count();
         $Totalcustomer = Customer::count();
         $Totalblog = Blog::active()->count();
-        $TotalPost = CustomerPost::count();
-        $Totalevents = Event::count();
+        $TotalPost = Category::count();
+        $Totalservices = Category::whereNull('parent_id')->count();
 
         
-        return view('Admin.dashboard.admin_dashboard', compact('title','Totaljournal','TotalPost','Totalblog','Totalevents','Totalcustomer'));
+        return view('Admin.dashboard.admin_dashboard', compact('title','Totaljournal','TotalPost','Totalblog','Totalservices','Totalcustomer'));
 
     }
     public function product_validate(){
@@ -371,6 +371,51 @@ class HomeController extends Controller
             ]);
         }
     }
+    public function agerange_change(Request $request)
+    {
+
+         $table = $request->table;
+        $state = $request->state;
+        $primary_key = $request->primary_key;
+        $field = $request->field ?? 'status';
+        $limit = $request->limit;
+        $limit_field = $request->limit_field;
+        $limit_field_value = $request->limit_field_value;
+        if ($state == 'true') {
+            $status = "Active";
+        } else {
+            $status = "Inactive";
+        }
+        $model = 'App\\Models\\' . $table;
+        $data = $model::find($primary_key);
+
+        if ($limit && $status == "Active") {
+            if ($limit_field && $limit_field_value) {
+                $active_data = $model::where($limit_field, $limit_field_value)->Where($field, 'Active');
+            } else {
+                $active_data = $model::Where($field, 'Active');
+            }
+            if ($active_data->count() >= $limit) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Only ' . $limit . ' active items is possible.'
+                ]);
+            }
+        }
+        $data->$field = $status;
+
+        if ($data->save()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Status has been changed successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error while changing the status.'
+            ]);
+        }
+    }
 
     public function change_bool_status(Request $request)
     {
@@ -482,7 +527,7 @@ class HomeController extends Controller
 
         if ($banner->save()) {
             session()->flash('success', "Home Slider image has been added successfully");
-            return redirect(Helper::sitePrefix() . 'home/banner');
+            return redirect(Helper::sitePrefix() . 'home/slider-banner');
         } else {
             return back()->with('error', 'Error while creating the banner');
         }
@@ -527,7 +572,7 @@ class HomeController extends Controller
         $banner->updated_at = now();
         if ($banner->save()) {
             session()->flash('success', "Home Slider image has been updated successfully");
-            return redirect(Helper::sitePrefix() . 'home/banner');
+            return redirect(Helper::sitePrefix() . 'home/slider-banner');
         } else {
             return back()->with('error', 'Error while updating the banner');
         }

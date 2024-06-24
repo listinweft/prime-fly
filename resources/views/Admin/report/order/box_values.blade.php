@@ -3,7 +3,7 @@
         <div class="small-box bg-info">
             <div class="inner">
                 <h3>{{$boxValues['totalOrders']}}</h3>
-                <p>Total Orders</p>
+                <p>Total bookings</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-xs-6">
+    <!-- <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-red">
             <div class="inner">
                 <h3>{{number_format($boxValues['totalCoupon'],2)}}</h3>
@@ -31,7 +31,7 @@
                 <i class="ion ion-pie-graph"></i>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-yellow">
             <div class="inner">

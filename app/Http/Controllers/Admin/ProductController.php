@@ -19,8 +19,9 @@ use App\Models\SiteInformation;
 use App\Models\Tag;
 use App\Models\ProductPrice;
 use App\Models\Shape;
-use App\Models\Frame;
 use App\Models\Size;
+use App\Models\Customer;
+use App\Models\ProductOfferSize;
 use App\Models\ProductKeyFeature;
 use App\Models\ProductSpecificationHead;
 use Illuminate\Http\Request;
@@ -763,7 +764,7 @@ class ProductController extends Controller
                 // if (File::exists(public_path($product->product_manual))) {
                 //     File::delete(public_path($product->product_manual));
                 // }
-                if ($product->delete()) {
+                if ($product->forceDelete()) {
                     return response()->json(['status' => true]);
                 } else {
                     return response()->json(['status' => false, 'message' => 'Some error occurred,please try after sometime']);
@@ -805,12 +806,12 @@ class ProductController extends Controller
         return view('Admin.product.gallery.list', compact('productGalleryList', 'title', 'product_id'));
     }
 
-    public function gallery_create($product_id)
+    public function gallery_create()
     {
-        $product = Product::find($product_id);
+      
         $key = "Create";
-        $title = "Create Product Gallery  - " . $product->title;
-        return view('Admin.product.gallery.form', compact('key', 'title', 'product_id'));
+        $title = "Create Product Gallery";
+        return view('Admin.product.gallery.form', compact('key', 'title'));
     }
 
     public function gallery_store(Request $request)
@@ -1217,69 +1218,123 @@ class ProductController extends Controller
 
     public function offer_create($product_id)
     {
-        $sizes = Size::where('status', 'Active')->get();
         $product = Product::find($product_id);
+
+        $productb = Product::find($product_id);
+
+       $categorystatus = Category::find($productb->category_id);
+
+
+
         if ($product) {
             $key = "Create";
-            $title = "Create Offer";
-            return view('Admin.product.offer.form', compact('key', 'title', 'product','sizes'));
+            $title = "Create B2b Price";
+            $sizes = Size::active()->get();
+            $customerList = Customer::whereHas('user', function ($query) {
+                $query->where('btype', 'b2b');
+            })->latest()->get();
+            
+            
+            // Output the SQL query
+            
+            $sizes = Size::active()->get();
+            
+            return view('Admin.product.offer.form', compact('key', 'title', 'product','customerList','sizes','categorystatus'));
         } else {
             abort(404, 'Product variant not found');
         }
     }
 
+
     public function offer_store(Request $request)
     {
         $validatedData = $request->validate([
-            'product_id' => 'required',
-            'title' => 'required',
-            // 'price' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+             // 'product_id' => 'required',
+            'customer' =>'required',
+            
+          
         ]);
         $offer = new Offer;
-        $offer->title = $validatedData['title'];
-        $offer->product_id = $validatedData['product_id'];
-        $offer->price = $validatedData['price'] ?? 0;
-        $offer->start_date = $validatedData['start_date'];
-        $offer->end_date = $validatedData['end_date'];
-        $offer->sale_condition = ($request->sale_condition) ? $request->sale_condition : '';
         
-        $activeOffer = Offer::active()->where('product_id', $validatedData['product_id'])->first();
+        $offer->product_id = $request->p_id;
+        $offer->user_id = $validatedData['customer'];
+        // $offer->price = $validatedData['pricenormal'];
+      
+        $offer->additional_hourly_price = $request->additional_hourly_price ?? '';
+        $offer->hourly_price = $request->hourly_price ?? '';
+        $offer->price = $request->pricenormal ?? '';
+        $offer->additional_price = $request->additional_price ?? '';
+
+        $activeOffer = Offer::active()->where('product_id',  $request->p_id)->where('user_id',  $offer->user_id)->first();
         if ($activeOffer) {
-            $activeOffer->status = 'Inactive';
-            $activeOffer->save();
+            $activeOffer->delete(); // Delete the active offer
         }
-        
+
         if ($offer->save()) {
-          
-            foreach ($request->price as $key => $value) {
-                DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
-                if($value != null){
-                $procutPrice = DB::table('product_offer_size')->insert([
-                    'product_id' => $validatedData['product_id'],
-                    'size_id' => $key,
-                    'price' => $value,
-                    'offer_id' => $offer->id,
-                ]);
+            $insertedId = $offer->id;
+
+            $priceWithSize = $request->price;
+
+            $productPrice = DB::table('product_offer_size')->where('product_id',$request->p_id)->where('user_id',  $offer->user_id)->first();
+
+            if ($request->pricenormal !== "") {
+              
+                Offer::where('id', $request->p_id)->update(['price' =>  $request->pricenormal]);
+            }
+            else{
+                Offer::where('id', $request->p_id)->update(['price' =>  $productPrice]);
+
+            }
+
+
+            if(isset($priceWithSize) && !empty($priceWithSize)){
+                 DB::table('product_offer_size')->where('product_id', $offer->product_id)->where('user_id', $offer->user_id)->whereIn('size_id',$request->size)->delete();
+                foreach($priceWithSize as $key => $value){
+                   
+                    $price['product_id'] =  $offer->product_id;
+                    $price[$key] = $value;
+               
+                    if(isset($price[$key]) && !empty($price[$key])){
+    
+                        $procutPrice = DB::table('product_offer_size')->insert([
+                            'product_id' =>  $offer->product_id,
+                            'size_id' => $key,
+                            'price' => $value,
+                            'offer_id'=>$insertedId,
+                            'user_id'=>$offer->user_id
+                        ]);
+                      
+                    }
                 }
             }
-           
-            session()->flash('message', "Offer '" . $offer->title . "' has been added successfully");
-            return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
+
+
+            session()->flash('message', "Price '" . $offer->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/offer/' . $request->p_id);
         } else {
-            return back()->with('message', 'Error while creating the offer');
+            return back()->with('message', 'Error while creating the Price');
         }
     }
+
 
     public function offer_edit(Request $request, $id)
     {
         $key = "Update";
-        $title = "Update Offer";
-        $offer = Offer::find($id);
+        $title = "Update Price";
+          $offer = Offer::find($id);
+        $productb = Product::find($offer->product_id);
+
+        $categorystatus = Category::find($productb->category_id);
+        $customerList = Customer::whereHas('user', function ($query) {
+            $query->where('btype', 'b2b');
+        })->latest()->get();
+       
+        $productWithPrice = DB::table('product_offer_size')->where('product_id',$request->product_id)->where('user_id',$offer->user_id)->delete();
+        $sizes = Size::active()->get();
         if ($offer) {
-            $product = Product::find($offer->product_id);
-            return view('Admin.product.offer.form', compact('key', 'offer', 'title', 'product'));
+             $product = ProductOfferSize::where('product_id', $offer->product_id)->where('user_id',$offer->user_id)->first();
+
+            return view('Admin.product.offer.form', compact('key', 'offer', 'title', 'product','customerList','sizes','productWithPrice','categorystatus'));
         } else {
             return view('Admin.error.404');
         }
@@ -1289,39 +1344,66 @@ class ProductController extends Controller
     {
         $offer = Offer::find($id);
         $validatedData = $request->validate([
-            'product_id' => 'required',
-            'title' => 'required',
-            // 'price' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            // 'product_id' => 'required',
+            'customer' =>'required',
+          
+          
+           
             // 'sale_condition' => 'required',
         ]);
-        $offer->title = $validatedData['title'];
-        $offer->product_id = $validatedData['product_id'];
-
-        $offer->start_date = $validatedData['start_date'];
-        $offer->end_date = $validatedData['end_date'];
-        $offer->sale_condition = ($request->sale_condition) ? $request->sale_condition : '';
+        $offer->product_id = $request->product_id;
+        $offer->user_id = $validatedData['customer'];
+        // $offer->price = $validatedData['price'];
+        $offer->additional_hourly_price = $request->additional_hourly_price ?? '';
+        $offer->hourly_price = $request->hourly_price ?? '';
+        $offer->price = $request->pricenormal ?? '';
+        $offer->additional_price = $request->additional_price ?? '';
+      
+      
         $offer->updated_at = date('Y-m-d h:i:s');
 
         if ($offer->save()) {
-            foreach ($request->price as $key => $value) {
-                DB::table('product_offer_size')->where('product_id',$validatedData['product_id'])->where('size_id',$key)->where('offer_id',$offer->id)->delete();
-                if($value != null){
-                $procutPrice = DB::table('product_offer_size')->insert([
-                    'product_id' => $validatedData['product_id'],
-                    'size_id' => $key,
-                    'price' => $value,
-                    'offer_id' => $offer->id,
-                ]);
+
+            $priceWithSize = $request->price;
+
+
+            $productPrice = DB::table('product_offer_size')->where('product_id', $request->product_id)->where('user_id',  $offer->user_id)->first();
+            
+            if ($request->pricenormal !== "") {
+              
+                Offer::where('id', $request->product_id)->update(['price' =>  $request->pricenormal]);
+            }
+            else{
+                Offer::where('id', $request->product_id)->update(['price' =>  $productPrice]);
+
+            }
+            
+            if(isset($priceWithSize) && !empty($priceWithSize)){
+                 DB::table('product_offer_size')->where('product_id', $offer->product_id)->where('user_id', $offer->user_id)->whereIn('size_id',$request->size)->delete();
+                foreach($priceWithSize as $key => $value){
+                   
+                    $price['product_id'] =  $offer->product_id;
+                    $price[$key] = $value;
+               
+                    if(isset($price[$key]) && !empty($price[$key])){
+    
+                        $procutPrice = DB::table('product_offer_size')->insert([
+                            'product_id' =>   $offer->product_id,
+                            'size_id' => $key,
+                            'price' => $value,
+                            'user_id'=>$offer->user_id
+                        ]);
+                      
+                    }
                 }
             }
-            session()->flash('message', "Offer '" . $offer->title . "' has been updated successfully");
-            return redirect(Helper::sitePrefix() . 'product/offer/' . $request->product_id);
+            session()->flash('message', "Price '" . $offer->title . "' has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'product/offer/' . $offer->product_id);
         } else {
-            return back()->with('message', 'Error while updating the offer');
+            return back()->with('message', 'Error while updating the Price');
         }
     }
+
 
     public function delete_offer(Request $request)
     {
@@ -1329,7 +1411,6 @@ class ProductController extends Controller
             $offer = Offer::find($request->id);
             if ($offer) {
                 if ($offer->delete()) {
-                    $offerPrice = DB::table('product_offer_size')->where('offer_id',$request->id)->delete();
                     return response()->json(['status' => true]);
                 } else {
                     return response()->json(['status' => false, 'message' => 'Some error occured,please try after sometime']);
@@ -1341,6 +1422,7 @@ class ProductController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
+
 
 
     public function review_list()

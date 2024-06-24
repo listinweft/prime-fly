@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Orders</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Booking</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -50,10 +50,9 @@
                                         <th>Customer</th>
                                         <th>Total</th>
                                         <th>Tax</th>
-                                        <th>Shipping</th>
-                                        <th>Coupon</th>
+                                       
                                         <th>Order Total</th>
-                                        <th>Refund/Cancelled Amount</th>
+                                      
                                         <th>Payment Method</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -71,7 +70,7 @@
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ 'ARTMYST#'.$order->order_code }}</td>
+                                                <td>{{ 'SPEEDWINGS#'.$order->order_code }}</td>
                                                 @if(@$order->orderCustomer->user_type=="User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
@@ -84,30 +83,18 @@
                                                 @endif
                                                 <td>{{ number_format($productTotal,2) }}</td>
                                                 <td>{{ $order->tax_amount }}</td>
-                                                <td>{{ $order->shipping_charge }}</td>
-                                                <td>{{ ($order->orderCoupons)?$order->orderCoupons->sum('coupon_value'):'0' }}</td>
+                                               
                                                 <td>{{ number_format($orderTotal,2).' '.$order->currency }}</td>
-                                                <td>{{ number_format($returnAmount,2).' '.$order->currency }}
-                                                    @if($returnAmount!='0.00')
-                                                        <i class="fa fa-info-circle fa-lg refund-splitup"
-                                                           data-toggle="modal" data-id="{{$order->id}}"></i>
-                                                    @endif
-                                                </td>
+                                                
                                                 <td>{{ $order->payment_method }}</td>
                                                 <td>{{ date("d-M-Y", strtotime($order->created_at))  }}</td>
                                                 <td class="text-right py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">
-                                                        <a href="javascript:void(0)" data-id="{{$order->id}}"
-                                                           class="btn btn-default mr-2 tooltips track-order-products"
-                                                           title="Track Order" data-toggle="modal">
-                                                            <img src="{{ asset('backend/dist/img/track-order.svg') }}"></a>
+                                                       
                                                         <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}"
                                                            class="btn btn-primary mr-2 tooltips" title="View Order"><i
                                                                 class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
-                                                        <a href="javascript:void(0)"
-                                                           class="btn btn-warning mr-2 tooltips invoice_resend"
-                                                           title="Order Invoice Resend" data-id="{{$order->id}}"><i
-                                                                class="fa fa-paper-plane fa-lg" aria-hidden="true"></i></a>
+                                                       
                                                     </div>
                                                 </td>
                                             </tr>

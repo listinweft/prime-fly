@@ -173,6 +173,7 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
         /*
@@ -255,6 +256,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Webp' => Buglinjo\LaravelWebp\Facades\Webp::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\SiteInformation;
 use App\Models\User;
+use App\Models\Location;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -239,7 +240,7 @@ class AdministrationController extends Controller
         $admin = Admin::find($id);
         if ($admin) {
             $admin->user->password = Hash::make($request->confirm_password);
-            $admin->user->unhashed_password = $request->confirm_password;
+            // $admin->user->unhashed_password = $request->confirm_password;
             $admin->user->updated_at = now();
             if ($admin->user->save()) {
                 return redirect(Helper::sitePrefix() . 'administration')->with('success', $admin->role . " '" . $admin->name . "' password has been changed successfully");
@@ -303,4 +304,131 @@ class AdministrationController extends Controller
             return back()->with('message', 'Error while updating the profile');
         }
     }
+
+
+    public function showAssignLocationsForm()
+    {
+        $title = "Create";
+       
+       
+
+        $admins = Admin::with(['user' => function ($query) {
+            $query->whereNotNull('location_ids')->where('location_ids', '!=', '');
+        }])->get();
+        
+        
+       
+    
+        
+        
+        
+        $locations = Location::get();
+        return view('admin.assign_locations', compact('admins','title','locations'));
+    }
+
+    
+
+    public function assignLocations(Request $request)
+    {
+
+       
+        $request->validate([
+            'role' => 'required',
+            'location_ids' => 'required|array',
+        ]);
+    
+        // Get the selected administrator
+        $adminId = $request->input('role');
+         $admincreate = User::findOrFail($adminId);
+    
+        // Assign the selected locations to the administrator
+        $admincreate->location_ids = implode(',', $request->input('location_ids'));
+        $admincreate->save();
+        return redirect()->route('admin.assign.list')->with('success', 'Locations assigned successfully');
+    }
+
+
+    
+    public function assign_edit($id)
+    {
+        if (auth()->check() && auth()->user()->admin->role == "Super Admin") {
+            $title = "Edit";
+            $locations = Location::get();
+            
+            // Fetch admins with default user data
+            $admins = Admin::with(['user' => function ($query) {
+                $query->withDefault(['location_ids' => null]);
+            }])->latest()->get();
+    
+            // Fetch the user
+            $user = User::find($id);
+    
+            if (!$user) {
+                // Redirect to an error page when the user is not found
+                return view('backend.error.404');
+            }
+    
+            $role = $user->id;
+    
+            // Check if admins exist and load the view
+            if ($admins->isNotEmpty()) {
+                return view('Admin.assign_locations', compact('admins', 'role', 'title', 'locations', 'user'));
+            } else {
+                return view('backend.error.404');
+            }
+        } else {
+            return view('backend.error.403');
+        }
+    }
+    
+
+    public function assign_list()
+    {
+        if ((Auth::user()->admin->role) == "Super Admin") {
+            // $adminList = Admin::with(['user' => function ($query) {
+            //     $query->withDefault(['location_ids' => null]);
+            // }])->latest()->get();
+
+            $adminList = Admin::with('user')->latest()->get();
+
+            
+            return view('Admin.administration.listassign', compact('adminList'));
+        } else {
+            return view('backend.error.403');
+        }
+    }
+    public function assign_update(Request $request, $id) 
+    {
+        $request->validate([
+            'role' => 'required',
+            'location_ids' => 'required|array',
+        ]);
+    
+        // Get the selected administrator
+        $adminId = $request->input('role');
+        $admin = User::findOrFail($adminId);
+    
+        // Assign the selected locations to the administrator
+        $admin->location_ids = implode(',', $request->input('location_ids'));
+        $admin->save();
+        return redirect()->route('admin.assign.list')->with('success', 'Locations assigned successfully');
+    }
+
+
+    public function delete_assign(Request $request)
+{
+    if (isset($request->id) && $request->id != null) {
+        $admin = User::find($request->id);
+
+        if ($admin) {
+            // Set location_ids to null
+            $admin->update(['location_ids' => null]);
+
+            return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Model class not found']);
+        }
+    }
+}
+
 }

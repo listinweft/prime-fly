@@ -99,6 +99,10 @@
                                         </div>
                                     </div>
                                 @endif
+
+                                <input type="hidden" name="btype" id="btype" 
+                                            value="b2b">
+
                                 <div class="form-group col-md-6">
                                     <label> Email ID*</label>
                                     <input type="email" name="email" id="email" placeholder="Email ID"

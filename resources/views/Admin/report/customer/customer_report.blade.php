@@ -30,10 +30,10 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Phone Number</th>
-                                        <th>Address</th>
+                                        <!-- <th>Address</th> -->
                                         <th>Email</th>
                                         {{--<th>Username</th>--}}
-                                        <th>Status</th>
+                                        <!-- <th>Status</th> -->
                                         <th>Signed Date</th>
                                     </tr>
                                     </thead>
@@ -44,7 +44,7 @@
                                             <td>{{ $customer->first_name.' '.$customer->last_name}}</td>
 
                                             <td>{{ isset($customer->user) ? $customer->user->phone : '' }}</td>
-                                            <td>
+                                            <!-- <td>
                                                 @foreach($customer->customerAddress as $address)
                                                     {!! $address->first_name .' '.$address->last_name !!}<br/>
                                                     {!! $address->address !!}<br/>
@@ -54,10 +54,10 @@
                                                         ------------------------------<br/>
                                                     @endif
                                                 @endforeach
-                                            </td>
-                                            <td>{{ isset($customer->user) ? $customer->user->phone : '' }}</td>
+                                            </td> -->
+                                            <td>{{ isset($customer->user) ? $customer->user->email : '' }}</td>
                                             {{--<td>{{ $customer->user->username }}</td>--}}
-                                            <td>
+                                            <!-- <td>
                                                 @if ($customer->user)
                                                     
                                                 <span
@@ -65,7 +65,7 @@
                                                 @else
                                                     
                                                 @endif
-                                            </td>
+                                            </td> -->
                                             <td>{{ date("d-M-Y", strtotime($customer->created_at))  }}</td>
                                         </tr>
                                         @php $i++;@endphp

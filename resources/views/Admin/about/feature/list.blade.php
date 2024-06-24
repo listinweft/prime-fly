@@ -60,8 +60,8 @@
                                                 <input type="text" name="slider_order"
                                                        id="slider_order_{{$loop->iteration}}"
                                                        data-table="AboutFeature" data-id="{{ $aboutFeature->id }}"
-                                                       class="common_sort_order" style="width:25%"
-                                                       value="{{$aboutFeature->sort_order}}">
+                                                       class="common_" style="width:25%"
+                                                       value="{{$aboutFeature->}}">
                                             </td> -->
                                             <!-- <td>
                                                 <label class="switch">

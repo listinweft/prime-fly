@@ -35,9 +35,9 @@
                         @endif
                         <div class="card card-success card-outline">
                             <div class="card-header">
-                                {{-- <a href="{{url(Helper::sitePrefix().'customer/create')}}"
-                                   class="btn btn-success pull-right">Add
-                                    Customer <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a> --}}
+                                <a href="{{url(Helper::sitePrefix().'customer/create')}}"
+                                   class="btn btn-success pull-right">Add B2b
+                                    Customer <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a> 
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
@@ -46,9 +46,9 @@
                                         <th>Sl.No</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        {{--<th>Username</th>--}}
+                                        <th>Businees Type</th>
                                         <th>Phone Number</th>
-                                        <th>Status</th>
+                                        <!-- <th>Status</th> -->
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -59,9 +59,9 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{ $customer->first_name.' '.$customer->last_name}}</td>
                                             <td>{{ ($customer->user != null) ? $customer->user->email : ''}}</td>
-                                            {{--<td>{{ $customer->user->username}}</td>--}}
+                                             @if ($customer->user->btype=="b2b")<td>B2b</td>@else<td>Public</td>@endif
                                             <td>{{ ($customer->user != null)  ? $customer->user->phone : ''}}</td>
-                                            <td>
+                                            <!-- <td>
                                                 @if ($customer->user != null)
                                                     
                                                 <label class="switch">
@@ -74,13 +74,16 @@
                                                 @else
                                                     
                                                 @endif
-                                            </td>
+                                            </td> -->
                                             <td>{{ date("d-M-Y", strtotime($customer->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    {{-- <a href="{{url(Helper::sitePrefix().'customer/edit/'.$customer->id)}}"
+                                                    @if( $customer->user->btype == "b2b")
+
+                                                     <a href="{{url(Helper::sitePrefix().'customer/edit/'.$customer->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit Customer"><i
-                                                            class="fas fa-edit"></i></a> --}}
+                                                            class="fas fa-edit"></i></a> 
+                                                            @endif
                                                     <a href="{{url(Helper::sitePrefix().'customer/address/'.$customer->id)}}"
                                                        class="btn btn-primary mr-2 tooltips" title="Address"><i
                                                             class="fas fa-address-card fa-lg"></i></a>

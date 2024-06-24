@@ -63,7 +63,7 @@ body.os-dragging * {
 .os-host-flexbox > .os-size-auto-observer {
     height: inherit !important;
 }
-.os-host-flexbox > .os-content-glue {
+.os-host-flexbox > .-glue {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
@@ -71,7 +71,7 @@ body.os-dragging * {
         flex-shrink: 0;
 }
 .os-host-flexbox > .os-size-auto-observer,
-.os-host-flexbox > .os-content-glue {
+.os-host-flexbox > .-glue {
     min-height: 0;
     min-width: 0;
     -webkit-box-flex: 0;
@@ -99,8 +99,8 @@ body.os-dragging * {
 /* fix restricted measuring */
 #os-dummy-scrollbar-size:before,
 #os-dummy-scrollbar-size:after,
-.os-content:before,
-.os-content:after {
+.:before,
+.:after {
     content: '';
     display: table;
     width: 0.01px;
@@ -129,7 +129,7 @@ body.os-dragging * {
     visibility: hidden !important;
     background: transparent !important;
 }
-.os-content-glue {
+.-glue {
     box-sizing: inherit;
     max-height: 100%;
     max-width: 100%;
@@ -169,14 +169,14 @@ body.os-dragging * {
     margin: 0;
     -webkit-overflow-scrolling: touch;
 }
-.os-content-arrange {
+.-arrange {
     position: absolute;
     z-index: -1;
     min-height: 1px;
     min-width: 1px;
     pointer-events: none;
 }
-.os-content {
+. {
     direction: inherit;
     box-sizing: border-box !important;
     position: relative;
@@ -187,7 +187,7 @@ body.os-dragging * {
     width: 100%;
     visibility: visible;
 }
-.os-content > .os-textarea {
+. > .os-textarea {
     box-sizing: border-box !important;
     direction: inherit !important;
     background: transparent !important;
@@ -217,14 +217,14 @@ body.os-dragging * {
     vertical-align: baseline !important;
     padding: 0px;
 }
-.os-host-rtl > .os-padding > .os-viewport > .os-content > .os-textarea {
+.os-host-rtl > .os-padding > .os-viewport > . > .os-textarea {
     right: 0 !important;
 }
-.os-content > .os-textarea-cover {
+. > .os-textarea-cover {
     z-index: -1;
     pointer-events: none;
 }
-.os-content > .os-textarea[wrap='off'] {
+. > .os-textarea[wrap='off'] {
     white-space: pre !important;
     margin: 0px !important;
 }

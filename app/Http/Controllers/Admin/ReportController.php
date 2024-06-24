@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use DataTables;
 use App\Exports\BulkExport;
 use App\Exports\ProductList;
 use App\Http\Controllers\Controller;
@@ -55,6 +55,10 @@ class ReportController extends Controller
         $couponList = Coupon::where('status', 'Active')->get();
         return view('Admin/report/order/order_detail_report', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList'));
     }
+    public function export()
+    {
+        return Excel::download(new BulkExport, 'order-report.xlsx');
+    }
 
     public function product_export()
     {
@@ -69,14 +73,14 @@ class ReportController extends Controller
         $status = $request->order_report_status;
         $customer = $request->order_report_customer;
         $product = $request->order_report_product;
-        $coupon = $request->order_report_coupon;
-        $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product, $coupon);
-        $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product, $coupon);
+        // $coupon = $request->order_report_coupon;
+       $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product);
+        $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product);
         session(['date_range' => $date_range]);
         session(['status' => $status]);
         session(['customer' => $customer]);
         session(['product' => $product]);
-        session(['coupon' => $coupon]);
+        // session(['coupon' => $coupon]);
         return view('Admin.report.order.order_detail_report_filter', compact('orderList', 'boxValues'));
     }
 

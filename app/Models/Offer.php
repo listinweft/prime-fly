@@ -20,4 +20,8 @@ class Offer extends Model
     {
         return $query->where('status', 'Active');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

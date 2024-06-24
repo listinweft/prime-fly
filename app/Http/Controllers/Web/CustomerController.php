@@ -50,30 +50,24 @@ class CustomerController extends Controller
             $seo_data = $this->seo_content('My-Account');
             // $banner = Banner::type('my-account')->first();
             $user = Auth::guard('customer')->user();
+           
+           
+
+          
+           
+            $user = Auth::guard('customer')->user();
             $customer = $user->customer;
-
-            $journals = Journal::where('user_id', $customer->user_id)->get();
-            $blogs = Blog::where('user_id', $customer->user_id)->get();
-            $userBlogsCount = Blog::where('user_id', $customer->user_id)->count();
-            $userJournalsCount = Journal::where('user_id', $customer->user_id)->count();
-
-            $customerAddresses = Auth::guard('customer')->user()->customer->activeCustomerAddresses;
-            $Customerblogs = CustomerPost::where('user_id', $customer->user_id)
-                ->where('type', 'blog')
-                ->where('status', 'Inactive')
-
-                ->get();
-                  $Customerjournals = CustomerPost::where('user_id', $customer->user_id)
-                ->where('type', 'journal')
-                ->where('status', 'Inactive') 
-
-                ->get();
-
-            
        
           
-            return view('web.profile', compact('customer', 'customerAddresses', 
-                  'seo_data',  'user', 'customer','blogs','journals','userBlogsCount','userJournalsCount','Customerblogs','Customerjournals'));
+            $orders = OrderCustomer::with(['orderData' => function ($q) {
+                $q->with(['orderProducts' => function ($t) {
+                    $t->with('productData');
+                    $t->with('colorData');
+                }]);
+            }])->where('customer_id', Auth::guard('customer')->user()->customer->id)->latest()->get();
+            return view('web.profile', compact('customer', 
+                  'orders', 'seo_data',  'user', 'customer'));
+
         } else {
             abort(403, 'You are not authorised');
         }
@@ -96,20 +90,15 @@ class CustomerController extends Controller
     public function update_profile(Request $request)
     {
 
-        // dd($request->all());
+
+      
+       
        
 
         if (Auth::guard('customer')->check()) {
             $user = Auth::guard('customer')->user();
             $customer = $user->customer;
-//             $request->validate([
-//                 // 'first_name' => 'required|string|min:2|max:30',
-//                 'first_name' => 'required|max:255|unique:customers,first_name,'.$customer->id,
-               
-//                 // 'last_name' => 'required|regex:/^[a-zA-Z]+$/u|max:255|unique:customers,last_name,'.$customer->id,
-// //                'username' => 'required|min:2|max:60|unique:users,username,' . $user->id,
-//                 'phone_number' => 'required|min:7|max:20|unique:users,phone,' . $user->id,
-//             ]);
+       
             DB::beginTransaction();
            // Display the profile image
 
@@ -127,17 +116,17 @@ class CustomerController extends Controller
            
             
             $customer->first_name = $request->first_name;
-            $customer->designation = $request->designation;
-            $customer->description = $request->description;
-            // $customer->last_name = $request->last_name;
+            $customer->country = $request->country;
+            $customer->date_of_birth = $request->date_of_birth;
+             
             $customer->updated_at = now();
             if ($customer->save()) {
-                $user->phone = $request->phone_number;
-//                $user->username = $request->username;
+                $user->phone = $request->phone;
+               
                 $user->updated_at = now();
                 if ($user->save()) {
                     DB::commit();
-                    return response()->json(['status' => 'true', 'message' => 'Profile has been updated successfully']);
+                    return response()->json(['status' => 'success', 'message' => 'Profile has been updated successfully']);
                 } else {
                     DB::rollBack();
                     return response()->json(['status' => 'error', 'message' => "Error while updating the profile, Please try after sometime"]);

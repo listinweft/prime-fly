@@ -5,13 +5,25 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
+                    @if($type == "Sub Category")
+
+                    <h1><i class="nav-icon fas fa-user-shield"></i>How It Works LIst</h1>
+
+                    @else
                         <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>
+                  @endif
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
+                            @if($type == "Sub Category")
+                            <li class="breadcrumb-item active">How it Works List</li>
+                            @else
+
                             <li class="breadcrumb-item active">{{$type}}</li>
+
+                            @endif
                         </ol>
                     </div>
                 </div>
@@ -33,19 +45,17 @@
                                 {{ session('message') }}
                             </div>
                         @endif
-                       <!-- @if($type == 'Category')
-                         @include('Admin.includes.heading_form2',['type'=>'category'])
-                        @endif -->
+                      
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 @if($type=="Category")
-                                    <a href="{{url(Helper::sitePrefix().'about/'.$urlType.'/create')}}"
+                                    <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/create')}}"
                                        class="btn btn-success pull-right">Add Category <i
                                             class="fa fa-plus-circle pull-right mt-1 ml-2"></i>
                                     </a>
                                 @elseif($type=="Sub Category")
-                                    <a href="{{url(Helper::sitePrefix().'about/'.$urlType.'/create')}}"
-                                       class="btn btn-success pull-right">Add Sub-category <i
+                                    <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/create')}}"
+                                       class="btn btn-success pull-right">Add How It Works <i
                                             class="fa fa-plus-circle pull-right mt-1 ml-2"></i>
                                     </a>
                                 @endif
@@ -59,11 +69,16 @@
                                         @if($type=="Sub Category")
                                             <th>Category</th>
                                         @endif
-                                        <!-- <th>Sort Order</th> -->
+
+                                        
+                                       
                                         <th>Status</th>
+                                        @if($type=="Category")
+                                        <th>Age Range Pricing</th>
+                                        @endif
 
                                     
-                                        <!-- <th>Display to home</th> -->
+                                       
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -76,15 +91,7 @@
                                             @if($type=="Sub Category")
                                                 <td>{{$category->parent->title}}</td>
                                             @endif
-                                            <!-- <td>
-                                                <input type="text" name="gallery_order"
-                                                       id="gallery_order_{{$loop->iteration}}"
-                                                       data-table="Category" data-id="{{ $category->id }}"
-
-
-                                                       class="common_sort_order" style="width:25%"
-                                                       value="{{$category->sort_order}}">
-                                            </td> -->
+                                           
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
@@ -94,24 +101,35 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
-
-                                            <!-- <td>
+                                            @if($type=="Category")
+                                            <td>
                                                 <label class="switch">
-                                                    <input type="checkbox" class="bool_status"
-                                                           data-url='change-bool-status' data-table="Category"
-                                                           data-id="{{$category->id}}" data-field="display_to_home"
-                                                        {{($category->display_to_home == "Yes")?'checked':''}}>
+                                                    <input type="checkbox" class="status_check"
+                                                           data-url="/agerange-change" data-table="Category"
+                                                           data-field="age_range" data-pk="{{ $category->id}}"
+                                                        {{($category->age_range=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
-                                            </td> -->
+                                            </td>
+                                            @endif
+
+                                            @if($type=="Sub Category")
+
+                                            <td><a href="{{url(Helper::sitePrefix().'product/sub-category/gallery/'.$category->id)}}"
+                                                   class="btn btn-sm btn-primary mr-2 tooltips" title="Add Gallery">Gallery</a>
+                                            </td>
+
+                                            @endif
+
+                                          
                                             <td>{{ date("d-M-Y", strtotime($category->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
-                                                    <a href="{{url(Helper::sitePrefix().'about/'.$urlType.'/edit/'.$category->id)}}"
+                                                    <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/edit/'.$category->id)}}"
                                                        class="btn btn-success mr-2 tooltips" title="Edit {{$type}}"><i
                                                             class="fas fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       data-url="about/{{$urlType}}/delete"
+                                                       data-url="product/{{$urlType}}/delete"
                                                        data-id="{{$category->id}}"
                                                        title="Delete {{$type}}"><i class="fas fa-trash"></i></a>
                                                 </div>

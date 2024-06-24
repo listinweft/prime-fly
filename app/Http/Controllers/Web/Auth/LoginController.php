@@ -27,6 +27,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
+      
+
+        
       
         $request->validate([
             'username' => 'required|string',
@@ -308,7 +312,16 @@ class LoginController extends Controller
     }
     public function login_form(Request $request)
     {
-        return view('web.login');
+
+
+        $type = $request->token;
+        
+        return view('web.login',compact('type'));
+
+    }
+    public function choose_form(Request $request)
+    {
+        return view('web.choose');
 
     }
 //     public function register(Request $request)
@@ -388,8 +401,10 @@ public function register(Request $request)
         $user->user_type = 'Customer';
         $user->username = $request->email;
         $user->email = $request->email;
-        $user->status = 'Inactive';
+        $user->status = 'Active';
         $user->phone = $request->phone;
+        $user->btype = 'public';
+        
         $user->password = Hash::make($request->password);
 
         if (!$user->save()) {
@@ -398,10 +413,8 @@ public function register(Request $request)
 
         $customer = new Customer;
         $customer->first_name = $request['firstname'];
-        $customer->last_name = $request['lastname'];
-        $customer->address = $request['address'];
-        $customer->licenc = $request['licence'];
-        $customer->workplace = $request['workplace'];
+        $customer->last_name = " ";
+       
         $customer->user_id = $user->id;
 
         if (!$customer->save()) {
@@ -413,13 +426,13 @@ public function register(Request $request)
 
         Auth::guard('customer')->logout();
 
-        if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
+        // if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
             return response()->json([
                 'status' => 'success-reload',
-                'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
+                'message' => 'Registration completed successfully.',
                 'redirect' => '/login'
             ]);
-        }
+        // }
 
         // return response()->json([
         //     'status' => 'success-reload',

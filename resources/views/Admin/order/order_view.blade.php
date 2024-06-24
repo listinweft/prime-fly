@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> View Orders</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> View Bookings</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -14,8 +14,8 @@
                                     Home
                                 </a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'order')}}">Orders</a></li>
-                            <li class="breadcrumb-item active">Order View - {{'PP'.$order->order_code}}</li>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'order')}}">Bookings</a></li>
+                            <li class="breadcrumb-item active">Booking View - {{'PP'.$order->order_code}}</li>
                         </ol>
                     </div>
                 </div>
@@ -42,39 +42,9 @@
                             </div>
 
                             <div class="row invoice-info">
-                                <div class="col-sm-4 invoice-col">
-                                    <address>
-                                        <h6>Shipping Address:</h6>
-                                        <strong>
-                                            {{@$orderDetails->shippingAddress->first_name .' '.@$orderDetails->shippingAddress->last_name}}
-                                        </strong><br>
-                                        {{@$orderDetails->shippingAddress->address}}
-                                        <br>
-                                        Email:
-                                        {{(@$orderDetails->shippingAddress)?$orderDetails->shippingAddress->email:''}}
-                                        <br>
-                                        Phone:
-                                        {{(@$orderDetails->shippingAddress)?@$orderDetails->shippingAddress->phone:''}}
-                                        <br>
-                                    </address>
-                                </div>
+                                
 
-                                <div class="col-sm-4 invoice-col">
-                                    <address>
-                                        <h6>Billing Address:</h6>
-                                        <strong>
-                                            {{@$orderDetails->billingAddress->first_name .' '.@$orderDetails->billingAddress->last_name}}
-                                        </strong><br>
-                                        {{@$orderDetails->billingAddress->address}}
-                                        <br>
-                                        Email:
-                                        {{(@$orderDetails->billingAddress)?$orderDetails->billingAddress->email:''}}
-                                        <br>
-                                        Phone:
-                                        {{(@$orderDetails->billingAddress)?@$orderDetails->billingAddress->phone:''}}
-                                        <br>
-                                    </address>
-                                </div>
+                               
                                 <div class="col-sm-4 invoice-col">
                                     <b>Invoice {{'PP#'.$order->order_code}}</b><br>
                                 </div>
@@ -85,13 +55,10 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Product</th>
+                                            <th>Service</th>
                                             <th>Cost</th>
-                                            <th>Type</th>
-                                            <th>Frame Colour</th>
-                                            <th>Size</th>
-                                            <th>Mount</th>
-                                            <th>Quantity</th>
+                                          
+                                          
                                             <th>Status</th>
                                             <th>Price</th>
                                         </tr>
@@ -122,31 +89,10 @@
                                                     {{$product->productData->title}}
                                                 </td>
                                                 <td>{{$order->currency}} {{$product->cost}}</td>
-                                                <td>
-                                                    @if(@$type)
-                                                    {{ $type->title }}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if(@$frame)
-                                                    {{ $frame->title }}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if(@$size)
-                                                    {{ $size->title }}
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    
-                                                    @if($product->mount == 'yes')
-                                                    <span> With Mount</span>
-                                                @else
-                                                    <span> No Mount</span>
-                                                @endif
-                                                </td>
                                                
-                                                <td>{{$product->qty}}</td>
+                                              
+                                               
+                                              
                                                 <td>
                                                     <select name="status" id="orderStatus" class="form-control"
                                                             data-id="{{ $product->id }}" data-order_id="{{$order->id}}"
@@ -182,22 +128,12 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <p class="lead">Payment Methods:</p>
-                                    <p>
-                                        @if($order->payment_method=="COD")
-                                            Cash on delivery
-                                        @else
-                                            {{ $order->payment_method }}
-                                        @endif
-                                    </p>
-                                    <p class="lead">Customer Notes:</p>
-                                    <p>
-                                        {{ $order->remarks }}
-                                    </p>
-                                    <p>
+                                    
+                                    
+                                    
                                     <hr>
                                     @if($refundStatus)
-                                        <p class="lead">Return/Refund:</p>
+                                        <p class="lead">Return/Refund:</p>                     
                                         @if($refundStatusPrevious->remarks!=NULL)
                                             <p>Remarks: {!!$refundStatusPrevious->remarks!!}</p>
                                         @endif
@@ -228,38 +164,10 @@
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tbody>
-                                            <tr>
-                                                <th style="width:50%">
-                                                    Subtotal {{ ($order->tax_type == 'Inside')? '(Tax Inclusive)':''}}:
-                                                </th>
-                                                <td>{{$order->currency.' '.$orderTotal}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tax ({{$order->tax}}%)</th>
-                                                @if($order->tax_type == 'Outside')
-                                                    <td>{{$order->currency.' '.$order->tax_amount}}</td>
-                                                @else
-                                                    <td>{{$order->currency.' '.(($orderTotal-$order->orderCoupons->sum('coupon_value'))*$order->tax/(100+$order->tax))}}</td>
-                                                @endif
-                                            </tr>
-                                            <tr>
-                                                <th>Shipping:</th>
-                                                <td>{{$order->currency.' '.$order->shipping_charge}}</td>
-                                            </tr>
-                                            @if($order->payment_method=='COD' && $order->cod_extra_charge!='0.00')
-                                                <tr>
-                                                    <th>COD Charge</th>
-                                                    <td>{{$order->currency.' '.$order->cod_extra_charge}}</td>
-                                                </tr>
-                                            @endif
-                                            @if($order->orderCoupons!=NULL)
-                                                @foreach($order->orderCoupons as $orderCoupon)
-                                                    <tr>
-                                                        <th>Coupon ({{$orderCoupon->coupon->code}}):</th>
-                                                        <td>- {{$order->currency.' '.$orderCoupon->coupon_value}}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
+                                            
+                                           
+                                           
+                                          
                                             <tr>
                                                 <th>Total:</th>
                                                 <td>{{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?$orderGrandTotal['orderGrandTotal']:'0',2)}}</td>

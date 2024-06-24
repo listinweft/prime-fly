@@ -1,114 +1,82 @@
 @extends('Admin.layouts.main')
 @section('content')
-<div class="content-wrapper">
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">
-                            <a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{url(Helper::sitePrefix().'product/')}}">Product</a>
-                        </li>
-                        <li class="breadcrumb-item active">{{$title}}</li>
-                    </ol>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item">
+                                <a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{url(Helper::sitePrefix().'product/')}}">Service</a>
+                            </li>
+                            <li class="breadcrumb-item active">{{$title}}</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="content">
-        <div class="container-fluid">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form role="form" id="formWizard" data-product_id="{{@$product->id}}"
-                  action="{{@$key=='Copy'?url(Helper::sitePrefix().'product/create'):''}}" class="form--wizard"
-                  enctype="multipart/form-data" method="post">
-                {{csrf_field()}}
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Product Form</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-
-                        </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="card-body">
-                        @if (session('success'))
-                            <div class="alert alert-success" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session('success') }}
-                            </div>
-                        @elseif(session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label> Title*</label>
-                                <input type="text" name="title" id="title" placeholder="Title"
-                                       class="form-control required for_canonical_url" autocomplete="off"
-                                       value="{{ isset($product)?$product->title: old('title') }}">
-                                <div class="help-block with-errors" id="title_error"></div>
-                                @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label> Short URL *</label>
-                                <input type="text" name="short_url" id="short_url" placeholder="Short URL"
-                                       class="form-control required" autocomplete="off"
-                                       value="{{ isset($product)?$product->short_url:'' }}">
-                                <div class="help-block with-errors" id="short_url_error"></div>
-                                @error('short_url')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label>Sku/Product Code*</label>
-                                <input type="text" name="sku" id="sku" placeholder="Product Code"
-                                       class="form-control required" autocomplete="off"
-                                       value="{{ isset($product)?$product->sku:'' }}">
-                                <div class="help-block with-errors" id="sku_error"></div>
-                                @error('sku')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                @endif
+                <form role="form" id="formWizard"
+                action="{{@$key=='Copy'?url(Helper::sitePrefix().'product/create'):''}}" class="form--wizard"
+                enctype="multipart/form-data" method="post">
+                    {{csrf_field()}}
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Service Form</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="card-body">
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('success') }}
+                                </div>
+                            @elseif(session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <div class="form-group col-md-3">
-                                <label> Category*</label>
-                                <select name="category[]" id="category" multiple
-                                        class="form-control select2 required">
-                                    <option value="">Select Category</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{$category->id}}"
-                                            {{ (@$category->id==@$product->category_id)?'selected':'' }}
-                                        >{{$category->title}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="category_error"></div>
+                                <label> Category</label>
+                                <select name="category" id="category" class="form-control select2">
+    <option value="">Select Category</option> <!-- Change value to empty string -->
+    @foreach($categories as $category)
+        <option value="{{$category->id}}" {{ (@$category->id==@$product->category_id)?'selected':'' }}>
+            {{$category->title}}
+        </option>
+    @endforeach
+</select>
+
+                                <div class="help-block with-errors" id="category"></div>
                                 @error('category')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-3">
-                                <label> Sub Category *</label>
+
+                            <!-- <div class="form-group col-md-3">
+                                <label> Package </label>
                                 <select class="form-control select2 " name="sub_category[]"
                                         id="sub_category" multiple>
                                     @if(isset($subCategories))
@@ -124,105 +92,84 @@
                                 @error('sub_category')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div> -->
+
+                            <div class="form-row">
+                                
+                                <div class="form-group col-md-12">
+                                    <label> Package Description*</label>
+                                    <input type="text" name="title" id="title" placeholder="Title"
+                                           class="form-control required for_canonical_url" autocomplete="off"
+                                           value="{{ isset($product)?$product->title:'' }}">
+                                    <div class="help-block with-errors" id="title_error"></div>
+                                    @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                             </div>
-                            
-                            <div class="form-group col-md-3">
-                                <label> Tags *</label>
-                                <select class="form-control select2 required " name="tags[]" id="tag_id" multiple>
-                                    @foreach($tags as $tag)
-                                    <option value="{{$tag->id}}"
-                                       
-                                        {{ (@$tag->id==@$product->tag_id)?'selected':'' }}
-                                   >{{$tag->title}}</option>
-                                @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="tag_id_error"></div>
-                                @error('tags')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Colours *</label>
-                                <select class="form-control select2 required" name="colors[]" id="color_id" multiple>
-                                    @foreach($colors as $color)
-                                    <option value="{{$color->id}}"
-                                       
-                                        {{ (@$color->id==@$product->color_id)?'selected':'' }}
-                                   >{{$color->title}}</option>
-                                @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="color_id_error"></div>
-                                @error('colors')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label> Product Description*</label>
-                                <textarea name="description" id="description"
-                                          placeholder="Description" class="form-control required tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->description:'' }}</textarea>
-                                <div class="help-block with-errors" id="description_error"></div>
-                                @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                         
-                        </div>
-                        <div class="form-row">
-                            
+
                            
-                           
-                       
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label> Product Type*</label>
-                                <select name="product_type_id" id="type" 
-                                        class="form-control  required">
-                                    <option value="">Select product type </option>
-                                    @foreach($productTypes as $productType)
-                                        <option value="{{$productType->id}}"
-                                            {{ (@$productType->id==@$product->product_type_id)?'selected':'' }}
-                                        >{{$productType->title}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="type_error"></div>
-                                @error('type')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            
-                            <div class="form-group col-md-3 frame_div  d-none">
-                                <label> Frame Colour *</label>
-                                <select name="frame_color[]" id="frame_color"  class="form-control select2 " multiple>
-                                    <option value="">Select Frame Colour </option>
-                                    @foreach($frames as $frame)
-                                        <option value="{{$frame->id}}"  {{ (@$frame->id==@$product->frame_id)?'selected':'' }} >{{$frame->title}}</option>
-                                    @endforeach
-                                </select>
-                              
-                            </div>
-                            <div class="form-group col-md-3 ">
-                                <label> Shapes *</label>
-                                <select name="shapes[]" id="shapes"  class="form-control select2 required" multiple>
-                                    <option value="">Select Shapes </option>
-                                    @foreach($shapes as $shape)
-                                        <option value="{{$shape->id}}"  {{ (@$shape->id==@$product->shape_id)?'selected':'' }} >{{$shape->title}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="help-block with-errors" id="shapes_error"></div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <table class="table table-active">
+                            <div class="form-row">
+    <table class="table table-active" id="firstpricing">
+        <thead>
+            <tr>
+                <th>Price List *</th>
+                <th>Price *</th>
+              
+                
+
+            </tr>
+        </thead>
+        <tbody>
+           
+                <tr>
+    <td>Price</td>
+    <td>
+       
+        <input type="number" name="pricenormal" class="form-control" id="pricenormal" value="{{ isset($product) ? $product->price : '' }}">
+        <div class="help-block with-errors" id="pricenormal_error"></div>
+    </td>
+   
+</tr>
+
+<tr>
+    <td>Additional Charges</td>
+    <td>
+        
+        <input type="text" name="additional_price" class="form-control" value="{{ isset($product) ? $product->additional_price : '' }}">
+    </td>
+</tr>
+<tr>
+    <!-- <td>Hourly Price</td>
+    <td>
+      
+        <input type="text" name="hourly_price" class="form-control" value="{{ isset($product) ? $product->hourly_price : '' }}">
+    </td> -->
+    </tr>
+    <tr>
+    <td>Additional Hourly Price</td>
+    <td>
+        <input type="text" name="additional_hourly_price" class="form-control" value="{{ isset($product) ? $product->additional_hourly_price : '' }}">
+    </td>
+</tr>
+          
+      
+    
+
+   
+  
+        </tbody>
+    </table>
+</div>
+
+
+                            <div class="form-row">
+                            <table class="table table-active" id="size_price_listing_table">
                                 <thead>
-                                    <th>Size *</th>
+                                    <th>Passenger Type *</th>
                                     <th> Price *</th>
-                                    <th> Availability*</th>
-                                    <th> Stock*</th>
-                                    <th> Alert Quantity *</th>
+                                    
                                 </thead>
                                 @if (!isset($product))
                                 <tbody>
@@ -232,50 +179,15 @@
                                             {{$size->title}}
                                         </td>
                                         <td>
-                                            <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                            <input type="text" name="price[{{$size->id}}]" id="price{{$size->id}}"   class="form-control " value="{{isset($product)?$product->price:''}}">
-                                            
+                                            <input type="hidden" name="size[]" id=""   value="{{$size->id}}">
+                                            <input type="number" name="price[{{$size->id}}]" id="pricesize"   class="form-control" value="">
+                                            <div class="help-block with-errors" id="pricesize_error"></div>
                                         </td>
-                                        <td>
-                                                <select class="form-control required"  name="availability[{{$size->id}}]"  id="availability">
-                                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
-                                                        <option value="{{ $availability }}"
-                                                            {{ old("availability", @$product->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="help-block with-errors" id="availability_error"></div>
-                                                @error('availability')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                    
-                                            
-                                        </td>
-                                        <td>
-                                           
-                                            <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
-                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':'required'}}"
-                                                    autocomplete="off" value="{{ isset($product)?$product->stock:'2' }}">
-                                            <div class="help-block with-errors" id="stock_error"></div>
-                                            @error('stock')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$product->availability=='Out of stock')?'none':''}};">
-                                            </div>
-                                        </td>
-                                        <td>
-                                           
-                                            <input type="text"name="alert_quantity[{{$size->id}}]" id="alert_quantity"
-                                                    placeholder="Alert Quantity"
-                                                    class="form-control alert_quantity {{(@$product->quantity=='Out of Stock')?'':'required'}}"
-                                                    autocomplete="off"
-                                                    value="{{ isset($product)?$product->alert_quantity:'1' }}">
-                                            <div class="help-block with-errors" id="alert_quantity_error"></div>
-                                            @error('alert_quantity')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                           
-                                           
-                                        </td>
+                                       
+                                        
+                                       
+                                        
+                                      
                                       
                                     </tr>
                                     @endforeach
@@ -292,345 +204,497 @@
                                                     $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
                                                 @endphp
                                                 <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                                <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
-    
+                                                <input type="number" name="price[{{$size->id}}]" id="pricesize" class="form-control" value="{{isset($price)?$price->price:''}}">
+                                                <div class="help-block with-errors" id="pricesize_error"></div>
                                             </td>
-                                        </td>
-                                        <td>
-                                                <select class="form-control  availability" name="availability[{{$size->id}}]" id="availability">
-                                                    @foreach(["In Stock", "Out of Stock"] AS $availability)
-                                                        <option value="{{ $availability }}"
-                                                            {{ old("availability", @$price->availability) == $availability ? "selected" : "" }}>{{ $availability }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <div class="help-block with-errors" id="availability_error"></div>
-                                                @error('availability')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                    
-                                            
-                                        </td>
-                                        <td>
-                                          
-                                            <input type="text" name="stock[{{$size->id}}]" id="stock" placeholder="Stock"
-                                                    class="form-control stock {{(@$product->availability=='Out of Stock')?'':''}}"
-                                                    autocomplete="off" value="{{ isset($price)?$price->stock:'2' }}">
-                                            <div class="help-block with-errors" id="stock_error"></div>
-                                            @error('stock')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                            <div class="form-group col-md-3 availability_div"      style="display: {{(@$price->availability=='Out of stock')?'none':''}};">
-                                            </div>
-                                        </td>
-                                        <td>
                                            
-                                            <input type="text" name="alert_quantity[{{$size->id}}]" id="alert_quantity"
-                                                    placeholder="Alert Quantity"
-                                                    class="form-control alert_quantity {{(@$price->quantity=='Out of Stock')?'':''}}"
-                                                    autocomplete="off"
-                                                    value="{{ isset($price)?$price->alert_quantity:'1' }}">
-                                            <div class="help-block with-errors" id="alert_quantity_error"></div>
-                                            @error('alert_quantity')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                           
-                                           
-                                        </td>
+                                      
+                                      
+                                      
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 @endif
                             </table>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label> Product Thumbnail Image*</label>
-                                <div class="file-loading">
-                                    <input id="thumbnail_image" name="thumbnail_image" type="file"
-                                           accept="image/*">
-                                </div>
+
+
+                        <!-- <div class="form-row">
                                 
-                                
-                                @error('thumbnail_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Product Thumbnail Attribute*</label>
-                                <input type="text" name="thumbnail_image_attribute"
-                                       id="thumbnail_image_attribute"
-                                       placeholder="Alt='Product Thumbnail Attribute'"
-                                       class="form-control placeholder-cls" autocomplete="off"
-                                       value="{{ isset($product)?$product->thumbnail_image_attribute:'' }}">
-                                @error('thumbnail_image_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label> You May Also Like</label>
-                                <select name="similar_product_id[]" multiple id="similar_product_id"
-                                        class="form-control select2">
-                                    @foreach($products as $similar)
-                                        <option value="{{ $similar->id  }}">{{ $similar->title }}</option>
-                                    @endforeach
-                                </select>
-                                @error('similar_product_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Related products </label>
-                                <select name="related_product_id[]" multiple id="related_product_id"
-                                        class="form-control select2">
-                                    @foreach($products as $related)
-                                        <option value="{{ $related->id }}">{{ $related->title }}</option>
-                                    @endforeach
-                                </select>
-                                @error('related_product_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                       
-                        {{-- <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Banner Image</label>
-                                <div class="file-loading">
-                                    <input id="desktop_banner" name="desktop_banner" type="file"
-                                            accept="image/*">
+                                <div class="form-group col-md-6">
+                                    <label>No of Bags*</label>
+                                    <input type="text" name="bags" id="bags" placeholder="Bags"
+                                           class="form-control  for_canonical_url" autocomplete="off"
+                                           value="{{ isset($product)?$product->bags:'' }}">
+                                    
+
+                                   
+                                  
                                 </div>
-                                <span class="caption_note">Note: uploaded images have a maximum size of <strong> 1920x500</strong> pixels and can't be over 512kb</span>
-                                @error('desktop_banner')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label> Banner Attribute</label>
-                                <input type="text" name="banner_attribute"
-                                        id="banner_attribute"
-                                        placeholder="Alt='Product Thumbnail Attribute'"
-                                        class="form-control placeholder-cls" autocomplete="off"
-                                        value="{{ isset($product)?$product->banner_attribute:'' }}">
-                                @error('banner_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div> --}}
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label> About This Item</label>
-                                <textarea name="about_this_item" id="about_this_item"
-                                          placeholder="About This Item" class="form-control   tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->about_item:'' }}</textarea>
+
+                            </div> -->
+<!-- 
+                            <div class="form-row">
+                                
+                                <div class="form-group col-md-6">
+                                    <label>Hours</label>
+                                  
+                                    
+
+                                    <input type="text" name="hours" id="hours" placeholder="Hours"
+                                           class="form-control  for_canonical_url" autocomplete="off"
+                                           value="{{ isset($product)?$product->hours:'' }}">
+                                   
+                                  
+                                </div>
+
+                            </div> -->
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label> Short URL *</label>
+                                    <input type="text" name="short_url" id="short_url" placeholder="Short URL"
+                                           class="form-control required" autocomplete="off"
+                                           value="{{ isset($product)?$product->short_url:'' }}">
+                                    <div class="help-block with-errors" id="short_url_error"></div>
+                                    @error('short_url')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                
-                                @error('about_this_item')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                               
+                               
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Featured Image</label>
-                                <div class="file-loading">
-                                    <input id="featured_image" name="featured_image" type="file"
-                                            accept="image/*">
+
+                            <div class="form-row">
+                                
+                                <div class="form-group col-md-6">
+                                    <label> Location*</label>
+                                    <select name="location[]" id="location" multiple class="form-control select2 required">
+                                        <option value="">Select location</option>
+                                        @foreach($locations as $location)
+    <option value="{{ $location->id }}" {{ in_array($location->id, explode(',', @$product->location_id)) ? 'selected' : '' }}>
+        {{ $location->title }}
+    </option>
+@endforeach
+                                    </select>
+                                    <div class="help-block with-errors" id="location_error"></div>
+                                    @error('category')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <span class="caption_note">Note: uploaded images have a maximum size of <strong> 900x830</strong> pixels and can't be over 512kb</span>
-                                @error('featured_image')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+
+
+                                <div class="form-group col-md-6">
+    <label> Service Type </label>
+  
+   <select name="service_type[]" id="service_type" class="form-control select2 required"  >
+    <option value="departure" @if(in_array('departure', $selectedServiceTypes)) selected @endif>Departure</option>
+    <option value="arrival" @if(in_array('arrival', $selectedServiceTypes)) selected @endif>Arrival</option>
+    <option value="round_trip" @if(in_array('round_trip', $selectedServiceTypes)) selected @endif>Round Trip</option>
+    <option value="transit_type" @if(in_array('transit_type', $selectedServiceTypes)) selected @endif>Transit type</option>
+</select>
+<div class="help-block with-errors" id="service_type_error"></div>
+
+    @error('service_type[]')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+</div>
+
+
+                           
+
+
+                           
+                            <div class="form-row">
+                              
+
+                               
                             </div>
-                            <div class="form-group col-md-6">
-                                <label> Featured Attribute</label>
-                                <input type="text" name="featured_image_attribute"
-                                        id="featured_image_attribute"
-                                        placeholder="Alt='Product Thumbnail Attribute'"
-                                        class="form-control placeholder-cls" autocomplete="off"
-                                        value="{{ isset($product)?$product->featured_image_attribute:'' }}">
-                                @error('featured_image_attribute')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            
-                            <div class="form-group col-md-12">
-                                <label> Feature Description</label>
-                                <textarea name="feature_description" id="feature_description"
-                                          placeholder="Feture Description" class="form-control  tinyeditor"
-                                          autocomplete="off">{{ isset($product)?$product->featured_description:'' }}</textarea>
-                                <div class="help-block with-errors" id="feature_description_error"></div>
-                                @error('feature_description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label> Service Description*</label>
+                                    <textarea name="description" id="description"
+                                              placeholder="Description" class="form-control required tinyeditor"
+                                              autocomplete="off">{{ isset($product)?$product->description:'' }}</textarea>
+                                    <div class="help-block with-errors" id="description_error"></div>
+                                    @error('description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                          
+                            <div class="form-row">
+                               
+
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Service Thumbnail Image*</label>
+                                    <div class="file-loading">
+                                        <input id="thumbnail_image" name="thumbnail_image" type="file"
+                                               accept="image/*">
+                                    </div>
+                                    <span
+                                        class="caption_note">Note: Image size should be minimum of 1000 x 1000</span>
+                                        @if(@$key)
+                                    @error('thumbnail_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Service Thumbnail Attribute</label>
+                                    <input type="text" name="thumbnail_image_attribute"
+                                           id="thumbnail_image_attribute"
+                                           placeholder="Alt='Product Thumbnail Attribute'"
+                                           class="form-control placeholder-cls" autocomplete="off"
+                                           value="{{ isset($product)?$product->thumbnail_image_attribute:'' }}">
+                                    @error('thumbnail_image_attribute')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                           
+
+                            <!-- <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Desktop Banner*</label>
+                                    <div class="file-loading">
+                                        <input id="desktop_banner" name="desktop_banner" type="file" accept="image/*">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be 1920 x 420 PX and Size must be less than 512 KB</span>
+                                    @error('desktop_banner')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Mobile Banner</label>
+                                    <div class="file-loading">
+                                        <input id="mobile_banner" name="mobile_banner" type="file" accept="image/*">
+                                    </div>
+                                    <span class="caption_note">Note: Image dimension must be 960 x 450 PX and Size must be less than 512 KB</span>
+                                    @error('mobile_banner')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div> -->
+                            <div class="form-row">
+
+                               
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Meta Title</label>
+                                    <textarea class="form-control" id="meta_title" name="meta_title"
+                                              placeholder="Meta Title">{{ isset($product)?$product->meta_title:'' }}</textarea>
+                                    @error('meta_title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Meta Description</label>
+                                    <textarea class="form-control" id="meta_description" name="meta_description"
+                                              placeholder="Meta Description">{{ isset($product)?$product->meta_description:'' }}</textarea>
+                                    @error('meta_description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label> Meta Keyword</label>
+                                    <textarea class="form-control" id="meta_keyword" name="meta_keyword"
+                                              placeholder="Meta Keyword">{{ isset($product)?$product->meta_keyword:'' }}</textarea>
+                                    @error('meta_keyword')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label> Other Meta Tag</label>
+                                    <textarea class="form-control" id="other_meta_tag" name="other_meta_tag"
+                                              placeholder="Other Meta Tag">{{ isset($product)?$product->other_meta_tag:'' }}</textarea>
+                                    @error('other_meta_tag')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                           
                         </div>
-                
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label> Meta Title</label>
-                                <textarea class="form-control" id="meta_title" name="meta_title" rows="4"
-                                          placeholder="Meta Title">{{ isset($product)?$product->meta_title:'' }}</textarea>
-                                @error('meta_title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Meta Description</label>
-                                <textarea class="form-control" id="meta_description" name="meta_description" rows="4"
-                                          placeholder="Meta Description">{{ isset($product)?$product->meta_description:'' }}</textarea>
-                                @error('meta_description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Meta Keyword</label>
-                                <textarea class="form-control" id="meta_keyword" name="meta_keyword" rows="4"
-                                          placeholder="Meta Keyword">{{ isset($product)?$product->meta_keyword:'' }}</textarea>
-                                @error('meta_keyword')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label> Other Meta Tag</label>
-                                <textarea class="form-control" id="other_meta_tag" name="other_meta_tag" rows="4"
-                                          placeholder="Other Meta Tag">{{ isset($product)?$product->other_meta_tag:'' }}</textarea>
-                                @error('other_meta_tag')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-row">
+                        <div class="card-footer">
+                            <input type="submit" id="btn_save" name="btn_save"
+                                   data-id="{{isset($product)?$product->id:''}}" value="Submit"
+                                   class="btn btn-primary pull-left submitBtn">
+                                   @if(@$key)
+                                   <input type="hidden" value="{{@$key}}" name="copy">
+                                   <input type="hidden" value="{{@$product->id}}" name="copy_product_id">
+                               @endif
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <input type="hidden" name="id" id="id" value="{{ isset($product)?$product->id:'0' }}">
+                            <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                                 style="display:none;">
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <input type="submit" id="btn_save" name="btn_save"
-                               data-id="{{isset($product)?$product->id:''}}" value="Submit"
-                               class="btn btn-primary pull-left submitBtn">
-                        <button type="reset" class="btn btn-default">Cancel</button>
-                        @if(@$key)
-                            <input type="hidden" value="{{@$key}}" name="copy">
-                            <input type="hidden" value="{{@$product->id}}" name="copy_product_id">
-                        @endif
-                        <input type="hidden" name="id" id="id" value="{{ isset($product)?$product->id:'0' }}">
-                        <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
-                             style="display:none;">
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-</div>
-<script type="text/javascript">
-$('#type').on('change', function () {
-        var type =$(this).val();
-        if (type == 4) {
-            $('.mount_div').removeClass('d-none');
-            $('.frame_div').removeClass('d-none');
-           
-        } else {
-            $('.mount_div').addClass('d-none');
-            $('.frame_div').addClass('d-none');
-           
-        }
-    });
-    $(document).ready(function () {
-      
-        @if(isset($product))
-        var type =$('#type').val();
-        if (type == 4) {
-            $('.mount_div').removeClass('d-none');
-            $('.frame_div').removeClass('d-none');
-           
-        } else {
-            $('.mount_div').addClass('d-none');
-            $('.frame_div').addClass('d-none');
-           
-        }
-        $('#similar_product_id').val([{{@$product->similar_product_id}}]).change();
-        $('#shapes').val([{{@$product->shape_id}}]).change();
-        $('#tag_id').val([{{@$product->tag_id}}]).change();
-        $('#frame_color').val([{{@$product->frame_color}}]).change();
-        $('#related_product_id').val([{{@$product->related_product_id}}]).change();
-        $('#category').val([{{@$product->category_id}}]).change();
-        $('#color_id').val([{{@$product->color_id}}]).change()
-        $('#sub_category').val([{{@$product->sub_category_id}}]).change();
-        @endif
-        $("#thumbnail_image").fileinput({
-            'theme': 'explorer-fas',
-            validateInitialCount: true,
-            overwriteInitial: false,
-            autoReplace: true,
-            initialPreviewShowDelete: false,
-            initialPreviewAsData: true,
-            dropZoneEnabled: false,
-            required: true,
-            allowedFileTypes: ['image'],
-       
-     
-            showRemove: true,
-            @if(isset($product) && $product->thumbnail_image!=NULL)
+                </form>
+            </div>
+        </section>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#featured_image_div').hide();
+            @if(isset($product))
+            $('#similar_product_id').val([{{@$product->similar_product_id}}]).change();
+            $('#addon_id').val([{{@$product->add_on_id}}]).change();
+            $('#tag_id').val([{{@$product->tag_id}}]).change();
+            $('#related_product_id').val([{{@$product->related_product_id}}]).change();
+            $('#category').val([{{@$product->category_id}}]).change();
+            $('#sub_category').val([{{@$product->sub_category_id}}]).change();
+            @endif
+            $("#thumbnail_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                initialPreviewShowDelete: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 1000,
+                // minImageHeight: 1000,
+                // maxImageWidth: 1000,
+                // maxImageHeight: 1000,
+                maxFilesize: 10240,
+                showRemove: true,
+                @if(isset($product) && $product->thumbnail_image!=NULL)
                 initialPreview: ["{{asset($product->thumbnail_image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($product->thumbnail_image!=NULL)?last(explode('/',$product->thumbnail_image)):''}}",
-                    width: "120px",
-                    key: "{{'product/thumbnail_image/'.$product->id.'/thumbnail_image_webp' }}",
-                }],
+                    width: "120px"
+                }]
                 @endif
-        });
+            });
 
-        $("#desktop_banner").fileinput({
-            'theme': 'explorer-fas',
-            validateInitialCount: true,
-            overwriteInitial: false,
-            autoReplace: true,
-            initialPreviewShowDelete: false,
-            initialPreviewAsData: true,
-            dropZoneEnabled: false,
-            required: false,
-            allowedFileTypes: ['image'],
-            minImageWidth: 1920,
-            minImageHeight: 500,
-            maxImageWidth: 1920,
-            maxImageHeight: 500,
-            showRemove: true,
-            @if(isset($product) && $product->desktop_banner!=NULL)
+            $("#product_manual").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                initialPreviewShowDelete: false,
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: [],
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($product) && $product->product_manual!=NULL)
+                initialPreview: ["{{asset($product->product_manual)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($product->product_manual!=NULL)?last(explode('/',$product->product_manual)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
+
+            $("#desktop_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                initialPreviewShowDelete: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 1920,
+                minImageHeight: 420,
+                maxImageWidth: 1920,
+                maxImageHeight: 420,
+                showRemove: true,
+                @if(isset($product) && $product->desktop_banner!=NULL)
                 initialPreview: ["{{asset($product->desktop_banner)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($product->desktop_banner!=NULL)?last(explode('/',$product->desktop_banner)):''}}",
-                    width: "120px",
-                    key: "{{'product/desktop_banner/'.$product->id.'/desktop_banner_webp' }}",
-                }],
+                    width: "120px"
+                }]
                 @endif
-        });
-      
-        $("#featured_image").fileinput({
-            'theme': 'explorer-fas',
-            validateInitialCount: true,
-            overwriteInitial: false,
-            autoReplace: true,
-            initialPreviewShowDelete: false,
-            initialPreviewAsData: true,
-            dropZoneEnabled: false,
-            required: false,
-            allowedFileTypes: ['image'],
-            minImageWidth: 900,
-            minImageHeight: 830,
-            maxImageWidth: 900,
-            maxImageHeight: 830,
-            showRemove: true,
-            @if(isset($product) && $product->featured_image!=NULL)
+            });
+            $("#mobile_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                initialPreviewShowDelete: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 960,
+                minImageHeight: 450,
+                maxImageWidth: 960,
+                maxImageHeight: 450,
+                showRemove: true,
+                @if(isset($product) && $product->mobile_banner!=NULL)
+                initialPreview: ["{{asset($product->mobile_banner)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($product->mobile_banner!=NULL)?last(explode('/',$product->mobile_banner)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
+            $("#featured_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                initialPreviewShowDelete: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 1131,
+                minImageHeight: 604,
+                maxImageWidth: 1131,
+                maxImageHeight: 604,
+                showRemove: true,
+                @if(isset($product) && $product->featured_image!=NULL)
                 initialPreview: ["{{asset($product->featured_image)}}",],
                 initialPreviewConfig: [{
                     caption: "{{ ($product->featured_image!=NULL)?last(explode('/',$product->featured_image)):''}}",
-                    width: "120px",
-                    key: "{{'product/featured_image/'.$product->id.'/featured_image_webp' }}",
-                }],
+                    width: "120px"
+                }]
                 @endif
+            });
         });
+        $('#featured_video_url').on('input', function () {
+            var url = $(this).val();
+            if (url != '') {
+                $('#featured_image_div').show();
+            } else {
+                $('#featured_image_div').hide();
+            }
+        });
+
+//         $(document).ready(function () {
+
+            
+    
+    
+
+//     var selectedCategoryValue = $('#category').val();
+
+//     if (selectedCategoryValue !== '' && selectedCategoryValue !== null && selectedCategoryValue == 21) {
+
+      
+       
+      
+//         // Show corresponding size and price listing table
+//         $('[id^=size_price_listing_table]').show().each(function() {
+//             $(this).find('tr:first-child input[name^="price["]').addClass('required');
+//         });
+//         $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
+
+//         $('#firstpricing input[type="number"]').val('');
+//     } else {
+       
+
+//         $('[id^=size_price_listing_table]').hide();
+
+//         $('#size_price_listing_table input[type="number"]').val('');
+   
+//         $('[id^=firstpricing]').show().find('#pricenormal').addClass('required');
+//     }  
+
+//     // Add change event listener for each category select
+//     $('[id^=category]').change(function () {
+//         var category = $(this).val();
+//         var categoryId = $(this).attr('id');
+//         var tableId = categoryId.replace('category', 'size_price_listing_table');
+//         var tableId1 = categoryId.replace('category', 'firstpricing');
+
+//         if (category !=='' && category == 21 ) {
+//             $('#' + tableId).show();
+//             $('#' + tableId).find('tr:first-child input[name^="price["]').addClass('required');
+//             $('#' + tableId1).hide().find('input[type="number"]').val('');
+//             $('#' + tableId1).find('#pricenormal').removeClass('required');
+           
+//         } else {
+           
+//             $('#' + tableId).hide();
+//             $('#' + tableId).find('#pricesize').removeClass('required');
+//             $('#' + tableId1).show().find('#pricenormal').addClass('required');
+//             $('#' + tableId).find('input[type="number"]').val('');
+//         }
+//     });
+// });
+$(document).ready(function () {
+    function updateVisibilityBasedOnCategory(ageRange) {
+        if (ageRange === 'Active') {
+            $('[id^=size_price_listing_table]').show().each(function() {
+                $(this).find('tr:first-child input[name^="price["]').addClass('required');
+            });
+            $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
+            $('#firstpricing input[type="number"]').val('');
+        } else {
+            $('[id^=size_price_listing_table]').hide();
+            $('#size_price_listing_table input[type="number"]').val('');
+            $('[id^=firstpricing]').show().find('#pricenormal').addClass('required');
+        }
+    }
+
+    // Initial check when the document is ready
+    var selectedCategoryValue = $('#category').val();
+    if (selectedCategoryValue !== '') {
+        // Make an initial AJAX call to fetch age_range
+        $.ajax({
+            url: '/admin/product/category/category-details', // The URL to your endpoint
+            method: 'GET',
+            data: { category_id: selectedCategoryValue },
+            success: function(response) {
+                updateVisibilityBasedOnCategory(response.age_range);
+            },
+            error: function() {
+                console.log('Error fetching category details');
+            }
+        });
+    } else {
+        updateVisibilityBasedOnCategory('');
+    }
+
+    // Add change event listener for the category select
+    $('#category').change(function () {
+        var selectedCategoryValue = $(this).val();
+
+        if (selectedCategoryValue !== '') {
+            // Make an AJAX call to fetch age_range
+            $.ajax({
+                url: '/admin/product/category/category-details', // The URL to your endpoint
+                method: 'GET',
+                data: { category_id: selectedCategoryValue },
+                success: function(response) {
+                    updateVisibilityBasedOnCategory(response.age_range);
+                },
+                error: function() {
+                    console.log('Error fetching category details');
+                }
+            });
+        } else {
+            updateVisibilityBasedOnCategory('');
+        }
     });
-</script>
+});
+
+
+
+        
+    </script>
 @endsection

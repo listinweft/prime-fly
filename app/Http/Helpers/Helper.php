@@ -124,6 +124,7 @@ class Helper
         $menus = Menu::active()->with('category')->oldest('sort_order')->get();
        
         $sideMenus = SideMenu::active()->oldest('sort_order')->get();
+        $calculation_box = self::calculationBox();
        
         $blogCount = Blog::active()->count();
         $sessionKey = '';
@@ -135,6 +136,120 @@ class Helper
         
         $address = ContactAddress::active()->first();
         return View::share(compact('siteInformation', 'menus', 'blogCount', 'sessionKey',   'address','sideMenus'));
+    }
+
+    public static function calculationBox()
+    {
+        //update item prices
+        self::updateCartItemPrice();
+        $return_result = [];
+        if (Session::has('session_key')) {
+            $siteInformation = SiteInformation::first();
+            $sessionKey = session('session_key');
+            $grand_total = Cart::session($sessionKey)->getTotal();
+            $currency_rate = 25;
+            $shippingFreeArray = [];
+            if (Session::has('coupons')) {
+                foreach (session('coupons') as $session_coupon) {
+                    $coupon = Coupon::where([['status', 'Active'], ['code', $session_coupon['code']]])->first();
+                    self::coupon_application($coupon);
+                    if ($coupon->is_free_shipping == 'Yes') {
+                        $shippingFreeArray[] = '1';
+                    }
+                }
+            }
+            if (Session::has('coupon_value')) {
+                $grand_total = $grand_total - session('coupon_value');
+            }
+            $shippingAmount = '0.00';
+            if (!$shippingFreeArray) {
+                if (Auth::guard('customer')->check()) {
+                    if (Session::has('selected_shipping_address')) {
+                        $customerAddress = CustomerAddress::active()->find(session('selected_shipping_address'));
+                    } else {
+                        $customerAddress = CustomerAddress::active()->where('customer_id', Auth::guard('customer')->user()->customer->id)
+                            ->where('is_default', 'Yes')->first();
+                    }
+                    if ($customerAddress) {
+                        $shippingAmount = ShippingCharge::getShippingCharge($customerAddress->state_id, $grand_total);
+                    } else {
+                        $shippingAmount = '0.00';
+                    }
+                } else {
+                    if (Session::has('shipping_state')) {
+                        $shippingAmount = ShippingCharge::getShippingCharge(session('shipping_state'), $grand_total);
+                    } else {
+                        $shippingAmount = '0.00';
+                    }
+                }
+            }
+            $tax_amount = 0.00;
+            if ($siteInformation->tax != 0) {
+                if ($siteInformation->tax_type == "Outside") {
+                    $tax_amount = $grand_total * $siteInformation->tax / 100;
+                    $grand_total = $grand_total + $tax_amount;
+                }
+            }
+            $grandTotal = $grand_total + $shippingAmount;
+            $return_result['shippingAmount'] = $shippingAmount;
+            $return_result['tax_amount'] = $tax_amount;
+            $return_result['final_total_with_tax'] = $grandTotal;
+        }
+        return $return_result;
+    }
+    public static function updateCartItemPrice()
+    {
+        if (Session::has('session_key')) {
+            $sessionKey = session('session_key');
+            if (!Cart::session($sessionKey)->isEmpty()) {
+                foreach (Cart::session($sessionKey)->getContent() as $row) {
+                    $product = Product::find($row->id);
+                  
+                        $offer_amount = '0.00';
+                        $offer_id = '0';
+                        $product_price = $row->price;
+                    
+                    Cart::session($sessionKey)->update($row->id, [
+                        'price' => $product_price,
+                        'guest' => $row->guest,
+                        'quantity' => 1,
+                        'name' => $row->name,
+                        'attributes' => [  'guest' => $row->attributes->guest,
+                        'entry_date' => $row->attributes->entry_date,
+                    'setdate' => $row->attributes->setdate,
+
+                    'origin' => $row->attributes->origin,
+                'destination' => $row->attributes->destination,
+                'travel_sector' => $row->attributes->travel_sector,
+                'flight_number' => $row->attributes->flight_number,
+
+                'travel_type' => $row->attributes->travel_type,
+                'terminal' => $row->attributes->terminal,
+                'entry_time' => $row->attributes->entry_time,
+                'exit_time' => $row->attributes->exit_time,
+                'bag_count' => $row->attributes->bag_count,
+                
+                ],// Ensure attributes are empty if not needed
+                         'conditions' => [],
+
+                    ]);
+                }
+            }
+        }
+    }
+
+    public static function getCartItemCount()
+    {
+        $cartItemCount = 0;
+        if (Session::has('session_key')) {
+            $sessionKey = session('session_key');
+            if (!Cart::session($sessionKey)->isEmpty()) {
+                foreach (Cart::session($sessionKey)->getContent() as $row) {
+                    $cartItemCount ++ ;
+                }
+            }
+        }
+        return $cartItemCount;
     }
 
     /**
@@ -178,6 +293,57 @@ class Helper
         if (File::exists(public_path($collection->$fieldName))) {
             File::delete(public_path($collection->$fieldName));
         }
+    }
+
+
+     public static function sendOrderPlacedMail($order, $flag)
+    {
+        if ($flag == '1') {
+            $orderData = Order::find($order);
+            if ($orderData != NULL) {
+                if ($orderData->orderCustomer->user_type == "User") {
+                    $order = Order::with(['orderProducts' => function ($t) {
+                        $t->with('productData');
+                    }])->with(['orderCustomer' => function ($c) use ($orderData) {
+                        $c->with('customerData');
+                        $c->with('billingAddress');
+                        $c->where('customer_id', $orderData->orderCustomer->customer_id);
+                    }])->with('orderCoupons')->find($orderData->id);
+                } else {
+                    $order = Order::with(['orderProducts' => function ($t) {
+                        $t->with('productData');
+                    }])->with('orderCustomer')->with('orderCoupons')->find($orderData->id);
+                }
+            }
+        }
+        $common = SiteInformation::first();
+        $contactAddress = ContactAddress::where('status', 'Active')->first();
+        $customerAddress = $order->orderCustomer->CustomerData;
+        $to = $customerAddress->user->email;
+        $to_name = $customerAddress->first_name ;
+        $link = url('order/' . base64_encode($order->order_code));
+        $orderGrandTotal = Order::OrderGrandTotal($order->id);
+       
+        $orderTotal = Order::getProductTotal($order->id);
+        //mail to customer
+     $emails = explode(',', $common->order_emails);
+     //send mail to multiple emails
+       
+        Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
+            'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
+            'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
+            $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
+            $message->from($common->email, $common->email_recipient);
+        });        //mail to admin
+        foreach ($emails as $email) {
+            Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
+                'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
+                'link' => $link), function ($message) use ($email, $to_name, $common,$contactAddress) {
+                $message->to($email, $to_name)->subject(config('app.name') . ' - Order Placed');
+                $message->from($common->email, $common->email_recipient);
+            });
+        }
+        return true;
     }
 
     /**
@@ -229,6 +395,10 @@ class Helper
      */
     public static function printImage($collection, $field, $webpField, $attributeField, $cssClass = null, $cssStyle = null, $pictureClass = null)
     {
+
+       
+
+        
         $imageData = '<picture' . ($pictureClass ? ' class="' . $pictureClass . '"' : '') . '>';
         if (!empty($collection->$webpField) && File::exists(public_path($collection->$webpField))) {
             $imageData .= '<source srcset="' . asset($collection->$webpField) . '" type="image/webp">';
@@ -243,7 +413,7 @@ class Helper
             } else if ($field == 'author_image') {
                 $imageData .= '<img src="' . asset('frontend/images/blog/profile/blog_profile.jpg') . '" alt="Default Image"';
             } else {
-                $imageData .= '<img src="' . asset('frontend/images/logo_emirati.png') . '" alt="Default Image"';
+                $imageData .= '<img src="' . asset('frontend/images/logo_emirati.png') . '" alt="defaults Image"';
             }
         }
         if ($cssClass) {

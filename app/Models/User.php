@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'username', 'password'
+        'name', 'email', 'username', 'password','location_ids','btype'
     ];
 
 
@@ -103,4 +104,11 @@ class User extends Authenticatable
         {
             return $this->belongsToMany(Comment::class, 'user_comment_likes', 'user_id', 'comment_id');
         }
+
+        public function locations()
+        {
+            return $this->belongsToMany(Location::class, 'users_location', 'user_id', 'location_id');
+        }
+
+    
 }

@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     if ($('.placeholder-cls').val() == '' || $('.placeholder-cls').val() == null) {
-        $('.placeholder-cls').val('alt="EMIRATI"');
+        $('.placeholder-cls').val('alt="PRIMEFLY"');
     }
 
     if ($('.fancy').length > 0) {
@@ -63,23 +63,52 @@ $(document).ready(function () {
         $('.daterange').daterangepicker();
     }
 
+    // $(document).on('click', '#order-detail-search-result', function (e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: 'POST', dataType: 'html', data: $('#order-detail-filter-form').serialize(), headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }, url: base_url + '/report/order_detail_filter', success: function (response) {
+    //             if (response != '0') {
+
+                  
+
+                   
+    //                 $('#filter--result').html(response);
+    //                 $('#clear-search-result').attr('disabled', false);
+    //             } else {
+    //                 swal({
+    //                     title: "Error", text: response.message, type: 'error'
+    //                 });
+    //             }
+    //         }
+    //     });
+    // });
     $(document).on('click', '#order-detail-search-result', function (e) {
         e.preventDefault();
         $.ajax({
-            type: 'POST', dataType: 'html', data: $('#order-detail-filter-form').serialize(), headers: {
+            type: 'POST',
+            dataType: 'html',
+            data: $('#order-detail-filter-form').serialize(),
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/report/order_detail_filter', success: function (response) {
+            },
+            url: base_url + '/report/order_detail_filter',
+            success: function (response) {
                 if (response != '0') {
-                    $('#filter-detailed-result').html(response);
+                    $('#filter--result').html(response);
                     $('#clear-search-result').attr('disabled', false);
                 } else {
                     swal({
-                        title: "Error", text: response.message, type: 'error'
+                        title: "Error",
+                        text: response.message,
+                        type: 'error'
                     });
                 }
             }
         });
     });
+    
 
     $(document).on('change', '.product-selection-drop', function () {
         var type = $('.deal-product-type').val();
@@ -571,14 +600,39 @@ $(document).ready(function () {
         });
     }
 
+    // $('#category').on('change', function () {
+    //     var parentId = $(this).val();
+    //     var _token = token;
+    //     $.ajax({
+    //         type: 'POST',
+    //         dataType: 'json',
+    //         url: base_url + '/sub-category',
+    //         data: {parentId: parentId, _token: _token},
+    //         success: function (data) {
+    //             if (data.status == false) {
+    //                 swal('Error !', data.message, 'error');
+    //             } else {
+    //                 var resp = data.message;
+    //                 var len = resp.length;
+    //                 $("#sub_category").empty().append("<option value=''>Select Option</option>")
+    //                 for (var i = 0; i < len; i++) {
+    //                     var id = resp[i]['id'];
+    //                     var title = resp[i]['title'];
+    //                     $("#sub_category").append("<option value='" + id + "'>" + title + "</option>");
+    //                 }
+    //                 $('#sub_category_error').html('');
+    //             }
+    //         }
+    //     });
+    // });
     $('#category').on('change', function () {
-        var parentId = $(this).val();
+        var parentId = $(this).val(); // Assuming parentId is a single value
         var _token = token;
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: base_url + '/sub-category',
-            data: {parentId: parentId, _token: _token},
+            data: {parentId: [parentId], _token: _token}, // Wrap parentId in an array
             success: function (data) {
                 if (data.status == false) {
                     swal('Error !', data.message, 'error');
@@ -596,6 +650,7 @@ $(document).ready(function () {
             }
         });
     });
+    
 
     $(document).on('click', '.product_replica', function () {
         var product_id = $(this).data('id');
@@ -683,7 +738,7 @@ $(document).ready(function () {
         var url = $(this).data('url');
         swal({
             title: "Are you sure?",
-            text: "You will not be able to revert this!",
+            text: "",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -783,13 +838,16 @@ $(document).ready(function () {
 
 
     $(document).on('click', '.delete_entry', function () {
+        console.log('Clicked!');
+       
         var id = $(this).data('id');
         var url = $(this).data('url');
+        alert(url);
         var _token = token;
         if (id) {
             swal({
                 title: "Are you sure?",
-                text: "You will not be able to revert this!",
+                text: "",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",
@@ -836,7 +894,60 @@ $(document).ready(function () {
             swal('Error !', 'Entry not found', 'error');
         }
     });
-
+    $(document).on('click', '.reset_entry', function () {
+        var id = $(this).data('id');
+        var url = $(this).data('url');
+        var _token = token;
+        if (id) {
+            swal({
+                title: "Are you sure?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, Reset it!",
+                cancelButtonText: "No, cancel plz!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: base_url + '/' + url,
+                        data: {id: id, _token: _token},
+                        success: function (data) {
+                            if (data.status == false) {
+                                swal({
+                                    showConfirmButton : false,
+                                   title :  'Error !',
+                                     text : data.message, 
+                                     type : 'error'
+                                     });
+                                     setTimeout(() => {
+                                        location.reload();
+                                     }, 700);
+                            } else {
+                                swal({
+                                    showConfirmButton : false,
+                                    title: "Success", 
+                                    text: "Entry has been Reset!", 
+                                    type: "success"
+                                });
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 700);
+                            }
+                        }
+                    })
+                } else {
+                    swal("Cancelled", "Entry remain safe :)", "error");
+                }
+            });
+        } else {
+            swal('Error !', 'Entry not found', 'error');
+        }
+    });
     $('#login_email').on('keyup', function () {
         $('#username').val($(this).val());
     });
@@ -1021,6 +1132,8 @@ $(document).ready(function () {
                     $('#' + id + '_error').html('This field is required').css({
                         'color': '#FF0000', 'font-size': '14px'
                     });
+
+                    console.log(id);
                 } else {
                     $('#' + id + '_error').html('');
                 }
@@ -1080,7 +1193,9 @@ $(document).ready(function () {
             }
           
         });
+      
      console.log(required.length);
+ 
 //   
         if (required.length == 0) {
             if ($('.file-error-message').is(":visible")) {
@@ -1618,7 +1733,7 @@ $(document).ready(function () {
         var _token = token;
         swal({
             title: "Are you sure?",
-            text: "You will not be able to revert this!",
+            text: "",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
