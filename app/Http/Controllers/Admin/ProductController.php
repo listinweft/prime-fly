@@ -1287,26 +1287,28 @@ class ProductController extends Controller
             }
 
 
-            if(isset($priceWithSize) && !empty($priceWithSize)){
-                 DB::table('product_offer_size')->where('product_id', $offer->product_id)->where('user_id', $offer->user_id)->whereIn('size_id',$request->size)->delete();
-                foreach($priceWithSize as $key => $value){
-                   
-                    $price['product_id'] =  $offer->product_id;
-                    $price[$key] = $value;
-               
-                    if(isset($price[$key]) && !empty($price[$key])){
-    
-                        $procutPrice = DB::table('product_offer_size')->insert([
-                            'product_id' =>  $offer->product_id,
-                            'size_id' => $key,
-                            'price' => $value,
-                            'offer_id'=>$insertedId,
-                            'user_id'=>$offer->user_id
-                        ]);
-                      
-                    }
+            if (isset($priceWithSize) && !empty($priceWithSize)) {
+                // First, delete existing entries for the given product and user
+                DB::table('product_offer_size')
+                    ->where('product_id', $offer->product_id)
+                    ->where('user_id', $offer->user_id)
+                    ->whereIn('size_id', $request->size)
+                    ->delete();
+            
+                // Now, insert entries, setting value to 0 if it is null or 0
+                foreach ($priceWithSize as $key => $value) {
+                    $value = !is_null($value) ? $value : 0;
+                    DB::table('product_offer_size')->insert([
+                        'product_id' => $offer->product_id,
+                        'size_id' => $key,
+                        'price' => $value,
+                        'user_id' => $offer->user_id
+                    ]);
                 }
             }
+            
+            
+            
 
 
             session()->flash('message', "Price '" . $offer->title . "' has been added successfully");
@@ -1341,7 +1343,13 @@ class ProductController extends Controller
     }
 
     public function offer_update(Request $request, $id)
+
+    
     {
+    
+    
+
+
         $offer = Offer::find($id);
         $validatedData = $request->validate([
             // 'product_id' => 'required',
@@ -1378,25 +1386,28 @@ class ProductController extends Controller
 
             }
             
-            if(isset($priceWithSize) && !empty($priceWithSize)){
-                 DB::table('product_offer_size')->where('product_id', $offer->product_id)->where('user_id', $offer->user_id)->whereIn('size_id',$request->size)->delete();
-                foreach($priceWithSize as $key => $value){
-                   
-                    $price['product_id'] =  $offer->product_id;
-                    $price[$key] = $value;
-               
-                    if(isset($price[$key]) && !empty($price[$key])){
-    
-                        $procutPrice = DB::table('product_offer_size')->insert([
-                            'product_id' =>   $offer->product_id,
-                            'size_id' => $key,
-                            'price' => $value,
-                            'user_id'=>$offer->user_id
-                        ]);
-                      
-                    }
+            if (isset($priceWithSize) && !empty($priceWithSize)) {
+                // First, delete existing entries for the given product and user
+                DB::table('product_offer_size')
+                    ->where('product_id', $offer->product_id)
+                    ->where('user_id', $offer->user_id)
+                    ->whereIn('size_id', $request->size)
+                    ->delete();
+            
+                // Now, insert entries, setting value to 0 if it is null or 0
+                foreach ($priceWithSize as $key => $value) {
+                    $value = !is_null($value) ? $value : 0;
+                    DB::table('product_offer_size')->insert([
+                        'product_id' => $offer->product_id,
+                        'size_id' => $key,
+                        'price' => $value,
+                        'user_id' => $offer->user_id
+                    ]);
                 }
             }
+            
+            
+            
             session()->flash('message', "Price '" . $offer->title . "' has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $offer->product_id);
         } else {
