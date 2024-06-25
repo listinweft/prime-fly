@@ -82,6 +82,21 @@ class WebController extends Controller
         return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials'));
     }
 
+    public function locations()
+    {
+      
+
+        return view('web.locations');
+    }
+
+    public function services()
+    {
+      
+
+        return view('web.services');
+    }
+
+
     public function getLocations(Request $request)
     {
         $travelSector = $request->input('travel_sector');

@@ -80,9 +80,9 @@
             <div class="guest-number-input-item">
                 <div class="g-input-text">Infants</div>
                 <div class="g-input-field">
-                    <span class="minus count-btn">-</span>
+                    <span class="minusi count-btn">-</span>
                     <input type="text" name="infants" value="4" maxlength="4" />
-                    <span class="plus count-btn">+</span>
+                    <span class="plusi count-btn">+</span>
                 </div>
             </div>
         </div>
@@ -90,9 +90,9 @@
             <div class="guest-number-input-item">
                 <div class="g-input-text">Children</div>
                 <div class="g-input-field">
-                    <span class="minus count-btn">-</span>
+                    <span class="minusc count-btn">-</span>
                     <input type="text" name="children" value="4" maxlength="4" />
-                    <span class="plus count-btn">+</span>
+                    <span class="plusc count-btn">+</span>
                 </div>
             </div>
         </div>
