@@ -4,6 +4,19 @@
   font-family: "Inter", sans-serif; 
   font-weight:400; 
 }
+select,input,textarea{ 
+    outline: 0;
+    box-shadow: none;
+}
+select:focus,input:focus,textarea:focus{
+    outline: none; 
+    outline: 0;
+    box-shadow: none;
+}
+.form-control:focus { 
+    outline: 0;
+    box-shadow: none;
+}
 a{
     text-decoration: none;
 }
@@ -39,6 +52,7 @@ a:hover{
 .nav-item a{
     color: white;
     font-weight: 500;
+    position: relative;
 }
 .header-cart .nav-item a{
     color: #707070;
@@ -53,6 +67,22 @@ a:hover{
 }
 .header-cart .header-login a{ 
     padding: 1px;
+}
+.cart-count {
+    background-color: #f14444;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 8px;
+    font-weight: 500;
 }
 .banner {
     position: relative;
@@ -87,9 +117,9 @@ a:hover{
     color: #122031;
     display: block;
 }
-.filter_tab_content{
+.filter_tab_content {
     background-color: #fff;
-    padding: 30px 80px;
+    padding: 30px 60px;
     border-radius: 20px;
     min-height: 200px;
 }
@@ -136,9 +166,10 @@ a:hover{
 }
 .booking_field {
     position: relative;
-    width: 24%;
+    width: 23%;
     height: 40px;
-    margin: 3px 3px;
+    margin: 3px 7px;
+    margin-bottom: 15px;
 }
 .booking_field select {
     border-radius: 0; 
@@ -320,7 +351,7 @@ table {
     border: 1px solid #E1E7EE;
     border-radius: 9px;
     height: 100%;
-    padding: 10px 15px;
+    padding: 13px 15px;
     line-height: 1;
 }
 .custom-date-picker:after {
@@ -459,6 +490,16 @@ table {
     border: 1px solid #E1E7EE;
     border-radius: 9px;
     cursor: pointer;
+    margin-bottom: 10px;
+}
+.booking_field label.error {
+    font-size: 11px;
+    color: #ff4c4c;
+    bottom: -15px;
+    position: absolute;
+    left: 15px;
+    font-weight: 300;
+    letter-spacing: 0.3px;
 }
 .select-options {
     max-height: 200px;
@@ -1466,6 +1507,12 @@ footer{
 }
 .cart-prdt-img{
     margin-right: 15px;
+}
+.cart-prdt-img img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 .cart-prdct-dtls{
     margin-right: 15px;
@@ -3219,3 +3266,25 @@ color: rgba(112, 112, 112, 0.81);
     border-bottom: 1px solid #c4c4c5 !important;
 }
 /*------------- single blog end -------------*/
+
+
+@media(max-width:1680px){
+    .airtport_list_thumb { 
+        width: 140px;
+        height: 140px;
+    }
+    .airtport_list_thumb h3{
+        font-size: 28px;
+    }
+    .filter_tab_content { 
+        padding: 30px 50px; 
+    }
+    .booking_select select{
+        padding-left: 0px;
+    } 
+    .normal_select:after {
+        width: 7px;
+        height: 7px;
+        top: 65%;
+    }
+}

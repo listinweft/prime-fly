@@ -45,14 +45,14 @@
             </div>
         </div>
         <div class="booking_field" id="destination_select">
-        <div class="booking_select">
-            <select class="form-control" name="destination" id="destinations">
-            <option value="">Select Destination</option>
-                @foreach ($locations as $location)
-                    <option value="{{ $location->id }}">{{ $location->title }}</option>
-                @endforeach
-            </select>
-</div>
+            <div class="booking_select">
+                <select class="form-control" name="destination" id="destinations">
+                <option value="">Select Destination</option>
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}">{{ $location->title }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="booking_field" id="flight_select">
         <div class="normal_select">

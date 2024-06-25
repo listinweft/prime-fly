@@ -34,7 +34,7 @@
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a href="{{ url('cart/') }}" class="nav-link"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo">{{ Helper::getCartItemCount()}}</a>
+                        <a href="{{ url('cart/') }}" class="nav-link"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
                      </li>
                      <li class="nav-item header-login"><a href="{{ url('choose/') }}" class="btn btn-default">Login</a></li>
                   </ul>

@@ -3,7 +3,8 @@
                 @csrf
                 <input type="hidden" value="{{$category->id}}" name="category">
                 <div class="d-flex flex-wrap"> 
-                    <div class="booking_field" id="origin_select">
+                    <div class="booking_field" id="orgin_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="origin">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
@@ -11,12 +12,15 @@
                             @endforeach
                         </select>
                     </div>
+                    </div>
                     <div class="booking_field" id="terminal_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="terminal">
                             <option value="">Select Terminal</option>
                             <option value="terminal1">Terminal 1</option>
                             <option value="terminal2">Terminal 2</option>
                         </select>
+                    </div>
                     </div> 
                     <div class="booking_field">
                         <div class="custom-date-picker">
@@ -38,10 +42,6 @@
                             <input class="form-control timepicker" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
                         </div> 
                     </div>  
-                    <div class="col-12 text-center mt-3">
-                        <button type="submit" class="btn btn-primary">Book Now</button>
-                    </div>
-
                     <div class="booking_field">
                         <div class="guest-number-input-item">
                             <div class="g-input-text">Bag Count</div>
@@ -51,8 +51,11 @@
                                 <span class="plus count-btn">+</span>
                             </div>
                         </div>
-                    </div
-                </div>
+                    </div>
+                    <div class="col-12 text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Book Now</button>
+                    </div>
+ 
             </form>
         
 @push('scripts')
