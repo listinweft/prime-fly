@@ -644,6 +644,9 @@ table {
     color: #979797;
     font-size: 16px;
 }
+.airport_lists>.d-flex{
+    justify-content: center !important;
+}
 .airport_list_grid{
     width: 20%;
     padding: 0 15px;
@@ -692,6 +695,7 @@ table {
     border-radius: 100%;
     opacity: 0;
     transition: all 0.3s ease-in;
+    text-transform: capitalize;
 }
 .airport_list_grid:hover h3{
     opacity: 1;
