@@ -5,7 +5,8 @@
 
                 <input type="hidden" value="{{$category->id}}" name="category">
 
-                    <div class="booking_field" id="origin_select">
+                    <div class="booking_field" id="orgin_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="origin">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
@@ -13,12 +14,15 @@
                             @endforeach
                         </select>
                     </div>
+                    </div>
                     <div class="booking_field" id="terminal_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="terminal">
                             <option value="">Select Terminal</option>
                             <option value="terminal1">Terminal 1</option>
                             <option value="terminal2">Terminal 2</option>
                         </select>
+                    </div>
                     </div> 
                     <div class="booking_field">
                         <div class="custom-date-picker">
