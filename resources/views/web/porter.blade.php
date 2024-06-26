@@ -2,23 +2,26 @@
     <div class="tab-content filter_tab_content" id="filter_tab">
         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             <h4>Porter</h4>
-            <form id="bookingForm-porter" action="{{ url('/search-booking') }}" method="POST">
+             <form id="bookingForm-porter" action="{{ url('/search-booking') }}" method="POST">
                 @csrf
                 <input type="hidden" value="{{$category->id}}" name="category">
                 <div class="d-flex flex-wrap">
                     <div class="booking_field">
                         <div class="custom-date-picker">
-                            <input class="form-control" type="text" autocomplete="off" name="entry_date" placeholder="Entry Date" max="2023-12-31"  id="datepicker" readonly="readonly">
+                            <input class="form-control" type="text" autocomplete="off" name="entry_date" placeholder="Entry Date" max="2023-12-31"  id="datepickerp" readonly="readonly">
                         </div>
                     </div>
-                    <div class="booking_field">
+                    <div class="booking_field"  id="travel_sect">
+                    <div class="booking_select">
                         <select type="text" id="travel_sector" class="form-control" name="travel_sector">
                             <option value="">Select Travel Sector</option>
                             <option value="international">International</option>
-                            <option value="domestic">Domestic</option>
+                            <option value="domestic">Domestic</option> 
                         </select>
                     </div>
-                    <div class="booking_field">
+                    </div>
+                    <div class="booking_field" id="travel_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="travel_type" id="travel_type">
                             <option value="">Select Travel Type</option>
                             <option value="departure">Departure</option>
@@ -27,7 +30,9 @@
                             <option value="transit_type">Transit</option>
                         </select>
                     </div>
-                    <div class="booking_field">
+                    </div>
+                    <div class="booking_field" id="orgin_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="origin" id="origins">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
@@ -35,7 +40,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="booking_field">
+                    </div>
+                    <div class="booking_field" id="destination_select">
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="destination" id="destinations">
                             <option value="">Select Destination</option>
                             @foreach ($locations as $location)
@@ -43,16 +50,23 @@
                             @endforeach
                         </select>
                     </div>
+                    </div>
                     <div class="booking_field">
+                    <div class="normal_select">
                         <select type="text" class="form-control" name="flight" id="flight_select">
+                        <option value="">Select Flight</option>
                             <option>Indigo</option>
                             <option>Air India</option>
                             <option>Qatur Airways</option>
                         </select>
                     </div>
-                    <div class="booking_field">
+                    </div>
+                    <div class="booking_field" id="flight_no_select">
                         <input type="text" class="form-control" name="flight_number" placeholder="Flight Number" />
                     </div>
+                    <!-- <div class="booking_field">
+                        <input type="text" class="form-control" name="flight_number" placeholder="Flight Number" />
+                    </div> -->
                     <div class="booking_field">
                         <div class="guest-number-input-item">
                             <div class="g-input-text">Count</div>
@@ -75,6 +89,23 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+
+    $( function() {
+            $( '#datepickerp' ).datepicker({
+              
+                  dateFormat: "dd-mm-yy",
+              changeMonth: true,
+              changeYear: true,
+              minDate: 0,
+              "setDate": new Date(),
+              "autoclose": true,
+              firstDay: 1
+              
+            });
+              $("#datepickerp").datepicker("setDate", new Date());
+          } );
+
+          
     $("#bookingForm-porter").validate({
         rules: {
             travel_type: "required",
@@ -114,7 +145,9 @@ $(document).ready(function() {
                         var categorys = response.category;
                         window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
                     } else {
-                        alert("Failed to calculate total amounts.");
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
                     }
                 },
                 error: function(xhr) {

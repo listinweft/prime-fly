@@ -53,6 +53,7 @@
         </div>
         <div class="booking_field" id="flight_select">
             <select type="text" class="form-control">
+            <option value="">Select Flight</option>
                 <option value="indigo">Indigo</option>
                 <option value="air_india">Air India</option>
                 <option value="qatur_airways">Qatur Airways</option>
@@ -170,7 +171,9 @@ success: function(response) {
               
                window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
            } else {
-               alert("Failed to calculate total amounts.");
+            Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
            }
        },
            error: function(xhr) {
@@ -187,7 +190,7 @@ $(function() {
 
       var travelSector = $(this).val();
 
-      alert(travelSector);
+   
         if (travelSector) {
           var base_url = "{{ url('/') }}";
         
