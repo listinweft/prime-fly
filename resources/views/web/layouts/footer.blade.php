@@ -9,9 +9,9 @@
               <div class="col-lg-6">
                 <div class="d-flex justify-content-center">
                   <!-- <div class="col-lg-4 footer_menu">
-                    <h4>About</h4>
+                    <h4>Links</h4>
                     <ul>
-                      <li><a href="">About Us</a></li>
+                      <li><a href="">Contact Us</a></li>
                       <li><a href="">News</a></li>
                       <li><a href="">Partners</a></li>
                     </ul>
@@ -32,6 +32,8 @@
                   <div class="col-lg-4 footer_menu">
                     <h4>More</h4>
                     <ul>
+                      <li><a href="">Contact Us</a></li>
+                      <li><a href="">News</a></li>
                       <li><a href="">Privacy Policy</a></li>
                       <li><a href="">Terms & Condition</a></li> 
                     </ul>

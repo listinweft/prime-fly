@@ -34,7 +34,7 @@
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a href="{{ url('cart/') }}" class="nav-link"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
+                        <a href="{{ url('cart/') }}" class="nav-link head-cart"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
                      </li>
 
                      @if(Auth::guard('customer')->check())

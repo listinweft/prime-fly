@@ -57,6 +57,10 @@ a:hover{
 .header-cart .nav-item a{
     color: #707070;
 }
+.header-cart .nav-item a.head-cart img {
+    filter: invert(1);
+    opacity: 0.6;
+}
 .header-login{
     background-color: white;
     border-radius: 20px;
@@ -1529,6 +1533,7 @@ footer{
     padding: 15px 15px;
     border: 1px solid #D0D0D0;
     border-radius: 10px;
+    margin-bottom: 15px
 }
 .cart-product-list h4,.cart-price-summry h4{
     font-size: 20px;
@@ -1571,6 +1576,9 @@ footer{
 .cart-prdct-price{
     padding-right: 30px;
 }
+#termsError{
+    font-size: 12px;
+}
 .price-summery{
     background-color: #fff;
     padding: 15px 40px;
@@ -1605,6 +1613,7 @@ footer{
 }
 .cart-prdct-summry .cart-dtl-wrp img{
     width: 60px;
+    height: 60px;
 }
 .cart-prdct-payment{
     padding: 20px;
