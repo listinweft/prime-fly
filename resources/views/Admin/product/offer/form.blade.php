@@ -116,11 +116,11 @@
     </td>
 </tr>
 <tr>
-    <td>Hourly Price</td>
+    <!-- <td>Hourly Price</td>
     <td>
       
         <input type="text" name="hourly_price" class="form-control" value="{{ isset($offer) ? $offer->hourly_price : '' }}">
-    </td>
+    </td> -->
     </tr>
     <tr>
     <td>Additional Hourly Price</td>

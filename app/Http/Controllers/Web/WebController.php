@@ -82,6 +82,21 @@ class WebController extends Controller
         return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials'));
     }
 
+    public function locations()
+    {
+      
+
+        return view('web.locations');
+    }
+
+    public function services()
+    {
+      
+
+        return view('web.services');
+    }
+
+
     public function getLocations(Request $request)
     {
         $travelSector = $request->input('travel_sector');
@@ -93,6 +108,8 @@ class WebController extends Controller
     public function search_booking(Request $request)
     {
 
+
+        
        
         // Validate request
         $request->validate([
@@ -111,7 +128,7 @@ class WebController extends Controller
         // Collect data
         $data = $request->all();
 
-        // $category = $request->category;
+        
 
         // Calculate total amounts for all matching products 
         $totalAmounts = $this->calculateTotalAmounts($data);
@@ -130,361 +147,150 @@ class WebController extends Controller
     private function calculateTotalAmounts($data)
     {
         // Fetch all products that match the location_id and service_type
-
-
         $products = Product::select('products.*', 'locations.title as location_title')
-        ->join('locations', function ($join) use ($data) {
-            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
-                 ->where('products.service_type', $data['travel_type']);
-        })
-        ->when($data['travel_type'] == "departure", function ($query) use ($data) {
-            return $query->where('locations.id', $data['origin']);
-        })
-        ->when($data['travel_type'] == "arrival", function ($query) use ($data) {
-            return $query->where('locations.id', $data['destination']);
-        })
-        ->when($data['travel_type'] == "transit_type", function ($query) use ($data) {
-            return $query->where('locations.id', $data['destination']);
-        })
-
-        ->where('products.category_id', $data['category'])
-        ->groupBy('products.id')
-        ->get();
-
+            ->join('locations', function ($join) use ($data) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
+                    ->where('products.service_type', $data['travel_type']);
+            })
+            ->when($data['travel_type'] == "departure", function ($query) use ($data) {
+                return $query->where('locations.id', $data['origin']);
+            })
+            ->when($data['travel_type'] == "arrival", function ($query) use ($data) {
+                return $query->where('locations.id', $data['destination']);
+            })
+            ->when($data['travel_type'] == "transit_type", function ($query) use ($data) {
+                return $query->where('locations.id', $data['destination']);
+            })
+            ->where('products.category_id', $data['category'])
+            ->groupBy('products.id')
+            ->get();
+    
         if ($products->isEmpty()) {
             return []; // or handle the case where no product is found
         }
     
         $result = [];
-
-        $guest = $data['adults'] + $data['infants']+$data['children'];
-
-        $setdate =  $data['datepicker'];
-
+        $guestCount = $data['adults'] + $data['infants'] + $data['children'];
+        $user = Auth::guard('customer')->user();
+        $isB2BUser = $user && $user->btype == "b2b";
+    
         foreach ($products as $product) {
-            $adultPrice = $product->price;
-    
-            // Fetch prices from the product_size_price table
-            $infantPrice = ProductPrice::where('product_id', $product->id)
-                                       ->where('size_id', 1) // Assuming size_id 1 is for infants
-                                       ->value('price');
-    
-            $childrenPrice = ProductPrice::where('product_id', $product->id)
-                                         ->where('size_id', 2) // Assuming size_id 2 is for children
-                                         ->value('price');
+            if ($isB2BUser) {
+                $userId = $user->id;
+                $adultPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 1)->where('user_id', $userId)->value('price') ?? $product->price;
+                $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
+                $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
+                $additionalPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 4)->where('user_id', $userId)->value('price') ?? $product->additional_price;
+            } else {
+                $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
+                $infantPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
+                $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
+                $additionalPrice = $product->additional_price ?? 0;
+            }
     
             // Calculate the total amount
             if ($data['adults'] > 1) {
-                $exceptadult = $data['adults'] - 1;
-                $totalAmount = (1 * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice) + ($exceptadult * $product->additional_price);
+                $additionalAdults = $data['adults'] - 1;
+                $totalAmount = (1 * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice) + ($additionalAdults * $additionalPrice);
             } else {
                 $totalAmount = ($data['adults'] * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice);
             }
     
             $result[] = [
                 'product' => $product,
-                'location_title' => $product->location_title, // Add location title to the result array
+                'location_title' => $product->location_title,
                 'total_amount' => $totalAmount,
-                'setdate' => $setdate,
-                'totalguest'=> $guest,
-                'origin'=> $data['origin'],
+                'setdate' => $data['datepicker'],
+                'totalguest' => $guestCount,
+                'origin' => $data['origin'],
                 'destination' => $data['destination'],
-                'flight_number'=>$data['flight_number'],
-                'travel_sector'=>$data['travel_sector'],
-                'entry_date'=>$setdate,
-                'travel_type'=>$data['travel_type']
-                
-
+                'flight_number' => $data['flight_number'],
+                'travel_sector' => $data['travel_sector'],
+                'entry_date' => $data['datepicker'],
+                'travel_type' => $data['travel_type']
             ];
         }
     
         return $result;
     }
     
+    
+    // public function search_booking_baggage(Request $request)
+    // {
+
+    // //  return    $request->all();
+    //     // Validate request
+    //     $request->validate([
+    //         'terminal' => 'required',
+    //         'origin' => 'required',
+    //         'destination' => 'required',
+    //         'flight_number' => 'required|string',
+    //         'adults' => 'required|integer',
+    //         'category' => 'required|integer'
+    //     ]);
+    
+    //     // Collect data
+    //     $data = $request->all();
+    
+    //     // Fetch products based on travel type and locations
+    //     $products = Product::select('products.*', 'locations.title as location_title')
+    //         ->join('locations', function ($join) {
+    //             $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+    //         })
+    //         ->where('products.category_id', $data['category']) // Add category filter
+    //         ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+    //         ->where('locations.id', $data['origin'])
+    //         ->groupBy('products.id')
+    //         ->get();
+    
+    //     if ($products->isEmpty()) {
+    //         return response()->json(['success' => false, 'message' => 'No package found']);
+    //     }
+    
+    //     $result = [];
+
+    //     $category = Category::where('id',$data['category'])->first();
+
+    //     $guest = $data['adults'];
+
+    //     $setdate =  $data['datepicker'];
+    
+    //     foreach ($products as $product) {
+    //         $totalAmount = $data['adults'] * $product->price;
+    //         $result[] = [
+    //             'product' => $product,
+    //             'location_title' => $product->location_title,
+    //             'total_amount' => $totalAmount, // Add total amount to the result array
+    //             'setdate' => $setdate,
+    //             'totalguest'=> $guest,
+    //             'origin'=> $data['origin'],
+    //             'destination'=>$data['destination'],
+    //             'flight_number'=>$data['flight_number'],
+    //             'terminal' =>$data['terminal'],
+
+               
+    //         ];
+    //     }
+    
+    //     return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
+    // }
+    
+
+
     public function search_booking_baggage(Request $request)
-    {
-
-    //  return    $request->all();
-        // Validate request
-        $request->validate([
-            'terminal' => 'required',
-            'origin' => 'required',
-            'destination' => 'required',
-            'flight_number' => 'required|string',
-            'adults' => 'required|integer',
-            'category' => 'required|integer'
-        ]);
-    
-        // Collect data
-        $data = $request->all();
-    
-        // Fetch products based on travel type and locations
-        $products = Product::select('products.*', 'locations.title as location_title')
-            ->join('locations', function ($join) {
-                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
-            })
-            ->where('products.category_id', $data['category']) // Add category filter
-            ->where('products.service_type', 'departure') // Ensure this checks the correct service type
-            ->where('locations.id', $data['origin'])
-            ->groupBy('products.id')
-            ->get();
-    
-        if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
-        }
-    
-        $result = [];
-
-        $category = Category::where('id',$data['category'])->first();
-
-        $guest = $data['adults'];
-
-        $setdate =  $data['datepicker'];
-    
-        foreach ($products as $product) {
-            $totalAmount = $data['adults'] * $product->price;
-            $result[] = [
-                'product' => $product,
-                'location_title' => $product->location_title,
-                'total_amount' => $totalAmount, // Add total amount to the result array
-                'setdate' => $setdate,
-                'totalguest'=> $guest,
-                'origin'=> $data['origin'],
-                'destination'=>$data['destination'],
-                'flight_number'=>$data['flight_number'],
-                'terminal' =>$data['terminal'],
-
-               
-            ];
-        }
-    
-        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
-    }
-    
-
-    public function search_booking_lounch(Request $request)
-    {
-
-    //  return    $request->all();
-        // Validate request
-        $request->validate([
-            'terminal' => 'required|string',
-            'origin' => 'required|integer',
-            'destination' => 'required|integer',
-            'flight_number' => 'required|string',
-            'adults' => 'required|integer',
-            'category' => 'required|integer'
-        ]);
-    
-        // Collect data
-        $data = $request->all();
-    
-        // Fetch products based on travel type and locations
-        $products = Product::select('products.*', 'locations.title as location_title')
-            ->join('locations', function ($join) {
-                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
-            })
-            ->where('products.category_id', $data['category']) // Add category filter
-            ->where('products.service_type', 'departure') // Ensure this checks the correct service type
-            ->where('locations.id', $data['origin'])
-            ->groupBy('products.id')
-            ->get();
-    
-        if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
-        }
-    
-
-        $guest = $data['adults'];
-
-        $setdate =  $data['entry_date'];
-
-        $result = [];
-
-        $category = Category::where('id',$data['category'])->first();
-    
-        foreach ($products as $product) {
-            $totalAmount = $data['adults'] * $product->price;
-            $result[] = [
-                'product' => $product,
-                'location_title' => $product->location_title,
-                'total_amount' => $totalAmount, // Add total amount to the result array
-                'setdate'=> $setdate,
-                'totalguest'=>$guest
-               
-            ];
-        }
-    
-        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
-    }
-
-    public function search_booking_porter(Request $request)
-    {
-
-    //  return    $request->all();
-        // Validate request
-        $request->validate([
-            
-            'travel_type' => 'required',
-            'travel_sector' => 'required|string',
-            'origin' => 'required',
-            'destination' => 'required',
-            'flight_number' => 'required|string',
-            'count' => 'required|integer',
-            'category' => 'required|integer'
-        ]);
-    
-        // Collect data
-        $data = $request->all();
-    
-        $products = Product::select('products.*', 'locations.title as location_title')
-        ->join('locations', function ($join) use ($data) {
-            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
-                 ->where('products.service_type', $data['travel_type']);
-        })
-        ->when($data['travel_type'] == "departure", function ($query) use ($data) {
-            return $query->where('locations.id', $data['origin']);
-        })
-        ->when($data['travel_type'] == "arrival", function ($query) use ($data) {
-            return $query->where('locations.id', $data['destination']);
-        })
-        ->when($data['travel_type'] == "transit_type", function ($query) use ($data) {
-            return $query->where('locations.id', $data['destination']);
-        })
-
-        ->where('products.category_id', $data['category'])
-        ->groupBy('products.id')
-        ->get();
-        
-        $category = Category::where('id',$data['category'])->first();
-
-        if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
-        }
-    
-
-        $guest = $data['count'];
-
-        $setdate =  $data['entry_date'];
-
-
-        $result = [];
-
-
-    
-        foreach ($products as $product) {
-            $totalAmount = $data['count'] * $product->price;
-            $result[] = [
-                'product' => $product,
-                'location_title' => $product->location_title,
-                'total_amount' => $totalAmount, // Add total amount to the result array
-                'setdate'=> $setdate,
-                'totalguest'=>$guest,
-                'origin'=> $data['origin'],
-                'destination'=>$data['destination'],
-                'flight_number'=>$data['flight_number'],
-                'travel_sector'=>$data['travel_sector'],
-                'entry_date'=>$setdate,
-                'travel_type'=>$data['travel_type']
-                
-                
-            ];
-        }
-    
-        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
-    }
-
-
-
-    public function search_booking_entry_ticket(Request $request)
-    {
-
-    //  return    $request->all();
-        // Validate request
-        $request->validate([
-            'terminal' => 'required|string',
-            'origin' => 'required|integer',
-            'count' => 'required|integer',
-            'category' => 'required|integer',
-            'exit_time' => 'required',
-            'entry_time' => 'required'
-
-        ]);
-    
-        // Collect data
-        $data = $request->all();
-    
-        // Fetch products based on travel type and locations
-        $products = Product::select('products.*', 'locations.title as location_title')
-            ->join('locations', function ($join) {
-                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
-            })
-            ->where('products.category_id', $data['category']) // Add category filter
-          
-            ->where('locations.id', $data['origin'])
-            ->groupBy('products.id')
-            ->get();
-    
-        if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
-        }
-    
-        $result = [];
-
-        $category = Category::where('id',$data['category'])->first();
-
-        
-
-        
-        $guest = $data['count'];
-
-        $setdate =  $data['entry_date'];
-    
-        foreach ($products as $product) {
-            $totalAmount = $data['count'] * $product->price;
-            $result[] = [
-                'product' => $product,
-                'location_title' => $product->location_title,
-                'total_amount' => $totalAmount, // Add total amount to the result array
-                'setdate' => $setdate,
-                'totalguest' => $guest,
-                'origin' => $data['origin'],
-                'terminal' => $data['terminal'],
-                'entry_date' => $data['entry_date'],
-                'exit_date' => $data['exit_date'],
-                'entry_time' => $data['entry_time'],
-                'exit_time' => $data['exit_time'],
-               
-            ];
-        }
-    
-        return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
-    }
-    
-
-    public function search_booking_cloakroom(Request $request)
 {
     // Validate request
     $request->validate([
-        'terminal' => 'required|string',
-        'origin' => 'required|integer',
-         'count' => 'required|integer', // Number of bags
-        'origin' => 'required',
         'terminal' => 'required',
-        'entry_date' => 'required',
-        'exit_date' => 'required',
-        'entry_time' =>'required',
-        'exit_time' => 'required',
+        'origin' => 'required',
+        'destination' => 'required',
+        'flight_number' => 'required|string',
+        'adults' => 'required|integer',
+        'category' => 'required|integer'
     ]);
 
     // Collect data
     $data = $request->all();
-
-    // Calculate the duration in hours
-    $entryDateTime = new DateTime($data['entry_date'] . ' ' . $data['entry_time']);
-    $exitDateTime = new DateTime($data['exit_date'] . ' ' . $data['exit_time']);
-    $interval = $entryDateTime->diff($exitDateTime);
-    $hours = $interval->days * 24 + $interval->h + ($interval->i > 0 ? 1 : 0); // Round up if there are any minutes
 
     // Fetch products based on travel type and locations
     $products = Product::select('products.*', 'locations.title as location_title')
@@ -492,6 +298,7 @@ class WebController extends Controller
             $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
         })
         ->where('products.category_id', $data['category']) // Add category filter
+        ->where('products.service_type', 'departure') // Ensure this checks the correct service type
         ->where('locations.id', $data['origin'])
         ->groupBy('products.id')
         ->get();
@@ -504,46 +311,377 @@ class WebController extends Controller
 
     $category = Category::where('id', $data['category'])->first();
 
+    $guest = $data['adults'];
+
+    $setdate = $data['datepicker'];
+
     foreach ($products as $product) {
-        // Fetch pricing details from product
-        $basePrice = $product->price; // Assuming the column name is base_price
-        $additionalHourPrice = $product->additional_hourly_price; // Assuming the column name is additional_hour_price
-        $additionalBagPrice = $product->additional_price; // Assuming the column name is additional_bag_price
+        // Fetch B2B pricing details if user is authenticated and B2B type
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
 
-        // Calculate total amount
-        $totalAmount = $basePrice;
-        if ($hours > 4) {
-            $totalAmount += ($hours - 4) * $additionalHourPrice;
+            $user = Auth::guard('customer')->user();
+            $offer = Offer::where('product_id', $product->id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if ($offer) {
+                $totalAmount = $data['adults'] * $offer->price;
+                
+            } else {
+                // Use default pricing if no offer found
+                $totalAmount = $data['adults'] * $product->price;
+               
+            }
+        } else {
+            // Use default pricing for non-authenticated or non-B2B users
+            $totalAmount = $data['adults'] * $product->price;
+           
         }
-        if ($data['count'] > 2) {
-
-
-        
-            $totalAmount += ($data['count'] - 2) * $additionalBagPrice;
-        }
-
-        $guest = $data['count'] ;
-
-        $setdate =  $data['exit_date'];
 
         $result[] = [
             'product' => $product,
             'location_title' => $product->location_title,
-            'total_amount' => $totalAmount, // Use the calculated total amount
+            'total_amount' => $totalAmount, // Add total amount to the result array
             'setdate' => $setdate,
             'totalguest' => $guest,
             'origin' => $data['origin'],
-             'terminal' => $data['terminal'],
-             'entry_date' => $data['entry_date'],
-             'exit_date' => $data['exit_date'],
-             'entry_time' => $data['entry_time'],
-             'exit_time' => $data['exit_time'],
-             'bag_count' => $data['count']
+            'destination' => $data['destination'],
+            'flight_number' => $data['flight_number'],
+            'terminal' => $data['terminal'],
+            
         ];
     }
 
     return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
 }
+
+
+public function search_booking_lounch(Request $request)
+{
+    // Validate request
+    $request->validate([
+        'terminal' => 'required|string',
+        'origin' => 'required|integer',
+        'destination' => 'required|integer',
+        'flight_number' => 'required|string',
+        'adults' => 'required|integer',
+        'category' => 'required|integer'
+    ]);
+
+    // Collect data
+    $data = $request->all();
+
+    // Fetch products based on travel type and locations
+    $products = Product::select('products.*', 'locations.title as location_title')
+        ->join('locations', function ($join) {
+            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+        })
+        ->where('products.category_id', $data['category']) // Add category filter
+        ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+        ->where('locations.id', $data['origin'])
+        ->groupBy('products.id')
+        ->get();
+
+    // Check if products are found
+    if ($products->isEmpty()) {
+        return response()->json(['success' => false, 'message' => 'No products found']);
+    }
+
+    // Initialize result array
+    $result = [];
+
+    // Fetch category title
+    $category = Category::where('id', $data['category'])->first();
+
+    foreach ($products as $product) {
+        // Fetch B2B pricing details if user is authenticated and B2B type
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
+            $user = Auth::guard('customer')->user();
+            $offer = Offer::where('product_id', $product->id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if ($offer) {
+                $totalAmount = $data['adults'] * $offer->price;
+            } else {
+                // Use default pricing if no offer found
+                $totalAmount = $data['adults'] * $product->price;
+            }
+        } else {
+            // Use default pricing for non-authenticated or non-B2B users
+            $totalAmount = $data['adults'] * $product->price;
+        }
+
+        // Prepare result array for each product
+        $result[] = [
+            'product' => $product,
+            'location_title' => $product->location_title,
+            'total_amount' => $totalAmount,
+            'setdate' => $data['entry_date'],
+            'totalguest' => $data['adults']
+        ];
+    }
+
+    // Return JSON response with success flag, total amounts, and category title
+    return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
+}
+
+
+    public function search_booking_porter(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'travel_type' => 'required',
+            'travel_sector' => 'required|string',
+            'origin' => 'required|integer',
+            'destination' => 'required|integer',
+            'flight_number' => 'required|string',
+            'count' => 'required|integer',
+            'category' => 'required|integer'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) use ($data) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
+                     ->where('products.service_type', $data['travel_type']);
+            })
+            ->when($data['travel_type'] == "departure", function ($query) use ($data) {
+                return $query->where('locations.id', $data['origin']);
+            })
+            ->when(in_array($data['travel_type'], ["arrival", "transit_type"]), function ($query) use ($data) {
+                return $query->where('locations.id', $data['destination']);
+            })
+            ->where('products.category_id', $data['category'])
+            ->groupBy('products.id')
+            ->get();
+    
+        // Check if products are found
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+        $category = Category::where('id', $data['category'])->first();
+    
+        // Initialize result array
+        $result = [];
+    
+        foreach ($products as $product) {
+            // Fetch B2B pricing details if user is authenticated and B2B type
+            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
+                $user = Auth::guard('customer')->user();
+                $offer = Offer::where('product_id', $product->id)
+                    ->where('user_id', $user->id)
+                    ->first();
+    
+                if ($offer) {
+                    $totalAmount = $data['count'] * $offer->price;
+                } else {
+                    // Use default pricing if no offer found
+                    $totalAmount = $data['count'] * $product->price;
+                }
+            } else {
+                // Use default pricing for non-authenticated or non-B2B users
+                $totalAmount = $data['count'] * $product->price;
+            }
+    
+            // Prepare result array for each product
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount,
+                'setdate' => $data['entry_date'],
+                'totalguest' => $data['count'],
+                'origin' => $data['origin'],
+                'destination' => $data['destination'],
+                'flight_number' => $data['flight_number'],
+                'travel_sector' => $data['travel_sector'],
+                'entry_date' => $data['entry_date'],
+                'travel_type' => $data['travel_type']
+            ];
+        }
+    
+        // Return JSON response with success flag, total amounts, and category title
+        return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
+    }
+    
+
+
+
+    public function search_booking_entry_ticket(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'terminal' => 'required|string',
+            'origin' => 'required|integer',
+            'count' => 'required|integer',
+            'category' => 'required|integer',
+            'entry_time' => 'required',
+            'exit_time' => 'required'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+            })
+            ->where('products.category_id', $data['category']) // Add category filter
+            ->where('locations.id', $data['origin'])
+            ->groupBy('products.id')
+            ->get();
+    
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+        $result = [];
+    
+        $category = Category::where('id', $data['category'])->first();
+    
+        $guest = $data['count'];
+    
+        $entryDate = $data['entry_date'];
+    
+        foreach ($products as $product) {
+            // Default pricing for non-B2B users
+            $ticketPrice = $product->price;
+    
+            // Check if the user is authenticated and is a B2B type
+            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
+                $user = Auth::guard('customer')->user();
+                $offer = Offer::where('product_id', $product->id)
+                    ->where('user_id', $user->id)
+                    ->first();
+    
+                // Use B2B pricing if available
+                if ($offer) {
+                    $ticketPrice = $offer->price;
+                }
+            }
+    
+            // Calculate total amount based on count and adjusted price
+            $totalAmount = $data['count'] * $ticketPrice;
+    
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Add total amount to the result array
+                'setdate' => $entryDate,
+                'totalguest' => $guest,
+                'origin' => $data['origin'],
+                'terminal' => $data['terminal'],
+                'entry_date' => $entryDate,
+                'exit_date' => $data['exit_date'],
+                'entry_time' => $data['entry_time'],
+                'exit_time' => $data['exit_time'],
+            ];
+        }
+    
+        return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
+    }
+    
+    
+
+    public function search_booking_cloakroom(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'terminal' => 'required|string',
+            'origin' => 'required|integer',
+            'count' => 'required|integer', // Number of bags
+            'entry_date' => 'required',
+            'exit_date' => 'required',
+            'entry_time' => 'required',
+            'exit_time' => 'required',
+            'category' => 'required|integer'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Calculate the duration in hours
+        $entryDateTime = new DateTime($data['entry_date'] . ' ' . $data['entry_time']);
+        $exitDateTime = new DateTime($data['exit_date'] . ' ' . $data['exit_time']);
+        $interval = $entryDateTime->diff($exitDateTime);
+        $hours = $interval->days * 24 + $interval->h + ($interval->i > 0 ? 1 : 0); // Round up if there are any minutes
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+            })
+            ->where('products.category_id', $data['category']) // Add category filter
+            ->where('locations.id', $data['origin'])
+            ->groupBy('products.id')
+            ->get();
+    
+        if ($products->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'No products found']);
+        }
+    
+        $result = [];
+        $category = Category::where('id', $data['category'])->first();
+    
+        foreach ($products as $product) {
+            // Fetch default pricing details from product
+            $basePrice = $product->price; // Assuming the column name is price
+            $additionalHourPrice = $product->additional_hourly_price ?? 0; // Assuming the column name is additional_hourly_price
+            $additionalBagPrice = $product->additional_price ?? 0; // Assuming the column name is additional_price
+    
+            // Check if the user is authenticated and B2B
+            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
+                // Fetch offer details for the B2B user
+                $user = Auth::guard('customer')->user();
+                $offer = Offer::where('product_id', $product->id)
+                    ->where('user_id', $user->id)
+                    ->first();
+    
+                if ($offer) {
+                    $totalAmount = $data['count'] * $offer->price; // Use offer price if available
+                    $additionalHourPrice = $offer->additional_hourly_price ?? $additionalHourPrice;
+                    $additionalBagPrice = $offer->additional_price ?? $additionalBagPrice;
+                } else {
+                    $totalAmount = $basePrice; // Use default base price if no offer found
+                }
+            } else {
+                // Use default pricing for non-authenticated or non-B2B users
+                $totalAmount = $basePrice;
+            }
+    
+            // Apply additional pricing rules
+            if ($hours > 4) {
+                $totalAmount += ($hours - 4) * $additionalHourPrice;
+            }
+            if ($data['count'] > 2) {
+                $totalAmount += ($data['count'] - 2) * $additionalBagPrice;
+            }
+    
+            // Prepare result array
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Use the calculated total amount
+                'setdate' => $data['exit_date'],
+                'totalguest' => $data['count'],
+                'origin' => $data['origin'],
+                'terminal' => $data['terminal'],
+                'entry_date' => $data['entry_date'],
+                'exit_date' => $data['exit_date'],
+                'entry_time' => $data['entry_time'],
+                'exit_time' => $data['exit_time'],
+                'bag_count' => $data['count']
+            ];
+        }
+    
+        return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
+    }
+    
 
     
     

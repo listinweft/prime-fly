@@ -126,24 +126,24 @@ class ServiceController extends Controller
        
         if ($product->save()) {
 
-            if(isset($priceWithSize) && !empty($priceWithSize)){
-                DB::table('products_size_price')->where('product_id', $product->id)->whereIn('size_id',$request->size)->delete();
-                foreach($priceWithSize as $key => $value){
-                   
-                    $price['product_id'] = $product->id;
-                    $price[$key] = $value;
-               
-                    if(isset($price[$key]) && !empty($price[$key])){
-    
-                        $procutPrice = DB::table('products_size_price')->insert([
-                            'product_id' =>  $product->id,
-                            'size_id' => $key,
-                            'price' => $value,
-                        ]);
-                      
-                    }
+            if (isset($priceWithSize) && !empty($priceWithSize)) {
+                // First, delete existing entries for the given product and sizes
+                DB::table('products_size_price')
+                    ->where('product_id', $product->id)
+                    ->whereIn('size_id', $request->size)
+                    ->delete();
+                
+                // Now, insert entries, setting value to 0 if it is null or 0
+                foreach ($priceWithSize as $key => $value) {
+                    $value = !is_null($value) ? $value : 0;
+                    DB::table('products_size_price')->insert([
+                        'product_id' => $product->id,
+                        'size_id' => $key,
+                        'price' => $value,
+                    ]);
                 }
             }
+            
 
             $productPrice = DB::table('products_size_price')->where('product_id', $product->id)->first();
 
@@ -277,24 +277,25 @@ class ServiceController extends Controller
 
                 $priceWithSize = $request->price;
             
-                if(isset($priceWithSize) && !empty($priceWithSize)){
-                    DB::table('products_size_price')->where('product_id', $product->id)->whereIn('size_id',$request->size)->delete();
-                    foreach($priceWithSize as $key => $value){
-                       
-                        $price['product_id'] = $product->id;
-                        $price[$key] = $value;
-                   
-                        if(isset($price[$key]) && !empty($price[$key])){
-        
-                            $procutPrice = DB::table('products_size_price')->insert([
-                                'product_id' =>  $product->id,
-                                'size_id' => $key,
-                                'price' => $value,
-                            ]);
-                          
-                        }
+                if (isset($priceWithSize) && !empty($priceWithSize)) {
+                    // First, delete existing entries for the given product and sizes
+                    DB::table('products_size_price')
+                        ->where('product_id', $product->id)
+                        ->whereIn('size_id', $request->size)
+                        ->delete();
+                    
+                    // Now, insert entries, setting value to 0 if it is null or 0
+                    foreach ($priceWithSize as $key => $value) {
+                        $value = !is_null($value) ? $value : 0;
+                        DB::table('products_size_price')->insert([
+                            'product_id' => $product->id,
+                            'size_id' => $key,
+                            'price' => $value,
+                        ]);
                     }
                 }
+                
+                
                 //  $priceWithSizep[] = $request->price;
 
               

@@ -63,6 +63,9 @@ Route::middleware(['web'])->group(function () {
     
     Route::get('/thankyou', [WebController::class, 'thankYouPage'])->name('thankyou');
     Route::get('/support', [WebController::class, 'support'])->name('support');
+    
+    Route::get('/services', [WebController::class, 'services'])->name('services');
+    Route::get('/locations', [WebController::class, 'locations'])->name('locations');
 
     
 
