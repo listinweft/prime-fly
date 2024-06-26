@@ -7,7 +7,7 @@
         <div class="container">
             <div class="d-flex justify-content-center">
                 <ul class="d-flex justify-content-center mb-0">
-                    <li><span>1</span>Cart</li>
+                    <li class="active"><span>1</span>Cart</li>
                     <li class="active"><span>2</span>Preview</li>
                     <li><span>3</span>Payment</li>
                 </ul>
@@ -31,7 +31,7 @@
                                         <div class="cart-dtl-wrp">
                                             <div class="d-flex align-items-center">
                                                 <div class="cart-prdt-img">
-                                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block w-100') !!}
+                                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block') !!}
                                                 </div>
                                                 <div class="cart-prdct-dtls">
                                                     <h4>{{$product->title}}</h4>
