@@ -718,6 +718,19 @@ table {
     font-size: 18px;
     margin-top: 20px;
 }
+.servce_listing_grid{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.servce_listing_grid img{
+    width: 100%;
+} 
+.servce_listing_grid h4 {
+    color: #5A5A5A;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
 .primefly_section{
     background-color: #58A7FF;
     padding: 60px 15px 20px;
@@ -3290,5 +3303,8 @@ color: rgba(112, 112, 112, 0.81);
         width: 7px;
         height: 7px;
         top: 65%;
+    }
+    .servce_listing_grid h4 { 
+        font-size: 16px; 
     }
 }
