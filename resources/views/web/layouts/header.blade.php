@@ -40,10 +40,26 @@
                      @if(Auth::guard('customer')->check())
                      <li class="nav-item header_account_login">
                         <div class="dropdown">
-                           <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-                           src="{{ asset('frontend/img/common-user.png')}}" alt=""/>
+                        @php
+                                        $user = Auth::guard('customer')->user();
+                                        $customer = $user->customer;
+                                    @endphp
+     
+                        @if($customer->user->profile_image)
+                        <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
+     src="{{ $user->profile_image ? asset($user->profile_image) : asset('frontend/img/camer.png') }}" 
+     alt="Profile Image">
+                            @else
+                               
+                            <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                            src="{{ asset('frontend/img/common-user.png')}}" alt=""/>
+
+                                @endif
+
+                          
+
                           <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#">My Account</a></li> 
+                              <li><a class="dropdown-item" href="{{ url('customer/account') }}">My Account</a></li> 
                               <li><a href="{{ url('logout/') }}" class="dropdown-item">LogOut</a></li> 
                            </ul>
                         </div>
