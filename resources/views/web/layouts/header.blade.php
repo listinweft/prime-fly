@@ -36,7 +36,16 @@
                      <li class="nav-item">
                         <a href="{{ url('cart/') }}" class="nav-link"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
                      </li>
+
+                     @if(Auth::guard('customer')->check())
+                     <li class="nav-item header-login"><a href="{{ url('logout/') }}" class="btn btn-default">LogOut</a></li>
+                     @else
+
                      <li class="nav-item header-login"><a href="{{ url('choose/') }}" class="btn btn-default">Login</a></li>
+                     @endif
+
+
+
                   </ul>
                </header>
             </div>
