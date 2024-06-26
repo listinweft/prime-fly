@@ -854,9 +854,12 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::prefix('report')->group(function () {
       // routes/web.php
       Route::match(['get', 'post'], 'detail-report', [ReportController::class, 'detail_report'])->name('admin.report.detail-report');
+      Route::match(['get', 'post'], 'detail_report_subadmin', [ReportController::class, 'detail_report_subadmin'])->name('admin.report.detail-report-subadmin');
+      
 
         Route::get('export', [ReportController::class, 'export'])->name('export');
         Route::post('order_detail_filter', [ReportController::class, 'order_detail_filter']);
+        Route::post('order_detail_filter_subadmin', [ReportController::class, 'order_detail_filter_subadmin']);
         Route::get('product/out-of-stock/', [ReportController::class, 'out_of_stock']);
         Route::get('product/featured/', [ReportController::class, 'featured_products']);
         Route::get('product/new-product/', [ReportController::class, 'new_products']);

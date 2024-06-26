@@ -497,4 +497,30 @@
 
 @endif
 
+@if ((Auth::user()->admin->role) !== "Super Admin") 
+<li class="nav-item menu-report hide-menu {{ (Request::segment(2)=='report')?'menu-is-opening menu-open':'' }}">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas icon fas fa-info"></i>
+        <p>Report
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: {{ (Request::segment(2)=='report')?'block':'none' }}">
+       <li class="nav-item menu-detail hide-menu">
+    <a href="{{url(Helper::sitePrefix().'report/detail_report_subadmin')}}"
+       class="nav-link {{ (Request::segment(3)=='detail_report_subadmin')?'active':'' }}">
+        <i class="nav-icon fas fa-th-list"></i>
+        <p>
+            Detail Report
+        </p>
+    </a>
+</li>
+      
+        
+    </ul>
+</li>
+
+
+@endif
+
  

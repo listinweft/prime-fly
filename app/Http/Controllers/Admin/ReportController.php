@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Auth;
 use DataTables;
 use App\Exports\BulkExport;
 use App\Exports\ProductList;
@@ -55,6 +56,26 @@ class ReportController extends Controller
         $couponList = Coupon::where('status', 'Active')->get();
         return view('Admin/report/order/order_detail_report', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList'));
     }
+    public function detail_report_subadmin()
+    {
+        $title = "Detailed Order Report";
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+        $assignedLocations = explode(',', $location_ids);
+    
+        $orderList = Order::whereHas('orderProducts', function($query) use ($assignedLocations) {
+                                $query->whereIn('origin', $assignedLocations)
+                                      ->orWhereIn('destination', $assignedLocations);
+                            })
+                            ->paginate(50);
+        $boxValues = Order::boxValues_subadmin($assignedLocations);
+        $customerList = Customer::oldest('first_name', 'last_name')->get();
+        $productList = Product::where('status', 'Active')->oldest('title')->get();
+        $couponList = Coupon::where('status', 'Active')->get();
+    
+        return view('Admin/report/order/order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocations'));
+    }
+    
+
     public function export()
     {
         return Excel::download(new BulkExport, 'order-report.xlsx');
@@ -83,6 +104,25 @@ class ReportController extends Controller
         // session(['coupon' => $coupon]);
         return view('Admin.report.order.order_detail_report_filter', compact('orderList', 'boxValues'));
     }
+
+
+    public function order_detail_filter_subadmin(Request $request)
+{
+    $date_range = $request->date_range;
+    $status = $request->order_report_status;
+    $customer = $request->order_report_customer;
+    $product = $request->order_report_product;
+    
+    // Get the admin's assigned locations from the comma-separated string
+    $assignedLocations = explode(',', auth()->user()->location_ids);
+
+    $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product, $assignedLocations);
+    $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product, $assignedLocations);
+    
+    session(['date_range' => $date_range, 'status' => $status, 'customer' => $customer, 'product' => $product]);
+    
+    return view('Admin.report.order.order_detail_report_filter_subadmin', compact('orderList', 'boxValues'));
+}
 
     /********************* Order Report ****************************/
 

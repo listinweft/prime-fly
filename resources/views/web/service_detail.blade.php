@@ -196,7 +196,7 @@
                   @endforeach
                   
                 <div class="col-12 text-center mt-3">
-                  <a href="#" class="btn-style-2"><div class="btn-in">View More</div></a>
+                  <a href="{{ url('locations/') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
                 </div>
                 </div>
               </div>
