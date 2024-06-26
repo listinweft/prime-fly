@@ -13,40 +13,48 @@
                     <!-- Origin Select -->
 
                     <input type="hidden" value="{{$category->id}}" name="category">
-                    <div class="booking_field" id="origin2">
+                    <div class="booking_field" id="orgin_select">
+                    <div class="booking_select"> 
                         <select type="text" class="form-control" name="origin" id="origin2">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}</option>
                             @endforeach
                         </select>
+</div>
                     </div>
                     <!-- Destination Select -->
-                    <div class="booking_field" id="destination2">
+                    <div class="booking_field" id="destination_select">
+                    <div class="booking_select"> 
                         <select class="form-control" name="destination" id="destination2">
                             <option value="">Select Destination</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}</option>
                             @endforeach
                         </select>
+</div>
                     </div>
                     <!-- Terminal Select -->
                     <div class="booking_field" id="terminal_select">
+                    <div class="booking_select"> 
                         <select type="text" class="form-control" name="terminal">
                         <option value="">Select Terminal</option>
                             <option>Terminal</option>
                             <option>Terminal 1</option>
                             <option>Terminal 2</option>
                         </select>
+</div>
                     </div>
                     <!-- Flight Select -->
                     <div class="booking_field" id="flight_select">
+                    <div class="normal_select"> 
                         <select type="text" class="form-control">
                         <option value="">Select flight</option>
                             <option>Indigo</option>
                             <option>Air India</option>
                             <option>Qatar Airways</option>
                         </select>
+</div>
                     </div>
                     <!-- Flight Number Input -->
                     <div class="booking_field" id="flight_no_select">
