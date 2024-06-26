@@ -84,6 +84,17 @@ a:hover{
     font-size: 8px;
     font-weight: 500;
 }
+.header_account_login img{
+    width: 25px;
+    height:25px;
+    border-radius: 100%;
+    object-fit: cover;
+    border:2px solid #fff;
+}
+.header_account_login a {
+    color: #000;
+    font-size: 12px !important;
+}
 .banner {
     position: relative;
 }
@@ -721,9 +732,12 @@ table {
 .servce_listing_grid{
     text-align: center;
     margin-bottom: 30px;
+    width: 20%;
 }
 .servce_listing_grid img{
     width: 100%;
+    border-radius: 50px;
+    overflow: hidden;
 } 
 .servce_listing_grid h4 {
     color: #5A5A5A;

@@ -24,7 +24,7 @@
                 <div class="col-lg-10 service-slider" data-aos="fade-up" data-aos-duration="600">
                    <div class="row justify-content-center">
                    @foreach ($categorys as $category)
-                    <div class="col-lg-3 servce_listing_grid">
+                    <div class="servce_listing_grid">
                    
 
                         <div class="item"> 

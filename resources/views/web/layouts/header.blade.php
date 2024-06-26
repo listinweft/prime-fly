@@ -21,7 +21,7 @@
                   </a> 
 
 
-                  <ul class="nav">
+                  <ul class="nav align-items-center">
                      <!-- <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">About Us</a></li> -->
                      <li class="nav-item"><a href="{{ url('services/') }}" class="nav-link">Services</a></li>
                      <li class="nav-item"><a href="{{ url('locations/') }}" class="nav-link">Airports</a></li>
@@ -38,7 +38,16 @@
                      </li>
 
                      @if(Auth::guard('customer')->check())
-                     <li class="nav-item header-login"><a href="{{ url('logout/') }}" class="btn btn-default">LogOut</a></li>
+                     <li class="nav-item header_account_login">
+                        <div class="dropdown">
+                           <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                           src="{{ asset('frontend/img/common-user.png')}}" alt=""/>
+                          <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="#">My Account</a></li> 
+                              <li><a href="{{ url('logout/') }}" class="dropdown-item">LogOut</a></li> 
+                           </ul>
+                        </div>
+                  </li>
                      @else
 
                      <li class="nav-item header-login"><a href="{{ url('choose/') }}" class="btn btn-default">Login</a></li>
