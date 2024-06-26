@@ -172,7 +172,10 @@ success: function(response) {
               
                window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
            } else {
-               alert("Failed to calculate total amounts.");
+            
+            Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
            }
        },
            error: function(xhr) {
@@ -189,7 +192,7 @@ $(function() {
 
       var travelSector = $(this).val();
 
-      alert(travelSector);
+      
         if (travelSector) {
           var base_url = "{{ url('/') }}";
         

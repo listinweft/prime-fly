@@ -121,7 +121,9 @@ $(document).ready(function() {
                         var categorys = response.category;
                         window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
                     } else {
-                        alert("Failed to calculate total amounts.");
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
                     }
                 },
                 error: function(xhr) {

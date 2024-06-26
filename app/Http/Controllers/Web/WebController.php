@@ -166,7 +166,7 @@ class WebController extends Controller
             ->get();
     
         if ($products->isEmpty()) {
-            return []; // or handle the case where no product is found
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
         }
     
         $result = [];
@@ -304,7 +304,7 @@ class WebController extends Controller
         ->get();
 
     if ($products->isEmpty()) {
-        return response()->json(['success' => false, 'message' => 'No products found']);
+        return response()->json(['status' => 'error', 'message' => 'No packages found']);
     }
 
     $result = [];
@@ -384,7 +384,7 @@ public function search_booking_lounch(Request $request)
 
     // Check if products are found
     if ($products->isEmpty()) {
-        return response()->json(['success' => false, 'message' => 'No products found']);
+        return response()->json(['status' => 'error', 'message' => 'No packages found']);
     }
 
     // Initialize result array
@@ -461,7 +461,7 @@ public function search_booking_lounch(Request $request)
     
         // Check if products are found
         if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
         }
     
         $category = Category::where('id', $data['category'])->first();
@@ -537,7 +537,7 @@ public function search_booking_lounch(Request $request)
             ->get();
     
         if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
         }
     
         $result = [];
@@ -622,7 +622,7 @@ public function search_booking_lounch(Request $request)
             ->get();
     
         if ($products->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'No products found']);
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
         }
     
         $result = [];
@@ -827,13 +827,12 @@ public function search_booking_lounch(Request $request)
     public function enquiry_store(Request $request)
     {
 
-        // dd($request->all());
+       
         $request->validate([
             'firstname' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
             'email' => 'required|email|max:255',
              'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
-            // 'subject' => 'required',
-            // 'message' => 'required',
+           
         ]);
 
         $contact = new Enquiry();
@@ -844,8 +843,7 @@ public function search_booking_lounch(Request $request)
         $contact->email = $request->email;
         $contact->phone = $request->phone;
        
-        $contact->message = $request->message;
-        $contact->product_id = $request->product_id ?? NULL;
+        $contact->message = $request->message ?? NULL;
         $contact->product_type_id = $request->product_type_id ?? NULL;
         $contact->size_id = $request->size_id ?? NULL;
         $contact->frame_id = $request->frame_id ?? NULL;

@@ -33,6 +33,7 @@
                     <!-- Terminal Select -->
                     <div class="booking_field" id="terminal_select">
                         <select type="text" class="form-control" name="terminal">
+                        <option value="">Select Terminal</option>
                             <option>Terminal</option>
                             <option>Terminal 1</option>
                             <option>Terminal 2</option>
@@ -41,6 +42,7 @@
                     <!-- Flight Select -->
                     <div class="booking_field" id="flight_select">
                         <select type="text" class="form-control">
+                        <option value="">Select flight</option>
                             <option>Indigo</option>
                             <option>Air India</option>
                             <option>Qatar Airways</option>
@@ -120,7 +122,9 @@
                     var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
                  window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts);
                 } else {
-                    alert("Failed to calculate total amounts.");
+                    Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
                 }
             },
                 error: function(xhr) {

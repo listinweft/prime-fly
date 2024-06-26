@@ -56,7 +56,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="btn-style-2">
+                                <a href="{{ url('faq') }}" class="btn-style-2">
                                     <div class="btn-in"> 
                                         FAQ’S
                                     </div>
@@ -64,50 +64,37 @@
                             </li>
                         </ul>
                     </div>
+                    
                     <div class="col-lg-6 contact-form">
+                    <form action="{{ url('contact') }}" method="post" id="requestMoreInfoForm" name="requestMoreInfoForm">
                        <div class="row flex-wrap">
                             <div class="col-lg-6 form-grid">
-                                <input type="text" placeholder="First name"/>
+                                <input type="text" placeholder="First name" id="firstname" name="firstname" class="required"/>
                             </div>
                             <div class="col-lg-6 form-grid">
-                                <input type="text" placeholder="Last name"/>
+                                <input type="text" placeholder="Last name" id="lastname" name="lastname" class="required"/>
                             </div>
                             <div class="col-lg-6 form-grid">
-                                <input type="tel" placeholder="Mobile No."/>
+                                <input type="tel" placeholder="Mobile No." class="required" id="phone" name="phone"/>
                             </div>
                             <div class="col-lg-6 form-grid">
-                                <input type="email" placeholder="Email ID"/>
+                                <input type="email" placeholder="Email ID" class="required" id="email" name="email"/>
                             </div>
-                            <div class="col-lg-6 form-grid">
-                                 <select>
-                                    <option>Select Airport</option>
-                                    <option>Airport 1</option>
-                                    <option>Airport 2</option>
-                                    <option>Airport 3</option>
-                                 </select>
-                            </div>
-                            <div class="col-lg-6 form-grid">
-                                <input type="email" placeholder="Flight Number"/>
-                            </div>
-                            <div class="col-lg-6 form-grid">
-                                <input type="email" placeholder="Flight Date"/>
-                            </div>
-                            <div class="col-lg-6 form-grid">
-                                <select>
-                                   <option>How Can We Help You?</option>
-                                   <option>Airport 1</option>
-                                   <option>Airport 2</option>
-                                   <option>Airport 3</option>
-                                </select>
-                           </div>
+                            
+                            
+                            
                            <div class="col-lg-12 form-grid">
-                             <textarea placeholder="Description"></textarea>
+                             <textarea placeholder="Description" name="message" ></textarea>
                             </div>
                             <div class="col-12 text-center mt-3">
-                                <input type="submit" class="btn btn-primary" value="Book Now"/> 
+                            <input type="hidden" name="type" value="contact">
+                            <button class="btn form_submit_btn" data-url="/enquiry">SUBMIT</button>
                              </div>
-                       </div>     
+                       </div>  
+                       </form>   
                     </div>
+                   
+
                 </div>
              </div>
          </section>  

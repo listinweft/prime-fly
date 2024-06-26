@@ -36,7 +36,7 @@
 
 
 
-                     @elseif($category->title == "porter")
+                     @elseif($category->title == "Porter")
 
 
                      @include('web.porter')
@@ -48,14 +48,17 @@
                      @include('web.airportentry')
 
 
-                     @elseif($category->title == "Louch Booking")
+                     @elseif($category->title == "Cloak Room")
 
 
-@include('web.lounchbooking')
+                     @include('web.cloackroom')
+
+
+                   
 
 @else
 
-                     @include('web.cloackroom')
+@include('web.lounchbooking')       
 
 
 

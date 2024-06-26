@@ -35,6 +35,7 @@
                     <div class="booking_field" id="terminal_select">
                         <div class="booking_select">
                             <select type="text" class="form-control" name="terminal">
+                            <option value="">Select Terminal</option>
                                 <option>Terminal</option>
                                 <option>Terminal 1</option>
                                 <option>Terminal 2</option>
@@ -45,6 +46,7 @@
                     <div class="booking_field" id="flight_select">
                         <div class="normal_select">
                             <select type="text" class="form-control">
+                            <option value="">Select Flight</option>
                                 <option>Indigo</option>
                                 <option>Air India</option>
                                 <option>Qatar Airways</option>
@@ -121,6 +123,8 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     success: function(response) {
+
+        console.log(response)
                 if (response.success) {
                     var totalAmounts = response.total_amounts;
 
@@ -131,14 +135,16 @@
                     });
 
                     
-                    alert(totalAmounts);
+                    
 
                     // Optionally, redirect or update the UI with the total amounts
                     // For example, redirect to the package page with encrypted total amounts
                     var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
                  window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts);
                 } else {
-                    alert("Failed to calculate total amounts.");
+                    Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
                 }
             },
                 error: function(xhr) {

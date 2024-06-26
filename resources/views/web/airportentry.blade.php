@@ -123,13 +123,15 @@ $(document).ready(function() {
                             console.log("Total Amount:", item.total_amount);
                         });
 
-                        alert(totalAmounts);
+                       
 
                         // Optionally, redirect or update the UI with the total amounts
                         var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
                         window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts);
                     } else {
-                        alert("Failed to calculate total amounts.");
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
                     }
                 },
                 error: function(xhr) {
