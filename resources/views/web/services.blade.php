@@ -23,47 +23,24 @@
                 </div>
                 <div class="col-lg-10 service-slider" data-aos="fade-up" data-aos-duration="600">
                    <div class="row justify-content-center">
+                   @foreach ($categorys as $category)
                     <div class="col-lg-3 servce_listing_grid">
+                   
+
                         <div class="item"> 
-                            <a href="#">
-                                <img src="{{ asset('frontend/img/meet_greet.svg')}}" alt="Service">
-                                <h4>Meet &amp; Greet</h4>
+                            <a href="{{ url('service/'.@$category->short_url) }}">
+                            {!! Helper::printImage(@$category, 'image', 'image_webp', '', 'img-fluid') !!}
+                                <h4>{{$category->title}}</h4>
                             </a>
                         </div>
+
+                       
+
                     </div>
-                    <div class="col-lg-3 servce_listing_grid">
-                    <div class="item">
-                      <a href="#"> 
-                        <img src="{{ asset('frontend/img/baggage.svg')}} " alt="Service"/>
-                        <h4>Baggage Wrapping</h4>
-                      </a>
-                    </div>
-                    </div>
-                    <div class="col-lg-3 servce_listing_grid">
-                    <div class="item">
-                      <a href="#"> 
-                        <img src="{{ asset('frontend/img/car_parking.svg')}}" alt="Service"/>
-                        <h4>Car Parking</h4>
-                      </a>
-                    </div>
-                    </div>
-                    <div class="col-lg-3 servce_listing_grid">
-                    <div class="item">
-                      <a href="#"> 
-                        <img src="{{ asset('frontend/img/porter.svg')}}" alt="Service"/>
-                        <h4>Porter</h4>
-                      </a>
-                    </div>
-                    </div>
-                    <div class="col-lg-3 servce_listing_grid">
-                        <div class="item">
-                        <a href="#"> 
-                            <img src="{{ asset('frontend/img/airport_entry.svg')}}" alt="Service"/>
-                            <h4>Airport Entry Ticketing</h4>
-                        </a>
-                        </div> 
-                    </div> 
-                   </div>
+                    @endforeach
+                   
+                    
+                    
                 </div>
               </div>
             </div>

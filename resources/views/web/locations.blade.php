@@ -22,106 +22,20 @@
               </div>
               <div class="col-lg-10 airport_lists">
                 <div class="d-flex flex-wrap">
+
+                @foreach ($locations as $location)
                   <div class="airport_list_grid text-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="">
+                  <a href="{{ url('location/' . @$location->title) }}">
                       <div class="airtport_list_thumb">
-                        <img src="{{ asset('frontend/img/cochin.png')}}" alt="Cochin">
-                        <h3>COK</h3>
+                      {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
+                        <h3>{{ $location->code }}</h3>
                       </div>
-                      <h4>CIAL</h4>
-                      <p>Cochin International Airport</p>
+                      <h4>{{ $location->code }}</h4>
+                      <p>{{ $location->title }}</p>
                     </a> 
                   </div>
-                  <div class="airport_list_grid text-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                    <a href=""> 
-                    <div class="airtport_list_thumb">
-                      <img src="{{ asset('frontend/img/kannur.png')}}" alt="Cochin">
-                      <h3>CNN</h3>
-                    </div>
-                    <h4>KIAL</h4>
-                    <p>Kannur International Airport</p>
-                    </a>
-                  </div>
-                  <div class="airport_list_grid text-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="">
-                    <div class="airtport_list_thumb">
-                      <img src="{{ asset('frontend/img/jaipure.png')}}" alt="Cochin">
-                      <h3>JAI</h3>
-                    </div>
-                    <h4>JAI</h4>
-                    <p>Jaipur International Airport</p>
-                    </a>
-                  </div>
-                  <div class="airport_list_grid text-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="">
-                    <div class="airtport_list_thumb">
-                      <img src="{{ asset('frontend/img/manglore.png')}}" alt="Cochin">
-                      <h3>IXE</h3>
-                    </div>
-                    <h4>IXE</h4>
-                    <p>Mangalore International Airport</p>
-                    </a>
-                  </div>
-                  <div class="airport_list_grid text-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="">
-                    <div class="airtport_list_thumb">
-                      <img src="{{ asset('frontend/img/irx.png')}}" alt="Cochin">
-                      <h3>IXR</h3>
-                    </div>
-                    <h4>IXR</h4>
-                    <p>Birsa Munda Airport, Ranchi</p>
-                    </a>
-                  </div>
-                  <div class="airport_list_grid text-center aos-init" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="">
-                    <div class="airtport_list_thumb">
-                      <img src="{{ asset('frontend/img/rxr.png')}}" alt="Cochin">
-                      <h3>RPR</h3>
-                    </div>
-                    <h4>RPR</h4>
-                    <p>Cochin International Airport</p>
-                    </a>
-                </div>
-                <div class="airport_list_grid text-center aos-init" data-aos="fade-up" data-aos-duration="1000">
-                  <a href="">
-                  <div class="airtport_list_thumb">
-                    <img src="{{ asset('frontend/img/ccj.png')}}" alt="Cochin">
-                    <h3>CCJ</h3>
-                  </div>
-                  <h4>CCJ</h4>
-                  <p>Calicut International Airport</p>
-                  </a>
-                </div>
-                <div class="airport_list_grid text-center aos-init" data-aos="fade-up" data-aos-duration="1000">
-                  <a href="">
-                  <div class="airtport_list_thumb">
-                    <img src="{{ asset('frontend/img/chennai.png')}}" alt="Cochin">
-                    <h3>MAA</h3>
-                  </div>
-                  <h4>MAA</h4>
-                  <p>Chennai International Airport</p>
-                  </a>
-                </div>
-                <div class="airport_list_grid text-center aos-init" data-aos="fade-up" data-aos-duration="1000">
-                  <a href="">
-                  <div class="airtport_list_thumb">
-                    <img src="{{ asset('frontend/img/coimbatore.png')}}" alt="Cochin">
-                    <h3>CJB</h3>
-                  </div>
-                  <h4>CJB</h4>
-                  <p>Coimbatore International Airport</p>
-                  </a>
-                </div>
-                <div class="airport_list_grid text-center aos-init" data-aos="fade-up" data-aos-duration="1000">
-                  <a href="">
-                  <div class="airtport_list_thumb">
-                    <img src="{{ asset('frontend/img/coimbatore.png')}}" alt="Cochin">
-                    <h3>CJB</h3>
-                  </div>
-                  <h4>CJB</h4>
-                  <p>Coimbatore International Airport</p>
-                  </a>
-                </div>
+                  @endforeach
+                 
                 
                 </div>
               </div>

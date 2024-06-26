@@ -8,14 +8,14 @@
               </div>
               <div class="col-lg-6">
                 <div class="d-flex justify-content-center">
-                  <div class="col-lg-4 footer_menu">
+                  <!-- <div class="col-lg-4 footer_menu">
                     <h4>About</h4>
                     <ul>
                       <li><a href="">About Us</a></li>
                       <li><a href="">News</a></li>
                       <li><a href="">Partners</a></li>
                     </ul>
-                  </div>
+                  </div> -->
                   <div class="col-lg-4 footer_menu">
                     <h4>Services</h4>
                     <ul>

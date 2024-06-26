@@ -57,6 +57,7 @@
         <div class="booking_field" id="flight_select">
         <div class="normal_select">
             <select type="text" class="form-control">
+            <option value="">Select Flight</option>
                 <option value="indigo">Indigo</option>
                 <option value="air_india">Air India</option>
                 <option value="qatur_airways">Qatur Airways</option>
@@ -172,7 +173,7 @@ success: function(response) {
               
                window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
            } else {
-            
+
             Toast.fire({
                             title: "error!", text: response.message, icon: "error"
                         });

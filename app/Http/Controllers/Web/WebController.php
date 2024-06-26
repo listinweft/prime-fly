@@ -84,16 +84,16 @@ class WebController extends Controller
 
     public function locations()
     {
-      
+        $locations = Location::active()->get();
 
-        return view('web.locations');
+        return view('web.locations',compact('locations'));
     }
 
     public function services()
     {
-      
+        $categorys = Category::whereNull('parent_id')->get();
 
-        return view('web.services');
+        return view('web.services',compact('categorys'));
     }
 
 
