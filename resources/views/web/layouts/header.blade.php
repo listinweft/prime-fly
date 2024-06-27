@@ -2,7 +2,7 @@
             <div class="container">
                <header class="d-flex flex-wrap justify-content-center align-items-center py-2">
 
-                  <a href="/" class="header-logo d-flex align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                  <a href="{{ url('/') }}" class="header-logo d-flex align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 
                   @if(Request::is('cart', 'checkout','preview','package/*'))
 

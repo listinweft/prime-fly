@@ -610,9 +610,10 @@ $(document).ready(function () {
     // Initial check when the document is ready
     var selectedCategoryValue = $('#category').val();
     if (selectedCategoryValue !== '') {
+        var base_url = "{{ url(Helper::sitePrefix()) }}";
         // Make an initial AJAX call to fetch age_range
         $.ajax({
-            url: '/admin/product/category/category-details', // The URL to your endpoint
+            url: base_url + '/product/category/category-details', // The URL to your endpoint
             method: 'GET',
             data: { category_id: selectedCategoryValue },
             success: function(response) {
@@ -629,11 +630,12 @@ $(document).ready(function () {
     // Add change event listener for the category select
     $('#category').change(function () {
         var selectedCategoryValue = $(this).val();
-
+        var base_url = "{{ url(Helper::sitePrefix()) }}";
         if (selectedCategoryValue !== '') {
             // Make an AJAX call to fetch age_range
             $.ajax({
-                url: '/admin/product/category/category-details', // The URL to your endpoint
+               
+                url: base_url + '/product/category/category-details',
                 method: 'GET',
                 data: { category_id: selectedCategoryValue },
                 success: function(response) {
