@@ -88,6 +88,9 @@ a:hover{
     font-size: 8px;
     font-weight: 500;
 }
+.header_account_login .dropdown{
+    padding: 0 10px;
+}
 .header_account_login img{
     width: 25px;
     height:25px;
@@ -1517,6 +1520,20 @@ footer{
     font-size: 13px;
     font-weight: 600;
     
+}
+.cart-empty{
+    padding:120px 30px 60px;
+}
+.cart-empty img{
+    width: 180px;
+}
+.cart-empty h4 {
+    font-weight: 600;
+    color: #5e6175;
+}
+.cart-empty p{
+    font-size: 15px;
+    color: #707070;;
 }
 .cart-progress li.active{
      color: #00A52F;
@@ -3467,5 +3484,77 @@ color: rgba(112, 112, 112, 0.81);
     }
     .testimonial-wrap { 
         padding: 25px;
+    }
+}
+@media(max-width:1100px){
+    .banner img {
+        width: 100%;
+        height: 580px;
+        object-fit: cover;
+    }
+    .airtport_list_thumb {
+        width: 110px;
+        height: 110px; 
+    }
+    .booking_field { 
+        width: 22.5%; 
+        margin: 3px 8px; 
+        margin-bottom: 12px;
+    }
+    .banner_filter_pills {
+        margin-bottom: 2px;
+    }
+    .filter_tab_content { 
+        border-radius: 8px; 
+    }
+    .banner_filter_pills .nav-item .nav-link { 
+        padding: 5px 5px;
+    }
+    .section-head h2, .primefly_feature_content h2 {
+        font-size: 25px;
+    }
+    .banner_content h1 span {
+        font-size: 24px;
+    }
+    .banner_content h1 {
+        font-size: 34px;
+    }
+    .banner_content h1 b {
+        font-size: 20px;
+    }
+    .btn-primary {
+        padding: 6px 20px;
+        font-size: 13px; 
+    }
+    .nav-item a {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+    .footer_logo img {
+        width: 100px;
+    }
+    .footer_menu li a {
+        font-size: 12px;
+    }
+    .footer-bottom-contact a {
+        font-size: 12px;
+    }
+}
+@media(max-width:840px){
+    .testimonial_slider .owl-carousel .owl-nav button.owl-next { 
+        top: 42%;
+        right: -25px;
+    }
+    .testimonial_slider .owl-carousel .owl-nav button.owl-prev { 
+        top: 42%;
+        left: -25px;
+    }
+    .booking_field select { 
+        padding-right: 30px;
+    }
+    .booking_field {
+        width: 30.8%;
+        margin: 3px 8px;
+        margin-bottom: 12px;
     }
 }

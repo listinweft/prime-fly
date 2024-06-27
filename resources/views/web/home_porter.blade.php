@@ -2,7 +2,7 @@
             <form id="bookingForm-porter" action="{{ url('/search-booking') }}" method="POST">
                 @csrf
                 <input type="hidden" value="{{$category->id}}" name="category">
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap justify-content-between">
                     <div class="booking_field">
                         <div class="custom-date-picker">
                             <input class="form-control" type="text" autocomplete="off" name="entry_date" placeholder="Entry Date" max="2023-12-31"  id="datepickerp" readonly="readonly">

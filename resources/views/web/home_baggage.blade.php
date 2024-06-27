@@ -1,6 +1,6 @@
 
             <form id="bookingForm-baggage">
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap justify-content-between">
                     <!-- Date Input -->
                     <div class="booking_field"> 
                         <div class="custom-date-picker">
