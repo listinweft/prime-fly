@@ -593,14 +593,14 @@
 $(document).ready(function () {
     function updateVisibilityBasedOnCategory(ageRange) {
         if (ageRange === 'Active') {
-            alert("jbjbc");
+           
             $('[id^=size_price_listing_table]').show().each(function() {
                 $(this).find('tr:first-child input[name^="price["]').addClass('required');
             });
             $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
             $('#firstpricing input[type="number"]').val('');
         } else {
-             alert("jbjbc");
+             
             $('[id^=size_price_listing_table]').hide();
             $('#size_price_listing_table input[type="number"]').val('');
             $('[id^=firstpricing]').show().find('#pricenormal').addClass('required');
