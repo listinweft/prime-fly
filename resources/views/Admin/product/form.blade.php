@@ -444,6 +444,7 @@
             </div>
         </section>
     </div>
+    
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -583,68 +584,23 @@
                 $('#featured_image_div').hide();
             }
         });
+</script>
 
-//         $(document).ready(function () {
 
-            
+<script>
     
-    
 
-//     var selectedCategoryValue = $('#category').val();
-
-//     if (selectedCategoryValue !== '' && selectedCategoryValue !== null && selectedCategoryValue == 21) {
-
-      
-       
-      
-//         // Show corresponding size and price listing table
-//         $('[id^=size_price_listing_table]').show().each(function() {
-//             $(this).find('tr:first-child input[name^="price["]').addClass('required');
-//         });
-//         $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
-
-//         $('#firstpricing input[type="number"]').val('');
-//     } else {
-       
-
-//         $('[id^=size_price_listing_table]').hide();
-
-//         $('#size_price_listing_table input[type="number"]').val('');
-   
-//         $('[id^=firstpricing]').show().find('#pricenormal').addClass('required');
-//     }  
-
-//     // Add change event listener for each category select
-//     $('[id^=category]').change(function () {
-//         var category = $(this).val();
-//         var categoryId = $(this).attr('id');
-//         var tableId = categoryId.replace('category', 'size_price_listing_table');
-//         var tableId1 = categoryId.replace('category', 'firstpricing');
-
-//         if (category !=='' && category == 21 ) {
-//             $('#' + tableId).show();
-//             $('#' + tableId).find('tr:first-child input[name^="price["]').addClass('required');
-//             $('#' + tableId1).hide().find('input[type="number"]').val('');
-//             $('#' + tableId1).find('#pricenormal').removeClass('required');
-           
-//         } else {
-           
-//             $('#' + tableId).hide();
-//             $('#' + tableId).find('#pricesize').removeClass('required');
-//             $('#' + tableId1).show().find('#pricenormal').addClass('required');
-//             $('#' + tableId).find('input[type="number"]').val('');
-//         }
-//     });
-// });
 $(document).ready(function () {
     function updateVisibilityBasedOnCategory(ageRange) {
         if (ageRange === 'Active') {
+            alert("jbjbc");
             $('[id^=size_price_listing_table]').show().each(function() {
                 $(this).find('tr:first-child input[name^="price["]').addClass('required');
             });
             $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
             $('#firstpricing input[type="number"]').val('');
         } else {
+             alert("jbjbc");
             $('[id^=size_price_listing_table]').hide();
             $('#size_price_listing_table input[type="number"]').val('');
             $('[id^=firstpricing]').show().find('#pricenormal').addClass('required');
