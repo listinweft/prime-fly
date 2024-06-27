@@ -1,7 +1,7 @@
 
             <form id="bookingForm-entryTicket">
                 @csrf
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap justify-content-start home-form-flex">
 
                 <input type="hidden" value="{{$category->id}}" name="category">
 

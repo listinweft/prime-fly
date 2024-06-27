@@ -1,7 +1,7 @@
 
 <form id="bookingForm">
                                 <input type="hidden" value="{{$category->id}}" name="category">
-    <div class="d-flex flex-wrap justify-content-between">
+    <div class="d-flex flex-wrap justify-content-start home-form-flex">
         <div class="booking_field">
             <div class="custom-date-picker">
                 <input class="form-control" type="text" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepicker" name="datepicker" readonly="readonly">
