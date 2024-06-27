@@ -1,7 +1,7 @@
 
             <form id="bookingForm-parking">
                 @csrf
-                <div class="d-flex flex-wrap justify-content-between">
+                <div class="d-flex flex-wrap justify-content-start home-form-flex">
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
                         <select type="text" class="form-control" name="origin">
