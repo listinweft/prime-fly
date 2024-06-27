@@ -2,7 +2,7 @@
             <form id="bookingForm-cloakroom">
                 @csrf
                 <input type="hidden" value="{{$category->id}}" name="category">
-                <div class="d-flex flex-wrap"> 
+                <div class="d-flex flex-wrap justify-content-between"> 
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
                         <select type="text" class="form-control" name="origin">

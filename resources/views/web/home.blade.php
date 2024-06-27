@@ -244,7 +244,7 @@
               <div class="col-lg-11 home_blog_list">
                 <div class="row">
                 @foreach ($blogs as $blog)
-                  <div class="col-lg-4" data-aos="fade-up" data-aos-duration="800">
+                  <div class="col-lg-4 col-md-4" data-aos="fade-up" data-aos-duration="800">
                     <div class="home_bloglist_grid">
                       <div class="home_bloglist_wrap">
                         <!-- <img src="{{ asset('frontend/img/blog.png')}}" alt="Blog" /> -->

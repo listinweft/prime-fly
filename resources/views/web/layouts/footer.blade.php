@@ -1,12 +1,12 @@
 <footer>
           <div class="col-12">
             <div class="row">
-              <div class="col-lg-3 footer_logo">
+              <div class="col-lg-3 col-md-3 footer_logo">
                 <a href="#">
                   <img src="{{ asset('frontend/img/logo.png')}}"/>
                 </a>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6">
                 <div class="d-flex justify-content-center">
                   <!-- <div class="col-lg-4 footer_menu">
                     <h4>Links</h4>
@@ -16,7 +16,7 @@
                       <li><a href="">Partners</a></li>
                     </ul>
                   </div> -->
-                  <div class="col-lg-4 footer_menu">
+                  <div class="col-lg-4 col-md-4 footer_menu">
                     <h4>Services</h4>
                     <ul>
                     @php
@@ -29,7 +29,7 @@
                      @endforeach
                     </ul>
                   </div>
-                  <div class="col-lg-4 footer_menu">
+                  <div class="col-lg-4 col-md-4 footer_menu">
                     <h4>More</h4>
                     <ul>
                       <li><a href="{{ url('contact/') }}">Contact Us</a></li>
@@ -42,12 +42,12 @@
               </div>
               <div class="col-12 mt-4">
                 <div class="row justify-content-between">
-                  <div class="col-lg-4 footer-bottom-contact">
+                  <div class="col-lg-4 col-sm-5 footer-bottom-contact">
                     <hr>
                       <p><a href="tel:+7 (411) 390-51-11">+7 (411) 390-51-11</a></p>
                       <p><a href="mailto:info@primefly.com">info@primefly.com</a></p>
                   </div>
-                  <div class="col-lg-4 footer-bottom-social">
+                  <div class="col-lg-4 col-sm-5 footer-bottom-social">
                       <ul class="d-flex justify-content-end">
                         <li>
                           <a href="#">
@@ -254,6 +254,10 @@
                     items:3,
                     nav:true
                 },
+                800:{
+                    items:4,
+                    nav:true
+                },
                 1000:{
                     items:5,
                     nav:true 
@@ -276,7 +280,7 @@
                     nav:true
                 },
                 600:{
-                    items:1,
+                    items:2,
                     nav:false
                 },
                 1000:{

@@ -108,7 +108,11 @@
          @else
 
 
-<h4> cart is Empty</h4>
+ <div class="cart-empty text-center">
+    <img class="mb-3" src="{{ asset('frontend/img/empty-cart.png')}}" alt="logo">
+    <h4>Your cart is empty</h4>
+    <p>Looks like you haven't made <br> your choice yet
+ </div>
 
 
 @endif
