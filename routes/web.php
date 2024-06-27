@@ -87,7 +87,7 @@ Route::middleware(['web'])->group(function () {
 
 
     
-    Route::get('package/{total_amount?}/{category?}', [WebController::class, 'package'])->name('package');
+    Route::get('package/', [WebController::class, 'package'])->name('package');
 
     Route::get('about', [WebController::class, 'about']);
     Route::post('currency_set', [WebController::class, 'currency_set']);
