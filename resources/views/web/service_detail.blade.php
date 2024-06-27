@@ -153,7 +153,7 @@
         <div class="tab-pane fade {{ $index == 0 ? 'show active' : '' }}" id="pills-{{ $sub->id }}" role="tabpanel" aria-labelledby="pills-tab-{{ $sub->id }}" tabindex="0">
             <div class="d-flex flex-wrap justify-content-center">
             @foreach(App\Models\CategoryGallery::where('category_id', $sub->id)->get() as $galleryItem)
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-6">
                         <div class="srvc_wrk_grid">
                             {!! Helper::printImage($galleryItem, 'image', 'image_webp', '', 'img-fluid') !!}
                             <h4>{{ $galleryItem->title }}</h4>
