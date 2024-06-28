@@ -50,7 +50,7 @@
          </ul>
          <div class="menu-container">
             <ul class="nav align-items-center ">
-               <!-- <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">About Us</a></li> -->
+             
                <li class="nav-item"><a href="{{ url('services/') }}" class="nav-link">Services</a></li>
                <li class="nav-item"><a href="{{ url('locations/') }}" class="nav-link">Airports</a></li>
                <li class="nav-item"><a href="{{ url('blogs/') }}" class="nav-link">Blogs</a></li>
