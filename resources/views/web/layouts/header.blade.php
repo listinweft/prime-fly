@@ -104,38 +104,30 @@
                      <li class="nav-item">
                         <a href="{{ url('cart/') }}" class="nav-link head-cart"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
                      </li>
-
                      @if(Auth::guard('customer')->check())
-                     <li class="nav-item header_account_login">
-                        <div class="dropdown">
-                        @php
-                                        $user = Auth::guard('customer')->user();
-                                        $customer = $user->customer;
-                                    @endphp
-     
-                        @if($customer->user->profile_image)
-                        <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-     src="{{ $user->profile_image ? asset($user->profile_image) : asset('frontend/img/camer.png') }}" 
-     alt="Profile Image">
-                            @else
-                               
-                            <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-                            src="{{ asset('frontend/img/common-user.png')}}" alt=""/>
+    @php
+        $user = Auth::guard('customer')->user();
+        $customer = $user->customer;
+        $profileImage = $user->profile_image ? asset($user->profile_image) : asset('frontend/img/camer.png');
+        $defaultProfileImage = asset('frontend/img/common-user.png');
+    @endphp
+    <li class="nav-item header_account_login">
+        <div class="dropdown">
+            <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                 src="{{ $customer->user->profile_image ? $profileImage : $defaultProfileImage }}" 
+                 alt="Profile Image">
 
-                                @endif
-
-                          
-
-                          <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{ url('customer/account') }}">My Account</a></li> 
-                              <li><a href="{{ url('logout/') }}" class="dropdown-item">LogOut</a></li> 
-                           </ul>
-                        </div>
-                  </li>
-                     @else
-
-                     <li class="nav-item header-login"><a href="{{ url('choose/') }}" class="btn btn-default">Login</a></li>
-                     @endif
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url('customer/account') }}">My Account</a></li>
+                <li><a class="dropdown-item" href="{{ url('logout/') }}">LogOut</a></li>
+            </ul>
+        </div>
+    </li>
+@else
+    <li class="nav-item header-login">
+        <a href="{{ url('choose/') }}" class="btn btn-default">Login</a>
+    </li>
+@endif
 
 
 
@@ -160,37 +152,28 @@
                      <li class="nav-item">
                         <a href="{{ url('cart/') }}" class="nav-link head-cart"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
                      </li> 
-                     @if(Auth::guard('customer')->check())
-                     <li class="nav-item header_account_login">
+                   
+                    @php
+                        $user = Auth::guard('customer')->user();
+                        $customer = $user->customer;
+                        $profileImage = $user->profile_image ? asset($user->profile_image) : asset('frontend/img/common-user.png');
+                    @endphp
+                    <li class="nav-item header_account_login">
                         <div class="dropdown">
-                        @php
-                                        $user = Auth::guard('customer')->user();
-                                        $customer = $user->customer;
-                                    @endphp
-     
-                        @if($customer->user->profile_image)
-                        <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-     src="{{ $user->profile_image ? asset($user->profile_image) : asset('frontend/img/camer.png') }}" 
-     alt="Profile Image">
-                            @else
-                               
                             <img class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-                            src="{{ asset('frontend/img/common-user.png')}}" alt=""/>
-
-                                @endif
-
-                          
-
-                          <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="{{ url('customer/account') }}">My Account</a></li> 
-                              <li><a href="{{ url('logout/') }}" class="dropdown-item">LogOut</a></li> 
-                           </ul>
+                                 src="{{ $profileImage }}" alt="Profile Image">
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url('customer/account') }}">My Account</a></li>
+                                <li><a class="dropdown-item" href="{{ url('logout/') }}">LogOut</a></li>
+                            </ul>
                         </div>
-                  </li>
-                     @else
+                    </li>
+                @else
+    <li class="nav-item header-login">
+        <a href="{{ url('choose/') }}" class="btn btn-default">Login</a>
+    </li>
+@endif
 
-                     <li class="nav-item header-login"><a href="{{ url('choose/') }}" class="btn btn-default">Login</a></li>
-                     @endif
                      </ul>
                   </div>
                   <div class="hamburger d-xs-none" onclick="menuOpen()">
