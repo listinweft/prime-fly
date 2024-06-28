@@ -139,16 +139,56 @@
                            
                            <div class="tab-content filter_tab_content" id="filter_tab">
                            <div class="tab-pane fade show active" id="meet-and-greet-tab-pane" role="tabpanel" aria-labelledby="meet-and-greet-tab" tabindex="0">
-                           @php
-        $category = App\Models\Category::where('title', 'meet and greet')->first();
+                      
+
+        @php
+            $category = App\Models\Category::where('title', 'meet and greet')->first();
+            if ($category) {
+            $products = App\Models\Product::where('category_id', $category->id)->get();
+            $allLocationIds = [];
+
+            foreach ($products as $product) {
+               
+                $locationIds = explode(',', $product->location_id);
+
+                
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+
+           
+            $uniqueLocationIds = array_unique($allLocationIds);
+
+          
+            $locations = App\Models\Location::whereIn('id', $uniqueLocationIds)->get();
+        }
+        @endphp
       
        
-       @endphp
+      
                               @include('web.home_meet_and_greet', ['category' => $category, 'locations' => $locations])
                            </div>
                               <div class="tab-pane fade" id="Baggage-Wrapping-tab-pane" role="tabpanel" aria-labelledby="Baggage-Wrapping-tab" tabindex="0">
                               @php
         $category = App\Models\Category::where('title', 'Baggage wrapping')->first();
+
+        if ($category) {
+            $products = App\Models\Product::where('category_id', $category->id)->get();
+            $allLocationIds = [];
+
+            foreach ($products as $product) {
+               
+                $locationIds = explode(',', $product->location_id);
+
+                
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+
+           
+            $uniqueLocationIds = array_unique($allLocationIds);
+
+          
+            $locations = App\Models\Location::whereIn('id', $uniqueLocationIds)->get();
+        }
       
        
        @endphp
@@ -158,6 +198,24 @@
                               <div class="tab-pane fade" id="Car-Parking-tab-pane" role="tabpanel" aria-labelledby="Car-Parking-tab" tabindex="0">
                               @php
         $category = App\Models\Category::where('title', 'Car Parking')->first();
+        if ($category) {
+            $products = App\Models\Product::where('category_id', $category->id)->get();
+            $allLocationIds = [];
+
+            foreach ($products as $product) {
+               
+                $locationIds = explode(',', $product->location_id);
+
+                
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+
+           
+            $uniqueLocationIds = array_unique($allLocationIds);
+
+          
+            $locations = App\Models\Location::whereIn('id', $uniqueLocationIds)->get();
+        }
       
        
        @endphp
@@ -166,6 +224,24 @@
                               <div class="tab-pane fade" id="airport-tab-pane" role="tabpanel" aria-labelledby="airport-tab" tabindex="0">
                               @php
         $category = App\Models\Category::where('title', 'Air port Entry')->first();
+        if ($category) {
+            $products = App\Models\Product::where('category_id', $category->id)->get();
+            $allLocationIds = [];
+
+            foreach ($products as $product) {
+               
+                $locationIds = explode(',', $product->location_id);
+
+                
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+
+           
+            $uniqueLocationIds = array_unique($allLocationIds);
+
+          
+            $locations = App\Models\Location::whereIn('id', $uniqueLocationIds)->get();
+        }
       
        
        @endphp
@@ -186,6 +262,24 @@
                            <div class="tab-pane fade" id="porter-tab-pane" role="tabpanel" aria-labelledby="porter-tab" tabindex="0">
                               @php
         $category = App\Models\Category::where('title', 'porter')->first();
+        if ($category) {
+            $products = App\Models\Product::where('category_id', $category->id)->get();
+            $allLocationIds = [];
+
+            foreach ($products as $product) {
+               
+                $locationIds = explode(',', $product->location_id);
+
+                
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+
+           
+            $uniqueLocationIds = array_unique($allLocationIds);
+
+          
+            $locations = App\Models\Location::whereIn('id', $uniqueLocationIds)->get();
+        }
       
        
        @endphp

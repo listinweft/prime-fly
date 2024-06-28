@@ -63,10 +63,20 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    // Initialize datepicker and timepicker
-    $('#datepicker2, #exitdatepicker2').datepicker({
+   
+    $('#datepicker2').datepicker({
         format: 'yyyy-mm-dd',
-        autoclose: true
+        autoclose: true,
+        startDate: new Date(), // Start from today
+        minDate: 0 // Disable previous dates
+    });
+
+    // Initialize exit date picker
+    $('#exitdatepicker2').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        startDate: new Date(), // Start from today
+        minDate: 0 // Disable previous dates
     });
 
     $('.timepicker').timepicker({

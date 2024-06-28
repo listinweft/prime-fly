@@ -55,8 +55,12 @@
                                         
                                     </div>
                                 </div>
+                                @php
+
+                                $user = Auth::guard('customer')->user();
+                                @endphp
                                 <div class="col-12 package-content-button text-center">
-                                    <a href="" class="btn btn-primary cart-action" data-id="{{$item['product']['id']}}"  data-price="{{ $item['total_amount']  }}" data-guest="{{ $item['totalguest']}}"  data-setdate="{{ $item['setdate']}}"  data-flight_number="{{ $item['flight_number'] ?? '' }}" data-origin="{{ $item['origin'] ?? '' }}" data-destination="{{ $item['destination'] ?? '' }}" data-travel_sector="{{ $item['travel_sector'] ?? '' }}"  data-travel_type="{{ $item['travel_type'] ?? '' }}"   data-terminal="{{ $item['terminal'] ?? '' }}" data-entry_time="{{ $item['entry_time'] ?? '' }}" data-exit_time="{{ $item['exit_time'] ?? '' }}" data-bag_count="{{ $item['bag_count'] ?? '' }}">Book Now</a>
+                                    <a href="" class="btn btn-primary cart-action" data-id="{{$item['product']['id']}}" data-customerid="{{$user->id ?? ''}} " data-price="{{ $item['total_amount']  }}" data-guest="{{ $item['totalguest']}}"  data-setdate="{{ $item['setdate']}}"  data-flight_number="{{ $item['flight_number'] ?? '' }}" data-origin="{{ $item['origin'] ?? '' }}" data-destination="{{ $item['destination'] ?? '' }}" data-travel_sector="{{ $item['travel_sector'] ?? '' }}"  data-travel_type="{{ $item['travel_type'] ?? '' }}"   data-terminal="{{ $item['terminal'] ?? '' }}" data-entry_time="{{ $item['entry_time'] ?? '' }}" data-exit_time="{{ $item['exit_time'] ?? '' }}" data-bag_count="{{ $item['bag_count'] ?? '' }}">Book Now</a>
                                 </div>
                             </div>
                         </div>

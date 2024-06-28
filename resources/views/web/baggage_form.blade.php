@@ -39,9 +39,9 @@
                     <div class="booking_select"> 
                         <select type="text" class="form-control" name="terminal">
                         <option value="">Select Terminal</option>
-                            <option>Terminal</option>
                             <option>Terminal 1</option>
                             <option>Terminal 2</option>
+                            <option>Terminal 3</option>
                         </select>
 </div>
                     </div>

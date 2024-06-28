@@ -24,7 +24,8 @@
                     </div> 
                     <div class="booking_field">
                         <div class="custom-date-picker">
-                            <input class="form-control" type="text" name="entry_date" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickerc" readonly="readonly">
+                            
+                            <input class="form-control" type="text" name="entry_date" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickercsx" readonly="readonly">
                         </div> 
                     </div>
                     <div class="booking_field">
@@ -61,25 +62,26 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    // Initialize datepicker and timepicker
+    
    
     
-    $( function() {
-            $( '#datepickerc, #exitdatepickerc' ).datepicker({
-              
-                  dateFormat: "dd-mm-yy",
-              changeMonth: true,
-              changeYear: true,
-              minDate: 0,
-              "setDate": new Date(),
-              "autoclose": true,
-              firstDay: 1
-              
-            });
-              $('#datepickerc, #exitdatepickerc').datepicker("setDate", new Date());
-          } );
+    $('#datepickercsx').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        startDate: new Date(), // Start from today
+        minDate: 0 // Disable previous dates
+    });
 
-    // Form Validation
+    // Initialize exit date picker
+    $('#exitdatepickerc').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        startDate: new Date(), // Start from today
+        minDate: 0 // Disable previous dates
+    });
+    
+
+ 
     $("#bookingForm-cloakroom").validate({
         rules: {
             origin: "required",

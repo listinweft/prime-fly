@@ -147,6 +147,8 @@ Route::middleware(['web'])->group(function () {
     /********************* Authentication URLs *******************/
     Route::get('choose', [CustomerLoginController::class, 'choose_form']);
     Route::get('login/{token}', [CustomerLoginController::class, 'login_form'])->name('login_form');
+    Route::get('clear-order_cart-sessions-login', [CustomerLoginController::class, 'clear_order_cart_sessions']);
+    
     Route::post('login', [CustomerLoginController::class, 'login']);
     Route::get('logout', [CustomerLoginController::class, 'logout']);
     Route::get('register', [CustomerLoginController::class, 'register_form']);

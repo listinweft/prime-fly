@@ -85,7 +85,7 @@
                 <div class="g-input-text">Infants</div>
                 <div class="g-input-field">
                     <span class="minusi count-btn">-</span>
-                    <input type="text" name="infants" value="4" maxlength="4" />
+                    <input type="text" name="infants" value="0" maxlength="4" />
                     <span class="plusi count-btn">+</span>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <div class="g-input-text">Children</div>
                 <div class="g-input-field">
                     <span class="minusc count-btn">-</span>
-                    <input type="text" name="children" value="4" maxlength="4" />
+                    <input type="text" name="children" value="0" maxlength="4" />
                     <span class="plusc count-btn">+</span>
                 </div>
             </div>

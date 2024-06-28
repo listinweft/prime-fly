@@ -59,7 +59,8 @@
                                     <div class="register_form_grid">
                                         <label>Phone Number</label>
                                         <!-- <input type="tel" placeholder="91"> -->
-                                        <input id="phone" name="phone" type="tel"  id="phone" class="required" />
+                                        <input id="phone" name="phone" type="tel" class="required" maxlength="12" pattern="[0-9]{10}" />
+
                                         <!-- <div class="input-phone"></div> -->
                                     </div>
                                     <div class="register_form_grid">

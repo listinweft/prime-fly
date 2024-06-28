@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web\Auth;
-
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Customer;
@@ -58,16 +58,22 @@ class LoginController extends Controller
 
                 
            
-            if (Auth::guard('customer')->user()->status == 'Inactive') {
-                Auth::guard('customer')->logout();
-                return response()->json(['status' => 'error', 'message' => 'Account is inactive, Please contact your site owner']);
-            } else {
+            if (Auth::guard('customer')->user()->btype == 'b2b') {
+
+                $this->clearCart();
+                
+                
+            } 
+
+               
+             
+
                 $sessionKey = Auth::guard('customer')->user()->customer->id;
                 session(['session_key' => $sessionKey]);
                 // Helper::transferGuestCartToUser($sessionKey);
                  return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in','redirect'=> '/']);
 
-            }
+            
         } else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
         }
@@ -78,6 +84,22 @@ class LoginController extends Controller
         return Auth::guard('customer');
     }
 
+    protected function clearCart()
+    {
+        // Retrieve session key from session
+        $sessionKey = session('session_key');
+    
+        // Clear all items in the cart session
+        Cart::session($sessionKey)->clear();
+    
+        // Optionally handle other session data clearing
+        session()->forget('selected_billing_address');
+        session()->forget('selected_shipping_address');
+        // Clear other session data related to cart or order
+    
+        
+        \Log::info('Cart cleared for session: ' . $sessionKey);
+    }
     public function logout()
     {
         Auth::guard('customer')->logout();

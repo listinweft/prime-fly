@@ -69,10 +69,36 @@
 <script>
 $(document).ready(function() {
     // Initialize datepicker and timepicker
-    $('#datepicker, #exitdatepicker').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true
-    });
+    $(function() {
+            // Initialize the entry date picker
+            $('#datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                startDate: new Date() // Disable all dates before today
+            }).on('changeDate', function(e) {
+                // Get the selected entry date
+                var entryDate = $('#datepicker').datepicker('getDate');
+                // Set the start date of the exit date picker to be the day after the entry date
+                var minExitDate = new Date(entryDate);
+                minExitDate.setDate(minExitDate.getDate() + 1);
+                $('#exitdatepicker').datepicker('setStartDate', minExitDate);
+            });
+
+            // Initialize the exit date picker
+            $('#exitdatepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                startDate: new Date() // Disable all dates before today
+            });
+
+            // Set default dates
+            var today = new Date();
+            $('#datepicker').datepicker("setDate", today);
+
+            var defaultExitDate = new Date(today);
+            defaultExitDate.setDate(defaultExitDate.getDate() + 1);
+            $('#exitdatepicker').datepicker("setDate", defaultExitDate);
+        });
 
     $('.timepicker').timepicker({
         showMeridian: false,

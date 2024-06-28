@@ -510,6 +510,7 @@ $(document).ready(function () {
         });
     });
     $(document).on('click', '.cart-action', function () {
+        var userid = $(this).data('customerid');
         var id = $(this).data('id');
         var totalprice = $(this).data('price');
         var totalguest = $(this).data('guest');
@@ -524,7 +525,6 @@ $(document).ready(function () {
         var entry_time = $(this).data('entry_time');
         var exit_time = $(this).data('exit_time');
         var bag_count = $(this).data('bag_count');
-        
         var qty = 1;
         var checkout = $(this).data('checkout');
         var cartText = $('.cart-action-span').html();
@@ -568,25 +568,24 @@ $(document).ready(function () {
             },
             url: base_url + '/add-cart',
             success: function (response) {
+                
                 $('.cart-action-span').html(cartText);
     
                 if (response.status == true) {
-                    // $('.cart-count').html(response.count);
-                    if (checkout == 1) {
+                    
+                    if (!userid || userid.trim() === '') {
+                        
+                        window.location.href = base_url + '/choose';
+                    } else if (checkout == 1) {
                         window.location.href = base_url + '/checkout';
                     } else {
-                        // $('.count').html(response.count);
-                        // $('.cartCount').html(response.count);
-                        // $('.cartTotal').html(response.cartTotal);
-                       
                         if (urlLastSegment == "cart" || urlLastSegment == "checkout") {
-
                             setTimeout(function() {
                                 location.reload();
-                            }, 50000);
-                        }
-                        else{
-                            
+                            }, 50000); // 50 seconds
+                        } else {
+                            window.location.href = base_url + '/cart';
+    
                             Toast.fire({
                                 icon: 'success',
                                 title: response.message
@@ -595,12 +594,7 @@ $(document).ready(function () {
                             // Reload the page after a delay (if needed)
                             setTimeout(() => {
                                 location.reload();
-                            }, 50000);
-    
-
-
-
-
+                            }, 50000); // 50 seconds
                         }
                     }
                 } else {
@@ -621,6 +615,7 @@ $(document).ready(function () {
             }
         });
     });
+    
     
 
     $(document).on('click', '.remove-cart-item', function () {
