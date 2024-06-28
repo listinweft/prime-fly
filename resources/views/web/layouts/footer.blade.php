@@ -32,8 +32,8 @@
                   <div class="col-lg-4 col-md-4 col-sm-4 col-6 footer_menu">
                     <h4>More</h4>
                     <ul>
-                      <li><a href="">Contact Us</a></li>
-                      <li><a href="">News</a></li>
+                      <li><a href="{{ url('contact/') }}">Contact Us</a></li>
+                      <!-- <li><a href="">News</a></li> -->
                       <li><a href="">Privacy Policy</a></li>
                       <li><a href="">Terms & Condition</a></li> 
                     </ul>

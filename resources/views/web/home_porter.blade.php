@@ -137,10 +137,7 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.success) {
-                        var totalAmounts = response.total_amounts;
-                        var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
-                        var categorys = response.category;
-                        window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
+                        window.location.href = base_url+'/package/';
                     } else {
                         Toast.fire({
                             title: "error!", text: response.message, icon: "error"

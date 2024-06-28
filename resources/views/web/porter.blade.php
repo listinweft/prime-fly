@@ -139,16 +139,7 @@ $(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    if (response.success) {
-                        var totalAmounts = response.total_amounts;
-                        var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
-                        var categorys = response.category;
-                        window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
-                    } else {
-                        Toast.fire({
-                            title: "error!", text: response.message, icon: "error"
-                        });
-                    }
+                    window.location.href = base_url+'/package/';
                 },
                 error: function(xhr) {
                     alert("An error occurred: " + xhr.status + " " + xhr.statusText);

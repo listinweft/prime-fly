@@ -571,21 +571,36 @@ $(document).ready(function () {
                 $('.cart-action-span').html(cartText);
     
                 if (response.status == true) {
-                    $('.cart-count').html(response.count);
+                    // $('.cart-count').html(response.count);
                     if (checkout == 1) {
                         window.location.href = base_url + '/checkout';
                     } else {
-                        $('.count').html(response.count);
-                        $('.cartCount').html(response.count);
-                        $('.cartTotal').html(response.cartTotal);
-                        Toast.fire({
-                            title: "Done it",
-                            text: response.message,
-                            icon: "success"
-                        });
-    
+                        // $('.count').html(response.count);
+                        // $('.cartCount').html(response.count);
+                        // $('.cartTotal').html(response.cartTotal);
+                       
                         if (urlLastSegment == "cart" || urlLastSegment == "checkout") {
-                            location.reload();
+
+                            setTimeout(function() {
+                                location.reload();
+                            }, 50000);
+                        }
+                        else{
+                            
+                            Toast.fire({
+                                icon: 'success',
+                                title: response.message
+                            });
+    
+                            // Reload the page after a delay (if needed)
+                            setTimeout(() => {
+                                location.reload();
+                            }, 50000);
+    
+
+
+
+
                         }
                     }
                 } else {

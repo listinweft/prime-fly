@@ -121,17 +121,7 @@
                     });
 
                     
-                    alert(totalAmounts);
-
-                    // Optionally, redirect or update the UI with the total amounts
-                    // For example, redirect to the package page with encrypted total amounts
-                    var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
-                    var categorys = response.category;
-
-                    
-                   
-window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
-                
+                    window.location.href = base_url+'/package/';
                 } else {
                     alert("Failed to calculate total amounts.");
                 }

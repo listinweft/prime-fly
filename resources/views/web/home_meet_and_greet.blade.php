@@ -154,30 +154,15 @@
    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 },
 success: function(response) {
-           if (response.success) {
-               var totalAmounts = response.total_amounts;
+    if (response.success) {
 
-               // Handle the total amounts for each package
-               totalAmounts.forEach(function(item) {
-                   console.log("Product:", item.product);
-                   console.log("Total Amount:", item.total_amount);
-               });
-
-               // Optionally, redirect or update the UI with the total amounts
-               // For example, redirect to the package page with encrypted total amounts
-               var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
-
-               var categorys = response.category;
-
-               
-              
-               window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts) + '/' + encodeURIComponent(categorys);
-           } else {
-
-            Toast.fire({
-                            title: "error!", text: response.message, icon: "error"
-                        });
-           }
+window.location.href = base_url+'/package/';
+   
+} else {
+Toast.fire({
+                title: "error!", text: response.message, icon: "error"
+            });
+}
        },
            error: function(xhr) {
                // Handle error response
