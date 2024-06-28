@@ -1,12 +1,12 @@
 <footer>
           <div class="col-12">
             <div class="row">
-              <div class="col-lg-3 col-md-3 footer_logo">
+              <div class="col-lg-3 col-md-3 col-sm-4 footer_logo">
                 <a href="#">
                   <img src="{{ asset('frontend/img/logo.png')}}"/>
                 </a>
               </div>
-              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-6 col-md-6 col-sm-8">
                 <div class="d-flex justify-content-center">
                   <!-- <div class="col-lg-4 footer_menu">
                     <h4>Links</h4>
@@ -16,7 +16,7 @@
                       <li><a href="">Partners</a></li>
                     </ul>
                   </div> -->
-                  <div class="col-lg-4 col-md-4 footer_menu">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-6 footer_menu">
                     <h4>Services</h4>
                     <ul>
                     @php
@@ -29,7 +29,7 @@
                      @endforeach
                     </ul>
                   </div>
-                  <div class="col-lg-4 col-md-4 footer_menu">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-6 footer_menu">
                     <h4>More</h4>
                     <ul>
                       <li><a href="{{ url('contact/') }}">Contact Us</a></li>
@@ -42,12 +42,12 @@
               </div>
               <div class="col-12 mt-4">
                 <div class="row justify-content-between">
-                  <div class="col-lg-4 col-sm-5 footer-bottom-contact">
+                  <div class="col-lg-4 col-sm-5 col-6 footer-bottom-contact">
                     <hr>
                       <p><a href="tel:+7 (411) 390-51-11">+7 (411) 390-51-11</a></p>
                       <p><a href="mailto:info@primefly.com">info@primefly.com</a></p>
                   </div>
-                  <div class="col-lg-4 col-sm-5 footer-bottom-social">
+                  <div class="col-lg-4 col-sm-5 col-6  footer-bottom-social">
                       <ul class="d-flex justify-content-end">
                         <li>
                           <a href="#">
@@ -190,6 +190,14 @@
             });
         });
     </script>
+    <script>
+      let hamburger = document.querySelector('.hamburger');
+      let menuConatiner = document.querySelector('.menu-container');
+      function menuOpen(){
+          hamburger.classList.toggle('active');
+          menuConatiner.classList.toggle('active');
+      }
+    </script>
       <script>
         $(document).ready(function(){
           
@@ -235,6 +243,17 @@
           
 
           AOS.init();
+          $(".mob-filter-slider").owlCarousel({
+            loop:false,
+            margin:5,
+            dots:false,
+            items:4,
+            nav: false,
+            navText: [
+                    `<img src="{{ asset('frontend/img/prev.png') }}" alt="Previous">`,
+                    `<img src="{{ asset('frontend/img/next.png') }}" alt="Next">`
+                ], 
+          });
           $(".service-carousel").owlCarousel({
             loop:true,
             margin:20,
@@ -247,7 +266,7 @@
             responsiveClass:true,
             responsive:{
                 0:{
-                    items:1,
+                    items:2,
                     nav:true
                 },
                 600:{
