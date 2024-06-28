@@ -136,16 +136,12 @@ class WebController extends Controller
         // Pass total amounts to the view
      $category = Category::where('id',$data['category'])->first();
 
-     Session::put('total_amounts', $totalAmounts);
-     Session::put('category', $category->title);
 
-
-    
-
-    return response()->json(['success' => true, 'redirect_url' => route('package')]);
-
-
-    
+        return response()->json([
+            'success' => true,
+            'total_amounts' => $totalAmounts,
+            'category' => $category->title, 
+        ]);
     }
 
     private function calculateTotalAmounts($data)
@@ -219,6 +215,65 @@ class WebController extends Controller
     }
     
     
+    // public function search_booking_baggage(Request $request)
+    // {
+
+    // //  return    $request->all();
+    //     // Validate request
+    //     $request->validate([
+    //         'terminal' => 'required',
+    //         'origin' => 'required',
+    //         'destination' => 'required',
+    //         'flight_number' => 'required|string',
+    //         'adults' => 'required|integer',
+    //         'category' => 'required|integer'
+    //     ]);
+    
+    //     // Collect data
+    //     $data = $request->all();
+    
+    //     // Fetch products based on travel type and locations
+    //     $products = Product::select('products.*', 'locations.title as location_title')
+    //         ->join('locations', function ($join) {
+    //             $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+    //         })
+    //         ->where('products.category_id', $data['category']) // Add category filter
+    //         ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+    //         ->where('locations.id', $data['origin'])
+    //         ->groupBy('products.id')
+    //         ->get();
+    
+    //     if ($products->isEmpty()) {
+    //         return response()->json(['success' => false, 'message' => 'No package found']);
+    //     }
+    
+    //     $result = [];
+
+    //     $category = Category::where('id',$data['category'])->first();
+
+    //     $guest = $data['adults'];
+
+    //     $setdate =  $data['datepicker'];
+    
+    //     foreach ($products as $product) {
+    //         $totalAmount = $data['adults'] * $product->price;
+    //         $result[] = [
+    //             'product' => $product,
+    //             'location_title' => $product->location_title,
+    //             'total_amount' => $totalAmount, // Add total amount to the result array
+    //             'setdate' => $setdate,
+    //             'totalguest'=> $guest,
+    //             'origin'=> $data['origin'],
+    //             'destination'=>$data['destination'],
+    //             'flight_number'=>$data['flight_number'],
+    //             'terminal' =>$data['terminal'],
+
+               
+    //         ];
+    //     }
+    
+    //     return response()->json(['success' => true, 'total_amounts' => $result,'category' => $category->title]);
+    // }
     
 
 
@@ -297,13 +352,7 @@ class WebController extends Controller
         ];
     }
 
-     Session::put('total_amounts', $result);
-     Session::put('category', $category->title);
-
-
-    
-
-    return response()->json(['success' => true, 'redirect_url' => route('package')]);
+    return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
 }
 
 
@@ -374,13 +423,7 @@ public function search_booking_lounch(Request $request)
     }
 
     // Return JSON response with success flag, total amounts, and category title
-    Session::put('total_amounts', $result);
-     Session::put('category', $category->title);
-
-
-    
-
-    return response()->json(['success' => true, 'redirect_url' => route('package')]);
+    return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
 }
 
 
@@ -462,13 +505,7 @@ public function search_booking_lounch(Request $request)
         }
     
         // Return JSON response with success flag, total amounts, and category title
-        Session::put('total_amounts', $result);
-        Session::put('category', $category->title);
-   
-   
-       
-   
-       return response()->json(['success' => true, 'redirect_url' => route('package')]);
+        return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
     }
     
 
@@ -546,13 +583,7 @@ public function search_booking_lounch(Request $request)
             ];
         }
     
-        Session::put('total_amounts', $result);
-     Session::put('category', $category->title);
-
-
-    
-
-    return response()->json(['success' => true, 'redirect_url' => route('package')]);
+        return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
     }
     
     
@@ -648,31 +679,10 @@ public function search_booking_lounch(Request $request)
             ];
         }
     
-        Session::put('total_amounts', $result);
-     Session::put('category', $category->title);
-
-
-    
-
-    return response()->json(['success' => true, 'redirect_url' => route('package')]);
+        return response()->json(['success' => true, 'total_amounts' => $result, 'category' => $category->title]);
     }
     
-    public function package()
-    {
 
-       
-        // Retrieve data from session
-        $totalAmounts = Session::get('total_amounts', null);
-        $categorys = Session::get('category', null);
-    
-        // Handle if the total amounts data is not available
-        if (is_null($totalAmounts)) {
-            return redirect()->back()->with('error', 'Invalid or missing total amounts data.');
-        }
-    
-        // Pass the total amounts to the view
-        return view('web.package', compact('totalAmounts', 'categorys'));
-    }
     
     
     
@@ -693,8 +703,21 @@ public function search_booking_lounch(Request $request)
 
         }
     }
+    public function package(Request $request, $total_amount = null, $categorys = null)
+    {
+        // Retrieve and decode the total amounts parameter
+      $totalAmounts = $request->total_amount ? json_decode(base64_decode($request->total_amount), true) : null;
+
+        // Handle if the total amounts data is not available
+        if (is_null($totalAmounts)) {
+            return redirect()->back()->with('error', 'Invalid or missing total amounts data.');
+        }
+
     
-    
+        // Pass the total amounts to the view
+        return view('web.package', compact('totalAmounts', 'categorys'));
+    }
+
   
     public function main_search(Request $request)
     {
