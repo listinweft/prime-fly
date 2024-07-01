@@ -180,47 +180,45 @@ success: function(response) {
 
 
 $(function() {
-    $('#travel_sector').change(function() {
+    $('#travel_type').change(function() {
+        var travel_type = $(this).val();
+      
+        var base_url = "{{ url('/') }}";
+        var category = @json($category->id);
 
-      var travelSector = $(this).val();
-
-   
-        if (travelSector) {
-          var base_url = "{{ url('/') }}";
-        
+        if (travel_type) {
             $.ajax({
-              url: base_url+'/get-locations',
+                url: base_url + '/get-locations',
                 type: 'POST',
-
                 data: {
-                    travel_sector: travelSector,
-                    _token: '{{ csrf_token() }}' // Include CSRF token
+                    travel_type: travel_type,
+                    category: category,
+                    _token: '{{ csrf_token() }}'
                 },
-                headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
                 success: function(data) {
                     var originSelect = $('#origins');
                    
                     var destinationSelect = $('#destinations');
-                    console.log(data.locations)
-
+                   
                     originSelect.empty().append('<option value="">Select Origin</option>');
                     destinationSelect.empty().append('<option value="">Select Destination</option>');
 
-                    $.each(data, function(key, location) {
+                    $.each(data.origins, function(key, location) {
                         originSelect.append('<option value="' + location.id + '">' + location.title + '</option>');
+                    });
+
+                    $.each(data.destinations, function(key, location) {
                         destinationSelect.append('<option value="' + location.id + '">' + location.title + '</option>');
                     });
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", error);
                 }
             });
         } else {
-            $('#origin').empty().append('<option value="">Select Origin</option>');
-            $('#destination').empty().append('<option value="">Select Destination</option>');
-
-            
+            $('#origins').empty().append('<option value="">Select Origin</option>');
+            $('#destinations').empty().append('<option value="">Select Destination</option>');
         }
-     
     });
 });
 
