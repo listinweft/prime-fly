@@ -71,7 +71,7 @@
                                     <input type="submit" value="Login"  class="loginform_submit_btn" data-url="/login">
                                      </div>
                                      <div class="text-center otp_grid ">
-                                        <p>Don't have an account ? <a href="">Signup</div></p>
+                                        <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</div></p>
                                      </div>
                                 </div> 
 </form>
@@ -81,7 +81,7 @@
                 </div>
             </section>
             <section class="botm-illstrater">
-                <img class="w-100" src="img/illstrator.png" alt="illstrator"/>
+                <img class="w-100" src="{{ asset('frontend/img/illstrator.png')}}" alt="illstrator"/>
             </section>
          </div>
       </main>
