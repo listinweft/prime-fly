@@ -78,7 +78,7 @@
                 </div>
             </section>
             <section class="botm-illstrater">
-                <img class="w-100" src="img/illstrator.png" alt="illstrator"/>
+                <img class="w-100" src="{{ asset('frontend/img/illstrator.png')}}" alt="illstrator"/>
             </section>
          </div>
       </main>
