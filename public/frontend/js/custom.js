@@ -979,16 +979,12 @@ $(document).ready(function () {
     });
     $(document).on('click', '.registerform_submit_btn', function (e) {
         e.preventDefault();
-        
     
         $this = $(this);
-        var buttonText = $this.html();
+        var buttonText = $this.val(); // Changed to val() to get the value of the button
         var url = $this.data('url');
         var form_id = $this.closest("form").attr('id');
-    
-        var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-        console.log(formData);
     
         // Clear existing error messages
         $('#' + form_id).find('input[name="email"], input[name="phone"]').removeClass('is-invalid');
@@ -1005,7 +1001,7 @@ $(document).ready(function () {
                 $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"]').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
             } else {
                 if (field_name === 'email') {
-                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+@(([a-zA-Z0-9\-])+.)+([a-zA-Z0-9]{2,4})+$/;
                     if (!regex.test($(v).val())) {
                         errors = true;
                         msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
@@ -1015,21 +1011,29 @@ $(document).ready(function () {
                 if (field_name === 'phone') {
                     var phoneNumber = $(v).val().replace(/\s/g, ''); // Remove all whitespace characters
                     var phoneRegex = /^\d+$/; // Match one or more digits
-                
+    
                     if (!phoneRegex.test(phoneNumber)) {
                         errors = true;
                         msg = '<span class="error invalid-feedback invalidMessage" for="phone">Please enter a valid phone number with only digits and no spaces</span>';
                         $('#' + form_id).find('input[name="' + field_name + '"]').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
                 }
-                
+            }
+        });
+    
+        // Add event listener to dynamically remove errors as user corrects input
+        $('#' + form_id).on('input', '.required', function () {
+            var field_name = $(this).attr('name');
+            if ($(this).val().length) {
+                $(this).removeClass('is-invalid').removeAttr("aria-invalid");
+                $(this).siblings('.invalidMessage').remove();
             }
         });
     
         if (!errors) {
             // Disable the submit button to prevent multiple submissions
             $this.prop('disabled', true);
-            $this.html('Please Wait..');
+            $this.val('Please Wait..');
     
             $.ajax({
                 type: 'POST',
@@ -1044,27 +1048,22 @@ $(document).ready(function () {
                 url: base_url + url,
             }).done(function (response) {
                 console.log(response);
-                $this.html(buttonText);
+                $this.val(buttonText);
                 $this.prop('disabled', false); // Enable the submit button
     
                 $("#" + form_id)[0].reset();
-                if (modal_id) {
-                    $("#" + modal_id).modal('hide');
-                }
     
                 if (response.status == "success") {
                     // Handle success
                 } else if (response.status == "success-reload") {
-
-                      Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
-                   
+                    Toast.fire({
+                        title: "Success!", text: response.message, icon: "success"
+                    });
                 } else {
                     // Handle other error responses
                 }
             }).fail(function (response) {
-                $this.html(buttonText);
+                $this.val(buttonText);
                 $this.prop('disabled', false); // Enable the submit button
     
                 $.each(response.responseJSON.errors, function (field_name, error) {
