@@ -213,7 +213,7 @@ class WebController extends Controller
                 $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
                 $infantPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
                 $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
-                $additionalPrice = $product->additional_price ?? 0;
+                $additionalPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 4)->value('price') ?? 0;
             }
     
             // Calculate the total amount based on guest count
