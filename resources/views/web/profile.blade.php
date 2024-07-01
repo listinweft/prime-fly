@@ -250,7 +250,7 @@
                     </select>
                     </div>
                     <div class="col-12 register_form_grid text-center mt-4">
-                        <button type="submit" class="btn primary_btn form_submit_btn" data-url="/customer/update-profile">Save Changes</button>
+                        <button type="submit" class="btn btn-primary" data-url="/customer/update-profile">Save Changes</button>
                     </div>
                 </div>
             </div>

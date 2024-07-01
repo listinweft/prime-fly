@@ -70,6 +70,9 @@
                                     <div class="col-12 register_form_grid text-center mt-3">
                                     <input type="submit" value="Login"  class="loginform_submit_btn" data-url="/login">
                                      </div>
+                                     <div class="text-center otp_grid ">
+                                        <p>Don't have an account ? <a href="">Signup</div></p>
+                                     </div>
                                 </div> 
 </form>
                             </div>
