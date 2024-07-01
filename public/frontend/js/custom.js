@@ -827,7 +827,7 @@ $(document).ready(function () {
                                     $('#submit-loader').hide();
                                     window.location.href = base_url + response.data;
                                     
-                                }, 900);
+                                }, 3000);
                                     // if (result.isConfirmed) {
                                     // }
                             

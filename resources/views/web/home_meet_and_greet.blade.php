@@ -197,8 +197,7 @@ $(function() {
                     var originSelect = $('#origins');
                    
                     var destinationSelect = $('#destinations');
-                    console.log(data.locations)
-
+                   
                     originSelect.empty().append('<option value="">Select Origin</option>');
                     destinationSelect.empty().append('<option value="">Select Destination</option>');
 
