@@ -2,7 +2,7 @@
 @section('content')
 <section class="col-12 locationbanner p-0">
            <div class="d-flex justify-content-end">
-              <div class="locinner_bannerimg">
+              <div class="locinner_bannerimg w-100">
                 <img src="{{ asset('frontend/img/support.png')}}" class="w-100" alt="Meet and Greet" />
                 <div class="loc-text text-center">
                     <div class="container">

@@ -3339,7 +3339,7 @@ color: rgba(112, 112, 112, 0.81);
     width: 100%;
     top: 47px;
     border-radius: 5px !important;
-    border: 1px solid #ededed;
+    border:0px solid #ededed;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .searchResult ul{
@@ -3361,6 +3361,40 @@ color: rgba(112, 112, 112, 0.81);
 }
 .searchResult li img{
     display: none;
+}
+.locinner_bannerimg{
+    width: 100%;
+}
+.privacy-content{
+    padding-top:130px;
+}
+.privacy-content h1{
+    font-size: 32px;
+}
+.privacy-content h4,.privacy-content h5{
+    font-size: 22px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.privacy-content p,.privacy-content li,.privacy-content span{
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.head_search{
+    display: flex;
+}
+.head_search input{ 
+    border-radius: 20px;
+    border:0;
+    width: 0;
+    height: 40px;
+    padding: 0;
+    transition: all 0.3s linear;
+}
+.head_search.search-expand input {
+    width: 200px;
+    padding: 5px 20px; 
 }
 @media(max-width:1680px){
     .airtport_list_thumb { 
@@ -3397,6 +3431,9 @@ color: rgba(112, 112, 112, 0.81);
     }
     .header-logo img {
         width: 90px;
+    }
+    .head_search input{
+        font-size: 14px;
     }
 }
 @media(max-width:1200px){
@@ -3623,6 +3660,83 @@ color: rgba(112, 112, 112, 0.81);
         margin: 3px 6px;
         margin-bottom: 12px;
     }
+    .mobhead-hide {
+        display: none;
+    }
+    .mobhead-show,.hamburger  {
+        display: block;
+    }
+    .hamburger {
+        width: 25px;
+        height: 11px;
+        position: relative;
+        cursor: pointer;
+        margin-left: 10px;
+        z-index: 9;
+    }
+    .hamburger .bar {
+        width: 100%;
+        height: 3px;
+        background-color: #fff;
+        border-radius: 5px;
+        position: absolute;
+    }
+    .hamburger .bar.one {
+        top: 0;
+        transition: 0.2s linear;
+    }
+    .hamburger .bar.two {
+        bottom: 0;
+        width: 100%;
+        transition: 0.2s linear;
+    }
+    .hamburger.active .one {
+        transform: rotate(-45deg) translate(-5px, 4px);
+        background-color: #fff;
+    }
+    .hamburger.active .two {
+        transform: rotate(45deg) translate(-2px, 0px);
+        background-color: #fff;
+    }
+    .menu-container {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(to bottom, #338DF2, #7B45F6);
+        padding:30px 26px 30px 26px;
+        text-align: center;
+        transition: 0.3s linear;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+   }
+    .menu-container.active {
+        right: 0;
+        opacity: 1;
+        z-index: 5;
+   }
+    .menu-container ul {
+        display: block;
+        margin-bottom: 42px;
+   }
+   .menu-container ul li{
+    display: block;
+   }
+    .menu-container ul li:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 15px;
+   }
+    .menu-container ul a {
+        font-size: 18px; 
+        color: #ffffff;
+   }
+   .head_search.search-expand input {
+    width:160px;
+    padding: 5px 20px;
+}
 }
 @media(max-width:780px){
     .booking_field {
@@ -3689,7 +3803,7 @@ color: rgba(112, 112, 112, 0.81);
         border-radius: 5px;
     }
     .banner_filter_pills .nav-item .nav-link { 
-        font-size: 10px; 
+        font-size: 12px; 
         line-height: 1.3;
     }
     .banner_filter_pills .nav-item { 
@@ -3742,73 +3856,8 @@ color: rgba(112, 112, 112, 0.81);
         height: 18px;
         display: block;
     }
-    .menu-container {
-        position: fixed;
-        right: -100%;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        background-image: linear-gradient(to bottom, #338DF2, #7B45F6);
-        padding:30px 26px 30px 26px;
-        text-align: center;
-        transition: 0.3s linear;
-        opacity: 0;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-   }
-    .menu-container.active {
-        right: 0;
-        opacity: 1;
-        z-index: 5;
-   }
-    .menu-container ul {
-        display: block;
-        margin-bottom: 42px;
-   }
-   .menu-container ul li{
-    display: block;
-   }
-    .menu-container ul li:not(:last-child) {
-        margin-right: 0;
-        margin-bottom: 15px;
-   }
-    .menu-container ul a {
-        font-size: 18px; 
-        color: #ffffff;
-   }
-   .hamburger {
-    width: 25px;
-    height: 11px;
-    position: relative;
-    cursor: pointer;
-    margin-left: 10px;
-    z-index: 9;
-}
-.hamburger .bar {
-    width: 100%;
-    height: 3px;
-    background-color: #fff;
-    border-radius: 5px;
-    position: absolute;
-}
-.hamburger .bar.one {
-    top: 0;
-    transition: 0.2s linear;
-}
-.hamburger .bar.two {
-    bottom: 0;
-    width: 100%;
-    transition: 0.2s linear;
-}
-.hamburger.active .one {
-    transform: rotate(-45deg) translate(-5px, 4px);
-    background-color: #fff;
-}
-.hamburger.active .two {
-    transform: rotate(45deg) translate(-2px, 0px);
-    background-color: #fff;
-}
+
+  
 .nav-pills .nav-link {
     border-radius: 3px;
 }
@@ -3844,14 +3893,14 @@ color: rgba(112, 112, 112, 0.81);
     padding: 0;
 }
 .banner_content h1 {
-    font-size: 28px;
+    font-size:32px;
 }
 .banner_content h1 span {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 400;
 }
 .banner_content h1 b {
-    font-size: 19px;
+    font-size: 22px;
 }
  .footer_logo{ 
     margin-bottom:30px;
@@ -3889,5 +3938,21 @@ color: rgba(112, 112, 112, 0.81);
 }
 .package-content-list ul{
     width: 100%;
+}
+.privacy-content{
+    padding-top:100px;
+}
+.privacy-content h1{
+    font-size: 26px;
+}
+.privacy-content h4,.privacy-content h5{
+    font-size:18px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.privacy-content p,.privacy-content li,.privacy-content span{
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 }

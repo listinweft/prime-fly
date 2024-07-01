@@ -33,9 +33,9 @@
                     <h4>More</h4>
                     <ul>
                       <li><a href="{{ url('contact/') }}">Contact Us</a></li>
-                      <!-- <li><a href="">News</a></li> -->
-                      <li><a href="">Privacy Policy</a></li>
-                      <li><a href="">Terms & Condition</a></li> 
+                      <li><a href="{{ url('blogs/') }}">Blog</a></li>
+                      <li><a href="{{ url('privacy-policy/') }}">Privacy Policy</a></li>
+                      <li><a href="{{ url('terms-and-conditions/') }}">Terms & Condition</a></li> 
                     </ul>
                   </div>
                 </div>
@@ -104,12 +104,14 @@
       <script src="{{ asset('frontend/js/custom-datepicker.js')}}"></script>
       <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script>
       <script src="{{ asset('frontend/js/aos.js')}}"></script>
-      <script  src="{{ asset('frontend/js/custom.js')}}"></script>
-      
-      
-
+      <script  src="{{ asset('frontend/js/custom.js')}}"></script> 
       <script src="{{ asset('frontend/js/jquery.timepicker.js')}} "></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
+      <script>
+        $('.head_search a').click(function(){
+          $('.head_search').toggleClass('search-expand');
+        });
+      </script>
 <script>
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
