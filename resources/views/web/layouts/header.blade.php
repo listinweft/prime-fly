@@ -53,7 +53,9 @@
              
                <li class="nav-item"><a href="{{ url('services/') }}" class="nav-link">Services</a></li>
                <li class="nav-item"><a href="{{ url('locations/') }}" class="nav-link">Airports</a></li>
-               <li class="nav-item"><a href="{{ url('blogs/') }}" class="nav-link">Blogs</a></li>
+               <li class="nav-item"><a
+               
+               href="{{ url('blogs/') }}" class="nav-link">Blogs</a></li>
             </ul>
          </div>
          <div class="mobhead-show">
