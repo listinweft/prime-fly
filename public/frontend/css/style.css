@@ -672,6 +672,7 @@ table {
 }
 .airtport_list_thumb{
     position: relative;
+    margin: auto;
     margin-bottom: 15px;
     width: 185px;
     height: 185px;
