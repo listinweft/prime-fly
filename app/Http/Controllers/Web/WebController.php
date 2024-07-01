@@ -155,6 +155,8 @@ class WebController extends Controller
         // Calculate total amounts for all matching products 
         $totalAmounts = $this->calculateTotalAmounts($data);
 
+        
+
         // Pass total amounts to the view
      $category = Category::where('id',$data['category'])->first();
 
@@ -214,12 +216,13 @@ class WebController extends Controller
                 $additionalPrice = $product->additional_price ?? 0;
             }
     
-            // Calculate the total amount
+            // Calculate the total amount based on guest count
+            $totalAmount = ($data['adults'] * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice);
+    
+            // If more than 1 adult, add additional adult costs
             if ($data['adults'] > 1) {
                 $additionalAdults = $data['adults'] - 1;
-                $totalAmount = (1 * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice) + ($additionalAdults * $additionalPrice);
-            } else {
-                $totalAmount = ($data['adults'] * $adultPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice);
+                $totalAmount += $additionalAdults * $additionalPrice;
             }
     
             $result[] = [
@@ -239,6 +242,7 @@ class WebController extends Controller
     
         return $result;
     }
+    
     
     
     
