@@ -3884,4 +3884,10 @@ color: rgba(112, 112, 112, 0.81);
 #srvc_tab_content .tab-pane > .d-flex{
     justify-content: flex-start !important;
 }
+.package-content-list ul li,.package-content-list p,.package-content-list span,.package-content-list b {
+    font-size: 13px;
+}
+.package-content-list ul{
+    width: 100%;
+}
 }
