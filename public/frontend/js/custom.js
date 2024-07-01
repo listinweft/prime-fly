@@ -509,110 +509,115 @@ $(document).ready(function () {
             type: "error"
         });
     });
-    $(document).on('click', '.cart-action', function () {
-        var userid = $(this).data('customerid');
-        var id = $(this).data('id');
-        var totalprice = $(this).data('price');
-        var totalguest = $(this).data('guest');
-        var setdate = $(this).data('setdate');
-        var origin = $(this).data('origin');
-        var destination = $(this).data('destination');
-        var travel_sector = $(this).data('travel_sector');
-        var flight_number = $(this).data('flight_number');
-        var entry_date = $(this).data('entry_date');
-        var travel_type = $(this).data('travel_type');
-        var terminal = $(this).data('terminal');
-        var entry_time = $(this).data('entry_time');
-        var exit_time = $(this).data('exit_time');
-        var bag_count = $(this).data('bag_count');
-        var qty = 1;
-        var checkout = $(this).data('checkout');
-        var cartText = $('.cart-action-span').html();
-        var countRelative = $(this).data('relative') === undefined ? 1 : 0;
-        var attrArray = [];
+    $(document).ready(function() {
+        $(document).on('click', '.cart-action', function (e) {
+            e.preventDefault(); // Prevent default action to ensure only our code runs
     
-        $('.attrSelect').each(function () {
-            var attrId = $(this).val();
-            var attrLabel = $(this).data('label');
-            var combined = attrLabel + ' : ' + attrId;
-            attrArray.push(combined);
-        });
+            console.log('Cart action clicked');
     
-        var attributeList = attrArray.join(",");
-        $('.cart-action-span').html('Loading..');
+            var userid = $(this).data('customerid');
+            var id = $(this).data('id');
+            var totalprice = $(this).data('price');
+            var totalguest = $(this).data('guest');
+            var setdate = $(this).data('setdate');
+            var origin = $(this).data('origin');
+            var destination = $(this).data('destination');
+            var travel_sector = $(this).data('travel_sector');
+            var flight_number = $(this).data('flight_number');
+            var entry_date = $(this).data('entry_date');
+            var travel_type = $(this).data('travel_type');
+            var terminal = $(this).data('terminal');
+            var entry_time = $(this).data('entry_time');
+            var exit_time = $(this).data('exit_time');
+            var bag_count = $(this).data('bag_count');
+            var qty = 1;
+            var checkout = $(this).data('checkout');
+            var cartText = $('.cart-action-span').html();
+            var countRelative = $(this).data('relative') === undefined ? 1 : 0;
+            var attrArray = [];
     
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                product_id: id,
-                qty: qty,
-                totalprice: totalprice,
-                totalguest: totalguest,
-                setdate: setdate,
-                countRelative: countRelative,
-                attributeList: attributeList,
-                origin: origin,
-                destination: destination,
-                travel_sector: travel_sector,
-                flight_number: flight_number,
-                entry_date: entry_date,
-                travel_type: travel_type,
-                terminal: terminal,
-                entry_time: entry_time,
-                exit_time: exit_time,
-                bag_count: bag_count
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url + '/add-cart',
-            success: function (response) {
-                
-                $('.cart-action-span').html(cartText);
+            $('.attrSelect').each(function () {
+                var attrId = $(this).val();
+                var attrLabel = $(this).data('label');
+                var combined = attrLabel + ' : ' + attrId;
+                attrArray.push(combined);
+            });
     
-                if (response.status == true) {
-                    
-                    if (!userid || userid.trim() === '') {
-                        
-                        window.location.href = base_url + '/choose';
-                    } else if (checkout == 1) {
-                        window.location.href = base_url + '/checkout';
-                    } else {
-                        if (urlLastSegment == "cart" || urlLastSegment == "checkout") {
-                            setTimeout(function() {
-                                location.reload();
-                            }, 50000); // 50 seconds
+            var attributeList = attrArray.join(",");
+            $('.cart-action-span').html('Loading..');
+    
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    product_id: id,
+                    qty: qty,
+                    totalprice: totalprice,
+                    totalguest: totalguest,
+                    setdate: setdate,
+                    countRelative: countRelative,
+                    attributeList: attributeList,
+                    origin: origin,
+                    destination: destination,
+                    travel_sector: travel_sector,
+                    flight_number: flight_number,
+                    entry_date: entry_date,
+                    travel_type: travel_type,
+                    terminal: terminal,
+                    entry_time: entry_time,
+                    exit_time: exit_time,
+                    bag_count: bag_count
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + '/add-cart',
+                success: function (response) {
+                    console.log('AJAX success:', response);
+    
+                    $('.cart-action-span').html(cartText);
+    
+                    if (response.status == true) {
+                        if (!userid || userid.trim() === '') {
+                            window.location.href = base_url + '/choose';
+                        } else if (checkout == 1) {
+                            window.location.href = base_url + '/checkout';
                         } else {
-                            window.location.href = base_url + '/cart';
+                            if (urlLastSegment == "cart" || urlLastSegment == "checkout") {
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 50000); // 50 seconds
+                            } else {
+                                window.location.href = base_url + '/cart';
     
-                            Toast.fire({
-                                icon: 'success',
-                                title: response.message
-                            });
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: response.message
+                                });
     
-                            // Reload the page after a delay (if needed)
-                            setTimeout(() => {
-                                location.reload();
-                            }, 50000); // 50 seconds
+                                // Reload the page after a delay (if needed)
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 50000); // 50 seconds
+                            }
                         }
+                    } else {
+                        swal.fire({
+                            title: "Oops",
+                            text: response.message,
+                            icon: "error"
+                        });
                     }
-                } else {
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', xhr.responseText);
                     swal.fire({
-                        title: "Oops",
-                        text: response.message,
+                        title: "Error",
+                        text: "An error occurred while processing your request. Please try again.",
                         icon: "error"
                     });
                 }
-            },
-            error: function (xhr, status, error) {
-                console.log(xhr.responseText);
-                swal.fire({
-                    title: "Error",
-                    text: "An error occurred while processing your request. Please try again.",
-                    icon: "error"
-                });
-            }
+            });
         });
     });
     

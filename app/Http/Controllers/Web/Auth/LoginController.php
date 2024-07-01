@@ -70,7 +70,7 @@ class LoginController extends Controller
 
                 $sessionKey = Auth::guard('customer')->user()->customer->id;
                 session(['session_key' => $sessionKey]);
-                // Helper::transferGuestCartToUser($sessionKey);
+              
                  return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in','redirect'=> '/']);
 
             
@@ -86,16 +86,12 @@ class LoginController extends Controller
 
     protected function clearCart()
     {
-        // Retrieve session key from session
         $sessionKey = session('session_key');
     
-        // Clear all items in the cart session
+      
         Cart::session($sessionKey)->clear();
     
-        // Optionally handle other session data clearing
-        session()->forget('selected_billing_address');
-        session()->forget('selected_shipping_address');
-        // Clear other session data related to cart or order
+        
     
         
         \Log::info('Cart cleared for session: ' . $sessionKey);

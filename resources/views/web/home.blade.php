@@ -251,6 +251,25 @@
 
                               @php
         $category = App\Models\Category::where('title', 'Cloak Room')->first();
+
+        if ($category) {
+            $products = App\Models\Product::where('category_id', $category->id)->get();
+            $allLocationIds = [];
+
+            foreach ($products as $product) {
+               
+                $locationIds = explode(',', $product->location_id);
+
+                
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+
+           
+            $uniqueLocationIds = array_unique($allLocationIds);
+
+          
+            $locations = App\Models\Location::whereIn('id', $uniqueLocationIds)->get();
+        }
       
        
        @endphp
@@ -475,5 +494,8 @@
 @push('scripts')
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+
+
+
 
 @endpush
