@@ -4,9 +4,9 @@
         
          <section class="col-12 locationbanner p-0">
            <div class="d-flex justify-content-end">
-              <div class="locinner_bannerimg">
+              <div class="locinner_bannerimg w-100">
                 
-                {!! Helper::printImage(@$blog, 'image', 'image_webp', '', 'img-fluid') !!}
+                {!! Helper::printImage(@$blog, 'image', 'image_webp', '', 'img-fluid w-100') !!}
                 <div class="loc-text">
                     <h1>{{$blog->title}}</h1>
                 </div>
