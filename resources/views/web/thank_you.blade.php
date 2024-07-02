@@ -45,8 +45,12 @@
 </section> -->
 @push('scripts')
  <script>
+
+var base_url = "{{ url('/') }}";
  setTimeout(function() {
-    window.location.href = '/';
+
+
+    window.location.href = base_url;
                         }, 2000);
 
 </script>

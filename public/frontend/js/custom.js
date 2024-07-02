@@ -1059,11 +1059,22 @@ $(document).ready(function () {
                 $("#" + form_id)[0].reset();
     
                 if (response.status == "success") {
-                    // Handle success
+
+                     Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        setTimeout(() => {
+                            window.location.href = base_url/choose;
+                        }, 2000);
+
+
                 } else if (response.status == "success-reload") {
                     Toast.fire({
                         title: "Success!", text: response.message, icon: "success"
                     });
+                    setTimeout(() => {
+                        window.location.href = base_url + "/choose";
+                    }, 2000);
                 } else {
                     // Handle other error responses
                 }

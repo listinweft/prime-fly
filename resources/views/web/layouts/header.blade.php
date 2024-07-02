@@ -23,10 +23,20 @@
                </a>
                
             </li>
+            @if(Auth::guard('customer')->check() )
+            @if (Helper::getCartItemCount() > 0)
+
             <li class="nav-item">
-               <a href="{{ url('cart/') }}" class="nav-link head-cart"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
+            <a href="{{ url('cart/') }}" class="nav-link head-cart">
+            <img src="{{ asset('frontend/img/cart-white.png') }}" alt="cart icon">
+           
+                <span class="cart-count">{{ Helper::getCartItemCount() }}</span>
+          
+        </a>
             </li>
-            @if(Auth::guard('customer')->check())
+            
+@endif
+           
             <li class="nav-item header_account_login">
                <div class="dropdown">
                   @php

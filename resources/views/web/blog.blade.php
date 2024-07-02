@@ -28,17 +28,25 @@
                                     <ul>
                                         
                                         <li class="fb-share">
-                                            <a href="#0">
-                                                <div class="share-icon"><img src="img/icons/facebook.png" alt=""></div>
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo url('blog/' . $blog->short_url); ?>">
+                                                <div class="share-icon"><img src="{{ asset('frontend/img/icons/facebook.png')}}" alt=""></div>
                                                 <div class="share-content"><p><span>SHARE</span></p></div>
                                             </a>
                                         </li>
                                         <li class="x-share">
-                                            <a href="#0">
-                                                <div class="share-icon"><img src="img/icons/twitter-x.png" alt=""></div>
+                                            <a href="https://twitter.com/share?url=<?php echo url('blog/' . $blog->short_url); ?>&text=Check out this blog">
+                                                <div class="share-icon"><img src="{{ asset('frontend/img/icons/twitter-x.png')}}" alt=""></div>
                                                 <div class="share-content"><p><span>TWEET</span></p></div>
                                             </a>
                                         </li>
+
+                                        <li class="whatsapp">
+                                        <a href="https://api.whatsapp.com/send?text={{ url('blog/'.$blog->short_url) }}">
+                                                        <img src="{{ asset('frontend/images/icon/whatsapp.png')}}" alt="">
+                                                    </a>
+                                        </li>
+                                      
+
                                         
                                         
                                     </ul>

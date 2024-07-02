@@ -29,18 +29,20 @@
       <main> 
         <section class="col-12 choose-user-wrap bg-light-orange">
             <div class="d-flex flex-wrap">
+
+            <a href="{{ route('login_form', ['token' => 'public']) }}">
+                <div class="choose-user" data-aos="fade-up" data-aos-duration="600">
+                    <img src="{{ asset('frontend/img/user2.png')}}" alt="user"/>
+                    <p>Public</p>
+                </div>  
+            </a>
                 <a href="{{ route('login_form', ['token' => 'b2b']) }}">
                     <div class="choose-user" data-aos="fade-up" data-aos-duration="300">
                         <img src="{{ asset('frontend/img/user1.png')}}" alt="user"/>
                         <p>Corporate</p>
                     </div>
                 </a>
-                            <a href="{{ route('login_form', ['token' => 'public']) }}">
-                <div class="choose-user" data-aos="fade-up" data-aos-duration="600">
-                    <img src="{{ asset('frontend/img/user2.png')}}" alt="user"/>
-                    <p>Public</p>
-                </div>  
-            </a>
+                           
 
             </div> 
         </section>

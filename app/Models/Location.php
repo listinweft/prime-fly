@@ -28,4 +28,16 @@ class Location extends Model
         return $this->hasMany(LocationGallery::class)->active();
     }
 
+    public function categories()
+    {
+        $productRecords = Product::whereRaw("FIND_IN_SET($this->id, location_id)")->get();
+        $categoryIds = [];
+        
+        foreach ($productRecords as $product) {
+            $categoryIds = array_merge($categoryIds, explode(',', $product->category_id));
+        }
+
+        return Category::whereIn('id', array_unique($categoryIds))->get();
+    }
+
 }

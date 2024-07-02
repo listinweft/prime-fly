@@ -160,6 +160,9 @@ class WebController extends Controller
         // Pass total amounts to the view
      $category = Category::where('id',$data['category'])->first();
 
+
+     Session::forget('category');
+
      Session::put('total_amounts', $totalAmounts);
      Session::put('category', $category->title);
 
@@ -324,7 +327,7 @@ class WebController extends Controller
             
         ];
     }
-
+    Session::forget('category');
      Session::put('total_amounts', $result);
      Session::put('category', $category->title);
 
@@ -400,7 +403,7 @@ public function search_booking_lounch(Request $request)
             'totalguest' => $data['adults']
         ];
     }
-
+    Session::forget('category');
     // Return JSON response with success flag, total amounts, and category title
     Session::put('total_amounts', $result);
      Session::put('category', $category->title);
@@ -488,7 +491,7 @@ public function search_booking_lounch(Request $request)
                 'travel_type' => $data['travel_type']
             ];
         }
-    
+        Session::forget('category');
         // Return JSON response with success flag, total amounts, and category title
         Session::put('total_amounts', $result);
         Session::put('category', $category->title);
@@ -573,7 +576,7 @@ public function search_booking_lounch(Request $request)
                 'exit_time' => $data['exit_time'],
             ];
         }
-    
+        Session::forget('category');
         Session::put('total_amounts', $result);
      Session::put('category', $category->title);
 
@@ -713,13 +716,6 @@ public function search_booking_lounch(Request $request)
         if ($category) {
 
 
-           
-
-
-
-
-
-
        
             $products = Product::where('category_id', $category->id)->get();
 
@@ -740,9 +736,9 @@ public function search_booking_lounch(Request $request)
     
             // Fetch locations associated with these location ids
             $locations = Location::active()->whereIn('id', $uniqueLocationIds)->get();
-        $blogs = Blog::active()->get();
-        $testimonials = Testimonial::active()->get();
-         $subcategories = Category::where('parent_id',$category->id)->active()->get();
+           $blogs = Blog::active()->get();
+           $testimonials = Testimonial::active()->get();
+           $subcategories = Category::where('parent_id',$category->id)->active()->get();
        
         return view('web.service_detail', compact('blogs','locations','testimonials','category','subcategories'));
 
@@ -980,8 +976,9 @@ public function search_booking_lounch(Request $request)
         if ($blog) {
            
             $type = $blog->title;
-            $categorys = Category::whereNull('parent_id')->get();
 
+            
+            $categorys = $blog->categories();
             $faqs = Faq::active()->latest()->take(5)->get();
 
              $gallery = LocationGallery::where('location_id',$blog->id)->get();

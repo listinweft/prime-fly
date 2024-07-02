@@ -71,7 +71,7 @@ class LoginController extends Controller
                 $sessionKey = Auth::guard('customer')->user()->customer->id;
                 session(['session_key' => $sessionKey]);
               
-                 return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in','redirect'=> '/']);
+                 return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
 
             
         } else {

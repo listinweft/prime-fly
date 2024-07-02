@@ -111,21 +111,14 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     success: function(response) {
-                if (response.success) {
-                    var totalAmounts = response.total_amounts;
-
-                    // Handle the total amounts for each package
-                    totalAmounts.forEach(function(item) {
-                        console.log("Product:", item.product);
-                        console.log("Total Amount:", item.total_amount);
-                    });
-
-                    
-                    window.location.href = base_url+'/package/';
-                } else {
-                    alert("Failed to calculate total amounts.");
-                }
-            },
+        if (response.success) {
+                        window.location.href = base_url+'/package/';
+                    } else {
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
+                    }
+                },
                 error: function(xhr) {
                     // Handle error response
                     alert("An error occurred: " + xhr.status + " " + xhr.statusText);
