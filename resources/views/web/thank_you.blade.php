@@ -4,9 +4,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
+                <img src="{{ asset('frontend/img/travel.png')}}" class="thanks_vector" alt="Thank you" />
                 <h1>Thank <span>You</span></h1>
-                <h2>Thank you for reaching out to us</h2>
-                <a class="common-btn" href="{{url('/')}}">Back to Home</a>
+                <p>Thank you for reaching out to us</p>
+                <a class="btn btn-primary common-btn" href="{{url('/')}}">Back to Home</a>
                 <!-- <ul>
                     
                     <li>

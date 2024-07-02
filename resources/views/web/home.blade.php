@@ -331,6 +331,9 @@
                     
                     
                 </div>
+                <div class="col-12 text-center">
+                  <a href="{{ url('services/') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
+                </div>
       </div>
          <section class="col-12 airport_list_section">
           <div class="container">
@@ -360,7 +363,7 @@
                  
                  
                 <div class="col-12 text-center mt-3">
-                  <a href="" class="btn-style-2"><div class="btn-in">View More</div></a>
+                  <a href="{{ url('locations/') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
                 </div>
                 </div>
               </div>
