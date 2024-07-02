@@ -1,8 +1,8 @@
 @extends('web.layouts.main')
 @section('content')
 
-<section class="col-12 banner">
-            <img src="{{ asset('frontend/img/banner.png')}}" alt="Banner" />
+<section class="col-12 banner d-none d-sm-block">
+            <img src="{{ asset('frontend/img/banner.webp')}}" alt="Banner" />
             <div class="banner_content">
                <div class="container">
                   <div class="d-flex justify-content-center">
@@ -310,6 +310,28 @@
                </div>
             </div>
          </section>
+         <div class="col-lg-12 service-slider d-block d-sm-none mob_homeservice" data-aos="fade-up" data-aos-duration="600">
+                   <div class="row justify-content-center">
+                   @foreach ($categorys as $category)
+                    <div class="servce_listing_grid">
+                   
+
+                        <div class="item"> 
+                            <a href="{{ url('service/'.@$category->short_url) }}">
+                            {!! Helper::printImage(@$category, 'image', 'image_webp', '', 'img-fluid') !!}
+                                <h4>{{$category->title}}</h4>
+                            </a>
+                        </div>
+
+                       
+
+                    </div>
+                    @endforeach
+                   
+                    
+                    
+                </div>
+      </div>
          <section class="col-12 airport_list_section">
           <div class="container">
             <div class="row justify-content-center">
@@ -345,7 +367,7 @@
             </div>
           </div>
          </section>
-         <section class="col-12 service-section">
+         <section class="col-12 service-section  d-none d-sm-block">
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-7 section-head text-center mb-4">
@@ -405,9 +427,9 @@
               </div>
           </div>
           <div class="col-lg-12 places"> 
-            <img src="{{ asset('frontend/img/places.png')}}" class="w-100 place_vector" alt="Place" />
-            <img src="{{ asset('frontend/img/cloud.png')}}" class="cloud-left" alt="cloud"/>
-            <img src="{{ asset('frontend/img/cloud2.png')}}" class="cloud-right" alt="cloud"/>
+            <img src="{{ asset('frontend/img/places.webp')}}" class="w-100 place_vector" alt="Place" />
+            <img src="{{ asset('frontend/img/cloud.webp')}}" class="cloud-left" alt="cloud"/>
+            <img src="{{ asset('frontend/img/cloud2.webp')}}" class="cloud-right" alt="cloud"/>
           </div>
          </section>
          <section class="col-12 home-blog-section">
