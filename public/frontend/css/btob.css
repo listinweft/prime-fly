@@ -613,6 +613,12 @@ a:hover{
         font-size: 13px; 
     }
 }
-@media(max-width:1300px){
-
+@media(max-width:610px){
+    .BtoB_back {
+        padding: 50px 15px 10px 15px; 
+    }
+    .botm-illstrater img{
+        height: 300px;
+        object-fit: cover;
+    }
 }

@@ -88,7 +88,7 @@
                             </div>
                             <div class="col-12 text-center mt-3">
                             <input type="hidden" name="type" value="contact">
-                            <button class="btn form_submit_btn" data-url="/enquiry">SUBMIT</button>
+                                <button class="btn form_submit_btn btn-primary" data-url="/enquiry">SUBMIT</button>
                              </div>
                        </div>  
                        </form>   
