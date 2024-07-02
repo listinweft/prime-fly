@@ -279,6 +279,11 @@ a:hover{
 .b2b-header{
     padding: 10px 80px 10px 30px;
     border-bottom:1px solid rgb(225 231 238 / 36%);
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
 }
 .b2b-logo{
     width:220px
@@ -338,11 +343,19 @@ a:hover{
 .header-user img:hover{
     border-color: #6758F4;
 }
+.b2b-dash > .d-flex{
+    justify-content: end;
+}
 .b2b-side-nav {
-    min-height: 100vh;
+    height: 100vh;
     background-image: linear-gradient(to right, #338DF2, #7B45F6);
     width: 220px;
     padding: 30px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 90px;
+    z-index: 0;
 }
 .menu-profile img{
     width: 35px;
@@ -420,8 +433,11 @@ a:hover{
     opacity: 1;
     transition: all 0.3s ease-in-out;
 }
-.b2b-dash-content{
-    width: 83%;
+.b2b-dash-content {
+    width: 100%;
+    padding-top: 120px;
+    padding-left: 240px;
+    padding-bottom:80px;
 }
 .b2b_order-summery{
     border-radius: 10px;
