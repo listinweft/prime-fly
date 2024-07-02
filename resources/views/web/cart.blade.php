@@ -36,14 +36,38 @@
                         {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block') !!}
                     </div>
                     <div class="cart-prdct-dtls">
-                        <h4>{{$product->title}}</h4>
-                        
-                        <!-- Check if $row->attributes exists before accessing 'guest' -->
-                        @if(isset($row->attributes['guest']))
-                            <p>From: Mumbai Guest: {{$row->attributes['guest']}}</p>
-                        @else
-                            <p>Guest information not available</p>
-                        @endif
+
+                    @if(isset($row->attributes['travel_type']))
+    @php
+        $travelType = $row->attributes['travel_type'];
+        $locationId = $travelType == 'departure' ? $row->attributes['origin'] : $row->attributes['destination'];
+        $location = App\Models\Location::find($locationId);
+
+        $origindata = $row->attributes['origin'];
+
+        $locationnew = App\Models\Location::find($origindata);
+
+        $locationTitle = $location ? $location->title : $locationnew->title; // Default title if location is not found
+
+    @endphp
+@else
+    @php
+
+    $origin = $row->attributes['origin'];
+
+
+        $locationTitle =   $location = App\Models\Location::find($origin);
+    @endphp
+@endif
+
+<h4>{{ $product->title }}</h4>
+
+@if(isset($row->attributes['guest']))
+    <p>From: {{ $locationTitle }} Guest: {{ $row->attributes['guest'] }}</p>
+@else
+    <p>Guest information not available</p>
+@endif
+
                         
                         <p>{{$product->service_type}}:  Date:{{$row->attributes['setdate']}} </p>
                         <a href="javascript:void(0)" class="remove-cart-item" data-id="{{$row->id}}">Remove</a>

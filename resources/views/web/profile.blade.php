@@ -45,9 +45,21 @@
                     <a href="#" class="header-cart">
                         <img src="{{ asset('frontend/img/cart-icon.png')}}" alt="logo"/>
                     </a>
+
+                    @if($customer->user->profile_image)
                     <a href="#" class="header-user">
+                            {!! Helper::printImage($customer->user, 'profile_image', 'profile_image_webp', '', 'img-fluid') !!}
+                            </a>
+                            @else
+                               
+                            <a href="#" class="header-user">
                         <img src="{{ asset('frontend/img/common-user.png')}}" alt="logo"/>
                     </a>
+
+
+                                @endif
+
+                  
                 </div>
             </div>
         </div>
