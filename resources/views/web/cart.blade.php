@@ -101,7 +101,12 @@
                                             @php 
 
                                             $totalAmount += $row->price;
+                                            $cgst = ($totalAmount * 0.09);
+                                            $sgst = ($totalAmount * 0.09);
 
+                                            
+
+                                         
                                             @endphp
 
 
@@ -109,10 +114,21 @@
                                            
                                         </tbody>
                                         <tfoot>
+
+                                        
+                                        
+                                                <td><b>CGST (9%)</b></td>
+                                                <td><b>&#8377;  {{$cgst}}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>SGST (9%)</b></td>
+                                                <td><b>&#8377;  {{$sgst}}</b></td>
+                                            </tr>
                                             <tr>
                                                 <td><b>Total Amount</b></td>
                                                 <td><b>&#8377;  {{$totalAmount}}</b></td>
                                             </tr>
+                                            
                                         </tfoot>
                                     </table>
                                     <div class="col-12 package-content-button text-center mt-3">
