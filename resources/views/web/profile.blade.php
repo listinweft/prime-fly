@@ -26,7 +26,7 @@
     <div class="col-12 b2b-header">
         <div class="d-flex align-items-center">
             <div class="b2b-logo">
-                <a href="/">
+                <a href="{{ url('/') }}">
                 <img src="{{ asset('frontend/img/logo-blue.png')}}" alt="logo"/>
 </a>
             </div>
