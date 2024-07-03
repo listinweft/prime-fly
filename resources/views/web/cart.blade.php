@@ -166,7 +166,7 @@
 @endif
 <div class="col-12 cart-addon">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
                 <h4 class="text-center mb-4">Ad on Services</h4>
                 <div class="col-lg-12 service-slider" data-aos="fade-up" data-aos-duration="600">
