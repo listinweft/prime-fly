@@ -70,10 +70,10 @@
                                         </div>  
                                     </div>
                                     <div class="col-12 register_form_grid text-center mt-3">
-                                    <input type="submit" value="Login"  class="loginform_submit_btn" data-url="/login">
+                                    <input type="submit" value="Login"  class="loginform_submit_btn" data-url="/login-public">
                                      </div>
                                      <div class="text-center otp_grid ">
-                                        <!-- <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</div></p> -->
+                                        <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</div></p>
                                      </div>
                                 </div> 
 </form>

@@ -30,7 +30,7 @@
         <section class="col-12 choose-user-wrap bg-light-orange">
             <div class="d-flex flex-wrap">
 
-            <a href="{{ route('login_form', ['token' => 'public']) }}">
+            <a href="{{ route('login_form_public', ['token' => 'public']) }}">
                 <div class="choose-user" data-aos="fade-up" data-aos-duration="600">
                     <img src="{{ asset('frontend/img/user2.png')}}" alt="user"/>
                     <p>Public</p>

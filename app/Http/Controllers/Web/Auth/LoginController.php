@@ -39,13 +39,20 @@ class LoginController extends Controller
         }
     
         if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
-    
+
+            $user = Auth::guard('customer')->user()->btype;
+
+            if($user == "b2b")
+
+            {
+
+                
+
             $sessionKey = Auth::guard('customer')->user()->customer->id;
             session(['session_key' => $sessionKey]);
     
             if (Auth::guard('customer')->user()->btype == 'b2b') {
-                // Log the session key
-                // Log::info('Session key for clearing cart:', ['session_key' => $sessionKey]);
+              
     
                 // Check if session key exists and is not empty
                 if ($sessionKey) {
@@ -75,10 +82,61 @@ class LoginController extends Controller
             }
     
             return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
-        } else {
+        }
+
+        else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
+        }
+
+        }
+         else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
         }
     }
+    public function login_public(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required',
+        ]);
+    
+        if (is_numeric($request->username)) {
+            $field = 'phone';
+        } else {
+            $field = 'email';
+        }
+    
+        if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
+    
+
+            $user = Auth::guard('customer')->user()->btype;
+
+            if($user == "public")
+            {
+
+                $sessionKey = Auth::guard('customer')->user()->customer->id;
+                session(['session_key' => $sessionKey]);
+
+
+            }
+            else{
+
+                return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
+
+
+
+            }
+           
+    
+           
+    
+            return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+        }
+         else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
+        }
+    }
+    
     
 
     protected function guard()
@@ -332,8 +390,21 @@ class LoginController extends Controller
 
 
         $type = $request->token;
+
+        
         
         return view('web.login',compact('type'));
+
+    }
+    public function login_form_public(Request $request)
+    {
+
+
+        $type = $request->token;
+
+        
+        
+        return view('web.login_public',compact('type'));
 
     }
     public function choose_form(Request $request)
