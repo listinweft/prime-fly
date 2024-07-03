@@ -19,7 +19,7 @@
                     </div>
                     <div class="booking_field" id="travel_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="travel_type" id="travel_type">
+                        <select type="text" class="form-control" name="travel_type" id="travel_types">
                             <option value="">Select Travel Type</option>
                             <option value="departure">Departure</option>
                             <option value="arrival">Arrival</option>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="origin" id="origins">
+                        <select type="text" class="form-control" name="origin" id="originss">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}</option>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="booking_field" id="destination_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="destination" id="destinations">
+                        <select type="text" class="form-control" name="destination" id="destinationss">
                             <option value="">Select Destination</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}</option>
@@ -151,36 +151,49 @@ $(document).ready(function() {
         }
     });
 
-    $('#travel_sector').change(function() {
-        var travelSector = $(this).val();
-        if (travelSector) {
-            var base_url = "{{ url('/') }}";
+    $(function() {
+    $('#travel_types').change(function() {
+        var travel_type = $(this).val();
+      
+      
+        var base_url = "{{ url('/') }}";
+        var category = @json($category->id);
+
+        if (travel_type) {
             $.ajax({
-                url: base_url + '/get-locations',
+                url: base_url + '/get-locations-porter',
                 type: 'POST',
                 data: {
-                    travel_sector: travelSector,
+                    travel_type: travel_type,
+                    category: category,
                     _token: '{{ csrf_token() }}'
                 },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 success: function(data) {
-                    var originSelect = $('#origins');
-                    var destinationSelect = $('#destinations');
+                    var originSelect = $('#originss');
+                   
+                    var destinationSelect = $('#destinationss');
+                   
                     originSelect.empty().append('<option value="">Select Origin</option>');
                     destinationSelect.empty().append('<option value="">Select Destination</option>');
-                    $.each(data, function(key, location) {
+
+                    $.each(data.origins, function(key, location) {
                         originSelect.append('<option value="' + location.id + '">' + location.title + '</option>');
+                    });
+
+                    $.each(data.destinations, function(key, location) {
                         destinationSelect.append('<option value="' + location.id + '">' + location.title + '</option>');
                     });
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", error);
                 }
             });
         } else {
-            $('#origins').empty().append('<option value="">Select Origin</option>');
-            $('#destinations').empty().append('<option value="">Select Destination</option>');
+            $('#originss').empty().append('<option value="">Select Origin</option>');
+            $('#destinationss').empty().append('<option value="">Select Destination</option>');
         }
     });
+});
 });
 </script>
 @endpush

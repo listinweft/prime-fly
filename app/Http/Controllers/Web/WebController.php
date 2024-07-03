@@ -125,6 +125,34 @@ class WebController extends Controller
     
         return response()->json(['origins' => $origins, 'destinations' => $destinations]);
     }
+    public function getLocations_porter(Request $request)
+    {
+        $travelSector = $request->input('travel_type');
+        $category = $request->input('category');
+    
+        $products = Product::where('category_id', $category)->get();
+    
+        $allLocationIds = [];
+        foreach ($products as $product) {
+            $locationIds = explode(',', $product->location_id);
+            $allLocationIds = array_merge($allLocationIds, $locationIds);
+        }
+        $uniqueLocationIds = array_unique($allLocationIds);
+        $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+    
+        $origins = [];
+        $destinations = [];
+    
+        if ($travelSector == 'departure') {
+            $origins = $locationsspecific;
+            $destinations = Location::all();
+        } elseif ($travelSector == 'arrival') {
+            $origins = Location::all();
+            $destinations = $locationsspecific;
+        }
+    
+        return response()->json(['origins' => $origins, 'destinations' => $destinations]);
+    }
     
 
     public function search_booking(Request $request)

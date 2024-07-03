@@ -27,57 +27,59 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
-      
-
-        
-      
         $request->validate([
             'username' => 'required|string',
             'password' => 'required',
         ]);
-        // set remember me cookie if the user check the box
-        // $remember = ($request->has('remember')) ? true : false;
-
+    
         if (is_numeric($request->username)) {
             $field = 'phone';
-        }
-//        elseif (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
-//            $field = 'email';
-//        }
-        else {
+        } else {
             $field = 'email';
-//            $field = 'username';
         }
-       
-        
-        
-
-        
-            if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
-
-                
-           
+    
+        if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
+    
+            $sessionKey = Auth::guard('customer')->user()->customer->id;
+            session(['session_key' => $sessionKey]);
+    
             if (Auth::guard('customer')->user()->btype == 'b2b') {
-
-                $this->clearCart();
-                
-                
-            } 
-
-               
-             
-
-                $sessionKey = Auth::guard('customer')->user()->customer->id;
-                session(['session_key' => $sessionKey]);
-              
-                 return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
-
-            
+                // Log the session key
+                // Log::info('Session key for clearing cart:', ['session_key' => $sessionKey]);
+    
+                // Check if session key exists and is not empty
+                if ($sessionKey) {
+                    try {
+                        // Log the cart contents before clearing
+                        $cartContents = Cart::session($sessionKey)->getContent();
+                        // Log::info('Cart contents before clearing:', ['cart' => $cartContents]);
+    
+                        Cart::session($sessionKey)->clear();
+    
+                        // Log the cart contents after clearing
+                        $cartContentsAfterClear = Cart::session($sessionKey)->getContent();
+                        // Log::info('Cart contents after clearing:', ['cart' => $cartContentsAfterClear]);
+    
+                    } catch (Exception $e) {
+                        // Log the error or handle it as needed
+                        Log::error('Failed to clear cart session', ['exception' => $e]);
+                        // Optionally, you can display a user-friendly message
+                        return response()->json(['status' => 'error', 'message' => 'Failed to clear cart. Please try again later.']);
+                    }
+                } else {
+                    // Log the issue or handle it as needed
+                    // Log::error('Session key is not set or is empty');
+                    // Optionally, you can display a user-friendly message
+                    return response()->json(['status' => 'error', 'message' => 'Session key is required.']);
+                }
+            }
+    
+            return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
         } else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
         }
     }
+    
 
     protected function guard()
     {
