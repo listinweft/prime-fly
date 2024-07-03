@@ -3342,6 +3342,7 @@ color: rgba(112, 112, 112, 0.81);
     border-radius: 5px !important;
     border:0px solid #ededed;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    z-index: 9;
 }
 .searchResult ul{
     padding-left: 0;
@@ -3396,6 +3397,7 @@ color: rgba(112, 112, 112, 0.81);
 .head_search.search-expand input {
     width: 200px;
     padding: 5px 20px; 
+    border: 1px solid #ccc;
 }
 .thanks_section{
     padding-top: 120px;
@@ -3408,6 +3410,10 @@ color: rgba(112, 112, 112, 0.81);
 .thanks_section img{
     width: 180px;
     margin-bottom: 30px;
+}
+.cart-addon{
+    padding: 60px 15px;
+    background-color: #fff;
 }
 @media(max-width:1680px){
     .airtport_list_thumb { 
@@ -4009,4 +4015,9 @@ color: rgba(112, 112, 112, 0.81);
 .thanks_section a{
     margin-top: 40px;
 }
+.cart-progress li{
+    font-size: 12px;
+    padding-left: 35px;
+}
+
 }
