@@ -7,6 +7,7 @@ use App\Http\Helpers\Helper;
 use App\Models\Advertisement;
 use App\Models\Banner;
 use App\Models\Country;
+use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\CustomerAddress;
 use App\Models\Offer;
@@ -274,10 +275,11 @@ class CartController extends Controller
         $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
-   
+        $categorys = Category::whereNull('parent_id')->get();
+
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
         return view('web.cart', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
-            'banner', 'featuredProducts'));
+            'banner', 'featuredProducts','categorys'));
     }
 
     public function setSession()
