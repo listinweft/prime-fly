@@ -203,40 +203,42 @@ class Helper
             $sessionKey = session('session_key');
             if (!Cart::session($sessionKey)->isEmpty()) {
                 foreach (Cart::session($sessionKey)->getContent() as $row) {
-                    $product = Product::find($row->id);
-                  
+                    // Extract the original product ID from the unique ID
+                    $originalProductId = explode('_', $row->id)[0];
+                    $product = Product::find($originalProductId);
+    
+                    if ($product) {
                         $offer_amount = '0.00';
                         $offer_id = '0';
                         $product_price = $row->price;
-                    
-                    Cart::session($sessionKey)->update($row->id, [
-                        'price' => $product_price,
-                        'guest' => $row->guest,
-                        'quantity' => 1,
-                        'name' => $row->name,
-                        'attributes' => [  'guest' => $row->attributes->guest,
-                        'entry_date' => $row->attributes->entry_date,
-                    'setdate' => $row->attributes->setdate,
-
-                    'origin' => $row->attributes->origin,
-                'destination' => $row->attributes->destination,
-                'travel_sector' => $row->attributes->travel_sector,
-                'flight_number' => $row->attributes->flight_number,
-
-                'travel_type' => $row->attributes->travel_type,
-                'terminal' => $row->attributes->terminal,
-                'entry_time' => $row->attributes->entry_time,
-                'exit_time' => $row->attributes->exit_time,
-                'bag_count' => $row->attributes->bag_count,
-                
-                ],// Ensure attributes are empty if not needed
-                         'conditions' => [],
-
-                    ]);
+    
+                        Cart::session($sessionKey)->update($row->id, [
+                            'price' => $product_price,
+                            'guest' => $row->guest,
+                            'quantity' => $row->quantity,
+                            'name' => $row->name,
+                            'attributes' => [
+                                'guest' => $row->attributes->guest,
+                                'entry_date' => $row->attributes->entry_date,
+                                'setdate' => $row->attributes->setdate,
+                                'origin' => $row->attributes->origin,
+                                'destination' => $row->attributes->destination,
+                                'travel_sector' => $row->attributes->travel_sector,
+                                'flight_number' => $row->attributes->flight_number,
+                                'travel_type' => $row->attributes->travel_type,
+                                'terminal' => $row->attributes->terminal,
+                                'entry_time' => $row->attributes->entry_time,
+                                'exit_time' => $row->attributes->exit_time,
+                                'bag_count' => $row->attributes->bag_count,
+                            ],
+                            'conditions' => [],
+                        ]);
+                    }
                 }
             }
         }
     }
+    
 
     public static function getCartItemCount()
     {

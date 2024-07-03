@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Termwind\Components\Dd;
+use Illuminate\Support\Str;
+
 
 class CartController extends Controller
 {
@@ -148,10 +150,8 @@ class CartController extends Controller
         }
     }
     
-    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest,$setdate,$origin,$destination,$travel_sector,$flight_number,$entry_date,$travel_type,$terminal,$bag_count,$exit_time,$entry_time)
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time)
     {
-       
-
         $origin = $origin ?? '';
         $destination = $destination ?? '';
         $travel_sector = $travel_sector ?? '';
@@ -161,35 +161,13 @@ class CartController extends Controller
         $bag_count = $bag_count ?? '';
         $entry_time = $entry_time ?? '';
         $exit_time = $exit_time ?? '';
-
-        // \Log::info($request->all());
-
-
+    
         $product = Product::find($product_id);
         if (!$product) {
             return response()->json(['status' => false, 'message' => 'Product not found']);
         }
     
-        $count = [];
-        $qty = ($request->qty) ? $request->qty : 1;  // Ensure qty is an integer
-    
-        if (Cart::session($sessionKey)->isEmpty()) {
-            $count[$product_id] = 0;
-        } else {
-            foreach (Cart::session($sessionKey)->getContent() as $row) {
-                $count[$row->id] = $row->quantity;
-            }
-        }
-    
-        if (isset($count[$product_id])) {
-            $productCount = $count[$product_id] + $qty;
-        } else {
-            $productCount = $qty;
-        }
-    
-        if ($productCount > $product->stock) {
-            return response()->json(['status' => false, 'message' => 'Not enough stock available']);
-        }
+        $qty = ($request->qty) ? $request->qty : 1;
     
         $offer_amount = '0.00';
         $offer_id = '0';
@@ -204,32 +182,31 @@ class CartController extends Controller
         }
     
         try {
-            // Remove the product if it already exists in the cart
-            if (Cart::session($sessionKey)->get($product->id)) {
-                Cart::session($sessionKey)->remove($product->id);
-            }
+            // Generate a more robust unique cart item ID
+            $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
     
             // Add the product to the cart session
             Cart::session($sessionKey)->add([
-                'id' => $product->id,
+                'id' => $uniqueId,
                 'name' => $product->title,
                 'price' => $totalprice,
-                 'quantity' => $qty,
-                 'guest' => $totalguest,
-                'attributes' => [  'guest' => $totalguest,
-                'entry_date' => $entry_date,
-                'travel_type' => $travel_type,
-                'setdate' => $setdate,
-                'origin' => $origin,
-                'destination' => $destination,
-                'travel_sector' => $travel_sector,
-                'flight_number' => $flight_number,
-              'terminal'=> $terminal,
-              'entry_time' => $entry_time,
-             'exit_time' => $exit_time,
-              'bag_count' => $bag_count,], 
-                  'conditions' => [],
-                   
+                'quantity' => $qty,
+                'guest' => $totalguest,
+                'attributes' => [
+                    'guest' => $totalguest,
+                    'entry_date' => $entry_date,
+                    'travel_type' => $travel_type,
+                    'setdate' => $setdate,
+                    'origin' => $origin,
+                    'destination' => $destination,
+                    'travel_sector' => $travel_sector,
+                    'flight_number' => $flight_number,
+                    'terminal' => $terminal,
+                    'entry_time' => $entry_time,
+                    'exit_time' => $exit_time,
+                    'bag_count' => $bag_count,
+                ],
+                'conditions' => [],
             ]);
     
             // Remove the product from the wishlist if it exists
@@ -243,6 +220,8 @@ class CartController extends Controller
             return response()->json(['status' => false, 'message' => $e->getMessage()]);
         }
     }
+    
+    
     
     
     public function cart()

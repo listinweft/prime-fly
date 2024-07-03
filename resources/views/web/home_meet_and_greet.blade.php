@@ -79,16 +79,6 @@
         </div>
         <div class="booking_field">
             <div class="guest-number-input-item">
-                <div class="g-input-text">Infants</div>
-                <div class="g-input-field">
-                    <span class="minusi count-btn">-</span>
-                    <input type="text" name="infants" value="0" maxlength="4" />
-                    <span class="plusi count-btn">+</span>
-                </div>
-            </div>
-        </div>
-        <div class="booking_field">
-            <div class="guest-number-input-item">
                 <div class="g-input-text">Children</div>
                 <div class="g-input-field">
                     <span class="minusc count-btn">-</span>
@@ -97,6 +87,17 @@
                 </div>
             </div>
         </div>
+        <div class="booking_field">
+            <div class="guest-number-input-item">
+                <div class="g-input-text">Infants</div>
+                <div class="g-input-field">
+                    <span class="minusi count-btn">-</span>
+                    <input type="text" name="infants" value="0" maxlength="4" />
+                    <span class="plusi count-btn">+</span>
+                </div>
+            </div>
+        </div>
+       
         <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-primary">Book Now</button>
         </div>

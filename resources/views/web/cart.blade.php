@@ -24,9 +24,11 @@
                             <div class="col-lg-7 col-md-7 cart-product-list">
                                 <h4>Your Bookings</h4>
                                 @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
-    @php
-        $product = App\Models\Product::find($row->id);
-    @endphp
+                                @php
+                                $product_id_parts = explode('_', $row->id);
+                                $original_product_id = $product_id_parts[0];
+                                $product = App\Models\Product::find($original_product_id);
+                            @endphp
 
     <div class="col-12 cart-product">
         <div class="d-flex align-items-center justify-content-between">
@@ -111,6 +113,12 @@
 
 
                                             @endforeach
+
+                                            @php 
+
+                                            $finalamount =  $totalAmount + $cgst + $sgst
+
+                                            @endphp
                                            
                                         </tbody>
                                         <tfoot>
@@ -126,7 +134,7 @@
                                             </tr>
                                             <tr>
                                                 <td><b>Total Amount</b></td>
-                                                <td><b>&#8377;  {{$totalAmount}}</b></td>
+                                                <td><b>&#8377;  {{$finalamount}}</b></td>
                                             </tr>
                                             
                                         </tfoot>
