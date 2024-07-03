@@ -4,13 +4,15 @@
             <h4>Car Parking</h4>
             <form id="bookingForm-parking">
                 @csrf
+                <input type="hidden" value="{{$category->id}}" name="category">
                 <div class="d-flex flex-wrap">
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select"> 
                         <select type="text" class="form-control" name="origin">
-                            <option value="">Select Origin</option>
-                            <option value="origin1">Origin 1</option>
-                            <option value="origin2">Origin 2</option>
+                        <option value="">Select Origin</option>
+                                @foreach ($locations as $location)
+                                    <option value="{{ $location->id }}">{{ $location->title }}</option>
+                                @endforeach
                         </select>
 </div>
                     </div>
@@ -44,6 +46,16 @@
                     <div class="booking_field">
                         <div class="custom-time-picker">
                             <input class="form-control timepicker" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
+                        </div>
+                    </div>
+                    <div class="booking_field">
+                        <div class="guest-number-input-item">
+                            <div class="g-input-text">Car Count</div>
+                            <div class="g-input-field">
+                                <span class="minus count-btn">-</span>
+                                <input type="text" value="1" name="count" maxlength="4"/>
+                                <span class="plus count-btn">+</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 text-center mt-3">
@@ -92,7 +104,7 @@ $(document).ready(function() {
         submitHandler: function(form) {
             var base_url = "{{ url('/') }}";
             $.ajax({
-                url: base_url + '/search-booking-parking',
+                url: base_url + '/search-booking-carparking',
                 type: 'POST',
                 data: $(form).serialize(),
                 headers: {
@@ -100,21 +112,11 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.success) {
-                        var totalAmounts = response.total_amounts;
-
-                        // Handle the total amounts for each package
-                        totalAmounts.forEach(function(item) {
-                            console.log("Product:", item.product);
-                            console.log("Total Amount:", item.total_amount);
-                        });
-
-                        alert(totalAmounts);
-
-                        // Optionally, redirect or update the UI with the total amounts
-                        var encryptedTotalAmounts = btoa(JSON.stringify(totalAmounts));
-                        window.location.href = base_url + '/package/' + encodeURIComponent(encryptedTotalAmounts);
+                        window.location.href = base_url+'/package/';
                     } else {
-                        alert("Failed to calculate total amounts.");
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
                     }
                 },
                 error: function(xhr) {

@@ -88,6 +88,22 @@ a:hover{
     color: #fff
 }
 /********************* Choose ************************/
+.cart-count {
+    background-color: #f14444;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: -5px;
+    font-size: 8px;
+    font-weight: 500;
+}
 .choose-user-wrap{
     display: flex;
     justify-content: center;
@@ -328,6 +344,7 @@ a:hover{
 }
 .header-cart{ 
     margin-right: 10px;
+    padding-right: 10px;
 }
 .header-cart img{
     width: 18px; 

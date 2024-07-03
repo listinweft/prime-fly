@@ -42,12 +42,17 @@
             </div>
             <div class="b2b-header-profile">
                 <div class="d-flex justify-content-end">
-                    <a href="#" class="header-cart">
-                        <img src="{{ asset('frontend/img/cart-icon.png')}}" alt="logo"/>
+                @if(Auth::guard('customer')->check() )
+                @if (Helper::getCartItemCount() > 0)
+
+                    <a href="{{ url('cart/') }}" class="header-cart position-relative">
+                        <img src="{{ asset('frontend/img/cart-icon.png')}}" alt="logo"/> <span class="cart-count">{{ Helper::getCartItemCount() }}</span>
                     </a>
+                    @endif
+                    @endif
 
                     @if($customer->user->profile_image)
-                    <a href="#" class="header-user">
+                    <a href="#" class="header-user ">
                             {!! Helper::printImage($customer->user, 'profile_image', 'profile_image_webp', '', 'img-fluid') !!}
                             </a>
                             @else
@@ -202,7 +207,7 @@
                                     <h4>You haven’t made any bookings</h4>
                                     <p>Lorem agtuineo pertiqe debozihri </p>
                                     <div class="col-12 text-center mt-3">
-                                        <a href="/" class="btn-style-2"><div class="btn-in">View More</div></a>
+                                        <a href="{{ url('/services') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
                                       </div>
                                 </div>
                             </div>

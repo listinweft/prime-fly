@@ -83,6 +83,7 @@ Route::middleware(['web'])->group(function () {
     Route::post('search-booking-entry-ticket', [WebController::class, 'search_booking_entry_ticket']);
 
     Route::post('search-booking-cloakroom', [WebController::class, 'search_booking_cloakroom']);
+    Route::post('search-booking-carparking', [WebController::class, 'search_booking_carparking']);
 
     
 

@@ -78,8 +78,9 @@ class WebController extends Controller
 
         $categorys = Category::whereNull('parent_id')->get();
         $testimonials = Testimonial::active()->get();
+        $locationsall = Location::active()->get();
        
-        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials'));
+        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials','locationsall'));
     }
 
     public function locations()
@@ -237,13 +238,13 @@ class WebController extends Controller
             if ($isB2BUser) {
                 $userId = $user->id;
                 $adultPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 1)->where('user_id', $userId)->value('price') ?? $product->price;
-                $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
-                $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
+                $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
+                $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
                 $additionalPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 4)->where('user_id', $userId)->value('price') ?? $product->additional_price;
             } else {
                 $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
-                $infantPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
-                $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
+                $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
+                $infantPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
                 $additionalPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 4)->value('price') ?? 0;
             }
             if ($data['adults'] == 1) {
@@ -715,6 +716,107 @@ public function search_booking_lounch(Request $request)
 
     return response()->json(['success' => true, 'redirect_url' => route('package')]);
     }
+
+    public function search_booking_carparking(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'terminal' => 'required|string',
+            'origin' => 'required|integer',
+             'count' => 'required|integer', // Number of bags
+            'entry_date' => 'required',
+            'exit_date' => 'required',
+            'entry_time' => 'required',
+            'exit_time' => 'required',
+            'category' => 'required|integer'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Calculate the duration in hours
+        $entryDateTime = new DateTime($data['entry_date'] . ' ' . $data['entry_time']);
+        $exitDateTime = new DateTime($data['exit_date'] . ' ' . $data['exit_time']);
+        $interval = $entryDateTime->diff($exitDateTime);
+        $hours = $interval->days * 24 + $interval->h + ($interval->i > 0 ? 1 : 0); // Round up if there are any minutes
+    
+        // Fetch products based on travel type and locations
+        $products = Product::select('products.*', 'locations.title as location_title')
+            ->join('locations', function ($join) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+            })
+            ->where('products.category_id', $data['category']) // Add category filter
+            ->where('locations.id', $data['origin'])
+            ->groupBy('products.id')
+            ->get();
+    
+        if ($products->isEmpty()) {
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
+        }
+    
+        $result = [];
+        $category = Category::where('id', $data['category'])->first();
+    
+        foreach ($products as $product) {
+            // Fetch default pricing details from product
+            $basePrice = $product->price; // Assuming the column name is price
+            $additionalHourPrice = $product->additional_hourly_price ?? 0; // Assuming the column name is additional_hourly_price
+            $additionalBagPrice = $product->additional_price ?? 0; // Assuming the column name is additional_price
+    
+            // Check if the user is authenticated and B2B
+            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
+                // Fetch offer details for the B2B user
+                $user = Auth::guard('customer')->user();
+                $offer = Offer::where('product_id', $product->id)
+                    ->where('user_id', $user->id)
+                    ->first();
+    
+                if ($offer) {
+                    // $totalAmount = $data['count'] * $offer->price; // Use offer price if available
+                    $totalAmount =  $offer->price; // Use offer price if available
+                    $additionalHourPrice = $offer->additional_hourly_price ?? $additionalHourPrice;
+                    $additionalBagPrice = $offer->additional_price ?? $additionalBagPrice;
+                } else {
+                    $totalAmount = $basePrice; // Use default base price if no offer found
+                }
+            } else {
+                // Use default pricing for non-authenticated or non-B2B users
+                $totalAmount = $basePrice;
+            }
+    
+            // Apply additional pricing rules
+            if ($hours > 4) {
+                $totalAmount += ($hours - 4) * $additionalHourPrice;
+            }
+            if ($data['count'] > 2) {
+                $totalAmount += ($data['count'] - 2) * $additionalBagPrice;
+            }
+    
+            // Prepare result array
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount, // Use the calculated total amount
+                'setdate' => $data['exit_date'],
+                'totalguest' => $data['count'],
+                'origin' => $data['origin'],
+                'terminal' => $data['terminal'],
+                'entry_date' => $data['entry_date'],
+                'exit_date' => $data['exit_date'],
+                'entry_time' => $data['entry_time'],
+                'exit_time' => $data['exit_time'],
+               
+            ];
+        }
+    
+        Session::put('total_amounts', $result);
+     Session::put('category', $category->title);
+
+
+    
+
+    return response()->json(['success' => true, 'redirect_url' => route('package')]);
+    }
     
     public function package()
     {
@@ -764,11 +866,12 @@ public function search_booking_lounch(Request $request)
     
             // Fetch locations associated with these location ids
             $locations = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+            $locationsall = Location::active()->get();
            $blogs = Blog::active()->get();
            $testimonials = Testimonial::active()->get();
            $subcategories = Category::where('parent_id',$category->id)->active()->get();
        
-        return view('web.service_detail', compact('blogs','locations','testimonials','category','subcategories'));
+        return view('web.service_detail', compact('blogs','locations','testimonials','category','subcategories','locationsall'));
 
         }
     }
