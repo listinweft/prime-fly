@@ -8,7 +8,7 @@
 <section class="col-12 cart-progress">
             <div class="container">
                 <div class="d-flex justify-content-center">
-                    <ul class="d-flex justify-content-center mb-0">
+                    <ul class="d-flex justify-content-center mb-0 ps-0">
                         <li class="active"><span>1</span>Cart</li>
                         <li><span>2</span>Preview</li>
                         <li><span>3</span>Payment</li>
@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-lg-11">
                         <div class="row">
-                            <div class="col-lg-7 cart-product-list">
+                            <div class="col-lg-7 col-md-7 cart-product-list">
                                 <h4>Your Bookings</h4>
                                 @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
     @php
@@ -82,7 +82,7 @@
 @endforeach
 
                             </div>
-                            <div class="col-lg-5 cart-price-summry">
+                            <div class="col-lg-5 col-md-5 cart-price-summry">
                                 <h4>Price Details</h4>
                                 <div class="price-summery">
                                     <table>
@@ -156,7 +156,33 @@
 
 
 @endif
+<div class="col-12 cart-addon">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h4 class="text-center mb-4">Ad on Services</h4>
+                <div class="col-lg-12 service-slider" data-aos="fade-up" data-aos-duration="600">
+                  <div class="owl-carousel owl-theme service-carousel">
+                  @foreach ($categorys as $category)
+                    <div class="item"> 
+                      <a href="{{ url('service/'.@$category->short_url) }}">
+                        <!-- <img src="{{ asset('frontend/img/meet_greet.svg')}}" alt="Service"/> -->
 
+                        {!! Helper::printImage(@$category, 'image', 'image_webp', '', 'img-fluid') !!}
+
+
+                        <h4>{{$category->title}}</h4>
+                      </a>
+                    </div>
+                    @endforeach
+                  
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>    
 @endsection
 
 
