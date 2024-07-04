@@ -62,7 +62,7 @@
         $locationTitle =   $location = App\Models\Location::find($origin);
     @endphp
 @endif
-                                                    <h4>{{$product->title}}</h4>
+<h4>{{ ucwords($product->title) }}</h4>
                                                     @if (in_array($categorydata->title, ['Meet and Greet', 'Air port Entry']))
                                                     @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
                                                         <p>From: {{ $locationTitle }} Guest: {{ $row->attributes['guest'] }}</p>

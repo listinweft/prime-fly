@@ -14,7 +14,8 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link {{ $index === 0 ? 'active' : '' }}" id="package{{ $index + 1 }}-tab" data-bs-toggle="tab" data-bs-target="#package{{ $index + 1 }}-tab-pane"
                            type="button" role="tab" aria-controls="package{{ $index + 1 }}-tab-pane" aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
-                            <p>{{ $item['product']['title'] }}</p>
+                           <p>{{ ucwords($item['product']['title']) }}</p>
+
                             <h4>&#8377; {{ number_format($item['total_amount']) }}</h4>
                         </a>
                     </li>
@@ -30,7 +31,8 @@
                                     
                                         <div>
                                             <h4>{{ $item['product']['location_title'] ?? 'Location' }}</h4>
-                                            <p>{{ $item['product']['service_type'] }}, {{ $item['setdate'] }} , {{ $item['product']['flight_number'] ?? 'Flight Number' }}</p>
+                                            <p>{{ ucwords($item['product']['service_type']) }}, {{ $item['setdate'] }}, {{ $item['product']['flight_number'] ?? 'Flight Number' }}</p>
+
                                             @if(session('category') == 'Meet and Greet' || session('category') == 'Air port Entry')
         @if($item['totalguest'] > 0)
             <p>{{ $item['totalguest'] }} Guest</p>

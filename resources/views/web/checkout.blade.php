@@ -37,7 +37,7 @@
                                                 {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block') !!}
                                                 </div>
                                                 <div class="cart-prdct-dtls">
-                                                    <h4>{{$product->title}}</h4> 
+                                                <h4>{{ ucwords($product->title) }}</h4>
                                                 </div>
                                             </div>
                                         </div>  

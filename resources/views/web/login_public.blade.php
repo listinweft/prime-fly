@@ -46,7 +46,7 @@
                                 <img src="{{ asset('frontend/img/logo-blue.png')}}" alt="Logo"/>
                             </div> 
                             <div class="register_form">
-                                <h4 class="text-center">Login</h4>
+                                <h4 class="text-center">Public Login</h4>
                                 <form action="#0" id="login"> 
                                 <div class="register_form_wrap"> 
                                     <div class="register_form_grid">

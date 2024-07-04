@@ -116,13 +116,13 @@
                                 </a>
                             </li>
                             <li class="nav-item" data-section="terms">
-                                <a href="javascript:void(0);">
+                                <a href="{{ url('terms-and-conditions/') }}">
                                     <img src="{{ asset('frontend/img/terms-icon.svg')}}"/>
                                     Terms of Use
                                 </a>
                             </li>
                             <li class="nav-item" data-section="privacy">
-                                <a href="javascript:void(0);">
+                                <a href="{{ url('privacy-policy/') }}">
                                     <img src="{{ asset('frontend/img/privacy-icon.svg')}}"/>
                                     Privacy Policy
                                 </a>
