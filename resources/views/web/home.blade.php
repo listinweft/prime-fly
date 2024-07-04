@@ -346,7 +346,7 @@
               <div class="col-lg-10 airport_lists">
                 <div class="d-flex flex-wrap justify-content-center">
 
-                @foreach ($locations as $location)
+                @foreach ($locationsall as $location)
                   <div class="airport_list_grid text-center" data-aos="fade-up" data-aos-duration="1000">
                     <a href="{{ url('location/' . @$location->title) }}">
                       <div class="airtport_list_thumb">
