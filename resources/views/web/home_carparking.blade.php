@@ -28,22 +28,22 @@
                     </div>
                     <div class="booking_field">
                         <div class="custom-date-picker">
-                            <input class="form-control" type="text" name="entry_date" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickerc" readonly="readonly">
+                            <input class="form-control" type="text" name="entry_date" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickercar" readonly="readonly">
                         </div>
                     </div>
                     <div class="booking_field">
                         <div class="custom-time-picker">
-                            <input class="form-control timepicker" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
+                            <input class="form-control timepickercar" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
                         </div>
                     </div>
                     <div class="booking_field">
                         <div class="custom-date-picker">
-                            <input class="form-control" type="text" name="exit_date" autocomplete="off" placeholder="Exit Date" max="2023-12-31" id="exitdatepicker" readonly="readonly">
+                            <input class="form-control" type="text" name="exit_date" autocomplete="off" placeholder="Exit Date" max="2023-12-31" id="exitdatepickercar" readonly="readonly">
                         </div>
                     </div>
                     <div class="booking_field">
                         <div class="custom-time-picker">
-                            <input class="form-control timepicker" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
+                            <input class="form-control timepickercar" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
                         </div>
                     </div>
                     <div class="booking_field">
@@ -65,44 +65,70 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+    console.log("Document is ready.");
+
     // Initialize datepicker and timepicker
-    $('#datepickerc, #exitdatepicker').datepicker({
+    $('#datepickercar, #exitdatepickercar').datepicker({
         format: 'yyyy-mm-dd',
         minDate: 0,
-        autoclose: true
+        autoclose: true,
+        onSelect: function(dateText, inst) {
+            var selectedDate = new Date(dateText);
+            updateMinTime(selectedDate);
+        }
     });
 
-    $('.timepicker').timepicker({
+    // Initialize timepicker
+    $('.timepickercar').timepicker({
         showMeridian: false,
         showSeconds: true,
         defaultTime: false
     });
 
-    $('#datepickerc').on('changeDate', function (e) {
-                var selectedDate = new Date(e.date);
-                var today = new Date();
+    // Function to update minTime based on selected date
+    function updateMinTime(selectedDate) {
+        var today = new Date();
+        var tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1); // Set to tomorrow
 
-                // Compare selected date with today's date
-                if (selectedDate.toDateString() === today.toDateString()) {
-                    var hours = today.getHours();
-                    var minutes = today.getMinutes();
-                    var seconds = today.getSeconds();
+        // Clear existing timepicker selections
+        $('.timepickercar').timepicker('remove');
 
-                    // Format the current time as HH:MM:SS
-                    var currentTime = (hours < 10 ? '0' : '') + hours + ':' +
-                                      (minutes < 10 ? '0' : '') + minutes + ':' +
-                                      (seconds < 10 ? '0' : '') + seconds;
-
-                    // Set the default time for timepicker
-                    $('.timepicker').timepicker('setTime', currentTime);
-                    
-                    // Show the timepicker widget
-                    $('.timepicker').timepicker('showWidget');
-                } else {
-                    // Reset timepicker if date is not today
-                    $('.timepicker').timepicker('setTime', null);
-                }
+        if (selectedDate.toDateString() === today.toDateString()) {
+            // If the selected date is today, restrict past times
+            $('.timepickercar').timepicker({
+                showMeridian: false,
+                showSeconds: true,
+                defaultTime: false,
+                minTime: getCurrentTime(today) // Set minTime to the current time
             });
+        } else {
+            // For future dates, allow all times
+            $('.timepickercar').timepicker({
+                showMeridian: false,
+                showSeconds: true,
+                defaultTime: false,
+                minTime: null
+            });
+        }
+    }
+
+    // Function to get the current time in hh:mm:ss format for a specific date
+    function getCurrentTime(date) {
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var seconds = date.getSeconds().toString().padStart(2, '0');
+        return hours + ':' + minutes + ':' + seconds;
+    }
+
+    // Ensure minTime is updated on page load if a date is pre-selected or defaults to today
+    var datepickerVal = $('#datepickercar').val() || $('#exitdatepickercar').val();
+    if (datepickerVal) {
+        var selectedDate = new Date(datepickerVal);
+        updateMinTime(selectedDate);
+    } else {
+        updateMinTime(new Date()); // Update minTime based on the current date
+    }
 
     // Form Validation
     $("#bookingForm-parking").validate({
@@ -113,7 +139,11 @@ $(document).ready(function() {
             entry_date: "required",
             entry_time: "required",
             exit_date: "required",
-            exit_time: "required"
+            exit_time: "required",
+            count: {
+                required: true,
+                digits: true // Ensure it's a number
+            }
         },
         messages: {
             origin: "Please select an origin",
@@ -122,7 +152,11 @@ $(document).ready(function() {
             entry_date: "Please select an entry date",
             entry_time: "Please select an entry time",
             exit_date: "Please select an exit date",
-            exit_time: "Please select an exit time"
+            exit_time: "Please select an exit time",
+            count: {
+                required: "Please enter a car count",
+                digits: "Please enter a valid number"
+            }
         },
         submitHandler: function(form) {
             var base_url = "{{ url('/') }}";
@@ -135,10 +169,12 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.success) {
-                        window.location.href = base_url+'/package/';
+                        window.location.href = base_url + '/package/';
                     } else {
                         Toast.fire({
-                            title: "error!", text: response.message, icon: "error"
+                            title: "Error!",
+                            text: response.message,
+                            icon: "error"
                         });
                     }
                 },
@@ -150,5 +186,6 @@ $(document).ready(function() {
         }
     });
 });
+
 </script>
 @endpush

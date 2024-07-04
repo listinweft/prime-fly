@@ -25,22 +25,22 @@
                     <div class="booking_field">
                         <div class="custom-date-picker">
                             
-                            <input class="form-control" type="text" name="entry_date" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickercsx" readonly="readonly">
+                            <input class="form-control" type="text" name="entry_date" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickerclock" readonly="readonly">
                         </div> 
                     </div>
                     <div class="booking_field">
                         <div class="custom-time-picker">
-                            <input class="form-control timepicker" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
+                            <input class="form-control timepickerclock" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
                         </div> 
                     </div>
                     <div class="booking_field">
                         <div class="custom-date-picker">
-                            <input class="form-control" type="text" name="exit_date" autocomplete="off" placeholder="Exit Date" max="2023-12-31" id="exitdatepickerc" readonly="readonly">
+                            <input class="form-control" type="text" name="exit_date" autocomplete="off" placeholder="Exit Date" max="2023-12-31" id="exitdatepickerclock" readonly="readonly">
                         </div> 
                     </div>
                     <div class="booking_field">
                         <div class="custom-time-picker">
-                            <input class="form-control timepicker" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
+                            <input class="form-control timepickerclock" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
                         </div> 
                     </div>  
                     <div class="booking_field">
@@ -65,21 +65,67 @@ $(document).ready(function() {
     
    
     
-    $('#datepickercsx').datepicker({
+    $('#datepickerclock, #exitdatepickerclock').datepicker({
         format: 'yyyy-mm-dd',
+        minDate: 0,
         autoclose: true,
-        startDate: new Date(), // Start from today
-        minDate: 0 // Disable previous dates
+        onSelect: function(dateText, inst) {
+            var selectedDate = new Date(dateText);
+            updateMinTime(selectedDate);
+        }
     });
 
-    // Initialize exit date picker
-    $('#exitdatepickerc').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        startDate: new Date(), // Start from today
-        minDate: 0 // Disable previous dates
+    // Initialize timepicker
+    $('.timepickerclock').timepicker({
+        showMeridian: false,
+        showSeconds: true,
+        defaultTime: false
     });
-    
+
+    // Function to update minTime based on selected date
+    function updateMinTime(selectedDate) {
+        var today = new Date();
+        var tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1); // Set to tomorrow
+
+        // Clear existing timepicker selections
+        $('.timepickerclock').timepicker('remove');
+
+        if (selectedDate.toDateString() === today.toDateString()) {
+            // If the selected date is today, restrict past times
+            $('.timepickerclock').timepicker({
+                showMeridian: false,
+                showSeconds: true,
+                defaultTime: false,
+                minTime: getCurrentTime(today) // Set minTime to the current time
+            });
+        } else {
+            // For future dates, allow all times
+            $('.timepickerclock').timepicker({
+                showMeridian: false,
+                showSeconds: true,
+                defaultTime: false,
+                minTime: null
+            });
+        }
+    }
+
+    // Function to get the current time in hh:mm:ss format for a specific date
+    function getCurrentTime(date) {
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var seconds = date.getSeconds().toString().padStart(2, '0');
+        return hours + ':' + minutes + ':' + seconds;
+    }
+
+    // Ensure minTime is updated on page load if a date is pre-selected or defaults to today
+    var datepickerVal = $('#datepickerclock').val() || $('#exitdatepickerclock').val();
+    if (datepickerVal) {
+        var selectedDate = new Date(datepickerVal);
+        updateMinTime(selectedDate);
+    } else {
+        updateMinTime(new Date()); // Update minTime based on the current date
+    }
 
  
     $("#bookingForm-cloakroom").validate({
