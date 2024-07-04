@@ -3415,6 +3415,128 @@ color: rgba(112, 112, 112, 0.81);
     padding: 60px 15px;
     background-color: #fff;
 }
+
+/* **************************************** about **************************** */
+.our-features {
+    padding: 90px 0
+}
+
+@media (max-width: 1600px) {
+    .our-features {
+        padding:calc(90px - 15px) 0
+    }
+}
+
+@media (max-width: 1400px) {
+    .our-features {
+        padding:calc(90px - 15px*2) 0
+    }
+}
+
+@media (max-width: 1199px) {
+    .our-features {
+        padding:calc(90px - 15px*3) 0
+    }
+}
+
+.our-features .section-head {
+    text-align: center;
+    margin-bottom: 0
+}
+
+.our-features-container {
+    max-width: 1160px;
+    width: 100%;
+    padding: 0 12px;
+    margin: auto
+}
+
+.features-item-wraper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.features-item {
+    max-width: 350px;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 0 15px
+}
+
+@media (max-width: 1199px) {
+    .features-item {
+        max-width:310px
+    }
+}
+
+@media (max-width: 991px) {
+    .features-item {
+        max-width:240px;
+        padding: 0 12px
+    }
+}
+
+@media (max-width: 767px) {
+    .features-item {
+        max-width:49%;
+        padding: 0 12px
+    }
+}
+
+@media (max-width: 575px) {
+    .features-item {
+        max-width:100%
+    }
+}
+
+.features-item h4 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 35px;
+    text-transform: capitalize;
+    color: #381a25
+}
+
+@media (max-width: 767px) {
+    .features-item h4 {
+        font-size:18px
+    }
+}
+
+.features-item p {
+    color: #707070;
+    font-weight: 300
+}
+
+.features-item-image {
+    width: 198px;
+    height: 298px;
+    border-radius: 100px;
+    position: relative;
+    margin: auto;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+@media (max-width: 767px) {
+    .features-item-image {
+        margin-bottom:20px
+    }
+}
+
+.features-item-image img {
+    max-width: 100%;
+    object-fit: contain
+}
+.about-why{
+    padding: 60px 15px;
+    background-image: linear-gradient(to right, #338DF2, #7B45F6);
+    color: #fff;
+}
 @media(max-width:1680px){
     .airtport_list_thumb { 
         width: 140px;
