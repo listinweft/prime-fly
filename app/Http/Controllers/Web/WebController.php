@@ -905,11 +905,12 @@ public function search_booking_lounch(Request $request)
         $searchResult = array();
     
                
-                $blogs = Journal::active()->Where('title', 'LIKE', "%{$request->search_param}%")->get();
+                $blogs = category::active()->Where('title', 'LIKE', "%{$request->search_param}%")->whereNull('parent_id')->get();
+                
         if ($blogs->isNotEmpty()) {
             foreach ($blogs as $blog) {
                 
-                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,  'image' => ($blog->thumbnail_image != NULL && File::exists(public_path($blog->thumbnail_image))) ? asset($blog->thumbnail_image) : asset('frontend/images/default-image.jpg'), 'link' => url('journal/' . $blog->short_url));
+                $searchResult[] = array("id" => $blog->id, "title" => $blog->title,   'link' => url('service/' . $blog->short_url));
             }
         }
         return response()->json(['status' => true, 'message' => $searchResult]);

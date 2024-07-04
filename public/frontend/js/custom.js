@@ -1874,14 +1874,11 @@ $(document).ready(function () {
     });
     $(document).on('keyup', '#main-search-journal', function () {
         var search_param = $(this).val();
-      
+
+        
         desktopSearchjournal(search_param);
     });
-    $(document).on('keyup', '#main-search-event', function () {
-        var search_param = $(this).val();
-      
-        desktopSearchevent(search_param);
-    });
+  
 
 
 
@@ -1937,24 +1934,24 @@ $(document).ready(function () {
                         var len = response.message.length;
                         if (len > 0) {
 
-                            $('#search-result-journal-append-here').html('');
+                            $('#search-result-service-append-here').html('');
                             for (var i = 0; i < len; i++) {
                                 var id = resp[i]['id'];
                                 var title = resp[i]['title'];
                                
-                                var image = resp[i]['image'];
+                             
                                 var link = resp[i]['link'];
-                                var result = "<li><a href=" + link + " class='flxBx'>" + "<img src='" + image + "' alt=''>" + "<div class='name'>" + title + "</div>";
+                                var result = "<li><a href=" + link + " class='flxBx'>" + "<div class='name'>" + title + "</div>";
                                
                                 result += "</div>" + "</a></li>";
-                                $('#search-result-journal-append-here').append(result);
-                                $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
+                                $('#search-result-service-append-here').append(result);
+                                $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResultservice').css({'height': 'auto'});
                             }
-                            $('.searchResult').show();
+                            $('.searchResultservice').show();
                         } else {
                             var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
-                            $('#search-result-journal-append-here').html(result);
-                            $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
+                            $('#search-result-service-append-here').html(result);
+                            $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResultservice').css({'height': '0px'});
                         }
                     } else {
                         Toast.fire('Error', 'Error while retrieving the search results', 'error');
@@ -1963,45 +1960,7 @@ $(document).ready(function () {
             });
         }
     }
-    function desktopSearchevent(search_param) {
-        if (search_param) {
-            $.ajax({
-                type: 'POST', dataType: 'json', data: {search_param: search_param}, headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }, url: base_url + '/main-search-event', success: function (response) {
-
-                   
-                    if (response.status == true) { 
-                        var resp = response.message;
-                        var len = response.message.length;
-                        if (len > 0) {
-
-                            $('#search-result-event-append-here').html('');
-                            for (var i = 0; i < len; i++) {
-                                var id = resp[i]['id'];
-                                var title = resp[i]['title'];
-                               
-                                var image = resp[i]['image'];
-                                var link = resp[i]['link'];
-                                var result = "<li><a href=" + link + " class='flxBx'>" + "<img src='" + image + "' alt=''>" + "<div class='name'>" + title + "</div>";
-                               
-                                result += "</div>" + "</a></li>";
-                                $('#search-result-event-append-here').append(result);
-                                $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': 'auto'});
-                            }
-                            $('.searchResult').show();
-                        } else {
-                            var result = "<li class='disableClick'>" + "<div class='flxBx'>" + "<div class='txtBx'>" + "<div class='name'>No Results Found</div>" + "</div></div>" + "</li>";
-                            $('#search-result-event-append-here').html(result);
-                            $('#Header .FlexRow .rit_bx .search-box .search-input:focus ~ .searchResult').css({'height': '0px'});
-                        }
-                    } else {
-                        Toast.fire('Error', 'Error while retrieving the search results', 'error');
-                    }
-                }
-            });
-        }
-    }
+   
     $(document).on('change', '.shipping-value-change', function (e) {
 
         $(document).find('span.invalid-feedback').text('fdd');
