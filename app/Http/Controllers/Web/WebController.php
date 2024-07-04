@@ -939,29 +939,11 @@ public function search_booking_lounch(Request $request)
     {
 
 
-        $seo_data = $this->seo_content('About');
         
-        $about = About::first();
-        $who = WhoWeAre::first();
-         $aboutFeatures = AboutFeature::get();
-        $homeHeadings = HomeHeading::get();
-        $categoriesCount = Category::active()->whereNull('parent_id')->get();
-        // $aboutFeatures = AboutFeature::active()->take(4)->oldest('sort_order')->get();
-        $histories = History::active()->oldest('sort_order')->get();
-        $banner = Banner::type('about')->first();
-        $catHomeHeadings = HomeHeading::where('type','category')->first();
-
-        $prdts = Category::active()->oldest('sort_order')->where('display_to_home','Yes')->get();
-
-        $catIds = $prdts->pluck('id')->toArray();
-       $prs =  Product::whereIn('category_id',$catIds)->where('copy','no')->get();
-       $catIdss = $prs->pluck('category_id')->toArray();
-  
-       $themes =  Category::whereIn('id',$catIdss)->get();
   
    
 
-        return view('web.about', compact('seo_data', 'about','who','categoriesCount', 'aboutFeatures', 'banner', 'histories', 'homeHeadings','catHomeHeadings','themes'));
+        return view('web.about');
     }
 
 
