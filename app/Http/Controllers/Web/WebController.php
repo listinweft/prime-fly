@@ -353,6 +353,7 @@ class WebController extends Controller
             'destination' => $data['destination'],
             'flight_number' => $data['flight_number'],
             'terminal' => $data['terminal'],
+           
             
         ];
     }

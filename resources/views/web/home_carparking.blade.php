@@ -68,6 +68,7 @@ $(document).ready(function() {
     // Initialize datepicker and timepicker
     $('#datepickerc, #exitdatepicker').datepicker({
         format: 'yyyy-mm-dd',
+        minDate: 0,
         autoclose: true
     });
 
@@ -76,6 +77,32 @@ $(document).ready(function() {
         showSeconds: true,
         defaultTime: false
     });
+
+    $('#datepickerc').on('changeDate', function (e) {
+                var selectedDate = new Date(e.date);
+                var today = new Date();
+
+                // Compare selected date with today's date
+                if (selectedDate.toDateString() === today.toDateString()) {
+                    var hours = today.getHours();
+                    var minutes = today.getMinutes();
+                    var seconds = today.getSeconds();
+
+                    // Format the current time as HH:MM:SS
+                    var currentTime = (hours < 10 ? '0' : '') + hours + ':' +
+                                      (minutes < 10 ? '0' : '') + minutes + ':' +
+                                      (seconds < 10 ? '0' : '') + seconds;
+
+                    // Set the default time for timepicker
+                    $('.timepicker').timepicker('setTime', currentTime);
+                    
+                    // Show the timepicker widget
+                    $('.timepicker').timepicker('showWidget');
+                } else {
+                    // Reset timepicker if date is not today
+                    $('.timepicker').timepicker('setTime', null);
+                }
+            });
 
     // Form Validation
     $("#bookingForm-parking").validate({

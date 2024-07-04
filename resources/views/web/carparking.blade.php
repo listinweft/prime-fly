@@ -72,6 +72,7 @@ $(document).ready(function() {
     // Initialize datepicker and timepicker
     $('#datepicker, #exitdatepicker').datepicker({
         format: 'yyyy-mm-dd',
+        minDate: 0,
         autoclose: true
     });
 

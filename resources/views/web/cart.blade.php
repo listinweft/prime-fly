@@ -28,6 +28,9 @@
                                 $product_id_parts = explode('_', $row->id);
                                 $original_product_id = $product_id_parts[0];
                                 $product = App\Models\Product::find($original_product_id);
+                                $categorydata = App\Models\Category::where('id', $product->category_id)
+                                  ->whereNull('parent_id')
+                                  ->first();
                             @endphp
 
     <div class="col-12 cart-product">
@@ -63,12 +66,25 @@
 @endif
 
 <h4>{{ $product->title }}</h4>
-
-@if(isset($row->attributes['guest']))
-    <p>From: {{ $locationTitle }} Guest: {{ $row->attributes['guest'] }}</p>
-@else
-    <p>Guest information not available</p>
-@endif
+@if (in_array($categorydata->title, ['Meet and Greet', 'Air port Entry']))
+                                                    @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+                                                        <p>From: {{ $locationTitle }} Guest: {{ $row->attributes['guest'] }}</p>
+                                                    @else
+                                                        <p>Guest information not available</p>
+                                                    @endif
+                                                @elseif (in_array($categorydata->title, ['Car Parking', 'Cloak Room', 'Baggage wrapping']))
+                                                    @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+                                                        <p>From: {{ $locationTitle }} Bag: {{ $row->attributes['guest'] }}</p>
+                                                    @else
+                                                        <p>Bag count information not available</p>
+                                                    @endif
+                                                @else
+                                                    @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+                                                        <p>From: {{ $locationTitle }} Porter: {{ $row->attributes['guest'] }}</p>
+                                                    @else
+                                                        <p>Guest information not available</p>
+                                                    @endif
+                                                @endif
 
                         
                         <p>{{$product->service_type}}:  Date:{{$row->attributes['setdate']}} </p>

@@ -27,10 +27,28 @@
                             <div class="col-lg-11 packagecontent-wrp">
                                 <div class="col-12 packge-content-edit">
                                     <div class="d-flex justify-content-between align-items-center">
+                                    
                                         <div>
                                             <h4>{{ $item['product']['location_title'] ?? 'Location' }}</h4>
                                             <p>{{ $item['product']['service_type'] }}, {{ $item['setdate'] }} , {{ $item['product']['flight_number'] ?? 'Flight Number' }}</p>
-                                            <p>{{ $item['totalguest'] }} Guest</p>
+                                            @if(session('category') == 'Meet and Greet' || session('category') == 'Air port Entry')
+        @if($item['totalguest'] > 0)
+            <p>{{ $item['totalguest'] }} Guest</p>
+        @endif
+    @elseif(session('category') == 'Car Parking' || session('category') == 'Cloak Room' ||  session('category') == 'Baggage wrapping')
+        @if($item['totalguest'] > 0)
+            <p>{{ $item['totalguest'] }} Bag</p>
+        @endif
+
+        @else
+
+        @if($item['totalguest'] > 0)
+            <p>{{ $item['totalguest'] }} Porter</p>
+        @endif
+         
+        
+    @endif
+
                                         </div>
                                        
                                         <div>

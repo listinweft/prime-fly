@@ -47,7 +47,8 @@
                 eventClick: function(calEvent, jsEvent, view) {
                     // Redirect to the order view page using the order ID
                   
-                    window.location.href = '/admin/order/view/' + calEvent.orderId;
+                    window.location.href = base_url + '/order/view/' + calEvent.orderId;
+
                 }
 
                 

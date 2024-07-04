@@ -1874,9 +1874,12 @@ $(document).ready(function () {
     });
     $(document).on('keyup', '#main-search-journal', function () {
         var search_param = $(this).val();
-
-        
-        desktopSearchjournal(search_param);
+        if (search_param.trim() === "") {
+            $('#search-result-service-append-here').html('');
+            $('.searchResultservice').hide();
+        } else {
+            desktopSearchjournal(search_param);
+        }
     });
   
 
