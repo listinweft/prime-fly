@@ -155,59 +155,60 @@
                             <h3>Orders & Bookings</h3>
                         </div>
                         <div class="col-lg-11">
-    @if($orders->isNotEmpty())
-        @foreach($orders as $order)
-            <div class="col-12 b2b_order-summery">
-                <div class="b2b_smmry_header">
-                    <p class="mb-0"><b>Order ID : Primefly# {{$order->orderData->order_code}}</b></p>
+                        @if($orders->isNotEmpty())
+    @foreach($orders as $order)
+        <div class="col-12 b2b_order-summery">
+            <div class="b2b_smmry_header">
+                <p class="mb-0"><b>Order ID : Primefly# {{$order->orderData->order_code}}</b></p>
+            </div>
+            
+            @foreach ($order->orderData->orderProducts as $product)
+                @php
+                    $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
+                    $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
+                    if ($orderStatus && $orderStatus->status == 'Refunded') {
+                        $refundStatus = $orderStatus;
+                        $refundStatusPrevious = $orderStatusPrevious;
+                    }
+                @endphp
+
+                <div class="row b2b_smmry_content">
+                    @foreach($product->productData->product_categories as $product_category)
+                        <div class="col-lg-4">
+                            <p><span>{{ $product_category->title }}</span></p>
+                        </div>
+                    @endforeach
+                    <div class="col-lg-4 text-center">
+                        <p><b>Date: {{date('d-m-Y', strtotime($order->orderData->created_at))}}</b></p>
+                    </div>
+                    <div class="col-lg-2 text-center">
+                        <h4>Total: ₹ {{ $product->total }}</h4>
+                    </div>
                 </div>
-                
-                @foreach ($order->orderData->orderProducts as $product)
-                    @php
-                        $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
-                        $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
-                        if ($orderStatus->status == 'Refunded') {
-                            $refundStatus = $orderStatus;
-                            $refundStatusPrevious = $orderStatusPrevious;
-                        }
-                    @endphp
+            @endforeach
 
-                    <div class="row b2b_smmry_content">
-                        @foreach($product->productData->product_categories as $product_category)
-                            <div class="col-lg-4">
-                                <p><span>{{ $product_category->title }}</span></p>
-                            </div>
-                        @endforeach
-                        <div class="col-lg-4 text-center">
-                            <p><b>Date: {{date('d-m-Y', strtotime($order->orderData->created_at))}}</b></p>
-                        </div>
-                        <div class="col-lg-2 text-center">
-                            <h4>Total: ₹ {{ $product->total }}</h4>
-                        </div>
-                    </div>
-                @endforeach
-
-                <div class="row">
-                    <div class="col-lg-12 text-end">
-                        <a href="#">View Invoice</a>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12 text-end">
+                    <a href="{{ route('invoice.pdf', ['order_id' => $order->orderData->id]) }}">View Invoice</a>
                 </div>
             </div>
-        @endforeach
-        @else
-        <div class="col-lg-12">
-                            <div class="d-flex justify-content-center">
-                                <div class="col-lg-4 no-booking text-center">
-                                    <img src="{{ asset('frontend/img/no-booking.png')}}"/>
-                                    <h4>You haven’t made any bookings</h4>
-                                    <p>Lorem agtuineo pertiqe debozihri </p>
-                                    <div class="col-12 text-center mt-3">
-                                        <a href="{{ url('/services') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
-                                      </div>
-                                </div>
-                            </div>
-                        </div>
-    @endif
+        </div>
+    @endforeach
+@else
+    <div class="col-lg-12">
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-4 no-booking text-center">
+                <img src="{{ asset('frontend/img/no-booking.png') }}"/>
+                <h4>You haven’t made any bookings</h4>
+                <p>Lorem agtuineo pertiqe debozihri </p>
+                <div class="col-12 text-center mt-3">
+                    <a href="{{ url('/services') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 </div>
 
 
@@ -366,11 +367,11 @@
          
         });
         window.iti = iti; // useful for testing
-      </script>
+     
 
 
 
-<script>
+
     document.getElementById('profileImageInput').addEventListener('change', function(e) {
         const reader = new FileReader();
         reader.onload = function(e) {

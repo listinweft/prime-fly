@@ -40,6 +40,7 @@ use App\Models\SeoData;
 use App\Models\SiteInformation;
 use App\Models\Tag;
 use App\Models\Faq;
+use App\Models\Order;
 use App\Models\Event;
 use App\Models\Journal;
 use App\Models\Testimonial;
@@ -50,7 +51,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
+use App\Models\CustomerAddress;
+use App\Models\OrderCustomer;
+
 use DateTime;
+use PDF;
 
 
 class WebController extends Controller
@@ -76,12 +81,33 @@ class WebController extends Controller
         $locations = Location::active()->get();
         $blogs = Blog::active()->latest()->take(3)->get();
 
-        $categorys = Category::whereNull('parent_id')->get();
+        $categorys = Category::whereNull('parent_id')->orderBy('sort_order')->get();
+        
         $testimonials = Testimonial::active()->get();
         $locationsall = Location::active()->get();
        
         return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials','locationsall'));
     }
+
+
+    public function showInvoice($order_id)
+    {
+
+
+       $order = Order::where('id', $order_id)
+                        ->with(['orderProducts' => function ($query) {
+                            $query->with('productData')
+                                ->with('colorData');
+                        }])
+                        ->firstOrFail(); // Fetch the order data
+
+        $pdf = PDF::loadView('web.invoices', compact('order')); // Assuming 'invoice.blade.php' is your PDF view
+
+        return $pdf->download('invoice_'.$order->order_code.'.pdf');
+
+    }
+
+
 
     public function locations()
     {
@@ -430,7 +456,13 @@ public function search_booking_lounch(Request $request)
             'location_title' => $product->location_title,
             'total_amount' => $totalAmount,
             'setdate' => $data['entry_date'],
-            'totalguest' => $data['adults']
+                'totalguest' => $data['adults'],
+                'origin' => $data['origin'],
+                'destination' => $data['destination'],
+                'flight_number' => $data['flight_number'],
+               
+                'entry_date' => $data['entry_date'],
+                'travel_type' => 'departure'
         ];
     }
     Session::forget('category');
@@ -543,8 +575,8 @@ public function search_booking_lounch(Request $request)
             'origin' => 'required|integer',
             'count' => 'required|integer',
             'category' => 'required|integer',
-            'entry_time' => 'required',
-            'exit_time' => 'required'
+            // 'entry_time' => 'required',
+            // 'exit_time' => 'required'
         ]);
     
         // Collect data
@@ -601,9 +633,9 @@ public function search_booking_lounch(Request $request)
                 'origin' => $data['origin'],
                 'terminal' => $data['terminal'],
                 'entry_date' => $entryDate,
-                'exit_date' => $data['exit_date'],
+                // 'exit_date' => $data['exit_date'],
                 'entry_time' => $data['entry_time'],
-                'exit_time' => $data['exit_time'],
+                // 'exit_time' => $data['exit_time'],
             ];
         }
         Session::forget('category');
@@ -956,6 +988,8 @@ public function search_booking_lounch(Request $request)
         $banner = Banner::type('contact')->first();
         return view('web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses'));
     }
+
+             
 
 
     public function support()

@@ -21,9 +21,9 @@
                     <div class="booking_field" id="terminal_select">
                     <div class="booking_select"> 
                         <select type="text" class="form-control" name="terminal">
-                            <option value="">Select Terminal</option>
-                            <option value="terminal1">Terminal 1</option>
-                            <option value="terminal2">Terminal 2</option>
+                            <option value="">Select Type</option>
+                            <option value="viewers">Viewers</option>
+                            <option value="visitors gallery">Visitors Gallery</option>
                         </select>
 </div>
                     </div> 
@@ -37,16 +37,16 @@
                             <input class="form-control timepickerair" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
                         </div> 
                     </div>
-                    <div class="booking_field">
+                    <!-- <div class="booking_field">
                         <div class="custom-date-picker">
                             <input class="form-control" type="text" name="exit_date" autocomplete="off" placeholder="Exit Date" max="2023-12-31" id="exitdatepickerair" readonly="readonly">
                         </div> 
-                    </div>
-                    <div class="booking_field">
+                    </div> -->
+                    <!-- <div class="booking_field">
                         <div class="custom-time-picker">
                             <input class="form-control timepickerair" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
                         </div> 
-                    </div>  
+                    </div>   -->
                     <div class="booking_field">
                         <div class="guest-number-input-item">
                             <div class="g-input-text">Count</div>
@@ -56,6 +56,9 @@
                                 <span class="plus count-btn">+</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-12">
+                        <p class="note">*Viewers and Visitors Gallery Tickets are Only Valid upto 3 hours</p>
                     </div>
                     <div class="col-12 text-center mt-3">
                         <button type="submit" class="btn btn-primary">Book Now</button>
@@ -138,8 +141,8 @@ $(document).ready(function() {
             terminal: "required",
             entry_date: "required",
             entry_time: "required",
-            exit_date: "required",
-            exit_time: "required",
+            // exit_date: "required",
+            // exit_time: "required",
             count: {
                 required: true,
                 digits: true,

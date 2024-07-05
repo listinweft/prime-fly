@@ -135,6 +135,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('team-detail/{id}', [WebController::class, 'teamDetail']);
     Route::get('events', [WebController::class, 'events']);
     Route::post('update-customer-shipping-address',[CartController::class,'update_customer_shipping_address']);
+    Route::get('/invoice/{order_id}', [WebController::class, 'showInvoice'])->name('invoice.pdf');
 
     /********************* Policies *******************/
     Route::get('disclaimer', [WebController::class, 'disclaimer']);
@@ -231,6 +232,11 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth:customer'], function
 
 
     Route::post('set-default-address', [CustomerWebController::class, 'set_default_address']);
+
+   
+
+   
+
 
 
 });

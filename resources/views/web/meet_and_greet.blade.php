@@ -79,6 +79,7 @@
                     <span class="plus count-btn">+</span>
                 </div>
             </div>
+            <div class="note-2">Above 11 years </div>
         </div>
         <div class="booking_field">
             <div class="guest-number-input-item">
@@ -89,6 +90,7 @@
                     <span class="plusc count-btn">+</span>
                 </div>
             </div>
+            <div class="note-2">3-11 Years </div>
         </div>
         <div class="booking_field">
             <div class="guest-number-input-item">
@@ -99,8 +101,8 @@
                     <span class="plusi count-btn">+</span>
                 </div>
             </div>
+            <div class="note-2">0-2 Years </div>
         </div>
-        
         <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-primary">Book Now</button>
         </div>

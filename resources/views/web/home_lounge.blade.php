@@ -1,13 +1,10 @@
-<div class="srvc_bnnr_filter banner_filter" data-aos="fade-up" data-aos-duration="1000"> 
-    <div class="tab-content filter_tab_content" id="filter_tab">
-        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-            <h4>Lounge Booking</h4> 
-            <form id="bookingForm-baggage">
+
+<form id="bookingForm-baggage">
                 <div class="d-flex flex-wrap">
                     <!-- Date Input -->
                     <div class="booking_field"> 
                         <div class="custom-date-picker">
-                            <input class="form-control" name="entry_date" type="text" autocomplete="off" placeholder="Date" max="2023-12-31"  id="datepicker" readonly="readonly">
+                            <input class="form-control" name="entry_date" type="text" autocomplete="off" placeholder="Date" max="2023-12-31"  id="datepickerlounge" readonly="readonly">
                         </div> 
                     </div>  
                     <!-- Origin Select -->
@@ -76,9 +73,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
 
                         @push('scripts')
 
@@ -87,7 +81,22 @@
 <script>
 
 
-                        $(document).ready(function() {
+$(document).ready(function() {
+
+    $( function() {
+            $( "#datepickerlounge" ).datepicker({
+              
+                  dateFormat: "dd-mm-yy",
+              changeMonth: true,
+              changeYear: true,
+              minDate: 0,
+              "setDate": new Date(),
+              "autoclose": true,
+              firstDay: 1
+              
+            });
+              $("#datepickerlounge").datepicker("setDate", new Date());
+          } );
     // Form Validation
     $("#bookingForm-baggage").validate({
         rules: {

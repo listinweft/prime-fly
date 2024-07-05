@@ -86,7 +86,13 @@ class CustomerController extends Controller
     //     }
     // }
     
-   
+           
+
+
+
+
+
+
     public function update_profile(Request $request)
     {
 

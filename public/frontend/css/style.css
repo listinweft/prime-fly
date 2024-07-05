@@ -4272,3 +4272,17 @@ color: rgba(112, 112, 112, 0.81);
 }
 
 }
+.note{
+    color: #f3831d;
+    font-size: 11px;
+    font-style: italic;
+    margin-bottom: 0;
+}
+.note-2{
+    font-size: 11px;
+    font-style: italic;
+    margin-bottom: 0;
+    color: #bec0c3;
+    margin-top: -5px;
+    padding-left: 16px;
+}
