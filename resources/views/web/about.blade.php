@@ -115,6 +115,163 @@
                 </div>
             </div>
         </section>
+        <table class="invoice_table" style=" width: 100%; background-color: #fff;max-width:600px;margin:auto ">
+<tr>
+   <td style="padding:30px">
+      <table style="width:100%">
+<tr>
+   <table>
+      <tr>
+         <td>
+            <h1 style="font-size:30px;color:#B2B7C2;">INVOICE</h1>
+            <h4 style="color:#707070; font-size: 14px; text-transform: uppercase;">#AB2324-01</h4>
+         </td>
+         <td class="text-end">
+            <img style="width:90px" src="{{ asset('frontend/img/logo-blue.png')}}"/>
+         </td>
+      </tr>
+      <table>
+         </tr> 
+         <tr>
+            <td>
+               <table>
+                  <tr>
+                     <td style="width:33%;border:1px solid #D7DAE0;border-left:0;padding:20px;padding-left:0">
+                        <h4 style="color:#1A1C21;font-size:12px;font-weight:600">Issued</h4>
+                        <h5 style="color:#5E6470;font-size:12px">01 Aug, 2024</h5>
+                     </td>
+                     <td style="width:33%;border:1px solid #D7DAE0;border-left:0;borrder-right:0;padding:20px;">
+                        <h4 style="color:#1A1C21;font-size:12px;font-weight:600">Billed to</h4>
+                        <h5 style="color:#5E6470;font-size:12px;font-weight:500;">Company Name / Person</h5>
+                        <p style="color:#5E6470;font-size:11px">Company address
+                           City, Country - 00000 <br> +0 (000) 123-4567
+                        </p>
+                     </td>
+                     <td style="width:33%;border:1px solid #D7DAE0;border-right:0;padding:20px;padding-right:0">
+                        <h4 style="color:#1A1C21;font-size:12px;font-weight:600">From</h4>
+                        <h5 style="color:#5E6470;font-size:12px;font-weight:500;">Primefly</h5>
+                        <p style="color:#5E6470;font-size:11px">Business address
+                           City, State, IN - 000 000 <br>TAX ID 00XXXXX1234X0XX
+                        </p>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td style="padding:10px 0;border-bottom:1px solid #D7DAE0;">
+               <table>
+                  <tr>
+                     <td style="width:50%">
+                        <h2 style="color:#1A1C21;font-size:14px;font-weight:600;margin:0">Bookings</h2>
+                     </td>
+                     <td  style="width:50%;text-align:right">
+                        <h4 style="color:#1A1C21;font-size:10px;font-weight:500;margin:0">SUBTOTAL</h4>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td style="border-bottom:1px solid #D7DAE0;">
+               <table>
+                  <tr>
+                     <td style="color:#151525;font-size:11px;padding:10px 0px;">
+                        1
+                     </td>
+                     <td style="padding:10px 0px;">
+                        <h3 style="color:#151525;font-size:11px;">Executive Departure, Domestic</h3>
+                        <h4 style="color:#707070;font-size:11px; ">24.02.2024 Mumbai</h4>
+                     </td>
+                     <td  style="padding:10px 0px;">
+                        <h5 style="color:#707070;font-size:11px;text-align:right;padding:10px 0px;">₹ 2, 400</h5>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="color:#151525;font-size:11px;padding:10px 0px;">
+                        2
+                     </td>
+                     <td style="padding:10px 0px;">
+                        <h3 style="color:#151525;font-size:11px; ">Porter Service</h3>
+                     </td>
+                     <td style="padding:10px 0px;">
+                        <h5  style="color:#707070;font-size:11px;text-align:right; ">₹ 600</h5>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="color:#151525;font-size:11px;padding:10px 0px;">
+                        3
+                     </td>
+                     <td style="padding:10px 0px;">
+                        <h3 style="color:#151525;font-size:11px; ">Parking Service</h3>
+                     </td>
+                     <td style="padding:10px 0px;">
+                        <h5 style="color:#707070;font-size:11px;text-align:right;">₹ 450</h5>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+         <tr>
+            <td style="padding:15px 0;;padding-bottom:50px;">
+               <table>
+                  <tr>
+                     <td style="padding:10px 0;border-bottom:1px solid #D7DAE0;">
+                        <h4 style="color:#151525;font-size:11px;font-weight:600">Total</h4>
+                     </td>
+                     <td style="text-align:right;padding:10px 0;border-bottom:1px solid #D7DAE0;">
+                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700">₹ 3, 450.00</h1>
+                        <p style="color:#707070;font-size:10px;margin-bottom:0">CGST 9% ₹ 1500</p>
+                        <p style="color:#707070;font-size:10px;margin-bottom:0">SGST 9% ₹ 1500</p>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td style="padding:10px 0">
+                        <h4 style="color:#151525;font-size:11px;font-weight:600">Total To Pay</h4>
+                     </td>
+                     <td style="text-align:right;padding:10px 0">
+                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700">₹ 6, 450.00</h1>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+      </td>
+      </tr> 
+   </table>
+   <table style="background-color:#FAFAFA;max-width:600px;margin:auto;width:100%">
+      <tr>
+         <td style="padding:30px;width:100%">
+            <table style="width:100%">
+               <tr>
+                  <td style="width:30%">
+                     <p style="color:#707070;font-size:10px;margin-bottom:0">Payment Mode</p>
+                     <b style="color:#707070;font-size:11px;display:block;font-weight:500">Debit/Credit Card</b>
+                  </td>
+                  <td style="width:30%">
+                     <p  style="color:#707070;font-size:10px;margin-bottom:0">Coupons <br></p>
+                     <b style="color:#707070;font-size:11px;display:block;font-weight:500">Nill</b>
+                  </td>
+                  <td style="width:40%">
+                     <p  style="color:#707070;font-size:10px;margin-bottom:0">Contact</p>
+                     <b style="color:#707070;font-size:11px;display:block;font-weight:500">info@primefly.com +91 8301 960 000</b>
+                  </td> 
+               </tr>
+               <tr>
+                  <td>
+                     <h4 style="color:#151525;font-size:14px;font-weight:700;margin-top:10px;margin-bottom:0">
+                        Thank you 
+                        <svg width="10" height="9" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M4.83094 1.58987C5.22324 0.654065 6.11945 0.000195638 7.16184 0.000195638C8.56602 0.000195638 9.57731 1.20913 9.70445 2.64991C9.70445 2.64991 9.77307 3.00757 9.62202 3.65146C9.41634 4.52837 8.93286 5.30746 8.28102 5.90204L4.83094 9L1.43898 5.90185C0.787142 5.30746 0.303659 4.52817 0.09798 3.65126C-0.0530718 3.00737 0.0155527 2.64972 0.0155527 2.64972C0.142693 1.20893 1.15398 0 2.55816 0C3.60075 0 4.43863 0.654065 4.83094 1.58987Z" fill="#7B45F6"/>
+                        </svg>
+                     </h4>
+                  </td>
+               </tr>
+            </table>
+         </td>
+      </tr>
+   </table>      
         @endsection
 @push('scripts')
 

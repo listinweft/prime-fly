@@ -3639,7 +3639,13 @@ color: rgba(112, 112, 112, 0.81);
     color: #fff;
     font-size:16px ;
 }
-
+ 
+.invoice_table table{
+    width:100%;
+}
+.invoice_table td{
+    vertical-align: top;
+}
 @media(max-width:1680px){
     .airtport_list_thumb { 
         width: 140px;
