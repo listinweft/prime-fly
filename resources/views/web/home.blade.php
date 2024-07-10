@@ -10,6 +10,14 @@
                         <h1 data-aos="fade-up" data-aos-duration="500">
                            <span>It’s time to</span> Discover  <b>Find and book a great experience</b>
                         </h1>
+                        @php
+$sessionKey = session('session_key');
+@endphp
+
+<!-- @if (Session::has('session_key') && !Cart::session($sessionKey)->isEmpty())
+    <h4>yes</h4>
+@endif -->
+
                         <!-- <div class="container">
                           <div class="mob-filter-slider owl-carousel owl-theme"> 
                               <div class="item">
@@ -185,7 +193,7 @@
                            </div>
                            <div class="tab-pane fade" id="lounge-tab-pane" role="tabpanel" aria-labelledby="lounge-tab" tabindex="0">
                               @php
-        $category = App\Models\Category::where('title', 'Baggage wrapping')->first();
+        $category = App\Models\Category::where('title', 'Lounge Booking')->first();
 
         if ($category) {
             $products = App\Models\Product::where('category_id', $category->id)->get();
@@ -266,7 +274,7 @@
 </div>        
                               <div class="tab-pane fade" id="airport-tab-pane" role="tabpanel" aria-labelledby="airport-tab" tabindex="0">
                               @php
-        $category = App\Models\Category::where('title', 'Air port Entry')->first();
+        $category = App\Models\Category::where('title', 'Airport Entry')->first();
         if ($category) {
             $products = App\Models\Product::where('category_id', $category->id)->get();
             $allLocationIds = [];

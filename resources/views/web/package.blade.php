@@ -33,7 +33,7 @@
                                             <h4>{{ $item['product']['location_title'] ?? 'Location' }}</h4>
                                             <p>{{ ucwords($item['product']['service_type']) }}, {{ $item['setdate'] }}, {{ $item['product']['flight_number'] ?? 'Flight Number' }}</p>
 
-                                            @if(session('category') == 'Meet and Greet' || session('category') == 'Air port Entry')
+                                            @if(session('category') == 'Meet and Greet' || session('category') == 'Airport Entry')
         @if($item['totalguest'] > 0)
             <p>{{ $item['totalguest'] }} Guest</p>
         @endif

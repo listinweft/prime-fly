@@ -74,7 +74,10 @@ Route::middleware(['web'])->group(function () {
     Route::post('/get-locations', [WebController::class, 'getLocations']);
     Route::post('/get-locations-porter', [WebController::class, 'getLocations_porter']);
 
-    
+    Route::get('/cors-proxy', [WebController::class, 'proxy']);
+
+
+
     Route::post('search-booking', [WebController::class, 'search_booking']);
     Route::post('search-booking-baggage', [WebController::class, 'search_booking_baggage']);
     Route::post('search-booking-lounch', [WebController::class, 'search_booking_lounch']);
