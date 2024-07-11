@@ -103,14 +103,23 @@ class WebController extends Controller
     {
 
 
-       $order = Order::where('id', $order_id)
+        $user = Auth::guard('customer')->user();
+                  $customer = $user->customer;
+
+
+        // Pdf::setOption(['fontDir' => public_path('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'), 'defaultFont' => 'sans-serif']);
+        PDF::setOptions([
+            'dpi' => 150,
+            'defaultFont' => 'sans-serif', // Replace with your custom font if used
+        ]);
+        $order = Order::where('id', $order_id)
                         ->with(['orderProducts' => function ($query) {
                             $query->with('productData')
                                 ->with('colorData');
                         }])
                         ->firstOrFail(); // Fetch the order data
 
-        $pdf = PDF::loadView('web.invoices', compact('order')); // Assuming 'invoice.blade.php' is your PDF view
+                        $pdf = PDF::loadView('web.invoices', compact('order', 'customer','user')); // Assuming 'invoice.blade.php' is your PDF view
 
         return $pdf->download('invoice_'.$order->order_code.'.pdf');
 
