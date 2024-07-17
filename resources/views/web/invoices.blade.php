@@ -149,7 +149,7 @@
 
 
                 
-                    @foreach($product->productData->product_categories as $product_category)
+                    @foreach($product->productData->product_categories ?? [] as $product_category)
                     <tr>
                             <td style="width: 5%; padding: 10px 0;"> <h3 style="color:#151525;font-size:11px;">{{ $index + 1 }}</h3></td>
                             <td style="width: 60%; padding: 10px 0;">

@@ -173,7 +173,7 @@
                 @endphp
 
                 <div class="row b2b_smmry_content">
-                    @foreach($product->productData->product_categories as $product_category)
+                @foreach($product->productData->product_categories ?? [] as $product_category)
                         <div class="col-lg-4">
                             <p><span>{{ $product_category->title }}</span></p>
                         </div>
