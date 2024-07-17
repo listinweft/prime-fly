@@ -90,9 +90,9 @@
                                             </select>
                                         </div> -->
                                         <div class="col-sm-2">
-                                            <button class="btn btn-primary" id="order-detail-search-result">Search
+                                            <button class="btn btn-primary" id="order-subdetail-search-result">Search
                                             </button>
-                                           <button class="btn btn-danger" id="clear-search-result" onclick="window.location.href='{{ route('admin.report.detail-report') }}'" disabled>Clear</button>
+                                           <button class="btn btn-danger" id="clear-search-result" onclick="window.location.href='{{ route('admin.report.detail-report-subadmin') }}'" disabled>Clear</button>
 
                                         </div>
                                     </div>

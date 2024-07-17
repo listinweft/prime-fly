@@ -108,6 +108,31 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).on('click', '#order-subdetail-search-result', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            data: $('#order-detail-filter-form').serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: base_url + '/report/order_detail_filter_subadmin',
+            success: function (response) {
+                if (response != '0') {
+                    $('#filter--result').html(response);
+                    $('#clear-search-result').attr('disabled', false);
+                } else {
+                    swal({
+                        title: "Error",
+                        text: response.message,
+                        type: 'error'
+                    });
+                }
+            }
+        });
+    });
     
 
     $(document).on('change', '.product-selection-drop', function () {
@@ -1671,22 +1696,22 @@ $(document).ready(function () {
         var status = $(this).val();
         var product_id = $(this).data('id');
         var order_id = $(this).data('order_id');
-        var coupon_min = $(this).data('coupon_min');
-        var order_total = $(this).data('order_total');
-        var price = $(this).data('price');
-        var all_product_statuses = $(this).data('all_product_statuses').split(',');
+        // var coupon_min = $(this).data('coupon_min');
+        // var order_total = $(this).data('order_total');
+        // var price = $(this).data('price');
+        // var all_product_statuses = $(this).data('all_product_statuses').split(',');
         var message = "Are you sure want to change the status?";
         var url = '/order/order_status';
-        if (status == "Cancelled" || status == "Refunded" || status == "Failed") {
-            if (parseFloat(coupon_min) > parseFloat((order_total - price))) {
-                if (all_product_statuses.includes('Shipped') || all_product_statuses.includes('Out For Delivery') || all_product_statuses.includes('Delivered') || all_product_statuses.includes('Completed') || all_product_statuses.includes('Returned') || all_product_statuses.includes('Refunded')) {
-                    message = "Changing status of this product to " + status + " may break the coupon conditions.";
-                } else {
-                    message = "Changing status of this product to " + status + " may lead to cancellation of all products, as new price will be less than applied coupon minimum spend.";
-                    url = '/order/cancel_all';
-                }
-            }
-        }
+        // if (status == "Cancelled" || status == "Refunded" || status == "Failed") {
+        //     if (parseFloat(coupon_min) > parseFloat((order_total - price))) {
+        //         if (all_product_statuses.includes('Shipped') || all_product_statuses.includes('Out For Delivery') || all_product_statuses.includes('Delivered') || all_product_statuses.includes('Completed') || all_product_statuses.includes('Returned') || all_product_statuses.includes('Refunded')) {
+        //             message = "Changing status of this product to " + status + " may break the coupon conditions.";
+        //         } else {
+        //             message = "Changing status of this product to " + status + " may lead to cancellation of all products, as new price will be less than applied coupon minimum spend.";
+        //             url = '/order/cancel_all';
+        //         }
+        //     }
+        // }
         swal({
             title: "Are you sure?",
             text: message,

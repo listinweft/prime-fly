@@ -87,6 +87,12 @@
             </div>
             <div class="note-2">0-2 Years </div>
         </div>
+
+        <div class="booking_field" id="pnr">
+            <div class="guest-number-input-item" >
+            <input type="text" name="pnr" placeholder="PNR" />
+            </div>
+        </div>
        
         <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-primary">Book Now</button>
@@ -97,6 +103,10 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+
+        $("#pnr").hide();
+
+
 
         $("#bookingForm").validate({
    
@@ -156,6 +166,36 @@ success: function(response) {
 });
 
 
+$('#travel_sector').change(function() {
+
+    var sector = $(this).val();
+
+    if(sector == "domestic")
+
+
+    {
+
+        $("#pnr").show();
+
+
+    }
+    else
+
+    {
+
+        $("#pnr").hide();
+
+
+
+    }
+
+
+
+
+   
+            
+
+        });
 
         var base_url = "{{ url('/') }}";
         var appId = '6afbf6ac'; // Replace with your FlightStats App ID

@@ -77,6 +77,10 @@
                                         <th>Age Range Pricing</th>
                                         @endif
 
+                                        @if($type=="Sub Category")
+                                        <th>Steps</th>
+                                        @endif
+
                                     
                                        
                                         <th>Created Date</th>
@@ -116,7 +120,7 @@
                                             @if($type=="Sub Category")
 
                                             <td><a href="{{url(Helper::sitePrefix().'product/sub-category/gallery/'.$category->id)}}"
-                                                   class="btn btn-sm btn-primary mr-2 tooltips" title="Add Gallery">Gallery</a>
+                                                   class="btn btn-sm btn-primary mr-2 tooltips" title="Add Gallery">Steps</a>
                                             </td>
 
                                             @endif

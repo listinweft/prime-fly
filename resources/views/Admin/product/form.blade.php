@@ -303,6 +303,23 @@
 
 </div>
 
+<div class="form-group col-md-6">
+    <label>Travel Sector</label>
+    <select name="sector" id="sector" class="form-control select2 required">
+        @php
+            $defaultSector = $selectedSector ?? 'international';
+        @endphp
+        <option value="international" @if($defaultSector == 'international') selected @endif>International</option>
+        <option value="domestic" @if($defaultSector == 'domestic') selected @endif>Domestic</option>
+    </select>
+    <div class="help-block with-errors" id="sector_error"></div>
+    @error('sector')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+
+
 
                            
 

@@ -3,59 +3,52 @@
                               <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                 <h4>Meet and Greet</h4> 
                                 <form id="bookingForm">
-                                <input type="hidden" value="{{$category->id}}" name="category">
-    <div class="d-flex flex-wrap">
+    <input type="hidden" value="{{$category->id}}" name="category">
+    <div class="d-flex flex-wrap justify-content-start home-form-flex">
         <div class="booking_field">
             <div class="custom-date-picker">
                 <input class="form-control" type="text" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepicker" name="datepicker" readonly="readonly">
             </div>
         </div>
-        <div class="booking_field" id="orgin_select">
-           <!-- <select type="text" id="travel_sectorssssss" class="form-control" name="travel_sectorssss">
-              <option value="">Select Travel Sector</option>
-              <option value="international">International</option>
-              <option value="domestic">Domestic</option>
-          </select> -->
-          <div class="booking_select"> 
-          <select type="text" id="travel_sector" class="form-control" name="travel_sector">
-          <option value="">Select Travel Sector</option>
-          <option value="international">International</option>
-              <option value="domestic">Domestic</option>
-</select>
-</div>
+        <div class="booking_field" id="travel_sect">
+            <div class="booking_select"> 
+                <select type="text" id="travel_sector" class="form-control" name="travel_sector">
+                    <option value="">Select Travel Sector</option>
+                    <option value="international">International</option>
+                    <option value="domestic">Domestic</option>
+                </select>
+            </div>
         </div>
         <div class="booking_field" id="travel_select">
-        <div class="booking_select"> 
-            <select type="text" class="form-control" name="travel_type" id="travel_type">
-                <option value="">Select Travel Type</option>
-                <option value="departure">Departure</option>
-                <option value="arrival">Arrival</option>
-                <!-- <option value="round_trip">Round Trip</option> -->
-                <option value="transit_type">Transit</option>
-            </select>
-
-</div>
+            <div class="booking_select">
+                <select type="text" class="form-control" name="travel_type" id="travel_type">
+                    <option value="">Select Travel Type</option>
+                    <option value="departure">Departure</option>
+                    <option value="arrival">Arrival</option>
+                    <option value="transit_type">Transit</option>
+                </select>
+            </div> 
         </div>
        
         <div class="booking_field" id="orgin_select">
-        <div class="booking_select"> 
-            <select type="text" class="form-control" name="origin" id="origins">
-            <option value="">Select Origin</option>
-                @foreach ($locations as $location)
-                    <option value="{{ $location->id }}">{{ $location->title }}</option>
-                @endforeach
-            </select>
-</div>
+            <div class="booking_select"> 
+                <select type="text" class="form-control" name="origin" id="origins">
+                    <option value="">Select Origin</option>
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}">{{ $location->title }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="booking_field" id="destination_select">
-        <div class="booking_select"> 
-            <select class="form-control" name="destination" id="destinations">
-            <option value="">Select Destination</option>
-                @foreach ($locations as $location)
-                    <option value="{{ $location->id }}">{{ $location->title }}</option>
-                @endforeach
-            </select>
-</div>
+            <div class="booking_select">
+                <select class="form-control" name="destination" id="destinations">
+                    <option value="">Select Destination</option>
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}">{{ $location->title }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <div class="booking_field" id="flight_select">
             <div class="normal_select">
@@ -64,7 +57,7 @@
                 </select>
             </div>
         </div>
-        
+       
         <div class="booking_field">
             <div class="guest-number-input-item">
                 <div class="g-input-text">Adults</div>
@@ -98,13 +91,17 @@
             </div>
             <div class="note-2">0-2 Years </div>
         </div>
+
+        <div class="booking_field" id="pnr">
+            <div class="guest-number-input-item" >
+            <input type="text" name="pnr" placeholder="PNR" />
+            </div>
+        </div>
+       
         <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-primary">Book Now</button>
         </div>
     </div>
-
-    
-
 </form>
                             </div>
                         </div>
@@ -116,8 +113,11 @@
 
 <script>
 
-
 $(document).ready(function() {
+
+$("#pnr").hide();
+
+
 
 $("#bookingForm").validate({
 
@@ -177,6 +177,36 @@ success: function(response) {
 });
 
 
+$('#travel_sector').change(function() {
+
+var sector = $(this).val();
+
+if(sector == "domestic")
+
+
+{
+
+$("#pnr").show();
+
+
+}
+else
+
+{
+
+$("#pnr").hide();
+
+
+
+}
+
+
+
+
+
+    
+
+});
 
 var base_url = "{{ url('/') }}";
 var appId = '6afbf6ac'; // Replace with your FlightStats App ID
@@ -256,7 +286,7 @@ function fetchFlights(serviceType, origin) {
 
     var proxyUrl = apiUrl + apiEndpoint + '?appId=' + appId + '&appKey=' + appKey;
 
-    
+ 
 
    
 
@@ -306,11 +336,5 @@ function formatDate(date) {
     return parts[2] + '/' + parts[1] + '/' + parts[0];
 }
 });
-
-
-
-    
- 
-    
 </script>
 @endpush

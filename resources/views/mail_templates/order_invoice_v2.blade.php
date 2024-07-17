@@ -496,7 +496,7 @@
                                                                             Order ID #:
                                                                         </td>
                                                                         <td style="padding:0;Margin:0"><strong><span
-                                                                                    style="font-size:14px;line-height:21px">{{'TOS'.$order->order_code}}</span></strong>
+                                                                                    style="font-size:14px;line-height:21px">{{'Primefly#'.$order->order_code}}</span></strong>
                                                                         </td>
                                                                     </tr>
                                                                     <tr style="border-collapse:collapse">
@@ -507,17 +507,10 @@
                                                                                     style="font-size:14px;line-height:21px">{{ date("F, d Y", strtotime($order->created_at))  }}</span></strong>
                                                                         </td>
                                                                     </tr>
+                                                                    
                                                                     <tr style="border-collapse:collapse">
                                                                         <td style="padding:0;Margin:0;font-size:14px;line-height:21px">
-                                                                            Order Delivery:
-                                                                        </td>
-                                                                        <td style="padding:0;Margin:0"><strong><span
-                                                                                    style="font-size:14px;line-height:21px">{{ date("F, d Y", strtotime($order->created_at . '+ 1 Day'))  }}</span></strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr style="border-collapse:collapse">
-                                                                        <td style="padding:0;Margin:0;font-size:14px;line-height:21px">
-                                                                            Order Total:
+                                                                            Order Sub Total:
                                                                         </td>
                                                                         <td style="padding:0;Margin:0"><strong><span
                                                                                     style="font-size:14px;line-height:21px">{{$order->currency}} {{ number_format($orderGrandTotal['orderGrandTotal'],2) }}</span></strong>
@@ -546,7 +539,7 @@
                                                             <td align="left"
                                                                 style="Margin:0;padding-bottom:10px;padding-top:20px;padding-left:20px;padding-right:20px">
                                                                 <h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#659c35">
-                                                                    SHIPPING ADDRESS:</h4></td>
+                                                                    Customer Details:</h4></td>
                                                         </tr>
                                                         <tr style="border-collapse:collapse">
                                                             <td align="left"
@@ -624,33 +617,8 @@
                                                                         <strong>{{$product->productData->title}}</strong>
                                                                     </h3></td>
                                                             </tr>
-                                                            @if($product->size_type!="Custom" && $product->size!=0)
-                                                                <tr style="border-collapse:collapse">
-                                                                    <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
-                                                                            <strong><span
-                                                                                    style="color:#000000">Size:</span>&nbsp;{{$product->sizeData->size}}
-                                                                            </strong></h3></td>
-                                                                </tr>
-                                                            @endif
-                                                            @if($product->color!=0)
-                                                                <tr style="border-collapse:collapse">
-                                                                    <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
-                                                                            <strong><span
-                                                                                    style="color:#000000">Color:</span>&nbsp;{{$product->colorData->title}}
-                                                                            </strong></h3></td>
-                                                                </tr>
-                                                            @endif
-                                                            <tr style="border-collapse:collapse">
-                                                                <td align="left" class="es-m-txt-l"
-                                                                    style="padding:0;Margin:0;padding-top:10px"><h3
-                                                                        style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
-                                                                        <strong><span style="color:#000000">Qty:</span>&nbsp;{{$product->qty}}
-                                                                        </strong></h3></td>
-                                                            </tr>
+                                                           
+                                                            
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="left" class="es-m-txt-l"
                                                                     style="padding:0;Margin:0;padding-top:10px"><h3
@@ -707,64 +675,56 @@
                                                                             <strong> {{$order->currency.' '.$orderTotal}}</strong>
                                                                         </td>
                                                                     </tr>
-                                                                    @if($order->gift_wrapper_enabled=='Yes')
-                                                                        <tr style="border-collapse:collapse">
-                                                                            <td style="padding:0;Margin:0"><h4
-                                                                                    style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
-                                                                                    Gift Wrapper Charge:</h4></td>
-                                                                            <td style="padding:0;Margin:0;color:#659c35">
-                                                                                <strong> {{$order->currency.' '.$order->gift_wrapper_charge}}</strong>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                    <tr style="border-collapse:collapse">
-                                                                        <td style="padding:0;Margin:0"><h4
-                                                                                style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
-                                                                                Tax:</h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#659c35">
-                                                                            <strong> {{$order->currency}} {{$order->tax_amount}}</strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr style="border-collapse:collapse">
-                                                                        <td style="padding:0;Margin:0"><h4
-                                                                                style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
-                                                                                Shipping Charge:</h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#659c35">
-                                                                            <strong> {{$order->currency}} {{$order->shipping_charge}}</strong>
-                                                                        </td>
-                                                                    </tr>
-                                                                    @if($order->orderCoupons!=NULL)
-                                                                        @foreach($order->orderCoupons as $orderCoupon)
-                                                                            <tr style="border-collapse:collapse">
-                                                                                <td style="padding:0;Margin:0"><h4
-                                                                                        style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#ff0000">
-                                                                                        Coupon Amount
-                                                                                        ({{$orderCoupon->coupon->code}}
-                                                                                        ):</h4></td>
-                                                                                <td style="padding:0;Margin:0;color:#ff0000">
-                                                                                    <strong> {{$order->currency}} {{$orderCoupon->coupon_value}}</strong>
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                    @endif
-                                                                    @if($order->payment_method=='COD' && $order->cod_extra_charge!='0.00')
-                                                                        <tr style="border-collapse:collapse">
-                                                                            <td style="padding:0;Margin:0"><h4
-                                                                                    style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#ff0000">
-                                                                                    COD Charge:</h4></td>
-                                                                            <td style="padding:0;Margin:0;color:#ff0000">
-                                                                                <strong> {{$order->currency.' '.$order->cod_extra_charge}}</strong>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endif
-                                                                    <tr style="border-collapse:collapse">
-                                                                        <td style="padding:0;Margin:0"><h4
-                                                                                style="Margin:0;line-height:200%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333">
-                                                                                Order Total:</h4></td>
-                                                                        <td style="padding:0;Margin:0;color:#659c35">
-                                                                            <strong> {{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?$orderGrandTotal['orderGrandTotal']:'0',2)}}</strong>
-                                                                        </td>
-                                                                    </tr>
+                                                                   
+                                                                    
+                                                                    <tr style="border-collapse: collapse;">
+   
+   
+        @php
+        // Calculate CGST and SGST based on order grand total
+        $cgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
+        $sgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
+
+        // Calculate total amount including 18%
+        $totalIncluding18Percent = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 1.18;
+        @endphp
+    
+<tr style="border-collapse: collapse;">
+    <td style="padding: 0; Margin: 0;">
+        <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;">
+            CGST (9%):
+        </h4>
+    </td>
+    <td style="padding: 0; Margin: 0; color: #659c35;">
+        <strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong>
+    </td>
+</tr>
+<tr style="border-collapse: collapse;">
+    <td style="padding: 0; Margin: 0;">
+        <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;">
+            SGST (9%):
+        </h4>
+    </td>
+    <td style="padding: 0; Margin: 0; color: #659c35;">
+        <strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong>
+    </td>
+    
+</tr>
+
+ 
+<tr style="border-collapse: collapse;">
+    <td style="padding: 0; Margin: 0;">
+        <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;">
+            Order Total:
+        </h4>
+    </td>
+    <td style="padding: 0; Margin: 0; color: #659c35;">
+       
+        <strong>{{ $order->currency }} {{ number_format($totalIncluding18Percent, 2) }}</strong>
+    </td>
+</tr>
+
+
                                                                 </table>
                                                             </td>
                                                         </tr>
@@ -777,15 +737,7 @@
                                 <tr style="border-collapse:collapse">
                                     <td align="left"
                                         style="Margin:0;padding-left:20px;padding-right:20px;padding-top:30px;padding-bottom:30px;background-position:left top">
-                                        <!--[if mso]>
-                                        <table style="width:560px" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td style="width:270px" valign="top"><![endif]-->
-                                        <!--[if mso]></td>
-                                        <td style="width:20px"></td>
-                                        <td style="width:270px" valign="top"><![endif]-->
-
-                                        <!--[if mso]></td></tr></table><![endif]--></td>
+                                      </td>
                                 </tr>
                             </table>
                         </td>

@@ -120,9 +120,54 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 cart-price-summry">
+
+                            @if(in_array(Session::get('category'), ['Meet and Greet', 'Porter', 'Lounge Booking', 'Baggage Wrapping']))
+    <form id="personal-details-form">
+        <div class="price-summery personal-details">
+            <div class="details-item-wraper">
+                <div class="details-item">
+                    <label for="name">Name</label>
+                    <input type="text" name="name[]" id="name" required>
+                    <span class="error-message" style="display: none;">Name is required.</span>
+                </div>
+                <div class="details-item">
+                    <label for="age">Age</label>
+                    <input type="text" name="age[]" id="age" required>
+                    <span class="error-message" style="display: none;">Age is required.</span>
+                </div>
+                <div class="details-item">
+                    <button type="button" class="add-more-btn btn btn-primary">+</button>
+                </div>
+            </div>
+        </div>
+        @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
+        <div>
+            <h4>Address</h4>
+            <div class="price-summery">
+                <div class="details-item-wraper">
+                    <div class="details-item">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address" required></textarea>
+                        <span class="error-message" style="display: none;">Address is required.</span>
+                    </div>
+                    <div class="details-item">
+                        <label for="passport_number">Passport Number</label>
+                        <input type="text" name="passport_number" id="passport_number" required>
+                        <span class="error-message" style="display: none;">Passport Number is required.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+
+    </form>
+@endif
+
+
                                 <h4>Price Details</h4>
                                 <div class="price-summery">
-                                <table>
+                                    <table>
                                         <tbody>
                                             @php 
 
@@ -211,4 +256,32 @@
 
         });
     </script>
+
+<script>
+    $(document).ready(function() {
+        // Function to add more fields
+        $(document).on('click', '.add-more-btn', function() {
+            var newField = `
+                <div class="details-item-wraper">
+                    <div class="details-item">
+                        <label for="name">Name</label>
+                        <input type="text" name="name[]" id="name">
+                    </div>
+                    <div class="details-item">
+                        <label for="age">Age</label>
+                        <input type="text" name="age[]" id="age">
+                    </div>
+                    <div class="details-item">
+                        <button type="button" class="remove-btn btn btn-danger">-</button>
+                    </div>
+                </div>`;
+            $('.personal-details').append(newField);
+        });
+
+        // Function to remove fields
+        $(document).on('click', '.remove-btn', function() {
+            $(this).closest('.details-item-wraper').remove();
+        });
+    });
+</script>
 @endpush

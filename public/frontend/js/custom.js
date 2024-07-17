@@ -530,6 +530,11 @@ $(document).ready(function () {
             var entry_time = $(this).data('entry_time');
             var exit_time = $(this).data('exit_time');
             var bag_count = $(this).data('bag_count');
+            var adults = $(this).data('adults');
+            var infants = $(this).data('infants');
+            var children = $(this).data('children');
+            var pnr = $(this).data('pnr');
+          
             var qty = 1;
             var checkout = $(this).data('checkout');
             var cartText = $('.cart-action-span').html();
@@ -566,7 +571,11 @@ $(document).ready(function () {
                     terminal: terminal,
                     entry_time: entry_time,
                     exit_time: exit_time,
-                    bag_count: bag_count
+                    bag_count: bag_count,
+                    adults: adults,
+                    infants: infants,
+                    children: children,
+                    pnr: pnr,
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -773,8 +782,8 @@ $(document).ready(function () {
     // });
 
     
-    $(document).on('click', '#confirm_payment', function (e) {
-        e.preventDefault();
+    // $(document).on('click', '#confirm_payment', function (e) {
+    //     e.preventDefault();
     
         
            
@@ -782,84 +791,162 @@ $(document).ready(function () {
            
            
            
-           var payment_method ="COD";
+    //        var payment_method ="COD";
 
          
 
            
-            if (payment_method) {
-                $(this).text("Please Wait...")
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: base_url + '/submit-order', 
+    //         if (payment_method) {
+    //             $(this).text("Please Wait...")
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 dataType: 'json',
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 url: base_url + '/submit-order', 
 
-                     data: { payment_method: payment_method},
-                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
+    //                  data: { payment_method: payment_method},
+    //                  headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
                  
-                    success: function (response) {
-                        $('.order-submit-loader').hide();
-                        if (response.status == true) {
+    //                 success: function (response) {
+    //                     $('.order-submit-loader').hide();
+    //                     if (response.status == true) {
                          
-                            swal.fire({
-                                title: "", text: response.message, type: "success", icon: "success",
-                            });
+    //                         swal.fire({
+    //                             title: "", text: response.message, type: "success", icon: "success",
+    //                         });
                                 
-                                setTimeout(() => {
-                                    $('#submit-loader').hide();
-                                    window.location.href = base_url + response.data;
+    //                             setTimeout(() => {
+    //                                 $('#submit-loader').hide();
+    //                                 window.location.href = base_url + response.data;
                                     
-                                }, 900);
-                                // if (result.isConfirmed) {
-                                //     $('#submit-loader').hide();
-                                //     window.location.href = base_url + response.data;
-                                // }
+    //                             }, 900);
+    //                             // if (result.isConfirmed) {
+    //                             //     $('#submit-loader').hide();
+    //                             //     window.location.href = base_url + response.data;
+    //                             // }
                            
-                        } else {
-                            if (response.status == 'online-payment') {
-                                window.location.href = response.url;
-                            } else {
-                                swal.fire({
-                                    confirmButtonColor: '#3085d6',
-                                    title: "", text: response.message, type: "success", icon: "success",
-                                });
-                                setTimeout(() => {
-                                    $('#submit-loader').hide();
-                                    window.location.href = base_url + response.data;
+    //                     } else {
+    //                         if (response.status == 'online-payment') {
+    //                             window.location.href = response.url;
+    //                         } else {
+    //                             swal.fire({
+    //                                 confirmButtonColor: '#3085d6',
+    //                                 title: "", text: response.message, type: "success", icon: "success",
+    //                             });
+    //                             setTimeout(() => {
+    //                                 $('#submit-loader').hide();
+    //                                 window.location.href = base_url + response.data;
                                     
-                                }, 3000);
-                                    // if (result.isConfirmed) {
-                                    // }
+    //                             }, 3000);
+    //                                 // if (result.isConfirmed) {
+    //                                 // }
                             
-                            }
-                            thisData.text("Confirm Order");
-                        }
-                    },
-                    error: function (response) {
-                        thisData.text("Confirm Order");
-                        $('#confirm_payment').removeAttr('disabled');
+    //                         }
+    //                         thisData.text("Confirm Order");
+    //                     }
+    //                 },
+    //                 error: function (response) {
+    //                     thisData.text("Confirm Order");
+    //                     $('#confirm_payment').removeAttr('disabled');
                         
-                        $(this).prop('disabled', false);
-                        $(this).text("Confirm Order")
+    //                     $(this).prop('disabled', false);
+    //                     $(this).text("Confirm Order")
 
-                    }
-                });
-            } else {
-                $(this).prop('disabled', false);
-                var payment_error = 'Select payment method';
-                $('#payment-method-error').html(payment_error).css({'color': 'red'});
-                Toast.fire('Error', payment_error, "error");
-            }
+    //                 }
+    //             });
+    //         } else {
+    //             $(this).prop('disabled', false);
+    //             var payment_error = 'Select payment method';
+    //             $('#payment-method-error').html(payment_error).css({'color': 'red'});
+    //             Toast.fire('Error', payment_error, "error");
+    //         }
         
            
-            // $.notify('Please accept the terms & condition', "error");
+    //         // $.notify('Please accept the terms & condition', "error");
         
+    // });
+
+
+    $(document).on('click', '#confirm_payment', function (e) {
+        e.preventDefault();
+    
+        var payment_method = "COD";
+        
+        // Validate form fields
+        var valid = true;
+        $('.details-item-wraper input[required], .details-item-wraper textarea[required]').each(function() {
+            if ($(this).val().trim() === '') {
+                valid = false;
+                $(this).addClass('error'); // Add error class for styling
+                $(this).next('.error-message').show(); // Show error message if any
+            } else {
+                $(this).removeClass('error'); // Remove error class
+                $(this).next('.error-message').hide(); // Hide error message if valid
+            }
+        });
+    
+        if (valid) {
+            $(this).text("Please Wait...");
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + '/submit-order',
+                data: {
+                    payment_method: payment_method,
+                    name: $('input[name="name[]"]').map(function(){ return $(this).val(); }).get(),
+                    age: $('input[name="age[]"]').map(function(){ return $(this).val(); }).get(),
+                    address: $('#address').val(),
+                    passport_number: $('#passport_number').val()
+                    // Add more fields here as needed
+                },
+                success: function (response) {
+                    $('.order-submit-loader').hide();
+                    if (response.status == true) {
+                        swal.fire({
+                            title: "", text: response.message, type: "success", icon: "success",
+                        });
+                        setTimeout(() => {
+                            $('#submit-loader').hide();
+                            window.location.href = base_url + response.data;
+                        }, 900);
+                    } else {
+                        if (response.status == 'online-payment') {
+                            window.location.href = response.url;
+                        } else {
+                            swal.fire({
+                                confirmButtonColor: '#3085d6',
+                                title: "", text: response.message, type: "success", icon: "success",
+                            });
+                            setTimeout(() => {
+                                $('#submit-loader').hide();
+                                window.location.href = base_url + response.data;
+                            }, 3000);
+                        }
+                        $('#confirm_payment').text("Confirm Order");
+                    }
+                },
+                error: function (response) {
+                    $('#confirm_payment').text("Confirm Order");
+                    $('#confirm_payment').removeAttr('disabled');
+                }
+            });
+        } else {
+            // Handle validation error (e.g., show error message, highlight fields)
+            $('#payment-method-error').html('Please fill out all required fields').css({'color': 'red'});
+            Toast.fire('Error', 'Please fill out all required fields', "error");
+        }
     });
+    
+    
+    
+    
     $(document).on('click', '.form_submit_btn', function (e) {
         
 

@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function __construct()
@@ -45,14 +45,48 @@ class HomeController extends Controller
     {
         $title = "Dashboard";
         
+
+        $admintype =  Auth::guard('admin')->user()->admin;
+
+        
+ 
         $Totaljournal = Order::count();
         $Totalcustomer = Customer::count();
         $Totalblog = Blog::active()->count();
         $TotalPost = Category::count();
         $Totalservices = Category::whereNull('parent_id')->count();
 
-        
+        if($admintype->role == "Super Admin" )
+        {
         return view('Admin.dashboard.admin_dashboard', compact('title','Totaljournal','TotalPost','Totalblog','Totalservices','Totalcustomer'));
+
+        }
+        else
+        {
+
+            $location_ids = Auth::guard('admin')->user()->location_ids;
+            $assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+            
+            $orderCount = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
+                                    return $query->where(function ($query) use ($assignedLocations) {
+                                        $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
+                                            $query->whereIn('origin', $assignedLocations)
+                                                  ->orWhereIn('destination', $assignedLocations);
+                                        });
+                                    });
+                                })
+                                ->when(empty($assignedLocations), function ($query) {
+                                    // Handle case when assignedLocations is empty or contains only empty values
+                                    return $query->whereRaw('1=0'); // Force a condition that is never true
+                                })
+                                ->count();
+            
+
+
+            return view('Admin.dashboard.subadmin_dashboard', compact('title','orderCount',));
+
+
+        }
 
     }
     public function product_validate(){

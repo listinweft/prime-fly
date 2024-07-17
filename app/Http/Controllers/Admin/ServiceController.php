@@ -42,12 +42,12 @@ class ServiceController extends Controller
         $key = "Create";
         $title = "Create service";
         $selectedServiceTypes = [];
-       
+        $selectedSector = 'international';
         $categories = Category::active()->whereNull('parent_id')->get();
         $locations = Location::active()->get();
         $products = Product::active()->get();
         $sizes = Size::active()->get();
-        return view('Admin.product.form', compact('key', 'title', 'categories', 'products','locations','sizes','selectedServiceTypes'));
+        return view('Admin.product.form', compact('key', 'title', 'categories', 'products','locations','sizes','selectedServiceTypes','selectedSector'));
     }
 
    
@@ -107,6 +107,7 @@ class ServiceController extends Controller
         $product->location_id = ($request->location) ? implode(',', $request->location) : '';
     
         $product->service_type =  ($request->service_type) ? implode(',', $request->service_type) : '';
+         $product->sector = $request->sector ?? '';
     
         $product->description = $validatedData['description'];  
         $product->thumbnail_image_attribute = $request->image_meta_tag ?? '';
@@ -178,6 +179,7 @@ class ServiceController extends Controller
         $title = "Update service";
         $product = Product::find($id);
         $locations = Location::active()->get();
+        $selectedSector = $product->sector;
         if ($product) {
             $selectedServiceTypes = explode(',', $product->service_type);
             $categories = Category::active()->whereNull('parent_id')->get();
@@ -185,7 +187,7 @@ class ServiceController extends Controller
             $subCategories = Category::whereIn('parent_id', explode(',', $product->category_id))->active()->where('id', '!=', $id)->get();
             $products = Product::active()->get();
             $productWithPrice = DB::table('products_size_price')->where('product_id',$id)->get();
-            return view('Admin.product.form', compact('key', 'title', 'products', 'product','locations','categories','sizes','productWithPrice','selectedServiceTypes','subCategories'));
+            return view('Admin.product.form', compact('key', 'title', 'products', 'product','locations','categories','sizes','productWithPrice','selectedServiceTypes','subCategories','selectedSector'));
         } else {
             return view('Admin.error.404');
         }
@@ -240,6 +242,7 @@ class ServiceController extends Controller
             $product->location_id = ($request->location) ? implode(',', $request->location) : '';
         
             $product->service_type =  ($request->service_type) ? implode(',', $request->service_type) : '';
+            $product->sector = $request->sector ?? '';
             
         
             $product->description = $validatedData['description'];

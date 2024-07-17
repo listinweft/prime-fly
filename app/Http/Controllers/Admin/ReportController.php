@@ -59,14 +59,27 @@ class ReportController extends Controller
     public function detail_report_subadmin()
     {
         $title = "Detailed Order Report";
-        $location_ids = Auth::guard('admin')->user()->location_ids;
-        $assignedLocations = explode(',', $location_ids);
+$location_ids = Auth::guard('admin')->user()->location_ids;
+$assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+
+$orderList = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
+        return $query->where(function ($query) use ($assignedLocations) {
+            $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
+                $query->whereIn('origin', $assignedLocations)
+                      ->orWhereIn('destination', $assignedLocations);
+            });
+        });
+    })
+    ->when(empty($assignedLocations), function ($query) {
+        // Handle case when assignedLocations is empty or contains only empty values
+        return $query->whereRaw('1=0'); // Force a condition that is never true
+    })
+    ->latest()
+    ->paginate(50); // Pagination added here
+
+
+
     
-        $orderList = Order::whereHas('orderProducts', function($query) use ($assignedLocations) {
-                                $query->whereIn('origin', $assignedLocations)
-                                      ->orWhereIn('destination', $assignedLocations);
-                            })
-                            ->paginate(50);
         $boxValues = Order::boxValues_subadmin($assignedLocations);
         $customerList = Customer::oldest('first_name', 'last_name')->get();
         $productList = Product::where('status', 'Active')->oldest('title')->get();
@@ -114,10 +127,11 @@ class ReportController extends Controller
     $product = $request->order_report_product;
     
     // Get the admin's assigned locations from the comma-separated string
-    $assignedLocations = explode(',', auth()->user()->location_ids);
+    $location_ids = Auth::guard('admin')->user()->location_ids;
+  $assignedLocations = array_filter(explode(',', $location_ids)); 
 
-    $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product, $assignedLocations);
-    $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product, $assignedLocations);
+    $orderList = Order::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
+    $boxValues = Order::getDetailedOrdersBoxValues_subadmin($date_range, $status, $customer, $product, $assignedLocations);
     
     session(['date_range' => $date_range, 'status' => $status, 'customer' => $customer, 'product' => $product]);
     

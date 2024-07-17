@@ -57,54 +57,86 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Service</th>
-                                            <th>Cost</th>
-                                       
-                                           
-                                            <th>Quantity</th>
-                                 
-                                            <th>Price</th>
+                                            <<th>#</th>
+                                                <th>Service</th>
+                                                <th>Package</th>
+                                                <th>Flight Number</th>
+                                                <th>Origin</th>
+                                                <th>Destination</th>
+                                                <th>Travel Type</th>
+                                                <th>Porter count</th>
+                                                <th>Guest</th>
+                                                <th>Bag count</th>
+                                                <th>Adults</th>
+                                                <th>Infants</th>
+                                                <th>Children</th>
+                                                <th>Cost</th>
+                                                <th>Status</th>
+                                                <th>Price</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @php
-                                            $shoppingTotal = [];
-                                        @endphp
-                                        @foreach($order->orderProducts as $product)
                                             @php
-                                                $shoppingTotal[] = $product->total;
-                                                $orderStatus = App\Models\OrderLog::where('order_product_id','=',$product->id)->orderBy('created_at','DESC')->first();
-                                                $orderStatusPrevious = App\Models\OrderLog::where('order_product_id',$product->id)->orderBy('id','DESC')->skip(1)->take(1)->first();
+                                                $shoppingTotal = [];
+                                                $refundStatus = $refundStatusPrevious = null;
                                             @endphp
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>
-                                                    {{$product->productData->title}}
-                                                </td>
-                                                <td>{{$order->currency}} {{$product->cost}}</td>
+                                            @foreach($order->orderProducts as $product)
                                                 @php
-                                                $frame = App\Models\Frame::where('id',$product->frame)->first();
-                                                $type = App\Models\ProductType::where('id',$product->type)->first();
-                                                   $size = App\Models\Size::where('id',$product->size)->first();
-                                                    @endphp
-                                       
-                                            
-                                                
-                                                <td>{{$product->qty}}</td>
-                                                <td>{{$order->currency}}
-                                                    @if(count($order->orderProducts)==1)
-                                                        @if($order->orderCoupons!=NULL)
-                                                            {{ $product->total-$order->orderCoupons->sum('coupon_value') }}
+                                                    $package = App\Models\Product::where('id', $product->product_id)->first();
+                                                    $category = App\Models\Category::where('id', $package->category_id)->first();
+                                                    $product_category = $category->title;
+                                                    
+                                                    $shoppingTotal[] = $product->total;
+                                                    $orderStatus = App\Models\OrderLog::where('order_product_id', '=', $product->id)->orderBy('created_at', 'DESC')->first();
+                                                    $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->orderBy('id', 'DESC')->skip(1)->take(1)->first();
+                                                    if ($orderStatus->status == 'Refunded') {
+                                                        $refundStatus = $orderStatus;
+                                                        $refundStatusPrevious = $orderStatusPrevious;
+                                                    }
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $category->title }}</td>
+                                                    <td>{{ $product->productData->title }}</td>
+                                                    <td>{{ $product->flight_number }}</td>
+                                                    <td>{{ $product->origin }}</td>
+                                                    <td>{{ $product->destination }}</td>
+                                                    <td>{{ $product->travel_type }}</td>
+                                                    @if ($product->porter_count > 0 && $product_category == 'Porter')
+                                                        <td>{{ $product->porter_count }}</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
+                                                    @if ($product->guest > 0 && in_array($product_category, ['Meet and Greet', 'Airport Entry', 'Lounge Booking']))
+                                                        <td>{{ $product->guest }}</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
+                                                    @if ($product->bag_count > 0 && in_array($product_category, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
+                                                        <td>{{ $product->bag_count }}</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
+                                                    <td>{{ $product->adults }}</td>
+                                                    <td>{{ $product->infants }}</td>
+                                                    <td>{{ $product->children }}</td>
+                                                    <td>{{ $order->currency }} {{ $product->cost }}</td>
+                                                    <td>
+                                                    {{$orderStatus->status}}
+                                                    </td>
+                                                    <td>{{ $order->currency }}
+                                                        @if (count($order->orderProducts) == 1)
+                                                            @if ($order->orderCoupons != null)
+                                                                {{ $product->total - $order->orderCoupons->sum('coupon_value') }}
+                                                            @else
+                                                                {{ $product->total }}
+                                                            @endif
                                                         @else
                                                             {{ $product->total }}
                                                         @endif
-                                                    @else
-                                                        {{ $product->total }}
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,8 +184,30 @@
                                            
                                             
                                             <tr>
-                                                <th>Total:</th>
-                                                <td>{{$order->currency}} {{number_format(($orderGrandTotal['orderGrandTotal']>0)?$orderGrandTotal['orderGrandTotal']:'0',2)}}</td>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Subtotal:</td>
+                                                    <td>{{ $order->currency }} {{ number_format($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0, 2) }}</td>
+                                                </tr>
+                                                @php
+                                                    $subtotal = $orderGrandTotal['orderGrandTotal'];
+                                                    $sgst = $subtotal * 0.09;
+                                                    $cgst = $subtotal * 0.09;
+                                                    $totalWithTax = $subtotal + $sgst + $cgst;
+                                                @endphp
+                                                <tr>
+                                                    <td>SGST (9%):</td>
+                                                    <td>{{ $order->currency }} {{ number_format($sgst, 2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CGST (9%):</td>
+                                                    <td>{{ $order->currency }} {{ number_format($cgst, 2) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total:</td>
+                                                    <td>{{ $order->currency }} {{ number_format($totalWithTax, 2) }}</td>
+                                                </tr>
+                                            </tbody>
                                             </tr>
                                            
                                             </tbody>

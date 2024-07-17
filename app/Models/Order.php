@@ -867,18 +867,32 @@ class Order extends Model
     }
     public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
 {
+
+    $assignedLocations = array_filter($assignedLocations);
+
     $dateExploded = explode('-', $date_range);
     $startDate = date("Y-m-d", strtotime($dateExploded[0]));
     $endDate = date("Y-m-d", strtotime($dateExploded[1]));
     $start = $startDate . ' 00:00:00';
     $end = $endDate . ' 23:59:59';
 
-    $orders = SELF::whereBetween('created_at', [$start, $end])
-                    ->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                        $query->whereIn('origin', $assignedLocations)
-                              ->orWhereIn('destination', $assignedLocations);
-                    })
-                    ->get();
+    $orders = SELF::when($start && $end, function ($query) use ($start, $end) {
+        return $query->whereBetween('created_at', [$start, $end]);
+    })
+    ->when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
+        return $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
+            $query->whereIn('origin', $assignedLocations)
+                  ->orWhereIn('destination', $assignedLocations);
+        });
+    })
+    ->when(empty($assignedLocations), function ($query) {
+        // Handle case when assignedLocations is empty or contains only empty values
+        return $query->whereRaw('1=0'); // Force a condition that is never true
+    })
+    ->get();
+
+
+                    
     
     if ($status != NULL) {
         $ordersList = [];
@@ -911,11 +925,7 @@ class Order extends Model
         $queries = DB::getQueryLog();
         $orders = Order::whereIn('id', $productOrders->pluck('order_id')->toArray())->get();
     }
-    if ($coupon != NULL) {
-        $orderIds = $orders->pluck('id')->toArray();
-        $orderCoupon = OrderCoupon::whereIn('order_id', $orderIds)->where([['status', '=', 'Active'], ['coupon_id', '=', $coupon]])->get();
-        $orders = Order::whereIn('id', $orderCoupon->pluck('order_id')->toArray())->get();
-    }
+   
     return $orders;
 }
 
@@ -940,7 +950,7 @@ class Order extends Model
     }
     public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
 {
-    $orders = SELF::getDetailedOrders($date_range, $status, $customer, $product, $assignedLocations);
+    $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
     $boxValues = [];
     $totalProducts = OrderProduct::whereIn('order_id', $orders->pluck('id')->toArray())->count();
     $returnData = ['total_price' => [], 'coupon' => []];

@@ -54,7 +54,6 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use App\Models\CustomerAddress;
 use App\Models\OrderCustomer;
-
 use DateTime;
 use PDF;
 
@@ -107,7 +106,7 @@ class WebController extends Controller
                   $customer = $user->customer;
 
 
-        // Pdf::setOption(['fontDir' => public_path('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap'), 'defaultFont' => 'sans-serif']);
+       
         PDF::setOptions([
             'dpi' => 150,
             'defaultFont' => 'sans-serif', // Replace with your custom font if used
@@ -272,6 +271,9 @@ class WebController extends Controller
                 return $query->where('locations.id', $locationId);
             })
             ->where('products.category_id', $data['category'])
+            ->where('products.sector', $data['travel_sector'])
+
+            
             ->groupBy('products.id')
             ->get();
     
@@ -318,7 +320,11 @@ class WebController extends Controller
                 'flight_number' => $data['flight_number'],
                 'travel_sector' => $data['travel_sector'],
                 'entry_date' => $data['datepicker'],
-                'travel_type' => $data['travel_type']
+                'travel_type' => $data['travel_type'],
+                'adults' => $data['adults'],
+                'infants' => $data['infants'], 
+                'children' => $data['children'],
+                'pnr' => isset($data['pnr']) ? $data['pnr'] : '',
             ];
         }
     
@@ -509,6 +515,8 @@ public function search_booking_lounch(Request $request)
 
     public function search_booking_porter(Request $request)
     {
+
+       
         // Validate request
         $request->validate([
             'travel_type' => 'required',
@@ -521,7 +529,7 @@ public function search_booking_lounch(Request $request)
         ]);
     
         // Collect data
-        $data = $request->all();
+       $data = $request->all();
     
         // Fetch products based on travel type and locations
         $products = Product::select('products.*', 'locations.title as location_title')
@@ -542,6 +550,7 @@ public function search_booking_lounch(Request $request)
                 return $query->where('locations.id', $locationId);
             })
             ->where('products.category_id', $data['category'])
+            ->where('products.sector', $data['travel_sector'])
             ->groupBy('products.id')
             ->get();
     
@@ -586,7 +595,9 @@ public function search_booking_lounch(Request $request)
                 'flight_number' => $data['flight_number'],
                 'travel_sector' => $data['travel_sector'],
                 'entry_date' => $data['entry_date'],
-                'travel_type' => $data['travel_type']
+                'travel_type' => $data['travel_type'],
+                'porter_count' => $data['count'],
+                
             ];
         }
         Session::forget('category');

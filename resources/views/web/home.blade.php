@@ -386,41 +386,49 @@ $sessionKey = session('session_key');
                   <a href="{{ url('services/') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
                 </div>
       </div>
-         <section class="col-12 airport_list_section">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-5 section-head text-center mb-4">
-                <h2 data-aos="fade-up" data-aos-duration="600">Our Airports</h2>
-                <p data-aos="fade-up" data-aos-duration="800">We take pride in offering top-notch airport services that 
-                  cater to all scales of airports.</p>
-              </div>
-              <div class="col-lg-10 airport_lists">
-                <div class="d-flex flex-wrap justify-content-center">
+      <section class="col-12 airport_list_section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 section-head text-center mb-4">
+        <h2 data-aos="fade-up" data-aos-duration="600">Our Airports</h2>
+        <p data-aos="fade-up" data-aos-duration="800">We take pride in offering top-notch airport services that cater to all scales of airports.</p>
+      </div>
+      <div class="col-lg-10 airport_lists">
+        <div class="d-flex flex-wrap justify-content-center">
 
-                @foreach ($locationsall as $location)
-                  <div class="airport_list_grid text-center" data-aos="fade-up" data-aos-duration="1000">
-                    <a href="{{ url('location/' . @$location->title) }}">
-                      <div class="airtport_list_thumb">
-                       
-                        {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
-                        <h3>{{ $location->title }}</h3>
-                      </div>
-                      <h4>{{ $location->code }}</h4>
-                      <p>{{ $location->title }} International Airport</p>
-                    </a> 
-                  </div>
-                 
-                  @endforeach
-                 
-                 
-                <div class="col-12 text-center mt-3">
-                  <a href="{{ url('locations/') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
-                </div>
-                </div>
+          @php
+          $displayLocations = $locationsall->take(10);
+          $totalLocations = $locationsall->count();
+          @endphp
+
+          @foreach ($displayLocations as $location)
+          <div class="airport_list_grid text-center" data-aos="fade-up" data-aos-duration="1000">
+            <a href="{{ url('location/' . @$location->title) }}">
+              <div class="airtport_list_thumb">
+                {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
+                <h3>{{ $location->title }}</h3>
               </div>
-            </div>
+              <h4>{{ $location->code }}</h4>
+              <p>{{ $location->title }} International Airport</p>
+            </a>
           </div>
-         </section>
+          @endforeach
+
+          @if ($totalLocations > 10)
+          <div class="col-12 text-center mt-3">
+            <a href="{{ url('locations/') }}" class="btn-style-2">
+              <div class="btn-in">View More</div>
+            </a>
+          </div>
+          @endif
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
          <section class="col-12 service-section  d-none d-sm-block">
             <div class="container">
               <div class="row justify-content-center">

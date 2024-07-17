@@ -230,6 +230,11 @@ class Helper
                                 'entry_time' => $row->attributes->entry_time,
                                 'exit_time' => $row->attributes->exit_time,
                                 'bag_count' => $row->attributes->bag_count,
+                                'adults' => $row->attributes->adults,
+                                'infants' => $row->attributes->infants,
+                                'children' => $row->attributes->children,
+                                'porter_count' => $row->attributes->guest,
+                                'pnr' => $row->attributes->pnr,
                             ],
                             'conditions' => [],
                         ]);

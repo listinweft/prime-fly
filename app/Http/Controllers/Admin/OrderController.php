@@ -16,6 +16,7 @@ use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -28,21 +29,137 @@ class OrderController extends Controller
 
     public function list()
     {
+
         $title = "Order List";
+
+       $admintype =  Auth::guard('admin')->user()->admin;
+
+       if($admintype->role == "Admin" )
+       {
+
+
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+        $assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+        
+        $orderList = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
+                            return $query->where(function ($query) use ($assignedLocations) {
+                                $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
+                                    $query->whereIn('origin', $assignedLocations)
+                                          ->orWhereIn('destination', $assignedLocations);
+                                });
+                            });
+                        })
+                        ->when(empty($assignedLocations), function ($query) {
+                            // Handle case when assignedLocations is empty or contains only empty values
+                            return $query->whereRaw('1=0'); // Force a condition that is never true
+                        })
+                        ->latest()
+                        ->get();
+        
+        
+
+
+
+       }
+       
+
+    
+       else
+
+       {
+
         $orderList = Order::latest()->get();
+
+
+       }
+      
+       
         $boxValues = Order::boxValues();
         return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues'));
     }
    
     public function index()
     {
-        $orders = Order::latest()->get();
+        $admintype =  Auth::guard('admin')->user()->admin;
+
+       if($admintype->role == "Admin" )
+       {
+
+
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+$assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+
+$orders = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
+                    return $query->where(function ($query) use ($assignedLocations) {
+                        $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
+                            $query->whereIn('origin', $assignedLocations)
+                                  ->orWhereIn('destination', $assignedLocations);
+                        });
+                    });
+                })
+                ->when(empty($assignedLocations), function ($query) {
+                    // Handle case when assignedLocations is empty or contains only empty values
+                    return $query->whereRaw('1=0'); // Force a condition that is never true
+                })
+                ->latest()
+                ->get();
+
+
+
+       }
+       
+
+    
+       else
+
+       {
+
+        $orders= Order::latest()->get();
+
+
+       }
         return view('Admin.calendar', compact('orders'));
     }
 
     public function getOrders()
     {
-        $orders = Order::latest()->get();
+        $admintype =  Auth::guard('admin')->user()->admin;
+
+       if($admintype->role == "Admin" )
+       {
+
+
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+        $assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+        
+        $orders = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
+                            return $query->where(function ($query) use ($assignedLocations) {
+                                $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
+                                    $query->whereIn('origin', $assignedLocations)
+                                          ->orWhereIn('destination', $assignedLocations);
+                                });
+                            });
+                        })
+                        ->when(empty($assignedLocations), function ($query) {
+                            // Handle case when assignedLocations is empty or contains only empty values
+                            return $query->whereRaw('1=0'); // Force a condition that is never true
+                        })
+                        ->latest()
+                        ->get();
+
+
+       }
+       
+
+    
+       else
+
+       {
+
+        $orders= Order::latest()->get();
+
+
+       }
 
         // Format timestamps as strings for FullCalendar
         $formattedOrders = $orders->map(function ($order) {
@@ -119,177 +236,20 @@ class OrderController extends Controller
         date_default_timezone_set('Asia/Kolkata');
         $order_product_id = $request->product_id;
         if ($order_product_id) {
-            DB::beginTransaction();
+           
             $orderLog = new OrderLog;
             $orderLog->order_product_id = $order_product_id;
             $orderLog->status = $request->status;
             if ($orderLog->save()) {
-                $order = Order::find($request->order_id);
-                $orderProduct = OrderProduct::find($order_product_id);
-                $orderCustomer = OrderCustomer::where('order_id', $request->order_id)->first();
-                $cartProducts = OrderProduct::where('order_id', $request->order_id)->get();
-                $valid = $couponValid = true;
-                $orderSubTotal = Order::getActiveProductTotal($request->order_id);
-                $orderProductTotal = $orderSubTotal = $tax_amount = 0;
-                if ($order->tax != 0) {
-                    $tax_amount = $orderSubTotal * $order->tax / 100;
-                    if ($order->tax_type == "Outside") {
-                        $orderSubTotal = $orderSubTotal + $tax_amount;
-                    }
-                }
-                $shippingAmount = ShippingCharge::getShippingCharge($orderCustomer->shippingAddress->state, $orderProductTotal);
+                
+               
+              
 
-                $coupon = OrderCoupon::where([['order_id', $request->order_id], ['status', 'Active']])->first();
-                if ($coupon != NULL) {
-                    $valid = $second_valid = $third_valid = $fourth_valid = $minimum_valid = $maximum_valid = true;
-                    /*if($request->status=="Processing" || $request->status=="On Hold" || $request->status=="Delivery" || $request->status=="Completed"){
-                        $status="Active";
-                    }else{
-                        $status="Inactive";
-                    }*/
-                    if ($coupon->minimum_spend != '0.00') {
-                        if ($coupon->minimum_spend <= $orderProductTotal) {
-                            $minimum_valid = true;
-                        } else {
-                            $minimum_valid = false;
-                        }
-                    }
-                    if ($coupon->maximum_spend != '0.00') {
-                        if ($coupon->maximum_spend >= $orderProductTotal) {
-                            $maximum_valid = true;
-                        } else {
-                            $maximum_valid = false;
-                        }
-                    }
-                    if ($minimum_valid == true && $maximum_valid == true) {
-                        $excludedProductList = $productCharge = $includedProducts = [];
-                        $includedProductCost = $excludedProductCost = [];
-                        foreach ($cartProducts as $product) {
-                            $orderStatusData = OrderLog::where('order_product_id', '=', $product->id)->latest()->first();
-                            if ($orderStatusData->status == "Processing" || $orderStatusData->status == "On Hold" || $orderStatusData->status == "Out for Delivery" || $orderStatusData->status == "Completed") {
-                                $productData = Product::find($product->product_id);
-                                if (count($includedProducts) > 0) {
-                                    if (in_array($productData->product_id, $includedProducts)) {
-                                        $includedProductList[] = $product->product_id;
-                                        if ($coupon->applicable_only_if_sale_price == "No") {
-                                            if ($product->offer_id == 0) {
-                                                $includedProductCost[] = $product->total;
-                                            }
-                                        } else {
-                                            if ($product->offer_id != 0) {
-                                                $includedProductCost[] = $product->total;
-                                            }
-                                        }
-                                    } else {
-                                        $excludedProductList[] = $product->id;
-                                    }
-                                } else {
-                                    if ($coupon->applicable_only_if_sale_price == "No") {
-                                        if ($product->offer_id == 0) {
-                                            $includedProductCost[] = $product->total;
-                                        }
-                                    } else {
-                                        if ($product->offer_id != 0) {
-                                            $includedProductCost[] = $product->total;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if ($orderSubTotal != 0) {
-                            if (!empty($includedProducts)) {
-                                if (count($excludedProductList) > 0) {
-                                    $third_valid = false;
-                                }
-                            }
-                            if ($third_valid == false) {
-                                if ($coupon->type == "Fixed") {
-                                    $disabled = true;
-                                } else {
-                                    if (count($includedProductCost) > 0) {
-                                        $coupon_value = array_sum($includedProductCost) * $coupon->coupon_value / 100;
-                                    } else {
-                                        $coupon_value = $orderSubTotal * $coupon->coupon_value / 100;
-                                    }
-                                    $final_amount_after_coupon = $orderSubTotal - $coupon_value;
-                                    $fourth_valid = true;
-                                }
-                            } else {
-                                if ($coupon->type == "Fixed") {
-                                    $coupon_value = $coupon->coupon_value;
-                                    if (count($includedProductCost) > 0) {
-                                        $final_amount_after_coupon = array_sum($includedProductCost) - $coupon_value;
-                                    } else {
-                                        $final_amount_after_coupon = $orderSubTotal - $coupon_value;
-                                    }
-                                } else {
-                                    if (count($includedProductCost) > 0) {
-                                        $coupon_value = array_sum($includedProductCost) * $coupon->coupon_value / 100;
-                                    } else {
-                                        $coupon_value = $orderSubTotal * $coupon->coupon_value / 100;
-                                    }
-                                    $final_amount_after_coupon = $orderSubTotal - $coupon_value;
-                                }
-                                $fourth_valid = true;
-                            }
-                            if ($fourth_valid == true) {
-                                // if($order->gift_wrapper_enabled=="Yes"){
-                                //     $final_amount_after_coupon = $final_amount_after_coupon+$order->gift_wrapper_charge;
-                                // }
-                                /*$orderCoupon = OrderCoupon::find($coupon->id);
-                                // $orderCoupon->coupon_value = $coupon_value;
-                                $orderCoupon->status = $status;
-                                if($orderCoupon->save()){*/
-                                $couponValid = true;
-                                $disabled = false;
-                                /*}*/
-                            } else {
-                                $disabled = true;
-                            }
-                        } else {
-                            $disabled = true;
-                        }
-                    } else {
-                        $disabled = true;
-                    }
-                    if ($disabled == true) {
-                        /*$orderCoupon = OrderCoupon::find($coupon->id);
-                        $orderCoupon->status = $status;
-                        if($orderCoupon->save()){*/
-                        $couponValid = true;
-                        /*}*/
-                    }
-                }
-                if ($couponValid == true) {
-                    //$order->tax_amount = $tax_amount;
-                    if ($order->save()) {
-                        $valid = true;
-                    } else {
-                        $valid = false;
-                    }
-                    if ($order->orderCustomer->user_type == "User") {
-                        $orderData = Order::with(['orderProducts' => function ($t) {
-                            $t->with('productData');
-                        }])->with(['orderCustomer' => function ($c) use ($orderCustomer) {
-                            $c->with('customerData');
-                            $c->with('billingAddress');
-                            $c->where('customer_id', '=', $orderCustomer->customer_id);
-                        }])->with('orderCoupons')->find($request->order_id);
-                    } else {
-                        $orderData = Order::with(['orderProducts' => function ($t) {
-                            $t->with('productData');
-                        }])->with('orderCustomer')->with('orderCoupons')->find($request->order_id);
-                    }
-                    $produtName = $orderProduct->productData->title;
-                    // $orderMail = Order::sendOrderStatusMail($orderData, $request->status, $produtName);
-                    DB::commit();
-                    return response()->json(['status' => 'true', 'message' => 'Order status has been changed successfully']);
-                } else {
-                    DB::rollBack();
-                    return response()->json(['status' => 'false', 'message' => 'Error while updating the order status']);
-                }
+                return response()->json(['status' => 'true', 'message' => 'Order status has been changed successfully']);
+              
+                
             } else {
-                DB::rollBack();
+               
                 return response()->json(['status' => 'false', 'message' => 'Error while changing the status']);
             }
         } else {

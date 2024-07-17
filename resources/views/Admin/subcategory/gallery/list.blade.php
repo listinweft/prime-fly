@@ -5,14 +5,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage  Gallery</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage  Steps</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
                            
-                            <li class="breadcrumb-item active"> Gallery</li>
+                            <li class="breadcrumb-item active"> Steps</li>
                         </ol>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'product/sub-category/gallery/create/'.$product_id)}}"
-                                   class="btn btn-success pull-right">Add  Gallery <i
+                                   class="btn btn-success pull-right">Add  Steps <i
                                         class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">

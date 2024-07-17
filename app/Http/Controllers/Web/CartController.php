@@ -21,6 +21,7 @@ use App\Models\ProductPrice;
 use App\Models\SeoData;
 use App\Models\ShippingCharge;
 use App\Models\SiteInformation;
+use App\Models\PersonalDetails;
 use App\Models\State;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
@@ -115,13 +116,13 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr);
                 if (!$addStatus) {
                     break; // If adding any product fails, stop the loop
                 }
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr);
         }
     
         $count = 0;
@@ -150,7 +151,7 @@ class CartController extends Controller
         }
     }
     
-    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time)
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr)
     {
         $origin = $origin ?? '';
         $destination = $destination ?? '';
@@ -159,7 +160,11 @@ class CartController extends Controller
         $entry_date = $entry_date ?? '';
         $travel_type = $travel_type ?? '';
         $bag_count = $bag_count ?? '';
+        $adults = $adults ?? '';
+        $infants = $infants ?? '';
+        $children  = $children ?? '';
         $entry_time = $entry_time ?? '';
+        $pnr  = $pnr ?? '';
         $exit_time = $exit_time ?? '';
     
         $product = Product::find($product_id);
@@ -205,6 +210,13 @@ class CartController extends Controller
                     'entry_time' => $entry_time,
                     'exit_time' => $exit_time,
                     'bag_count' => $bag_count,
+                    'adults' => $adults,
+                    'infants' => $infants,
+                    'children' => $children,
+                    'porter_count' => $totalguest,
+                    'pnr' => $pnr,
+                    
+
                 ],
                 'conditions' => [],
             ]);
@@ -1205,6 +1217,31 @@ class CartController extends Controller
                 $order->currency_charge = 25;
     
                 if ($order->save()) {
+
+                    if (!empty($request->name)) {
+                     $personalDetail = new PersonalDetails();
+                     $personalDetailsData = [];
+
+                     // Prepare array of personal details data
+                     foreach ($request->name as $key => $name) {
+                        $personalDetail = new PersonalDetails();
+                        $personalDetail->order_id = $order->id;
+                        $personalDetail->name = $request->name[$key] ?? '';
+                        $personalDetail->age = $request->age[$key] ?? '';
+                        $personalDetail->address = $request->address ?? '';
+                        $personalDetail->passport_number = $request->passport_number ?? '';
+                        // Save other fields as needed
+                        $personalDetail->save();
+                    }
+                
+ 
+                     // Insert multiple PersonalDetail records
+                     if (!empty($personalDetailsData)) {
+                         PersonalDetail::insert($personalDetailsData);
+                     }
+
+                    }
+
                     $order_customer = new OrderCustomer;
                     $order_customer->order_id = $order->id;
                     if (Auth::guard('customer')->check()) {
@@ -1247,6 +1284,12 @@ class CartController extends Controller
                             $detail->bag_count = $row->attributes['bag_count'] ?? 0;
                             $detail->entry_time = $row->attributes['entry_time'] ?? '';
                             $detail->exit_time = $row->attributes['exit_time'] ?? '';
+                            $detail->adults = $row->attributes['adults'] ?? '';
+                            $detail->infants = $row->attributes['infants'] ?? '';
+                            $detail->children = $row->attributes['children'] ?? '';
+                            $detail->porter_count = $row->attributes['guest'] ?? '';
+                            $detail->pnr = $row->attributes['pnr'] ?? '';
+    
     
                             if ($detail->save()) {
                                 $order_log = new OrderLog;
