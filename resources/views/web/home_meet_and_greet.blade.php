@@ -166,28 +166,28 @@ success: function(response) {
 });
 
 
-$('#travel_sector').change(function() {
+// $('#travel_sector').change(function() {
 
-    var sector = $(this).val();
+//     var sector = $(this).val();
 
-    if(sector == "domestic")
-
-
-    {
-
-        $("#pnr").show();
+//     if(sector == "domestic")
 
 
-    }
-    else
+//     {
 
-    {
-
-        $("#pnr").hide();
+//         $("#pnr").show();
 
 
+//     }
+//     else
 
-    }
+//     {
+
+//         $("#pnr").hide();
+
+
+
+//     }
 
 
 
@@ -195,7 +195,7 @@ $('#travel_sector').change(function() {
    
             
 
-        });
+//         });
 
         var base_url = "{{ url('/') }}";
         var appId = '6afbf6ac'; // Replace with your FlightStats App ID

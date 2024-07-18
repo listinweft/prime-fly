@@ -136,6 +136,11 @@
                     <span class="error-message" style="display: none;">Age is required.</span>
                 </div>
                 <div class="details-item">
+                    <label for="pnr">PNR</label>
+                    <input type="text" name="pnr[]" id="pnr" required>
+                    <span class="error-message" style="display: none;">PNR is required.</span>
+                </div>
+                <div class="details-item">
                     <button type="button" class="add-more-btn btn btn-primary">+</button>
                 </div>
             </div>
@@ -270,6 +275,10 @@
                     <div class="details-item">
                         <label for="age">Age</label>
                         <input type="text" name="age[]" id="age">
+                    </div>
+                    <div class="details-item">
+                        <label for="pnr">PNR</label>
+                        <input type="text" name="pnr[]" id="pnr">
                     </div>
                     <div class="details-item">
                         <button type="button" class="remove-btn btn btn-danger">-</button>
