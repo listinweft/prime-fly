@@ -188,6 +188,7 @@
 </li>
 
 
+
 <li class="nav-item">
                   <a href="{{url(Helper::sitePrefix().'location')}}"
                  class="nav-link {{ (Request::segment(2)=='location')?'active':'' }}">
