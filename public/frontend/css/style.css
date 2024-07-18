@@ -167,6 +167,7 @@ a:hover{
     color:#AFACAC;
     width: 100%;
     padding: 10px 5px;
+    height: 100%;
 }
 .banner_filter_pills .nav-item .nav-link svg path{
     fill:#ADAAAA
@@ -3645,6 +3646,75 @@ color: rgba(112, 112, 112, 0.81);
 }
 .invoice_table td{
     vertical-align: top;
+}
+ 
+.details-item label { 
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.details-item input{ 
+    width: 100%; 
+    font-size: 13px;
+    color: #86898B;
+    border: 1px solid #E1E7EE;
+    border-radius: 5px;
+    height: 100%;
+    padding: 10px 15px;
+    line-height: 1;
+}
+.details-item select{ 
+    width: 100%; 
+    font-size: 13px;
+    color: #86898B;
+    border: 1px solid #E1E7EE;
+    border-radius: 5px;
+    height: 100%;
+    padding: 10px 15px;
+    line-height: 1;
+}
+.details-item textarea{
+    width: 100%; 
+    font-size: 13px;
+    color: #86898B;
+    border: 1px solid #E1E7EE;
+    border-radius: 5px;
+    height: 100%;
+    padding: 10px 15px;
+    line-height: 1;
+    max-height: 38px;
+}
+.details-item .error-message{
+    color: red;
+    font-size: 12px;
+}
+.customer-detail-form
+{ 
+    padding-bottom: 30px;
+}
+.details-item-wraper{
+    position: relative;
+}
+.details-item button.add-more-btn.btn.btn-primary, .details-item .remove-btn.btn.btn-danger {
+    position: absolute;
+    right: -55px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    font-size: 20px;
+    line-height: 1;
+}
+.details-item-option .form-check-input[type=radio]{
+ padding: 0;
+ width:20px;
+ height:20px;
+}
+.details-item-option .form-check label{
+margin: 0;
+margin-left: 5px;
 }
 @media(max-width:1680px){
     .airtport_list_thumb { 

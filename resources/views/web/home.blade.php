@@ -6,7 +6,7 @@
             <div class="banner_content">
                <div class="container">
                   <div class="d-flex justify-content-center">
-                     <div class="col-lg-10">
+                     <div class="col-lg-12">
                         <h1 data-aos="fade-up" data-aos-duration="500">
                            <span>It’s time to</span> Discover  <b>Find and book a great experience</b>
                         </h1>
