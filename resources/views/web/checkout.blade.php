@@ -123,22 +123,33 @@
 
                             @if(in_array(Session::get('category'), ['Meet and Greet', 'Porter', 'Lounge Booking', 'Baggage Wrapping']))
     <form id="personal-details-form">
-        <div class="price-summery personal-details">
+        <div class="price-summery personal-details customer-detail-form">
             <div class="details-item-wraper">
                 <div class="details-item">
                     <label for="name">Name</label>
-                    <input type="text" name="name[]" id="name" required>
+                    <input type="text" name="name[]" id="name" placeholder="Enter full name" required>
                     <span class="error-message" style="display: none;">Name is required.</span>
                 </div>
                 <div class="details-item">
                     <label for="age">Age</label>
-                    <input type="text" name="age[]" id="age" required>
+                    <input type="text" name="age[]" id="age" placeholder="Enter your age" required>
                     <span class="error-message" style="display: none;">Age is required.</span>
                 </div>
                 <div class="details-item">
                     <label for="pnr">PNR</label>
-                    <input type="text" name="pnr[]" id="pnr" required>
+                    <input type="text" name="pnr[]" id="pnr" placeholder="Enter your PNR" required>
                     <span class="error-message" style="display: none;">PNR is required.</span>
+                </div>
+                <div class="details-item details-item-option">
+                    <label for="gender">Gender</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Mr.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Ms.</label>
+                    </div>
                 </div>
                 <div class="details-item">
                     <button type="button" class="add-more-btn btn btn-primary">+</button>
@@ -146,19 +157,56 @@
             </div>
         </div>
         @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
-        <div>
+        <div class="mt-4">
             <h4>Address</h4>
-            <div class="price-summery">
+            <div class="price-summery customer-detail-form">
                 <div class="details-item-wraper">
                     <div class="details-item">
                         <label for="address">Address</label>
-                        <textarea name="address" id="address" required></textarea>
+                        <textarea name="address" id="address"  required></textarea>
                         <span class="error-message" style="display: none;">Address is required.</span>
                     </div>
                     <div class="details-item">
                         <label for="passport_number">Passport Number</label>
                         <input type="text" name="passport_number" id="passport_number" required>
                         <span class="error-message" style="display: none;">Passport Number is required.</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="details-item"> 
+                                <label for="name">Pincode</label>
+                                <input type="text" name="name[]" id="name" placeholder="Pincode" required> 
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="details-item">
+                                <label for="name">Country</label>
+                                <select>
+                                    <option>Country</option>
+                                    <option>Country</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="details-item">
+                                <label for="name">State</label>
+                                <select>
+                                    <option>State</option>
+                                    <option>State</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="details-item">
+                                <label for="name">City</label>
+                                <select>
+                                    <option>City</option>
+                                    <option>City</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,7 +218,7 @@
 @endif
 
 
-                                <h4>Price Details</h4>
+                                <h4 class="mt-4">Price Details</h4>
                                 <div class="price-summery">
                                     <table>
                                         <tbody>
@@ -270,15 +318,26 @@
                 <div class="details-item-wraper">
                     <div class="details-item">
                         <label for="name">Name</label>
-                        <input type="text" name="name[]" id="name">
+                        <input type="text" name="name[]" placeholder="Enter full name" id="name">
                     </div>
                     <div class="details-item">
                         <label for="age">Age</label>
-                        <input type="text" name="age[]" id="age">
+                        <input type="text" name="age[]" placeholder="Enter your age" id="age">
                     </div>
                     <div class="details-item">
                         <label for="pnr">PNR</label>
-                        <input type="text" name="pnr[]" id="pnr">
+                        <input type="text" name="pnr[]" placeholder="Enter your PNR" id="pnr">
+                    </div>
+                     <div class="details-item details-item-option">
+                        <label for="gender">Gender</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">Mr.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Ms.</label>
+                        </div>
                     </div>
                     <div class="details-item">
                         <button type="button" class="remove-btn btn btn-danger">-</button>
