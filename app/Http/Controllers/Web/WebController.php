@@ -141,9 +141,42 @@ class WebController extends Controller
     }
 
 
-    public function getLocations(Request $request)
+    // public function getLocations(Request $request)
+    // {
+    //     $travelSector = $request->input('travel_type');
+    //     $category = $request->input('category');
+    
+    //     $products = Product::where('category_id', $category)->where('service_type',$travelSector)->get();
+    
+    //     $allLocationIds = [];
+    //     foreach ($products as $product) {
+    //         $locationIds = explode(',', $product->location_id);
+    //         $allLocationIds = array_merge($allLocationIds, $locationIds);
+    //     }
+    //     $uniqueLocationIds = array_unique($allLocationIds);
+    //     $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+    
+    //     $origins = [];
+    //     $destinations = [];
+    
+    //     if ($travelSector == 'departure') {
+    //         $origins = $locationsspecific;
+    //         $destinations = Location::all();
+    //     } elseif ($travelSector == 'arrival') {
+    //         $origins = Location::all();
+    //         $destinations = $locationsspecific;
+    //     }
+    
+    //     return response()->json(['origins' => $origins, 'destinations' => $destinations]);
+    // }
+
+        public function getLocations(Request $request)
     {
+
+       
         $travelSector = $request->input('travel_type');
+
+        $sector = $request->input('sector');
         $category = $request->input('category');
     
         $products = Product::where('category_id', $category)->where('service_type',$travelSector)->get();
@@ -155,16 +188,52 @@ class WebController extends Controller
         }
         $uniqueLocationIds = array_unique($allLocationIds);
         $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+
+        $mappedLocations = $locationsspecific->map(function ($location) {
+            return [
+                'fs' => $location->code, // Assuming 'code' in DB corresponds to 'faa'
+                'city' => $location->title // Assuming 'title' in DB corresponds to 'name'
+            ];
+        });
     
         $origins = [];
         $destinations = [];
+
+if ($sector =="international" )
+
+{
+
+
+    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/active?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
+
+
+}
+
+else
+
+{
+
+
+    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
+
+
+}
+       
+       
+
+        $responsedata = Http::get($apiUrl);
+
+        $data = $responsedata->json();
+
+        // Handle the data from API response
+        $locationsFromApi = $data['airports'] ?? [];
     
         if ($travelSector == 'departure') {
-            $origins = $locationsspecific;
-            $destinations = Location::all();
+            $origins = $mappedLocations;
+            $destinations = $locationsFromApi;
         } elseif ($travelSector == 'arrival') {
-            $origins = Location::all();
-            $destinations = $locationsspecific;
+            $origins = $locationsFromApi;
+            $destinations = $mappedLocations;
         }
     
         return response()->json(['origins' => $origins, 'destinations' => $destinations]);
@@ -198,13 +267,8 @@ class WebController extends Controller
         return response()->json(['origins' => $origins, 'destinations' => $destinations]);
     }
     
-
     public function search_booking(Request $request)
     {
-
-
-        
-       
         // Validate request
         $request->validate([
             'datepicker' => 'required',
@@ -216,69 +280,58 @@ class WebController extends Controller
             'adults' => 'required|integer|min:1',
             'infants' => 'required|integer|min:0',
             'children' => 'required|integer|min:0',
-             'category' => 'required|integer'
+            'category' => 'required|integer'
         ]);
-
+    
         // Collect data
-      $data = $request->all();
-
-        
-
+        $data = $request->all();
+    
         // Calculate total amounts for all matching products 
         $totalAmounts = $this->calculateTotalAmounts($data);
-
-        
-
+    
+        // Check if totalAmounts is empty
+        if (empty($totalAmounts)) {
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
+        }
+    
         // Pass total amounts to the view
-     $category = Category::where('id',$data['category'])->first();
-
-
-     Session::forget('category');
-
-     Session::put('total_amounts', $totalAmounts);
-     Session::put('category', $category->title);
-
-
+        $category = Category::where('id', $data['category'])->first();
     
-
-    return response()->json(['success' => true, 'redirect_url' => route('package')]);
-
-
+        Session::forget('category');
+        Session::put('total_amounts', $totalAmounts);
+        Session::put('category', $category->title);
     
+        return response()->json(['success' => true, 'redirect_url' => route('package')]);
     }
-
+    
     private function calculateTotalAmounts($data)
     {
         // Fetch all products that match the location_id and service_type
         $products = Product::select('products.*', 'locations.code as location_code', 'locations.title as location_title')
             ->join('locations', function ($join) use ($data) {
                 $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
-                    ->where('products.service_type', $data['travel_type']);
+                    ->where('products.service_type', $data['travel_type'])
+                    ->where('products.sector', $data['travel_sector']);
             })
             ->when($data['travel_type'] == "departure", function ($query) use ($data) {
-                // Fetch the location ID using the code
                 $locationId = Location::where('code', $data['origin'])->value('id');
                 return $query->where('locations.id', $locationId);
             })
             ->when($data['travel_type'] == "arrival", function ($query) use ($data) {
-                // Fetch the location ID using the code
                 $locationId = Location::where('code', $data['destination'])->value('id');
                 return $query->where('locations.id', $locationId);
             })
             ->when($data['travel_type'] == "transit_type", function ($query) use ($data) {
-                // Fetch the location ID using the code
                 $locationId = Location::where('code', $data['destination'])->value('id');
                 return $query->where('locations.id', $locationId);
             })
             ->where('products.category_id', $data['category'])
-            ->where('products.sector', $data['travel_sector'])
-
-            
             ->groupBy('products.id')
             ->get();
     
+        // Check if products is empty
         if ($products->isEmpty()) {
-            return response()->json(['status' => 'error', 'message' => 'No packages found']);
+            return []; // Return empty array
         }
     
         $result = [];
@@ -322,13 +375,13 @@ class WebController extends Controller
                 'entry_date' => $data['datepicker'],
                 'travel_type' => $data['travel_type'],
                 'adults' => $data['adults'],
-                'infants' => $data['infants'], 
+                'infants' => $data['infants'],
                 'children' => $data['children'],
                 'pnr' => isset($data['pnr']) ? $data['pnr'] : '',
             ];
         }
     
-        return $result;
+        return $result; // Return an array of results
     }
     
     
@@ -362,7 +415,7 @@ class WebController extends Controller
             $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
         })
         ->where('products.category_id', $data['category']) // Add category filter
-        ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+        // ->where('products.service_type', 'departure') // Ensure this checks the correct service type
         ->where('locations.id', $locationId)
         ->groupBy('products.id')
         ->get();
@@ -451,7 +504,7 @@ public function search_booking_lounch(Request $request)
             $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
         })
         ->where('products.category_id', $data['category']) // Add category filter
-        ->where('products.service_type', 'departure') // Ensure this checks the correct service type
+        // ->where('products.service_type', 'departure') // Ensure this checks the correct service type
         ->where('locations.id', $locationId)
         ->groupBy('products.id')
         ->get();
@@ -537,18 +590,18 @@ public function search_booking_lounch(Request $request)
                 $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
                      ->where('products.service_type', $data['travel_type']);
             })
-            ->when($data['travel_type'] == "departure", function ($query) use ($data) {
+            // ->when($data['travel_type'] == "departure", function ($query) use ($data) {
 
-                $locationId = Location::where('code', $data['origin'])->value('id');
-                return $query->where('locations.id', $locationId);
+            //     $locationId = Location::where('code', $data['origin'])->value('id');
+            //     return $query->where('locations.id', $locationId);
 
                
-            })
-            ->when(in_array($data['travel_type'], ["arrival", "transit_type"]), function ($query) use ($data) {
+            // })
+            // ->when(in_array($data['travel_type'], ["arrival", "transit_type"]), function ($query) use ($data) {
 
-                $locationId = Location::where('code', $data['destination'])->value('id');
-                return $query->where('locations.id', $locationId);
-            })
+            //     $locationId = Location::where('code', $data['destination'])->value('id');
+            //     return $query->where('locations.id', $locationId);
+            // })
             ->where('products.category_id', $data['category'])
             ->where('products.sector', $data['travel_sector'])
             ->groupBy('products.id')

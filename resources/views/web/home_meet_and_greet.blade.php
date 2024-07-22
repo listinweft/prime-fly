@@ -30,9 +30,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control" name="origin" id="origins">
                     <option value="">Select Origin</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -40,9 +40,9 @@
             <div class="booking_select">
                 <select class="form-control" name="destination" id="destinations">
                     <option value="">Select Destination</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -205,11 +205,14 @@ success: function(response) {
         function populateLocations(travel_type) {
             var category = @json($category->id);
 
+          var sector =   $('#travel_sector').val();
+
             if (travel_type) {
                 $.ajax({
                     url: base_url + '/get-locations',
                     type: 'POST',
                     data: {
+                        sector: sector,
                         travel_type: travel_type,
                         category: category,
                         _token: '{{ csrf_token() }}'
@@ -222,11 +225,12 @@ success: function(response) {
                         destinationSelect.empty().append('<option value="">Select Destination</option>');
 
                         $.each(data.origins, function(key, location) {
-                            originSelect.append('<option value="' + location.code + '">' + location.title + '</option>');
+                            originSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+
                         });
 
                         $.each(data.destinations, function(key, location) {
-                            destinationSelect.append('<option value="' + location.code + '">' + location.title + '</option>');
+                            destinationSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
                         });
                     },
                     error: function(xhr, status, error) {
