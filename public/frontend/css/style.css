@@ -3368,6 +3368,11 @@ color: rgba(112, 112, 112, 0.81);
 .locinner_bannerimg{
     width: 100%;
 }
+.locinner_bannerimg img{
+    height: 557px;
+    object-fit: cover;
+    object-position: center;
+}
 .privacy-content{
     padding-top:130px;
 }
