@@ -28,13 +28,17 @@
                                 $product_id_parts = explode('_', $row->id);
                                 $original_product_id = $product_id_parts[0];
                                 $product = App\Models\Product::find($original_product_id);
+
+                                $categorydata = $product ? App\Models\Category::where('id', $product->category_id)
+                                ->whereNull('parent_id')
+                                ->first() : null;
                             @endphp
                                     
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="cart-dtl-wrp">
                                             <div class="d-flex align-items-center">
                                                 <div class="cart-prdt-img">
-                                                {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block') !!}
+                                                {!! Helper::printImage($categorydata, 'image','image_webp','thumbnail_image_attribute','d-block') !!}
                                                 </div>
                                                 <div class="cart-prdct-dtls">
                                                 <h4>{{ ucwords($product->title) }}</h4>
@@ -151,11 +155,7 @@
                         <label class="form-check-label" for="inlineRadio2">Ms.</label>
                     </div>
                 </div>
-                <div class="details-item">
-                        <label for="address">Address</label>
-                        <textarea name="address" id="address"  required></textarea>
-                        <span class="error-message" style="display: none;">Address is required.</span>
-                    </div>
+                
                 <div class="details-item">
                     <button type="button" class="add-more-btn btn btn-primary">+</button>
                 </div>
@@ -165,16 +165,23 @@
         <div class="mt-4">
             <h4>Address</h4>
             <div class="price-summery customer-detail-form">
-            @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
+         
                 <div class="details-item-wraper">
-                    
+                <div class="details-item">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address"  required></textarea>
+                        <span class="error-message" style="display: none;">Address is required.</span>
+                    </div>
+                       @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
                     <div class="details-item">
                         <label for="passport_number">Passport Number</label>
                         <input type="text" name="passport_number" id="passport_number" required>
                         <span class="error-message" style="display: none;">Passport Number is required.</span>
                     </div>
+
+                                    @endif
                 </div>
-                @endif
+
                 <div class="col-12">
                     <div class="row">
                         <div class="col-lg-6">
@@ -343,11 +350,7 @@
                         </div>
                     </div>
 
-                    <div class="details-item">
-                        <label for="address">Address</label>
-                        <textarea name="address" id="address"  required></textarea>
-                        <span class="error-message" style="display: none;">Address is required.</span>
-                    </div>
+                    
                     <div class="details-item">
                         <button type="button" class="remove-btn btn btn-danger">-</button>
                     </div>

@@ -37,7 +37,7 @@
                                         <div class="cart-dtl-wrp">
                                             <div class="d-flex align-items-center">
                                                 <div class="cart-prdt-img">
-                                                    {!! Helper::printImage($product, 'thumbnail_image','thumbnail_image_webp','thumbnail_image_attribute','d-block') !!}
+                                                    {!! Helper::printImage($categorydata, 'image','image_webp','thumbnail_image_attribute','d-block') !!}
                                                 </div>
                                                 <div class="cart-prdct-dtls">
 
@@ -45,16 +45,20 @@
                                                     @php
                                                         $travelType = $row->attributes['travel_type'];
                                                         $locationId = $travelType == 'departure' ? $row->attributes['origin'] : $row->attributes['destination'];
-                                                        $location = App\Models\Location::find($locationId);
+                                                        
+
+                                                        $location = App\Models\Location::where('code',$locationId)->first();
 
                                                         $origindata = $row->attributes['origin'];
-                                                        $locationnew = App\Models\Location::find($origindata);
+                                                       
+                                                        $locationnew = App\Models\Location::where('code',$origindata)->first();
                                                         $locationTitle = $location ? $location->title : ($locationnew ? $locationnew->title : 'Location not found');
                                                     @endphp
                                                 @else
                                                     @php
                                                         $origin = $row->attributes['origin'];
-                                                        $location = App\Models\Location::find($origin);
+                                                        
+                                                        $location = App\Models\Location::where('code',$origin)->first();
                                                         $locationTitle = $location ? $location->title : 'Location not found';
                                                     @endphp
                                                 @endif
