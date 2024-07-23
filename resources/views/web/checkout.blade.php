@@ -17,7 +17,7 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-6 cart-product-list ">
-                                <h4>Order Summery</h4>
+                                <h4>Order Summary</h4>
 
                                
 
@@ -140,7 +140,7 @@
                     <span class="error-message" style="display: none;">Age is required.</span>
                 </div>
                 <div class="details-item">
-                    <label for="pnr">PNR</label>
+                    <label for="pnr">PNR Number</label>
                     <input type="text" name="pnr[]" id="pnr" placeholder="Enter your PNR" required>
                     <span class="error-message" style="display: none;">PNR is required.</span>
                 </div>
@@ -335,7 +335,7 @@
                         <input type="text" name="age[]" placeholder="Enter your age" id="age">
                     </div>
                     <div class="details-item">
-                        <label for="pnr">PNR</label>
+                        <label for="pnr">PNR Number</label>
                         <input type="text" name="pnr[]" placeholder="Enter your PNR" id="pnr">
                     </div>
                      <div class="details-item details-item-option">

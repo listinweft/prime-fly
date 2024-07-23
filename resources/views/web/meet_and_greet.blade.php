@@ -34,9 +34,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control select2" name="origin" id="origins">
                     <option value="">Select Origin</option>
-                    <!-- @foreach ($locations as $location)
-                        <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach -->
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -44,9 +44,9 @@
             <div class="booking_select">
                 <select class="form-control select2" name="destination" id="destinations">
                     <option value="">Select Destination</option>
-                    <!-- @foreach ($locations as $location)
-                        <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach -->
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
