@@ -257,7 +257,7 @@
                 ], 
           });
           $(".service-carousel").owlCarousel({
-            loop:true,
+            loop:false,
             margin:20,
             dots:false,
             nav: true,

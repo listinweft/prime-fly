@@ -4374,3 +4374,7 @@ margin-left: 5px;
     margin-top: -5px;
     padding-left: 16px;
 }
+.service-carousel.owl-carousel .owl-stage{
+
+    margin: auto;
+}
