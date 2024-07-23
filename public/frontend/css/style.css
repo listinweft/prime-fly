@@ -359,6 +359,13 @@ table {
     padding: 12px 15px;
     line-height: 1;
 }
+.booking_field option {
+    font-size: 15px;
+    padding: 10px;
+    line-height: 2.2;
+    height: 40px;
+    border-radius: 0;
+}
 .normal_select select{
     background-color: transparent;
     cursor: pointer;
@@ -1448,7 +1455,7 @@ footer{
     margin-top: 20px;
 }
 .package-content-list ul {
-    width: 48%;
+    width:100%;
     padding-left: 15px;
 }
 .package-content-list ul li{
