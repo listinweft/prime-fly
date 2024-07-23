@@ -7,7 +7,7 @@
 
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="origin">
+                        <select type="text" class="form-control select2" name="origin">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
@@ -66,6 +66,12 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+
+    
+    $('.select2').select2({
+          
+          allowClear: true
+      });
    
     $('#datepickerair, #exitdatepickerair').datepicker({
         format: 'yyyy-mm-dd',

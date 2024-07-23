@@ -5,7 +5,7 @@
                 <div class="d-flex flex-wrap justify-content-start home-form-flex"> 
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="origin">
+                        <select type="text" class="form-control select2" name="origin">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
@@ -63,6 +63,12 @@
 <script>
 $(document).ready(function() {
     
+
+    
+    $('.select2').select2({
+          
+          allowClear: true
+      });
    
     
     $('#datepickerclock, #exitdatepickerclock').datepicker({

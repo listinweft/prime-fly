@@ -14,7 +14,7 @@
         <input type="hidden" value="{{$category->id}}" name="category">
         <div class="booking_field" id="orgin_select">
             <div class="booking_select"> 
-                <select class="form-control" name="origin" id="originl">
+                <select class="form-control select2" name="origin" id="originl">
                     <option value="">Select Origin</option>
                     <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}</option>
@@ -25,7 +25,7 @@
         <!-- Destination Select -->
         <div class="booking_field" id="destination_select">
             <div class="booking_select"> 
-                <select class="form-control" name="destination" id="destinationl">
+                <select class="form-control select2" name="destination" id="destinationl">
                     <option value="">Select Destination</option>
                     <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}</option>
@@ -81,6 +81,11 @@
 
 $(document).ready(function() {
     // Initialize date picker
+
+    $('.select2').select2({
+          
+          allowClear: true
+      });
     $(function() {
         $("#datepickerlounge").datepicker({
             dateFormat: "dd-mm-yy",

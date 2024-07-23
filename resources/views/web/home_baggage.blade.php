@@ -12,7 +12,7 @@
                     <input type="hidden" value="{{$category->id}}" name="category">
                     <div class="booking_field" id="orgin_select">
                         <div class="booking_select">
-                            <select type="text" class="form-control" name="origin" id="originb">
+                            <select type="text" class="form-control select2" name="origin" id="originb">
                                 <option value="">Select Origin</option>
                                 <!-- @foreach ($locations as $location)
                                     <option value="{{ $location->id }}">{{ $location->title }}</option>
@@ -23,7 +23,7 @@
                     <!-- Destination Select -->
                     <div class="booking_field" id="destination_select">
                         <div class="booking_select">
-                            <select class="form-control" name="destination" id="destinationb">
+                            <select class="form-control select2" name="destination" id="destinationb">
                                 <option value="">Select Destination</option>
                                 <!-- @foreach ($locationsall as $location)
                                     <option value="{{ $location->id }}">{{ $location->title }}</option>
@@ -80,6 +80,12 @@
 
 
                         $(document).ready(function() {
+
+                            
+    $('.select2').select2({
+          
+          allowClear: true
+      });
 
                             $( function() {
             $( "#datepickerb" ).datepicker({

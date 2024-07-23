@@ -8,7 +8,7 @@
                 <div class="d-flex flex-wrap">
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select"> 
-                        <select type="text" class="form-control" name="origin">
+                        <select type="text" class="form-control select2" name="origin">
                         <option value="">Select Origin</option>
                                 @foreach ($locations as $location)
                                     <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
@@ -70,6 +70,12 @@
 <script>
 $(document).ready(function() {
     // Initialize datepicker and timepicker
+
+    
+    $('.select2').select2({
+          
+          allowClear: true
+      });
     $('#datepickercar, #exitdatepickercar').datepicker({
         format: 'yyyy-mm-dd',
         minDate: 0,

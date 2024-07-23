@@ -33,21 +33,21 @@
                     </div>
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="origin" id="originpo">
+                        <select type="text" class="form-control select2" name="origin" id="originpo">
                             <option value="">Select Origin</option>
-                            @foreach ($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->title }}</option>
-                            @endforeach
+                            <!-- @foreach ($locations as $location)
+                                <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
+                            @endforeach -->
                         </select>
                     </div>
                     </div>
                     <div class="booking_field" id="destination_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control" name="destination" id="destinationpo">
+                        <select type="text" class="form-control select2" name="destination" id="destinationpo">
                             <option value="">Select Destination</option>
-                            @foreach ($locations as $location)
+                            <!-- @foreach ($locations as $location)
                                 <option value="{{ $location->id }}">{{ $location->title }}</option>
-                            @endforeach
+                            @endforeach -->
                         </select>
                     </div>
                     </div>
@@ -85,6 +85,12 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+
+    
+    $('.select2').select2({
+          
+          allowClear: true
+      });
 
 
     
