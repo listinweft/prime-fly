@@ -48,7 +48,11 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
+
+                                        <th>Service</th>
+                                        <th>Locations</th>
+                                        <th>Package</th>
+                                     
                                       
                                         <th>B2b</th>
                                         <th>Status</th>
@@ -60,6 +64,8 @@
                                     @foreach($productList as $product)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ implode(', ', $product->category_titles) }}</td>
+                                            <td>{{ implode(', ', $product->location_titles) }}</td>
                                             <td>{{ $product->title }}</td>
                                             
                                             <td><a href="{{url(Helper::sitePrefix().'product/offer/'.$product->id)}}"

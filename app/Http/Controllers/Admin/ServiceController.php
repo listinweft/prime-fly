@@ -33,7 +33,7 @@ class ServiceController extends Controller
     public function service()
     {
         $title = "Service List";
-        $productList = Product::latest()->get();
+        $productList = Product::get();
         return view('Admin.product.list', compact('productList', 'title'));
     }
 
@@ -61,7 +61,7 @@ class ServiceController extends Controller
             'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',        
             // 'category' => 'required',
             'location' => 'required',
-            'service_type' => 'required',
+            // 'service_type' => 'required',
            'description' => 'required',
         //    'price' => 'required',
        
@@ -210,7 +210,7 @@ class ServiceController extends Controller
                 'title' => 'required|min:2|max:255',
                 'short_url' => 'required|:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',        
                 // 'category' => 'required',
-                'service_type' => 'required',
+                // 'service_type' => 'required',
                'description' => 'required',
               
              

@@ -285,37 +285,29 @@
                                 </div>
 
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6" id="serviceTypeGrouptype">
     <label> Service Type </label>
+    <select name="service_type[]"  class="form-control select2">
+        <option value="departure" @if(in_array('departure', $selectedServiceTypes)) selected @endif>Departure</option>
+        <option value="arrival" @if(in_array('arrival', $selectedServiceTypes)) selected @endif>Arrival</option>
+        <option value="round_trip" @if(in_array('round_trip', $selectedServiceTypes)) selected @endif>Round Trip</option>
+        <option value="transit_type" @if(in_array('transit_type', $selectedServiceTypes)) selected @endif>Transit type</option>
+    </select>
+   
   
-   <select name="service_type[]" id="service_type" class="form-control select2 required"  >
-    <option value="departure" @if(in_array('departure', $selectedServiceTypes)) selected @endif>Departure</option>
-    <option value="arrival" @if(in_array('arrival', $selectedServiceTypes)) selected @endif>Arrival</option>
-    <option value="round_trip" @if(in_array('round_trip', $selectedServiceTypes)) selected @endif>Round Trip</option>
-    <option value="transit_type" @if(in_array('transit_type', $selectedServiceTypes)) selected @endif>Transit type</option>
-</select>
-<div class="help-block with-errors" id="service_type_error"></div>
-
-    @error('service_type[]')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
 </div>
 
-</div>
 
-<div class="form-group col-md-6">
+<div class="form-group col-md-6" id="travelSectorGroup">
     <label>Travel Sector</label>
-    <select name="sector" id="sector" class="form-control select2 required">
+    <select name="sector" id="sector" class="form-control select2">
         @php
             $defaultSector = $selectedSector ?? 'international';
         @endphp
         <option value="international" @if($defaultSector == 'international') selected @endif>International</option>
         <option value="domestic" @if($defaultSector == 'domestic') selected @endif>Domestic</option>
     </select>
-    <div class="help-block with-errors" id="sector_error"></div>
-    @error('sector')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
+    
 </div>
 
 
@@ -610,6 +602,13 @@
 $(document).ready(function () {
     function updateVisibilityBasedOnCategory(ageRange) {
         if (ageRange === 'Active') {
+
+
+            document.getElementById('travelSectorGroup').style.display = 'block';
+            document.getElementById('serviceTypeGrouptype').style.display = 'block';
+
+          
+         
            
             $('[id^=size_price_listing_table]').show().each(function() {
                 $(this).find('tr:first-child input[name^="price["]').addClass('required');
@@ -617,6 +616,10 @@ $(document).ready(function () {
             $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
             $('#firstpricing input[type="number"]').val('');
         } else {
+
+               document.getElementById('travelSectorGroup').style.display = 'none';
+               document.getElementById('serviceTypeGrouptype').style.display = 'none';
+
              
             $('[id^=size_price_listing_table]').hide();
             $('#size_price_listing_table input[type="number"]').val('');

@@ -64,6 +64,17 @@ class Product extends Model
         $categoryId = $this->category_id;
         return Category::whereIn('id', explode(',', $categoryId))->get();
     }
+
+    public function getCategoryTitlesAttribute()
+    {
+        $categoryIds = explode(',', $this->category_id);
+        return Category::whereIn('id', $categoryIds)->pluck('title')->toArray();
+    }
+    public function getLocationTitlesAttribute()
+    {
+        $categoryIds = explode(',', $this->location_id);
+        return Location::whereIn('id', $categoryIds)->pluck('title')->toArray();
+    }
     public function getProductShapeAttribute()
     {
         $categoryId = $this->shape_id;
