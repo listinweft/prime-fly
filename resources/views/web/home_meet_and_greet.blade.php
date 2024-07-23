@@ -101,6 +101,9 @@
 </form>
 
 @push('scripts')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+</body>
 <script>
     $(document).ready(function() {
 

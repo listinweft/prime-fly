@@ -34,9 +34,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control" name="origin" id="origins">
                     <option value="">Select Origin</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -44,9 +44,9 @@
             <div class="booking_select">
                 <select class="form-control" name="destination" id="destinations">
                     <option value="">Select Destination</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -209,46 +209,50 @@ success: function(response) {
 // });
 
 var base_url = "{{ url('/') }}";
-var appId = '6afbf6ac'; // Replace with your FlightStats App ID
-var appKey = '6d35112e08773c372901b6ba27a58a25'; // Replace with your FlightStats App Key
+        var appId = '6afbf6ac'; // Replace with your FlightStats App ID
+        var appKey = '6d35112e08773c372901b6ba27a58a25'; // Replace with your FlightStats App Key
 
-// Function to populate locations based on travel type selection
-function populateLocations(travel_type) {
-    var category = @json($category->id);
+        // Function to populate locations based on travel type selection
+        function populateLocations(travel_type) {
+            var category = @json($category->id);
 
-    if (travel_type) {
-        $.ajax({
-            url: base_url + '/get-locations',
-            type: 'POST',
-            data: {
-                travel_type: travel_type,
-                category: category,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(data) {
-                var originSelect = $('#origins');
-                var destinationSelect = $('#destinations');
+          var sector =   $('#travel_sector').val();
 
-                originSelect.empty().append('<option value="">Select Origin</option>');
-                destinationSelect.empty().append('<option value="">Select Destination</option>');
+            if (travel_type) {
+                $.ajax({
+                    url: base_url + '/get-locations',
+                    type: 'POST',
+                    data: {
+                        sector: sector,
+                        travel_type: travel_type,
+                        category: category,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        var originSelect = $('#origins');
+                        var destinationSelect = $('#destinations');
 
-                $.each(data.origins, function(key, location) {
-                    originSelect.append('<option value="' + location.code + '">' + location.title + '</option>');
+                        originSelect.empty().append('<option value="">Select Origin</option>');
+                        destinationSelect.empty().append('<option value="">Select Destination</option>');
+
+                        $.each(data.origins, function(key, location) {
+                            originSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+
+                        });
+
+                        $.each(data.destinations, function(key, location) {
+                            destinationSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                    }
                 });
-
-                $.each(data.destinations, function(key, location) {
-                    destinationSelect.append('<option value="' + location.code + '">' + location.title + '</option>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error("AJAX Error:", error);
+            } else {
+                $('#origins').empty().append('<option value="">Select Origin</option>');
+                $('#destinations').empty().append('<option value="">Select Destination</option>');
             }
-        });
-    } else {
-        $('#origins').empty().append('<option value="">Select Origin</option>');
-        $('#destinations').empty().append('<option value="">Select Destination</option>');
-    }
-}
+        }
 
 // Event listener for travel type change
 $('#travel_type').change(function() {

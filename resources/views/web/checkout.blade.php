@@ -121,7 +121,7 @@
                             </div>
                             <div class="col-lg-5 cart-price-summry">
 
-                            @if(in_array(Session::get('category'), ['Meet and Greet', 'Porter', 'Lounge Booking', 'Baggage Wrapping']))
+                            <!-- @if(in_array(Session::get('category'), ['Meet and Greet', 'Porter', 'Lounge Booking', 'Baggage Wrapping'])) -->
     <form id="personal-details-form">
         <div class="price-summery personal-details customer-detail-form">
             <div class="details-item-wraper">
@@ -152,26 +152,29 @@
                     </div>
                 </div>
                 <div class="details-item">
-                    <button type="button" class="add-more-btn btn btn-primary">+</button>
-                </div>
-            </div>
-        </div>
-        @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
-        <div class="mt-4">
-            <h4>Address</h4>
-            <div class="price-summery customer-detail-form">
-                <div class="details-item-wraper">
-                    <div class="details-item">
                         <label for="address">Address</label>
                         <textarea name="address" id="address"  required></textarea>
                         <span class="error-message" style="display: none;">Address is required.</span>
                     </div>
+                <div class="details-item">
+                    <button type="button" class="add-more-btn btn btn-primary">+</button>
+                </div>
+            </div>
+        </div>
+      
+        <div class="mt-4">
+            <h4>Address</h4>
+            <div class="price-summery customer-detail-form">
+            @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
+                <div class="details-item-wraper">
+                    
                     <div class="details-item">
                         <label for="passport_number">Passport Number</label>
                         <input type="text" name="passport_number" id="passport_number" required>
                         <span class="error-message" style="display: none;">Passport Number is required.</span>
                     </div>
                 </div>
+                @endif
                 <div class="col-12">
                     <div class="row">
                         <div class="col-lg-6">
@@ -211,11 +214,11 @@
                 </div>
             </div>
         </div>
-        @endif
+      
 
 
     </form>
-@endif
+<!-- @endif -->
 
 
                                 <h4 class="mt-4">Price Details</h4>
@@ -338,6 +341,12 @@
                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                             <label class="form-check-label" for="inlineRadio2">Ms.</label>
                         </div>
+                    </div>
+
+                    <div class="details-item">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address"  required></textarea>
+                        <span class="error-message" style="display: none;">Address is required.</span>
                     </div>
                     <div class="details-item">
                         <button type="button" class="remove-btn btn btn-danger">-</button>

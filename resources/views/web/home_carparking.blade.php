@@ -9,7 +9,7 @@
                         <select type="text" class="form-control" name="origin">
                             <option value="">Select Origin</option>
                                 @foreach ($locations as $location)
-                                    <option value="{{ $location->id }}">{{ $location->title }}</option>
+                                    <option value="{{ $location->id }}">{{ $location->title }}-{{ $location->code}}</option>
                                 @endforeach
                         </select>
                     </div>
