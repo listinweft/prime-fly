@@ -359,6 +359,13 @@ table {
     padding: 12px 15px;
     line-height: 1;
 }
+.booking_field option {
+    font-size: 15px;
+    padding: 10px;
+    line-height: 2.2;
+    height: 40px;
+    border-radius: 0;
+}
 .normal_select select{
     background-color: transparent;
     cursor: pointer;
@@ -1448,7 +1455,7 @@ footer{
     margin-top: 20px;
 }
 .package-content-list ul {
-    width: 48%;
+    width:100%;
     padding-left: 15px;
 }
 .package-content-list ul li{
@@ -3368,6 +3375,11 @@ color: rgba(112, 112, 112, 0.81);
 .locinner_bannerimg{
     width: 100%;
 }
+.locinner_bannerimg img{
+    height: 557px;
+    object-fit: cover;
+    object-position: center;
+}
 .privacy-content{
     padding-top:130px;
 }
@@ -4361,4 +4373,8 @@ margin-left: 5px;
     color: #bec0c3;
     margin-top: -5px;
     padding-left: 16px;
+}
+.service-carousel.owl-carousel .owl-stage{
+
+    margin: auto;
 }
