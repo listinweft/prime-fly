@@ -22,12 +22,11 @@
       <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css')}}">
       <link href="{{ asset('frontend/css/animate.css')}}" rel="stylesheet">
       <link href="{{ asset('frontend/css/aos.css')}}" rel="stylesheet">
-      <link href="{{ asset('frontend/css/style.css')}}" rel="stylesheet">
-      
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery.timepicker.css')}}" />
-    <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
+      <link href="{{ asset('frontend/css/style.css')}}" rel="stylesheet"> 
+      <link rel="stylesheet" href="{{ asset('frontend/css/jquery.timepicker.css')}}" />
+      <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
   </style>
     @stack('styles')
     
