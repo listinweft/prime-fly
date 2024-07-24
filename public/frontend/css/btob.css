@@ -472,8 +472,11 @@ a:hover{
     margin:5px;
     color: #959595;
 }
-.b2b_order-summery a{
+.b2b_order-summery a {
     text-decoration: underline;
+    margin-bottom: 20px;
+    display: inline-block;
+    margin-right: 20px;
 }
 .b2b_order-summery h4{
     font-weight: 500;

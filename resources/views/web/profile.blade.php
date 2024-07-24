@@ -177,10 +177,8 @@
                 <div class="row b2b_smmry_content">
                 @foreach($product->productData->product_categories ?? [] as $product_category)
                         <div class="col-lg-4">
-                            <p><span>{{ $product_category->title }}</span></p>
-                        </div>
-
-                        <h4 style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</h4>
+                            <p class="ms-0"><span>{{ $product_category->title }}</span></p>
+                            <span style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</span>
 
 
 
@@ -189,51 +187,54 @@
 
 @if(!is_null($product->travel_type) && $product->travel_type !== '')
 
-<h4 style="color:#707070;font-size:11px; ">Travel Type:{{ucfirst($product->travel_type)}}</h4>
+<span style="color:#707070;font-size:11px; ">Travel Type:{{ucfirst($product->travel_type)}}</span>
 
 @endif
 
 
                 @if($product->origin)
 
-<h4 style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</h4>
+<span style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</span>
 
 
 @endif
 
 @if($product->destination)
 
-<h4 style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</h4>
+<span style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</span>
 
 
 @endif
-
+<br>
 @if($product_category->title == "Porter")
 @if(isset($product->guest) && $product->guest > 0)
-<h4 style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</h4>
+<span style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</span>
 @else
-<h4 style="color:#707070;font-size:11px;">Porter information not available</h4>
+<span style="color:#707070;font-size:11px;">Porter information not available</span>
 @endif
 @elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
 @if(isset($product->guest) && $product->guest > 0)
-<h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
+<span style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</span>
 @else
-<h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+<span style="color:#707070;font-size:11px;">Guest information not available</span>
 @endif
 @elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
 @if(isset($product->guest) && $product->guest > 0)
-<h4 style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</h4>
+<span style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</span>
 @else
-<h4 style="color:#707070;font-size:11px;">Bag count information not available</h4>
+<span style="color:#707070;font-size:11px;">Bag count information not available</span>
 @endif
 @else
 @if(isset($product->guest) && $product->guest > 0)
-<h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
+<span style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</span>
 @else
-<h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+<span style="color:#707070;font-size:11px;">Guest information not available</span>
 @endif
 @endif
                     @endforeach
+                        </div>
+
+                        
                     <div class="col-lg-4 text-center">
                         <p><b>Date: {{date('d-m-Y', strtotime($order->orderData->created_at))}}</b></p>
                     </div>
