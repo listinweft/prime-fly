@@ -115,11 +115,11 @@
 
 $(document).ready(function() {
 
-    $('.select2').select2({
-          
-          allowClear: true
-      });
 
+$('.select2').select2({
+  
+    allowClear: true
+});
 
 $("#pnr").hide();
 
@@ -183,107 +183,108 @@ success: function(response) {
 });
 
 
-// $('#travel_sector').change(function() {
-
-// var sector = $(this).val();
-
-// if(sector == "domestic")
 
 
-// {
-
-// $("#pnr").show();
-
-
-// }
-// else
-
-// {
-
-// $("#pnr").hide();
-
-
-
-// }
-
-
-
-
-
-    
-
-// });
 
 var base_url = "{{ url('/') }}";
-        var appId = '6afbf6ac'; // Replace with your FlightStats App ID
-        var appKey = '6d35112e08773c372901b6ba27a58a25'; // Replace with your FlightStats App Key
+var appId = '6afbf6ac'; // Replace with your FlightStats App ID
+var appKey = '6d35112e08773c372901b6ba27a58a25'; // Replace with your FlightStats App Key
 
-        // Function to populate locations based on travel type selection
-        function populateLocations(travel_type) {
-            var category = @json($category->id);
 
-          var sector =   $('#travel_sector').val();
+function populateLocations(travel_type) {
+    var category = @json($category->id);
 
-            if (travel_type) {
-                $.ajax({
-                    url: base_url + '/get-locations',
-                    type: 'POST',
-                    data: {
-                        sector: sector,
-                        travel_type: travel_type,
-                        category: category,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-                        var originSelect = $('#origins');
-                        var destinationSelect = $('#destinations');
+  var sector =   $('#travel_sector').val();
 
-                        originSelect.empty().append('<option value="">Select Origin</option>');
-                        destinationSelect.empty().append('<option value="">Select Destination</option>');
+    if (travel_type) {
+        $.ajax({
+            url: base_url + '/get-locations-meet',
+            type: 'POST',
+            data: {
+                sector: sector,
+                travel_type: travel_type,
+                category: category,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                var originSelect = $('#origins');
+                var destinationSelect = $('#destinations');
 
-                        $.each(data.origins, function(key, location) {
-                            originSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+                if (data.type === "departure") {
 
-                        });
+// Clear and set default options for destinations
+destinationSelect.empty().append('<option value="">Select Destination</option>');
 
-                        $.each(data.destinations, function(key, location) {
-                            destinationSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error:", error);
-                    }
-                });
-            } else {
-                $('#origins').empty().append('<option value="">Select Origin</option>');
-                $('#destinations').empty().append('<option value="">Select Destination</option>');
+// Populate origins dropdown
+originSelect.empty(); // Clear existing options
+$.each(data.origins, function(key, location) {
+originSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+});
+
+// Populate destinations dropdown
+$.each(data.destinations, function(key, location) {
+destinationSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+});
+
+} else if (data.type === "arrival") {
+
+
+// Clear and set default options for origins
+originSelect.empty().append('<option value="">Select Origin</option>');
+
+// Populate origins dropdown
+$.each(data.origins, function(key, location) {
+originSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+});
+
+// Populate destinations dropdown
+destinationSelect.empty(); // Clear existing options
+$.each(data.destinations, function(key, location) {
+destinationSelect.append('<option value="' + location.fs + '">' + location.city + ' - ' + location.fs + '</option>');
+});
+}
+
+
+             
+
+
+
+
+                
+
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", error);
             }
-        }
+        });
+    } else {
+        $('#origins').empty().append('<option value="">Select Origin</option>');
+        $('#destinations').empty().append('<option value="">Select Destination</option>');
+    }
+}
 
 // Event listener for travel type change
 $('#travel_type').change(function() {
-
-
-
+    
     var travel_type = $(this).val();
 
-    
+
     if(travel_type=="departure")
-        {
+{
 
 
-            $('#destinations').empty().append('<option value="">Select Destination</option>');
+    $('#destinations').empty().append('<option value="">Select Destination</option>');
 
 
 
-        }
+}
 
-        else{
+else{
 
-            $('#origins').empty().append('<option value="">Select Origin</option>');
+    $('#origins').empty().append('<option value="">Select Origin</option>');
 
 
-        }
+}
     populateLocations(travel_type);
 });
 

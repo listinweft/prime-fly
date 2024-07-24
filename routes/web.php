@@ -72,6 +72,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('service/{short_url}', [WebController::class, 'service_detail']);
 
     Route::post('/get-locations', [WebController::class, 'getLocations']);
+    Route::post('/get-locations-meet', [WebController::class, 'getLocations_meet']);
     Route::post('/get-locations-porter', [WebController::class, 'getLocations_porter']);
 
     Route::get('/cors-proxy', [WebController::class, 'proxy']);

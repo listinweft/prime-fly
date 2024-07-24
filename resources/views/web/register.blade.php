@@ -66,7 +66,7 @@
                                     <div class="register_form_grid">
                                         <label>Create Password</label>
                                         <div class="position-relative">
-                                            <input type="password" placeholder="Type Your Password" name="password" class="required" id="password">
+                                            <input type="password" placeholder="Type Your Password" name="password" class="required" id="password-field">
                                             <svg toggle="#password-field" class="eye eye-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                                                 <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
@@ -150,6 +150,7 @@
       <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script>
       <script src="{{ asset('frontend/js/aos.js')}}"></script>  
       <script src="{{ asset('frontend/build/js/intlTelInputWithUtils.js')}}"></script>
+      <script src="{{ asset('frontend/js/b2b.js')}}"></script> 
       <script>
          AOS.init(); 
       </script> 
