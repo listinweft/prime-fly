@@ -1,12 +1,4 @@
 $(document).ready(function () {
-    
-    $('.select2').select2({ 
-        allowClear: true,
-    });
-    $('.select_static').select2({ 
-        allowClear: true,
-        minimumResultsForSearch: Infinity // Disables the search box 
-    });
     var urlLastSegment = window.location.pathname.split("/").pop();
     // $(".my-rating-readonly").starRating({
     //     totalStars: 5,
@@ -2040,11 +2032,11 @@ $(document).ready(function () {
         });
     }
 
-    // function select2() {
-    //     $('.select2').select2({
-    //         theme: 'bootstrap4', minimumResultsForSearch: Infinity,
-    //     });
-    // }
+    function select2() {
+        $('.select2').select2({
+            theme: 'bootstrap4', minimumResultsForSearch: -1,
+        });
+    }
 
     $(document).mouseup(function (e) {
         var container = $("#main-search");

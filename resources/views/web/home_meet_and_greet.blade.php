@@ -88,11 +88,7 @@
             <div class="note-2">0-2 Years </div>
         </div>
 
-        <div class="booking_field" id="pnr">
-            <div class="guest-number-input-item" >
-            <input type="text" name="pnr" placeholder="PNR" />
-            </div>
-        </div>
+      
        
         <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-primary">Book Now</button>
@@ -109,7 +105,10 @@
 
 
 
-        $("#pnr").hide();
+        $('.select2').select2({
+          
+          allowClear: true
+      });
 
 
 

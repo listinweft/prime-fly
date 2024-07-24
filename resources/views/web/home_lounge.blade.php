@@ -70,10 +70,10 @@
 $(document).ready(function() {
     // Initialize date picker
 
-    // $('.select2').select2({
+    $('.select2').select2({
           
-    //       allowClear: true
-    //   });
+          allowClear: true
+      });
 
     $(function() {
         $("#datepickerlounge").datepicker({

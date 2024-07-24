@@ -58,17 +58,17 @@
                                  </div>
                               </div>
                               <div class="details-item col-lg-4 ps-2 pe-2">
-                                 <label for="name">Name</label>
+                                 <label for="name">Passeger Name*</label>
                                  <input type="text" name="name[]" id="name" placeholder="Enter full name" required>
                                  <span class="error-message" style="display: none;">Name is required.</span>
                               </div>
                               <div class="details-item col-lg-4 ps-2 pe-2">
-                                 <label for="age">Age</label>
+                                 <label for="age">Age*</label>
                                  <input type="text" name="age[]" id="age" placeholder="Enter your age" required>
                                  <span class="error-message" style="display: none;">Age is required.</span>
                               </div>
                               <div class="details-item col-lg-4 ps-2 pe-2">
-                                 <label for="pnr">PNR Number</label>
+                                 <label for="pnr">PNR Number*</label>
                                  <input type="text" name="pnr[]" id="pnr" placeholder="Enter your PNR" required>
                                  <span class="error-message" style="display: none;">PNR is required.</span>
                               </div>
@@ -83,7 +83,7 @@
                            <div class="price-summery customer-detail-form">
                               <div class="details-item-wraper">
                                  <div class="details-item  ps-2 pe-2">
-                                    <label for="address">Address</label>
+                                    <label for="address">Address*</label>
                                     <textarea name="address" id="address"  required></textarea>
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
@@ -293,7 +293,7 @@
                        </div>
                    </div>
                    <div class="details-item col-lg-4 ps-2 pe-2">
-                       <label for="name">Name</label>
+                       <label for="name">Passenger Name</label>
                        <input type="text" name="name[]" placeholder="Enter full name" id="name">
                    </div>
                    <div class="details-item col-lg-4 ps-2 pe-2">

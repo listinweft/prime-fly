@@ -148,7 +148,7 @@
                             {!! Helper::printImage($customer->user, 'profile_image', 'profile_image_webp', '', 'img-fluid') !!}
                             @else
                                
-                                <img class="upload_user_img" src="{{ asset('frontendimg/common-user.png')}}" alt="user">
+                                <img class="upload_user_img" src="{{ asset('frontend/img/common-user.png')}}" alt="user">
 
                                 @endif
                                 <input type="file" name="myfile"/>

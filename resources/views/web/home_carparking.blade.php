@@ -67,10 +67,10 @@
 $(document).ready(function() {
 
     
-    // $('.select2').select2({
+    $('.select2').select2({
           
-    //       allowClear: true
-    //   });
+          allowClear: true
+      });
     // console.log("Document is ready.");
 
     // Initialize datepicker and timepicker

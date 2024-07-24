@@ -834,7 +834,7 @@ public function search_booking_lounch(Request $request)
         // Validate request
         $request->validate([
             'terminal' => 'required|string',
-            'origin' => 'required|integer',
+            'origin' => 'required',
             'count' => 'required|integer', // Number of bags
             'entry_date' => 'required',
             'exit_date' => 'required',
@@ -858,7 +858,7 @@ public function search_booking_lounch(Request $request)
                 $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
             })
             ->where('products.category_id', $data['category']) // Add category filter
-            ->where('locations.id', $data['origin'])
+            ->where('locations.code', $data['origin'])
             ->groupBy('products.id')
             ->get();
     
