@@ -358,6 +358,7 @@ table {
     height: 100%;
     padding: 12px 15px;
     line-height: 1;
+    padding-left: 35px;
 }
 .booking_field option {
     font-size: 15px;
@@ -365,7 +366,12 @@ table {
     line-height: 2.2;
     height: 40px;
     border-radius: 0;
+    /* background-color: #7B45F6; */
 }
+.booking_field option:hover{
+    background-color: #7B45F6 !important;
+    color: white;
+  }
 .normal_select select{
     background-color: transparent;
     cursor: pointer;
@@ -508,7 +514,7 @@ table {
 .booking_select { 
     background-color: #fff;
     color: #86898B;  
-    padding-left:35px;
+    padding-left:0px;
     -moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     -webkit-transition: all .2s ease-in;
@@ -3731,12 +3737,13 @@ margin-left: 5px;
 .select2-container--default .select2-selection--single .select2-selection__clear,.select2-container--default .select2-selection--single .select2-selection__arrow{
     display:none
 }
-.select2-container .select2-selection--single{
+.select2-container .select2-selection--single {
     height: 35px !important;
     background-color: transparent !important;
     display: flex !important;
     align-items: center !important;
     border: 0 !important;
+    width: 100% !important;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered{
 color:#86898B !important;
@@ -3755,6 +3762,10 @@ font-size:13px !important;
     max-height: 180px !important;
     overflow-y: auto;
 }
+.select2-container { 
+    width: 100% !important;
+    padding-left: 25px;
+}
 @media(max-width:1680px){
     .airtport_list_thumb { 
         width: 140px;
@@ -3767,7 +3778,7 @@ font-size:13px !important;
         padding: 30px 50px; 
     }
     .booking_select select{
-        padding-left: 0px;
+        padding-left:35px;
     } 
     .normal_select:after {
         width: 7px;
@@ -3854,7 +3865,7 @@ font-size:13px !important;
     }
     .booking_field select {
         padding: 10px 15px;
-        padding-left: 0px;
+        padding-left:35px;
     }
     .normal_select select{
         padding: 10px 15px;
@@ -4195,6 +4206,7 @@ font-size:13px !important;
         width: 100% !important;
         margin: 3px 2%;
         margin-bottom: 12px;
+         
     } 
     .banner img { 
         height: 100%; 
