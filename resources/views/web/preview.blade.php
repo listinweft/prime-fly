@@ -18,7 +18,7 @@
     <section class="col-12 cart-wrap">
         <div class="container">
             <div class="d-flex justify-content-center">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-7 cart-product-list">
                             <h4>Your Bookings</h4>

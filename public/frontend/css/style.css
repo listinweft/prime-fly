@@ -1657,11 +1657,11 @@ footer{
     border-radius: 10px;
     margin:4px 0;
 }
-.cart-product-list .cart-pymentradio h4{
+ .cart-pymentradio h4{
     font-size: 15px;
     margin-bottom: 0;
     color: #6C6C6C;
-    font-weight: 500;
+    font-weight: 600;
 }
 .cart-pymentradio p{
     font-size: 14px;
