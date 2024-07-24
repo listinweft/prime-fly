@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/build/css/intlTelInput.css')}}" />
     <link href="{{ asset('frontend/css/aos.css')}}" rel="stylesheet">
     <link href="{{ asset('frontend/css/btob.css')}}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
     <script type="text/javascript">
         var base_url = "{{ url('/') }}";
@@ -165,6 +166,7 @@
             @foreach ($order->orderData->orderProducts as $product)
                 @php
                     $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
+                    $package = App\Models\Product::where('id', $product->product_id)->first();
                     $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
                     if ($orderStatus && $orderStatus->status == 'Refunded') {
                         $refundStatus = $orderStatus;
@@ -177,6 +179,60 @@
                         <div class="col-lg-4">
                             <p><span>{{ $product_category->title }}</span></p>
                         </div>
+
+                        <h4 style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</h4>
+
+
+
+
+                              
+
+@if(!is_null($product->travel_type) && $product->travel_type !== '')
+
+<h4 style="color:#707070;font-size:11px; ">Travel Type:{{ucfirst($product->travel_type)}}</h4>
+
+@endif
+
+
+                @if($product->origin)
+
+<h4 style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</h4>
+
+
+@endif
+
+@if($product->destination)
+
+<h4 style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</h4>
+
+
+@endif
+
+@if($product_category->title == "Porter")
+@if(isset($product->guest) && $product->guest > 0)
+<h4 style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</h4>
+@else
+<h4 style="color:#707070;font-size:11px;">Porter information not available</h4>
+@endif
+@elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
+@if(isset($product->guest) && $product->guest > 0)
+<h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
+@else
+<h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+@endif
+@elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
+@if(isset($product->guest) && $product->guest > 0)
+<h4 style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</h4>
+@else
+<h4 style="color:#707070;font-size:11px;">Bag count information not available</h4>
+@endif
+@else
+@if(isset($product->guest) && $product->guest > 0)
+<h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
+@else
+<h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+@endif
+@endif
                     @endforeach
                     <div class="col-lg-4 text-center">
                         <p><b>Date: {{date('d-m-Y', strtotime($order->orderData->created_at))}}</b></p>

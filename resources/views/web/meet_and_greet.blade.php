@@ -34,9 +34,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control select2" name="origin" id="origins">
                     <option value="">Select Origin</option>
-                    <!-- @foreach ($locations as $location)
-                        <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach -->
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -44,9 +44,9 @@
             <div class="booking_select">
                 <select class="form-control select2" name="destination" id="destinations">
                     <option value="">Select Destination</option>
-                    <!-- @foreach ($locations as $location)
-                        <option value="{{ $location->id }}">{{ $location->title }}</option>
-                    @endforeach -->
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -262,7 +262,28 @@ var base_url = "{{ url('/') }}";
 
 // Event listener for travel type change
 $('#travel_type').change(function() {
+
+
+
     var travel_type = $(this).val();
+
+    
+    if(travel_type=="departure")
+        {
+
+
+            $('#destinations').empty().append('<option value="">Select Destination</option>');
+
+
+
+        }
+
+        else{
+
+            $('#origins').empty().append('<option value="">Select Origin</option>');
+
+
+        }
     populateLocations(travel_type);
 });
 

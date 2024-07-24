@@ -12,9 +12,9 @@
             <div class="booking_select"> 
                 <select class="form-control select2" name="origin" id="originl">
                     <option value="">Select Origin</option>
-                    <!-- @foreach ($locations as $location)
-                        <option value="{{ $location->code }}">{{ $location->title }}</option>
-                    @endforeach -->
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -24,7 +24,7 @@
                 <select class="form-control select2" name="destination" id="destinationl">
                     <option value="">Select Destination</option>
                     <!-- @foreach ($locations as $location)
-                        <option value="{{ $location->code }}">{{ $location->title }}</option>
+                        <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
                     @endforeach -->
                 </select>
             </div>
@@ -153,7 +153,7 @@ $(document).ready(function() {
                     var originSelect = $('#originl');
                     var destinationSelect = $('#destinationl');
 
-                    originSelect.empty().append('<option value="">Select Origin</option>');
+                    // originSelect.empty().append('<option value="">Select Origin</option>');
                     destinationSelect.empty().append('<option value="">Select Destination</option>');
 
                     $.each(data.origins, function(key, location) {
