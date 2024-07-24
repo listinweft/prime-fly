@@ -67,11 +67,11 @@
 $(document).ready(function() {
 
     
-    $('.select2').select2({
+    // $('.select2').select2({
           
-          allowClear: true
-      });
-    console.log("Document is ready.");
+    //       allowClear: true
+    //   });
+    // console.log("Document is ready.");
 
     // Initialize datepicker and timepicker
     $('#datepickercar, #exitdatepickercar').datepicker({

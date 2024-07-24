@@ -8,7 +8,7 @@
         </div>
         <div class="booking_field" id="travel_sect">
             <div class="booking_select"> 
-                <select type="text" id="travel_sector" class="form-control" name="travel_sector">
+                <select type="text" id="travel_sector" class="form-control select_static" name="travel_sector">
                     <option value="">Select Travel Sector</option>
                     <option value="international">International</option>
                     <option value="domestic">Domestic</option>
@@ -17,7 +17,7 @@
         </div>
         <div class="booking_field" id="travel_select">
             <div class="booking_select">
-                <select type="text" class="form-control" name="travel_type" id="travel_type">
+                <select type="text" class="form-control select_static" name="travel_type" id="travel_type">
                     <option value="">Select Travel Type</option>
                     <option value="departure">Departure</option>
                     <option value="arrival">Arrival</option>
@@ -102,16 +102,12 @@
 
 @push('scripts')
 
-
+ 
 </body>
 <script>
     $(document).ready(function() {
 
 
-        $('.select2').select2({
-          
-            allowClear: true
-        });
 
         $("#pnr").hide();
 

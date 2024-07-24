@@ -183,6 +183,11 @@ a:hover{
 .banner_filter_pills li{
     font-size: 13px;
 }
+.select2-dropdown {
+    background-color: white;
+    border: 1px solid #ebebeb !important;
+    border-radius: 4px !important;  
+}
 .booking_field {
     position: relative;
     width: 23%;
