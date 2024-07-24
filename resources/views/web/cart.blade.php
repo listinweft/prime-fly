@@ -49,8 +49,8 @@
                                                 $locationId = $travelType == 'departure' ? $row->attributes['origin'] : $row->attributes['destination'];
                                                
                                                   $location = App\Models\Location::where('code',$locationId)->first();
-                                                  $locationd = App\Models\Location::where('code',$row->attributes['origin'])->first();
-                                                $locationTitle = $location ? $location->title : $locationd->title;
+                                                 
+                                                $locationTitle = $location ? $location->title : $row->attributes['origin'];
                                             @endphp
                                             @else
                                             @php
@@ -68,11 +68,18 @@
                                                 @else
                                                     <p>Guest information not available</p>
                                                 @endif
-                                            @elseif (in_array($categorydata->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
+                                            @elseif (in_array($categorydata->title, [ 'Cloak Room', 'Baggage Wrapping']))
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
                                                     <p>From:  {{ ucwords($locationTitle) }} Bag: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p>Bag count information not available</p>
+                                                @endif
+
+                                                @elseif (in_array($categorydata->title, ['Car Parking']))
+                                                @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+                                                    <p>From:  {{ ucwords($locationTitle) }} car: {{ $row->attributes['guest'] }}</p>
+                                                @else
+                                                    <p> count information not available</p>
                                                 @endif
                                             @else
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
