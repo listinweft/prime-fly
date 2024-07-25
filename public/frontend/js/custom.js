@@ -878,7 +878,7 @@ $(document).ready(function () {
         
         // Validate form fields
         var valid = true;
-        $('.details-item-wraper input[required], .details-item-wraper textarea[required]').each(function() {
+        $('.details-item input[required], .details-item textarea[required]').each(function() {
             if ($(this).val().trim() === '') {
                 valid = false;
                 $(this).addClass('error'); // Add error class for styling
@@ -900,11 +900,28 @@ $(document).ready(function () {
                 url: base_url + '/submit-order',
                 data: {
                     payment_method: payment_method,
-                    name: $('input[name="name[]"]').map(function(){ return $(this).val(); }).get(),
-                    age: $('input[name="age[]"]').map(function(){ return $(this).val(); }).get(),
-                    address: $('#address').val(),
-                    passport_number: $('#passport_number').val()
-                    // Add more fields here as needed
+           
+            address: $('#address').val(),
+            passport_number: $('#passport_number').val(),
+            pincode: $('#pincode').val(),
+            country: $('#country').val(),
+            city: $('#city').val(),
+            state: $('#state').val(),
+    
+        // gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
+        // name: $('input[name="name[]"]').map(function() { return $(this).val(); }).get(),
+        // age: $('input[name="age[]"]').map(function() { return $(this).val(); }).get(),
+        // pnr: $('input[name="pnr[]"]').map(function() { return $(this).val(); }).get(),
+
+        gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
+        // Name
+        name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
+        // Age
+        age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
+        // PNR
+        pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
+                   
+                    
                 },
                 success: function (response) {
                     $('.order-submit-loader').hide();

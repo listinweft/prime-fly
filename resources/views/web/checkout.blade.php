@@ -19,6 +19,10 @@
                <div class="col-lg-7 cart-product-list ">
                   <h4>Order Summary</h4>
                   <div class="col-12 cart-product cart-prdct-summry mb-4">
+
+                  @php
+                        $totals = [];
+                     @endphp
                      @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                      @php
                      $product_id_parts = explode('_', $row->id);
@@ -27,6 +31,8 @@
                      $categorydata = $product ? App\Models\Category::where('id', $product->category_id)
                      ->whereNull('parent_id')
                      ->first() : null;
+
+                     $totals[] = $row->attributes['guest'];
                      @endphp
                      <div class="d-flex align-items-center justify-content-between">
                         <div class="cart-dtl-wrp">
@@ -40,48 +46,91 @@
                            </div>
                         </div>
                      </div>
+
+                    
                      @endforeach
                   </div>
                   <div  class="">
                      <form id="personal-details-form">
-                        <div class="price-summery personal-details customer-detail-form">
-                           <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
-                            <div class="details-item details-item-option col-12 ps-2 pe-2">
-                                 <label for="gender">Gender</label><br>
-                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">Mr.</label>
-                                 </div>
-                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">Ms.</label>
-                                 </div>
-                              </div>
-                              <div class="details-item col-lg-4 ps-2 pe-2">
-                                 <label for="name">Passeger Name*</label>
-                                 <input type="text" name="name[]" id="name" placeholder="Enter full name" required>
-                                 <span class="error-message" style="display: none;">Name is required.</span>
-                              </div>
-                              <div class="details-item col-lg-4 ps-2 pe-2">
-                                 <label for="age">Age*</label>
-                                 <input type="text" name="age[]" id="age" placeholder="Enter your age" required>
-                                 <span class="error-message" style="display: none;">Age is required.</span>
-                              </div>
-                              <div class="details-item col-lg-4 ps-2 pe-2">
-                                 <label for="pnr">PNR Number*</label>
-                                 <input type="text" name="pnr[]" id="pnr" placeholder="Enter your PNR" required>
-                                 <span class="error-message" style="display: none;">PNR is required.</span>
-                              </div>
-                              
-                              <div class="details-item">
-                                 <button type="button" class="add-more-btn btn btn-primary">+</button>
-                              </div>
-                           </div>
+                     @if(in_array(Session::get('category'), ['Meet and Greet']))
+    @foreach($totals as $index => $guestCount)
+        @for($i = 0; $i < $guestCount; $i++)
+            <div class="price-summery personal-details customer-detail-form">
+                <div class="details-item d-flex flex-wrap justify-content-between align-items-end">
+                    <div class="details-item details-item-option col-12 ps-2 pe-2">
+                        <label for="gender_{{ $index }}_{{ $i }}">Gender</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions[{{ $index }}][{{ $i }}]" id="inlineRadio1_{{ $index }}_{{ $i }}" value="Mr">
+                            <label class="form-check-label" for="inlineRadio1_{{ $index }}_{{ $i }}">Mr.</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions[{{ $index }}][{{ $i }}]" id="inlineRadio2_{{ $index }}_{{ $i }}" value="Ms">
+                            <label class="form-check-label" for="inlineRadio2_{{ $index }}_{{ $i }}">Ms.</label>
+                        </div>
+                    </div>
+                    <div class="details-item col-lg-4 ps-2 pe-2">
+                        <label for="name_{{ $index }}_{{ $i }}">Passenger Name*</label>
+                        <input type="text" name="name[{{ $index }}][]" id="name_{{ $index }}_{{ $i }}" placeholder="Enter full name" required>
+                        <span class="error-message" style="display: none;">Name is required.</span>
+                    </div>
+                    <div class="details-item col-lg-4 ps-2 pe-2">
+                        <label for="age_{{ $index }}_{{ $i }}">Age*</label>
+                        <input type="text" name="age[{{ $index }}][]" id="age_{{ $index }}_{{ $i }}" placeholder="Enter your age" required>
+                        <span class="error-message" style="display: none;">Age is required.</span>
+                    </div>
+                    <div class="details-item col-lg-4 ps-2 pe-2">
+                        <label for="pnr_{{ $index }}_{{ $i }}">PNR Number*</label>
+                        <input type="text" name="pnr[{{ $index }}][]" id="pnr_{{ $index }}_{{ $i }}" placeholder="Enter your PNR" required>
+                        <span class="error-message" style="display: none;">PNR is required.</span>
+                    </div>
+                    <div class="details-item">
+                        <button type="button" class="add-more-btn btn btn-primary">+</button>
+                    </div>
+                </div>
+            </div>
+        @endfor
+    @endforeach
+@else
+    <div class="price-summery personal-details customer-detail-form">
+        <div class="details-item d-flex flex-wrap justify-content-between align-items-end">
+            <div class="details-item details-item-option col-12 ps-2 pe-2">
+                <label for="gender">Gender</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions[]" id="inlineRadio1" value="Mr">
+                    <label class="form-check-label" for="inlineRadio1">Mr.</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions[]" id="inlineRadio2" value="Ms">
+                    <label class="form-check-label" for="inlineRadio2">Ms.</label>
+                </div>
+            </div>
+            <div class="details-item col-lg-4 ps-2 pe-2">
+                <label for="name">Passenger Name*</label>
+                <input type="text" name="name[]" id="name" placeholder="Enter full name" required>
+                <span class="error-message" style="display: none;">Name is required.</span>
+            </div>
+            <div class="details-item col-lg-4 ps-2 pe-2">
+                <label for="age">Age*</label>
+                <input type="text" name="age[]" id="age" placeholder="Enter your age" required>
+                <span class="error-message" style="display: none;">Age is required.</span>
+            </div>
+            <div class="details-item col-lg-4 ps-2 pe-2">
+                <label for="pnr">PNR Number*</label>
+                <input type="text" name="pnr[]" id="pnr" placeholder="Enter your PNR" required>
+                <span class="error-message" style="display: none;">PNR is required.</span>
+            </div>
+            <div class="details-item">
+                <button type="button" class="add-more-btn btn btn-primary">+</button>
+            </div>
+        </div>
+    </div>
+@endif
+
+
                         <div class="mt-4">
                            <h4>Address</h4>
                            <div class="price-summery customer-detail-form">
-                              <div class="details-item-wraper">
+                              <div class="details-item">
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="address">Address*</label>
                                     <textarea name="address" id="address"  required></textarea>
@@ -100,34 +149,34 @@
                                     <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode</label>
-                                          <input type="text" name="name[]" id="name" placeholder="Pincode" required> 
+                                          <input type="text" name="pincode" id="pincode" placeholder="Pincode" required> 
+                                          <span class="error-message" style="display: none;">Pincode is required.</span>
                                        </div>
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item">
                                           <label for="name">Country</label>
-                                          <select>
-                                             <option>Country</option>
-                                             <option>Country</option>
-                                          </select>
+                                          <select name="country" id="country" required>
+                                 <option value="">Select a Country</option>
+                                 <option value="india">India</option>
+                                 <option value="usa">USA</option>
+                              </select>
+                               <span class="error-message" style="display: none;">Country name is required.</span>
                                        </div>
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item">
                                           <label for="name">State</label>
-                                          <select>
-                                             <option>State</option>
-                                             <option>State</option>
-                                          </select>
+                                          <input type="text" name="state" id="state" placeholder="State" required> 
+                                          <span class="error-message" style="display: none;">State is required.</span>
                                        </div>
+                                     
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item">
                                           <label for="name">City</label>
-                                          <select>
-                                             <option>City</option>
-                                             <option>City</option>
-                                          </select>
+                                          <input type="text" name="city" id="city" placeholder="City" required> 
+                                          <span class="error-message" style="display: none;">City is required.</span>
                                        </div>
                                     </div>
                                  </div>
@@ -276,48 +325,46 @@
        });
 </script>
 <script>
-   $(document).ready(function() {
-       // Function to add more fields
-       $(document).on('click', '.add-more-btn', function() {
-           var newField = `
-               <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
+  $(document).ready(function() {
+    // Function to add more fields
+    $(document).on('click', '.add-more-btn', function() {
+        var newField = `
+            <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
                 <div class="details-item details-item-option col-12 ps-2 pe-2">
-                       <label for="gender">Gender</label><br>
-                       <div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                           <label class="form-check-label" for="inlineRadio1">Mr.</label>
-                       </div>
-                       <div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                           <label class="form-check-label" for="inlineRadio2">Ms.</label>
-                       </div>
-                   </div>
-                   <div class="details-item col-lg-4 ps-2 pe-2">
-                       <label for="name">Passenger Name</label>
-                       <input type="text" name="name[]" placeholder="Enter full name" id="name">
-                   </div>
-                   <div class="details-item col-lg-4 ps-2 pe-2">
-                       <label for="age">Age</label>
-                       <input type="text" name="age[]" placeholder="Enter your age" id="age">
-                   </div>
-                   <div class="details-item col-lg-4 ps-2 pe-2">
-                       <label for="pnr">PNR Number</label>
-                       <input type="text" name="pnr[]" placeholder="Enter your PNR" id="pnr">
-                   </div>
-                   
-   
-                   
-                   <div class="details-item">
-                       <button type="button" class="remove-btn btn btn-danger">-</button>
-                   </div>
-               </div>`;
-           $('.personal-details').append(newField);
-       });
-   
-       // Function to remove fields
-       $(document).on('click', '.remove-btn', function() {
-           $(this).closest('.details-item-wraper').remove();
-       });
-   });
+                    <label for="gender">Gender</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions_${Date.now()}" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Mr.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions_${Date.now()}" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Ms.</label>
+                    </div>
+                </div>
+                <div class="details-item col-lg-4 ps-2 pe-2">
+                    <label for="name">Passenger Name</label>
+                    <input type="text" name="name[]" placeholder="Enter full name" id="name">
+                </div>
+                <div class="details-item col-lg-4 ps-2 pe-2">
+                    <label for="age">Age</label>
+                    <input type="text" name="age[]" placeholder="Enter your age" id="age">
+                </div>
+                <div class="details-item col-lg-4 ps-2 pe-2">
+                    <label for="pnr">PNR Number</label>
+                    <input type="text" name="pnr[]" placeholder="Enter your PNR" id="pnr">
+                </div>
+                <div class="details-item">
+                    <button type="button" class="remove-btn btn btn-danger">-</button>
+                </div>
+            </div>`;
+        $(this).closest('.details-item-wraper').after(newField);
+    });
+
+    // Function to remove fields
+    $(document).on('click', '.remove-btn', function() {
+        $(this).closest('.details-item-wraper').remove();
+    });
+});
+
 </script>
 @endpush

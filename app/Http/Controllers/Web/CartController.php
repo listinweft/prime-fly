@@ -1196,6 +1196,9 @@ class CartController extends Controller
 
     public function submit_order(Request $request)
     {
+
+         
+      
         if (Session::has('session_key')) {
             $sessionKey = session('session_key');
             if (!Cart::session($sessionKey)->isEmpty()) {
@@ -1230,7 +1233,15 @@ class CartController extends Controller
                         $personalDetail->age = $request->age[$key] ?? '';
                         $personalDetail->address = $request->address ?? '';
                         $personalDetail->passport_number = $request->passport_number ?? '';
-                        // Save other fields as needed
+                        $personalDetail->pnr = $request->pnr[$key] ?? '';
+                        $personalDetail->country = $request->country ?? '';
+                        $personalDetail->state = $request->state ?? '';
+                        $personalDetail->city = $request->city ?? '';
+                        $personalDetail->gender = $request->gender[$key] ?? '';
+                        $personalDetail->pincode = $request->pincode ?? '';
+                    
+                    
+                    
                         $personalDetail->save();
                     }
                 

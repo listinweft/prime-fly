@@ -459,6 +459,7 @@ else
                 'infants' => $data['infants'],
                 'children' => $data['children'],
                 'pnr' => isset($data['pnr']) ? $data['pnr'] : '',
+                'meet_guest' => $guestCount
             ];
         }
     
