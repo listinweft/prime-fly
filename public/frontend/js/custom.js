@@ -2049,11 +2049,11 @@ $(document).ready(function () {
         });
     }
 
-    function select2() {
-        $('.select2').select2({
-            theme: 'bootstrap4', minimumResultsForSearch: -1,
-        });
-    }
+    // function select2() {
+    //     $('.select2').select2({
+    //         theme: 'bootstrap4', minimumResultsForSearch: -1,
+    //     });
+    // }
 
     $(document).mouseup(function (e) {
         var container = $("#main-search");
@@ -2281,6 +2281,16 @@ $(document).ready(function () {
     });
 
 
+});
+
+$(document).ready(function() {
+    $('.select2').select2({ 
+        allowClear: true
+    }); 
+    $('.select_static').select2({ 
+        allowClear: true,
+        minimumResultsForSearch: Infinity // Disables the search box
+    });  
 });
 
 

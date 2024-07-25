@@ -70,7 +70,8 @@ a:hover{
     padding: 8px 20px;
 }
 .header-cart .header-login a{ 
-    padding: 1px;
+    /* padding: 1px; */
+    border: 1px solid #6c6c6c;
 }
 .cart-count {
     background-color: #f14444;
@@ -4100,6 +4101,9 @@ font-size:13px !important;
         border-radius: 5px;
         position: absolute;
     }
+    .header-cart .hamburger .bar { 
+        background-color: #6c6c6c; 
+    }
     .hamburger .bar.one {
         top: 0;
         transition: 0.2s linear;
@@ -4216,6 +4220,7 @@ font-size:13px !important;
     }
     .mob_homeservice{
         background-color: #291c42;
+        padding: 0 30px;
         padding-top:100px;
         padding-bottom:30px;
     }
@@ -4269,7 +4274,8 @@ font-size:13px !important;
         height:110px;
     }
     .booking_field label.error {
-        font-size: 9px; 
+        font-size: 11px;
+        bottom: -18px;
     }
     /* .banner_filter_pills{
         display: none;
@@ -4416,15 +4422,35 @@ font-size:13px !important;
 .thanks_section a{
     margin-top: 40px;
 }
+.cart-wrap {
+    padding:20px 0px; 
+}
 .cart-progress li{
     font-size: 12px;
-    padding-left: 35px;
+    padding-left:0px;
+    padding-right:65px;
+}
+.cart-progress ul{
+    padding-left: 0;
+}
+.cart-prdct-payment {
+    padding: 15px;
+}
+.cart-price-summry h4 {
+    font-size: 16px; 
+    margin-bottom: 10px;
+}
+.cart-pyment-list { 
+    margin-bottom: 15px;
+}
+.cart-pyment-list:last-child{
+    margin-bottom: 0;
 }
 .booking_field {
     height: 42px;
     margin-bottom: 12px;
     margin: 3px 0%;
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 .booking_field select {
     padding: 15px 15px;
@@ -4442,5 +4468,123 @@ font-size:13px !important;
 }
 .srvc_bnnr_filter .filter_tab_content {
     padding: 15px;
+}
+.price-summery{
+    padding: 15px 10px;
+    padding-bottom: 20px;
+}
+.details-item button.add-more-btn.btn.btn-primary, .details-item .remove-btn.btn.btn-danger { 
+    right: -25px; 
+}
+.details-item{
+    width: 100%;
+}
+.chckout_addres_form{
+    margin-bottom: 25px;
+}
+.packge-content{
+    padding: 0;
+}
+.packagecontent-wrp { 
+    padding: 20px 15px; 
+    margin-top: 15px;
+}
+.packge-content-edit {
+    padding: 18px 15px; 
+}
+#packageTab li {
+    margin: 0 3px;
+}
+#packageTab a.active {
+    padding: 10px 30px; 
+    border-radius: 10px;
+}
+#packageTab a { 
+    padding: 10px 30px; 
+    border-radius: 10px;
+}
+#packageTab a:before{
+    border-radius: 10px;
+}
+#packageTab a h4 { 
+    font-weight: 600;
+    font-size: 20px;
+}
+#packageTab a p {
+    font-size: 13px;
+    font-weight: 500;
+}
+ 
+.package-section {
+    padding: 40px 15px; 
+    padding-top: 120px;
+}
+.package-section .section-head{
+    margin-bottom: 0 !important;
+}
+.custom-date-picker input, .booking_select select, .normal_select select, .custom-time-picker input, #flight_no_select input, #vehicle_no_select input, .bookingcustom_input input, .g-input-text {
+    font-size: 13px;
+}
+#travel_sect .booking_select:before, #orgin_select .booking_select:before {
+    width: 13px;
+}
+#travel_select .booking_select:before {
+    width: 16px;
+}
+#destination_select .booking_select:before {
+    width: 20px;
+}
+#destination_select .booking_select:before {
+    width: 20px;
+}
+.count-btn {
+    height: 23px;
+    width: 23px;
+    font-size: 17px;
+}
+.select2-results__option--highlighted.select2-results__option--selectable { 
+    font-size: 14px !important;
+    padding:8px 10px !important;
+}
+.select2-results__option {
+    padding:8px 10px !important;
+    font-size: 14px !important;
+}
+.cart-product > .d-flex{
+    flex-wrap: wrap;
+}
+.cart-dtl-wrp {
+    width: 100%;
+}
+.cart-prdct-dtls p {
+    margin-bottom: 0;
+    font-size: 13px;
+}
+.cart-prdct-price { 
+    padding: 10px;
+    background-color: #f6f6f6;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+.cart-prdct-price h5 {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+.btn-primary {
+    padding: 9px 20px;
+    font-size: 15px;
+    font-weight:500;
+}
+.btn-primary-outline {
+    padding: 9px 30px;
+    font-size: 15px;
+    font-weight:500;
+}
+.details-item select{
+    appearance: none;
+    background-color: white;
 }
 }
