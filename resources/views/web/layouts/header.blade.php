@@ -1,8 +1,8 @@
-<div class="col-12 header{{ Request::is('cart', 'checkout','preview','terms-and-conditions','package','privacy-policy','thankyou','package/*') ? ' header-cart' : '' }}">
+<div class="col-12 header{{ Request::is('cart', 'checkout','preview','terms-and-conditions','package','privacy-policy','thankyou', 'package/*') ? ' header-cart' : '' }}">
    <div class="container">
       <header class="d-flex flex-wrap justify-content-center align-items-center py-2">
          <a href="{{ url('/') }}" class="header-logo d-flex align-items-center mb-md-0 me-auto link-body-emphasis text-decoration-none">
-         @if(Request::is('cart', 'checkout','preview','terms-and-conditions','package','privacy-policy','thankyou','package/*'))
+         @if(Request::is('cart', 'checkout','preview','terms-and-conditions','package','privacy-policy','thankyou', 'service/*', 'package/*'))
          <img src="{{ asset('frontend/img/logo-blue.png')}}" alt="Logo"/>
          @else
          <img src="{{ asset('frontend/img/logo.png')}}" alt="Logo"/>

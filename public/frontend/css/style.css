@@ -2518,6 +2518,24 @@ footer{
 .testimonial-carousel .owl-item {
     border-right: 1px solid #CCCCCC !important;
 }
+.note{
+    color: #f3831d;
+    font-size: 11px;
+    font-style: italic;
+    margin-bottom: 0;
+}
+.note-2{
+    font-size: 11px;
+    font-style: italic;
+    margin-bottom: 0;
+    color: #bec0c3;
+    margin-top: -5px;
+    padding-left: 16px;
+}
+.service-carousel.owl-carousel .owl-stage{
+
+    margin: auto;
+}
 /* ************************* Responsive  ************************ */
 @media(max-width:1680px){
     .nav-item a{
@@ -4402,23 +4420,27 @@ font-size:13px !important;
     font-size: 12px;
     padding-left: 35px;
 }
-
+.booking_field {
+    height: 42px;
+    margin-bottom: 12px;
+    margin: 3px 0%;
+    margin-bottom:15px;
 }
-.note{
-    color: #f3831d;
-    font-size: 11px;
-    font-style: italic;
-    margin-bottom: 0;
+.booking_field select {
+    padding: 15px 15px;
+    padding-left: 35px;
 }
-.note-2{
-    font-size: 11px;
-    font-style: italic;
-    margin-bottom: 0;
-    color: #bec0c3;
-    margin-top: -5px;
-    padding-left: 16px;
+.select2-container .select2-selection--single {
+    height: 42px !important; 
 }
-.service-carousel.owl-carousel .owl-stage{
-
-    margin: auto;
+.guest-number-input-item {
+    padding: 4px 6px;
+    height: 42px;
+}
+.note-2 { 
+    margin-top: -10px; 
+}
+.srvc_bnnr_filter .filter_tab_content {
+    padding: 15px;
+}
 }
