@@ -9,7 +9,7 @@
                         <select type="text" class="form-control select2" name="origin">
                             <option value="">Select Origin</option>
                                 @foreach ($locations as $location)
-                                    <option value="{{ $location->id }}">{{ $location->title }}-{{ $location->code}}</option>
+                                    <option value="{{ $location->code }}">{{ $location->title }}-{{ $location->code}}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -67,10 +67,10 @@
 $(document).ready(function() {
 
     
-    // $('.select2').select2({
+    $('.select2').select2({
           
-    //       allowClear: true
-    //   });
+          allowClear: true
+      });
     // console.log("Document is ready.");
 
     // Initialize datepicker and timepicker

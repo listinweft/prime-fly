@@ -42,7 +42,7 @@
                      @include('web.porter')
 
 
-                     @elseif($category->title == "Air port Entry")
+                     @elseif($category->title == "Airport Entry")
 
 
                      @include('web.airportentry')

@@ -4,28 +4,28 @@
             <h4>Airport Entry Ticketing</h4> 
             <form id="bookingForm-entryTicket">
                 @csrf
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap justify-content-start home-form-flex">
 
                 <input type="hidden" value="{{$category->id}}" name="category">
 
                     <div class="booking_field" id="orgin_select">
-                    <div class="booking_select"> 
+                    <div class="booking_select">
                         <select type="text" class="form-control select2" name="origin">
                             <option value="">Select Origin</option>
                             @foreach ($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
+                                <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
                             @endforeach
                         </select>
-</div>
+                    </div>
                     </div>
                     <div class="booking_field" id="terminal_select">
-                    <div class="booking_select"> 
+                    <div class="booking_select">
                         <select type="text" class="form-control" name="terminal">
                             <option value="">Select Type</option>
                             <option value="viewers">Viewers</option>
                             <option value="visitors gallery">Visitors Gallery</option>
                         </select>
-</div>
+                    </div>
                     </div> 
                     <div class="booking_field">
                         <div class="custom-date-picker">
@@ -41,8 +41,8 @@
                         <div class="custom-date-picker">
                             <input class="form-control" type="text" name="exit_date" autocomplete="off" placeholder="Exit Date" max="2023-12-31" id="exitdatepickerair" readonly="readonly">
                         </div> 
-                    </div> -->
-                    <!-- <div class="booking_field">
+                    </div>
+                    <div class="booking_field">
                         <div class="custom-time-picker">
                             <input class="form-control timepickerair" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
                         </div> 
@@ -60,7 +60,7 @@
                     <div class="col-12">
                         <p class="note">*Viewers and Visitors Gallery Tickets are Only Valid upto 3 hours</p>
                     </div>
-                    <div class="col-12 text-center mt-3">
+                                        <div class="col-12 text-center mt-3">
                         <button type="submit" class="btn btn-primary">Book Now</button>
                     </div>
                 </div>

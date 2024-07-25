@@ -31,15 +31,19 @@
                                     
                                         <div>
                                             <h4>{{ $item['product']['location_title'] ?? 'Location' }}</h4>
-                                            <p>{{ ucwords($item['product']['service_type']) }}, {{ $item['setdate'] }}, {{ $item['flight_number'] ?? 'Flight Number' }}</p>
+                                            <p>Travel Type:{{ ucwords($item['product']['service_type']) }}, {{ $item['setdate'] }}, {{ $item['flight_number'] ?? '' }}</p>
 
                                             @if(session('category') == 'Meet and Greet' || session('category') == 'Airport Entry' || session('category') == 'Lounge Booking')
         @if($item['totalguest'] > 0)
             <p>{{ $item['totalguest'] }} Guest</p>
         @endif
-    @elseif(session('category') == 'Car Parking' || session('category') == 'Cloak Room' ||  session('category') == 'Baggage wrapping')
+    @elseif( session('category') == 'Cloak Room' ||  session('category') == 'Baggage wrapping')
         @if($item['totalguest'] > 0)
             <p>{{ $item['totalguest'] }} Bag</p>
+        @endif
+        @elseif(session('category') == 'Car Parking' )
+        @if($item['totalguest'] > 0)
+            <p>{{ $item['totalguest'] }} Car</p>
         @endif
 
         @else
