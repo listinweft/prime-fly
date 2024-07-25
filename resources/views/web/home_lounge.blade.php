@@ -69,12 +69,7 @@
 <script>
 $(document).ready(function() {
     // Initialize date picker
-
-    $('.select2').select2({
-          
-          allowClear: true
-      });
-
+ 
     $(function() {
         $("#datepickerlounge").datepicker({
             dateFormat: "dd-mm-yy",

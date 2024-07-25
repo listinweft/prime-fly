@@ -78,7 +78,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-4 chckout_addres_form">
                            <h4>Address</h4>
                            <div class="price-summery customer-detail-form">
                               <div class="details-item-wraper">
