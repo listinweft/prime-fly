@@ -534,6 +534,9 @@ $(document).ready(function () {
             var infants = $(this).data('infants');
             var children = $(this).data('children');
             var pnr = $(this).data('pnr');
+            var meet_guest= $(this).data('meet_guest');
+
+          
           
             var qty = 1;
             var checkout = $(this).data('checkout');
@@ -576,6 +579,7 @@ $(document).ready(function () {
                     infants: infants,
                     children: children,
                     pnr: pnr,
+                    meet_guest: meet_guest,
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2289,7 +2293,7 @@ $(document).ready(function() {
     }); 
     $('.select_static').select2({ 
         allowClear: true,
-        minimumResultsForSearch: Infinity // Disables the search box
+        minimumResultsForSearch: Infinity  
     });  
 });
 

@@ -10,12 +10,12 @@
 
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select">
-                        <select type="text" class="form-control select2" name="origin">
-                            <option value="">Select Origin</option>
-                            @foreach ($locations as $location)
-                                <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                            @endforeach
-                        </select>
+                    <select class="form-control select2" name="origin" id="originair">
+                    <option value="">Select Origin</option>
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
+                    @endforeach
+                </select>
                     </div>
                     </div>
                     <div class="booking_field" id="terminal_select">
@@ -85,6 +85,7 @@ $(document).ready(function() {
         onSelect: function(dateText, inst) {
             var selectedDate = new Date(dateText);
             updateMinTime(selectedDate);
+            $('#datepickerair').valid(); 
         }
     });
 
@@ -192,6 +193,10 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+
+    $('#originair, #terminal, #datepickerair, #starttime').on('change', function() {
+        $(this).valid();
     });
 });
 </script>

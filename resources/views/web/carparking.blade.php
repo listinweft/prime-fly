@@ -8,7 +8,7 @@
                 <div class="d-flex flex-wrap">
                     <div class="booking_field" id="orgin_select">
                     <div class="booking_select"> 
-                        <select type="text" class="form-control select2" name="origin">
+                        <select type="text" class="form-control select2" name="origin" id="origincar">
                         <option value="">Select Origin</option>
                                 @foreach ($locations as $location)
                                     <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
@@ -83,6 +83,8 @@ $(document).ready(function() {
         onSelect: function(dateText, inst) {
             var selectedDate = new Date(dateText);
             updateMinTime(selectedDate);
+            $('#datepickercar').valid(); 
+            $('#exitdatepickercar').valid(); 
         }
     });
 
@@ -183,6 +185,12 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('#origincar').on('change', function() {
+        $(this).valid();
+    });
+
+    
 });
 </script>
 @endpush

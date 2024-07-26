@@ -72,6 +72,11 @@ class WebController extends Controller
         return $seo_data;
     }
 
+    
+
+
+
+   
 
     public function home()
     {
@@ -141,64 +146,137 @@ class WebController extends Controller
     }
 
 
-    public function getLocations_meet(Request $request)
-    {
+//     public function getLocations_meet(Request $request)
+//     {
 
        
-        $travelSector = $request->input('travel_type');
+//         $travelSector = $request->input('travel_type');
 
-        $sector = $request->input('sector');
-        $category = $request->input('category');
+//         $sector = $request->input('sector');
+//         $category = $request->input('category');
     
-        $products = Product::where('category_id', $category)->where('service_type',$travelSector)->get();
+//         $products = Product::where('category_id', $category)->where('service_type',$travelSector)->get();
     
-        $allLocationIds = [];
-        foreach ($products as $product) {
-            $locationIds = explode(',', $product->location_id);
-            $allLocationIds = array_merge($allLocationIds, $locationIds);
+//         $allLocationIds = [];
+//         foreach ($products as $product) {
+//             $locationIds = explode(',', $product->location_id);
+//             $allLocationIds = array_merge($allLocationIds, $locationIds);
+//         }
+//         $uniqueLocationIds = array_unique($allLocationIds);
+//         $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+
+//         $mappedLocations = $locationsspecific->map(function ($location) {
+//             return [
+//                 'fs' => $location->code, // Assuming 'code' in DB corresponds to 'faa'
+//                 'city' => $location->title // Assuming 'title' in DB corresponds to 'name'
+//             ];
+//         });
+    
+//         $origins = [];
+//         $destinations = [];
+
+// if ($sector =="international" )
+
+// {
+
+
+//     $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/active?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
+    
+
+
+// }
+
+// else
+
+// {
+
+
+//     $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
+
+
+//     $responsedata = Http::get($apiUrl);
+
+//         $data = $responsedata->json();
+
+//         // Handle the data from API response
+//         $locationsFromApi = $data['airports'] ?? [];
+    
+
+
+// }
+       
+       
+
+        
+//         if ($travelSector == 'departure') {
+//             $origins = $mappedLocations;
+//             $destinations = $locationsFromApi;
+//         } elseif ($travelSector == 'arrival') {
+//             $origins = $locationsFromApi;
+//             $destinations = $mappedLocations;
+//         }
+
+
+    
+//         return response()->json(['origins' => $origins, 'destinations' => $destinations,'type'=>$travelSector]);
+//     }
+
+
+public function getLocations_meet(Request $request)
+{
+    $travelSector = $request->input('travel_type');
+    $sector = $request->input('sector');
+    $category = $request->input('category');
+    
+    $products = Product::where('category_id', $category)->where('service_type', $travelSector)->get();
+    
+    $allLocationIds = [];
+    foreach ($products as $product) {
+        $locationIds = explode(',', $product->location_id);
+        $allLocationIds = array_merge($allLocationIds, $locationIds);
+    }
+    $uniqueLocationIds = array_unique($allLocationIds);
+    $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+
+    $mappedLocations = $locationsspecific->map(function ($location) {
+        return [
+            'fs' => $location->code, // Assuming 'code' in DB corresponds to 'faa'
+            'city' => $location->title // Assuming 'title' in DB corresponds to 'name'
+        ];
+    });
+
+    $origins = [];
+    $destinations = [];
+
+    if ($sector == "international") {
+        // Fetch locations from the international_airports table
+        $locationsFromDb = DB::table('international_airport')
+            ->select('faa', 'name')
+            ->get()
+            ->map(function ($location) {
+                return [
+                    'fs' => $location->faa,  // FAA code
+                    'city' => $location->name // Name
+                ];
+            });
+
+        // For international sector, use locationsFromDb directly
+        if ($travelSector == 'departure') {
+            $origins = $mappedLocations;
+            $destinations = $locationsFromDb;
+        } elseif ($travelSector == 'arrival') {
+            $origins = $locationsFromDb;
+            $destinations = $mappedLocations;
         }
-        $uniqueLocationIds = array_unique($allLocationIds);
-        $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
-
-        $mappedLocations = $locationsspecific->map(function ($location) {
-            return [
-                'fs' => $location->code, // Assuming 'code' in DB corresponds to 'faa'
-                'city' => $location->title // Assuming 'title' in DB corresponds to 'name'
-            ];
-        });
-    
-        $origins = [];
-        $destinations = [];
-
-if ($sector =="international" )
-
-{
-
-
-    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/active?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
-
-
-}
-
-else
-
-{
-
-
-    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
-
-
-}
-       
-       
-
+    } else {
+        // Fetch data from API for non-international sector
+        $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=6d35112e08773c372901b6ba27a58a25';
         $responsedata = Http::get($apiUrl);
-
         $data = $responsedata->json();
 
         // Handle the data from API response
         $locationsFromApi = $data['airports'] ?? [];
-    
+
         if ($travelSector == 'departure') {
             $origins = $mappedLocations;
             $destinations = $locationsFromApi;
@@ -206,11 +284,10 @@ else
             $origins = $locationsFromApi;
             $destinations = $mappedLocations;
         }
-
-
-    
-        return response()->json(['origins' => $origins, 'destinations' => $destinations,'type'=>$travelSector]);
     }
+
+    return response()->json(['origins' => $origins, 'destinations' => $destinations, 'type' => $travelSector]);
+}
 
 
         public function getLocations(Request $request)
@@ -241,43 +318,25 @@ else
     
         $origins = [];
         $destinations = [];
-
-if ($sector =="international" )
-
-{
-
-
-    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/active?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
-
-
-}
-
-else
-
-{
+        $locationsFromDb = DB::table('international_airport')
+        ->select('faa', 'name')
+        ->get()
+        ->map(function ($location) {
+            return [
+                'fs' => $location->faa,  // FAA code
+                'city' => $location->name // Name
+            ];
+        });
 
 
-    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
-
-
-}
-       
-       
-
-        $responsedata = Http::get($apiUrl);
-
-        $data = $responsedata->json();
-
-        // Handle the data from API response
-        $locationsFromApi = $data['airports'] ?? [];
-    
-        if ($travelSector == 'departure') {
-            $origins = $mappedLocations;
-            $destinations = $locationsFromApi;
-        } elseif ($travelSector == 'arrival') {
-            $origins = $locationsFromApi;
-            $destinations = $mappedLocations;
-        }
+    // if ($travelSector == 'departure')
+    //  {
+        $origins = $mappedLocations;
+        $destinations = $locationsFromDb;
+    // } elseif ($travelSector == 'arrival') {
+    //     $origins = $locationsFromDb;
+    //     $destinations = $mappedLocations;
+    // }
     
         return response()->json(['origins' => $origins, 'destinations' => $destinations]);
     }
@@ -308,41 +367,42 @@ else
         $origins = [];
         $destinations = [];
 
-if ($sector =="international" )
-
-{
-
-
-    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/active?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
-
-
-}
-
-else
-
-{
-
-
-    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=+6d35112e08773c372901b6ba27a58a25';
-
-
-}
-       
-       
-
-        $responsedata = Http::get($apiUrl);
-
-        $data = $responsedata->json();
-
-        // Handle the data from API response
-        $locationsFromApi = $data['airports'] ?? [];
+        if ($sector == "international") {
+            // Fetch locations from the international_airports table
+            $locationsFromDb = DB::table('international_airport')
+                ->select('faa', 'name')
+                ->get()
+                ->map(function ($location) {
+                    return [
+                        'fs' => $location->faa,  // FAA code
+                        'city' => $location->name // Name
+                    ];
+                });
     
-        if ($travelSector == 'departure') {
-            $origins = $mappedLocations;
-            $destinations = $locationsFromApi;
-        } elseif ($travelSector == 'arrival') {
-            $origins = $locationsFromApi;
-            $destinations = $mappedLocations;
+            // For international sector, use locationsFromDb directly
+            if ($travelSector == 'departure') {
+                $origins = $mappedLocations;
+                $destinations = $locationsFromDb;
+            } elseif ($travelSector == 'arrival') {
+                $origins = $locationsFromDb;
+                $destinations = $mappedLocations;
+            }
+        } else {
+            // Fetch data from API for non-international sector
+            $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=6d35112e08773c372901b6ba27a58a25';
+            $responsedata = Http::get($apiUrl);
+            $data = $responsedata->json();
+    
+            // Handle the data from API response
+            $locationsFromApi = $data['airports'] ?? [];
+    
+            if ($travelSector == 'departure') {
+                $origins = $mappedLocations;
+                $destinations = $locationsFromApi;
+            } elseif ($travelSector == 'arrival') {
+                $origins = $locationsFromApi;
+                $destinations = $mappedLocations;
+            }
         }
     
         return response()->json(['origins' => $origins, 'destinations' => $destinations,'type'=>$travelSector]);

@@ -101,6 +101,7 @@
  
 </body>
 <script>
+    
     $(document).ready(function() {
 
 
@@ -119,6 +120,8 @@
            required: true,
            digits: true
        },
+
+       
       
    },
    messages: {
@@ -134,6 +137,7 @@
        },
        
    },
+   
    submitHandler: function(form) {
      var base_url = "{{ url('/') }}";
    
@@ -170,7 +174,9 @@ success: function(response) {
 
 
    
-
+$('#travel_sector, #travel_type, #origins, #destinations, #flights').on('change', function() {
+        $(this).valid();
+    });
 
 
 

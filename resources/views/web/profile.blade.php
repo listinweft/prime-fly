@@ -429,7 +429,10 @@
 
 
 
-    document.getElementById('profileImageInput').addEventListener('change', function(e) {
+    
+</script>
+<script>
+document.getElementById('profileImageInput').addEventListener('change', function(e) {
         const reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById('profileImagePreview').src = e.target.result;

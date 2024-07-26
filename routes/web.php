@@ -185,6 +185,9 @@ Route::middleware(['web'])->group(function () {
     Route::get('cart', [CartController::class, 'cart'])->name('cart');
     Route::post('add-wishlist', [CartController::class, 'add_to_wish_list']);
     Route::post('add-cart', [CartController::class, 'add_to_cart']);
+    Route::get('checkCart', [CartController::class, 'checkCart']);
+
+    
     Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);
     Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);
     Route::post('update-item-quantity', [CartController::class, 'update_item_quantity']);

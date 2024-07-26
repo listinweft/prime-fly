@@ -183,7 +183,9 @@ success: function(response) {
 });
 
 
-
+$('#travel_sector, #travel_type, #origins, #destinations, #flights').on('change', function() {
+        $(this).valid();
+    });
 
 
 var base_url = "{{ url('/') }}";

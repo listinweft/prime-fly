@@ -235,6 +235,7 @@ class Helper
                                 'children' => $row->attributes->children,
                                 'porter_count' => $row->attributes->guest,
                                 'pnr' => $row->attributes->pnr,
+                                'meet_guest' => $row->attributes->meet_guest,
                             ],
                             'conditions' => [],
                         ]);

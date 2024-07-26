@@ -116,13 +116,13 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
                 if (!$addStatus) {
                     break; // If adding any product fails, stop the loop
                 }
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
         }
     
         $count = 0;
@@ -151,7 +151,22 @@ class CartController extends Controller
         }
     }
     
-    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr)
+
+    public function checkCart()
+{
+    // Get the cart session key
+    $sessionKey = $this->setSession(); // Adjust this if needed
+    
+    // Fetch cart content
+    $cartItems = Cart::session($sessionKey)->getContent();
+    
+    // Log or inspect the cart items
+    \Log::info('Cart Items:', $cartItems->toArray());
+
+    // Return data to view or as a JSON response
+
+}
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest)
     {
         $origin = $origin ?? '';
         $destination = $destination ?? '';
@@ -166,6 +181,7 @@ class CartController extends Controller
         $entry_time = $entry_time ?? '';
         $pnr  = $pnr ?? '';
         $exit_time = $exit_time ?? '';
+        $meet_guest  = $meet_guest  ?? '';
     
         $product = Product::find($product_id);
         if (!$product) {
@@ -215,6 +231,7 @@ class CartController extends Controller
                     'children' => $children,
                     'porter_count' => $totalguest,
                     'pnr' => $pnr,
+                    'meet_guest' => $meet_guest
                     
 
                 ],

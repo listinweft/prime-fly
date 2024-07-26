@@ -32,8 +32,11 @@
                      ->whereNull('parent_id')
                      ->first() : null;
 
-                     $totals[] = $row->attributes['guest'];
+                     $totals[] = $row->attributes['meet_guest'];
                      @endphp
+                     <tr>
+                       
+                     
                      <div class="d-flex align-items-center justify-content-between">
                         <div class="cart-dtl-wrp">
                            <div class="d-flex align-items-center">
@@ -55,8 +58,8 @@
                      @if(in_array(Session::get('category'), ['Meet and Greet']))
     @foreach($totals as $index => $guestCount)
         @for($i = 0; $i < $guestCount; $i++)
-            <div class="price-summery personal-details customer-detail-form">
-                <div class="details-item d-flex flex-wrap justify-content-between align-items-end">
+            <div class="price-summery personal-details customer-detail-form mb-3">
+                <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
                     <div class="details-item details-item-option col-12 ps-2 pe-2">
                         <label for="gender_{{ $index }}_{{ $i }}">Gender</label><br>
                         <div class="form-check form-check-inline">
@@ -92,7 +95,7 @@
     @endforeach
 @else
     <div class="price-summery personal-details customer-detail-form">
-        <div class="details-item d-flex flex-wrap justify-content-between align-items-end">
+        <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
             <div class="details-item details-item-option col-12 ps-2 pe-2">
                 <label for="gender">Gender</label><br>
                 <div class="form-check form-check-inline">
@@ -138,7 +141,7 @@
                                  </div>
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
                                  <div class="details-item  ps-2 pe-2">
-                                    <label for="passport_number">Passport Number</label>
+                                    <label for="passport_number">Passport Number*</label>
                                     <input type="text" name="passport_number" id="passport_number" required>
                                     <span class="error-message" style="display: none;">Passport Number is required.</span>
                                  </div>
@@ -146,18 +149,12 @@
                               </div>
                               <div class="col-12  ps-2 pe-2">
                                  <div class="row">
-                                    <div class="col-lg-6">
-                                       <div class="details-item"> 
-                                          <label for="name">Pincode</label>
-                                          <input type="text" name="pincode" id="pincode" placeholder="Pincode" required> 
-                                          <span class="error-message" style="display: none;">Pincode is required.</span>
-                                       </div>
-                                    </div>
+                                    
                                     <div class="col-lg-6">
                                        <div class="details-item">
-                                          <label for="name">Country</label>
+                                          <label for="name">Country*</label>
                                           <select name="country" id="country" required>
-                                 <option value="">Select a Country</option>
+                                 <!-- <option value="">Select a Country</option> -->
                                  <option value="india">India</option>
                                  <option value="usa">USA</option>
                               </select>
@@ -166,7 +163,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item">
-                                          <label for="name">State</label>
+                                          <label for="name">State*</label>
                                           <input type="text" name="state" id="state" placeholder="State" required> 
                                           <span class="error-message" style="display: none;">State is required.</span>
                                        </div>
@@ -174,9 +171,16 @@
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item">
-                                          <label for="name">City</label>
+                                          <label for="name">City*</label>
                                           <input type="text" name="city" id="city" placeholder="City" required> 
                                           <span class="error-message" style="display: none;">City is required.</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="details-item"> 
+                                          <label for="name">Pincode*</label>
+                                          <input type="text" name="pincode" id="pincode" placeholder="Pincode" required> 
+                                          <span class="error-message" style="display: none;">Pincode is required.</span>
                                        </div>
                                     </div>
                                  </div>

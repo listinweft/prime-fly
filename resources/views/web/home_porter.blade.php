@@ -143,7 +143,9 @@ $(document).ready(function() {
         }
     });
 
-
+    $('#travel_sectorpo, #travel_typepo, #originpo, #destinationpo, #flightspo').on('change', function() {
+        $(this).valid();
+    });
 
     var base_url = "{{ url('/') }}";
         var appId = '6afbf6ac'; // Replace with your FlightStats App ID
