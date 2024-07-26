@@ -14,9 +14,9 @@
                         <div class="booking_select">
                             <select type="text" class="form-control select2" name="origin" id="originb">
                                 <option value="">Select Origin</option>
-                                @foreach ($locations as $location)
+                                <!-- @foreach ($locations as $location)
                                     <option value="{{ $location->id }}">{{ $location->title }}-{{$location->code}}</option>
-                                @endforeach
+                                @endforeach -->
                             </select>
                         </div>
                     </div>

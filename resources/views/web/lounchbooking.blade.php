@@ -11,14 +11,14 @@
             </div> 
         </div>  
         <!-- Origin Select -->
-        <input type="hidden" value="{{$category->id}}" name="category">
+          <input type="hidden" value="{{$category->id}}" name="category">
         <div class="booking_field" id="orgin_select">
             <div class="booking_select"> 
                 <select class="form-control select2" name="origin" id="originl">
                     <option value="">Select Origin</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>

@@ -12,14 +12,16 @@
                     </div>  
                     <!-- Origin Select -->
 
+                 
+
                     <input type="hidden" value="{{$category->id}}" name="category">
                     <div class="booking_field" id="orgin_select">
                         <div class="booking_select">
                             <select type="text" class="form-control select2" name="origin" id="originb">
                                 <option value="">Select Origin</option>
-                                @foreach ($locations as $location)
+                                <!-- @foreach ($locations as $location)
                                     <option value="{{ $location->id }}">{{ $location->title }}</option>
-                                @endforeach
+                                @endforeach -->
                             </select>
                         </div>
                     </div>
