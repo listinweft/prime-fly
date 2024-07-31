@@ -3787,7 +3787,7 @@ font-size:13px !important;
     overflow-y: auto;
 }
 .select2-container { 
-    width: 100% !important;
+    /* width: 100% !important; */
     padding-left: 25px;
 }
 
