@@ -147,7 +147,7 @@ class LoginController extends Controller
     protected function clearCart()
     {
         $sessionKey = session('session_key');
-    
+     
       
         Cart::session($sessionKey)->clear();
     

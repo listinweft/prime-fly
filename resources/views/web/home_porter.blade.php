@@ -223,7 +223,15 @@ $(document).ready(function() {
                 $('#destinationpo').empty().append('<option value="">Select Destination</option>');
             }
         }
+        
 
+
+        $('#travel_sectorpo').change(function() {
+           
+        $('#travel_typepo').val('').change();
+        $('#originpo').empty().append('<option value="">Select Origin</option>').change();
+        $('#destinationpo').empty().append('<option value="">Select Destination</option>').change();
+    });
         // Event listener for travel type change
         $('#travel_typepo').change(function() {
             

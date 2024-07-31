@@ -258,6 +258,13 @@ $('#travel_sector, #travel_type, #origins, #destinations, #flights').on('change'
             }
         }
 
+
+        $('#travel_sector').change(function() {
+        $('#travel_type').val('').change();
+        $('#origins').empty().append('<option value="">Select Origin</option>').change();
+        $('#destinations').empty().append('<option value="">Select Destination</option>').change();
+    });
+    
         // Event listener for travel type change
         $('#travel_type').change(function() {
             

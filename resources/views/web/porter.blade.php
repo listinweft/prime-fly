@@ -160,7 +160,7 @@ $("#bookingForm-porter").validate({
 });
 
 
-$('#travel_sectorpo, #travel_typepo, #originpo, #destinationpo, #flightspo').on('change', function() {
+$('#travel_sector, #travel_typepo, #originpo, #destinationpo, #flightspo').on('change', function() {
         $(this).valid();
     });
 
@@ -241,6 +241,13 @@ var base_url = "{{ url('/') }}";
                 $('#destinationpo').empty().append('<option value="">Select Destination</option>');
             }
         }
+
+        $('#travel_sector').change(function() {
+           
+           $('#travel_typepo').val('').change();
+           $('#originpo').empty().append('<option value="">Select Origin</option>').change();
+           $('#destinationpo').empty().append('<option value="">Select Destination</option>').change();
+       });
 
         // Event listener for travel type change
         $('#travel_typepo').change(function() {

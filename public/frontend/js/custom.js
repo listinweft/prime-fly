@@ -875,26 +875,137 @@ $(document).ready(function () {
     // });
 
 
-    $(document).on('click', '#confirm_payment', function (e) {
-        e.preventDefault();
+    // $(document).on('click', '#confirm_payment', function (e) {
+    //     e.preventDefault();
     
-        var payment_method = "COD";
+    //     var payment_method = "COD";
         
-        // Validate form fields
-        var valid = true;
-        $('.details-item input[required], .details-item textarea[required]').each(function() {
-            if ($(this).val().trim() === '') {
-                valid = false;
-                $(this).addClass('error'); // Add error class for styling
-                $(this).next('.error-message').show(); // Show error message if any
-            } else {
-                $(this).removeClass('error'); // Remove error class
-                $(this).next('.error-message').hide(); // Hide error message if valid
-            }
-        });
+    //     // Validate form fields
+    //     var valid = true;
+    //     $('.details-item input[required], .details-item textarea[required]').each(function() {
+    //         if ($(this).val().trim() === '') {
+    //             valid = false;
+    //             $(this).addClass('error'); // Add error class for styling
+    //             $(this).next('.error-message').show(); // Show error message if any
+    //         } else {
+    //             $(this).removeClass('error'); // Remove error class
+    //             $(this).next('.error-message').hide(); // Hide error message if valid
+    //         }
+    //     });
+    
+    //     if (valid) {
+    //         $(this).text("Please Wait...");
+    //         $.ajax({
+    //             type: 'POST',
+    //             dataType: 'json',
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             url: base_url + '/submit-order',
+    //             data: {
+    //                 payment_method: payment_method,
+           
+    //         address: $('#address').val(),
+    //         passport_number: $('#passport_number').val(),
+    //         pincode: $('#pincode').val(),
+    //         country: $('#country').val(),
+    //         city: $('#city').val(),
+    //         state: $('#state').val(),
+    
+    //     // gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
+    //     // name: $('input[name="name[]"]').map(function() { return $(this).val(); }).get(),
+    //     // age: $('input[name="age[]"]').map(function() { return $(this).val(); }).get(),
+    //     // pnr: $('input[name="pnr[]"]').map(function() { return $(this).val(); }).get(),
+
+    //     gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
+    //     // Name
+    //     name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
+    //     // Age
+    //     age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
+    //     // PNR
+    //     pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
+                   
+                    
+    //             },
+    //             success: function (response) {
+    //                 $('.order-submit-loader').hide();
+    //                 if (response.status == true) {
+    //                     swal.fire({
+    //                         title: "", text: response.message, type: "success", icon: "success",
+    //                     });
+    //                     setTimeout(() => {
+    //                         $('#submit-loader').hide();
+    //                         window.location.href = base_url + response.data;
+    //                     }, 900);
+    //                 } else {
+    //                     if (response.status == 'online-payment') {
+    //                         window.location.href = response.url;
+    //                     } else {
+    //                         swal.fire({
+    //                             confirmButtonColor: '#3085d6',
+    //                             title: "", text: response.message, type: "success", icon: "success",
+    //                         });
+    //                         setTimeout(() => {
+    //                             $('#submit-loader').hide();
+    //                             window.location.href = base_url + response.data;
+    //                         }, 3000);
+    //                     }
+    //                     $('#confirm_payment').text("Confirm Order");
+    //                 }
+    //             },
+    //             error: function (response) {
+    //                 $('#confirm_payment').text("Confirm Order");
+    //                 $('#confirm_payment').removeAttr('disabled');
+    //             }
+    //         });
+    //     } else {
+    //         // Handle validation error (e.g., show error message, highlight fields)
+    //         $('#payment-method-error').html('Please fill out all required fields').css({'color': 'red'});
+    //         Toast.fire('Error', 'Please fill out all required fields', "error");
+    //     }
+    // });
+    
+
+    $(document).on('click', '#confirm_payment', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+    
+        var payment_method = $('input[name=transfer]:checked').attr('id');
+
+        // alert(payment_method);
+        var finalAmount = $(this).data('finalamount');
+        var phone_number = $(this).data('phone_number');
+    var valid = true;
+
+    // Initialize error messages
+    var $paymentMethodError = $('#payment-method-error');
+    var $requiredFields = $('.details-item input[required], .details-item textarea[required]');
+    var requiredFieldsEmpty = false;
+
+    // Reset previous error messages
+    $paymentMethodError.html('').css({'color': ''});
+    $requiredFields.removeClass('error');
+    $('.error-message').hide();
+
+    // Check if a payment method is selected
+    if (!payment_method) {
+        valid = false;
+        $paymentMethodError.html('Please select a payment method').css({'color': 'red'});
+    }
+
+    // Validate required fields
+    $requiredFields.each(function() {
+        if ($(this).val().trim() === '') {
+            valid = false;
+            requiredFieldsEmpty = true;
+            $(this).addClass('error');
+            $(this).next('.error-message').show();
+        }
+    });
+
     
         if (valid) {
             $(this).text("Please Wait...");
+    
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -904,66 +1015,213 @@ $(document).ready(function () {
                 url: base_url + '/submit-order',
                 data: {
                     payment_method: payment_method,
-           
-            address: $('#address').val(),
-            passport_number: $('#passport_number').val(),
-            pincode: $('#pincode').val(),
-            country: $('#country').val(),
-            city: $('#city').val(),
-            state: $('#state').val(),
-    
-        // gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
-        // name: $('input[name="name[]"]').map(function() { return $(this).val(); }).get(),
-        // age: $('input[name="age[]"]').map(function() { return $(this).val(); }).get(),
-        // pnr: $('input[name="pnr[]"]').map(function() { return $(this).val(); }).get(),
-
-        gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
-        // Name
-        name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
-        // Age
-        age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
-        // PNR
-        pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
-                   
-                    
+                    final_amount: finalAmount,
+                    address: $('#address').val(),
+                    passport_number: $('#passport_number').val(),
+                    pincode: $('#pincode').val(),
+                    country: $('#country').val(),
+                    city: $('#city').val(),
+                    state: $('#state').val(),
+                    gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
+                    name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
+                    age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
+                    pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
                 },
                 success: function (response) {
-                    $('.order-submit-loader').hide();
-                    if (response.status == true) {
+                    if (response.status === 'online-payment') {
+                        initiateRazorpayPayment(response.order_id, response.amount, response.currency, response.key,phone_number,response.db_orderid);
+                    } 
+                    
+                    
+                    else if(response.status === 'COD')
+                    {
+
+
+
                         swal.fire({
-                            title: "", text: response.message, type: "success", icon: "success",
-                        });
-                        setTimeout(() => {
-                            $('#submit-loader').hide();
-                            window.location.href = base_url + response.data;
-                        }, 900);
-                    } else {
-                        if (response.status == 'online-payment') {
-                            window.location.href = response.url;
-                        } else {
-                            swal.fire({
-                                confirmButtonColor: '#3085d6',
-                                title: "", text: response.message, type: "success", icon: "success",
-                            });
-                            setTimeout(() => {
-                                $('#submit-loader').hide();
-                                window.location.href = base_url + response.data;
-                            }, 3000);
-                        }
-                        $('#confirm_payment').text("Confirm Order");
+                                                        confirmButtonColor: '#3085d6',
+                                                        title: "", text: response.message, type: "success", icon: "success",
+                                                    });
+                                                    setTimeout(() => {
+                                                        $('#submit-loader').hide();
+                                                        window.location.href = base_url + response.data;
+                                                    }, 3000);
+                    }
+                    else {
+                        handleOrderResponse(response);
                     }
                 },
-                error: function (response) {
+                error: function () {
                     $('#confirm_payment').text("Confirm Order");
                     $('#confirm_payment').removeAttr('disabled');
                 }
             });
         } else {
-            // Handle validation error (e.g., show error message, highlight fields)
-            $('#payment-method-error').html('Please fill out all required fields').css({'color': 'red'});
-            Toast.fire('Error', 'Please fill out all required fields', "error");
+            // Notify the user to fill out all required fields and select a payment method
+            Toast.fire('Error', 'Please fill out all required fields and select a payment method', "error");
         }
     });
+    
+    function initiateRazorpayPayment(order_id, amount, currency, key, phone_number,db_orderid) {
+        var options = {
+            "key": key, // Enter the Key ID generated from the Dashboard
+            "amount": amount, // Amount is in currency subunits. Default is in paise (INR), so multiply by 100
+            "currency": currency,
+            "name": "Your Company Name",
+            "description": "Order Payment",
+            "order_id": order_id,
+            "handler": function (response) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: base_url + '/razorpay-callback',
+                    data: {
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_signature: response.razorpay_signature,
+                        db_orderid:db_orderid
+                    },
+                    success: function (response) {
+                        if (response.status == 'success') {
+
+
+                            Toast.fire({
+                                title: "Success!", text: response.message, icon: "success"
+                            });
+                            setTimeout(() => {
+                                window.location.href = base_url;
+                            }, 2000);
+                          
+                           
+                            // window.location.href = base_url;
+
+
+                                           }
+                    },
+                    error: function () {
+                        alert('Payment failed');
+                    }
+                });
+            },
+            "prefill": {
+            "contact": phone_number // Only the phone number is included in prefill
+        },
+            "notes": {
+                "address": "Customer Address"
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    
+    function handleOrderResponse(response) {
+        $('.order-submit-loader').hide();
+        if (response.status === true) {
+            swal.fire({
+                title: "",
+                text: response.message,
+                type: "success",
+                icon: "success",
+            });
+            setTimeout(() => {
+                $('#submit-loader').hide();
+                window.location.href = base_url + response.data;
+            }, 900);
+        } else {
+            swal.fire({
+                confirmButtonColor: '#3085d6',
+                title: "",
+                text: response.message,
+                type: "error",
+                icon: "error",
+            });
+            setTimeout(() => {
+                $('#submit-loader').hide();
+                window.location.href = base_url + response.data;
+            }, 3000);
+            $('#confirm_payment').text("Confirm Order");
+        }
+    }
+    
+    // function initiateRazorpayPayment(order_id, amount, currency, key) {
+    //     var options = {
+    //         "key": key, // Enter the Key ID generated from the Dashboard
+    //         "amount": amount, // Amount is in currency subunits. Default is in paise (INR), so multiply by 100
+    //         "currency": currency,
+    //         "name": "Your Company Name",
+    //         "description": "Order Payment",
+    //         "order_id": order_id,
+    //         "handler": function (response){
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 dataType: 'json',
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 url: base_url + '/razorpay-callback',
+    //                 data: {
+    //                     razorpay_payment_id: response.razorpay_payment_id,
+    //                     razorpay_order_id: response.razorpay_order_id,
+    //                     razorpay_signature: response.razorpay_signature
+    //                 },
+    //                 success: function (response) {
+    //                     handleOrderResponse(response);
+    //                 },
+    //                 error: function () {
+    //                     alert('Payment failed');
+    //                 }
+    //             });
+    //         },
+    //         "prefill": {
+    //             "name": "Customer Name",
+    //             "email": "customer@example.com",
+    //             "contact": "9999999999"
+    //         },
+    //         "notes": {
+    //             "address": "Customer Address"
+    //         },
+    //         "theme": {
+    //             "color": "#F37254"
+    //         }
+    //     };
+    //     var rzp1 = new Razorpay(options);
+    //     rzp1.open();
+    // }
+    
+    // function handleOrderResponse(response) {
+    //     $('.order-submit-loader').hide();
+    //     if (response.status === true) {
+    //         swal.fire({
+    //             title: "",
+    //             text: response.message,
+    //             type: "success",
+    //             icon: "success",
+    //         });
+    //         setTimeout(() => {
+    //             $('#submit-loader').hide();
+    //             window.location.href = base_url + response.data;
+    //         }, 900);
+    //     } else {
+    //         swal.fire({
+    //             confirmButtonColor: '#3085d6',
+    //             title: "",
+    //             text: response.message,
+    //             type: "success",
+    //             icon: "success",
+    //         });
+    //         setTimeout(() => {
+    //             $('#submit-loader').hide();
+    //             window.location.href = base_url + response.data;
+    //         }, 3000);
+    //         $('#confirm_payment').text("Confirm Order");
+    //     }
+    // }
     
     
     
@@ -1166,6 +1424,9 @@ $(document).ready(function () {
                         Toast.fire({
                             title: "Success!", text: response.message, icon: "success"
                         });
+                        setTimeout(() => {
+                            window.location.href = base_url + '/customer/account';
+                        }, 2000);
                         
 
                     } else if (response.status == "success-reload") {

@@ -30,7 +30,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Termwind\Components\Dd;
 use Illuminate\Support\Str;
-
+use Razorpay\Api\Api;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 class CartController extends Controller
 {
@@ -1211,177 +1214,571 @@ class CartController extends Controller
         return $customerAddress;
     }
 
-    public function submit_order(Request $request)
-    {
+    // public function submit_order(Request $request)
+    // {
 
          
       
-        if (Session::has('session_key')) {
-            $sessionKey = session('session_key');
-            if (!Cart::session($sessionKey)->isEmpty()) {
-                $calculation_box = Helper::calculationBox();
-                $siteInformation = SiteInformation::first();
+    //     if (Session::has('session_key')) {
+    //         $sessionKey = session('session_key');
+    //         if (!Cart::session($sessionKey)->isEmpty()) {
+    //             $calculation_box = Helper::calculationBox();
+    //             $siteInformation = SiteInformation::first();
                 
-                $orderCode = Order::order_code();
-                $order = new Order();
-                $order->order_code = $orderCode;
-                $order->payment_method = $request->payment_method;
-                $order->cod_extra_charge = 0;
-                $order->remarks = "good";
-                $tax_amount = $calculation_box['tax_amount'];
-                $order->tax = $siteInformation->tax;
-                $order->tax_type = $siteInformation->tax_type;
-                $order->tax_amount = $tax_amount;
-                $order->shipping_charge = $calculation_box['shippingAmount'];
-                $order->currency = "INR";
-                $order->currency_charge = 25;
+    //             $orderCode = Order::order_code();
+    //             $order = new Order();
+    //             $order->order_code = $orderCode;
+    //             $order->payment_method = $request->payment_method;
+    //             $order->cod_extra_charge = 0;
+    //             $order->remarks = "good";
+    //             $tax_amount = $calculation_box['tax_amount'];
+    //             $order->tax = $siteInformation->tax;
+    //             $order->tax_type = $siteInformation->tax_type;
+    //             $order->tax_amount = $tax_amount;
+    //             $order->shipping_charge = $calculation_box['shippingAmount'];
+    //             $order->currency = "INR";
+    //             $order->currency_charge = 25;
     
-                if ($order->save()) {
+    //             if ($order->save()) {
 
-                    if (!empty($request->name)) {
-                     $personalDetail = new PersonalDetails();
-                     $personalDetailsData = [];
+    //                 if (!empty($request->name)) {
+    //                  $personalDetail = new PersonalDetails();
+    //                  $personalDetailsData = [];
 
-                     // Prepare array of personal details data
-                     foreach ($request->name as $key => $name) {
-                        $personalDetail = new PersonalDetails();
-                        $personalDetail->order_id = $order->id;
-                        $personalDetail->name = $request->name[$key] ?? '';
-                        $personalDetail->age = $request->age[$key] ?? '';
-                        $personalDetail->address = $request->address ?? '';
-                        $personalDetail->passport_number = $request->passport_number ?? '';
-                        $personalDetail->pnr = $request->pnr[$key] ?? '';
-                        $personalDetail->country = $request->country ?? '';
-                        $personalDetail->state = $request->state ?? '';
-                        $personalDetail->city = $request->city ?? '';
-                        $personalDetail->gender = $request->gender[$key] ?? '';
-                        $personalDetail->pincode = $request->pincode ?? '';
+    //                  // Prepare array of personal details data
+    //                  foreach ($request->name as $key => $name) {
+    //                     $personalDetail = new PersonalDetails();
+    //                     $personalDetail->order_id = $order->id;
+    //                     $personalDetail->name = $request->name[$key] ?? '';
+    //                     $personalDetail->age = $request->age[$key] ?? '';
+    //                     $personalDetail->address = $request->address ?? '';
+    //                     $personalDetail->passport_number = $request->passport_number ?? '';
+    //                     $personalDetail->pnr = $request->pnr[$key] ?? '';
+    //                     $personalDetail->country = $request->country ?? '';
+    //                     $personalDetail->state = $request->state ?? '';
+    //                     $personalDetail->city = $request->city ?? '';
+    //                     $personalDetail->gender = $request->gender[$key] ?? '';
+    //                     $personalDetail->pincode = $request->pincode ?? '';
                     
                     
                     
-                        $personalDetail->save();
-                    }
+    //                     $personalDetail->save();
+    //                 }
                 
  
-                     // Insert multiple PersonalDetail records
-                     if (!empty($personalDetailsData)) {
-                         PersonalDetail::insert($personalDetailsData);
-                     }
+    //                  // Insert multiple PersonalDetail records
+    //                  if (!empty($personalDetailsData)) {
+    //                      PersonalDetail::insert($personalDetailsData);
+    //                  }
 
-                    }
+    //                 }
 
-                    $order_customer = new OrderCustomer;
-                    $order_customer->order_id = $order->id;
-                    if (Auth::guard('customer')->check()) {
-                        $order_customer->user_type = 'User';
-                        $order_customer->customer_id = Auth::guard('customer')->user()->customer->id;
-                        $order_customer->billing_address = "demo";
-                        $order_customer->shipping_address = "demo";
-                    } else {
-                        return response()->json([
-                            'status' => false,
-                            'message' => 'Please login',
-                            'data' => '/'
-                        ], 200);
-                    }
+    //                 $order_customer = new OrderCustomer;
+    //                 $order_customer->order_id = $order->id;
+    //                 if (Auth::guard('customer')->check()) {
+    //                     $order_customer->user_type = 'User';
+    //                     $order_customer->customer_id = Auth::guard('customer')->user()->customer->id;
+    //                     $order_customer->billing_address = "demo";
+    //                     $order_customer->shipping_address = "demo";
+    //                 } else {
+    //                     return response()->json([
+    //                         'status' => false,
+    //                         'message' => 'Please login',
+    //                         'data' => '/'
+    //                     ], 200);
+    //                 }
     
-                    if ($order_customer->save()) {
-                        $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
-                        foreach (Cart::session($sessionKey)->getContent() as $row) {
-                            $product_id = $row->id;
-                            $product = Product::find($product_id);
-                            $detail = new OrderProduct;
-                            $detail->order_id = $order->id;
-                            $detail->product_id = $product_id;
-                            $detail->qty = $row->quantity ?? 0;
-                            $detail->cost = $row->price ?? 0;
-                            $detail->offer_id = 0;
-                            $detail->offer_amount = 0;
-                            $detail->total = $row->price ?? 0;
-                            $detail->coupon_value = 0;
-                            $detail->coupon_after_price = 0;
-                            $detail->entry_date = $row->attributes['entry_date'] ?? '';
-                            $detail->exit_date = $row->attributes['setdate'] ?? '';
-                            $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
-                            $detail->flight_number = $row->attributes['flight_number'] ?? '';
-                            $detail->travel_type = $row->attributes['travel_type'] ?? '';
-                            $detail->origin = $row->attributes['origin'] ?? '';
-                            $detail->destination = $row->attributes['destination'] ?? '';
-                            $detail->guest = $row->attributes['guest'] ?? 0;
-                            $detail->terminal = $row->attributes['terminal'] ?? '';
-                            $detail->bag_count = $row->attributes['bag_count'] ?? 0;
-                            $detail->entry_time = $row->attributes['entry_time'] ?? '';
-                            $detail->exit_time = $row->attributes['exit_time'] ?? '';
-                            $detail->adults = $row->attributes['adults'] ?? '';
-                            $detail->infants = $row->attributes['infants'] ?? '';
-                            $detail->children = $row->attributes['children'] ?? '';
-                            $detail->porter_count = $row->attributes['guest'] ?? '';
-                            $detail->pnr = $row->attributes['pnr'] ?? '';
+    //                 if ($order_customer->save()) {
+    //                     $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
+    //                     foreach (Cart::session($sessionKey)->getContent() as $row) {
+    //                         $product_id = $row->id;
+    //                         $product = Product::find($product_id);
+    //                         $detail = new OrderProduct;
+    //                         $detail->order_id = $order->id;
+    //                         $detail->product_id = $product_id;
+    //                         $detail->qty = $row->quantity ?? 0;
+    //                         $detail->cost = $row->price ?? 0;
+    //                         $detail->offer_id = 0;
+    //                         $detail->offer_amount = 0;
+    //                         $detail->total = $row->price ?? 0;
+    //                         $detail->coupon_value = 0;
+    //                         $detail->coupon_after_price = 0;
+    //                         $detail->entry_date = $row->attributes['entry_date'] ?? '';
+    //                         $detail->exit_date = $row->attributes['setdate'] ?? '';
+    //                         $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
+    //                         $detail->flight_number = $row->attributes['flight_number'] ?? '';
+    //                         $detail->travel_type = $row->attributes['travel_type'] ?? '';
+    //                         $detail->origin = $row->attributes['origin'] ?? '';
+    //                         $detail->destination = $row->attributes['destination'] ?? '';
+    //                         $detail->guest = $row->attributes['guest'] ?? 0;
+    //                         $detail->terminal = $row->attributes['terminal'] ?? '';
+    //                         $detail->bag_count = $row->attributes['bag_count'] ?? 0;
+    //                         $detail->entry_time = $row->attributes['entry_time'] ?? '';
+    //                         $detail->exit_time = $row->attributes['exit_time'] ?? '';
+    //                         $detail->adults = $row->attributes['adults'] ?? '';
+    //                         $detail->infants = $row->attributes['infants'] ?? '';
+    //                         $detail->children = $row->attributes['children'] ?? '';
+    //                         $detail->porter_count = $row->attributes['guest'] ?? '';
+    //                         $detail->pnr = $row->attributes['pnr'] ?? '';
     
     
-                            if ($detail->save()) {
-                                $order_log = new OrderLog;
-                                $order_log->order_product_id = $detail->id;
-                                $order_log->status = 'Pending';
-                                if ($order_log->save()) {
-                                    $orderSaved[] = 1;
-                                } else {
-                                    $orderNotSaved[] = 1;
-                                    $notSaved[] = 1;
-                                }
-                            } else {
-                                $notSaved[] = 1;
-                            }
-                        }
-                        if (empty($notSaved) && empty($orderNotSaved)) {
-                            // Clear the cart session after the order is successfully processed
-                            Cart::session($sessionKey)->clear();
+    //                         if ($detail->save()) {
+    //                             $order_log = new OrderLog;
+    //                             $order_log->order_product_id = $detail->id;
+    //                             $order_log->status = 'Pending';
+    //                             if ($order_log->save()) {
+    //                                 $orderSaved[] = 1;
+    //                             } else {
+    //                                 $orderNotSaved[] = 1;
+    //                                 $notSaved[] = 1;
+    //                             }
+    //                         } else {
+    //                             $notSaved[] = 1;
+    //                         }
+    //                     }
+    //                     if (empty($notSaved) && empty($orderNotSaved)) {
+    //                         // Clear the cart session after the order is successfully processed
+    //                         Cart::session($sessionKey)->clear();
                             
-                            $couponSavedErrorArray = $couponSavedSuccessArray = [];
+    //                         $couponSavedErrorArray = $couponSavedSuccessArray = [];
                             
-                            if (empty($couponSavedErrorArray)) {
-                                if ($request->payment_method == 'COD') {
-                                    $response = $this->order_success($order->id);
-                                    return response()->json([
-                                        'status' => $response['status'],
-                                        'message' => $response['message'],
-                                        'data' => $response['data']
-                                    ], 200);
-                                } else {
-                                    $url = url('/payment/' . $order->id);
-                                    return response()->json(['status' => 'payment', 'url' => $url]);
-                                }
-                            } else {
-                                return response()->json([
-                                    'status' => true,
-                                    'message' => 'Error while placing the order, Please try after some time',
-                                    'data' => '/'
-                                ], 200);
-                            }
-                        }
+    //                         if (empty($couponSavedErrorArray)) {
+    //                             if ($request->payment_method == 'COD') {
+    //                                 $response = $this->order_success($order->id);
+    //                                 return response()->json([
+    //                                     'status' => $response['status'],
+    //                                     'message' => $response['message'],
+    //                                     'data' => $response['data']
+    //                                 ], 200);
+    //                             } else {
+    //                                 $url = url('/payment/' . $order->id);
+    //                                 return response()->json(['status' => 'payment', 'url' => $url]);
+    //                             }
+    //                         } else {
+    //                             return response()->json([
+    //                                 'status' => true,
+    //                                 'message' => 'Error while placing the order, Please try after some time',
+    //                                 'data' => '/'
+    //                             ], 200);
+    //                         }
+    //                     }
+    //                 }
+    //             } else {
+    //                 return response()->json([
+    //                     'status' => false,
+    //                     'message' => 'Error while place the order'
+    //                 ], 200);
+    //             }
+    //         } else {
+    //             return response()->json([
+    //                 'status' => true,
+    //                 'message' => 'Cart is empty',
+    //                 'data' => '/cart'
+    //             ], 200);
+    //         }
+    //     } else {
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Cart is empty',
+    //             'data' => '/cart'
+    //         ], 200);
+    //     }
+    // }
+    // public function submit_order(Request $request)
+    // {
+    //     if (Session::has('session_key')) {
+    //         $sessionKey = session('session_key');
+    
+    //         if (!Cart::session($sessionKey)->isEmpty()) {
+    //             $calculation_box = Helper::calculationBox();
+    //             $siteInformation = SiteInformation::first();
+    
+    //             $orderCode = Order::order_code();
+    //             $order = new Order();
+    //             $order->order_code = $orderCode;
+    //             $order->payment_method = $request->payment_method;
+    //             $order->cod_extra_charge = 0;
+    //             $order->remarks = "good";
+    //             $tax_amount = 10;
+    //             $order->tax = $siteInformation->tax;
+    //             $order->tax_type = $siteInformation->tax_type;
+    //             $order->tax_amount = 10;
+    //             $order->shipping_charge = 10;
+    //             $order->currency = "INR";
+    //             $order->currency_charge = 25;
+    //             $order->cod_extra_charge =  $request->final_amount;
+    
+    //             if ($order->save()) {
+    //                 if (!empty($request->name)) {
+    //                     $personalDetailsData = [];
+    //                     foreach ($request->name as $key => $name) {
+    //                         $personalDetailsData[] = [
+    //                             'order_id' => $order->id,
+    //                             'name' => $request->name[$key] ?? '',
+    //                             'age' => $request->age[$key] ?? '',
+    //                             'address' => $request->address ?? '',
+    //                             'passport_number' => $request->passport_number ?? '',
+    //                             'pnr' => $request->pnr[$key] ?? '',
+    //                             'country' => $request->country ?? '',
+    //                             'state' => $request->state ?? '',
+    //                             'city' => $request->city ?? '',
+    //                             'gender' => $request->gender[$key] ?? '',
+    //                             'pincode' => $request->pincode ?? ''
+    //                         ];
+    //                     }
+    //                     PersonalDetails::insert($personalDetailsData);
+    //                 }
+    
+    //                 $order_customer = new OrderCustomer();
+    //                 $order_customer->order_id = $order->id;
+    //                 if (Auth::guard('customer')->check()) {
+    //                     $order_customer->user_type = 'User';
+    //                     $order_customer->customer_id = Auth::guard('customer')->user()->customer->id;
+    //                     $order_customer->billing_address = "demo";
+    //                     $order_customer->shipping_address = "demo";
+    //                 } else {
+    //                     return response()->json([
+    //                         'status' => false,
+    //                         'message' => 'Please login',
+    //                         'data' => '/'
+    //                     ], 200);
+    //                 }
+    
+    //                 if ($order_customer->save()) {
+    //                     foreach (Cart::session($sessionKey)->getContent() as $row) {
+    //                         $detail = new OrderProduct();
+    //                         $detail->order_id = $order->id;
+    //                         $detail->product_id = $row->id;
+    //                         $detail->qty = $row->quantity ?? 0;
+    //                         $detail->cost = $row->price ?? 0;
+    //                         $detail->total = $row->price ?? 0;
+    //                         $detail->save();
+    
+    //                         $order_log = new OrderLog();
+    //                         $order_log->order_product_id = $detail->id;
+    //                         $order_log->status = 'Pending';
+    //                         $order_log->save();
+    //                     }
+                        
+    
+    //                     if ($request->payment_method == 'cod') {
+    //                         $response = $this->order_success($order->id);
+    //                         return response()->json([
+    //                             'status' => $response['status'],
+    //                             'message' => $response['message'],
+    //                             'data' => $response['data']
+    //                         ], 200);
+    //                     } else {
+    //                         $razorpayResponse = $this->createRazorpayOrder($order->id, $order->cod_extra_charge);
+    
+    //                         if ($razorpayResponse['status'] === 'online-payment') {
+                                
+    //                             return response()->json([
+    //                                 'status' => 'online-payment',
+    //                                 'order_id' => $razorpayResponse['order_id'],
+    //                                 'amount' => $razorpayResponse['amount'],
+    //                                 'currency' => $razorpayResponse['currency'],
+    //                                 'key' => $razorpayResponse['key'],
+    //                                 'db_orderid' => $order->id
+    //                             ], 200);
+
+
+                               
+    //                         } else {
+    //                             return response()->json([
+    //                                 'status' => 'error',
+    //                                 'message' => $razorpayResponse['message']
+    //                             ], 200);
+    //                         }
+    //                     }
+    //                 }
+    //             } else {
+    //                 return response()->json([
+    //                     'status' => false,
+    //                     'message' => 'Error while placing the order'
+    //                 ], 200);
+    //             }
+    //         } else {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => 'Cart is empty'
+    //             ], 200);
+    //         }
+    //     } else {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Session expired'
+    //         ], 200);
+    //     }
+    // }
+    public function submit_order(Request $request)
+{
+    if (Session::has('session_key')) {
+        $sessionKey = session('session_key');
+
+        if (!Cart::session($sessionKey)->isEmpty()) {
+            $calculation_box = Helper::calculationBox();
+            $siteInformation = SiteInformation::first();
+
+            $orderCode = Order::order_code();
+            $order = new Order();
+            $order->order_code = $orderCode;
+            $order->payment_method = $request->payment_method;
+            $order->cod_extra_charge = 0;
+            $order->remarks = "good";
+            $order->tax = $siteInformation->tax;
+            $order->tax_type = $siteInformation->tax_type;
+            $order->tax_amount = 10;
+            $order->shipping_charge = 10;
+            $order->currency = "INR";
+            $order->currency_charge = 25;
+            $order->cod_extra_charge = $request->final_amount;
+
+            if ($order->save()) {
+                if (!empty($request->name)) {
+                    $personalDetailsData = [];
+                    foreach ($request->name as $key => $name) {
+                        $personalDetailsData[] = [
+                            'order_id' => $order->id,
+                            'name' => $request->name[$key] ?? '',
+                            'age' => $request->age[$key] ?? '',
+                            'address' => $request->address ?? '',
+                            'passport_number' => $request->passport_number ?? '',
+                            'pnr' => $request->pnr[$key] ?? '',
+                            'country' => $request->country ?? '',
+                            'state' => $request->state ?? '',
+                            'city' => $request->city ?? '',
+                            'gender' => $request->gender[$key] ?? '',
+                            'pincode' => $request->pincode ?? ''
+                        ];
                     }
+                    PersonalDetails::insert($personalDetailsData);
+                }
+
+                $order_customer = new OrderCustomer();
+                $order_customer->order_id = $order->id;
+                if (Auth::guard('customer')->check()) {
+                    $order_customer->user_type = 'User';
+                    $order_customer->customer_id = Auth::guard('customer')->user()->customer->id;
+                    $order_customer->billing_address = "demo";
+                    $order_customer->shipping_address = "demo";
                 } else {
                     return response()->json([
                         'status' => false,
-                        'message' => 'Error while place the order'
+                        'message' => 'Please login',
+                        'data' => '/'
                     ], 200);
+                }
+
+                if ($order_customer->save()) {
+                    $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
+                    foreach (Cart::session($sessionKey)->getContent() as $row) {
+                        $detail = new OrderProduct();
+                        $detail->order_id = $order->id;
+                        $detail->product_id = $row->id;
+                        $detail->qty = $row->quantity ?? 0;
+                        $detail->cost = $row->price ?? 0;
+                        $detail->total = $row->price ?? 0;
+                        $detail->offer_id = 0;
+                        $detail->offer_amount = 0;
+                        $detail->coupon_value = 0;
+                        $detail->coupon_after_price = 0;
+                        $detail->entry_date = $row->attributes['entry_date'] ?? '';
+                        $detail->exit_date = $row->attributes['setdate'] ?? '';
+                        $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
+                        $detail->flight_number = $row->attributes['flight_number'] ?? '';
+                        $detail->travel_type = $row->attributes['travel_type'] ?? '';
+                        $detail->origin = $row->attributes['origin'] ?? '';
+                        $detail->destination = $row->attributes['destination'] ?? '';
+                        $detail->guest = $row->attributes['guest'] ?? 0;
+                        $detail->terminal = $row->attributes['terminal'] ?? '';
+                        $detail->bag_count = $row->attributes['bag_count'] ?? 0;
+                        $detail->entry_time = $row->attributes['entry_time'] ?? '';
+                        $detail->exit_time = $row->attributes['exit_time'] ?? '';
+                        $detail->adults = $row->attributes['adults'] ?? '';
+                        $detail->infants = $row->attributes['infants'] ?? '';
+                        $detail->children = $row->attributes['children'] ?? '';
+                        $detail->porter_count = $row->attributes['guest'] ?? '';
+                        $detail->pnr = $row->attributes['pnr'] ?? '';
+
+                        if ($detail->save()) {
+                            $order_log = new OrderLog();
+                            $order_log->order_product_id = $detail->id;
+                            $order_log->status = 'Pending';
+                            if ($order_log->save()) {
+                                $orderSaved[] = 1;
+                            } else {
+                                $orderNotSaved[] = 1;
+                                $notSaved[] = 1;
+                            }
+                        } else {
+                            $notSaved[] = 1;
+                        }
+                    }
+
+                    if (empty($notSaved) && empty($orderNotSaved)) {
+                        // Clear the cart session after the order is successfully processed
+                        Cart::session($sessionKey)->clear();
+
+                        if ($request->payment_method == 'cod') {
+                            $response = $this->order_success($order->id);
+                            return response()->json([
+                                'status' => $response['status'],
+                                'message' => $response['message'],
+                                'data' => $response['data']
+                            ], 200);
+                        } else {
+                            $razorpayResponse = $this->createRazorpayOrder($order->id, $order->cod_extra_charge);
+
+                            if ($razorpayResponse['status'] === 'online-payment') {
+                                return response()->json([
+                                    'status' => 'online-payment',
+                                    'order_id' => $razorpayResponse['order_id'],
+                                    'amount' => $razorpayResponse['amount'],
+                                    'currency' => $razorpayResponse['currency'],
+                                    'key' => $razorpayResponse['key'],
+                                    'db_orderid' => $order->id
+                                ], 200);
+                            } else {
+                                return response()->json([
+                                    'status' => 'error',
+                                    'message' => $razorpayResponse['message']
+                                ], 200);
+                            }
+                        }
+                    } else {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Error while placing the order, Please try after some time'
+                        ], 200);
+                    }
                 }
             } else {
                 return response()->json([
-                    'status' => true,
-                    'message' => 'Cart is empty',
-                    'data' => '/cart'
+                    'status' => false,
+                    'message' => 'Error while placing the order'
                 ], 200);
             }
         } else {
             return response()->json([
-                'status' => true,
-                'message' => 'Cart is empty',
-                'data' => '/cart'
+                'status' => false,
+                'message' => 'Cart is empty'
             ], 200);
+        }
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Session expired'
+        ], 200);
+    }
+}
+
+
+    public function createRazorpayOrder($orderId, $extraCharge)
+    {
+        $api = new Api(Config::get('services.razorpay.key'), Config::get('services.razorpay.secret'));
+    
+        // Ensure amount is an integer
+        $amount = (int)($extraCharge * 100); // Convert to paise
+        // Ensure receipt is a string
+        $receipt = (string)$orderId;
+    
+        $orderData = [
+            'amount' => $amount,
+            'currency' => 'INR',
+            'receipt' => $receipt,
+            'payment_capture' => 1 // Auto-capture
+        ];
+    
+        Log::info('Creating Razorpay order with data:', $orderData);
+    
+        try {
+            $order = $api->order->create($orderData);
+    
+            return [
+                'status' => 'online-payment',
+                'order_id' => $order->id,
+                'amount' => $order->amount,
+                'currency' => $order->currency,
+                'key' => Config::get('services.razorpay.key')
+            ];
+        } catch (\Exception $e) {
+            // Log detailed error
+            Log::error('Razorpay order creation error: ' . $e->getMessage());
+    
+            return [
+                'status' => 'error',
+                'message' => 'Failed to create Razorpay order. Error: ' . $e->getMessage()
+            ];
         }
     }
     
+    
+
+    public function initiatePayment(Request $request)
+    {
+        $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+        
+        $order = $api->order->create([
+            'receipt'         => 'order_rcptid_11',
+            'amount'          => $request->amount * 100, // amount in the smallest currency unit
+            'currency'        => 'INR'
+        ]);
+
+        $orderId = $order['id'];
+
+        return view('web.razorpay-payment', compact('orderId'));
+    }
+
+    public function handlePayment(Request $request)
+    {
+        $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+
+
+        $orderId = $request->db_orderid;
+    
+        $signature = $request->razorpay_signature;
+        $orderId = $request->razorpay_order_id;
+        $paymentId = $request->razorpay_payment_id;
+    
+        try {
+            $api->utility->verifyPaymentSignature([
+                'razorpay_signature' => $signature,
+                'razorpay_order_id' => $orderId,
+                'razorpay_payment_id' => $paymentId
+            ]);
+
+            
+        $orderId = $request->db_orderid;
+
+            $response = $this->order_success($orderId);
+    
+            
+    
+            return response()->json(['status' => 'success',  'message' => 'Order has been placed successfully',]); // Redirect to home page after successful payment
+        } catch (\Exception $e) {
+            // Handle verification failure
+            return response()->json(['status' => 'error', 'message' => 'Your Payment not completed']);
+        }
+    }
+    
+
+    // PaymentController.php
+public function verify(Request $request)
+{
+    $paymentId = $request->input('payment_id');
+    $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+
+    try {
+        $payment = $api->payment->fetch($paymentId);
+        // Verify payment here (check status, etc.)
+
+        return response()->json(['success' => true]);
+    } catch (Exception $e) {
+        return response()->json(['success' => false]);
+    }
+}
+
 
     public function order_success($order_id)
     {

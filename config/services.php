@@ -43,5 +43,11 @@ return [
         'client_secret' => env('FB_SECRET'),
         'redirect' =>  env('APP_URL') .('/auth/facebook/callback'),
     ],
+    
+    'razorpay' => [
+    'key'    => env('RAZORPAY_KEY'),
+    'secret' => env('RAZORPAY_SECRET'),
+],
+
 
 ];

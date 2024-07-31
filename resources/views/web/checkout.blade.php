@@ -229,79 +229,57 @@
                            </tr>
                         </tfoot>
                      </table>
+                     @if(Auth::guard('customer')->check())
+
+                                                        @php
+                                        $user = Auth::guard('customer')->user();
+                                        
+                                    @endphp
+
+
+                                    @endif
                      <div class="d-flex justify-content-center">
                         <a href="{{ route('preview') }}" class="btn btn-primary-outline me-2">Back</a>
-                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment">Place Order</button>
+                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ $finalamount }}" data-phone_number="{{ $user->phone }}">Place Order</button>
                      </div>
                   </div>
                   <h4 class="mt-4">Payment Methods</h4>
-                  <div class="col-12 cart-product cart-prdct-payment">
-                     <form>
-                        <div class="d-flex flex-wrap cart-pyment-list align-items-center justify-content-between">
-                           <div class="cart-pymentradio">
-                              <div class="form-check d-flex align-items-center">
-                                 <input class="form-check-input" type="radio" name="transfer" id="cardtransfer">
-                                 <label class="form-check-label ms-2" for="transfer">
-                                    <h4>Credit/Debit Cards</h4>
-                                    <p>Pay with your Credit / Debit Card</p>
-                                 </label>
-                              </div>
-                           </div>
-                           <img src="{{ asset('frontend/img/card-logo.png')}}" alt="card"/>
-                           <div class="col-10 directtransfer-form" id="card-form">
-                              <div class="row">
-                                 <div class="col-lg-12 form-grid">
-                                    <label>Card Number</label>
-                                    <input type="text" placeholder="" />
-                                 </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-lg-6 form-grid">
-                                    <label>Valid thru</label>
-                                    <input type="text" placeholder="" />
-                                 </div>
-                                 <div class="col-lg-6 form-grid">
-                                    <label>CVV</label>
-                                    <input type="text" placeholder="" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="d-flex cart-pyment-list align-items-center justify-content-between">
-                           <div class="cart-pymentradio">
-                              <div class="form-check d-flex align-items-center">
-                                 <input class="form-check-input" type="radio" name="transfer" id="direct-transfer"  >
-                                 <label class="form-check-label ms-2" for="direct-transfer">
-                                    <h4>Direct Bank Transfer</h4>
-                                    <p>Make payment directly through bank account.</p>
-                                 </label>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="d-flex flex-wrap cart-pyment-list align-items-center justify-content-between">
-                           <div class="cart-pymentradio">
-                              <div class="form-check d-flex align-items-center">
-                                 <input class="form-check-input" type="radio" name="transfer" id="other-payment"  >
-                                 <label class="form-check-label ms-2" for="other-payment">
-                                    <h4>Other Payment Methods</h4>
-                                    <p>Make payment through Gpay, Paypal, Paytm etc</p>
-                                 </label>
-                              </div>
-                           </div>
-                           <img src="{{ asset('frontend/img/card-logo.png')}}" alt="card"/>
-                           <div class="col-10 directtransfer-form" id="upi-form">
-                              <div class="row">
-                                 <div class="col-lg-12 form-grid">
-                                    <p class="mb-0">Add new UPI ID</p>
-                                    <label>UP ID</label>
-                                    <input type="text" placeholder="" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </form>
-                  </div>
-               </div>
+<div class="col-12 cart-product cart-prdct-payment">
+    <form>
+        <div class="d-flex flex-wrap cart-pyment-list align-items-center justify-content-between">
+            <div class="cart-pymentradio">
+                <div class="form-check d-flex align-items-center">
+                    <input class="form-check-input" type="radio" name="transfer" id="online-payment" value="online-payment">
+                    <label class="form-check-label ms-2" for="online-payment">
+                        <h4>Online Payment</h4>
+                        <p>Pay using credit/debit cards, UPI, or other methods.</p>
+                    </label>
+                </div>
+            </div>
+            <div class="col-10 directtransfer-form" id="upi-form">
+                <div class="row">
+                    <div class="col-lg-12 form-grid">
+                        <p class="mb-0">Add new UPI ID</p>
+                        <label>UPI ID</label>
+                        <input type="text" placeholder="UPI ID" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex cart-pyment-list align-items-center justify-content-between">
+            <div class="cart-pymentradio">
+                <div class="form-check d-flex align-items-center">
+                    <input class="form-check-input" type="radio" name="transfer" id="cod" value="COD">
+                    <label class="form-check-label ms-2" for="cod">
+                        <h4>Cash on Delivery</h4>
+                        <p>Pay with cash upon delivery.</p>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
             </div>
          </div>
       </div>
@@ -311,21 +289,20 @@
 @push('scripts')
 <script>
    $(document).ready(function() {
-       $('input[name=transfer]').click(function () {  
-               if (this.id == "cardtransfer") {
-                   $("#card-form").show();
-                   $("#upi-form").hide();
-               } 
-               else if (this.id == "other-payment") {
-                   $("#upi-form").show();
-                   $("#card-form").hide();
-               } 
-               else {
-                 $("#upi-form").hide();
-                 $("#card-form").hide();
-               }
-           });
-   
+      $('input[name=transfer]').click(function () {  
+        if (this.id == "cardtransfer") {
+            $("#card-form").show();
+            $("#upi-form").hide();
+        } 
+        else if (this.id == "other-payment") {
+            $("#upi-form").show();
+            $("#card-form").hide();
+        } 
+        else {
+            $("#upi-form").hide();
+            $("#card-form").hide();
+        }
+    });
        });
 </script>
 <script>
@@ -371,4 +348,5 @@
 });
 
 </script>
+
 @endpush

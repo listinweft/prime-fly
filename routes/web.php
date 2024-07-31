@@ -53,7 +53,7 @@ use PHPUnit\TextUI\Help;
 |
 */
 Route::middleware(['web'])->group(function () {
-    Route::get('/', [WebController::class, 'home']);
+    Route::get('/', [WebController::class, 'home'])->name('home');;
 
     Route::get('product-details',function(){
         return view('web.product-details');
@@ -186,6 +186,11 @@ Route::middleware(['web'])->group(function () {
     Route::post('add-wishlist', [CartController::class, 'add_to_wish_list']);
     Route::post('add-cart', [CartController::class, 'add_to_cart']);
     Route::get('checkCart', [CartController::class, 'checkCart']);
+    Route::post('/razorpay-payment', [CartController::class, 'initiatePayment'])->name('razorpay.payment');
+    Route::post('/razorpay-callback', [CartController::class, 'handlePayment'])->name('razorpay.callback');
+    // web.php
+Route::post('/payment/verify', [CartController::class, 'verify'])->name('payment.verify');
+
 
     
     Route::post('open-cart-modal', [CartController::class, 'open_cart_modal']);

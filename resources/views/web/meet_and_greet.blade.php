@@ -34,9 +34,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control select2" name="origin" id="origins">
                     <option value="">Select Origin</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -44,9 +44,9 @@
             <div class="booking_select">
                 <select class="form-control select2" name="destination" id="destinations">
                     <option value="">Select Destination</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -264,6 +264,12 @@ destinationSelect.append('<option value="' + location.fs + '">' + location.city 
         $('#destinations').empty().append('<option value="">Select Destination</option>');
     }
 }
+
+$('#travel_sector').change(function() {
+        $('#travel_type').val('').change();
+        $('#origins').empty().append('<option value="">Select Origin</option>').change();
+        $('#destinations').empty().append('<option value="">Select Destination</option>').change();
+    });
 
 // Event listener for travel type change
 $('#travel_type').change(function() {
