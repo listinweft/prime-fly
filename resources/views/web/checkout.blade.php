@@ -271,8 +271,8 @@
                 <div class="form-check d-flex align-items-center">
                     <input class="form-check-input" type="radio" name="transfer" id="cod" value="COD">
                     <label class="form-check-label ms-2" for="cod">
-                        <h4>Cash on Delivery</h4>
-                        <p>Pay with cash upon delivery.</p>
+                        <h4>Pay later</h4>
+                        <p>Pay after delivery.</p>
                     </label>
                 </div>
             </div>

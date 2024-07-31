@@ -259,16 +259,70 @@ $(document).ready(function() {
 
 
         // Event listener for origin change
-        $('#destinationpo').change(function() {
-            var origin = $('#originpo').val(); // Get the selected origin
-            var travel_type = $('#travel_typepo').val(); // Get the selected travel type
+        $('#travel_sectorpo').change(function() {
+        // Reset dropdowns
+        $('#travel_typepo').val('').change();
+        $('#originpo').empty().append('<option value="">Select Origin</option>');
+        $('#destinationpo').empty().append('<option value="">Select Destination</option>');
+        $('#flightspo').empty().append('<option value="">Select Flight</option>');
 
-            if (origin && travel_type) {
-                fetchFlights(travel_type, origin);
-            } else {
-                $('#flightspo').empty().append('<option value="">Select Flight</option>');
-            }
-        });
+        // Manually clear validation errors
+        $("#bookingForm-porter").validate().resetForm();
+
+        var travel_type = $('#travel_typepo').val();
+        if (travel_type) {
+            populateLocations(travel_type);
+        }
+    });
+
+    // Event listener for travel type change
+    $('#travel_typepo').change(function() {
+        var travel_type = $(this).val();
+        if (travel_type) {
+            populateLocations(travel_type);
+        } else {
+            $('#originpo').empty().append('<option value="">Select Origin</option>');
+            $('#destinationpo').empty().append('<option value="">Select Destination</option>');
+        }
+
+        // Manually clear validation errors
+        $("#bookingForm-porter").validate().resetForm();
+    });
+
+    // Event listener for origin change
+    $('#originpo').change(function() {
+        var origin = $(this).val();
+        var destination = $('#destinationpo').val();
+        var travel_type = $('#travel_typepo').val();
+        
+        if (origin && destination && travel_type) {
+            fetchFlights(travel_type, origin);
+        } else {
+            $('#flightspo').empty().append('<option value="">Select Flight</option>');
+        }
+
+        // Manually clear validation errors
+        $("#bookingForm-porter").validate().element("#originpo");
+        // $("#bookingForm-porter").validate().element("#destinationpo");
+    });
+
+    // Event listener for destination change
+    $('#destinationpo').change(function() {
+        var origin = $('#originpo').val();
+        var destination = $(this).val();
+        var travel_type = $('#travel_typepo').val();
+        
+        if (origin && destination && travel_type) {
+            fetchFlights(travel_type, origin);
+        } else {
+            $('#flightspo').empty().append('<option value="">Select Flight</option>');
+        }
+
+        // Manually clear validation errors
+        $("#bookingForm-porter").validate().element("#originpo");
+        $("#bookingForm-porter").validate().element("#destinationpo");
+    });
+
 
         // Function to fetch flights based on selected parameters
         function fetchFlights(serviceType, origin) {

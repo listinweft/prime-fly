@@ -37,7 +37,7 @@
         @if($item['totalguest'] > 0)
             <p>{{ $item['totalguest'] }} Guest</p>
         @endif
-    @elseif( session('category') == 'Cloak Room' ||  session('category') == 'Baggage Wrapping')
+    @elseif( session('category') == 'Cloak Room' ||  session('category') == 'Baggage wrapping')
         @if($item['totalguest'] > 0)
             <p>{{ $item['totalguest'] }} Bag</p>
         @endif

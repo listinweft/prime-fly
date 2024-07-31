@@ -1618,8 +1618,7 @@ class CartController extends Controller
 
                     if (empty($notSaved) && empty($orderNotSaved)) {
                         // Clear the cart session after the order is successfully processed
-                        Cart::session($sessionKey)->clear();
-
+                        
                         if ($request->payment_method == 'cod') {
                             $response = $this->order_success($order->id);
                             return response()->json([
@@ -1751,7 +1750,7 @@ class CartController extends Controller
             
         $orderId = $request->db_orderid;
 
-            $response = $this->order_success($orderId);
+        $response = $this->order_success($orderId);
     
             
     

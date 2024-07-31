@@ -262,11 +262,11 @@ public function getLocations_meet(Request $request)
 
         // For international sector, use locationsFromDb directly
         if ($travelSector == 'departure') {
-            $origins = $mappedLocations->prepend(['fs' => '', 'city' => 'Select Origin']);
+            $origins = $mappedLocations;
             $destinations = $locationsFromDb;
         } elseif ($travelSector == 'arrival') {
             $origins = $locationsFromDb;
-            $destinations = $mappedLocations->prepend(['fs' => '', 'city' => 'Select Destination']);
+            $destinations = $mappedLocations;
         }
     } else {
         // Fetch data from API for non-international sector
@@ -279,11 +279,11 @@ public function getLocations_meet(Request $request)
 
        
         if ($travelSector == 'departure') {
-            $origins = $mappedLocations->prepend(['fs' => '', 'city' => 'Select Origin']);
+            $origins = $mappedLocations;
             $destinations = $locationsFromApi;
         } elseif ($travelSector == 'arrival') {
             $origins = $locationsFromApi;
-            $destinations = $mappedLocations->prepend(['fs' => '', 'city' => 'Select Destination']);
+            $destinations = $mappedLocations;
         }
     }
 
@@ -382,11 +382,11 @@ public function getLocations_meet(Request $request)
     
             // For international sector, use locationsFromDb directly
             if ($travelSector == 'departure') {
-                $origins = $mappedLocations->prepend(['fs' => '', 'city' => 'Select Origin']);
+                $origins = $mappedLocations;
                 $destinations = $locationsFromDb;
             } elseif ($travelSector == 'arrival') {
                 $origins = $locationsFromDb;
-                $destinations = $mappedLocations->prepend(['fs' => '', 'city' => 'Select Destination']);
+                $destinations = $mappedLocations;
             }
         } else {
             // Fetch data from API for non-international sector
