@@ -608,7 +608,7 @@ table {
 }
 #flight_select .booking_select:before{
     background-image: url(../img/flight.png);
-    width: 20px;
+    width: 35px;
     height: 100%; 
     left: 10px;
 }
@@ -625,7 +625,7 @@ table {
     left: 10px;
 }
 #flight_select .booking_select{
-    padding-left:0px;
+    padding-left:50px;
 }
 .select-options li {
     color: #86898B;
