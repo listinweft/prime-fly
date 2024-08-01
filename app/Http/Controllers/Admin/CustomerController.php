@@ -57,7 +57,7 @@ class CustomerController extends Controller
         $user = new User;
         $user->user_type = 'Customer';
         $user->email = $request->email;
-//        $user->username = $request->username;
+        $user->username = $request->username;
         $user->phone = $request->phone;
         $user->btype = $request->btype;
         $user->password = Hash::make($request->password);
@@ -118,6 +118,7 @@ class CustomerController extends Controller
         if ($customer->save()) {
             $user->email = $request->email;
             $user->phone = $request->phone;
+            $user->username = $request->username;
             $user->btype = $request->btype;
             $user->updated_by = Auth::id();
             $user->image_attribute = $request->image_attribute;

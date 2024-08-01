@@ -77,13 +77,21 @@
                                                 @else
                                                     <p> count information not available</p>
                                                 @endif
+
+                                                @elseif (in_array($categorydata->title, ['Porter']))
+                                                @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+                                                    <p>From: {{ ucwords($locationTitle) }} Porter: {{ $row->attributes['guest'] }}</p>
+                                                @else
+                                                    <p>Guest information not available</p>
+                                                @endif
                                             @else
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
-                                                    <p>From:  {{ ucwords($locationTitle) }} Porter: {{ $row->attributes['guest'] }}</p>
+                                                    <p>From:  {{ ucwords($locationTitle) }} Bag: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p>Guest information not available</p>
                                                 @endif
                                             @endif
+
                                             <p>Travel Type:{{ ucwords($product->service_type) }}: Date: {{ $row->attributes['setdate'] }}</p>
                                                     <a href="javascript:void(0)" class="remove-cart-item" data-id="{{ $row->id }}">Remove</a>
                                                 </div>

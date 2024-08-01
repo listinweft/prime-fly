@@ -79,7 +79,7 @@
                                         <label> Username*</label>
                                         <input type="text" name="username" id="username" placeholder="Username"
                                                class="form-control required" autocomplete="off"
-                                               value="{{ old('last_name', @$customer->user->username) }}">
+                                               value="{{ old('username', @$customer->user->username) }}">
                                         <div class="help-block with-errors" id="username_error"></div>
                                         @error('username')
                                         <div class="invalid-feedback">{{ $message }}</div>

@@ -970,38 +970,37 @@ $(document).ready(function () {
         e.preventDefault(); // Prevent the default form submission
     
         var payment_method = $('input[name=transfer]:checked').attr('id');
-
+    
         // alert(payment_method);
         var finalAmount = $(this).data('finalamount');
         var phone_number = $(this).data('phone_number');
-    var valid = true;
-
-    // Initialize error messages
-    var $paymentMethodError = $('#payment-method-error');
-    var $requiredFields = $('.details-item input[required], .details-item textarea[required]');
-    var requiredFieldsEmpty = false;
-
-    // Reset previous error messages
-    $paymentMethodError.html('').css({'color': ''});
-    $requiredFields.removeClass('error');
-    $('.error-message').hide();
-
-    // Check if a payment method is selected
-    if (!payment_method) {
-        valid = false;
-        $paymentMethodError.html('Please select a payment method').css({'color': 'red'});
-    }
-
-    // Validate required fields
-    $requiredFields.each(function() {
-        if ($(this).val().trim() === '') {
+        var valid = true;
+    
+        // Initialize error messages
+        var $paymentMethodError = $('#payment-method-error');
+        var $requiredFields = $('.details-item input[required], .details-item textarea[required]');
+        var requiredFieldsEmpty = false;
+    
+        // Reset previous error messages
+        $paymentMethodError.html('').css({'color': ''});
+        $requiredFields.removeClass('error');
+        $('.error-message').hide();
+    
+        // Check if a payment method is selected
+        if (!payment_method) {
             valid = false;
-            requiredFieldsEmpty = true;
-            $(this).addClass('error');
-            $(this).next('.error-message').show();
+            $paymentMethodError.html('Please select a payment method').css({'color': 'red'});
         }
-    });
-
+    
+        // Validate required fields
+        $requiredFields.each(function() {
+            if ($(this).val().trim() === '') {
+                valid = false;
+                requiredFieldsEmpty = true;
+                $(this).addClass('error');
+                $(this).next('.error-message').show();
+            }
+        });
     
         if (valid) {
             $(this).text("Please Wait...");
@@ -1029,25 +1028,17 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     if (response.status === 'online-payment') {
-                        initiateRazorpayPayment(response.order_id, response.amount, response.currency, response.key,phone_number,response.db_orderid);
-                    } 
-                    
-                    
-                    else if(response.status === 'COD')
-                    {
-
-
-
+                        initiateRazorpayPayment(response.order_id, response.amount, response.currency, response.key, phone_number, response.db_orderid);
+                    } else if (response.status === 'COD') {
                         swal.fire({
-                                                        confirmButtonColor: '#3085d6',
-                                                        title: "", text: response.message, type: "success", icon: "success",
-                                                    });
-                                                    setTimeout(() => {
-                                                        $('#submit-loader').hide();
-                                                        window.location.href = base_url + response.data;
-                                                    }, 3000);
-                    }
-                    else {
+                            confirmButtonColor: '#3085d6',
+                            title: "", text: response.message, type: "success", icon: "success",
+                        });
+                        setTimeout(() => {
+                            $('#submit-loader').hide();
+                            window.location.href = base_url + response.data;
+                        }, 3000);
+                    } else {
                         handleOrderResponse(response);
                     }
                 },
@@ -1061,6 +1052,18 @@ $(document).ready(function () {
             Toast.fire('Error', 'Please fill out all required fields and select a payment method', "error");
         }
     });
+    
+    // Clear error message when a payment method is selected
+    $(document).on('change', 'input[name=transfer]', function() {
+        $('#payment-method-error').html('').css({'color': ''});
+    });
+    
+    // Clear error message when a required field is filled out
+    $(document).on('input', '.details-item input[required], .details-item textarea[required]', function() {
+        $(this).removeClass('error');
+        $(this).next('.error-message').hide();
+    });
+    
     
     function initiateRazorpayPayment(order_id, amount, currency, key, phone_number,db_orderid) {
         var options = {

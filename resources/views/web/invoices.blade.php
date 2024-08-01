@@ -201,10 +201,22 @@
         <h4 style="color:#707070;font-size:11px;">Porter information not available</h4>
     @endif
 @elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
+
+
+@if(in_array($product_category->title, ['Meet and Greet']))
+        
+
+
+  
+
+        @else
+
     @if(isset($product->guest) && $product->guest > 0)
         <h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
     @else
         <h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+    @endif
+
     @endif
 @elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
     @if(isset($product->guest) && $product->guest > 0)
