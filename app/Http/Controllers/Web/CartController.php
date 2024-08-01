@@ -1781,8 +1781,10 @@ public function verify(Request $request)
 
     public function order_success($order_id)
     {
-        DB::beginTransaction();
+        // DB::beginTransaction();
         $order = Order::find($order_id);
+        $order->payment_mode = 'Success'; // Ensure 'Success' is a valid enum value
+        $order->save();
         $order_products = OrderProduct::where('order_id', $order_id)->get();
         foreach ($order_products as $order_product) {
             $order_log = OrderLog::where('order_product_id', $order_product->id)->first();
@@ -1796,8 +1798,13 @@ public function verify(Request $request)
            
         }
        
+
+       
+
            
             $this->clear_order_cart_sessions();
+
+            
 
 
             if (Helper::sendOrderPlacedMail($order->id, '1')) {

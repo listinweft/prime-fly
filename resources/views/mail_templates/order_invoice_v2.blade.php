@@ -356,6 +356,13 @@
          </td>
          </tr> 
          </table>
+         @php
+
+
+         $personaladdress = App\Models\PersonalDetails::where('order_id', $order->id)->first();
+         $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)->get();
+
+         @endphp
          <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
             <tr style="border-collapse:collapse">
                <td align="center" style="padding:0;Margin:0">
@@ -417,6 +424,7 @@
                                                    <td style="padding:0;Margin:0;text-align: right;vertical-align: bottom;">
                                                    </td>
                                                 </tr>
+
                                                 @foreach($order->orderProducts as $product)
                                                 @php
                                                 $shoppingTotal[] = $product->total;
@@ -445,7 +453,20 @@
                                                                         <h4
                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px;">
                                                                            <strong>{{$product->productData->title}}</strong>
+
                                                                         </h4>
+
+                                                                        <h4
+                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px;">
+
+                                                                          
+                                                                        </h4>
+                                                                        <span>HIIIIIII</span>
+                                                                         @foreach($personaladdressfull as $personaladdresss)
+                                                                         <span>{{$personaladdresss->name}} </span>
+                                                                         <span>{{$personaladdresss->age}} </span>
+                                                                         <span>{{$personaladdresss->passport_number}} </span>
+                                                                           @endforeach
                                                                      </td>
                                                                      <td align="right" class="es-m-txt-l"
                                                                         style="padding:0;Margin:0;padding-top:10px">
@@ -556,7 +577,7 @@
 
 
                                 @endif
-
+ 
                                 @if(!is_null($product->pnr) && $product->pnr !== '')
 
                                 <h4 style="color:#707070;font-size:11px; ">Pnr:{{$product->pnr}}</h4>
@@ -577,9 +598,7 @@
 
                             </td>
                             
-                            <td style="width: 35%; padding: 10px 0;">
-                                <h5 style="color:#707070;font-size:11px;text-align:right;">INR {{ number_format($product->total, 2) }}</h5>
-                            </td>
+                           
                         </tr>
                        
                     @endforeach
@@ -624,6 +643,8 @@
                                              <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;
                                                 font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                                                 {{$order->orderCustomer->CustomerData->first_name}}
+
+                                                {{$personaladdress->address}}
                                              </p>
                                           </td>
                                        </tr>
