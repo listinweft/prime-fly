@@ -156,6 +156,8 @@
                                 <h3 style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</h3>
                                 <h4 style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</h4>
 
+                                <h4 style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</h4>
+
 
 
 
@@ -163,11 +165,21 @@
 
                                 @if(!is_null($product->travel_type) && $product->travel_type !== '')
 
-<h4 style="color:#707070;font-size:11px; ">Travel Type:{{ucfirst($product->travel_type)}}</h4>
+<h4 style="color:#707070;font-size:11px; ">Service Offered:{{ucfirst($product->travel_type)}}</h4>
 
 @endif
 
 
+@if($product->travel_type == 'departure')
+
+
+<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->origin}}</h4>
+
+@else
+
+<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->destination}}</h4>
+
+@endif
                                                 @if($product->origin)
 
                   <h4 style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</h4>

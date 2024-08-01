@@ -479,6 +479,7 @@ public function register(Request $request)
 
 
         'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
+        'password_confirmation' => 'required_if:password,!=,null|same:password',
     ]);
 
     

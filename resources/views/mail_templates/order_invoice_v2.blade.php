@@ -462,6 +462,128 @@
                                                       </table>
                                                    </td>
                                                 </tr>
+
+                                                @php
+                        $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
+                        $package = App\Models\Product::where('id', $product->product_id)->first();
+                        $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
+                        if ($orderStatus && $orderStatus->status == 'Refunded') {
+                            $refundStatus = $orderStatus;
+                            $refundStatusPrevious = $orderStatusPrevious;
+                        }
+                    @endphp
+
+
+                
+                    @foreach($product->productData->product_categories ?? [] as $product_category)
+                    <tr>
+                            <td style="width: 5%; padding: 10px 0;"> <h3 style="color:#151525;font-size:11px;"></h3></td>
+                            <td style="width: 60%; padding: 10px 0;">
+                                <h3 style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</h3>
+                                <h4 style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</h4>
+
+                                <h4 style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</h4>
+
+
+
+
+                              
+
+                                @if(!is_null($product->travel_type) && $product->travel_type !== '')
+
+<h4 style="color:#707070;font-size:11px; ">Service Offered:{{ucfirst($product->travel_type)}}</h4>
+
+@endif
+
+
+@if($product->travel_type == 'departure')
+
+
+<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->origin}}</h4>
+
+@else
+
+<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->destination}}</h4>
+
+@endif
+                                                @if($product->origin)
+
+                  <h4 style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</h4>
+
+
+                  @endif
+
+                  @if($product->destination)
+
+<h4 style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</h4>
+
+
+@endif
+
+@if($product_category->title == "Porter")
+    @if(isset($product->guest) && $product->guest > 0)
+        <h4 style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</h4>
+    @else
+        <h4 style="color:#707070;font-size:11px;">Porter information not available</h4>
+    @endif
+@elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
+    @if(isset($product->guest) && $product->guest > 0)
+        <h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
+    @else
+        <h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+    @endif
+@elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
+    @if(isset($product->guest) && $product->guest > 0)
+        <h4 style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</h4>
+    @else
+        <h4 style="color:#707070;font-size:11px;">Bag count information not available</h4>
+    @endif
+@else
+    @if(isset($product->guest) && $product->guest > 0)
+        <h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
+    @else
+        <h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
+    @endif
+@endif
+
+
+                                @if($product->adults)
+                                <h4 style="color:#707070;font-size:11px; ">Adults:{{$product->adults}}</h4>
+                                
+                                <h4 style="color:#707070;font-size:11px; ">Infants:{{$product->infants}}</h4>
+                                <h4 style="color:#707070;font-size:11px; ">Children:{{$product->children}}</h4>
+                               
+
+
+                                @endif
+
+                                @if(!is_null($product->pnr) && $product->pnr !== '')
+
+                                <h4 style="color:#707070;font-size:11px; ">Pnr:{{$product->pnr}}</h4>
+
+                                @endif
+
+                                @if(!is_null($product->flight_number) && $product->flight_number !== '')
+
+                                <h4 style="color:#707070;font-size:11px; ">Flight Number:{{$product->flight_number}}</h4>
+
+                                @endif
+
+                                @if(!is_null($product->bag_count) && $product->bag_count !== '')
+
+                                <h4 style="color:#707070;font-size:11px; ">Bag Count:{{$product->bag_count}}</h4>
+
+                                @endif
+
+                            </td>
+                            
+                            <td style="width: 35%; padding: 10px 0;">
+                                <h5 style="color:#707070;font-size:11px;text-align:right;">INR {{ number_format($product->total, 2) }}</h5>
+                            </td>
+                        </tr>
+                       
+                    @endforeach
+                                                
                                                 @endforeach
                                                 @php
                                                 $sub_total = array_sum($shoppingTotal);
@@ -538,7 +660,7 @@
                                                             $cgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
                                                             $sgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
                                                             // Calculate total amount including 18%
-                                                            $totalIncluding18Percent = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 1.18;
+                                                            $totalIncluding18Percent = $cgst + $sgst + $orderTotal;
                                                             @endphp
                                                          <tr style="border-collapse: collapse;">
                                                             <td style="padding: 0; Margin: 0;">

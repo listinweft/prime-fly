@@ -46,10 +46,16 @@
             <p>{{ $item['totalguest'] }} Car</p>
         @endif
 
+        @elseif(session('category') == 'Porter' )
+        @if($item['totalguest'] > 0)
+            <p>{{ $item['totalguest'] }} Porter</p>
+        @endif
+
+
         @else
 
         @if($item['totalguest'] > 0)
-            <p>{{ $item['totalguest'] }} Porter</p>
+            <p>{{ $item['totalguest'] }} Bag</p>
         @endif
          
         
