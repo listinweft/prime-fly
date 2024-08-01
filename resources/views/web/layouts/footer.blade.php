@@ -44,8 +44,8 @@
                 <div class="row justify-content-between">
                   <div class="col-lg-4 col-sm-5 col-6 footer-bottom-contact">
                     <hr>
-                      <p><a href="tel:+7 (411) 390-51-11">+7 (411) 390-51-11</a></p>
-                      <p><a href="mailto:info@primefly.com">info@primefly.com</a></p>
+                      <p><a href="tel:+91 8301920000">+91 8301920000</a></p>
+                      <p><a href="mailto:info@primefly.com">support@primefly.in</a></p>
                   </div>
                   <div class="col-lg-4 col-sm-5 col-6  footer-bottom-social">
                       <ul class="d-flex justify-content-end">

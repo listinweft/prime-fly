@@ -26,23 +26,20 @@
                             <div class="col-lg-4 address-grid">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/map-pin.png')}}">
-                                    <p>Lorem ipsum dolor sit 
-                                        amet consectetur
-                                        velit odio
-                                        </p>
+                                    <p>TC 86/2018 KARTHIKA 2nd FLOOR ,AIRPORT ROAD,CHACKAI, TVM . </p>
                                 </div>
                             </div>
                             <div class="col-lg-4 address-grid">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/call.png')}}">
-                                    <p>+7 (411) 390-51-11
+                                    <p>+91 8301920000
                                         </p>
                                 </div>
                             </div>
                             <div class="col-lg-4 address-grid">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/mail.png')}}    ">
-                                    <p>info@primefly.com
+                                    <p>support@primefly.in
                                         </p>
                                 </div>
                             </div>
