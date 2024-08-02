@@ -10,7 +10,7 @@
       <meta content="telephone=no" name="format-detection">
       <title>{{ config('app.name') .'- Order Placed' }}</title>
       <meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark">
+      <meta name="supported-color-schemes" content="light dark">
       <!--[if (mso 16)]>
       <style type="text/css">
          a {
@@ -227,13 +227,13 @@
          }
          }
          @media (prefers-color-scheme: dark) {
-            .darkmode-bg {
-                background-color: #fff !important;
-            }
-            .darkmode-color {
-                color: #ffffff !important;
-            }
-            }
+         .darkmode-bg {
+         background-color: #fff !important;
+         }
+         .darkmode-color {
+         color: #ffffff !important;
+         }
+         }
       </style>
    </head>
    <body
@@ -357,11 +357,8 @@
          </tr> 
          </table>
          @php
-
-
          $personaladdress = App\Models\PersonalDetails::where('order_id', $order->id)->first();
          $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)->get();
-
          @endphp
          <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
             <tr style="border-collapse:collapse">
@@ -424,7 +421,6 @@
                                                    <td style="padding:0;Margin:0;text-align: right;vertical-align: bottom;">
                                                    </td>
                                                 </tr>
-
                                                 @foreach($order->orderProducts as $product)
                                                 @php
                                                 $shoppingTotal[] = $product->total;
@@ -441,35 +437,94 @@
                                                                   style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-position:left top;width: 100%;"
                                                                   role="presentation">
                                                                   <tr style="border-collapse:collapse">
-                                                                     <td align="left"
-                                                                        style="padding:0;Margin:0;font-size:0;width: 60px;"> <img 
-                                                                        src="{{asset($product->productData->thumbnail_image)}}"
-                                                                        alt
-                                                                        style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;height:60px;
-                                                                        width:60px;
-                                                                        background-color: #ccc;object-fit: cover;" > </td>
-                                                                     <td align="left" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px">
+                                                                     <td align="left" style="padding:0;Margin:0;font-size:0;width: 60px; vertical-align: top;"> 
+                                                                        <img  src="{{asset($product->productData->thumbnail_image)}}" alt="" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;height:60px; width:60px; background-color: #ccc;object-fit: cover;" > </td>
+                                                                     <td align="left" class="es-m-txt-l" style="padding:0;Margin:0;padding-top:0px;vertical-align: top;">
                                                                         <h4
-                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px;">
+                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0;">
                                                                            <strong>{{$product->productData->title}}</strong>
-
-                                                                        </h4>
-
-                                                                        <h4
-                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px;">
-
-                                                                          
-                                                                        </h4>
-                                                                        <span>HIIIIIII</span>
-                                                                         @foreach($personaladdressfull as $personaladdresss)
-                                                                         <span>{{$personaladdresss->name}} </span>
-                                                                         <span>{{$personaladdresss->age}} </span>
-                                                                         <span>{{$personaladdresss->passport_number}} </span>
-                                                                           @endforeach
+                                                                        </h4> 
+                                                                        @foreach($personaladdressfull as $personaladdresss)
+                                                                        <span>{{$personaladdresss->name}} </span>
+                                                                        <span>{{$personaladdresss->age}} </span> | 
+                                                                        <span>{{$personaladdresss->passport_number}} </span>
+                                                                        @endforeach
+                                                                        @php
+                                                                        $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
+                                                                        $package = App\Models\Product::where('id', $product->product_id)->first();
+                                                                        $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
+                                                                        if ($orderStatus && $orderStatus->status == 'Refunded') {
+                                                                        $refundStatus = $orderStatus;
+                                                                        $refundStatusPrevious = $orderStatusPrevious;
+                                                                        }
+                                                                        @endphp
+                                                                        @foreach($product->productData->product_categories ?? [] as $product_category)
+                                                                        <div>
+                                                                              <span style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</span>
+                                                                              <span style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</span> | 
+                                                                              <span style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</span> |
+                                                                              @if(!is_null($product->travel_type) && $product->travel_type !== '')
+                                                                              <span style="color:#707070;font-size:11px; ">Service Offered:{{ucfirst($product->travel_type)}}</span> |
+                                                                              @endif
+                                                                              @if($product->travel_type == 'departure')
+                                                                              <span style="color:#707070;font-size:11px; ">Service Airport:{{$product->origin}}</span> | 
+                                                                              @else
+                                                                              <span style="color:#707070;font-size:11px; ">Service Airport:{{$product->destination}}</span> | 
+                                                                              @endif
+                                                                              @if($product->origin)
+                                                                              <span style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</span> | 
+                                                                              @endif
+                                                                              @if($product->destination)
+                                                                              <span style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</span> | 
+                                                                              @endif
+                                                                              @if($product_category->title == "Porter")
+                                                                              @if(isset($product->guest) && $product->guest > 0)
+                                                                              <span style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</span> | 
+                                                                              @else
+                                                                              <span style="color:#707070;font-size:11px;">Porter information not available</span> | 
+                                                                              @endif
+                                                                              @elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
+                                                                              @if(isset($product->guest) && $product->guest > 0)
+                                                                              <span style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</span> | 
+                                                                              @else
+                                                                              <span style="color:#707070;font-size:11px;">Guest information not available</span> | 
+                                                                              @endif
+                                                                              @elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
+                                                                              @if(isset($product->guest) && $product->guest > 0)
+                                                                              <span style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</span> | 
+                                                                              @else
+                                                                              <span style="color:#707070;font-size:11px;">Bag count information not available</span> | 
+                                                                              @endif
+                                                                              @else
+                                                                              @if(isset($product->guest) && $product->guest > 0)
+                                                                              <span style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</span> | 
+                                                                              @else
+                                                                              <span style="color:#707070;font-size:11px;">Guest information not available</span> | 
+                                                                              @endif
+                                                                              @endif
+                                                                              @if($product->adults)
+                                                                              <span style="color:#707070;font-size:11px; ">Adults:{{$product->adults}}</span> | 
+                                                                              <span style="color:#707070;font-size:11px; ">Infants:{{$product->infants}}</span> | 
+                                                                              <span style="color:#707070;font-size:11px; ">Children:{{$product->children}}</span> | 
+                                                                              @endif
+                                                                              @if(!is_null($product->pnr) && $product->pnr !== '')
+                                                                              <span style="color:#707070;font-size:11px; ">Pnr:{{$product->pnr}}</span> | 
+                                                                              @endif
+                                                                              @if(!is_null($product->flight_number) && $product->flight_number !== '')
+                                                                              <span style="color:#707070;font-size:11px; ">Flight Number:{{$product->flight_number}}</span> | 
+                                                                              @endif
+                                                                              @if(!is_null($product->bag_count) && $product->bag_count !== '')
+                                                                              <span style="color:#707070;font-size:11px; ">Bag Count:{{$product->bag_count}}</span> | 
+                                                                              @endif
+                                                                           </div>
+                                                                        @endforeach
+                                                                        @endforeach
+                                                                        @php
+                                                                        $sub_total = array_sum($shoppingTotal);
+                                                                        $grand_total = $sub_total+$order->shipping_charge+$order->tax_amount+$order->gift_wrapper_charge;
+                                                                        @endphp 
                                                                      </td>
-                                                                     <td align="right" class="es-m-txt-l"
-                                                                        style="padding:0;Margin:0;padding-top:10px">
+                                                                     <td align="right" class="es-m-txt-l" style="padding:0;Margin:0;padding-top:0px;vertical-align: top;">
                                                                         <h3
                                                                            style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
                                                                            <strong><span style="font-size:16px;line-height:21px;color:#6e56a2;">{{$order->currency}} {{$product->cost}}</span>
@@ -483,131 +538,7 @@
                                                       </table>
                                                    </td>
                                                 </tr>
-
-                                                @php
-                        $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
-                        $package = App\Models\Product::where('id', $product->product_id)->first();
-                        $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
-                        if ($orderStatus && $orderStatus->status == 'Refunded') {
-                            $refundStatus = $orderStatus;
-                            $refundStatusPrevious = $orderStatusPrevious;
-                        }
-                    @endphp
-
-
-                
-                    @foreach($product->productData->product_categories ?? [] as $product_category)
-                    <tr>
-                            <td style="width: 5%; padding: 10px 0;"> <h3 style="color:#151525;font-size:11px;"></h3></td>
-                            <td style="width: 60%; padding: 10px 0;">
-                                <h3 style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</h3>
-                                <h4 style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</h4>
-
-                                <h4 style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</h4>
-
-
-
-
-                              
-
-                                @if(!is_null($product->travel_type) && $product->travel_type !== '')
-
-<h4 style="color:#707070;font-size:11px; ">Service Offered:{{ucfirst($product->travel_type)}}</h4>
-
-@endif
-
-
-@if($product->travel_type == 'departure')
-
-
-<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->origin}}</h4>
-
-@else
-
-<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->destination}}</h4>
-
-@endif
-                                                @if($product->origin)
-
-                  <h4 style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</h4>
-
-
-                  @endif
-
-                  @if($product->destination)
-
-<h4 style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</h4>
-
-
-@endif
-
-@if($product_category->title == "Porter")
-    @if(isset($product->guest) && $product->guest > 0)
-        <h4 style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</h4>
-    @else
-        <h4 style="color:#707070;font-size:11px;">Porter information not available</h4>
-    @endif
-@elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
-    @if(isset($product->guest) && $product->guest > 0)
-        <h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
-    @else
-        <h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
-    @endif
-@elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
-    @if(isset($product->guest) && $product->guest > 0)
-        <h4 style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</h4>
-    @else
-        <h4 style="color:#707070;font-size:11px;">Bag count information not available</h4>
-    @endif
-@else
-    @if(isset($product->guest) && $product->guest > 0)
-        <h4 style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</h4>
-    @else
-        <h4 style="color:#707070;font-size:11px;">Guest information not available</h4>
-    @endif
-@endif
-
-
-                                @if($product->adults)
-                                <h4 style="color:#707070;font-size:11px; ">Adults:{{$product->adults}}</h4>
-                                
-                                <h4 style="color:#707070;font-size:11px; ">Infants:{{$product->infants}}</h4>
-                                <h4 style="color:#707070;font-size:11px; ">Children:{{$product->children}}</h4>
-                               
-
-
-                                @endif
- 
-                                @if(!is_null($product->pnr) && $product->pnr !== '')
-
-                                <h4 style="color:#707070;font-size:11px; ">Pnr:{{$product->pnr}}</h4>
-
-                                @endif
-
-                                @if(!is_null($product->flight_number) && $product->flight_number !== '')
-
-                                <h4 style="color:#707070;font-size:11px; ">Flight Number:{{$product->flight_number}}</h4>
-
-                                @endif
-
-                                @if(!is_null($product->bag_count) && $product->bag_count !== '')
-
-                                <h4 style="color:#707070;font-size:11px; ">Bag Count:{{$product->bag_count}}</h4>
-
-                                @endif
-
-                            </td>
-                            
-                           
-                        </tr>
-                       
-                    @endforeach
-                                                
-                                                @endforeach
-                                                @php
-                                                $sub_total = array_sum($shoppingTotal);
-                                                $grand_total = $sub_total+$order->shipping_charge+$order->tax_amount+$order->gift_wrapper_charge;
-                                                @endphp 
+                                              
                                              </table>
                                           </td>
                                        </tr>
@@ -643,7 +574,6 @@
                                              <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;
                                                 font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                                                 {{$order->orderCustomer->CustomerData->first_name}}
-
                                                 {{$personaladdress->address}}
                                              </p>
                                           </td>
@@ -751,59 +681,54 @@
                                  </td>
                               </tr>
                               <tr style="border-collapse:collapse">
-                                <td>
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td align="center"
-                                        style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;"> 
-                                        <a href="https://demo.wefttechnologies.com/primefly/service/meet-and-greet" style="text-decoration: none;"  target="_blank">
-                                            <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/greeting.png">
-                                            <p style="font-size: 12px;font-weight: 600; color: #7d7d7d; min-height:32px;">Meet & Greet</p>
-                                        </a>
-                                       
-                                     </td>
-                                     <td align="center"
-                                     style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;"> 
-                                     <a href="https://demo.wefttechnologies.com/primefly/service/baggage-wrapping" style="text-decoration: none;" target="_blank">
-                                        <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/travel.png">
-                                        <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height:32px;">Baggage Wrapping</p>
-                                     </a>
-                                    
-                                  </td>
-                                  <td align="center"
-                                  style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;"> 
-                                  <a href="https://demo.wefttechnologies.com/primefly/service/car-parking" style="text-decoration: none;"  target="_blank">
-                                    <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/parking.png">
-                                    <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;">Car Parking</p>   
-                                  </a>
-                                  
-                               </td>
-                                <td align="center"
-                                style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;"> 
-                                <a href="https://demo.wefttechnologies.com/primefly/service/porter" style="text-decoration: none;" target="_blank">
-                                    <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/porter.png">
-                                <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;">Porter</p>         
-                                </a>
-                               
-                                </td>
-                                <td align="center"
-                                style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;"> 
-                                <a href="https://demo.wefttechnologies.com/primefly/service/louch-booking" style="text-decoration: none;"  target="_blank">
-                                    <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/lounge.png">
-                                    <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;">Lounge Booking</p>       
-                                </a>
-                               
-                                </td>
-                                    </tr>
-                                </table> 
-                            </td>
+                                 <td>
+                                    <table style="width: 100%;">
+                                       <tr>
+                                          <td align="center"
+                                             style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
+                                             <a href="https://demo.wefttechnologies.com/primefly/service/meet-and-greet" style="text-decoration: none;"  target="_blank">
+                                                <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/greeting.png">
+                                                <p style="font-size: 12px;font-weight: 600; color: #7d7d7d; min-height:32px;">Meet & Greet</p>
+                                             </a>
+                                          </td>
+                                          <td align="center"
+                                             style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
+                                             <a href="https://demo.wefttechnologies.com/primefly/service/baggage-wrapping" style="text-decoration: none;" target="_blank">
+                                                <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/travel.png">
+                                                <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height:32px;">Baggage Wrapping</p>
+                                             </a>
+                                          </td>
+                                          <td align="center"
+                                             style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
+                                             <a href="https://demo.wefttechnologies.com/primefly/service/car-parking" style="text-decoration: none;"  target="_blank">
+                                                <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/parking.png">
+                                                <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;">Car Parking</p>
+                                             </a>
+                                          </td>
+                                          <td align="center"
+                                             style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
+                                             <a href="https://demo.wefttechnologies.com/primefly/service/porter" style="text-decoration: none;" target="_blank">
+                                                <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/porter.png">
+                                                <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;">Porter</p>
+                                             </a>
+                                          </td>
+                                          <td align="center"
+                                             style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
+                                             <a href="https://demo.wefttechnologies.com/primefly/service/louch-booking" style="text-decoration: none;"  target="_blank">
+                                                <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/lounge.png">
+                                                <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;">Lounge Booking</p>
+                                             </a>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
                               </tr>
                               <tr>
-                                <td style="text-align: center;">
+                                 <td style="text-align: center;">
                                     <a href="https://demo.wefttechnologies.com/primefly/services" target="_blank" style="padding:5px 15px;
-                                    font-size: 12px;
-                                    border: 0;background-color: #7b45f6; display: inline-block;color:white;text-decoration: none;border-radius: 20px;margin-top: 15px;">View More</a>
-                                </td>
+                                       font-size: 12px;
+                                       border: 0;background-color: #7b45f6; display: inline-block;color:white;text-decoration: none;border-radius: 20px;margin-top: 15px;">View More</a>
+                                 </td>
                               </tr>
                            </table>
                         </td>
@@ -811,7 +736,7 @@
                   </table>
                </td>
             </tr>
-        </table>
+         </table>
          <table cellpadding="0" cellspacing="0" class="es-footer" align="center"
             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
             <tr style="border-collapse:collapse">
@@ -819,7 +744,6 @@
                   <table class="es-footer-body"
                      style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#333333;width:600px"
                      cellspacing="0" cellpadding="0" bgcolor="#333333" align="center">
-                    
                      <tr style="border-collapse:collapse">
                         <td style="Margin:0;padding-bottom:20px;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center center;background-color:#122031"
                            bgcolor="#659C35" align="left">
@@ -831,18 +755,18 @@
                                        role="presentation"
                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                        <tr style="border-collapse:collapse">
-                                        <td style="vertical-align: bottom;">
-                                            <a target="_blank" href="javascript:void(0)"
-                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#659C35;font-size:16px"><img
-                                            src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo.png"
-                                            alt
-                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                           width="85"></a>
-                                            </td>
-                                            <td style="vertical-align: bottom;" align="center">
-                                                <p style="margin-bottom: 0;margin-top: 0;"><a href="tel:+7 (411) 390-51-11" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">+7 (411) 390-51-11</a></p>
-                                                <p style="margin-top:8px; margin-bottom: 0;"><a href="mailto:info@primefly.com" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">info@primefly.com</a></p>
-                                            </td>
+                                          <td style="vertical-align: bottom;">
+                                             <a target="_blank" href="javascript:void(0)"
+                                                style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#659C35;font-size:16px"><img
+                                                src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo.png"
+                                                alt
+                                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
+                                                width="85"></a>
+                                          </td>
+                                          <td style="vertical-align: bottom;" align="center">
+                                             <p style="margin-bottom: 0;margin-top: 0;"><a href="tel:+7 (411) 390-51-11" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">+7 (411) 390-51-11</a></p>
+                                             <p style="margin-top:8px; margin-bottom: 0;"><a href="mailto:info@primefly.com" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">info@primefly.com</a></p>
+                                          </td>
                                           <td align="right"
                                              style="padding:0;Margin:0;padding-bottom:0px;font-size:0; vertical-align: bottom;">
                                              <table class="es-table-not-adapt es-social"
@@ -888,7 +812,7 @@
                                                 (and not your bulk or junk folders).
                                              </p>
                                           </td>
-                                       </tr> -->
+                                          </tr> -->
                                     </table>
                                  </td>
                               </tr>

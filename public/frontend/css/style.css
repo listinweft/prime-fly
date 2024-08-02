@@ -3727,9 +3727,16 @@ color: rgba(112, 112, 112, 0.81);
     line-height: 1;
     max-height: 38px;
 }
-.details-item .error-message{
+.details-item{
+    position: relative;
+}
+.details-item .error-message {
     color: red;
-    font-size: 12px;
+    font-size: 11px;
+    position: absolute;
+    bottom: -15px;
+    width: 100%;
+    left: 9px;
 }
 .customer-detail-form
 { 

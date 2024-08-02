@@ -60,39 +60,39 @@
 <h4>{{ ucwords($product->title) }}</h4>
 @if (in_array($categorydata->title, ['Meet and Greet', 'Airport Entry','Lounge Booking']))
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
-                                                    <p>From: {{ ucwords($locationTitle) }} Guest: {{ $row->attributes['guest'] }}</p>
+                                                    <p>From: {{ ucwords($locationTitle) }} | Guest: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p>Guest information not available</p>
                                                 @endif
                                             @elseif (in_array($categorydata->title, [ 'Cloak Room', 'Baggage Wrapping']))
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
-                                                    <p>From:  {{ ucwords($locationTitle) }} Bag: {{ $row->attributes['guest'] }}</p>
+                                                    <p>From:  {{ ucwords($locationTitle) }} | Bag: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p>Bag count information not available</p>
                                                 @endif
 
                                                 @elseif (in_array($categorydata->title, ['Car Parking']))
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
-                                                    <p>From:  {{ ucwords($locationTitle) }} car: {{ $row->attributes['guest'] }}</p>
+                                                    <p>From:  {{ ucwords($locationTitle) }} | Car: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p> count information not available</p>
                                                 @endif
 
                                                 @elseif (in_array($categorydata->title, ['Porter']))
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
-                                                    <p>From: {{ ucwords($locationTitle) }} Porter: {{ $row->attributes['guest'] }}</p>
+                                                    <p>From: {{ ucwords($locationTitle) }} | Porter: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p>Guest information not available</p>
                                                 @endif
                                             @else
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
-                                                    <p>From:  {{ ucwords($locationTitle) }} Bag: {{ $row->attributes['guest'] }}</p>
+                                                    <p>From:  {{ ucwords($locationTitle) }} | Bag: {{ $row->attributes['guest'] }}</p>
                                                 @else
                                                     <p>Guest information not available</p>
                                                 @endif
                                             @endif
 
-                                            <p>Travel Type:{{ ucwords($product->service_type) }}: Date: {{ $row->attributes['setdate'] }}</p>
+                                            <p>Service Type: {{ ucwords($product->service_type) }} | Date: {{ $row->attributes['setdate'] }}</p>
                                                     <a href="javascript:void(0)" class="remove-cart-item" data-id="{{ $row->id }}">Remove</a>
                                                 </div>
                                             </div>

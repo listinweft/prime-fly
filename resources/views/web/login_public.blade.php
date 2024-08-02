@@ -20,8 +20,9 @@
       <link href="{{ asset('frontend/css/aos.css')}}" rel="stylesheet">
       <link href="{{ asset('frontend/css/btob.css')}}" rel="stylesheet">
 
-      <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
+      <!-- <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css"> -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.3/dist/sweetalert2.min.css">
 
       <script type="text/javascript">
          var base_url = "{{ url('/') }}";
@@ -90,7 +91,8 @@
 
       <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
       <script  src="{{ asset('frontend/js/custom.js')}}"></script>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
+      <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script> -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.3/dist/sweetalert2.all.min.js"></script>
 <script>
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
@@ -104,9 +106,17 @@
 
     var Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
         showConfirmButton: false,
-        timer: 6000,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
     });
 </script>
 
@@ -133,6 +143,12 @@
             text: '{{ Session::get('error') }}',
             icon: 'error'
         });
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: '{{ Session::get('error') }}',
+            footer: '<a href="#">Why do I have this issue?</a>'
+            });
     }, 3000); // Delay set to 0 to execute immediately
 </script>
 @endif
