@@ -141,11 +141,25 @@
                                     @enderror
                                 </div>
                             </div>
-                                <div class="card-footer">
+
+                            @if(@$customer->user->email)
+                            <div class="card-footer">
+    <input type="submit" name="btn_save" value="Submit" class="btn btn-primary pull-left submitBtn">
+    <a href="{{ url(Helper::sitePrefix().'customer') }}" class="btn btn-default">Back</a>
+</div>
+
+
+                                @else
+
+
+                                 <div class="card-footer">
                                     <input type="submit" name="btn_save" value="Submit"
                                            class="btn btn-primary pull-left submitBtn">
                                     <button type="reset" class="btn btn-default">Cancel</button>
                                 </div>
+
+
+                                @endif
                         </div>
                 </form>
             </div>

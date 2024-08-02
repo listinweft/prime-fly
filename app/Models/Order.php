@@ -291,112 +291,86 @@ class Order extends Model
         $cancelledTotal = Order::getCancelledProductTotal($order_id);
         return $orderTotal - $cancelledTotal['total'];
     }
-    public static function couponStatus($order_id)
-    {
-        $order = SELF::find($order_id);
-        if ($order) {
-            $orderSubTotal = Order::getActiveProductTotal($order_id);
-            $cartProducts = OrderProduct::where('order_id', '=', $order_id)->get();
-            $coupon_value = 0;
-            $status = "enabled";
-            //todo: multiple coupon changes
-            $orderCoupon = OrderCoupon::where('order_id', '=', $order_id)->first();
-            if ($orderCoupon != NULL && $orderSubTotal > 0) {
-                $coupon = Coupon::where('id', '=', $orderCoupon->coupon_id)->first();
+   public static function couponStatus($order_id)
+{
+    $order = self::find($order_id);
+    if ($order) {
+        $orderSubTotal = Order::getActiveProductTotal($order_id);
+        $cartProducts = OrderProduct::where('order_id', '=', $order_id)->get();
+        $coupon_value = 0;
+        $status = "enabled";
+
+        $orderCoupon = OrderCoupon::where('order_id', '=', $order_id)->first();
+        if ($orderCoupon != NULL && $orderSubTotal > 0) {
+            $coupon = Coupon::where('id', '=', $orderCoupon->coupon_id)->first();
+            if ($coupon) {
                 $valid = $second_valid = $third_valid = $fourth_valid = $minimum_valid = $maximum_valid = true;
+
                 if ($coupon->minimum_spend != '0.00') {
-                    if ($coupon->minimum_spend <= $orderSubTotal) {
-                        $minimum_valid = true;
-                    } else {
-                        $minimum_valid = false;
-                    }
+                    $minimum_valid = $coupon->minimum_spend <= $orderSubTotal;
                 }
                 if ($coupon->maximum_spend != '0.00') {
-                    if ($coupon->maximum_spend >= $orderSubTotal) {
-                        $maximum_valid = true;
-                    } else {
-                        $maximum_valid = false;
-                    }
+                    $maximum_valid = $coupon->maximum_spend >= $orderSubTotal;
                 }
-                if ($minimum_valid == true && $maximum_valid == true) {
-                    $includedCategories = $includedProducts = [];
-                    if ($coupon->included_categories != NULL) {
-                        $includedCategories = explode(',', $coupon->included_categories);
-                    }
-                    if ($coupon->included_products != NULL) {
-                        $includedProducts = explode(',', $coupon->included_products);
-                    }
+                if ($minimum_valid && $maximum_valid) {
+                    $includedCategories = $coupon->included_categories ? explode(',', $coupon->included_categories) : [];
+                    $includedProducts = $coupon->included_products ? explode(',', $coupon->included_products) : [];
                     $excludedProductList = $productCharge = [];
                     $includedProductCost = $excludedProductCost = [];
+
                     foreach ($cartProducts as $product) {
                         $orderStatusData = OrderLog::where('order_product_id', '=', $product->id)->latest()->first();
-                        if ($orderStatusData->status == "Processing" || $orderStatusData->status == "On Hold" || $orderStatusData->status == "Delivery" || $orderStatusData->status == "Completed") {
+                        if (in_array($orderStatusData->status, ["Processing", "On Hold", "Delivery", "Completed"])) {
                             $productData = Product::find($product->product_id);
                             if (count($includedProducts) > 0) {
                                 if (in_array($productData->product_id, $includedProducts)) {
                                     $includedProductList[] = $product->product_id;
-                                    if ($coupon->applicable_only_if_sale_price == "Yes") {
+                                    if ($coupon->applicable_only_if_sale_price == "Yes" || $product->offer_id == 0) {
                                         $includedProductCost[] = $product->total;
-                                    } else {
-                                        if ($product->offer_id == 0) {
-                                            $includedProductCost[] = $product->total;
-                                        }
                                     }
                                 } else {
                                     $excludedProductList[] = $product->id;
                                 }
                             } else {
-                                if ($coupon->applicable_only_if_sale_price == "Yes") {
+                                if ($coupon->applicable_only_if_sale_price == "Yes" || $product->offer_id == 0) {
                                     $includedProductCost[] = $product->total;
-                                } else {
-                                    if ($product->offer_id == 0) {
-                                        $includedProductCost[] = $product->total;
-                                    }
                                 }
                             }
                         }
                     }
+
                     if ($orderSubTotal != 0) {
-                        if (!empty($includedProducts)) {
-                            if (count($excludedProductList) > 0) {
-                                $third_valid = false;
-                            }
+                        if (!empty($includedProducts) && count($excludedProductList) > 0) {
+                            $third_valid = false;
                         }
-                        if ($third_valid == false) {
+                        if (!$third_valid) {
                             if ($coupon->type == "Fixed") {
                                 $status = 'disabled';
                                 $final_amount_after_coupon = $orderSubTotal - $coupon->coupon_value;
                             } else {
-                                if (count($includedProductCost) > 0) {
-                                    $coupon_value = array_sum($includedProductCost) * $coupon->coupon_value / 100;
-                                } else {
-                                    $coupon_value = $orderSubTotal * $coupon->coupon_value / 100;
-                                }
-                                $coupon_value = $coupon_value * $order->currency_charge;
+                                $coupon_value = count($includedProductCost) > 0 ?
+                                    array_sum($includedProductCost) * $coupon->coupon_value / 100 :
+                                    $orderSubTotal * $coupon->coupon_value / 100;
+                                $coupon_value *= $order->currency_charge;
                                 $final_amount_after_coupon = $orderSubTotal - $coupon_value;
                                 $fourth_valid = true;
                             }
                         } else {
                             if ($coupon->type == "Fixed") {
-                                $coupon_value = $coupon->coupon_value;
-                                $coupon_value = $coupon_value * $order->currency_charge;
-                                if (count($includedProductCost) > 0) {
-                                    $final_amount_after_coupon = array_sum($includedProductCost) - $coupon_value;
-                                } else {
-                                    $final_amount_after_coupon = $orderSubTotal - $coupon_value;
-                                }
+                                $coupon_value = $coupon->coupon_value * $order->currency_charge;
+                                $final_amount_after_coupon = count($includedProductCost) > 0 ?
+                                    array_sum($includedProductCost) - $coupon_value :
+                                    $orderSubTotal - $coupon_value;
                             } else {
                                 $coupon_value = $coupon->coupon_value * $order->currency_charge;
-                                if (count($includedProductCost) > 0) {
-                                    $coupon_value = array_sum($includedProductCost) * $coupon_value / 100;
-                                } else {
-                                    $coupon_value = $orderSubTotal * $coupon_value / 100;
-                                }
+                                $coupon_value = count($includedProductCost) > 0 ?
+                                    array_sum($includedProductCost) * $coupon_value / 100 :
+                                    $orderSubTotal * $coupon_value / 100;
                                 $final_amount_after_coupon = $orderSubTotal - $coupon_value;
                             }
                             $fourth_valid = true;
                         }
-                        if ($fourth_valid == true) {
+                        if ($fourth_valid) {
                             $tax_amount = $final_amount_after_coupon * $order->tax / 100;
                         } else {
                             $status = "disabled";
@@ -410,9 +384,13 @@ class Order extends Model
             } else {
                 $status = "disabled";
             }
-            return $status;
+        } else {
+            $status = "disabled";
         }
+        return $status;
     }
+}
+
 
     /****************************** Active functions ends *****************************/
 
