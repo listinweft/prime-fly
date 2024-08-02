@@ -651,21 +651,25 @@ class Order extends Model
             $orders = Order::get();
             $totalProducts = OrderProduct::count();
         }
+    
         $boxValues = [];
-        $orderTotal = $returnData['total_price'] = $returnData['coupon'] = $totalProducts = [];
+        $returnData = ['total_price' => [], 'coupon' => []];
+        
         foreach ($orders as $order) {
-            $totalProducts[] = OrderProduct::where('order_id', $order->id)->count();
             $orderGrandTotal = Order::OrderGrandTotal($order->id);
             $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
             $returnData['coupon'][] = Order::getActiveProductCouponValue($order->id);
         }
-        // echo array_sum($returnData['total_price'])."=>".array_sum($returnData['coupon']);die;
+    
         $boxValues['totalProducts'] = $totalProducts;
         $boxValues['totalOrders'] = count($orders);
         $boxValues['totalAmount'] = array_sum($returnData['total_price']);
         $boxValues['totalCoupon'] = array_sum($returnData['coupon']);
+        
         return $boxValues;
     }
+    
+    
     public static function boxValues_subadmin($assignedLocations = [], $start = NULL, $end = NULL)
     {
         if ($start != NULL && $end != NULL) {
@@ -682,15 +686,12 @@ class Order extends Model
                                   ->orWhereIn('destination', $assignedLocations);
                         })
                         ->get();
-            $totalProducts = OrderProduct::whereHas('order', function($query) use ($assignedLocations) {
-                                $query->whereIn('origin', $assignedLocations)
-                                      ->orWhereIn('destination', $assignedLocations);
-                            })
-                            ->count();
+            $totalProducts = OrderProduct::whereIn('order_id', $orders->pluck('id')->toArray())->count();
         }
     
         $boxValues = [];
         $returnData = ['total_price' => [], 'coupon' => []];
+        
         foreach ($orders as $order) {
             $orderGrandTotal = Order::OrderGrandTotal($order->id);
             $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
@@ -701,9 +702,10 @@ class Order extends Model
         $boxValues['totalOrders'] = count($orders);
         $boxValues['totalAmount'] = array_sum($returnData['total_price']);
         $boxValues['totalCoupon'] = array_sum($returnData['coupon']);
-    
+        
         return $boxValues;
     }
+    
     
     
 
@@ -843,109 +845,151 @@ class Order extends Model
         //dd($orders);
         return $orders;
     }
-    public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
+    public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $location_ids = NULL)
 {
-
-    $assignedLocations = array_filter($assignedLocations);
-
+    // Parse location IDs from comma-separated string
+    $assignedLocationIds = array_filter(explode(',', $location_ids));
+    
+    // Fetch location codes based on location IDs
+    $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+    
+    // Handle date range
     $dateExploded = explode('-', $date_range);
     $startDate = date("Y-m-d", strtotime($dateExploded[0]));
     $endDate = date("Y-m-d", strtotime($dateExploded[1]));
     $start = $startDate . ' 00:00:00';
     $end = $endDate . ' 23:59:59';
-
+    
+    // Initialize query
     $orders = SELF::when($start && $end, function ($query) use ($start, $end) {
         return $query->whereBetween('created_at', [$start, $end]);
     })
-    ->when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
-        return $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
-            $query->whereIn('origin', $assignedLocations)
-                  ->orWhereIn('destination', $assignedLocations);
+    ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+        return $query->whereHas('orderProducts', function($query) use ($locationCodes) {
+            $query->whereIn('origin', $locationCodes)
+                  ->orWhereIn('destination', $locationCodes);
         });
     })
-    ->when(empty($assignedLocations), function ($query) {
-        // Handle case when assignedLocations is empty or contains only empty values
+    ->when(empty($locationCodes), function ($query) {
         return $query->whereRaw('1=0'); // Force a condition that is never true
     })
     ->get();
-
-
-                    
     
-    if ($status != NULL) {
+    // Filter by status if provided
+    if ($status !== NULL) {
         $ordersList = [];
         foreach ($orders as $order) {
-            $orderProducts = OrderProduct::where('order_id', '=', $order->id)->get();
-            if ($orderProducts) {
-                foreach ($orderProducts as $products) {
-                    $orderStatusData = OrderLog::where('order_product_id', '=', $products->id)->latest()->first();
-                    if ($orderStatusData != NULL) {
-                        if ($orderStatusData->status == $status) {
-                            $ordersList[] = $order->id;
-                        }
-                    }
+            $orderProducts = OrderProduct::where('order_id', $order->id)->get();
+            foreach ($orderProducts as $product) {
+                $orderStatusData = OrderLog::where('order_product_id', $product->id)->latest()->first();
+                if ($orderStatusData && $orderStatusData->status == $status) {
+                    $ordersList[] = $order->id;
+                    break; // Once we find a matching status for this order, no need to check further products
                 }
             }
         }
         $orders = Order::whereIn('id', $ordersList)->get();
     }
-    if ($customer != NULL) {
+    
+    // Filter by customer if provided
+    if ($customer !== NULL) {
         $orderIds = $orders->pluck('id')->toArray();
-        $customerOrders = OrderCustomer::where('customer_id', '=', $customer)->whereIn('order_id', $orderIds)->get();
-        $orders = Order::whereIn('id', $customerOrders->pluck('order_id')->toArray())->get();
+        $customerOrders = OrderCustomer::where('customer_id', $customer)->whereIn('order_id', $orderIds)->pluck('order_id')->toArray();
+        $orders = Order::whereIn('id', $customerOrders)->get();
     }
-    if ($product != NULL) {
-        DB::enableQueryLog();
+    
+    // Filter by product if provided
+    if ($product !== NULL) {
         $orderIds = $orders->pluck('id')->toArray();
-        $productOrders = Product::where('id', '=', $product)->first();
-        $variants = Product::where('id', '=', $product)->get();
-        $productOrders = OrderProduct::whereIn('product_id', $variants->pluck('id')->toArray())->whereIn('order_id', $orderIds)->get();
-        $queries = DB::getQueryLog();
-        $orders = Order::whereIn('id', $productOrders->pluck('order_id')->toArray())->get();
+        $productIds = Product::where('id', $product)->pluck('id')->toArray();
+        $productOrders = OrderProduct::whereIn('product_id', $productIds)->whereIn('order_id', $orderIds)->pluck('order_id')->toArray();
+        $orders = Order::whereIn('id', $productOrders)->get();
     }
-   
+    
     return $orders;
 }
 
+    
 
-    public static function getDetailedOrdersBoxValues($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $coupon = NULL)
-    {
-        $orders = SELF::getDetailedOrders($date_range, $status, $customer, $product, $coupon);
-        $boxValues = [];
-        $totalProducts = OrderProduct::whereIn('order_id', $orders->pluck('id')->toArray())->count();
-        $orderTotal = $returnData['total_price'] = $returnData['coupon'] = [];
-        foreach ($orders as $order) {
-            $products[] = OrderProduct::where('order_id', $order->id)->count();
-            $orderGrandTotal = Order::OrderGrandTotal($order->id);
-            $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
-            $returnData['coupon'][] = Order::getActiveProductCouponValue($order->id);
-        }
-        $boxValues['totalProducts'] = $totalProducts;
-        $boxValues['totalOrders'] = count($orders);
-        $boxValues['totalAmount'] = array_sum($returnData['total_price']);
-        $boxValues['totalCoupon'] = array_sum($returnData['coupon']);
-        return $boxValues;
-    }
-    public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
+public static function getDetailedOrdersBoxValues($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $coupon = NULL)
 {
-    $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
+    // Retrieve filtered orders
+    $orders = SELF::getDetailedOrders($date_range, $status, $customer, $product, $coupon);
+    
+    // Initialize variables to store metrics
     $boxValues = [];
     $totalProducts = OrderProduct::whereIn('order_id', $orders->pluck('id')->toArray())->count();
+    
+    // Initialize arrays to store total prices and coupon values
     $returnData = ['total_price' => [], 'coupon' => []];
     
+    // Loop through each order to compute individual metrics
     foreach ($orders as $order) {
-        $products[] = OrderProduct::where('order_id', $order->id)->count();
-        $orderGrandTotal = Order::OrderGrandTotal($order->id);
-        $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
-        $returnData['coupon'][] = Order::getActiveProductCouponValue($order->id);
+        // Count the products for each order
+        $productCount = OrderProduct::where('order_id', $order->id)->count();
+        
+        // Calculate the total amount from order_products for each order
+        $orderProductsTotal = OrderProduct::where('order_id', $order->id)->sum('total'); // Sum of 'total' field in order_products
+        
+        // Get the coupon value for the order
+        $couponValue = Order::getActiveProductCouponValue($order->id);
+        
+        // Store results in the returnData array
+        $returnData['total_price'][] = $orderProductsTotal;
+        $returnData['coupon'][] = $couponValue;
     }
+
     
+    
+    // Calculate aggregated metrics
     $boxValues['totalProducts'] = $totalProducts;
     $boxValues['totalOrders'] = count($orders);
-    $boxValues['totalAmount'] = array_sum($returnData['total_price']);
+    $boxValues['totalAmount'] = array_sum($returnData['total_price']); // Sum of all total amounts
     $boxValues['totalCoupon'] = array_sum($returnData['coupon']);
+    
+    // Return the calculated box values
     return $boxValues;
 }
+
+    public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
+    {
+        // Retrieve filtered orders
+        $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
+        
+        // Initialize variables to store metrics
+        $boxValues = [];
+        $totalProducts = OrderProduct::whereIn('order_id', $orders->pluck('id')->toArray())->count();
+        
+        // Initialize arrays to store total prices and coupon values
+        $returnData = ['total_price' => [], 'coupon' => []];
+        
+        // Loop through each order to compute individual metrics
+        foreach ($orders as $order) {
+            // Count the products for each order
+            $productCount = OrderProduct::where('order_id', $order->id)->count();
+            
+            // Calculate the total amount from order_products
+            $orderProductsTotal = OrderProduct::where('order_id', $order->id)->sum('total'); // Sum of 'total' field in order_products
+            
+            // Get the coupon value for the order
+            $couponValue = Order::getActiveProductCouponValue($order->id);
+            
+            // Store results in the returnData array
+            $returnData['total_price'][] = $orderProductsTotal;
+            $returnData['coupon'][] = $couponValue;
+        }
+        
+        // Calculate aggregated metrics
+        $boxValues['totalProducts'] = $totalProducts;
+        $boxValues['totalOrders'] = count($orders);
+        $boxValues['totalAmount'] = array_sum($returnData['total_price']); // Sum of all total amounts
+        $boxValues['totalCoupon'] = array_sum($returnData['coupon']);
+        
+        // Return the calculated box values
+        return $boxValues;
+    }
+    
+
 
 
     public static function SalesByDate($start, $end, $flag)

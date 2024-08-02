@@ -22,8 +22,9 @@
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
-        "phpmailer/phpmailer": "^6.6",
+        "phpmailer/phpmailer": "^6.9",
         "razorpay/razorpay": "^2.9",
+        "sendinblue/api-v3-sdk": "^8.4",
         "spatie/laravel-permission": "^6.2",
         "yajra/laravel-datatables-oracle": "^10.11"
     },

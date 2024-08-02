@@ -7,6 +7,7 @@ use App\Http\Helpers\Helper;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\OrderCoupon;
+use App\Models\Location;
 use App\Models\OrderCustomer;
 use App\Models\OrderLog;
 use App\Models\OrderProduct;
@@ -38,23 +39,31 @@ class OrderController extends Controller
        {
 
 
-        $location_ids = Auth::guard('admin')->user()->location_ids;
-        $assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
-        
-        $orderList = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
-                            return $query->where(function ($query) use ($assignedLocations) {
-                                $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                                    $query->whereIn('origin', $assignedLocations)
-                                          ->orWhereIn('destination', $assignedLocations);
-                                });
-                            });
-                        })
-                        ->when(empty($assignedLocations), function ($query) {
-                            // Handle case when assignedLocations is empty or contains only empty values
-                            return $query->whereRaw('1=0'); // Force a condition that is never true
-                        })
-                        ->latest()
-                        ->get();
+        // Retrieve location IDs
+$location_ids = Auth::guard('admin')->user()->location_ids;
+
+// Convert the location IDs to an array and filter out any empty values
+$assignedLocationIds = array_filter(explode(',', $location_ids));
+
+// Fetch location codes based on location IDs
+$locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+
+// Query to get orders based on location codes
+$orders = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
+                    return $query->where(function ($query) use ($locationCodes) {
+                        $query->whereHas('orderProducts', function($query) use ($locationCodes) {
+                            $query->whereIn('origin', $locationCodes)
+                                  ->orWhereIn('destination', $locationCodes);
+                        });
+                    });
+                })
+                ->when(empty($locationCodes), function ($query) {
+                    // Handle case when locationCodes is empty
+                    return $query->whereRaw('1=0'); // Force a condition that is never true
+                })
+                ->latest()
+                ->get();
+
         
         
 
@@ -86,23 +95,31 @@ class OrderController extends Controller
        {
 
 
-        $location_ids = Auth::guard('admin')->user()->location_ids;
-$assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+      // Retrieve location IDs
+$location_ids = Auth::guard('admin')->user()->location_ids;
 
-$orders = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
-                    return $query->where(function ($query) use ($assignedLocations) {
-                        $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                            $query->whereIn('origin', $assignedLocations)
-                                  ->orWhereIn('destination', $assignedLocations);
+// Convert the location IDs to an array and filter out any empty values
+$assignedLocationIds = array_filter(explode(',', $location_ids));
+
+// Fetch location codes based on location IDs
+$locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+
+// Query to get orders based on location codes
+$orders = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
+                    return $query->where(function ($query) use ($locationCodes) {
+                        $query->whereHas('orderProducts', function($query) use ($locationCodes) {
+                            $query->whereIn('origin', $locationCodes)
+                                  ->orWhereIn('destination', $locationCodes);
                         });
                     });
                 })
-                ->when(empty($assignedLocations), function ($query) {
-                    // Handle case when assignedLocations is empty or contains only empty values
+                ->when(empty($locationCodes), function ($query) {
+                    // Handle case when locationCodes is empty
                     return $query->whereRaw('1=0'); // Force a condition that is never true
                 })
                 ->latest()
                 ->get();
+
 
 
 
