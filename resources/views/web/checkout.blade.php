@@ -193,7 +193,44 @@
                <div class="col-lg-5 cart-price-summry">
                   <!-- @if(in_array(Session::get('category'), ['Meet and Greet', 'Porter', 'Lounge Booking', 'Baggage Wrapping'])) -->
                   <!-- @endif -->
-                  <h4 class="mt-0">Price Details</h4>
+                  
+                  <h4 class="mt-0">Payment Methods</h4>
+                    <div class="col-12 cart-product cart-prdct-payment">
+                        <form>
+                            <div class="d-flex flex-wrap cart-pyment-list align-items-center justify-content-between">
+                                <div class="cart-pymentradio">
+                                    <div class="form-check d-flex align-items-center">
+                                        <input class="form-check-input" type="radio" name="transfer" id="online-payment" value="online-payment">
+                                        <label class="form-check-label ms-2" for="online-payment">
+                                            <h4>Online Payment</h4>
+                                            <p>Pay using credit/debit cards, UPI, or other methods.</p>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-10 directtransfer-form" id="upi-form">
+                                    <div class="row">
+                                        <div class="col-lg-12 form-grid">
+                                            <p class="mb-0">Add new UPI ID</p>
+                                            <label>UPI ID</label>
+                                            <input type="text" placeholder="UPI ID" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex cart-pyment-list align-items-center justify-content-between">
+                                <div class="cart-pymentradio">
+                                    <div class="form-check d-flex align-items-center">
+                                        <input class="form-check-input" type="radio" name="transfer" id="cod" value="COD">
+                                        <label class="form-check-label ms-2" for="cod">
+                                            <h4>Pay later</h4>
+                                            <p>Pay after delivery.</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <h4 class="mt-0">Price Details</h4>
                   <div class="price-summery">
                      <table>
                         <tbody>
@@ -243,42 +280,6 @@
                         <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ $finalamount }}" data-phone_number="{{ $user->phone }}">Place Order</button>
                      </div>
                   </div>
-                  <h4 class="mt-4">Payment Methods</h4>
-<div class="col-12 cart-product cart-prdct-payment">
-    <form>
-        <div class="d-flex flex-wrap cart-pyment-list align-items-center justify-content-between">
-            <div class="cart-pymentradio">
-                <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="transfer" id="online-payment" value="online-payment">
-                    <label class="form-check-label ms-2" for="online-payment">
-                        <h4>Online Payment</h4>
-                        <p>Pay using credit/debit cards, UPI, or other methods.</p>
-                    </label>
-                </div>
-            </div>
-            <div class="col-10 directtransfer-form" id="upi-form">
-                <div class="row">
-                    <div class="col-lg-12 form-grid">
-                        <p class="mb-0">Add new UPI ID</p>
-                        <label>UPI ID</label>
-                        <input type="text" placeholder="UPI ID" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex cart-pyment-list align-items-center justify-content-between">
-            <div class="cart-pymentradio">
-                <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="transfer" id="cod" value="COD">
-                    <label class="form-check-label ms-2" for="cod">
-                        <h4>Pay later</h4>
-                        <p>Pay after delivery.</p>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 
             </div>
          </div>
