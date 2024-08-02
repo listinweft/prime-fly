@@ -441,13 +441,15 @@
                                                                         <img  src="{{asset($product->productData->thumbnail_image)}}" alt="" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;height:60px; width:60px; background-color: #ccc;object-fit: cover;" > </td>
                                                                      <td align="left" class="es-m-txt-l" style="padding:0;Margin:0;padding-top:0px;vertical-align: top;">
                                                                         <h4
-                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0;">
+                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0; padding-bottom:0">
                                                                            <strong>{{$product->productData->title}}</strong>
                                                                         </h4> 
                                                                         @foreach($personaladdressfull as $personaladdresss)
-                                                                        <span>{{$personaladdresss->name}} </span>
-                                                                        <span>{{$personaladdresss->age}} </span> | 
-                                                                        <span>{{$personaladdresss->passport_number}} </span>
+                                                                        <div style="padding: 0 10px;">
+                                                                           <span>{{$personaladdresss->name}} </span>
+                                                                           <span>{{$personaladdresss->age}} </span>  
+                                                                           <span> {{$personaladdresss->passport_number}} </span>
+                                                                        </div> 
                                                                         @endforeach
                                                                         @php
                                                                         $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
@@ -459,7 +461,7 @@
                                                                         }
                                                                         @endphp
                                                                         @foreach($product->productData->product_categories ?? [] as $product_category)
-                                                                        <div>
+                                                                        <div style="padding: 0 10px;">
                                                                               <span style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</span>
                                                                               <span style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</span> | 
                                                                               <span style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</span> |
