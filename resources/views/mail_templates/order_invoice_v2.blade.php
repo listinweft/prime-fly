@@ -361,311 +361,196 @@
          $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)->get();
          @endphp
          <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+   <tr style="border-collapse:collapse">
+      <td align="center" style="padding:0;Margin:0">
+         <table bgcolor="#ffffff" class="es-content-body darkmode-bg" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px">
             <tr style="border-collapse:collapse">
-               <td align="center" style="padding:0;Margin:0">
-                  <table bgcolor="#ffffff" class="es-content-body darkmode-bg" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px">
+               <td align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center top">
+                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                      <tr style="border-collapse:collapse">
-                        <td align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px;background-position:center top">
-                           <table cellpadding="0" cellspacing="0" width="100%"
-                              style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
+                           <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                               <tr style="border-collapse:collapse">
-                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                                    <table cellpadding="0" cellspacing="0" width="100%"role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                       <tr style="border-collapse:collapse">
-                                          <td align="center" style="padding:0;Margin:0">
-                                             <h2 class="darkmode-color" style="Margin:0;line-height:1.2;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:18px;font-style:normal;font-weight:bold;color:#636363">Your booking confirmation and reciept</h2>
-                                          </td>
-                                       </tr>
-                                       <tr style="border-collapse:collapse">
-                                          <td align="center"
-                                             style="padding:0;Margin:0;padding-top:10px">
-                                             <p class="darkmode-color" style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#636363;font-size:14px;font-weight: 600;">
-                                                {{ date("F, d Y", strtotime($order->created_at))  }}
-                                             </p>
-                                          </td>
-                                       </tr>
-                                    </table>
+                                 <td align="center" style="padding:0;Margin:0">
+                                    <h2 class="darkmode-color" style="Margin:0;line-height:1.2;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:18px;font-style:normal;font-weight:bold;color:#636363">Your booking confirmation and receipt</h2>
+                                 </td>
+                              </tr>
+                              <tr style="border-collapse:collapse">
+                                 <td align="center" style="padding:0;Margin:0;padding-top:10px">
+                                    <p class="darkmode-color" style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#636363;font-size:14px;font-weight: 600;">
+                                       {{ date("F d, Y", strtotime($order->created_at)) }}
+                                    </p>
                                  </td>
                               </tr>
                            </table>
-                        </td>
-                     </tr>
-                     <tr style="border-collapse:collapse">
-                        <td align="left"
-                           style="Margin:0;padding-bottom:0px;padding-top:20px;padding-left:0px;padding-right:0px">
-                           <table class="es-left" cellspacing="0" cellpadding="0" align="left"
-                              style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%">
-                              <tr style="border-collapse:collapse">
-                                 <td class="es-m-p20b" align="left"
-                                    style="padding:0;Margin:0;width:100%;border-top:1px solid #efefef;border-bottom:2px dashed #c8c8c8">
-                                    <table class="darkmode-bg"
-                                       style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:1px solid transparent;
-                                       border-top:1px solid transparent;border-bottom:1px solid transparent;background-color:#fff;background-position:center top"
-                                       width="100%" cellspacing="0" cellpadding="0" bgcolor="#efefef"
-                                       role="presentation">
-                                       <tr style="border-collapse:collapse">
-                                          <td align="left"
-                                             style="padding:0;Margin:0;padding-bottom:20px;padding-left:30px;padding-right:30px;">
-                                             <table
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%"
-                                                class="cke_show_border" cellspacing="1"
-                                                cellpadding="1" border="0" align="left"
-                                                role="presentation">
-                                                <tr style="border-collapse:collapse">
-                                                   <td style="padding:0;Margin:0;font-size:14px;line-height:21px;vertical-align: bottom;">
-                                                      <p style="margin-bottom: 0;font-weight: 600; font-size: 12px; color: #8e8e8e;">Order ID: <span style="font-size:12px;line-height:21px;color:#8e8e8e">Primefly#084</span> </p>
-                                                      <strong>
-                                                         <!-- <span style="font-size:14px;line-height:21px">{{'Primefly#'.$order->order_code}}</span> --> 
-                                                      </strong>
-                                                   </td>
-                                                   <td style="padding:0;Margin:0;text-align: right;vertical-align: bottom;">
-                                                   </td>
-                                                </tr>
-                                                @foreach($order->orderProducts as $product)
-                                                @php
-                                                $shoppingTotal[] = $product->total;
-                                                @endphp
-                                                <tr style="border-collapse:collapse">
-                                                   <td align="left"
-                                                      style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:0px;background-position:center top">
-                                                      <table cellpadding="0" cellspacing="0" class="es-left" align="left"
-                                                         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%">
-                                                         <tr style="border-collapse:collapse">
-                                                            <td class="es-m-p20b" align="left"
-                                                               style="padding:0;Margin:0; ">
-                                                               <table cellpadding="0" cellspacing="0" width="100%"
-                                                                  style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-position:left top;width: 100%;"
-                                                                  role="presentation">
-                                                                  <tr style="border-collapse:collapse">
-                                                                     <td align="left" style="padding:0;Margin:0;font-size:0;width: 60px; vertical-align: top;"> 
-                                                                        <img  src="{{asset($product->productData->thumbnail_image)}}" alt="" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;height:60px; width:60px; background-color: #ccc;object-fit: cover;" > </td>
-                                                                     <td align="left" class="es-m-txt-l" style="padding:0;Margin:0;padding-top:0px;vertical-align: top;">
-                                                                        <h4
-                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0; padding-bottom:0">
-                                                                           <strong>{{$product->productData->title}}</strong>
-                                                                        </h4> 
-                                                                        @foreach($personaladdressfull as $personaladdresss)
-                                                                        <div style="padding: 0 10px;">
-                                                                           <span>{{$personaladdresss->name}} </span>
-                                                                           <span>{{$personaladdresss->age}} </span>  
-                                                                           <span> {{$personaladdresss->passport_number}} </span>
-                                                                        </div> 
-                                                                        @endforeach
-                                                                        @php
-                                                                        $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
-                                                                        $package = App\Models\Product::where('id', $product->product_id)->first();
-                                                                        $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
-                                                                        if ($orderStatus && $orderStatus->status == 'Refunded') {
-                                                                        $refundStatus = $orderStatus;
-                                                                        $refundStatusPrevious = $orderStatusPrevious;
-                                                                        }
-                                                                        @endphp
-                                                                        @foreach($product->productData->product_categories ?? [] as $product_category)
-                                                                        <div style="padding: 0 10px;">
-                                                                              <span style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</span>
-                                                                              <span style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</span> | 
-                                                                              <span style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</span> |
-                                                                              @if(!is_null($product->travel_type) && $product->travel_type !== '')
-                                                                              <span style="color:#707070;font-size:11px; ">Service Offered:{{ucfirst($product->travel_type)}}</span> |
-                                                                              @endif
-                                                                              @if($product->travel_type == 'departure')
-                                                                              <span style="color:#707070;font-size:11px; ">Service Airport:{{$product->origin}}</span> | 
-                                                                              @else
-                                                                              <span style="color:#707070;font-size:11px; ">Service Airport:{{$product->destination}}</span> | 
-                                                                              @endif
-                                                                              @if($product->origin)
-                                                                              <span style="color:#707070;font-size:11px; ">Origin:{{$product->origin}}</span> | 
-                                                                              @endif
-                                                                              @if($product->destination)
-                                                                              <span style="color:#707070;font-size:11px; ">Destination:{{$product->destination}}</span> | 
-                                                                              @endif
-                                                                              @if($product_category->title == "Porter")
-                                                                              @if(isset($product->guest) && $product->guest > 0)
-                                                                              <span style="color:#707070;font-size:11px;">Porter Count: {{$product->guest}}</span> | 
-                                                                              @else
-                                                                              <span style="color:#707070;font-size:11px;">Porter information not available</span> | 
-                                                                              @endif
-                                                                              @elseif(in_array($product_category->title, ['Meet and Greet', 'Airport Entry']))
-                                                                              @if(isset($product->guest) && $product->guest > 0)
-                                                                              <span style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</span> | 
-                                                                              @else
-                                                                              <span style="color:#707070;font-size:11px;">Guest information not available</span> | 
-                                                                              @endif
-                                                                              @elseif(in_array($product_category->title, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
-                                                                              @if(isset($product->guest) && $product->guest > 0)
-                                                                              <span style="color:#707070;font-size:11px;">Bag: {{$product->guest}}</span> | 
-                                                                              @else
-                                                                              <span style="color:#707070;font-size:11px;">Bag count information not available</span> | 
-                                                                              @endif
-                                                                              @else
-                                                                              @if(isset($product->guest) && $product->guest > 0)
-                                                                              <span style="color:#707070;font-size:11px;">Guest: {{$product->guest}}</span> | 
-                                                                              @else
-                                                                              <span style="color:#707070;font-size:11px;">Guest information not available</span> | 
-                                                                              @endif
-                                                                              @endif
-                                                                              @if($product->adults)
-                                                                              <span style="color:#707070;font-size:11px; ">Adults:{{$product->adults}}</span> | 
-                                                                              <span style="color:#707070;font-size:11px; ">Infants:{{$product->infants}}</span> | 
-                                                                              <span style="color:#707070;font-size:11px; ">Children:{{$product->children}}</span> | 
-                                                                              @endif
-                                                                              @if(!is_null($product->pnr) && $product->pnr !== '')
-                                                                              <span style="color:#707070;font-size:11px; ">Pnr:{{$product->pnr}}</span> | 
-                                                                              @endif
-                                                                              @if(!is_null($product->flight_number) && $product->flight_number !== '')
-                                                                              <span style="color:#707070;font-size:11px; ">Flight Number:{{$product->flight_number}}</span> | 
-                                                                              @endif
-                                                                              @if(!is_null($product->bag_count) && $product->bag_count !== '')
-                                                                              <span style="color:#707070;font-size:11px; ">Bag Count:{{$product->bag_count}}</span> | 
-                                                                              @endif
-                                                                           </div>
-                                                                        @endforeach
-                                                                        @endforeach
-                                                                        @php
-                                                                        $sub_total = array_sum($shoppingTotal);
-                                                                        $grand_total = $sub_total+$order->shipping_charge+$order->tax_amount+$order->gift_wrapper_charge;
-                                                                        @endphp 
-                                                                     </td>
-                                                                     <td align="right" class="es-m-txt-l" style="padding:0;Margin:0;padding-top:0px;vertical-align: top;">
-                                                                        <h3
-                                                                           style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:19px;font-style:normal;font-weight:normal;color:#659c35">
-                                                                           <strong><span style="font-size:16px;line-height:21px;color:#6e56a2;">{{$order->currency}} {{$product->cost}}</span>
-                                                                           </strong>
-                                                                        </h3>
-                                                                     </td>
-                                                                  </tr>
-                                                               </table>
-                                                            </td>
-                                                         </tr>
-                                                      </table>
-                                                   </td>
-                                                </tr>
-                                              
-                                             </table>
-                                          </td>
-                                       </tr>
-                                    </table>
-                                 </td>
-                              </tr>
-                           </table>
-                           <!--[if mso]>
-                        </td>
-                        <td style="width:0px"></td>
-                        <td style="width:280px" valign="top">
-                           <![endif]-->
-                           <table  cellspacing="0" cellpadding="0" align="center"
-                              style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width: 100%; text-align: center; ">
-                              <tr style="border-collapse:collapse">
-                                 <td align="center" style="padding:0;Margin:0;width:100%">
-                                    <table class="darkmode-bg"
-                                       style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:1px solid transparent;
-                                       border-right:1px solid transparent;border-top:1px solid transparent;border-bottom:1px solid transparent;background-color:#fff;background-position:center top"
-                                       width="100%" cellspacing="0" cellpadding="0" bgcolor="#efefef"
-                                       role="presentation">
-                                       <tr style="border-collapse:collapse">
-                                          <td align="center"
-                                             style="Margin:0;padding-bottom:15px;padding-top:15px;padding-left:20px;padding-right:20px;border-bottom:2px dashed #c8c8c8;">
-                                             <h4 style="Margin:0;line-height:120%;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#636363">
-                                                Reciept
-                                             </h4>
-                                          </td>
-                                       </tr>
-                                       <tr style="border-collapse:collapse">
-                                          <td align="center"
-                                             style="padding:0;Margin:0;padding-bottom:0px;padding-left:20px;padding-right:20px;padding-top: 10px;">
-                                             <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;
-                                                font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                {{$order->orderCustomer->CustomerData->first_name}}
-                                                {{$personaladdress->address}}
-                                             </p>
-                                          </td>
-                                       </tr>
-                                       <tr style="border-collapse:collapse">
-                                          <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                                             <table cellpadding="0" cellspacing="0" width="100%"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;border-bottom:2px dashed #c8c8c8;background-position:center top"
-                                                role="presentation">
-                                                <tr style="border-collapse:collapse">
-                                                   <td align="left"
-                                                      style="padding:0;Margin:0;padding-top:10px;padding-bottom: 15px;">
-                                                      <table border="0" cellspacing="1" cellpadding="1"
-                                                         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:420px;margin: auto;"
-                                                         class="cke_show_border" role="presentation">
-                                                         <tr style="border-collapse:collapse">
-                                                            <td style="padding:0;Margin:0">
-                                                               <h4
-                                                                  style="Margin:0;line-height:1.2;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;color: #333333;
-                                                                  font-size: 13px;
-                                                                  font-weight: 500;text-align: right;">
-                                                                  Subtotal
-                                                                  ({{count($order->orderProducts)}}
-                                                                  items): 
-                                                               </h4>
-                                                            </td>
-                                                            <td style=" Margin:0;color:#333333;padding:5px 10px;">
-                                                               <strong style="font-size: 13px;
-                                                                  font-weight:600;"> {{$order->currency.' '.$orderTotal}}</strong>
-                                                            </td>
-                                                         </tr>
-                                                         <tr style="border-collapse: collapse;">
-                                                            @php
-                                                            // Calculate CGST and SGST based on order grand total
-                                                            $cgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
-                                                            $sgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
-                                                            // Calculate total amount including 18%
-                                                            $totalIncluding18Percent = $cgst + $sgst + $orderTotal;
-                                                            @endphp
-                                                         <tr style="border-collapse: collapse;">
-                                                            <td style="padding: 0; Margin: 0;">
-                                                               <h4 style="Margin: 0; line-height:1.2; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 13px;
-                                                                  font-weight: 500;text-align: right;">
-                                                                  CGST (9%):
-                                                               </h4>
-                                                            </td>
-                                                            <td style="padding: 0; Margin: 0; color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                                                               <strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong>
-                                                            </td>
-                                                         </tr>
-                                                         <tr style="border-collapse: collapse;">
-                                                            <td style="padding: 0; Margin: 0;">
-                                                               <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;font-size: 13px;
-                                                                  font-weight: 500;text-align: right;">
-                                                                  SGST (9%):
-                                                               </h4>
-                                                            </td>
-                                                            <td style="padding: 0; Margin: 0; color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                                                               <strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong>
-                                                            </td>
-                                                         </tr>
-                                                         <tr style="border-collapse: collapse;">
-                                                            <td style="padding: 0; Margin: 0;">
-                                                               <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;font-size: 13px;
-                                                                  font-weight: 500;text-align: right;">
-                                                                  Order Total:
-                                                               </h4>
-                                                            </td>
-                                                            <td style="padding: 0; Margin: 0;color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                                                               <strong>{{ $order->currency }} {{ number_format($totalIncluding18Percent, 2) }}</strong>
-                                                            </td>
-                                                         </tr>
-                                                      </table>
-                                                   </td>
-                                                </tr>
-                                             </table>
-                                          </td>
-                                       </tr>
-                                    </table>
-                                 </td>
-                              </tr>
-                           </table>
-                           <!--[if mso]>
                         </td>
                      </tr>
                   </table>
-                  <![endif]-->
+               </td>
+            </tr>
+            <tr style="border-collapse:collapse">
+               <td align="left" style="Margin:0;padding-bottom:0px;padding-top:20px;padding-left:0px;padding-right:0px">
+                  <table class="es-left" cellspacing="0" cellpadding="0" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%">
+                     <tr style="border-collapse:collapse">
+                        <td class="es-m-p20b" align="left" style="padding:0;Margin:0;width:100%;border-top:1px solid #efefef;border-bottom:2px dashed #c8c8c8">
+                           <table class="darkmode-bg" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-left:1px solid transparent;border-top:1px solid transparent;border-bottom:1px solid transparent;background-color:#fff;background-position:center top" width="100%" cellspacing="0" cellpadding="0" bgcolor="#efefef" role="presentation">
+                              <tr style="border-collapse:collapse">
+                                 <td align="left" style="padding:0;Margin:0;padding-bottom:20px;padding-left:30px;padding-right:30px;">
+                                    <table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%" class="cke_show_border" cellspacing="1" cellpadding="1" border="0" align="left" role="presentation">
+                                       <tr style="border-collapse:collapse">
+                                          <td style="padding:0;Margin:0;font-size:14px;line-height:21px;vertical-align: bottom;">
+                                             <p style="margin-bottom: 0;font-weight: 600; font-size: 12px; color: #8e8e8e;">Order ID: <span style="font-size:12px;line-height:21px;color:#8e8e8e">Primefly#084</span> </p>
+                                          </td>
+                                          <td style="padding:0;Margin:0;text-align: right;vertical-align: bottom;">
+                                          </td>
+                                       </tr>
+                                       @foreach($order->orderProducts as $product)
+                                       @php
+                                       $shoppingTotal[] = $product->total;
+                                       @endphp
+                                       <tr style="border-collapse:collapse">
+                                          <td align="left" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:0px;background-position:center top">
+                                             <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%">
+                                                <tr style="border-collapse:collapse">
+                                                   <td class="es-m-p20b" align="left" style="padding:0;Margin:0;">
+                                                      <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-position:left top;width: 100%;" role="presentation">
+                                                         <tr style="border-collapse:collapse">
+                                                            <td align="left" style="padding:0;Margin:0;font-size:0;width: 60px; vertical-align: top;">
+                                                               <img src="{{ asset($product->productData->thumbnail_image) }}" alt="" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;height:60px; width:60px; background-color: #ccc;object-fit: cover;">
+                                                            </td>
+                                                            <td align="left" class="es-m-txt-l" style="padding:0;Margin:0;padding-top:0px;vertical-align: top;">
+                                                               <h4 style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:16px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0;">
+                                                                  <strong>{{ $product->productData->title }}</strong>
+                                                               </h4>
+                                                               @foreach($personaladdressfull as $personaladdresss)
+                                                               <span>{{ $personaladdresss->name }} </span>
+                                                               <span>{{ $personaladdresss->age }} </span> | 
+                                                               <span>{{ $personaladdresss->passport_number }} </span>
+                                                               @endforeach
+                                                               @php
+                                                               $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
+                                                               $package = App\Models\Product::where('id', $product->product_id)->first();
+                                                               $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->take(1)->first();
+                                                               if ($orderStatus && $orderStatus->status == 'Refunded') {
+                                                               $refundStatus = $orderStatus;
+                                                               $refundStatusPrevious = $orderStatusPrevious;
+                                                               }
+                                                               @endphp
+                                                               @foreach($product->productData->product_categories ?? [] as $product_category)
+                                                               <div>
+                                                                  <span style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</span>
+                                                                  <span style="color:#707070;font-size:11px;">Package: {{ ucfirst($package->title) }}</span> |
+                                                                  <span style="color:#707070;font-size:11px;">Travel Sector: {{ ucfirst($product->travel_sector) }}</span> |
+                                                                  @if(!is_null($product->travel_type) && $product->travel_type !== '')
+                                                                  <span style="color:#707070;font-size:11px;">Service Offered: {{ ucfirst($product->travel_type) }}</span> |
+                                                                  @endif
+                                                                  @if($product->travel_type == 'departure')
+                                                                  <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->origin }}</span> | 
+                                                                  @else
+                                                                  <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->destination }}</span> | 
+                                                                  @endif
+                                                                  @if($product->origin)
+                                                                  <span style="color:#707070;font-size:11px;">Origin: {{ $product->origin }}</span> | 
+                                                                  @endif
+                                                                  @if($product->destination)
+                                                                  <span style="color:#707070;font-size:11px;">Destination: {{ $product->destination }}</span> |
+                                                                  @endif
+                                                                  @if($product->status == 'Refunded')
+                                                                  <span style="color:#707070;font-size:11px;">Refund Status: {{ $refundStatus->status }}</span> | 
+                                                                  @endif
+                                                                  <span style="color:#707070;font-size:11px;">Qty: {{ $product->quantity }}</span>
+                                                               </div>
+                                                               @endforeach
+                                                            </td>
+                                                         </tr>
+                                                      </table>
+                                                   </td>
+                                                </tr>
+                                             </table>
+                                          </td>
+                                          <td align="right" style="padding:0;Margin:0;text-align:right;">
+                                             <p style="margin-bottom:0;font-size:14px;font-weight:600;">${{ number_format($product->total, 2) }}</p>
+                                          </td>
+                                       </tr>
+                                       @endforeach
+                                    </table>
+                                 </td>
+                              </tr>
+                              <tr style="border-collapse:collapse">
+                                 <td align="left" style="padding:0;Margin:0;padding-bottom:20px;padding-left:0px;padding-right:0px">
+                                    <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                       <tr style="border-collapse:collapse">
+                                          <td align="left" style="padding:0;Margin:0;width:400px">
+                                             <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr style="border-collapse:collapse">
+                                                   <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:14px;line-height:21px;color:#636363;font-weight:600;">Order Summary</td>
+                                                </tr>
+                                                <tr style="border-collapse:collapse">
+                                                   <td align="left" style="padding:0;Margin:0;padding-bottom:10px;">
+                                                      <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                         <tr style="border-collapse:collapse">
+                                                            <td align="left" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">Subtotal:</p>
+                                                            </td>
+                                                            <td align="right" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">${{ number_format(array_sum($shoppingTotal), 2) }}</p>
+                                                            </td>
+                                                         </tr>
+                                                         <tr style="border-collapse:collapse">
+                                                            <td align="left" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">Tax:</p>
+                                                            </td>
+                                                            <td align="right" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">$0.00</p>
+                                                            </td>
+                                                         </tr>
+                                                         <tr style="border-collapse:collapse">
+                                                            <td align="left" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">Shipping:</p>
+                                                            </td>
+                                                            <td align="right" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">$0.00</p>
+                                                            </td>
+                                                         </tr>
+                                                         <tr style="border-collapse:collapse">
+                                                            <td align="left" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">Total:</p>
+                                                            </td>
+                                                            <td align="right" style="padding:0;Margin:0">
+                                                               <p style="margin-bottom:0;font-size:14px;color:#636363;">${{ number_format(array_sum($shoppingTotal), 2) }}</p>
+                                                            </td>
+                                                         </tr>
+                                                      </table>
+                                                   </td>
+                                                </tr>
+                                             </table>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+            <tr style="border-collapse:collapse">
+               <td align="left" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px">
+                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                     <tr style="border-collapse:collapse">
+                        <td align="center" style="padding:0;Margin:0">
+                           <p style="margin-bottom:0;font-size:14px;line-height:21px;color:#636363">Thank you for your order!</p>
+                        </td>
+                     </tr>
+                  </table>
                </td>
             </tr>
          </table>
+      </td>
+   </tr>
+</table>
+
          </td>
          </tr>
          </table>
