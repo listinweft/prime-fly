@@ -57,6 +57,39 @@ class ReportController extends Controller
         $couponList = Coupon::where('status', 'Active')->get();
         return view('Admin/report/order/order_detail_report', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList'));
     }
+
+
+
+
+    public function export()
+    {
+        return Excel::download(new BulkExport, 'order-report.xlsx');
+    }
+
+    public function product_export()
+    {
+        
+
+        return Excel::download(new ProductList, 'product-list.xlsx');
+    }
+
+    public function order_detail_filter(Request $request)
+    {
+        $date_range = $request->date_range;
+        $status = $request->order_report_status;
+        $customer = $request->order_report_customer;
+        $product = $request->order_report_product;
+        // $coupon = $request->order_report_coupon;
+       $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product);
+        $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product);
+        session(['date_range' => $date_range]);
+        session(['status' => $status]);
+        session(['customer' => $customer]);
+        session(['product' => $product]);
+        // session(['coupon' => $coupon]);
+        return view('Admin.report.order.order_detail_report_filter', compact('orderList', 'boxValues'));
+    }
+
     public function detail_report_subadmin()
 {
     $title = "Detailed Order Report";
@@ -97,56 +130,27 @@ class ReportController extends Controller
     // Return the view with the data
     return view('Admin.report.order.order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocationIds'));
 }
-
-
-    public function export()
-    {
-        return Excel::download(new BulkExport, 'order-report.xlsx');
-    }
-
-    public function product_export()
-    {
-        
-
-        return Excel::download(new ProductList, 'product-list.xlsx');
-    }
-
-    public function order_detail_filter(Request $request)
+    public function order_detail_filter_subadmin(Request $request)
     {
         $date_range = $request->date_range;
         $status = $request->order_report_status;
         $customer = $request->order_report_customer;
         $product = $request->order_report_product;
-        // $coupon = $request->order_report_coupon;
-       $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product);
-        $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product);
-        session(['date_range' => $date_range]);
-        session(['status' => $status]);
-        session(['customer' => $customer]);
-        session(['product' => $product]);
-        // session(['coupon' => $coupon]);
-        return view('Admin.report.order.order_detail_report_filter', compact('orderList', 'boxValues'));
+        
+        // Get the admin's assigned locations from the comma-separated string
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+      $assignedLocations = array_filter(explode(',', $location_ids));
+      
+      $locationCodes = Location::whereIn('id', $assignedLocations)->pluck('code')->toArray();
+    
+        $orderList = Order::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $locationCodes);
+        $boxValues = Order::getDetailedOrdersBoxValues_subadmin($date_range, $status, $customer, $product, $locationCodes);
+        
+        session(['date_range' => $date_range, 'status' => $status, 'customer' => $customer, 'product' => $product]);
+        
+        return view('Admin.report.order.order_detail_report_filter_subadmin', compact('orderList', 'boxValues'));
     }
-
-
-    public function order_detail_filter_subadmin(Request $request)
-{
-    $date_range = $request->date_range;
-    $status = $request->order_report_status;
-    $customer = $request->order_report_customer;
-    $product = $request->order_report_product;
     
-    // Get the admin's assigned locations from the comma-separated string
-    $location_ids = Auth::guard('admin')->user()->location_ids;
-  $assignedLocations = array_filter(explode(',', $location_ids)); 
-
-    $orderList = Order::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
-    $boxValues = Order::getDetailedOrdersBoxValues_subadmin($date_range, $status, $customer, $product, $assignedLocations);
-    
-    session(['date_range' => $date_range, 'status' => $status, 'customer' => $customer, 'product' => $product]);
-    
-    return view('Admin.report.order.order_detail_report_filter_subadmin', compact('orderList', 'boxValues'));
-}
 
     /********************* Order Report ****************************/
 
