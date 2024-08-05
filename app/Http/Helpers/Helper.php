@@ -627,12 +627,14 @@ public static function sendOrderPlacedMail($order, $flag)
 
    
 
-
-    public static function sendContactMail($contact, $type = Null)
+    public static function sendContactMail($contact, $type = null)
     {
         $common = SiteInformation::first();
         $subject = "Contact form submission details";
-        $mail = self::mailConf($subject);
+    
+        // Initialize BrevoMailService
+        $brevoMailService = new \App\Services\BrevoMailService();
+    
         if ($contact->type == 'product') {
             $searchArr = ["{name}", "{email}", "{product}", "{phone}", "{message}", "{type}", "{site_name}"];
             $replaceArr = [$contact->name, $contact->email, $contact->product->title, $contact->phone, $contact->message, $type, config('app.name')];
@@ -642,37 +644,45 @@ public static function sendOrderPlacedMail($order, $flag)
             $replaceArr = [$contact->name, $contact->email, $contact->phone, $contact->message, $type, config('app.name')];
             $body = file_get_contents(resource_path('views/mail_templates/enquiry.blade.php'));
         }
+    
         $body = str_replace($searchArr, $replaceArr, $body);
-        $contactAddress = SiteInformation::first();
-//        dd($common->email);
-
-        $mail->MsgHTML($body);
-        $mail->addAddress($common->enquiry_emails, $common->email_recipient);
-        $mail->send();
-        if ($mail) {
-            return true;
-        } else {
-            return false;
-        }
+    
+        // Prepare email data
+        $to = $common->enquiry_emails;
+        $toName = $common->email_recipient;
+    
+        // Send email using BrevoMailService
+        $brevoMailService->sendEmail($to, $toName, $subject, $body);
+    
+        // Return true if the email was sent (as per method's behavior)
+        return true;
     }
-
+    
+    
     public static function sendReply($enquiry)
     {
         $subject = "Thank you for contacting us";
-        $mail = self::mailConf($subject);
+    
+        // Initialize BrevoMailService
+        $brevoMailService = new \App\Services\BrevoMailService();
+    
+        // Prepare email content
         $searchArr = ["{name}", "{message}", "{reply}", "{site_name}"];
         $replaceArr = [$enquiry->name, $enquiry->message, $enquiry->reply, config('app.name')];
         $body = file_get_contents(resource_path('views/mail_templates/enquiry_reply.blade.php'));
         $body = str_replace($searchArr, $replaceArr, $body);
-        $mail->MsgHTML($body);
-        $mail->addAddress($enquiry->email, $enquiry->name);
-        $mail->send();
-        if ($mail) {
-            return true;
-        } else {
-            return false;
-        }
+    
+        // Prepare email data
+        $to = $enquiry->email;
+        $toName = $enquiry->name;
+    
+        // Send email using BrevoMailService
+        $brevoMailService->sendEmail($to, $toName, $subject, $body);
+    
+        // Return true assuming email sending was successful
+        return true;
     }
+    
     public static function sendpost($user,$customer)
     {
         $subject = "your post uploded .";

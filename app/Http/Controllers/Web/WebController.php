@@ -1278,17 +1278,9 @@ public function search_booking_lounch(Request $request)
         $contact->request_url = url()->previous();
 
 
-        if ($request->type == 'get_a_quote') {
-            $type = " Get A Quote";
-        } elseif ($request->type == 'product') {
-            $type = ' Product Enquiry';
-        }
-        elseif ($request->type == 'bulk') {
-            $type = ' Bulk  Enquiry';
-        }
-         else {
+       
             $type = ' Contact request';
-        }
+    
         if ($contact->save()) {
 
             $sendContactMail = Helper::sendContactMail($contact, $type);
