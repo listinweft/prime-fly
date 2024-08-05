@@ -38,6 +38,7 @@
                        
                      
                      <div class="d-flex align-items-center justify-content-between">
+                      
                         <div class="cart-dtl-wrp">
                            <div class="d-flex align-items-center">
                               <div class="cart-prdt-img">
@@ -55,7 +56,7 @@
                   </div>
                   <div  class="">
                      <form id="personal-details-form">
-                     @if(in_array(Session::get('category'), ['Meet and Greet']))
+                    
     @foreach($totals as $index => $guestCount)
         @for($i = 0; $i < $guestCount; $i++)
             <div class="price-summery personal-details customer-detail-form mb-3">
@@ -93,41 +94,7 @@
             </div>
         @endfor
     @endforeach
-@else
-    <div class="price-summery personal-details customer-detail-form">
-        <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
-            <div class="details-item details-item-option col-12 ps-2 pe-2">
-                <label for="gender">Gender</label><br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions[]" id="inlineRadio1" value="Mr">
-                    <label class="form-check-label" for="inlineRadio1">Mr.</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions[]" id="inlineRadio2" value="Ms">
-                    <label class="form-check-label" for="inlineRadio2">Ms.</label>
-                </div>
-            </div>
-            <div class="details-item col-lg-4 ps-2 pe-2">
-                <label for="name">Passenger Name*</label>
-                <input type="text" name="name[]" id="name" placeholder="Enter full name" required>
-                <span class="error-message" style="display: none;">Name is required.</span>
-            </div>
-            <div class="details-item col-lg-4 ps-2 pe-2">
-                <label for="age">Age*</label>
-                <input type="text" name="age[]" id="age" placeholder="Enter your age" required>
-                <span class="error-message" style="display: none;">Age is required.</span>
-            </div>
-            <div class="details-item col-lg-4 ps-2 pe-2">
-                <label for="pnr">PNR Number*</label>
-                <input type="text" name="pnr[]" id="pnr" placeholder="Enter your PNR" required>
-                <span class="error-message" style="display: none;">PNR is required.</span>
-            </div>
-            <div class="details-item">
-                <button type="button" class="add-more-btn btn btn-primary">+</button>
-            </div>
-        </div>
-    </div>
-@endif
+
 
 
                         <div class="mt-4">
