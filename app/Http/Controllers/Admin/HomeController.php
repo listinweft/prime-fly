@@ -26,6 +26,7 @@ use App\Models\SiteInformation;
 use App\Models\Testimonial;
 use App\Models\HomeGetQuote;
 use App\Models\Homecollection;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
@@ -42,63 +43,44 @@ class HomeController extends Controller
     }
 
     public function admin_dashboard()
-    {
-        $title = "Dashboard";
-        
+{
+    $title = "Dashboard";
+    $admin = Auth::guard('admin')->user();
+    $admintype = $admin->admin;
 
-        $admintype =  Auth::guard('admin')->user()->admin;
+    // Fetch general counts
+    $Totaljournal = Order::count();
+    $Totalcustomer = Customer::count();
+    $Totalblog = Blog::active()->count();
+    $TotalPost = Category::count();
+    $Totalservices = Category::whereNull('parent_id')->count();
 
-        
- 
-        $Totaljournal = Order::count();
-        $Totalcustomer = Customer::count();
-        $Totalblog = Blog::active()->count();
-        $TotalPost = Category::count();
-        $Totalservices = Category::whereNull('parent_id')->count();
+    if ($admintype->role == "Super Admin") {
+        return view('Admin.dashboard.admin_dashboard', compact('title', 'Totaljournal', 'TotalPost', 'Totalblog', 'Totalservices', 'Totalcustomer'));
+    } else {
+        // Retrieve and filter location IDs
+        $location_ids = $admin->location_ids;
+        $assignedLocationIds = array_filter(explode(',', $location_ids));
 
-        if($admintype->role == "Super Admin" )
-        {
-        return view('Admin.dashboard.admin_dashboard', compact('title','Totaljournal','TotalPost','Totalblog','Totalservices','Totalcustomer'));
+        // Fetch location codes based on location IDs
+        $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
 
-        }
-        else
-        {
+        // Count orders based on location codes
+        $orderCount = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
+            return $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
+                $query->whereIn('origin', $locationCodes)
+                      ->orWhereIn('destination', $locationCodes);
+            });
+        })
+        ->when(empty($locationCodes), function ($query) {
+            return $query->whereRaw('1=0'); // Force a condition that is never true
+        })
+        ->count();
 
-            $location_ids = Auth::guard('admin')->user()->location_ids;
-            $assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
-            
-            $orderCount = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
-                                    return $query->where(function ($query) use ($assignedLocations) {
-                                        $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                                            $query->whereIn('origin', $assignedLocations)
-                                                  ->orWhereIn('destination', $assignedLocations);
-                                        });
-                                    });
-                                })
-                                ->when(empty($assignedLocations), function ($query) {
-                                    // Handle case when assignedLocations is empty or contains only empty values
-                                    return $query->whereRaw('1=0'); // Force a condition that is never true
-                                })
-                                ->count();
-            
-
-
-            return view('Admin.dashboard.subadmin_dashboard', compact('title','orderCount',));
-
-
-        }
-
+        return view('Admin.dashboard.subadmin_dashboard', compact('title', 'orderCount'));
     }
-    public function product_validate(){
+}
 
-        $validatedData = request()->validate([
-            'short_url' => 'required|unique:products,short_url,NULL,id,deleted_at,NULL|min:2|max:255',
-            'type' => 'required|unique:products,product_type_id,NULL,id,deleted_at,NULL',
-        ]);
-        // return the validated data
-        return $validatedData;
-        //
-    }
 
     public function update_home_heading(Request $request)
     {

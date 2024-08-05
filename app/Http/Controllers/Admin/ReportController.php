@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Location;
 use App\Models\Product;
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
@@ -57,37 +58,46 @@ class ReportController extends Controller
         return view('Admin/report/order/order_detail_report', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList'));
     }
     public function detail_report_subadmin()
-    {
-        $title = "Detailed Order Report";
-$location_ids = Auth::guard('admin')->user()->location_ids;
-$assignedLocations = array_filter(explode(',', $location_ids)); // Remove empty values from array
+{
+    $title = "Detailed Order Report";
 
-$orderList = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
-        return $query->where(function ($query) use ($assignedLocations) {
-            $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                $query->whereIn('origin', $assignedLocations)
-                      ->orWhereIn('destination', $assignedLocations);
+    // Get the location IDs for the authenticated admin
+    $location_ids = Auth::guard('admin')->user()->location_ids;
+    
+    // Convert location IDs to an array and remove empty values
+    $assignedLocationIds = array_filter(explode(',', $location_ids));
+    
+    // Fetch location codes based on location IDs
+    $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+
+    // Initialize query with pagination
+    $orderList = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
+            return $query->where(function ($query) use ($locationCodes) {
+                $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
+                    $query->whereIn('origin', $locationCodes)
+                          ->orWhereIn('destination', $locationCodes);
+                });
             });
-        });
-    })
-    ->when(empty($assignedLocations), function ($query) {
-        // Handle case when assignedLocations is empty or contains only empty values
-        return $query->whereRaw('1=0'); // Force a condition that is never true
-    })
-    ->latest()
-    ->paginate(50); // Pagination added here
+        })
+        ->when(empty($locationCodes), function ($query) {
+            // Handle case when locationCodes is empty or contains only empty values
+            return $query->whereRaw('1=0'); // Force a condition that is never true
+        })
+        ->latest() // Order by latest
+        ->paginate(50); // Paginate results, 50 items per page
 
+    // Fetch box values using location codes
+    $boxValues = Order::boxValues_subadmin($locationCodes);
+    
+    // Fetch customer list, product list, and coupon list
+    $customerList = Customer::oldest('first_name', 'last_name')->get();
+    $productList = Product::where('status', 'Active')->oldest('title')->get();
+    $couponList = Coupon::where('status', 'Active')->get();
 
+    // Return the view with the data
+    return view('Admin.report.order.order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocationIds'));
+}
 
-    
-        $boxValues = Order::boxValues_subadmin($assignedLocations);
-        $customerList = Customer::oldest('first_name', 'last_name')->get();
-        $productList = Product::where('status', 'Active')->oldest('title')->get();
-        $couponList = Coupon::where('status', 'Active')->get();
-    
-        return view('Admin/report/order/order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocations'));
-    }
-    
 
     public function export()
     {

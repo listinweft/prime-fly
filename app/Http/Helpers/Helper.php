@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Helpers;
-
+use App\Services\PHPMailerService;
 use App\Http\Controllers\Web\CartController;
 use App\Models\Blog;
 use App\Models\Category;
@@ -304,55 +304,165 @@ class Helper
     }
 
 
-     public static function sendOrderPlacedMail($order, $flag)
-    {
-        if ($flag == '1') {
-            $orderData = Order::find($order);
-            if ($orderData != NULL) {
-                if ($orderData->orderCustomer->user_type == "User") {
-                    $order = Order::with(['orderProducts' => function ($t) {
-                        $t->with('productData');
-                    }])->with(['orderCustomer' => function ($c) use ($orderData) {
-                        $c->with('customerData');
-                        $c->with('billingAddress');
-                        $c->where('customer_id', $orderData->orderCustomer->customer_id);
-                    }])->with('orderCoupons')->find($orderData->id);
-                } else {
-                    $order = Order::with(['orderProducts' => function ($t) {
-                        $t->with('productData');
-                    }])->with('orderCustomer')->with('orderCoupons')->find($orderData->id);
-                }
+    //  public static function sendOrderPlacedMail($order, $flag)
+    // {
+    //     if ($flag == '1') {
+    //         $orderData = Order::find($order);
+    //         if ($orderData != NULL) {
+    //             if ($orderData->orderCustomer->user_type == "User") {
+    //                 $order = Order::with(['orderProducts' => function ($t) {
+    //                     $t->with('productData');
+    //                 }])->with(['orderCustomer' => function ($c) use ($orderData) {
+    //                     $c->with('customerData');
+    //                     $c->with('billingAddress');
+    //                     $c->where('customer_id', $orderData->orderCustomer->customer_id);
+    //                 }])->with('orderCoupons')->find($orderData->id);
+    //             } else {
+    //                 $order = Order::with(['orderProducts' => function ($t) {
+    //                     $t->with('productData');
+    //                 }])->with('orderCustomer')->with('orderCoupons')->find($orderData->id);
+    //             }
+    //         }
+    //     }
+    //     $common = SiteInformation::first();
+    //     $contactAddress = ContactAddress::where('status', 'Active')->first();
+    //     $customerAddress = $order->orderCustomer->CustomerData;
+    //     $to = $customerAddress->user->email;
+    //     $to_name = $customerAddress->first_name ;
+    //     $link = url('order/' . base64_encode($order->order_code));
+    //     $orderGrandTotal = Order::OrderGrandTotal($order->id);
+       
+    //     $orderTotal = Order::getProductTotal($order->id);
+    //     //mail to customer
+    //  $emails = explode(',', $common->order_emails);
+    //  //send mail to multiple emails
+       
+    //     Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
+    //         'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
+    //         'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
+    //         $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
+    //         $message->from($common->email, $common->email_recipient);
+    //     });        //mail to admin
+    //     foreach ($emails as $email) {
+    //         Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
+    //             'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
+    //             'link' => $link), function ($message) use ($email, $to_name, $common,$contactAddress) {
+    //             $message->to($email, $to_name)->subject(config('app.name') . ' - Order Placed');
+    //             $message->from($common->email, $common->email_recipient);
+    //         });
+    //     }
+    //     return true;
+    // }
+
+
+
+
+// public static function sendOrderPlacedMail($order, $flag)
+// {
+//     $mailService = new PHPMailerService(); // Initialize PHPMailerService
+
+//     if ($flag == '1') {
+//         $orderData = Order::find($order);
+//         if ($orderData != NULL) {
+//             if ($orderData->orderCustomer->user_type == "User") {
+//                 $order = Order::with(['orderProducts' => function ($t) {
+//                     $t->with('productData');
+//                 }])->with(['orderCustomer' => function ($c) use ($orderData) {
+//                     $c->with('customerData');
+//                     $c->with('billingAddress');
+//                     $c->where('customer_id', $orderData->orderCustomer->customer_id);
+//                 }])->with('orderCoupons')->find($orderData->id);
+//             } else {
+//                 $order = Order::with(['orderProducts' => function ($t) {
+//                     $t->with('productData');
+//                 }])->with('orderCustomer')->with('orderCoupons')->find($orderData->id);
+//             }
+//         }
+//     }
+    
+//     $common = SiteInformation::first();
+//     $contactAddress = ContactAddress::where('status', 'Active')->first();
+//     $customerAddress = $order->orderCustomer->CustomerData;
+//     $to = $customerAddress->user->email;
+//     $to_name = $customerAddress->first_name;
+//     $link = url('order/' . base64_encode($order->order_code));
+//     $orderGrandTotal = Order::OrderGrandTotal($order->id);
+//     $orderTotal = Order::getProductTotal($order->id);
+//     $emails = explode(',', $common->order_emails);
+    
+//     // Prepare the email body
+//     $body = view('mail_templates.order_invoice_v2', [
+//         'order' => $order,
+//         'name' => $to_name,
+//         'common' => $common,
+//         'orderGrandTotal' => $orderGrandTotal,
+//         'orderTotal' => $orderTotal,
+//         'title' => 'Congratulations, Order Successful!',
+//         'link' => $link
+//     ])->render();
+    
+//     // Send mail to customer
+//     $mailService->sendMail($to, config('app.name') . ' - Order Placed', $body);
+
+//     // Send mail to admin
+//     foreach ($emails as $email) {
+//         $mailService->sendMail($email, config('app.name') . ' - Order Placed', $body);
+//     }
+
+//     return true;
+// }
+
+
+public static function sendOrderPlacedMail($order, $flag)
+{
+    $brevoMailService = new \App\Services\BrevoMailService();
+
+    if ($flag == '1') {
+        $orderData = Order::find($order);
+        if ($orderData != NULL) {
+            if ($orderData->orderCustomer->user_type == "User") {
+                $order = Order::with(['orderProducts' => function ($t) {
+                    $t->with('productData');
+                }])->with(['orderCustomer' => function ($c) use ($orderData) {
+                    $c->with('customerData');
+                    $c->with('billingAddress');
+                    $c->where('customer_id', $orderData->orderCustomer->customer_id);
+                }])->with('orderCoupons')->find($orderData->id);
+            } else {
+                $order = Order::with(['orderProducts' => function ($t) {
+                    $t->with('productData');
+                }])->with('orderCustomer')->with('orderCoupons')->find($orderData->id);
             }
         }
-        $common = SiteInformation::first();
-        $contactAddress = ContactAddress::where('status', 'Active')->first();
-        $customerAddress = $order->orderCustomer->CustomerData;
-        $to = $customerAddress->user->email;
-        $to_name = $customerAddress->first_name ;
-        $link = url('order/' . base64_encode($order->order_code));
-        $orderGrandTotal = Order::OrderGrandTotal($order->id);
-       
-        $orderTotal = Order::getProductTotal($order->id);
-        //mail to customer
-     $emails = explode(',', $common->order_emails);
-     //send mail to multiple emails
-       
-        Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
-            'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
-            'link' => $link), function ($message) use ($to, $to_name, $common,$contactAddress) {
-            $message->to($to, $to_name)->subject(config('app.name') . ' - Order Placed');
-            $message->from($common->email, $common->email_recipient);
-        });        //mail to admin
-        foreach ($emails as $email) {
-            Mail::send('mail_templates.order_invoice_v2', array('order' => $order, 'name' => $to_name, 'common' => $common,
-                'orderGrandTotal' => $orderGrandTotal, 'orderTotal' => $orderTotal, 'title' => 'Congratulations, Order Successful!',
-                'link' => $link), function ($message) use ($email, $to_name, $common,$contactAddress) {
-                $message->to($email, $to_name)->subject(config('app.name') . ' - Order Placed');
-                $message->from($common->email, $common->email_recipient);
-            });
-        }
-        return true;
     }
+
+    $common = SiteInformation::first();
+    $contactAddress = ContactAddress::where('status', 'Active')->first();
+    $customerAddress = $order->orderCustomer->customerData;
+    $to = $customerAddress->user->email;
+    $to_name = $customerAddress->first_name;
+    $link = url('order/' . base64_encode($order->order_code));
+    $orderGrandTotal = Order::OrderGrandTotal($order->id);
+    $orderTotal = Order::getProductTotal($order->id);
+
+    $emails = explode(',', $common->order_emails);
+
+    $subject = 'Congratulations, Order Successful!';
+    $htmlContent = view('mail_templates.order_invoice_v2', compact('order', 'to_name', 'common', 'orderGrandTotal', 'orderTotal', 'link'))->render();
+
+    // Send mail to customer
+    $brevoMailService->sendEmail($to, $to_name, $subject, $htmlContent);
+
+    // Send mail to admin
+    foreach ($emails as $email) {
+        $brevoMailService->sendEmail($email, $common->email_recipient, $subject, $htmlContent);
+    }
+
+    return true;
+}
+
+
+
 
     /**
      * convert an image file to webp and upload it to specified location.

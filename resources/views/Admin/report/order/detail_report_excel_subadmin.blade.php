@@ -9,7 +9,7 @@
             <td rowspan="2">Code</td>
             <td rowspan="2">Customer</td>
             <td colspan="4" style="text-align: center;">Services</td>
-            <td rowspan="2">Order Total</td>
+           
             <td rowspan="2">Created Date</td>
         </tr>
         <tr>
@@ -45,9 +45,10 @@
                     </td>
                     <td>{{ ($products[0]->productData) ? $products[0]->productData->title : '' }}</td>
                     <td>{{ $order->currency . ' ' . $products[0]->total }}</td>
-                    <td>{!! Order::getStatus($orderStatus->status) !!}</td>
-                    <td rowspan="{{ count($products) }}">{{ number_format($orderTotal, 2) . ' ' . $order->currency }}</td>
+                   
+                  
                     <td rowspan="{{ count($products) }}">{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
+                    <td>{!! Order::getStatus($orderStatus->status) !!}</td>
                 </tr>
                 @for($j = 1; $j < count($products); $j++)
                     @php

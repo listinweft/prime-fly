@@ -73,6 +73,7 @@
                                             @php
                                                 $shoppingTotal = [];
                                                 $refundStatus = $refundStatusPrevious = null;
+                                                $orderGrandTotal = 0; // Initialize grand total
                                             @endphp
                                             @foreach($order->orderProducts as $product)
                                                 @php
@@ -87,6 +88,8 @@
                                                         $refundStatus = $orderStatus;
                                                         $refundStatusPrevious = $orderStatusPrevious;
                                                     }
+                                                    
+                                                    $orderGrandTotal += $product->total; // Calculate grand total
                                                 @endphp
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
@@ -119,7 +122,7 @@
                                                         <select name="status" id="orderStatus" class="form-control" style="min-width: 130px;"
                                                                 data-id="{{ $product->id }}" data-order_id="{{ $order->id }}"
                                                                 data-coupon_min="{{ $order->getMaxCouponsMinimumSpend() }}"
-                                                                data-order_total="{{ $orderTotal }}"
+                                                                data-order_total="{{ $orderGrandTotal }}"
                                                                 data-price="{{ $product->total }}"
                                                                 data-all_product_statuses="{{ implode(',', array_unique($order->orderLogs->pluck(['status'])->toArray())) }}">
                                                             @foreach(['Pending' => 'Pending', 'Processing' => 'Processing', 'On Hold' => 'On Hold', 'Cancelled' => 'Cancelled',  'Completed' => 'Completed', 'Refunded' => 'Refunded', 'Failed' => 'Failed'] as $statusKey => $status)
@@ -156,10 +159,10 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Subtotal:</td>
-                                                    <td>{{ $order->currency }} {{ number_format($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0, 2) }}</td>
+                                                    <td>{{ $order->currency }} {{ number_format($orderGrandTotal, 2) }}</td>
                                                 </tr>
                                                 @php
-                                                    $subtotal = $orderGrandTotal['orderGrandTotal'];
+                                                    $subtotal = $orderGrandTotal;
                                                     $sgst = $subtotal * 0.09;
                                                     $cgst = $subtotal * 0.09;
                                                     $totalWithTax = $subtotal + $sgst + $cgst;

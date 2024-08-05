@@ -48,24 +48,17 @@
                                         <th>#</th>
                                         <th>Code</th>
                                         <th>Customer</th>
-                                     
-                                       
                                         <th>Order Total</th>
-                                      
-                                        <!-- <th>Payment Method</th> -->
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($orderList as $order)
-                                        @if($order->orderProducts!=NULL)
+                                        @if($order->orderProducts->count() > 0)
                                             @php
-                                                $productTotal = App\Models\Order::getProductTotal($order->id);
-                                                $orderTotal = App\Models\Order::getOrderTotal($order->id);
-                                                $cancelledTotal = App\Models\Order::getCancelledProductTotal($order->id);
-                                                $total = $cancelledTotal['total']-$cancelledTotal['couponCharge'];
-                                                $returnAmount = $total+$cancelledTotal['taxAmount']+$cancelledTotal['shippingCharge']+$cancelledTotal['otherCouponCharge'];
+                                                // Calculate total from OrderProduct model
+                                                $productTotal = $order->orderProducts->sum('total'); // Sum of 'total' field from order_products
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
@@ -73,26 +66,19 @@
                                                 @if(@$order->orderCustomer->user_type=="User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
-                                                @if (@$order->orderCustomer->billingAddress)
-                                                    
-                                                <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
-                                                @else
-                                                <td></td>
+                                                    @if (@$order->orderCustomer->billingAddress)
+                                                        <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
                                                 @endif
-                                                @endif
-                                                
-                                               
-                                                <td>{{ number_format($orderTotal,2).' '.$order->currency }}</td>
-                                                
-                                                <!-- <td>{{ $order->payment_method }}</td> -->
-                                                <td>{{ date("d-M-Y", strtotime($order->created_at))  }}</td>
+                                                <td>{{ number_format($productTotal, 2).' '.$order->currency }}</td>
+                                                <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
                                                 <td class="text-right py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">
-                                                       
                                                         <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}"
                                                            class="btn btn-primary mr-2 tooltips" title="View Order"><i
                                                                 class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
-                                                       
                                                     </div>
                                                 </td>
                                             </tr>
