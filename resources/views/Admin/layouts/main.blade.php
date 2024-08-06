@@ -79,7 +79,7 @@
     </nav>
     @include('Admin.includes.menu')
     @yield('content')
-    <footer class="main-footer">
+    <!-- <footer class="main-footer">
         
         <strong>Copyright &copy; {{ date('Y')}}
             <a href="{{asset(Helper::sitePrefix().'/dashboard')}}">{{ config('app.name') }}</a>
@@ -88,7 +88,7 @@
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 2.0
         </div>
-    </footer>
+    </footer> -->
     <aside class="control-sidebar control-sidebar-dark"></aside>
     <div class="modal fade" id="modalWindow">
         <div class="modal-dialog" id="modalContent">
