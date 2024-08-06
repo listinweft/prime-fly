@@ -445,7 +445,7 @@
                                @endif
                             <button type="reset" class="btn btn-default">Cancel</button>
                             <input type="hidden" name="id" id="id" value="{{ isset($product)?$product->id:'0' }}">
-                            <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                            <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                  style="display:none;">
                         </div>
                     </div>

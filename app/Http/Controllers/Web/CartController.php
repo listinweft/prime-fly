@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web;
-
+use DateTime;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Advertisement;
@@ -1584,7 +1584,18 @@ class CartController extends Controller
                         $detail->coupon_value = 0;
                         $detail->coupon_after_price = 0;
                         $detail->entry_date = $row->attributes['entry_date'] ?? '';
-                        $detail->exit_date = $row->attributes['setdate'] ?? '';
+                        $dateString = $row->attributes['setdate'] ?? '';
+                        $formattedDate = '';
+                        
+                        if ($dateString) {
+                            $dateTime = DateTime::createFromFormat('d/m/Y', $dateString);
+                            if ($dateTime) {
+                                $formattedDate = $dateTime->format('Y-m-d H:i:s');
+                            }
+                        }
+                        
+                        $detail->exit_date = $formattedDate;
+                        
                         $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
                         $detail->flight_number = $row->attributes['flight_number'] ?? '';
                         $detail->travel_type = $row->attributes['travel_type'] ?? '';

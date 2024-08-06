@@ -13,52 +13,53 @@
 
 
     <script>
-        $(document).ready(function() {
-            var calendar = $('#calendar').fullCalendar({
-                events: [], // Initialize with an empty array
-                editable: true, // Allow dragging and resizing of events
+   $(document).ready(function() {
+    var calendar = $('#calendar').fullCalendar({
+        events: [], // Initialize with an empty array
+        editable: true, // Allow dragging and resizing of events
 
-                // Fetch orders from the server and update the calendar
-                events: function(start, end, timezone, callback) {
-                    $.ajax({
-                        url: '{{ route('admin.calendar.orders') }}', // Adjust the route as needed
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(response) {
-                            var events = [];
-                            // Process your order data and convert it to FullCalendar events format
-                            // Example assuming your order data has 'title', 'start_date', and 'end_date' properties
-                            $.each(response.orders, function(index, order) {
-                                events.push({
-                                    title: order.order_code,
-                                    start: order.start,
-                                    end: order.end,
-                                    orderId: order.id
-                                });
-                            });
-                            callback(events);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error fetching orders:', error);
-                        }
+        // Fetch orders from the server and update the calendar
+        events: function(start, end, timezone, callback) {
+            $.ajax({
+                url: '{{ route('admin.calendar.orders') }}', // Adjust the route as needed
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    var events = [];
+                    // Process your order data and convert it to FullCalendar events format
+                    $.each(response.orders, function(index, order) {
+                        var startDate = moment(order.created_at).format('YYYY-MM-DDTHH:mm:ss');
+                        var endDate = moment(order.exit_date).format('YYYY-MM-DDTHH:mm:ss'); // No extra day added
+
+                        events.push({
+                            title: order.order_code,
+                            start: startDate,
+                            end: endDate,
+                            orderId: order.id
+                        });
                     });
+                    callback(events);
                 },
-
-                eventClick: function(calEvent, jsEvent, view) {
-                    // Redirect to the order view page using the order ID
-                  
-                    window.location.href = base_url + '/order/view/' + calEvent.orderId;
-
+                error: function(xhr, status, error) {
+                    console.error('Error fetching orders:', error);
                 }
-
-                
             });
+        },
 
-            setInterval(function() {
-                calendar.fullCalendar('refetchEvents');
-            }, 30000); // 30 seconds
+        eventClick: function(calEvent, jsEvent, view) {
+            // Redirect to the order view page using the order ID
+            window.location.href = base_url + '/order/view/' + calEvent.orderId;
+        }
+    });
 
-            
-        });
+    setInterval(function() {
+        calendar.fullCalendar('refetchEvents');
+    }, 30000); // 30 seconds
+});
+
+
     </script>
 @endsection
+
+
+

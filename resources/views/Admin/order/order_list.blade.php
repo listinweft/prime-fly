@@ -59,23 +59,27 @@
                                             @php
                                                 // Calculate total from OrderProduct model
                                                 $productTotal = $order->orderProducts->sum('total'); // Sum of 'total' field from order_products
+                                                $productTotalWithTax = $productTotal * 1.18; // Adding 18% to order total
                                             @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ 'Primefly#'.$order->order_code }}</td>
                                                 @if(@$order->orderCustomer->user_type=="User")
+                                                    <!-- Display customer name based on user type -->
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
+                                                    <!-- Display billing address if available -->
                                                     @if (@$order->orderCustomer->billingAddress)
                                                         <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
                                                     @else
                                                         <td></td>
                                                     @endif
                                                 @endif
-                                                <td>{{ number_format($productTotal, 2).' '.$order->currency }}</td>
+                                                <td>{{ number_format($productTotalWithTax, 2).' '.$order->currency }}</td>
                                                 <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
                                                 <td class="text-right py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">
+                                                        <!-- Action buttons -->
                                                         <a href="{{url(Helper::sitePrefix().'order/view/'.$order->id)}}"
                                                            class="btn btn-primary mr-2 tooltips" title="View Order"><i
                                                                 class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
