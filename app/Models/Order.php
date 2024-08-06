@@ -666,7 +666,10 @@ class Order extends Model
     
         $boxValues['totalProducts'] = $totalProducts;
         $boxValues['totalOrders'] = count($orders);
-        $boxValues['totalAmount'] = $totalOrderProductCost * 0.18;
+      // Assuming $totalOrderProductCost is already defined and contains the original total cost
+$taxAmount = $totalOrderProductCost * 0.18;
+$boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
+
        
         $boxValues['totalCoupon'] = 0;
         
@@ -889,20 +892,25 @@ class Order extends Model
     ->get();
     
     // Filter by status if provided
-    if ($status !== NULL) {
+    if ($status != NULL) {
         $ordersList = [];
         foreach ($orders as $order) {
-            $orderProducts = OrderProduct::where('order_id', $order->id)->get();
-            foreach ($orderProducts as $product) {
-                $orderStatusData = OrderLog::where('order_product_id', $product->id)->latest()->first();
-                if ($orderStatusData && $orderStatusData->status == $status) {
-                    $ordersList[] = $order->id;
-                    break; // Once we find a matching status for this order, no need to check further products
+            $orderProducts = OrderProduct::where('order_id', '=', $order->id)->get();
+            if ($orderProducts) {
+                foreach ($orderProducts as $products) {
+                    $orderStatusData = OrderLog::where('order_product_id', '=', $products->id)->latest()->first();
+                    if ($orderStatusData != NULL) {
+                        if ($orderStatusData->status == $status) {
+                            $ordersList[] = $order->id;
+                        }
+                    }
                 }
             }
         }
         $orders = Order::whereIn('id', $ordersList)->get();
     }
+    
+    
     
     // Filter by customer if provided
     if ($customer !== NULL) {
@@ -950,7 +958,12 @@ public static function getDetailedOrdersBoxValues($date_range = NULL, $status = 
         $couponValue = Order::getActiveProductCouponValue($order->id);
         
         // Store results in the returnData array
-        $returnData['total_price'][] = $orderProductsTotal;
+
+        $extraAmount = $orderProductsTotal * 0.18;
+
+       $grandtotal =  $orderProductsTotal + $extraAmount;
+
+        $returnData['total_price'][] = $grandtotal;
         $returnData['coupon'][] = $couponValue;
     }
 

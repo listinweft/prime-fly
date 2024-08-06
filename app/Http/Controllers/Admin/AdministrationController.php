@@ -86,11 +86,11 @@ class AdministrationController extends Controller
             $admin->role = $request->role;
             if ($admin->save()) {
                 DB::commit();
-                if (Helper::sendCredentials($user, $request->name, $request->password)) {
+                // if (Helper::sendCredentials($user, $request->name, $request->password)) {
                     $message = $request->role . " '" . $request->name . "' has been added and credential mail has been sent successfully";
-                } else {
-                    $message = $request->role . " '" . $request->name . "' has been added successfully and error while sending credential mail";
-                }
+                // } else {
+                //     $message = $request->role . " '" . $request->name . "' has been added successfully and error while sending credential mail";
+                // }
                 return redirect(Helper::sitePrefix() . 'administration')->with('success', $message);
             } else {
                 DB::rollBack();
