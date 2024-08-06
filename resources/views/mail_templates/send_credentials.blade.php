@@ -1,137 +1,138 @@
-<!--new design-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <style type="text/css">
-        p.MsoNormal {
-            margin: 0 !important;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primefly</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #efefef;
         }
 
-        .ii a[href] {
-            color: #fff !important;
-        }
-
-        h2 {
-            margin: 0px;
-        }
-
-        @media only screen and (max-width: 600px) {
-            a[class="btn"] {
-                display: block !important;
-                margin-bottom: 10px !important;
-                background-image: none !important;
-                margin-right: 0 !important;
-            }
-
-            div[class="column"] {
-                width: auto !important;
-                float: none !important;
-            }
-
-            table.social div[class="column"] {
-                width: auto !important;
-            }
-
-            table.container {
-                width: 600px !important;
-            }
-        }
-
-        p, td, li, a {
-            font: normal 14px Arial, Helvetica, sans-serif;
-            line-height: 22px;
-            color: #242323;
-            margin: 4px 0;
-
-        }
-
-        @media all and (max-width: 768px) {
-            /*Styles in here*/
-            .Image {
-                width: 100%;
-            }
-
-            table#Footer tr td table tr td {
-                padding: 0 5%;
-            }
-        }
-
-        @media all and (max-width: 400px) {
-            /*Styles in here*/
+        table {
+            border-spacing: 0;
+            border: 0;
         }
     </style>
 </head>
-<body style="background-color:#f4f4f4;font-family:Arial, Helvetica, sans-serif;">
-<table class="container" width="680" border="0" cellspacing="0" cellpadding="0" align="center"
-       style="border-left:solid 0px #d9dadb;border-right:solid 0px #d9dadb;border-top:solid 0px #d9dadb;border-bottom:solid 0px #d9dadb; ">
-    <tr>
 
-        <td style="border-style: solid; border-color: #b2cbb2; border-width: 2px; width:640px;background: white;">
-            <table class="container" width="640" border="0" cellspacing="0" cellpadding="0" align="center">
-                <tr align="left" valign="top">
-                    <td colspan="5" align="left" valign="top">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+<body>
+    <table cellspacing="0" cellpadding="0" border="0" text-align="center"
+        style=" max-width: 610px; width: 610px; margin: auto;">
+        <tbody style="background-color: #ffffff;width: 100%;">
+            <tr>
+                <td style="width: 100%; padding: 20px 30px;">
+                    <div style="width: 120px;margin: auto;">
+                        <img src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo-blue.png" alt=""
+                            style="width: 100%;">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%;padding: 20px 0">
+                    <div style="width:500px;margin: auto;">
+                        <img src="https://demo.wefttechnologies.com/primeflly-email/header-flight.png" alt=""
+                            style="width: 100%;height: auto;">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 30px 60px 10px;width: 100%;text-align: left;">
+                    <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">
+                        Dear <span style="font-weight: 600;"> {name}</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:10px 60px;width: 100%;text-align: left;">
+                    <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">
+                        We are delighted to inform you that your registration on esoan.org has been successfully completed. Welcome to our community!</p> 
+                        <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">Your login details are as follows:</p>
+                        
+                    </p>
+                </td>
+            </tr>
+            <tr align="center" valign="top">
+                <td valign="middle" colspan="5" style="padding: 0 60px;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:0px;">
+                        <tr>
+                            <td style="padding:5px 0;font-weight:bold; font-size: 14px;">Username</td>
+                            <td style="padding:5px 0;font-weight:bold;font-size: 14px;">:</td>
+                            <td style="padding:5px 0;font-weight:bold;font-size: 14px;">{email}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:5px 0;font-weight:bold;font-size: 14px;">Password</td>
+                            <td style="padding:5px 0;font-weight:bold;font-size: 14px;">:</td>
+                            <td style="padding:5px 0;font-weight:bold;font-size: 14px;">{password}</td>
+                        </tr> 
+                    </table>
+                </td>
+            </tr> 
+            <tr align="left" valign="top">
+                <td valign="middle" colspan="5" style="padding: 0 60px; padding-top: 15px;">
+                    <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">Please keep these credentials secure and do not share them with anyone. </p>
+                     
+                    <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">Thank you for joining <a
+                        href="https://demo.wefttechnologies.com/primefly"
+                        style="color: #5A428C;font-family: sans-serif;font-weight: 600;">primefly.in</a>. We look forward to your active participation!</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:20px 60px;width: 100%;text-align: left;">
+                    <p style="color: #4C4C4D;font-size: 13px;line-height: 1.4;padding-bottom: 15px;margin: 0;">
+                        Warm regards,<br>
+                        <span style="font-family: sans-serif;font-weight: 600;font-size: 14px;"> Team Primefly</span>
+
+                    </p>
+                </td>
+            </tr>
+            <tr style="background: #122031;width: 100%;">
+                <td style="padding: 20px 25px;">
+                    <table>
+                        <tbody>
                             <tr>
-                                <td style="text-align: center;">
-                                    <img style="width: 10vw; padding: 1vw;"  src="https://demo.wefttechnologies.com/emirati-email/logo.png"/>
-                                </td> 
+                                <td style="width:30%;">
+                                    <div style=" width: 90px;margin: auto;text-align: center;">
+                                        <img src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo.png"
+                                            alt="" style="width: 100%;">
+                                    </div>
+                                </td>
+                                <td style="width:20%; text-align: center;">
+                                    <p style="margin: 0; margin-bottom: 8px;">
+                                        <a href="tel:+7 (411) 390-51-11"
+                                            style="text-decoration: none;font-size: 13px;color: #ffffff;">+7 (411)
+                                            390-51-11</a>
+                                    </p>
+                                    <p style="margin: 0;">
+                                        <a href="mailto:info@primefly.com"
+                                            style="text-decoration: none;font-size: 13px;color: #ffffff;">info@primefly.com</a>
+                                    </p>
+                                </td>
+                                <td style="width:40%;text-align: center;">
+                                    <div>
+                                        <span style="margin-right: 10px;">
+                                            <a href="#"><img src="images/fb.png" alt=""></a>
+                                        </span>
+                                        <span style="margin-right: 10px;">
+                                            <a href="#"> <img src="images/google.png" alt=""></a>
+                                        </span>
+                                        <span style="margin-right: 10px;">
+                                            <a href="#"><img src="images/insta.png" alt=""></a>
+                                        </span>
+                                        <span style="margin-right: 10px;">
+                                            <a href="#"> <img src="images/youtube.png" alt=""></a>
+                                        </span>
+                                    </div>
+                                </td>
                             </tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr align="left" valign="top">
-                    <td valign="middle" colspan="5" style="background: #EDFFED;padding-top: 20px;">
-                        <img width="680px" src="https://demo.wefttechnologies.com/emirati-email/email-banner.png"/>
-                    </td>
-                         
-                </tr>
-
-                <tr align="left" valign="top">
-                    <td valign="middle" colspan="5" style="padding: 20px 20px 0;">
-                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Dear {name}, <br/><br/> 
-                            We are delighted to inform you that your registration on esoan.org has been successfully completed. Welcome to our community!</p> 
-                            <p>Your login details are as follows:</p>
-                        </td>
-                </tr>
-
-                <tr align="center" valign="top">
-                    <td valign="middle" colspan="5" style="padding: 0 20px;">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:0px;">
-                            <tr>
-                                <td style="padding:5px 0;font-weight:bold;">Username: {email}</td>  
-                            </tr>
-                            <tr>
-                                <td style="padding:5px 0;font-weight:bold;">Password: {password}</td>  
-                            </tr>
-                            <!-- <tr>
-                                <td style="padding:5px;font-weight:bold;">Phone Number</td>
-                                <td style="padding:5px;font-weight:bold;">:</td>
-                                <td style="padding:5px;font-weight:bold;">{phone}</td>
-                            </tr> -->
-                        </table>
-                    </td>
-                </tr>
-                <tr align="left" valign="top">
-                    <td valign="middle" colspan="5" style="padding: 0 20px;">
-                        <p style="font-size:14px;line-height:22px;">Please keep these credentials secure and do not share them with anyone.</p>
-                        <p>If you have any questions or need further assistance, feel free to reach out to our support team at <a href="tel:+971505218456">+971505218456</a></p></br>
-                        <p>Thank you for joining <a href="">esoan.org</a>. We look forward to your active participation!</p>
-                    </td>
-                </tr>
-                <tr align="left" valign="top">
-                    <td valign="middle" colspan="5" style="padding: 0 20px 30px;"> 
-                        <p style="font-size:14px;line-height:22px;padding-top:15px;">Warm regards,<br/>Team Esoan
-                        </p> 
-                    </td>
-                </tr>
-                <br/>
-            </table>
-        </td>
-    </tr>
-</table>
-
+                        </tbody>
+                    </table>
+            </tr>
+        </tbody>
+    </table>
 </body>
+
 </html>
