@@ -28,8 +28,8 @@
                     var events = [];
                     // Process your order data and convert it to FullCalendar events format
                     $.each(response.orders, function(index, order) {
-                        var startDate = moment(order.created_at).format('YYYY-MM-DDTHH:mm:ss');
-                        var endDate = moment(order.exit_date).format('YYYY-MM-DDTHH:mm:ss'); // No extra day added
+                        var startDate = moment(order.created_at).format('YYYY-MM-DD');
+                        var endDate = moment(order.exit_date).format('YYYY-MM-DD'); // No extra day added 
                         console.log('Order Code:', order.order_code);
                         console.log('Start Date:', startDate);
                         console.log('End Date:', endDate);
