@@ -30,11 +30,12 @@
                     $.each(response.orders, function(index, order) {
                         var startDate = moment(order.created_at).format('YYYY-MM-DDTHH:mm:ss');
                         var endDate = moment(order.exit_date).format('YYYY-MM-DDTHH:mm:ss'); // No extra day added
-
+                        console.log('Order Code:', order.order_code);
+                        console.log('Start Date:', startDate);
+                        console.log('End Date:', endDate);
                         events.push({
                             title: order.order_code,
-                            start: startDate,
-                            end: endDate,
+                            start: endDate, 
                             orderId: order.id
                         });
                     });

@@ -1584,18 +1584,42 @@ class CartController extends Controller
                         $detail->coupon_value = 0;
                         $detail->coupon_after_price = 0;
                         $detail->entry_date = $row->attributes['entry_date'] ?? '';
+
+                        $detail->entry_time = $row->attributes['entry_time'] ?? '';
+
                         $dateString = $row->attributes['setdate'] ?? '';
+
+                        $entryTime = $row->attributes['entry_time'] ?? '';
+
+
                         $formattedDate = '';
-                        
+
                         if ($dateString) {
-                            $dateTime = DateTime::createFromFormat('d/m/Y', $dateString);
+                            // Parse the date string in 'm/d/Y' format
+                            $dateTime = DateTime::createFromFormat('m/d/Y', $dateString);
+                            
                             if ($dateTime) {
-                                $formattedDate = $dateTime->format('Y-m-d H:i:s');
+                                // Format the date to 'Y-m-d'
+                                $formattedDate = $dateTime->format('Y-m-d');
+                                
+                                if ($entryTime) {
+                                    // Convert entry_time from 'h:ia' to 'H:i:s'
+                                    $timeDateTime = DateTime::createFromFormat('g:ia', $entryTime);
+                                    if ($timeDateTime) {
+                                        $formattedTime = $timeDateTime->format('H:i:s');
+                                        // Combine date and time
+                                        $formattedDate .= ' ' . $formattedTime;
+                                    } else {
+                                        echo "Invalid time format.";
+                                    }
+                                }
+                            } else {
+                                echo "Invalid date format.";
                             }
                         }
                         
+                        // Assign the combined date and time to exit_date
                         $detail->exit_date = $formattedDate;
-                        
                         $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
                         $detail->flight_number = $row->attributes['flight_number'] ?? '';
                         $detail->travel_type = $row->attributes['travel_type'] ?? '';
@@ -1604,7 +1628,7 @@ class CartController extends Controller
                         $detail->guest = $row->attributes['guest'] ?? 0;
                         $detail->terminal = $row->attributes['terminal'] ?? '';
                         $detail->bag_count = $row->attributes['bag_count'] ?? 0;
-                        $detail->entry_time = $row->attributes['entry_time'] ?? '';
+                       
                         $detail->exit_time = $row->attributes['exit_time'] ?? '';
                         $detail->adults = $row->attributes['adults'] ?? '';
                         $detail->infants = $row->attributes['infants'] ?? '';

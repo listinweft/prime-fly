@@ -114,14 +114,16 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                     return $query->whereRaw('1=0'); // Force a condition that is never true
                 })
                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
-                ->latest()
+                ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
+                ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
                 ->get();
     
         } else {
             $orders = Order::select('orders.id', 'orders.order_code', 'orders.created_at', DB::raw('MAX(order_products.exit_date) as exit_date'))
                 ->join('order_products', 'orders.id', '=', 'order_products.order_id')
                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
-                ->latest()
+                ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
+                ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
                 ->get();
         }
     
@@ -137,6 +139,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
     
         return view('Admin.calendar', compact('formattedOrders'));
     }
+    
     
     
 

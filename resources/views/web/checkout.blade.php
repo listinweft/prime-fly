@@ -38,7 +38,7 @@
                        
                      
                      <div class="d-flex align-items-center justify-content-between">
-                    {{ $row->attributes['setdate']}}
+                  
                         <div class="cart-dtl-wrp">
                            <div class="d-flex align-items-center">
                               <div class="cart-prdt-img">
