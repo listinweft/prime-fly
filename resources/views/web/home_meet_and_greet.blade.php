@@ -47,8 +47,8 @@
             </div>
         </div>
         <div class="booking_field" id="flight_select">
-            <div class="normal_select">
-                <select type="text" class="form-control" name="flight_number" id="flights">
+            <div class="booking_select">
+                <select type="text" class="form-control select2" name="flight_number" id="flights">
                     <option value="">Select Flight</option>
                 </select>
             </div>
