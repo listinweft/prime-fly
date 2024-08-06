@@ -140,10 +140,11 @@ a:hover{
     background-color: #fff;
     padding: 30px 60px;
     border-radius: 20px;
-    min-height: 200px;
+    min-height: 269px;
 }
 .banner_filter{
     margin-top: 60px;
+    min-height: 320px;
 }
 .banner_filter_pills{
     margin-bottom:5px;
