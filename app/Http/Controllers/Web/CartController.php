@@ -1592,34 +1592,54 @@ class CartController extends Controller
                         $entryTime = $row->attributes['entry_time'] ?? '';
 
 
-                        $formattedDate = '';
+                        $formattedTimestamp = '';
 
                         if ($dateString) {
-                            // Parse the date string in 'm/d/Y' format
-                            $dateTime = DateTime::createFromFormat('m/d/Y', $dateString);
-                            
+                            // Define possible date formats
+                            $possibleDateFormats = ['m/d/Y', 'm-d-Y', 'Y-m-d', 'd/m/Y'];
+                            $possibleDateTimeFormats = [
+                                'm/d/Y H:i:s', 'm-d-Y H:i:s', 'Y-m-d H:i:s', 'd/m/Y H:i:s',
+                                'm/d/Y g:ia', 'm-d-Y g:ia', 'Y-m-d g:ia', 'd/m/Y g:ia'
+                            ];
+                        
+                            // Try parsing the date string with each format
+                            $dateTime = false;
+                            foreach ($possibleDateFormats as $format) {
+                                $dateTime = DateTime::createFromFormat($format, $dateString);
+                                if ($dateTime !== false) {
+                                    break;
+                                }
+                            }
+                        
                             if ($dateTime) {
                                 // Format the date to 'Y-m-d'
                                 $formattedDate = $dateTime->format('Y-m-d');
-                                
+                        
+                                // If entryTime is present, combine it with the date
                                 if ($entryTime) {
-                                    // Convert entry_time from 'h:ia' to 'H:i:s'
-                                    $timeDateTime = DateTime::createFromFormat('g:ia', $entryTime);
-                                    if ($timeDateTime) {
-                                        $formattedTime = $timeDateTime->format('H:i:s');
-                                        // Combine date and time
-                                        $formattedDate .= ' ' . $formattedTime;
-                                    } else {
-                                        echo "Invalid time format.";
+                                    $combinedDateTimeString = $dateString . ' ' . $entryTime;
+                                    foreach ($possibleDateTimeFormats as $format) {
+                                        $dateTime = DateTime::createFromFormat($format, $combinedDateTimeString);
+                                        if ($dateTime !== false) {
+                                            break;
+                                        }
                                     }
+                                }
+                        
+                                // If only the date part is valid, set the time to '00:00:00'
+                                if ($dateTime) {
+                                    $formattedTimestamp = $dateTime->format('Y-m-d H:i:s');
+                                } else {
+                                    $formattedTimestamp = $formattedDate . ' 00:00:00';
                                 }
                             } else {
                                 echo "Invalid date format.";
                             }
                         }
                         
+                   
                         // Assign the combined date and time to exit_date
-                        $detail->exit_date = $formattedDate;
+                        $detail->exit_date = $formattedTimestamp;
                         $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
                         $detail->flight_number = $row->attributes['flight_number'] ?? '';
                         $detail->travel_type = $row->attributes['travel_type'] ?? '';

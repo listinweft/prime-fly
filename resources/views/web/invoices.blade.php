@@ -89,6 +89,10 @@
       <table>
          </tr> 
          <tr>
+         @php
+          $personaladdress = App\Models\PersonalDetails::where('order_id', $order->id)->first();
+          $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)->get();
+          @endphp
             <td>
                <table>
                   <tr>
@@ -99,7 +103,15 @@
                      <td style="width:33%;border:1px solid #D7DAE0;border-left:0;border-right:0;padding:20px;">
                         <h4 style="color:#1A1C21;font-size:12px;font-weight:700;margin-bottom:10px">Billed to</h4>
                         <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">Company Name / Person</h5>
-                        <p style="color:#5E6470;font-size:11px;line-height:1.4">{{$customer->first_name}}
+                        <p style="color:#5E6470;font-size:11px;line-height:1.4">{{$personaladdress->name}}
+                           
+
+                           <!-- <br> +91 {{$user->phone}} -->
+                        </p>
+                        <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">Address</h5>
+                        <p style="color:#5E6470;font-size:11px;line-height:1.4">{{$personaladdress->address}}
+                           
+
                            <br> +91 {{$user->phone}}
                         </p>
                      </td>
@@ -129,6 +141,7 @@
             </td>
          </tr>
          <tr>
+        
             <td style="border-bottom:1px solid #D7DAE0;">
             @php
                 $totalAmount = 0;

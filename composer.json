@@ -9,6 +9,7 @@
         "ext-pdo": "*",
         "anhskohbo/no-captcha": "^3.5",
         "barryvdh/laravel-dompdf": "^2.1",
+        "barryvdh/laravel-snappy": "^1.0",
         "buglinjo/laravel-webp": "^2.3",
         "darryldecode/cart": "^4.2",
         "doctrine/dbal": "^3.6",
