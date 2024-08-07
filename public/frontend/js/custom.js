@@ -634,7 +634,6 @@ $(document).ready(function () {
     //     });
     // });
     
-
     $(document).ready(function() {
         $(document).on('click', '.cart-action', function (e) {
             e.preventDefault(); // Prevent default action to ensure only our code runs
@@ -761,14 +760,11 @@ $(document).ready(function () {
                         text: "An error occurred while processing your request. Please try again.",
                         icon: "error"
                     });
-                },
-                complete: function() {
-                    // Optionally re-enable the button here if needed
-                    // $button.attr("disabled", false);
                 }
             });
         });
     });
+    
     
     
 
