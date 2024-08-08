@@ -449,29 +449,21 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
 
     public function print_invoice($id)
     {
-        $orderDetails = OrderCustomer::where('order_id', $id)->first();
-        if ($orderDetails) {
+        $order = Order::with(['orderProducts' => function ($t) {
+            $t->with('productData')->with('colorData');
+        }])->with('orderCustomer')->with('orderCoupons')->find($id);
+    
+        if ($order) {
+            $title = "Order View - CFF#" . $order->order_code;
             $orderTotal = Order::getProductTotal($id);
             $orderGrandTotal = Order::OrderGrandTotal($id);
-            if ($orderDetails->user_type == "User") {
-                $order = Order::with(['orderProducts' => function ($t) use ($orderDetails) {
-                    $t->with('productData');
-                    $t->with('colorData');
-                }])->with(['orderCustomer' => function ($c) use ($orderDetails) {
-                    $c->with('customerData');
-                    $c->with('shippingAddress');
-                    $c->where('customer_id', $orderDetails->customer_id);
-                }])->with('orderCoupons')->find($id);
-            } else {
-                $order = Order::with(['orderProducts' => function ($t) {
-                    $t->with('productData');
-                    $t->with('colorData');
-                }])->with('orderCustomer')->with('orderCoupons')->find($id);
-            }
-            $title = "Order View - CFF#" . $order->order_code;
-            return view('Admin.order.print_invoice', compact('orderDetails', 'title', 'orderTotal', 'orderGrandTotal', 'order'));
+            
+            return view('Admin.order.print_invoice', compact('order', 'title', 'orderTotal', 'orderGrandTotal'));
         } else {
             return view('Admin.error.404');
         }
     }
+    
+    
+
 }

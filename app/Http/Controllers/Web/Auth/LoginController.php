@@ -93,49 +93,102 @@ class LoginController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
         }
     }
+    // public function login_public(Request $request)
+    // {
+    //     $request->validate([
+    //         'username' => 'required|string',
+    //         'password' => 'required',
+    //     ]);
+    
+    //     if (is_numeric($request->username)) {
+    //         $field = 'phone';
+    //     } else {
+    //         $field = 'email';
+    //     }
+    
+    //     if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
+    
+
+    //         $user = Auth::guard('customer')->user()->btype;
+
+    //         if($user == "public")
+    //         {
+
+    //             $sessionKey = Auth::guard('customer')->user()->customer->id;
+    //             session(['session_key' => $sessionKey]);
+
+
+    //         }
+    //         else{
+
+    //             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
+
+
+
+    //         }
+           
+    
+           
+    
+    //         return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+    //     }
+    //      else {
+    //         return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
+    //     }
+    // }
+
     public function login_public(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required',
-        ]);
-    
-        if (is_numeric($request->username)) {
-            $field = 'phone';
-        } else {
-            $field = 'email';
-        }
-    
-        if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
-    
+{
+    $request->validate([
+        'username' => 'required|string',
+        'password' => 'required',
+    ]);
 
-            $user = Auth::guard('customer')->user()->btype;
+    $field = is_numeric($request->username) ? 'phone' : 'email';
 
-            if($user == "public")
-            {
+    if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
+        $user = Auth::guard('customer')->user()->btype;
 
-                $sessionKey = Auth::guard('customer')->user()->customer->id;
-                session(['session_key' => $sessionKey]);
+        if ($user == "public") {
+            $oldSessionKey = session('session_key'); // Store the old session key
+            $newSessionKey = Auth::guard('customer')->user()->customer->id;
 
+            // Set the new session key
+            session(['session_key' => $newSessionKey]);
 
-            }
-            else{
+            // Preserve the cart items
+            $this->preserveCartItems($oldSessionKey, $newSessionKey);
 
-                return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
-
-
-
-            }
-           
-    
-           
-    
             return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
-        }
-         else {
+        } else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
         }
+    } else {
+        return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
     }
+}
+
+protected function preserveCartItems($oldSessionKey, $newSessionKey)
+{
+    // Retrieve the current cart items before changing the session key
+    $currentCartItems = Cart::session($oldSessionKey)->getContent();
+
+    // Clear the new cart session
+    // Cart::session($newSessionKey)->clear();
+
+    // Transfer the cart items to the new session
+    foreach ($currentCartItems as $item) {
+        Cart::session($newSessionKey)->add([
+            'id' => $item->id,
+            'name' => $item->name,
+            'price' => $item->price,
+            'quantity' => $item->quantity,
+            'attributes' => $item->attributes,
+            'conditions' => $item->conditions,
+        ]);
+    }
+}
+
     
     
 
@@ -515,19 +568,19 @@ public function register(Request $request)
 
         Auth::guard('customer')->logout();
 
-        // if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
+        if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
             return response()->json([
                 'status' => 'success-reload',
                 'message' => 'Registration completed successfully.',
                 'redirect' => '/login'
             ]);
-        // }
+        }
 
-        // return response()->json([
-        //     'status' => 'success-reload',
-        //     'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
-        //     'redirect' => '/login'
-        // ]);
+        return response()->json([
+            'status' => 'success-reload',
+            'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
+            'redirect' => '/login'
+        ]);
 
         throw new \Exception('Failed to send credentials.');
     } catch (\Exception $e) {

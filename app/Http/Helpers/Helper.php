@@ -569,19 +569,18 @@ public static function sendOrderPlacedMail($order, $flag)
     public static function sendCredentials($user, $name, $password)
     {
         $subject = "Thank you for registering with us";
-        $mail = self::mailConf($subject);
+
+        // Create an instance of BrevoMailService with fully qualified namespace
+        $brevoMailService = new \App\Services\BrevoMailService();
+
+        // Prepare the email content
         $searchArr = ["{name}", "{email}", "{phone}", "{password}", "{owner}"];
         $replaceArr = [$name, $user->email, $user->phone, $password, config('app.name')];
-        $body = file_get_contents(resource_path('views/mail_templates/send_credentials.blade.php'));
+        $body = File::get(resource_path('views/mail_templates/send_credentials.blade.php'));
         $body = str_replace($searchArr, $replaceArr, $body);
-        $mail->MsgHTML($body);
-        $mail->addAddress($user->email, $name);
-        $mail->send();
-        if ($mail) {
-            return true;
-        } else {
-            return false;
-        }
+
+        // Send the email using BrevoMailService
+        $brevoMailService->sendEmail($user->email, $name, $subject, $body);
     }
 
     /**
