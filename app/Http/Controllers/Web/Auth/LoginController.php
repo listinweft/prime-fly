@@ -594,6 +594,11 @@ public function register(Request $request)
     }
 }
 
+public function register_form_corporate(Request $request)
+{
+    return view('web.register_corporate');
+}
+
 
 
     /************************ Google auth starts ************************/
