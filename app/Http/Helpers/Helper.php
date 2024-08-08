@@ -592,20 +592,20 @@ public static function sendOrderPlacedMail($order, $flag)
     public static function forgotPassword($user, $name, $link)
     {
         $subject = config('app.name') . " - Forgot Password";
-        $mail = self::mailConf($subject);
-
         $searchArr = ["{name}", "{link}", "{owner}"];
         $replaceArr = [$name, $link, config('app.name')];
         $body = file_get_contents(resource_path('views/mail_templates/forgot_password.blade.php'));
         $body = str_replace($searchArr, $replaceArr, $body);
-        $mail->MsgHTML($body);
-        $mail->addAddress($user->email, $name);
-        if ($mail->send()) {
-            return true;
-        } else {
-            return false;
-        }
+
+        // Instantiate BrevoMailService
+        $brevoMailService = new \App\Services\BrevoMailService();
+
+        // Send email using BrevoMailService
+        $brevoMailService->sendEmail($user->email, $name, $subject, $body);
+
+        return true; // Assuming success is always returned if no exception is thrown
     }
+
     public static function verifyemail($user, $name, $link)
     {
         $subject = config('app.name') . " - Verify Email";
