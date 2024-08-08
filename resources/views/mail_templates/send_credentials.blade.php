@@ -26,7 +26,7 @@
             <tr>
                 <td style="width: 100%; padding: 20px 30px;">
                     <div style="width: 120px;margin: auto;">
-                        <img src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo-blue.png" alt=""
+                        <img src="https://primefly.in/public/frontend/img/logo-blue.png" alt=""
                             style="width: 100%;">
                     </div>
                 </td>
@@ -76,7 +76,7 @@
                     <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">Please keep these credentials secure and do not share them with anyone. </p>
                      
                     <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">Thank you for joining <a
-                        href="https://demo.wefttechnologies.com/primefly"
+                        href="https://primefly.in"
                         style="color: #5A428C;font-family: sans-serif;font-weight: 600;">primefly.in</a>. We look forward to your active participation!</p>
                 </td>
             </tr>
@@ -96,7 +96,7 @@
                             <tr>
                                 <td style="width:30%;">
                                     <div style=" width: 90px;margin: auto;text-align: center;">
-                                        <img src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo.png"
+                                        <img src="https://primefly.in/public/frontend/img/logo.png"
                                             alt="" style="width: 100%;">
                                     </div>
                                 </td>
@@ -114,17 +114,17 @@
                                 <td style="width:40%;text-align: center;">
                                     <div>
                                         <span style="margin-right: 10px;">
-                                            <a href="#"><img src="images/fb.png" alt=""></a>
+                                            <a href="#"><img width="25px" src="https://pkbjxh.stripocdn.email/content/assets/img/social-icons/circle-white/facebook-circle-white.png" alt=""></a>
                                         </span>
                                         <span style="margin-right: 10px;">
-                                            <a href="#"> <img src="images/google.png" alt=""></a>
+                                            <a href="#"> <img width="25px" src="https://pkbjxh.stripocdn.email/content/assets/img/social-icons/circle-white/twitter-circle-white.png" alt=""></a>
                                         </span>
                                         <span style="margin-right: 10px;">
-                                            <a href="#"><img src="images/insta.png" alt=""></a>
+                                            <a href="#"><img width="25px" src="https://pkbjxh.stripocdn.email/content/assets/img/social-icons/circle-white/instagram-circle-white.png" alt=""></a>
                                         </span>
-                                        <span style="margin-right: 10px;">
+                                        <!-- <span style="margin-right: 10px;">
                                             <a href="#"> <img src="images/youtube.png" alt=""></a>
-                                        </span>
+                                        </span> -->
                                     </div>
                                 </td>
                             </tr>

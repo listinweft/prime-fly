@@ -207,35 +207,35 @@
                               <tr>
                                  <td align="center"
                                     style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
-                                    <a href="https://demo.wefttechnologies.com/primefly/service/meet-and-greet" style="text-decoration: none;"  target="_blank">
+                                    <a href="https://primefly.in/service/meet-and-greet" style="text-decoration: none;"  target="_blank">
                                        <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/greeting.png">
                                        <p style="font-size: 12px;font-weight: 600; color: #7d7d7d; min-height:32px;margin-bottom: 0;">Meet & Greet</p>
                                     </a>
                                  </td>
                                  <td align="center"
                                     style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
-                                    <a href="https://demo.wefttechnologies.com/primefly/service/baggage-wrapping" style="text-decoration: none;" target="_blank">
+                                    <a href="https://primefly.in/service/baggage-wrapping" style="text-decoration: none;" target="_blank">
                                        <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/travel.png">
                                        <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height:32px;margin-bottom: 0;">Baggage Wrapping</p>
                                     </a>
                                  </td>
                                  <td align="center"
                                     style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
-                                    <a href="https://demo.wefttechnologies.com/primefly/service/car-parking" style="text-decoration: none;"  target="_blank">
+                                    <a href="https://primefly.in/service/car-parking" style="text-decoration: none;"  target="_blank">
                                        <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/parking.png">
                                        <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;margin-bottom: 0;">Car Parking</p>
                                     </a>
                                  </td>
                                  <td align="center"
                                     style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
-                                    <a href="https://demo.wefttechnologies.com/primefly/service/porter" style="text-decoration: none;" target="_blank">
+                                    <a href="https://primefly.in/service/porter" style="text-decoration: none;" target="_blank">
                                        <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/porter.png">
                                        <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;margin-bottom: 0;">Porter</p>
                                     </a>
                                  </td>
                                  <td align="center"
                                     style="padding:0;Margin:0;padding-top:10px;width: 20%; vertical-align: bottom;">
-                                    <a href="https://demo.wefttechnologies.com/primefly/service/louch-booking" style="text-decoration: none;"  target="_blank">
+                                    <a href="https://primefly.in/service/louch-booking" style="text-decoration: none;"  target="_blank">
                                        <img style="width: 50px;" src="https://demo.wefttechnologies.com/primeflly-email/lounge.png">
                                        <p style="font-size: 12px;font-weight: 600;    color: #7d7d7d; min-height: 32px;margin-bottom: 0;">Lounge Booking</p>
                                     </a>
@@ -246,7 +246,7 @@
                      </tr>
                      <tr>
                         <td style="text-align: center;padding-bottom: 20px;">
-                           <a href="https://demo.wefttechnologies.com/primefly/services" target="_blank" style="padding:5px 15px; 
+                           <a href="https://primefly.in/services" target="_blank" style="padding:5px 15px; 
                               font-size: 12px;
                               border: 0;background-color: #7b45f6; display: inline-block;color:white;text-decoration: none;border-radius: 20px;">View More</a>
                         </td>
