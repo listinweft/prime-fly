@@ -52,7 +52,7 @@
                                 <div class="register_form_wrap"> 
                                     <div class="register_form_grid">
                                         <label>Email</label>
-                                        <input type="email" placeholder="Enter Your Email" id="username" name="username" class="form-control required">
+                                        <input type="text" placeholder="Enter Your Email" id="email" name="email" class="form-control required">
                                     </div>  
                                     <div class="col-12 register_form_grid text-center mt-3">
                                         <input type="submit" value="Login" id="forgotpasswdform_submit_btn" class="loginform_submit_btn forgotpasswdform_submit_btn" data-url="/forgot-password">
@@ -77,7 +77,65 @@
       <script  src="{{ asset('frontend/js/custom.js')}}"></script>
       <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script> -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.3/dist/sweetalert2.all.min.js"></script>
- 
+      <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
+    var swal = Swal.mixin({
+        backdrop: true,
+        showConfirmButton: true,
+    });
+
+    var Toast = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+
+    @if(Session::has('success'))
+    <script>
+        
+        setTimeout(function () {
+            Toast.fire({
+                title: "",
+                text: '{{ Session::get('success') }}',
+                icon: 'success'
+            });
+        }, 2000); // Delay set to 0 to execute immediately
+    </script>
+    @endif
+
+
+
+    @if(Session::has('error'))
+    <script>
+        setTimeout(function () {
+            Toast.fire({
+                title: "Error!",
+                text: '{{ Session::get('error') }}',
+                icon: 'error'
+            });
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: '{{ Session::get('error') }}',
+                footer: '<a href="#">Why do I have this issue?</a>'
+                });
+        }, 3000); // Delay set to 0 to execute immediately
+    </script>
+    @endif
       <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script> 
       <script src="{{ asset('frontend/js/custom-datepicker.js')}}"></script>
       <script src="{{ asset('frontend/js/jquery.timepicker.js')}}"></script>
