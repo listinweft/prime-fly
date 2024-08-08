@@ -75,6 +75,9 @@
                                      </div>
                                      <div class="text-center otp_grid ">
                                         <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</div></p>
+                                        <p>Have forgot password ? <a href="{{ url('forgot-password/') }}">forgot-password</div></p>
+
+                                        
                                      </div>
                                 </div> 
 </form>
