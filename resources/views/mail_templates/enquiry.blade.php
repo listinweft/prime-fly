@@ -42,7 +42,7 @@
             <tr>
                 <td style="padding: 30px 60px 10px;width: 100%;text-align: left;">
                     <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">
-                        Dear <span style="font-weight: 600;">ddd,</span>
+                        Dear <span style="font-weight: 600;"> {name},</span>
                     </p>
                 </td>
             </tr>
