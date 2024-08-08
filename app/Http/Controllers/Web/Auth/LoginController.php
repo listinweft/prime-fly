@@ -599,6 +599,82 @@ public function register_form_corporate(Request $request)
     return view('web.register_corporate');
 }
 
+public function register_corporate(Request $request)
+{
+    $request->validate([
+        'companyname' => 'required|string|min:2|max:255',
+        // 'lastname' => 'required|string|min:2|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+        'phone' => 'required|string|unique:users,phone,NULL,id',
+
+
+
+        'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
+        // 'password_confirmation' => 'required_if:password,!=,null|same:password',
+    ]);
+
+    
+    DB::beginTransaction();
+
+    try {
+        $user = new User();
+        $user->user_type = 'Customer';
+        $user->username = $request->email;
+        $user->email = $request->email;
+        $user->status = 'Active';
+        $user->phone = $request->phone;
+        $user->btype = 'b2b';
+        
+        $user->password = Hash::make($request->password);
+
+        if (!$user->save()) {
+            throw new \Exception('Failed to create user.');
+        }
+
+        $customer = new Customer;
+        $customer->first_name = $request['companyname'];
+        $customer->last_name = " ";
+        $customer->address = $request->address;
+        $customer->country = $request->state;
+        $customer->description = $request->message ?? "";
+       
+        $customer->user_id = $user->id;
+
+        if (!$customer->save()) {
+            throw new \Exception('Failed to create customer.');
+        }
+
+        // Commit the transaction
+        DB::commit();
+
+        Auth::guard('customer')->logout();
+
+        if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
+            return response()->json([
+                'status' => 'success-reload',
+                'message' => 'Registration completed successfully.',
+                'redirect' => '/login'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success-reload',
+            'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
+            'redirect' => '/login'
+        ]);
+
+        throw new \Exception('Failed to send credentials.');
+    } catch (\Exception $e) {
+        // Roll back the transaction in case of an error
+        DB::rollBack();
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Registration failed: ' . $e->getMessage()
+        ]);
+    }
+}
+
 
 
     /************************ Google auth starts ************************/

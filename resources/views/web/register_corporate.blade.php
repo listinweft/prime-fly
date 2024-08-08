@@ -1,4 +1,4 @@
-<!doctype html>
+<!`doctype html>
 <html lang="en" data-bs-theme="auto">
    <head>
    <meta charset="utf-8">
@@ -52,45 +52,49 @@
                                 <div class="col-lg-7 corprt_rgster_form">
                                     <div class="register_form mt-0 pt-0 pb-0" style="border: 0;">
                                         <h4 class="text-center mb-4">Register Account</h4>
+
+                                        <form action="" id="registerForm">
                                         <div class="register_form_wrap">
                                             <div class="row">
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>Company Name</label>
-                                                    <input type="text" placeholder="Enter Your Company Name">
+                                                    <input type="text" placeholder="Enter Your Company Name" id="companyname" name="companyname" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>Address</label>
-                                                    <input type="text" placeholder="Type Your Address">
+                                                    <input type="text" placeholder="Type Your Address" id="address" name="address" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>Email</label>
-                                                    <input type="email" placeholder="Enter Your Email">
+                                                    <input type="email" placeholder="Enter Your Email" id="email" name="email" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>State</label>
-                                                    <input type="text" placeholder="Select State">
+                                                    <input type="text" placeholder="Select State" id="state" name="state" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>Phone Number</label>
                                                     <!-- <input type="tel" placeholder="91"> -->
-                                                    <input id="phone" name="phone" type="tel" value="" />
+                                                    <input id="phone" name="phone" type="tel" value="" name="phone" id="phone" class="required" />
                                                     <!-- <div class="input-phone"></div> -->
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>PIN</label>
-                                                    <input type="password" placeholder="Type Your Password">
+                                                    <input type="password" placeholder="Type Your Password" name="password" id="pin" class="required">
                                                 </div>
                                                 <div class="col-12 register_form_grid mb-0">
                                                     <label>Message</label>
                                                     <textarea class="w-100" placeholder="Type Message"></textarea>
                                                 </div>
                                                 <div class="col-12 register_form_grid text-center mt-3">
-                                                    <a href="" class="btn btn-primary">Register</a>
+                                                <input type="submit"  class="primary_btn registerform_submit_btn" data-url="/register-corporate" value="Submit"/>
                                                  </div>
                                                  <div class="text-center otp_grid ">
                                                     <p>Already have an account ? <a href="http://127.0.0.1:8000/register">Login</a></p></div>
                                             </div> 
                                         </div> 
+
+</form>
                                     </div>
                                 </div>
                             </div>
@@ -106,6 +110,51 @@
       <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
       <script  src="{{ asset('frontend/js/custom.js')}}"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.5.0/dist/sweetalert2.all.min.js"></script>
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
+    var swal = Swal.mixin({
+        backdrop: true,
+        showConfirmButton: true,
+    });
+
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000,
+    });
+</script>
+
+@if(Session::has('success'))
+<script>
+    
+    setTimeout(function () {
+        Toast.fire({
+            title: "",
+            text: '{{ Session::get('success') }}',
+            icon: 'success'
+        });
+    }, 2000); // Delay set to 0 to execute immediately
+</script>
+@endif
+
+
+
+@if(Session::has('error'))
+<script>
+    setTimeout(function () {
+        Toast.fire({
+            title: "Error!",
+            text: '{{ Session::get('error') }}',
+            icon: 'error'
+        });
+    }, 3000); // Delay set to 0 to execute immediately
+</script>
+@endif
       <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script> 
       <script src="{{ asset('frontend/js/custom-datepicker.js')}}"></script>
       <script src="{{ asset('frontend/js/jquery.timepicker.js')}}"></script>
