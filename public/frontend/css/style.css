@@ -4,6 +4,9 @@
   font-family: "Inter", sans-serif; 
   font-weight:400; 
 }
+body{
+    overflow-x: hidden;
+}
 select,input,textarea{ 
     outline: 0;
     box-shadow: none;
@@ -3795,7 +3798,7 @@ font-size:13px !important;
     overflow-y: auto;
 }
 .select2-container { 
-    /* width: 100% !important; */
+    width: 100% !important;
     padding-left: 25px;
 }
 
