@@ -881,7 +881,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
       // routes/web.php
       Route::match(['get', 'post'], 'detail-report', [ReportController::class, 'detail_report'])->name('admin.report.detail-report');
       Route::match(['get', 'post'], 'detail_report_subadmin', [ReportController::class, 'detail_report_subadmin'])->name('admin.report.detail-report-subadmin');
-      
+      Route::get('/get-locations-by-category', [ReportController::class, 'getLocationsByCategory'])->name('get.locations.by.category');
+      Route::get('/get-locations-by-category-sub', [ReportController::class, 'getLocationsByCategory_sub'])->name('get.locations.by.category.sub');
+      Route::get('/get-products-by-location', [ReportController::class, 'getProductsByLocation'])->name('get.products.by.location');
+
 
         Route::get('export', [ReportController::class, 'export'])->name('export');
         Route::post('order_detail_filter', [ReportController::class, 'order_detail_filter']);

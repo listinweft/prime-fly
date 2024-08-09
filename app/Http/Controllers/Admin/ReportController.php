@@ -8,6 +8,8 @@ use App\Exports\ProductList;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Customer;
+use App\Models\Category;
+
 use App\Models\Order;
 use App\Models\Location;
 use App\Models\Product;
@@ -47,16 +49,120 @@ class ReportController extends Controller
         return view('Admin/report/product/new_product_report', compact('productList', 'title'));
     }
 
+
+
+    public function getLocationsByCategory_sub(Request $request)
+    {
+        // Fetch the active category by the provided category_id
+        $category = Category::active()->find($request->category_id);
+    
+        // Initialize an empty array to hold locations
+        $locations = [];
+    
+        if ($category) {
+            // Fetch all products that belong to the category
+            $products = Product::where('category_id', $category->id)->get();
+    
+            // Initialize an array to hold all location IDs associated with the products
+            $allLocationIds = [];
+    
+            // Loop through each product to extract location IDs
+            foreach ($products as $product) {
+                // Split location IDs if there are multiple, and merge them into the allLocationIds array
+                $locationIds = explode(',', $product->location_id);
+                $allLocationIds = array_merge($allLocationIds, $locationIds);
+            }
+    
+            // Filter to get unique location IDs
+            $uniqueLocationIds = array_unique($allLocationIds);
+    
+            // Get the assigned location IDs for the authenticated admin user
+            $location_ids = Auth::guard('admin')->user()->location_ids;
+    
+            // Convert location IDs to an array and filter out any empty values
+            $assignedLocationIds = array_filter(explode(',', $location_ids));
+    
+            // Filter the uniqueLocationIds array to include only the locations assigned to the user
+            $filteredLocationIds = array_intersect($uniqueLocationIds, $assignedLocationIds);
+    
+            // Fetch the active locations that match the filtered location IDs
+            $locations = Location::active()->whereIn('id', $filteredLocationIds)->get();
+        }
+    
+        // Return the fetched locations as a JSON response
+        return response()->json(['locations' => $locations]);
+    }
+    
+
+public function getLocationsByCategory(Request $request)
+{
+    // Fetch the active category by the provided category_id
+    $category = Category::active()->find($request->category_id);
+
+    // Initialize an empty array to hold locations
+    $locations = [];
+
+    if ($category) {
+        // Fetch all products that belong to the category
+        $products = Product::where('category_id', $category->id)->get();
+
+        // Initialize an array to hold all location IDs associated with the products
+        $allLocationIds = [];
+
+        // Loop through each product to extract location IDs
+        foreach ($products as $product) {
+            // Split location IDs if there are multiple, and merge them into the allLocationIds array
+            $locationIds = explode(',', $product->location_id);
+            $allLocationIds = array_merge($allLocationIds, $locationIds);
+        }
+
+        // Filter to get unique location IDs
+        $uniqueLocationIds = array_unique($allLocationIds);
+
+        // Get the assigned location IDs for the authenticated admin user
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+
+        // Convert location IDs to an array and filter out any empty values
+        $assignedLocationIds = array_filter(explode(',', $location_ids));
+
+        // Filter the uniqueLocationIds array to include only the locations assigned to the user
+        $filteredLocationIds = array_intersect($uniqueLocationIds, $assignedLocationIds);
+
+        // Fetch the active locations that match the filtered location IDs
+        $locations = Location::active()->whereIn('id', $filteredLocationIds)->get();
+    }
+
+    // Return the fetched locations as a JSON response
+    return response()->json(['locations' => $locations]);
+}
+
+
+public function getProductsByLocation(Request $request)
+{
+    $locationId = $request->location_id;
+
+    // Fetch products where the location_id matches the selected location
+    $products = Product::whereRaw("FIND_IN_SET(?, location_id)", [$locationId])->get();
+
+    return response()->json(['products' => $products]);
+}
+ 
+
+
     public function detail_report()
     {
         $title = "Detailed Order Report";
         $orderList = Order::paginate(50);
         $boxValues = Order::boxValues();
         $customerList = Customer::oldest('first_name', 'last_name')->get();
+        $categoryList = Category::where('status', 'Active')->whereNull('parent_id')->oldest('title')->get();
         $productList = Product::where('status', 'Active')->oldest('title')->get();
+        $locationList = Location::where('status', 'Active')->oldest('title')->get();
         $couponList = Coupon::where('status', 'Active')->get();
-        return view('Admin/report/order/order_detail_report', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList'));
+    
+        return view('Admin/report/order/order_detail_report', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'locationList', 'categoryList'));
     }
+    
 
 
 
@@ -126,9 +232,9 @@ class ReportController extends Controller
     $customerList = Customer::oldest('first_name', 'last_name')->get();
     $productList = Product::where('status', 'Active')->oldest('title')->get();
     $couponList = Coupon::where('status', 'Active')->get();
-
+    $categoryList = Category::where('status', 'Active')->whereNull('parent_id')->oldest('title')->get();
     // Return the view with the data
-    return view('Admin.report.order.order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocationIds'));
+    return view('Admin.report.order.order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocationIds','categoryList'));
 }
     public function order_detail_filter_subadmin(Request $request)
     {

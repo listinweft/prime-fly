@@ -84,57 +84,157 @@ $(document).ready(function () {
     //         }
     //     });
     // });
+    // $(document).on('click', '#order-detail-search-result', function (e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: 'POST',
+    //         dataType: 'html',
+    //         data: $('#order-detail-filter-form').serialize(),
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         url: base_url + '/report/order_detail_filter',
+    //         success: function (response) {
+    //             if (response != '0') {
+    //                 $('#filter--result').html(response);
+    //                 $('#clear-search-result').attr('disabled', false);
+    //             } else {
+    //                 swal({
+    //                     title: "Error",
+    //                     text: response.message,
+    //                     type: 'error'
+    //                 });
+    //             }
+    //         }
+    //     });
+    // });
+
+
     $(document).on('click', '#order-detail-search-result', function (e) {
         e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            dataType: 'html',
-            data: $('#order-detail-filter-form').serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url + '/report/order_detail_filter',
-            success: function (response) {
-                if (response != '0') {
-                    $('#filter--result').html(response);
-                    $('#clear-search-result').attr('disabled', false);
-                } else {
-                    swal({
-                        title: "Error",
-                        text: response.message,
-                        type: 'error'
-                    });
-                }
+    
+        // Clear previous validation errors
+        $('.validation-error').remove();
+    
+        // Get the selected values
+        var categoryId = $('#order_report_category').val();
+        var locationId = $('#order_report_location').val();
+        var productId = $('#order_report_product').val();
+        var hasErrors = false;
+    
+        // Validate the fields
+        if (categoryId && (!locationId || !productId)) {
+            if (!locationId) {
+                $('#order_report_location').after('<span class="validation-error text-danger">Location is required.</span>');
+                hasErrors = true;
             }
-        });
-    });
-
-    $(document).on('click', '#order-subdetail-search-result', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            dataType: 'html',
-            data: $('#order-detail-filter-form').serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url + '/report/order_detail_filter_subadmin',
-            success: function (response) {
-                if (response != '0') {
-                    $('#filter--result').html(response);
-                    $('#clear-search-result').attr('disabled', false);
-                } else {
-                    swal({
-                        title: "Error",
-                        text: response.message,
-                        type: 'error'
-                    });
-                }
+            if (!productId) {
+                $('#order_report_product').after('<span class="validation-error text-danger">Product is required.</span>');
+                hasErrors = true;
             }
-        });
+        }
+    
+        // If no errors, proceed with AJAX request
+        if (!hasErrors) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'html',
+                data: $('#order-detail-filter-form').serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + '/report/order_detail_filter',
+                success: function (response) {
+                    if (response != '0') {
+                        $('#filter--result').html(response);
+                        $('#clear-search-result').attr('disabled', false);
+                    } else {
+                        swal({
+                            title: "Error",
+                            text: response.message,
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        }
     });
     
-
+    // $(document).on('click', '#order-subdetail-search-result', function (e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: 'POST',
+    //         dataType: 'html',
+    //         data: $('#order-detail-filter-form').serialize(),
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         url: base_url + '/report/order_detail_filter_subadmin',
+    //         success: function (response) {
+    //             if (response != '0') {
+    //                 $('#filter--result').html(response);
+    //                 $('#clear-search-result').attr('disabled', false);
+    //             } else {
+    //                 swal({
+    //                     title: "Error",
+    //                     text: response.message,
+    //                     type: 'error'
+    //                 });
+    //             }
+    //         }
+    //     });
+    // });
+    
+    $(document).on('click', '#order-subdetail-search-result', function (e) {
+        e.preventDefault();
+    
+        // Clear previous validation errors
+        $('.validation-error').remove();
+    
+        // Get the selected values
+        var categoryId = $('#order_report_category').val();
+        var locationId = $('#order_report_location').val();
+        var productId = $('#order_report_product').val();
+        var hasErrors = false;
+    
+        // Validate the fields
+        if (categoryId && (!locationId || !productId)) {
+            if (!locationId) {
+                $('#order_report_location').after('<span class="validation-error text-danger">Location is required.</span>');
+                hasErrors = true;
+            }
+            if (!productId) {
+                $('#order_report_product').after('<span class="validation-error text-danger">Product is required.</span>');
+                hasErrors = true;
+            }
+        }
+    
+        // If no errors, proceed with AJAX request
+        if (!hasErrors) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'html',
+                data: $('#order-detail-filter-form').serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + '/report/order_detail_filter_subadmin',
+                success: function (response) {
+                    if (response != '0') {
+                        $('#filter--result').html(response);
+                        $('#clear-search-result').attr('disabled', false);
+                    } else {
+                        swal({
+                            title: "Error",
+                            text: response.message,
+                            type: 'error'
+                        });
+                    }
+                }
+            });
+        }
+    });
+    
     $(document).on('change', '.product-selection-drop', function () {
         var type = $('.deal-product-type').val();
         var type_value = $(this).val();
