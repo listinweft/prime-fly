@@ -48,7 +48,8 @@
                                         <th>Email</th>
                                         <th>Businees Type</th>
                                         <th>Phone Number</th>
-                                        <!-- <th>Status</th> -->
+                                        
+                                        <th>Pay Credit</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -61,9 +62,9 @@
                                             <td>{{ ($customer->user != null) ? $customer->user->email : ''}}</td>
                                              @if ($customer->user->btype=="b2b")<td>B2b</td>@else<td>Public</td>@endif
                                             <td>{{ ($customer->user != null)  ? $customer->user->phone : ''}}</td>
-                                            <!-- <td>
+                                            <td>
                                                 @if ($customer->user != null)
-                                                    
+                                                @if( $customer->user->btype == "b2b")
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="User"
@@ -71,10 +72,11 @@
                                                         {{($customer->user->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
+                                                @endif
                                                 @else
                                                     
                                                 @endif
-                                            </td> -->
+                                            </td>
                                             <td>{{ date("d-M-Y", strtotime($customer->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">

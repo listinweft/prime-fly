@@ -1587,19 +1587,18 @@ class CartController extends Controller
 
                         $detail->entry_time = $row->attributes['entry_time'] ?? '';
 
-                        $dateString = $row->attributes['setdate'] ?? '';
+                        $dateString = $row->attributes['setdate'] ?? ''; // Fetch the date string
 
-                        $entryTime = $row->attributes['entry_time'] ?? '';
-
-
+                        $entryTime = $row->attributes['entry_time'] ?? ''; // Fetch the entry time if available
+                        
                         $formattedTimestamp = '';
-
+                        
                         if ($dateString) {
-                            // Define possible date formats
-                            $possibleDateFormats = ['m/d/Y', 'm-d-Y', 'Y-m-d', 'd/m/Y'];
+                            // Define possible date formats (including 'd-m-Y')
+                            $possibleDateFormats = ['m/d/Y', 'd-m-Y', 'Y-m-d', 'd/m/Y'];
                             $possibleDateTimeFormats = [
-                                'm/d/Y H:i:s', 'm-d-Y H:i:s', 'Y-m-d H:i:s', 'd/m/Y H:i:s',
-                                'm/d/Y g:ia', 'm-d-Y g:ia', 'Y-m-d g:ia', 'd/m/Y g:ia'
+                                'm/d/Y H:i:s', 'd-m-Y H:i:s', 'Y-m-d H:i:s', 'd/m/Y H:i:s',
+                                'm/d/Y g:ia', 'd-m-Y g:ia', 'Y-m-d g:ia', 'd/m/Y g:ia'
                             ];
                         
                             // Try parsing the date string with each format
@@ -1636,6 +1635,8 @@ class CartController extends Controller
                                 echo "Invalid date format.";
                             }
                         }
+                        
+                   
                         
                    
                         // Assign the combined date and time to exit_date
@@ -1811,11 +1812,12 @@ class CartController extends Controller
     
             return response()->json(['status' => 'success',  'message' => 'Order has been placed successfully',]); // Redirect to home page after successful payment
         } catch (\Exception $e) {
-            // Handle verification failure
+           \Log::error('Payment failed: ' . $e->getMessage());
             return response()->json(['status' => 'error', 'message' => 'Your Payment not completed']);
         }
     }
     
+  
 
     // PaymentController.php
 public function verify(Request $request)

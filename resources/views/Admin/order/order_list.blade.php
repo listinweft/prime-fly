@@ -48,6 +48,7 @@
                                         <th>#</th>
                                         <th>Code</th>
                                         <th>Customer</th>
+                                        <th>Credit Bill status</th>
                                         <th>Order Total</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -75,6 +76,17 @@
                                                         <td></td>
                                                     @endif
                                                 @endif
+
+                                                <td>
+
+                                                <label class="switch">
+                                                    <input type="checkbox" class="status_check"
+                                                           data-url="/status-change-cod" data-table="Order"
+                                                           data-field="payment_method" data-pk="{{ $order->id }}"
+                                                        {{( $order->payment_method=="COD")?'checked':''}}>
+                                                    <span class="slider"></span>
+                                                </label>
+</td>
                                                 <td>{{ number_format($productTotalWithTax, 2).' '.$order->currency }}</td>
                                                 <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
                                                 <td class="text-right py-0 align-middle">

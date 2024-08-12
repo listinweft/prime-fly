@@ -186,6 +186,17 @@
                                     </div>
                                 </div>
                             </div>
+
+                            </table>
+                     @if(Auth::guard('customer')->check())
+
+                                                        @php
+                                        $user = Auth::guard('customer')->user();
+                                        
+                                    @endphp
+
+@if($user->status == "Active")
+                              
                             <div class="d-flex cart-pyment-list align-items-center justify-content-between">
                                 <div class="cart-pymentradio">
                                     <div class="form-check d-flex align-items-center">
@@ -197,6 +208,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @endif
                         </form>
                     </div>
                     <h4 class="mt-0">Price Details</h4>

@@ -69,7 +69,7 @@
                                               </svg>
                                         </div>
                                         <div class="text-end otp_grid mt-1">
-                                            <p>  <a href="{{ url('forgot-password/') }}">forgot password ? </a></p> 
+                                            <p>  <a href="{{ url('forgot-password/') }}">Forgot password ? </a></p> 
                                         </div>  
                                     </div>
                                     <div class="col-12 register_form_grid text-center mt-3">

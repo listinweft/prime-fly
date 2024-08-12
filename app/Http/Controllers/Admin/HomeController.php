@@ -340,7 +340,64 @@ class HomeController extends Controller
 
     }
 
-
+    public function status_change_cod(Request $request)
+    {
+        $table = $request->table;
+        $state = $request->state;
+        $primary_key = $request->primary_key;
+        $field = $request->field ?? 'payment_method';
+        $limit = $request->limit;
+        $limit_field = $request->limit_field;
+        $limit_field_value = $request->limit_field_value;
+        
+        // Define the status based on the state
+        $status = ($state == 'true') ? 'COD' : 'Credit-Card';
+        
+        $model = 'App\\Models\\' . $table;
+        $data = $model::find($primary_key);
+        
+        // Check if the record exists
+        if (!$data) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Record not found.'
+            ]);
+        }
+    
+        // If there's a limit and the status is being set to 'COD'
+        if ($limit && $status == "COD") {
+            if ($limit_field && $limit_field_value) {
+                $active_data = $model::where($limit_field, $limit_field_value)
+                                      ->where($field, 'COD');
+            } else {
+                $active_data = $model::where($field, 'COD');
+            }
+            
+            if ($active_data->count() >= $limit) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Only ' . $limit . ' active items with COD are allowed.'
+                ]);
+            }
+        }
+        
+        // Update the field with the new status
+        $data->$field = $status;
+        
+        if ($data->save()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Status has been changed successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error while changing the status.'
+            ]);
+        }
+    }
+    
+    
 
     public function status_change(Request $request)
     {
