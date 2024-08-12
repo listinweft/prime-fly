@@ -54,7 +54,7 @@ class ReportController extends Controller
     public function getLocationsByCategory_sub(Request $request)
     {
         // Fetch the active category by the provided category_id
-        $category = Category::active()->find($request->category_id);
+        $category = Category::whereNull('parent_id')->find($request->category_id);
     
         // Initialize an empty array to hold locations
         $locations = [];
@@ -97,7 +97,7 @@ class ReportController extends Controller
 public function getLocationsByCategory(Request $request)
 {
     // Fetch the active category by the provided category_id
-    $category = Category::active()->find($request->category_id);
+    $category = Category::whereNull('parent_id')->find($request->category_id);
 
     // Initialize an empty array to hold locations
     $locations = [];
@@ -120,13 +120,10 @@ public function getLocationsByCategory(Request $request)
         $uniqueLocationIds = array_unique($allLocationIds);
 
         // Get the assigned location IDs for the authenticated admin user
-        $location_ids = Auth::guard('admin')->user()->location_ids;
-
-        // Convert location IDs to an array and filter out any empty values
-        $assignedLocationIds = array_filter(explode(',', $location_ids));
+        
 
         // Filter the uniqueLocationIds array to include only the locations assigned to the user
-        $filteredLocationIds = array_intersect($uniqueLocationIds, $assignedLocationIds);
+        $filteredLocationIds = array_intersect($uniqueLocationIds);
 
         // Fetch the active locations that match the filtered location IDs
         $locations = Location::active()->whereIn('id', $filteredLocationIds)->get();
