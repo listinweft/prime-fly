@@ -62,6 +62,14 @@ class HomeController extends Controller
         $location_ids = $admin->location_ids;
         $assignedLocationIds = array_filter(explode(',', $location_ids));
 
+        // Initialize query with pagination
+$category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+// Ensure category_id is an array
+if (!is_array($category_id)) {
+    $category_id = explode(',', $category_id);
+}
+
         // Fetch location codes based on location IDs
         $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
 
@@ -74,6 +82,9 @@ class HomeController extends Controller
         })
         ->when(empty($locationCodes), function ($query) {
             return $query->whereRaw('1=0'); // Force a condition that is never true
+        })
+        ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+            $query->whereIn('category_id', $category_id); // Filter by category_id array
         })
         ->count();
 

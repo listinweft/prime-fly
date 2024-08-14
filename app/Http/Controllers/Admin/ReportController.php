@@ -133,16 +133,27 @@ public function getLocationsByCategory(Request $request)
     return response()->json(['locations' => $locations]);
 }
 
-
 public function getProductsByLocation(Request $request)
 {
-    $locationId = $request->location_id;
+    $locationId = $request->input('location_id');
+    $categoryIds = $request->input('categoryIds');
 
-    // Fetch products where the location_id matches the selected location
-    $products = Product::whereRaw("FIND_IN_SET(?, location_id)", [$locationId])->get();
+    // Ensure categoryIds is an array
+    if (!is_array($categoryIds)) {
+        $categoryIds = [$categoryIds];
+    }
+
+    // Fetch products where location_id matches the selected location and category_id is in the provided list
+    $products = Product::where(function ($query) use ($locationId) {
+        $query->whereRaw("FIND_IN_SET(?, location_id) > 0", [$locationId]);
+    })
+    ->whereIn('category_id', $categoryIds)
+    ->get();
 
     return response()->json(['products' => $products]);
 }
+
+
  
 
 
@@ -199,37 +210,58 @@ public function getProductsByLocation(Request $request)
 
     // Get the location IDs for the authenticated admin
     $location_ids = Auth::guard('admin')->user()->location_ids;
-    
-    // Convert location IDs to an array and remove empty values
-    $assignedLocationIds = array_filter(explode(',', $location_ids));
-    
-    // Fetch location codes based on location IDs
-    $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+    $category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
 
-    // Initialize query with pagination
-    $orderList = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
-            return $query->where(function ($query) use ($locationCodes) {
-                $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
-                    $query->whereIn('origin', $locationCodes)
-                          ->orWhereIn('destination', $locationCodes);
-                });
-            });
-        })
-        ->when(empty($locationCodes), function ($query) {
-            // Handle case when locationCodes is empty or contains only empty values
-            return $query->whereRaw('1=0'); // Force a condition that is never true
-        })
-        ->latest() // Order by latest
-        ->paginate(50); // Paginate results, 50 items per page
+    // Ensure category_id is an array
+    if (!is_array($category_id)) {
+        $category_id = explode(',', $category_id);
+    }
+// Convert location IDs to an array and remove empty values
+$assignedLocationIds = array_filter(explode(',', $location_ids));
 
+// Fetch location codes based on location IDs
+$locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+
+// Initialize query with pagination
+$category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+// Ensure category_id is an array
+if (!is_array($category_id)) {
+    $category_id = explode(',', $category_id);
+}
+
+// Your query
+$orderList = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
+    return $query->where(function ($query) use ($locationCodes) {
+        $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
+            $query->whereIn('origin', $locationCodes)
+                  ->orWhereIn('destination', $locationCodes);
+        });
+    });
+})
+->when(empty($locationCodes), function ($query) {
+    return $query->whereRaw('1=0'); // Force a condition that is never true
+})
+->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+    $query->whereIn('category_id', $category_id); // Filter by category_id array
+})
+->latest()
+->paginate(50);
+ // Paginate results, 50 items per page
+// Paginate results, 50 items per page
+
+// return $category_id;
     // Fetch box values using location codes
-    $boxValues = Order::boxValues_subadmin($locationCodes);
+ 
+      $boxValues = Order::boxValues_subadmin($locationCodes,$category_id);
     
     // Fetch customer list, product list, and coupon list
     $customerList = Customer::oldest('first_name', 'last_name')->get();
     $productList = Product::where('status', 'Active')->oldest('title')->get();
     $couponList = Coupon::where('status', 'Active')->get();
-    $categoryList = Category::where('status', 'Active')->whereNull('parent_id')->oldest('title')->get();
+    
+    
+            $categoryList = Category::where('status', 'Active')->whereNull('parent_id')->whereIn('id',$category_id)->oldest('title')->get();
     // Return the view with the data
     return view('Admin.report.order.order_detail_report_subadmin', compact('orderList', 'title', 'boxValues', 'customerList', 'productList', 'couponList', 'assignedLocationIds','categoryList'));
 }
@@ -243,11 +275,17 @@ public function getProductsByLocation(Request $request)
         // Get the admin's assigned locations from the comma-separated string
         $location_ids = Auth::guard('admin')->user()->location_ids;
       $assignedLocations = array_filter(explode(',', $location_ids));
+      $category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+      // Ensure category_id is an array
+      if (!is_array($category_id)) {
+          $category_id = explode(',', $category_id);
+      }
       
       $locationCodes = Location::whereIn('id', $assignedLocations)->pluck('code')->toArray();
     
-        $orderList = Order::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $locationCodes);
-        $boxValues = Order::getDetailedOrdersBoxValues_subadmin($date_range, $status, $customer, $product, $locationCodes);
+        $orderList = Order::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $locationCodes,$category_id);
+        $boxValues = Order::getDetailedOrdersBoxValues_subadmin($date_range, $status, $customer, $product, $locationCodes,$category_id);
         
         session(['date_range' => $date_range, 'status' => $status, 'customer' => $customer, 'product' => $product]);
         

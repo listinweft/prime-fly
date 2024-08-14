@@ -11,6 +11,7 @@
             <div class="col-lg-10 packge-content" data-aos="fade-up" data-aos-duration="600">
                 <ul class="nav nav-pills justify-content-center" id="packageTab" role="tablist">
                     @foreach ($totalAmounts as $index => $item)
+                    @if($item['total_amount'] > 0)
                     <li class="nav-item" role="presentation">
                         <a class="nav-link {{ $index === 0 ? 'active' : '' }}" id="package{{ $index + 1 }}-tab" data-bs-toggle="tab" data-bs-target="#package{{ $index + 1 }}-tab-pane"
                            type="button" role="tab" aria-controls="package{{ $index + 1 }}-tab-pane" aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
@@ -19,10 +20,12 @@
                             <h4>&#8377; {{ number_format($item['total_amount']) }}</h4>
                         </a>
                     </li>
+                    @endif
                     @endforeach
                 </ul>
                 <div class="tab-content" id="packageTabContent">
                     @foreach ($totalAmounts as $index => $item)
+                    @if($item['total_amount'] > 0)
                     <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="package{{ $index + 1 }}-tab-pane" role="tabpanel" aria-labelledby="package{{ $index + 1 }}-tab" tabindex="0">
                         <div class="d-flex justify-content-center">
                             <div class="col-lg-11 packagecontent-wrp">
@@ -96,6 +99,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                 </div>
             </div>

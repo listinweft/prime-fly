@@ -151,6 +151,8 @@ $(document).ready(function () {
         $('#product-error').hide();
 
         if (categoryId) {
+
+           
             $.ajax({
                 url: '{{ route("get.locations.by.category.sub") }}',
                 type: 'GET',
@@ -172,10 +174,13 @@ $(document).ready(function () {
                         $('#product-error').hide();
 
                         if (locationId) {
+                            var categoryId = $('#order_report_category').val();
+                            var categoryIds = Array.isArray(categoryId) ? categoryId : [categoryId];
+                            
                             $.ajax({
                                 url: '{{ route("get.products.by.location") }}',
                                 type: 'GET',
-                                data: { location_id: locationId },
+                                data: { location_id: locationId,categoryIds: categoryIds },
                                 success: function (productResponse) {
                                     var productSelect = $('#order_report_product');
 

@@ -100,6 +100,14 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
     
             // Fetch location codes based on location IDs
             $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+
+            $category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+// Ensure category_id is an array
+                    if (!is_array($category_id)) {
+                        $category_id = explode(',', $category_id);
+                    }
+
     
             // Query to get orders based on location codes with max exit_date
             $orders = Order::select('orders.id', 'orders.order_code', 'orders.created_at', DB::raw('MAX(order_products.exit_date) as exit_date'))
@@ -113,6 +121,10 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                 ->when(empty($locationCodes), function ($query) {
                     return $query->whereRaw('1=0'); // Force a condition that is never true
                 })
+                ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+                    $query->whereIn('category_id', $category_id); // Filter by category_id array
+                })
+
                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
                 ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
                 ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
@@ -261,6 +273,12 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
     
             // Fetch location codes based on location IDs
             $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+            $category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+            // Ensure category_id is an array
+                                if (!is_array($category_id)) {
+                                    $category_id = explode(',', $category_id);
+                                }
     
             // Query to get orders based on location codes
             $orders = Order::with('orderProducts') // Eager load orderProducts to avoid N+1 query issue
@@ -275,6 +293,10 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                 ->when(empty($locationCodes), function ($query) {
                     // Handle case when locationCodes is empty
                     return $query->whereRaw('1=0'); // Force a condition that is never true
+                })
+
+                ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+                    $query->whereIn('category_id', $category_id); // Filter by category_id array
                 })
                 ->latest()
                 ->get();

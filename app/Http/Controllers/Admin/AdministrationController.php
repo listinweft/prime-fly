@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Admin;
 use App\Models\Customer;
+use App\Models\Category;
 use App\Models\SiteInformation;
 use App\Models\User;
 use App\Models\Location;
@@ -335,6 +336,7 @@ class AdministrationController extends Controller
         $request->validate([
             'role' => 'required',
             'location_ids' => 'required|array',
+            'category_id' => 'required|array',
         ]);
     
         // Get the selected administrator
@@ -343,6 +345,7 @@ class AdministrationController extends Controller
     
         // Assign the selected locations to the administrator
         $admincreate->location_ids = implode(',', $request->input('location_ids'));
+        $admincreate->category_id = implode(',', $request->input('category_id'));
         $admincreate->save();
         return redirect()->route('admin.assign.list')->with('success', 'Locations assigned successfully');
     }
@@ -354,6 +357,7 @@ class AdministrationController extends Controller
         if (auth()->check() && auth()->user()->admin->role == "Super Admin") {
             $title = "Edit";
             $locations = Location::get();
+            $categorys = Category::whereNull('parent_id')->orderBy('sort_order')->get();
             
             // Fetch admins with default user data
             $admins = Admin::with(['user' => function ($query) {
@@ -372,7 +376,7 @@ class AdministrationController extends Controller
     
             // Check if admins exist and load the view
             if ($admins->isNotEmpty()) {
-                return view('Admin.assign_locations', compact('admins', 'role', 'title', 'locations', 'user'));
+                return view('Admin.assign_locations', compact('admins', 'role', 'title', 'locations', 'user','categorys'));
             } else {
                 return view('backend.error.404');
             }
@@ -410,6 +414,7 @@ class AdministrationController extends Controller
     
         // Assign the selected locations to the administrator
         $admin->location_ids = implode(',', $request->input('location_ids'));
+        $admin->category_id = implode(',', $request->input('category_id'));
         $admin->save();
         return redirect()->route('admin.assign.list')->with('success', 'Locations assigned successfully');
     }

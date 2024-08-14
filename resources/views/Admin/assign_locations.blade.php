@@ -99,6 +99,22 @@
     </div>
 @endforeach
 
+<br>
+
+
+
+<label for="role">Services*</label>    
+             
+@foreach($categorys as $category)
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="category_id[]"
+            value="{{ $category->id }}"
+            {{ in_array($category->id, explode(',', $user->category_id ?? '')) ? 'checked' : '' }}>
+        <label class="form-check-label">{{ $category->title }}</label>
+    </div>
+@endforeach
+
+
     
 
 

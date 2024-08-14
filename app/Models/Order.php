@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class Order extends Model
 {
@@ -676,39 +677,52 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
         return $boxValues;
     }
     
-    
-    public static function boxValues_subadmin($assignedLocations = [], $start = NULL, $end = NULL)
+    public static function boxValues_subadmin($assignedLocations = [], $category = [], $start = NULL, $end = NULL)
     {
-        if ($start != NULL && $end != NULL) {
-            $orders = Order::whereBetween('created_at', [$start, $end])
-                           ->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                               $query->whereIn('origin', $assignedLocations)
-                                     ->orWhereIn('destination', $assignedLocations);
-                           })
-                           ->get();
-            $orderIds = $orders->pluck('id')->toArray();
-            $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
-            $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
-        } else {
-            $orders = Order::whereHas('orderProducts', function($query) use ($assignedLocations) {
-                            $query->whereIn('origin', $assignedLocations)
-                                  ->orWhereIn('destination', $assignedLocations);
-                        })
-                        ->get();
-            $orderIds = $orders->pluck('id')->toArray();
-            $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
-            $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
+        \Log::info('boxValues_subadmin called with:', [
+            'assignedLocations' => $assignedLocations,
+            'category' => $category,
+            'start' => $start,
+            'end' => $end
+        ]);
+    
+        // Build the query based on the presence of start and end dates
+        $query = Order::query();
+    
+        if ($start && $end) {
+            $query->whereBetween('created_at', [$start, $end]);
         }
     
+        $query->whereHas('orderProducts', function($query) use ($assignedLocations, $category) {
+            $query->whereIn('origin', $assignedLocations)
+                  ->orWhereIn('destination', $assignedLocations);
+    
+            if (!empty($category)) {
+                $query->whereHas('productData', function($subQuery) use ($category) {
+                    $subQuery->whereIn('category_id', $category);
+                });
+            }
+        });
+    
+        // Handle case when $assignedLocations is empty
+        $query->when(empty($assignedLocations), function ($query) {
+            return $query->whereRaw('1=0'); // Force a condition that is never true
+        });
+    
+        // Apply category filter
+        $query->whereHas('orderProducts.productData', function ($query) use ($category) {
+            $query->whereIn('category_id', $category);
+        });
+    
+        $orders = $query->get();
+    
+        \Log::info('Orders found:', ['count' => $orders->count()]);
+    
+        $orderIds = $orders->pluck('id')->toArray();
+        $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
+        $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
+    
         $boxValues = [];
-        $returnData = ['total_price' => [], 'coupon' => []];
-    
-        // foreach ($orders as $order) {
-        //     $orderGrandTotal = Order::OrderGrandTotal($order->id);
-        //     $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
-        //     $returnData['coupon'][] = Order::getActiveProductCouponValue($order->id);
-        // }
-    
         $totalAmount = $totalOrderProductCost;
         $extraAmount = $totalAmount * 0.18;
         $totalAmountWithExtra = $totalAmount + $extraAmount;
@@ -720,6 +734,8 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
     
         return $boxValues;
     }
+    
+    
     
     
     
@@ -861,7 +877,7 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
         //dd($orders);
         return $orders;
     }
-    public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $location_ids = NULL)
+    public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $location_ids = NULL,$category = NULL)
 {
     // Parse location IDs from comma-separated string
    
@@ -876,12 +892,11 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
     $start = $startDate . ' 00:00:00';
     $end = $endDate . ' 23:59:59';
     
-    // Initialize query
     $orders = SELF::when($start && $end, function ($query) use ($start, $end) {
         return $query->whereBetween('created_at', [$start, $end]);
     })
     ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
-        return $query->whereHas('orderProducts', function($query) use ($locationCodes) {
+        return $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
             $query->whereIn('origin', $locationCodes)
                   ->orWhereIn('destination', $locationCodes);
         });
@@ -889,8 +904,13 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
     ->when(empty($locationCodes), function ($query) {
         return $query->whereRaw('1=0'); // Force a condition that is never true
     })
+    ->when(!empty($category), function ($query) use ($category) {
+        return $query->whereHas('orderProducts.productData', function ($query) use ($category) {
+            $query->whereIn('category_id', $category);
+        });
+    })
     ->get();
-    
+
     // Filter by status if provided
     if ($status != NULL) {
         $ordersList = [];
@@ -979,10 +999,10 @@ public static function getDetailedOrdersBoxValues($date_range = NULL, $status = 
     return $boxValues;
 }
 
-public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
+public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [],$category = [])
 {
     // Retrieve filtered orders
-    $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
+    $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations,$category);
     
     // Initialize variables to store metrics
     $boxValues = [];
