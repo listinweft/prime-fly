@@ -221,6 +221,68 @@ class WebController extends Controller
 //         return response()->json(['origins' => $origins, 'destinations' => $destinations,'type'=>$travelSector]);
 //     }
 
+public function getLocationsMeetTransit(Request $request)
+{
+    $sector = $request->input('sector');
+    $origins = [];
+    $destinations = [];
+
+    // API URL
+    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN?appId=6afbf6ac&appKey=6d35112e08773c372901b6ba27a58a25';
+
+    // Fetch data from API
+    $responsedata = Http::get($apiUrl);
+    
+    // Check if the request was successful
+    if ($responsedata->successful()) {
+        $data = $responsedata->json();
+        $locationsFromApi = $data['airports'] ?? [];
+        
+        // Map the API response data
+        $domesticlocations = array_map(function ($location) {
+            return [
+                'fs' => $location['fs'],  // FAA code
+                'city' => $location['city'] // City name
+            ];
+        }, $locationsFromApi);
+    } else {
+        // Handle the API request failure
+        $domesticlocations = [];
+    }
+
+    // Fetch locations from the international_airports table
+    $locationsFromDb = DB::table('international_airport')
+        ->select('faa', 'name')
+        ->get()
+        ->map(function ($location) {
+            return [
+                'fs' => $location->faa,  // FAA code
+                'city' => $location->name // Name
+            ];
+        });
+
+    // Determine origins and destinations based on the sector
+    if ($sector == "domestic_to_domestic") {
+        $origins = $domesticlocations;
+        $destinations = $domesticlocations;
+    } elseif ($sector == "domestic_to_international") {
+        $origins = $domesticlocations;
+        $destinations = $locationsFromDb;
+    } elseif ($sector == "international_to_domestic") {
+        $origins = $locationsFromDb;
+        $destinations = $domesticlocations;
+    } else {
+        $origins = $locationsFromDb;
+        $destinations = $locationsFromDb;
+    }
+
+    return response()->json([
+        'origins' => $origins,
+        'destinations' => $destinations,
+        'type' => $sector
+    ]);
+}
+
 
 public function getLocations_meet(Request $request)
 {
@@ -407,6 +469,124 @@ public function getLocations_meet(Request $request)
         }
     
         return response()->json(['origins' => $origins, 'destinations' => $destinations,'type'=>$travelSector]);
+    }
+
+     
+    public function search_booking_transit(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'datepickert' => 'required',
+            'travel_typet' => 'required',
+            'travel_sectort' => 'required|string',
+            'origint' => 'required',
+            'destinationt' => 'required',
+            'flight_numbert' => 'required|string',
+            'adultst' => 'required|integer|min:1',
+            'infantst' => 'required|integer|min:0',
+            'childrent' => 'required|integer|min:0',
+            'categoryt' => 'required|integer',
+             'trans' => 'required'
+        ]);
+    
+        // Collect data
+        $data = $request->all();
+    
+        // Calculate total amounts for all matching products 
+        $totalAmounts = $this->calculateTotalAmounts_transit($data);
+    
+        // Check if totalAmounts is empty
+        if (empty($totalAmounts)) {
+            return response()->json(['status' => 'error', 'message' => 'No packages found']);
+        }
+    
+        // Pass total amounts to the view
+        $category = Category::where('id', $data['categoryt'])->first();
+    
+        Session::forget('category');
+        Session::put('total_amounts', $totalAmounts);
+        Session::put('category', $category->title);
+    
+        return response()->json(['success' => true, 'redirect_url' => route('package')]);
+    }
+    
+    private function calculateTotalAmounts_transit($data)
+    {
+        // Fetch all products that match the location_id and service_type
+        $products = Product::select('products.*', 'locations.code as location_code', 'locations.title as location_title')
+            ->join('locations', function ($join) use ($data) {
+                $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'))
+                    ->where('products.service_type', 'transit')
+                     ->where('products.sector', $data['travel_sectort']);
+            })
+           
+            ->when($data['travel_typet'] == "transit_type", function ($query) use ($data) {
+                $locationId = Location::where('code', $data['trans'])->value('id');
+                return $query->where('locations.id', $locationId);
+            })
+            ->where('products.category_id', $data['categoryt'])
+            ->groupBy('products.id')
+            ->get();
+    
+        // Check if products is empty
+        if ($products->isEmpty()) {
+            return []; // Return empty array
+        }
+    
+        $result = [];
+        $guestCount = $data['adultst'] + $data['infantst'] + $data['childrent'];
+        $user = Auth::guard('customer')->user();
+        $isB2BUser = $user && $user->btype == "b2b";
+    
+        foreach ($products as $product) {
+            if ($isB2BUser) {
+                $userId = $user->id;
+                $adultPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 1)->where('user_id', $userId)->value('price') ?? $product->price;
+                $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
+                $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
+                $additionalPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 4)->where('user_id', $userId)->value('price') ?? $product->additional_price;
+            } else {
+                $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
+                $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
+                $infantPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
+                $additionalPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 4)->value('price') ?? 0;
+            }
+    
+            if ($data['adultst'] == 1) {
+                // Calculate the total amount based on guest count
+                $totalAmount = ($data['adultst'] * $adultPrice) + ($data['infantst'] * $infantPrice) + ($data['childrent'] * $childrenPrice);
+            } else {
+                $additionalAdults = $data['adultst'] - 1;
+                $totalAmount = ($additionalAdults * $additionalPrice) + ($data['infantst'] * $infantPrice) + ($data['childrent'] * $childrenPrice + $adultPrice);
+            }
+
+            if (isset($data['travel_sectort'])) {
+                // Replace underscores with spaces
+                $data['travel_sectort'] = str_replace('_', ' ', $data['travel_sectort']);
+            }
+    
+            $result[] = [
+                'product' => $product,
+                'location_title' => $product->location_title,
+                'location_code' => $product->location_code, // Include location code here
+                'total_amount' => $totalAmount,
+                'setdate' => $data['datepickert'],
+                'totalguest' => $guestCount,
+                'origin' => $data['origint'],
+                'destination' => $data['destinationt'],
+                'flight_number' => $data['flight_numbert'],
+                'travel_sector' => $data['travel_sectort'],
+                'entry_date' => $data['datepickert'],
+                'travel_type' => "Transit",
+                'adults' => $data['adultst'],
+                'infants' => $data['infantst'],
+                'children' => $data['childrent'],
+                'pnr' => isset($data['pnr']) ? $data['pnr'] : '',
+                'meet_guest' => $guestCount
+            ];
+        }
+    
+        return $result; // Return an array of results
     }
     
     public function search_booking(Request $request)

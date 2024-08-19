@@ -196,6 +196,8 @@ class ServiceController extends Controller
     public function service_update(Request $request, $id)
     {
 
+     
+
     // return  $request->all();
         DB::beginTransaction();
       $productShortExist = Product::where([['short_url', '=', $request->short_url], ['id', '!=', $id]])->count();

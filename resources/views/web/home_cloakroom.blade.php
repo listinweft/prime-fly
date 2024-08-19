@@ -69,68 +69,84 @@ $(document).ready(function() {
    
     
     $('#datepickerclock, #exitdatepickerclock').datepicker({
-        format: 'yyyy-mm-dd',
-        minDate: 0,
-        autoclose: true,
-        onSelect: function(dateText, inst) {
-            var selectedDate = new Date(dateText);
-            updateMinTime(selectedDate);
-            $('#datepickerclock').valid(); 
-            $('#exitdatepickerclock').valid(); 
-        }
-    });
-
-    // Initialize timepicker
-    $('.timepickerclock').timepicker({
-        showMeridian: false,
-        showSeconds: true,
-        defaultTime: false
-    });
-
-    // Function to update minTime based on selected date
-    function updateMinTime(selectedDate) {
-        var today = new Date();
-        var tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1); // Set to tomorrow
-
-        // Clear existing timepicker selections
-        $('.timepickerclock').timepicker('remove');
-
-        if (selectedDate.toDateString() === today.toDateString()) {
-            // If the selected date is today, restrict past times
-            $('.timepickerclock').timepicker({
-                showMeridian: false,
-                showSeconds: true,
-                defaultTime: false,
-                minTime: getCurrentTime(today) // Set minTime to the current time
-            });
+    format: 'yyyy-mm-dd',
+    minDate: 0,
+    autoclose: true,
+    onSelect: function(dateText, inst) {
+        var selectedDate = new Date(dateText);
+        if (inst.id === 'datepickerclock') {
+            // Entry date selected, restrict exit date
+            $('#exitdatepickerclock').datepicker('option', 'minDate', selectedDate);
+            // Clear selected exit date if it's before entry date
+            var exitDate = $('#exitdatepickerclock').datepicker('getDate');
+            if (exitDate && exitDate < selectedDate) {
+                $('#exitdatepickerclock').val('');
+            }
         } else {
-            // For future dates, allow all times
-            $('.timepickerclock').timepicker({
-                showMeridian: false,
-                showSeconds: true,
-                defaultTime: false,
-                minTime: null
-            });
+            // Exit date selected, restrict entry date
+            $('#datepickerclock').datepicker('option', 'maxDate', selectedDate);
         }
-    }
 
-    // Function to get the current time in hh:mm:ss format for a specific date
-    function getCurrentTime(date) {
-        var hours = date.getHours().toString().padStart(2, '0');
-        var minutes = date.getMinutes().toString().padStart(2, '0');
-        var seconds = date.getSeconds().toString().padStart(2, '0');
-        return hours + ':' + minutes + ':' + seconds;
-    }
-
-    // Ensure minTime is updated on page load if a date is pre-selected or defaults to today
-    var datepickerVal = $('#datepickerclock').val() || $('#exitdatepickerclock').val();
-    if (datepickerVal) {
-        var selectedDate = new Date(datepickerVal);
+        // Update minTime for timepicker based on selected date
         updateMinTime(selectedDate);
-    } else {
-        updateMinTime(new Date()); // Update minTime based on the current date
+
+        // Validate date fields (if using jQuery Validation)
+        $('#datepickerclock').valid();
+        $('#exitdatepickerclock').valid();
     }
+});
+
+// Initialize timepicker
+$('.timepickerclock').timepicker({
+    showMeridian: false,
+    showSeconds: true,
+    defaultTime: false
+});
+
+// Function to update minTime based on selected date
+function updateMinTime(selectedDate) {
+    var today = new Date();
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1); // Set to tomorrow
+
+    // Clear existing timepicker selections
+    $('.timepickerclock').timepicker('remove');
+
+    if (selectedDate.toDateString() === today.toDateString()) {
+        // If the selected date is today, restrict past times
+        $('.timepickerclock').timepicker({
+            showMeridian: false,
+            showSeconds: true,
+            defaultTime: false,
+            minTime: getCurrentTime(today) // Set minTime to the current time
+        });
+    } else {
+        // For future dates, allow all times
+        $('.timepickerclock').timepicker({
+            showMeridian: false,
+            showSeconds: true,
+            defaultTime: false,
+            minTime: null
+        });
+    }
+}
+
+// Function to get the current time in hh:mm:ss format for a specific date
+function getCurrentTime(date) {
+    var hours = date.getHours().toString().padStart(2, '0');
+    var minutes = date.getMinutes().toString().padStart(2, '0');
+    var seconds = date.getSeconds().toString().padStart(2, '0');
+    return hours + ':' + minutes + ':' + seconds;
+}
+
+// Ensure minTime is updated on page load if a date is pre-selected or defaults to today
+var datepickerVal = $('#datepickerclock').val() || $('#exitdatepickerclock').val();
+if (datepickerVal) {
+    var selectedDate = new Date(datepickerVal);
+    updateMinTime(selectedDate);
+} else {
+    updateMinTime(new Date()); // Update minTime based on the current date
+}
 
  
     $("#bookingForm-cloakroom").validate({
