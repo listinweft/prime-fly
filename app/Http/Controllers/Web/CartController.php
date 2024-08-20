@@ -119,13 +119,13 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
                 if (!$addStatus) {
                     break; // If adding any product fails, stop the loop
                 }
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
         }
     
         $count = 0;
@@ -169,9 +169,10 @@ class CartController extends Controller
     // Return data to view or as a JSON response
 
 }
-    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest)
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $trans, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest)
     {
         $origin = $origin ?? '';
+        $trans = $trans ?? '';
         $destination = $destination ?? '';
         $travel_sector = $travel_sector ?? '';
         $flight_number = $flight_number ?? '';
@@ -222,6 +223,7 @@ class CartController extends Controller
                     'travel_type' => $travel_type,
                     'setdate' => $setdate,
                     'origin' => $origin,
+                    'trans' => $trans,
                     'destination' => $destination,
                     'travel_sector' => $travel_sector,
                     'flight_number' => $flight_number,
@@ -1645,6 +1647,7 @@ class CartController extends Controller
                         $detail->flight_number = $row->attributes['flight_number'] ?? '';
                         $detail->travel_type = $row->attributes['travel_type'] ?? '';
                         $detail->origin = $row->attributes['origin'] ?? '';
+                        $detail->trans = $row->attributes['trans'] ?? '';
                         $detail->destination = $row->attributes['destination'] ?? '';
                         $detail->guest = $row->attributes['guest'] ?? 0;
                         $detail->terminal = $row->attributes['terminal'] ?? '';

@@ -573,6 +573,7 @@ public function getLocations_meet(Request $request)
                 'setdate' => $data['datepickert'],
                 'totalguest' => $guestCount,
                 'origin' => $data['origint'],
+                'trans' => $data['trans'],
                 'destination' => $data['destinationt'],
                 'flight_number' => $data['flight_numbert'],
                 'travel_sector' => $data['travel_sectort'],

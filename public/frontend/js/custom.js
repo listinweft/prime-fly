@@ -654,6 +654,7 @@ $(document).ready(function () {
             var totalguest = $button.data('guest');
             var setdate = $button.data('setdate');
             var origin = $button.data('origin');
+            var trans = $button.data('trans');
             var destination = $button.data('destination');
             var travel_sector = $button.data('travel_sector');
             var flight_number = $button.data('flight_number');
@@ -697,6 +698,7 @@ $(document).ready(function () {
                     countRelative: countRelative,
                     attributeList: attributeList,
                     origin: origin,
+                    trans: trans,
                     destination: destination,
                     travel_sector: travel_sector,
                     flight_number: flight_number,

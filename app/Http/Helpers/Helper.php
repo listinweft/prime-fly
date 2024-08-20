@@ -222,6 +222,7 @@ class Helper
                                 'entry_date' => $row->attributes->entry_date,
                                 'setdate' => $row->attributes->setdate,
                                 'origin' => $row->attributes->origin,
+                                'trans' => $row->attributes->trans,
                                 'destination' => $row->attributes->destination,
                                 'travel_sector' => $row->attributes->travel_sector,
                                 'flight_number' => $row->attributes->flight_number,

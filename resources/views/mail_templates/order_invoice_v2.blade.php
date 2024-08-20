@@ -89,6 +89,10 @@
                                                @endif
                                                @if($product->travel_type == 'departure')
                                                <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->origin }}</span> | 
+
+                                               @elseif($product->travel_type == 'Transit')
+                                               <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->trans }}</span> | 
+
                                                @else
                                                <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->destination }}</span> | 
                                                @endif

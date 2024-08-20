@@ -388,9 +388,12 @@ $('#travel_sector').change(function() {
 $('#travel_type').change(function() {
     var travel_type = $(this).val();
 
-    alert(travel_type);
 
      if (travel_type === 'transit_type') {
+       
+
+        $('#travel_typet').val(travel_type);
+        
         document.getElementById('bookingForm').style.display = 'none';
         document.getElementById('bookingFormt').style.display = 'block';
     }
@@ -619,8 +622,14 @@ var travel_type = $(this).val();
 
 
 if (travel_type === 'arrival' || travel_type === 'departure') {
+    
+
+
+    $('#travel_type').val(travel_type).trigger('change');
+
         document.getElementById('bookingFormt').style.display = 'none';
         document.getElementById('bookingForm').style.display = 'block';
+         
     }
 
     else
@@ -769,6 +778,8 @@ $.ajax({
 // Function to format date as yyyy/mm/dd
 
 });
+
+
 
 </script>
 
