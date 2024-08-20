@@ -6,15 +6,7 @@
                 <input class="form-control" type="text" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepicker" name="datepicker" readonly="readonly">
             </div>
         </div>
-        <div class="booking_field" id="travel_sect">
-            <div class="booking_select"> 
-                <select type="text" id="travel_sector" class="form-control select_static" name="travel_sector">
-                    <option value="">Select Travel Sector</option>
-                    <option value="international">International</option>
-                    <option value="domestic">Domestic</option>
-                </select>
-            </div>
-        </div>
+
         <div class="booking_field" id="travel_select">
             <div class="booking_select">
                 <select type="text" class="form-control select_static" name="travel_type" id="travel_type">
@@ -25,6 +17,16 @@
                 </select>
             </div> 
         </div>
+        <div class="booking_field" id="travel_sect">
+            <div class="booking_select"> 
+                <select type="text" id="travel_sector" class="form-control select_static" name="travel_sector">
+                    <option value="">Select Travel Sector</option>
+                    <option value="international">International</option>
+                    <option value="domestic">Domestic</option>
+                </select>
+            </div>
+        </div>
+       
        
         <div class="booking_field" id="orgin_select">
             <div class="booking_select"> 
@@ -104,17 +106,7 @@
                 <input class="form-control" type="text" autocomplete="off" placeholder="Entry Date" max="2023-12-31" id="datepickert" name="datepickert" readonly="readonly">
             </div>
         </div>
-        <div class="booking_field" id="travel_sect">
-            <div class="booking_select"> 
-                <select type="text" id="travel_sectort" class="form-control" name="travel_sectort">
-                    <option value="">Select Travel Sector</option>
-                    <option value="domestic_to_domestic">Domestic to Domectic</option>
-                    <option value="domestic_to_international">Domestic to International</option>
-                    <option value="international_to_domestic">International to Domestic</option>
-                    <option value="international_to_international">International to internaltional</option>
-                </select>
-            </div>
-        </div>
+       
         <div class="booking_field" id="travel_select">
             <div class="booking_select">
                 <select type="text" class="form-control" name="travel_typet" id="travel_typet">
@@ -124,6 +116,18 @@
                     <option value="transit_type">Transit</option>
                 </select>
             </div> 
+        </div>
+
+        <div class="booking_field" id="travel_sect">
+            <div class="booking_select"> 
+                <select type="text" id="travel_sectort" class="form-control" name="travel_sectort">
+                    <option value="">Select Travel Sector</option>
+                    <option value="domestic_to_domestic">Domestic to Domestic</option>
+                    <option value="domestic_to_international">Domestic to International</option>
+                    <option value="international_to_domestic">International to Domestic</option>
+                    <option value="international_to_international">International to international</option>
+                </select>
+            </div>
         </div>
        
         <div class="booking_field" id="orgin_select">
@@ -370,7 +374,7 @@ function populateLocations(travel_type) {
 // Event listener for travel sector change
 $('#travel_sector').change(function() {
     // Reset dropdowns
-    $('#travel_type').val('').change();
+    // $('#travel_type').val('').change();
     $('#origins').empty().append('<option value="">Select Origin</option>');
     $('#destinations').empty().append('<option value="">Select Destination</option>');
     $('#flights').empty().append('<option value="">Select Flight</option>');
@@ -603,7 +607,7 @@ if (travel_type) {
 }
 
 $('#travel_sectort').change(function() {
-$('#travel_typet').val('').change();
+// $('#travel_typet').val('').change();
 $('#origint').empty().append('<option value="">Select Origin</option>');
 $('#destinationt').empty().append('<option value="">Select Destination</option>');
 $('#flightst').empty().append('<option value="">Select Flight</option>');
