@@ -61,6 +61,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                     // Handle case when locationCodes is empty
                     return $query->whereRaw('1=0'); // Force a condition that is never true
                 })
+                ->where('payment_mode', 'Success') 
                 ->latest()
                 ->get();
 
@@ -77,7 +78,8 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
 
        {
 
-        $orderList = Order::latest()->get();
+        $orderList = Order::where('payment_mode', 'Success')->latest()->get();
+
 
 
        }
@@ -115,7 +117,8 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                 ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
                     return $query->where(function ($query) use ($locationCodes) {
                         $query->whereIn('order_products.origin', $locationCodes)
-                              ->orWhereIn('order_products.destination', $locationCodes);
+                        ->orWhereIn('destination', $locationCodes)
+                        ->orWhereIn('trans', $locationCodes);
                     });
                 })
                 ->when(empty($locationCodes), function ($query) {
@@ -128,6 +131,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
                 ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
                 ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
+                ->where('payment_mode', 'Success')
                 ->get();
     
         } else {
@@ -136,6 +140,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
                 ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
                 ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
+                ->where('payment_mode', 'Success')
                 ->get();
         }
     
@@ -286,7 +291,8 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                     return $query->where(function ($query) use ($locationCodes) {
                         $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
                             $query->whereIn('origin', $locationCodes)
-                                  ->orWhereIn('destination', $locationCodes);
+                                  ->orWhereIn('destination', $locationCodes)
+                                  ->orWhereIn('trans', $locationCodes);
                         });
                     });
                 })
@@ -298,10 +304,16 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                 ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
                     $query->whereIn('category_id', $category_id); // Filter by category_id array
                 })
+                ->where('payment_mode', 'Success')
                 ->latest()
                 ->get();
         } else {
-            $orders = Order::with('orderProducts')->latest()->get();
+            $orders = Order::with('orderProducts')
+    ->where('payment_mode', 'Success') // Apply the payment_mode filter
+    ->latest() // Order by the latest first
+    ->get(); // Retrieve the results
+
+
         }
     
         // Format the orders with the maximum exit_date included

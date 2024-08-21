@@ -117,12 +117,13 @@ class WebController extends Controller
             'defaultFont' => 'sans-serif', // Replace with your custom font if used
         ]);
         $order = Order::where('id', $order_id)
-                        ->with(['orderProducts' => function ($query) {
-                            $query->with('productData')
-                                ->with('colorData');
-                        }])
-                        ->firstOrFail(); // Fetch the order data
-
+        ->where('payment_mode', 'Success')
+        ->with(['orderProducts' => function ($query) {
+            $query->with('productData')
+                ->with('colorData');
+        }])
+        ->firstOrFail();
+    
                         $pdf = PDF::loadView('web.invoices', compact('order', 'customer','user')); // Assuming 'invoice.blade.php' is your PDF view
 
         return $pdf->download('invoice_'.$order->order_code.'.pdf');

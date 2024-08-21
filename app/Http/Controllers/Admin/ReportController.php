@@ -160,7 +160,10 @@ public function getProductsByLocation(Request $request)
     public function detail_report()
     {
         $title = "Detailed Order Report";
-        $orderList = Order::paginate(50);
+        $orderList = Order::where('payment_mode', 'Success')
+        ->latest() // Order by the latest first
+        ->paginate(50); // Paginate results with 50 items per page
+    
         $boxValues = Order::boxValues();
         $customerList = Customer::oldest('first_name', 'last_name')->get();
         $categoryList = Category::where('status', 'Active')->whereNull('parent_id')->oldest('title')->get();
@@ -235,7 +238,8 @@ $orderList = Order::when(!empty($locationCodes), function ($query) use ($locatio
     return $query->where(function ($query) use ($locationCodes) {
         $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
             $query->whereIn('origin', $locationCodes)
-                  ->orWhereIn('destination', $locationCodes);
+            ->orWhereIn('destination', $locationCodes)
+            ->orWhereIn('trans', $locationCodes);
         });
     });
 })
@@ -245,6 +249,7 @@ $orderList = Order::when(!empty($locationCodes), function ($query) use ($locatio
 ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
     $query->whereIn('category_id', $category_id); // Filter by category_id array
 })
+->where('payment_mode', 'Success') 
 ->latest()
 ->paginate(50);
  // Paginate results, 50 items per page

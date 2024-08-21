@@ -49,7 +49,8 @@ class HomeController extends Controller
     $admintype = $admin->admin;
 
     // Fetch general counts
-    $Totaljournal = Order::count();
+    $Totaljournal = Order::where('payment_mode', 'Success')->count();
+
     $Totalcustomer = Customer::count();
     $Totalblog = Blog::active()->count();
     $TotalPost = Category::count();
@@ -77,6 +78,7 @@ if (!is_array($category_id)) {
         $orderCount = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
             return $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
                 $query->whereIn('origin', $locationCodes)
+                ->orWhereIn('trans', $locationCodes)
                       ->orWhereIn('destination', $locationCodes);
             });
         })
@@ -86,6 +88,7 @@ if (!is_array($category_id)) {
         ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
             $query->whereIn('category_id', $category_id); // Filter by category_id array
         })
+        ->where('payment_mode', 'Success') 
         ->count();
 
         return view('Admin.dashboard.subadmin_dashboard', compact('title', 'orderCount'));

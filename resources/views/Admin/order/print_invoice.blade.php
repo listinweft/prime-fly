@@ -145,6 +145,11 @@
                                                 @endif
                                                 @if($product->travel_type == 'departure')
                                                 <h4 style="color: #707070; font-size: 12px;">Service Airport: {{ $product->origin }}</h4>
+
+                                                @elseif($product->travel_type == 'Transit')
+
+                                                <h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->trans}}</h4>
+
                                                 @else
                                                 <h4 style="color: #707070; font-size: 12px;">Service Airport: {{ $product->destination }}</h4>
                                                 @endif

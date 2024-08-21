@@ -44,14 +44,17 @@
                                         <div class="cart-prdct-dtls">
                                         @if(isset($row->attributes['travel_type']) && $row->attributes['travel_type'] !== null)
 
-                                            @php
-                                                $travelType = $row->attributes['travel_type'];
-                                                $locationId = $travelType == 'departure' ? $row->attributes['origin'] : $row->attributes['destination'];
-                                               
-                                                  $location = App\Models\Location::where('code',$locationId)->first();
-                                                 
-                                                $locationTitle = $location ? $location->title : $row->attributes['origin'];
-                                            @endphp
+                                                                            @php
+                                        $travelType = $row->attributes['travel_type'];
+                                        $locationId = ($travelType == 'departure' || $travelType == 'Transit') 
+                                            ? $row->attributes['origin'] 
+                                            : $row->attributes['destination'];
+                                        
+                                        $location = App\Models\Location::where('code', $locationId)->first();
+                                        
+                                        $locationTitle = $location ? $location->title : $row->attributes['origin'];
+                                    @endphp
+
                                             @else
                                             @php
                                                 $origin = $row->attributes['origin'];
