@@ -90,11 +90,11 @@
                 </tr>
                 <tr align="left" valign="top">
                     <td valign="middle" colspan="5">
-                        <h2 style="font-size:14px;line-height:22px;padding-top:5px;text-transform:uppercase;">Product
-                            status update on Order : PP#{{$code}} </h2><br/>
+                        <h2 style="font-size:14px;line-height:22px;padding-top:5px;text-transform:uppercase;">Package
+                            status update on Order : Primefly#{{$code}} </h2><br/>
                         <br/>
                         <br/>
-                        <p>Product : <b>{{$product}}</b> status has been changed to <b>"{{$status}}"</b></p>
+                        <p>Package : <b>{{$product}}</b> status has been changed to <b>"{{$status}}"</b></p>
                     </td>
                 </tr>
 

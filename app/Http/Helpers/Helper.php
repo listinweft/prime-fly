@@ -17,7 +17,7 @@ use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOfferSize;
-use App\Models\ProductPrice;
+use App\Models\ProductPrice; 
 use App\Models\ProductReview;
 use App\Models\RecentlyViewedProduct;
 use App\Models\Shape;
@@ -25,6 +25,8 @@ use App\Models\ShippingCharge;
 use App\Models\SideMenu;
 use App\Models\SiteInformation;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+
 
 use Buglinjo\LaravelWebp\Facades\Webp;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
@@ -237,6 +239,7 @@ class Helper
                                 'porter_count' => $row->attributes->guest,
                                 'pnr' => $row->attributes->pnr,
                                 'meet_guest' => $row->attributes->meet_guest,
+                                'meet_guestn' => $row->attributes->meet_guestn,
                             ],
                             'conditions' => [],
                         ]);
@@ -412,6 +415,55 @@ class Helper
 
 //     return true;
 // }
+public static function sendOrderStatusMail($order, $status, $productName)
+{
+    // Log start of email sending
+    \Illuminate\Support\Facades\Log::info("Starting to send order status email for order: " . $order->order_code);
+
+    // Create an instance of BrevoMailService
+    $brevoMailService = new \App\Services\BrevoMailService();
+
+    // Retrieve common site information and active contact address
+    $common = SiteInformation::first();
+    $contactAddress = ContactAddress::where('status', 'Active')->first();
+
+    // Prepare the necessary data for the email template
+    $to = $order->orderCustomer->CustomerData->user->email;
+    $toName = $order->orderCustomer->CustomerData->first_name;
+    $subject = config('app.name') . ' - Order Status Changed';
+
+    // Generate the email content using a Blade view
+    $htmlContent = view('mail_templates.order_status_change', [
+        'code' => $order->order_code,
+        'order' => $order,
+        'name' => $toName,
+        'status' => $status,
+        'product' => $productName,
+        'app_name' => config('app.name')
+    ])->render();
+
+    // Send email to customer
+    try {
+        $brevoMailService->sendEmail($to, $toName, $subject, $htmlContent);
+        \Illuminate\Support\Facades\Log::info("Order status email sent successfully to customer: " . $to);
+    } catch (\Exception $e) {
+        \Illuminate\Support\Facades\Log::error("Failed to send email to customer: " . $e->getMessage());
+    }
+
+    // Send email to admins
+    $emails = explode(',', $common->order_emails);
+    foreach ($emails as $email) {
+        try {
+            $brevoMailService->sendEmail($email, $common->email_recipient, $subject, $htmlContent);
+            \Illuminate\Support\Facades\Log::info("Order status email sent successfully to admin: " . $email);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Failed to send email to admin: " . $e->getMessage());
+        }
+    }
+
+    return true;
+}
+
 
 
 public static function sendOrderPlacedMail($order, $flag)
@@ -583,6 +635,7 @@ public static function sendOrderPlacedMail($order, $flag)
         // Send the email using BrevoMailService
         $brevoMailService->sendEmail($user->email, $name, $subject, $body);
     }
+    
 
     /**
      * Send password reset Email to user

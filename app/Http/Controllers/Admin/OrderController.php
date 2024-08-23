@@ -394,14 +394,27 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
 
     public function order_status(Request $request)
     {
+
         date_default_timezone_set('Asia/Kolkata');
         $order_product_id = $request->product_id;
+
+        $orderProduct = OrderProduct::find($order_product_id);
+
         if ($order_product_id) {
            
             $orderLog = new OrderLog;
             $orderLog->order_product_id = $order_product_id;
             $orderLog->status = $request->status;
+
+            $orderData = Order::with(['orderProducts' => function ($t) {
+                $t->with('productData');
+            }])->with('orderCustomer')->with('orderCoupons')->find($request->order_id);
+
+            $produtName = $orderProduct->productData->title;
+
             if ($orderLog->save()) {
+
+                $orderMail = Helper::sendOrderStatusMail($orderData, $request->status, $produtName);
                 
                
               

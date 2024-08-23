@@ -97,6 +97,55 @@
         @endfor
     @endforeach
 
+    <!-- Static Fields Outside the Loop -->
+
+    @if ($row->attributes['meet_guestn'] == 1)
+<div class="price-summery personal-details customer-detail-form mb-3">
+    <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
+        <div class="details-item details-item-option col-12 ps-2 pe-2">
+            <label for="gender_static">Gender</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="gender_static_mr" value="Mr">
+                <label class="form-check-label" for="gender_static_mr">Mr.</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="gender_static_ms" value="Ms">
+                <label class="form-check-label" for="gender_static_ms">Ms.</label>
+            </div>
+        </div>
+        <div class="details-item col-lg-4 ps-2 pe-2">
+            <label for="name_static">Passenger Name*</label>
+            <input type="text" name="name[]" id="name_static" placeholder="Enter full name" required>
+            <span class="error-message" style="display: none;">Name is required.</span>
+        </div>
+        <div class="details-item col-lg-4 ps-2 pe-2">
+            <label for="age_static">Age*</label>
+            <input type="text" name="age[]" id="age_static" placeholder="Enter your age" required>
+             <span class="error-message" style="display: none;">Age is required.</span>
+        </div>
+        <div class="details-item col-lg-4 ps-2 pe-2">
+            <label for="pnr_static">PNR Number*</label>
+            <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" required>
+            <span class="error-message" style="display: none;">PNR is required.</span>
+        </div>
+        @if(array_sum($totals) > 0)
+        <!-- <div class="details-item col-12 ps-2 pe-2">
+            <input type="checkbox" id="auto_fill_static" />
+            <label for="auto_fill_static">Set As Default</label>
+        </div> -->
+        <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox"  id="auto_fill_static"  >
+                                    <label class="form-check-label" for="auto_fill_static" style="font-size:14px">
+                                       Set As Default
+                                    </label>
+                                    <div id="termsError" class="text-danger"></div>
+                                </div>
+        @endif
+    </div>
+</div>
+@endif
+
+
 
 
                         <div class="mt-4">
@@ -330,6 +379,22 @@
     });
 });
 
+</script>
+
+<script>
+    document.getElementById('auto_fill_static').addEventListener('change', function() {
+        if (this.checked) {
+            const firstGuest = document.querySelector('[id^="name_0_0"]').value;
+            const firstGender = document.querySelector('[id^="inlineRadio1_0_0"]').checked ? 'Mr' : 'Ms';
+            const firstAge = document.querySelector('[id^="age_0_0"]').value;
+            const firstPnr = document.querySelector('[id^="pnr_0_0"]').value;
+
+            document.getElementById('name_static').value = firstGuest;
+            document.getElementById('age_static').value = firstAge;
+            document.getElementById('pnr_static').value = firstPnr;
+            document.querySelector(`#gender_static_${firstGender.toLowerCase()}`).checked = true;
+        }
+    });
 </script>
 
 @endpush

@@ -119,13 +119,13 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest,$request->meet_guestn);
                 if (!$addStatus) {
                     break; // If adding any product fails, stop the loop
                 }
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest,$request->meet_guestn);
         }
     
         $count = 0;
@@ -169,7 +169,7 @@ class CartController extends Controller
     // Return data to view or as a JSON response
 
 }
-    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $trans, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest)
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $trans, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest,$meet_guestn)
     {
         $origin = $origin ?? '';
         $trans = $trans ?? '';
@@ -236,7 +236,8 @@ class CartController extends Controller
                     'children' => $children,
                     'porter_count' => $totalguest,
                     'pnr' => $pnr,
-                    'meet_guest' => $meet_guest
+                    'meet_guest' => $meet_guest,
+                    'meet_guestn' => $meet_guestn
                     
 
                 ],

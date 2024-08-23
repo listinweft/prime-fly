@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
+
 
 class Order extends Model
 {
@@ -71,36 +73,51 @@ class Order extends Model
         return true;
     }
 
-    public static function sendOrderStatusMail($order, $status, $productName)
-    {
-        $common = SiteInformation::first();
-        $contactAddress = ContactAddress::where('status', 'Active')->first();
-        $to = $order->orderCustomer->shippingAddress->email;
-        $to_name = $order->orderCustomer->shippingAddress->first_name . ' ' . $order->orderCustomer->shippingAddress->last_name;
-        //mail to customer
-        Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $to_name,
-            'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $contactAddress) {
-            $message->to($to, $to_name)->subject(config('app.name') . ' - Order Status Changed');
-            $message->from($common->email, $common->email_recipient);
-            /*if($status=="Cancelled"){
-                $message->bcc($common->admin_mail, $common->admin_name);
-            }*/
-        });
-        //mail to /admins
-        $emails = explode(',', $common->order_emails);
-        foreach ($emails as $email) {
-
-            Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $common->email_recipient,
-                'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $email) {
-                    $message->to($email, $common->email_recipient)->subject(config('app.name') . ' - Order Status Changed');
-                $message->from($common->email, $common->email_recipient);
-                /*if($status=="Cancelled"){
-                    $message->bcc($common->admin_mail, $common->admin_name);
-                }*/
-            });
-        }
-        return true;
-    }
+    // public static function sendOrderStatusMail($order, $status, $productName)
+    // {
+    //     $common = SiteInformation::first();
+    //     $contactAddress = ContactAddress::where('status', 'Active')->first();
+        
+    //     // Log start of email sending
+    //     Log::info("Starting to send order status email for order: " . $order->order_code);
+        
+    //     // Create an instance of BrevoMailService
+    //     $brevoMailService = new \App\Services\BrevoMailService();
+    
+    //     // Prepare the email content
+    //     $searchArr = ["{code}", "{name}", "{status}", "{product}", "{app_name}"];
+    //     $replaceArr = [$order->order_code, $order->orderCustomer->CustomerData->first_name, $status, $productName, config('app.name')];
+    //     $body = File::get(resource_path('views/mail_templates/order_status_change.blade.php'));
+    //     $body = str_replace($searchArr, $replaceArr, $body);
+    
+    //     // Log email body preparation
+    //     Log::info("Email body prepared successfully for order: " . $order->order_code);
+    
+    //     // Send email to customer
+    //     $to = $order->orderCustomer->CustomerData->user->email;
+    //     $toName = $order->orderCustomer->CustomerData->first_name;
+    //     $subject = config('app.name') . ' - Order Status Changed';
+    
+    //     try {
+    //         $brevoMailService->sendEmail($to, $toName, $subject, $body);
+    //         Log::info("Order status email sent successfully to customer: " . $to);
+    //     } catch (\Exception $e) {
+    //         Log::error("Failed to send email to customer: " . $e->getMessage());
+    //     }
+    
+    //     // Send email to admins
+    //     $emails = explode(',', $common->order_emails);
+    //     foreach ($emails as $email) {
+    //         try {
+    //             $brevoMailService->sendEmail($email, $common->email_recipient, $subject, $body);
+    //             Log::info("Order status email sent successfully to admin: " . $email);
+    //         } catch (\Exception $e) {
+    //             Log::error("Failed to send email to admin: " . $e->getMessage());
+    //         }
+    //     }
+    
+    //     return true;
+    // }
 
     // to get maximum of minimum_spend of coupon
     public function getMaxCouponsMinimumSpend()

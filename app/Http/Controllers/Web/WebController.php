@@ -790,7 +790,7 @@ public function getLocations_meet(Request $request)
             'destination' => $data['destination'],
             'flight_number' => $data['flight_number'],
             'terminal' => $data['terminal'],
-            'meet_guest' => 1
+            'meet_guestn' => 1
            
             
         ];
@@ -880,7 +880,7 @@ public function search_booking_lounch(Request $request)
                
                 'entry_date' => $data['entry_date'],
                 'travel_type' => 'departure',
-                'meet_guest' => 1
+                'meet_guestn' => 1
         ];
     }
     Session::forget('category');
@@ -977,7 +977,7 @@ public function search_booking_lounch(Request $request)
                 'entry_date' => $data['entry_date'],
                 'travel_type' => $data['travel_type'],
                 'porter_count' => $data['count'],
-                'meet_guest' => 1
+                'meet_guestn' => 1
                 
             ];
         }
@@ -1064,7 +1064,7 @@ public function search_booking_lounch(Request $request)
                 // 'exit_date' => $data['exit_date'],
                 'entry_time' => $data['entry_time'],
                 // 'exit_time' => $data['exit_time'],
-                'meet_guest' => 1
+                'meet_guestn' => 1
             ];
         }
         Session::forget('category');
@@ -1167,7 +1167,7 @@ public function search_booking_lounch(Request $request)
                 'entry_time' => $data['entry_time'],
                 'exit_time' => $data['exit_time'],
                 'bag_count' => $data['count'],
-                'meet_guest' => 1
+                'meet_guestn' => 1
             ];
         }
     
@@ -1268,7 +1268,7 @@ public function search_booking_lounch(Request $request)
                 'exit_date' => $data['exit_date'],
                 'entry_time' => $data['entry_time'],
                 'exit_time' => $data['exit_time'],
-                'meet_guest' => 1
+                'meet_guestn' => 1
                
             ];
         }

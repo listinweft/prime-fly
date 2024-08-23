@@ -63,13 +63,26 @@
                                             <h4 style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:14px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0;">
                                                <strong>{{ $product->productData->title }}</strong>
                                             </h4>
-                                            @foreach($personaladdressfull as $personaladdresss)
-                                            <div style="padding: 0 10px;">
-                                                <span>{{ $personaladdresss->name }} </span>
-                                                <span>{{ $personaladdresss->age }} </span>  
-                                                <span>{{ $personaladdresss->passport_number }} </span>
-                                            </div> 
-                                            @endforeach
+                                                                                    @if($personaladdressfull->isNotEmpty())
+                                             @foreach($personaladdressfull as $personaladdresss)
+                                                
+                                                      <div style="padding: 0 10px;">
+                                                         @if(!empty($personaladdresss->name))
+                                                            <span>Name: {{ $personaladdresss->name }}</span><br>
+                                                         @endif
+
+                                                         @if(!empty($personaladdresss->age))
+                                                            <span>Age: {{ $personaladdresss->age }}</span><br>
+                                                         @endif
+
+                                                         @if(!empty($personaladdresss->passport_number))
+                                                            <span>Passport Number: {{ $personaladdresss->passport_number }}</span><br>
+                                                         @endif
+                                                      </div>
+                                                
+                                             @endforeach
+                                          @endif
+
                                             @php
                                             $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
                                             $package = App\Models\Product::where('id', $product->product_id)->first();

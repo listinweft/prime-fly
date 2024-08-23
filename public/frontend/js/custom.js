@@ -669,6 +669,7 @@ $(document).ready(function () {
             var children = $button.data('children');
             var pnr = $button.data('pnr');
             var meet_guest = $button.data('meet_guest');
+            var meet_guestn = $button.data('meet_guestn');
     
             var qty = 1;
             var checkout = $button.data('checkout');
@@ -713,6 +714,7 @@ $(document).ready(function () {
                     children: children,
                     pnr: pnr,
                     meet_guest: meet_guest,
+                    meet_guestn: meet_guestn,
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
