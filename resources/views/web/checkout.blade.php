@@ -138,7 +138,7 @@
         <div class="form-check mt-3">
                                     <input class="form-check-input" type="checkbox"  id="auto_fill_static"  >
                                     <label class="form-check-label" for="auto_fill_static" style="font-size:14px">
-                                       Set As Default
+                                       Same  Primary Name
                                     </label>
                                     <div id="termsError" class="text-danger"></div>
                                 </div>
@@ -413,7 +413,13 @@
             genderStaticMr.disabled = true;
             genderStaticMs.disabled = true;
         } else {
-            // Enable editing when unchecked
+            // Clear inputs and enable editing
+            nameStatic.value = '';
+            ageStatic.value = '';
+            pnrStatic.value = '';
+            genderStaticMr.checked = false;
+            genderStaticMs.checked = false;
+
             nameStatic.disabled = false;
             ageStatic.disabled = false;
             pnrStatic.disabled = false;

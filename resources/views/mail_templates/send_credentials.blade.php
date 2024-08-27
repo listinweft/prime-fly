@@ -49,7 +49,7 @@
             <tr>
                 <td style="padding:10px 60px;width: 100%;text-align: left;">
                     <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">
-                        We are delighted to inform you that your registration on esoan.org has been successfully completed. Welcome to our community!</p> 
+                        We are delighted to inform you that your registration on primefly.in has been successfully completed. Welcome to our community!</p> 
                         <p style="color: #4C4C4D;font-size: 14px;line-height: 1.4;margin: 0;">Your login details are as follows:</p>
                         
                     </p>
