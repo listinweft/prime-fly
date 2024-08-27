@@ -84,6 +84,7 @@
                         <input type="text" name="age[{{ $index }}][]" id="age_{{ $index }}_{{ $i }}" placeholder="Enter your age" required>
                         <span class="error-message" style="display: none;">Age is required.</span>
                     </div>
+                    <input type="hidden" name="type[{{ $index }}][]" value="meet_and_greet" id="type_{{ $index }}_{{ $i }}">
                     <div class="details-item col-lg-4 ps-2 pe-2">
                         <label for="pnr_{{ $index }}_{{ $i }}">PNR Number*</label>
                         <input type="text" name="pnr[{{ $index }}][]" id="pnr_{{ $index }}_{{ $i }}" placeholder="Enter your PNR" required>
@@ -123,6 +124,7 @@
             <input type="text" name="age[]" id="age_static" placeholder="Enter your age" required>
              <span class="error-message" style="display: none;">Age is required.</span>
         </div>
+        <input type="hidden" value="normal" name="type[]" id="type_static">
         <div class="details-item col-lg-4 ps-2 pe-2">
             <label for="pnr_static">PNR Number*</label>
             <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" required>
@@ -383,18 +385,43 @@
 
 <script>
     document.getElementById('auto_fill_static').addEventListener('change', function() {
+        const nameStatic = document.getElementById('name_static');
+        const ageStatic = document.getElementById('age_static');
+        const pnrStatic = document.getElementById('pnr_static');
+        const genderStaticMr = document.getElementById('gender_static_mr');
+        const genderStaticMs = document.getElementById('gender_static_ms');
+
         if (this.checked) {
             const firstGuest = document.querySelector('[id^="name_0_0"]').value;
             const firstGender = document.querySelector('[id^="inlineRadio1_0_0"]').checked ? 'Mr' : 'Ms';
             const firstAge = document.querySelector('[id^="age_0_0"]').value;
             const firstPnr = document.querySelector('[id^="pnr_0_0"]').value;
 
-            document.getElementById('name_static').value = firstGuest;
-            document.getElementById('age_static').value = firstAge;
-            document.getElementById('pnr_static').value = firstPnr;
-            document.querySelector(`#gender_static_${firstGender.toLowerCase()}`).checked = true;
+            nameStatic.value = firstGuest;
+            ageStatic.value = firstAge;
+            pnrStatic.value = firstPnr;
+            if (firstGender === 'Mr') {
+                genderStaticMr.checked = true;
+            } else {
+                genderStaticMs.checked = true;
+            }
+
+            // Disable editing when auto-filled
+            nameStatic.disabled = true;
+            ageStatic.disabled = true;
+            pnrStatic.disabled = true;
+            genderStaticMr.disabled = true;
+            genderStaticMs.disabled = true;
+        } else {
+            // Enable editing when unchecked
+            nameStatic.disabled = false;
+            ageStatic.disabled = false;
+            pnrStatic.disabled = false;
+            genderStaticMr.disabled = false;
+            genderStaticMs.disabled = false;
         }
     });
 </script>
+
 
 @endpush

@@ -1544,6 +1544,7 @@ class CartController extends Controller
                         $personalDetailsData[] = [
                             'order_id' => $order->id,
                             'name' => $request->name[$key] ?? '',
+                            'type' => $request->type[$key] ?? '',
                             'age' => $request->age[$key] ?? '',
                             'address' => $request->address ?? '',
                             'passport_number' => $request->passport_number ?? '',

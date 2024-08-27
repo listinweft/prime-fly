@@ -1161,6 +1161,7 @@ $(document).ready(function () {
                     name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
                     age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
                     pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
+                    type: $('input[name^="type["]').map(function() { return $(this).val(); }).get(),
                 },
                 success: function (response) {
                     if (response.status === 'online-payment') {
