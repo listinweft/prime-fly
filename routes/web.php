@@ -738,6 +738,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/admin/calendar/orders', [OrderController::class, 'getOrders'])->name('admin.calendar.orders');
 
         Route::get('/', [OrderController::class, 'list']);
+        Route::get('/listdate/{createdDate}', [OrderController::class, 'listdate']);
         Route::get('create', [OrderController::class, 'create']);
         Route::get('view/{id}', [OrderController::class, 'order_view']);
         Route::post('order_status', [OrderController::class, 'order_status']);
