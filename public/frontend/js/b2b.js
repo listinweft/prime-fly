@@ -4,23 +4,55 @@ AOS.init();
 
 
 // PASSWORD SHOW
-$(".eye").click(function() { 
-    var input = $($(this).attr("toggle"));
-    if (input.attr("type") == "password") {
-      input.attr("type", "text");
-    } else {
-      input.attr("type", "password");
-    }
-});
-$(".eye-open").click(function() { 
-    $(this).css('display','none');
-    $(".eye-close").css('display','block');
-});
-$(".eye-close").click(function() { 
-    $(this).css('display','none');
-    $(".eye-open").css('display','block');
+// $(".eye").click(function() { 
+//     var input = $($(this).attr("toggle"));
+//     if (input.attr("type") == "password") {
+//       input.attr("type", "text");
+//     } else {
+//       input.attr("type", "password");
+//     }
+// });
+// $(".eye-open").click(function() { 
+//     $(this).css('display','none');
+//     $(".eye-close").css('display','block');
+// });
+// $(".eye-close").click(function() { 
+//     $(this).css('display','none');
+//     $(".eye-open").css('display','block');
+// });
+
+$("#eye-open-create").on('click', function() {
+  var passwordField = $($(this).attr("toggle"));
+  $("#eye-close-create").show();
+  $(this).hide();
+  passwordField.attr("type", "text");
 });
 
+$("#eye-close-create").on('click', function() {
+  var passwordField = $($(this).attr("toggle"));
+  $("#eye-open-create").show();
+  $(this).hide();
+  passwordField.attr("type", "password");
+});
+
+// For Confirm Password field
+$("#eye-open-confirm").on('click', function() {
+  var passwordField = $($(this).attr("toggle"));
+  $("#eye-close-confirm").show();
+  $(this).hide();
+  passwordField.attr("type", "text");
+});
+
+$("#eye-close-confirm").on('click', function() {
+  var passwordField = $($(this).attr("toggle"));
+  $("#eye-open-confirm").show();
+  $(this).hide();
+  passwordField.attr("type", "password");
+});
+
+// Initially hide the close eye icons
+$("#eye-close-create").hide();
+$("#eye-close-confirm").hide();
 // DAIL CODE
 const input = document.querySelector("#phone");
 const iti = window.intlTelInput(input, {

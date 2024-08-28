@@ -321,6 +321,7 @@
 </section>
 @endsection
 @push('scripts')
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
    $(document).ready(function() {
       $('input[name=transfer]').click(function () {  

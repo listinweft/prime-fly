@@ -239,7 +239,7 @@ a:hover{
     fill: #D9D9D9;
 }
 .eye-open{
-    display: none;
+    /* display: none; */
 }
 /********************** OTP **************************/
 .otp_wrap {
