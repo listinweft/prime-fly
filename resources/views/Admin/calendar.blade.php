@@ -27,6 +27,7 @@
                     // Process the order data and convert it to FullCalendar events format
                     $.each(response.orders, function(index, order) {
                         var startDate = moment(order.exit_date).format('YYYY-MM-DD');
+                        // console.log("lastdata",startDate);
                         var created_date = moment(order.created_date).format('YYYY-MM-DD');
                         console.log('Exit Date:', created_date);
                         events.push({
@@ -34,6 +35,7 @@
                             start: startDate,
                             allDay: true, // Make sure it's an all-day event
                             createdDate: order.created_date,
+                            exitdat: startDate,
                         });
                     });
                     callback(events);
@@ -46,7 +48,7 @@
 
         eventClick: function(calEvent, jsEvent, view) {
             // Redirect to the order view page using the order ID
-            const orderUrl = `${base_url}/order/listdate/${calEvent.createdDate}`;
+            const orderUrl = `${base_url}/order/listdate/${calEvent.exitdat}`;
         
         // Redirect to the order view page
         window.location.href = orderUrl;

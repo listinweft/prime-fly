@@ -91,6 +91,12 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
 
     public function listdate($createdDate = null)
     {
+        // Fetch all unique order_id values from order_products table based on the provided createdDate
+        $orderIds = OrderProduct::whereDate('exit_date', $createdDate)
+            ->distinct()
+            ->pluck('order_id')
+            ->toArray();
+    
         $title = "Order List";
         $admintype = Auth::guard('admin')->user()->admin;
     
@@ -98,48 +104,46 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
             // Retrieve location IDs
             $location_ids = Auth::guard('admin')->user()->location_ids;
     
-
-            
-
-
-
             // Convert the location IDs to an array and filter out any empty values
             $assignedLocationIds = array_filter(explode(',', $location_ids));
     
             // Fetch location codes based on location IDs
             $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
     
-            // Query to get orders based on location codes and optionally created_date
+            // Query to get orders based on location codes, order_ids, and optionally created_date
             $ordersQuery = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
-                return $query->where(function ($query) use ($locationCodes) {
-                    $query->whereHas('orderProducts', function($query) use ($locationCodes) {
-                        $query->whereIn('origin', $locationCodes)
-                              ->orWhereIn('destination', $locationCodes);
+                    return $query->where(function ($query) use ($locationCodes) {
+                        $query->whereHas('orderProducts', function($query) use ($locationCodes) {
+                            $query->whereIn('origin', $locationCodes)
+                                  ->orWhereIn('destination', $locationCodes);
+                        });
                     });
-                });
-            })
-            ->when(empty($locationCodes), function ($query) {
-                // Handle case when locationCodes is empty
-                return $query->whereRaw('1=0'); // Force a condition that is never true
-            })
-            ->where('payment_mode', 'Success')
-            ->latest();
+                })
+                ->when(empty($locationCodes), function ($query) {
+                    // Handle case when locationCodes is empty
+                    return $query->whereRaw('1=0'); // Force a condition that is never true
+                })
+                ->where('payment_mode', 'Success')
+                ->whereIn('id', $orderIds) // Filter by the plucked order IDs
+                ->latest();
     
-            // Apply created_date filter if provided
-            if ($createdDate) {
-                $ordersQuery->whereDate('created_at', $createdDate);
-            }
+            // // Apply created_date filter if provided
+            // if ($createdDate) {
+            //     $ordersQuery->whereDate('created_at', $createdDate);
+            // }
     
             // Fetch orders
             $orderList = $ordersQuery->get();
         } else {
             // For non-admin users
-            $ordersQuery = Order::where('payment_mode', 'Success')->latest();
+            $ordersQuery = Order::where('payment_mode', 'Success')
+                ->whereIn('id', $orderIds) // Filter by the plucked order IDs
+                ->latest();
     
             // Apply created_date filter if provided
-            if ($createdDate) {
-                $ordersQuery->whereDate('created_at', $createdDate);
-            }
+            // if ($createdDate) {
+            //     $ordersQuery->whereDate('created_at', $createdDate);
+            // }
     
             $orderList = $ordersQuery->get();
         }
