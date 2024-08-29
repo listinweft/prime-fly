@@ -3,7 +3,7 @@
             <div class="row">
               <div class="col-lg-3 col-md-3 col-sm-4 footer_logo">
                 <a href="{{ url('/') }}">
-                  <img src="{{ asset('frontend/img/logo.png')}}"/>
+                  <img src="{{ asset('frontend/img/logo.png')}}" alt="Logo"/>
                 </a>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-8">
@@ -50,7 +50,7 @@
                   <div class="col-lg-4 col-sm-5 col-6  footer-bottom-social">
                       <ul class="d-flex justify-content-end">
                         <li>
-                          <a href="#">
+                          <a href="#" aria-label="facebook">
                             
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.453913" y="0.453913" width="44.4835" height="44.4835" rx="22.2417" stroke="white" stroke-width="0.907826"/>
@@ -60,7 +60,7 @@
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="#" aria-label="google">
                             
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.923456" y="0.453669" width="44.4835" height="44.4835" rx="22.2417" stroke="white" stroke-width="0.907826"/>
@@ -71,7 +71,7 @@
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="#" aria-label="instagram">
                             
 <svg width="47" height="46" viewBox="0 0 47 46" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="1.39312" y="0.453669" width="44.4835" height="44.4835" rx="22.2417" stroke="white" stroke-width="0.907826"/>
@@ -83,7 +83,7 @@
                           </a>
                         </li>
                         <li>
-                          <a href="#">
+                          <a href="#" aria-label="youtube">
                             
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.862604" y="0.453669" width="44.4835" height="44.4835" rx="22.2417" stroke="white" stroke-width="0.907826"/>
