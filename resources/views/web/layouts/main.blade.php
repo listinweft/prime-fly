@@ -8,13 +8,7 @@
     <meta name="title" content="{!! @$seo_data->meta_title !!}">
     <meta name="description" content="{!! @$seo_data->meta_description !!}"/>
     <meta name="keywords" content="{!! @$seo_data->meta_keyword !!}"/>
-    <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    
-  
-    <script type="text/javascript">
-        // var base_url = "{{ url('/') }}";
-    </script>
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}"/> 
     <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet" />
     <title>Primefly</title>
       <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
