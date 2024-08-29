@@ -33,6 +33,7 @@
                      ->first() : null;
 
                      $totals[] = $row->attributes['meet_guest'];
+                     $totalsn[] = $row->attributes['meet_guestn'];
                      @endphp
                      <tr>
                        
@@ -99,8 +100,7 @@
     @endforeach
 
     <!-- Static Fields Outside the Loop -->
-
-    @if ($row->attributes['meet_guestn'] == 1)
+    @if (!empty($totalsn))
 <div class="price-summery personal-details customer-detail-form mb-3">
     <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
         <div class="details-item details-item-option col-12 ps-2 pe-2">
@@ -146,6 +146,7 @@
     </div>
 </div>
 @endif
+
 
 
 
@@ -385,50 +386,69 @@
 </script>
 
 <script>
-    document.getElementById('auto_fill_static').addEventListener('change', function() {
-        const nameStatic = document.getElementById('name_static');
-        const ageStatic = document.getElementById('age_static');
-        const pnrStatic = document.getElementById('pnr_static');
-        const genderStaticMr = document.getElementById('gender_static_mr');
-        const genderStaticMs = document.getElementById('gender_static_ms');
+   document.getElementById('auto_fill_static').addEventListener('change', function() {
+    const nameStatic = document.getElementById('name_static');
+    const ageStatic = document.getElementById('age_static');
+    const pnrStatic = document.getElementById('pnr_static');
+    const genderStaticMr = document.getElementById('gender_static_mr');
+    const genderStaticMs = document.getElementById('gender_static_ms');
 
-        if (this.checked) {
-            const firstGuest = document.querySelector('[id^="name_0_0"]').value;
-            const firstGender = document.querySelector('[id^="inlineRadio1_0_0"]').checked ? 'Mr' : 'Ms';
-            const firstAge = document.querySelector('[id^="age_0_0"]').value;
-            const firstPnr = document.querySelector('[id^="pnr_0_0"]').value;
+    // Function to get the first available element by its query selector
+    function getFirstElement(query) {
+        return document.querySelector(query);
+    }
 
-            nameStatic.value = firstGuest;
-            ageStatic.value = firstAge;
-            pnrStatic.value = firstPnr;
-            if (firstGender === 'Mr') {
-                genderStaticMr.checked = true;
-            } else {
-                genderStaticMs.checked = true;
-            }
+    if (this.checked) {
+        // Query the elements with general selectors
+        const firstGuestElement = getFirstElement('[id^="name_"]');
+        const firstGenderElementMr = getFirstElement('[id^="inlineRadio1_"]');
+        const firstGenderElementMs = getFirstElement('[id^="inlineRadio2_"]');
+        const firstAgeElement = getFirstElement('[id^="age_"]');
+        const firstPnrElement = getFirstElement('[id^="pnr_"]');
 
-            // Disable editing when auto-filled
-            nameStatic.disabled = true;
-            ageStatic.disabled = true;
-            pnrStatic.disabled = true;
-            genderStaticMr.disabled = true;
-            genderStaticMs.disabled = true;
-        } else {
-            // Clear inputs and enable editing
-            nameStatic.value = '';
-            ageStatic.value = '';
-            pnrStatic.value = '';
-            genderStaticMr.checked = false;
-            genderStaticMs.checked = false;
+        // Safely access the values
+        const firstGuest = firstGuestElement ? firstGuestElement.value : '';
+        const firstGender = firstGenderElementMr && firstGenderElementMr.checked ? 'Mr' : (firstGenderElementMs && firstGenderElementMs.checked ? 'Ms' : '');
+        const firstAge = firstAgeElement ? firstAgeElement.value : '';
+        const firstPnr = firstPnrElement ? firstPnrElement.value : '';
 
-            nameStatic.disabled = false;
-            ageStatic.disabled = false;
-            pnrStatic.disabled = false;
-            genderStaticMr.disabled = false;
-            genderStaticMs.disabled = false;
+        // Fill in the static fields only if the elements exist and have values
+        nameStatic.value = firstGuest;
+        ageStatic.value = firstAge;
+        pnrStatic.value = firstPnr;
+
+        // Handle the gender fields safely
+        if (firstGender === 'Mr') {
+            genderStaticMr.checked = true;
+        } else if (firstGender === 'Ms') {
+            genderStaticMs.checked = true;
         }
-    });
+
+        // Disable editing when auto-filled
+        nameStatic.disabled = true;
+        ageStatic.disabled = true;
+        pnrStatic.disabled = true;
+        genderStaticMr.disabled = true;
+        genderStaticMs.disabled = true;
+    } else {
+        // Clear inputs and enable editing
+        nameStatic.value = '';
+        ageStatic.value = '';
+        pnrStatic.value = '';
+        genderStaticMr.checked = false;
+        genderStaticMs.checked = false;
+
+        nameStatic.disabled = false;
+        ageStatic.disabled = false;
+        pnrStatic.disabled = false;
+        genderStaticMr.disabled = false;
+        genderStaticMs.disabled = false;
+    }
+});
+
 </script>
+
+
 
 
 @endpush
