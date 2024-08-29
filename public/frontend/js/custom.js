@@ -1703,6 +1703,7 @@ $(document).ready(function () {
     });
     
     $(document).on('click', '.loginform_submit_btn', function (e) {
+       
 
         e.preventDefault();
 
@@ -1828,6 +1829,8 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.forgotpasswdform_submit_btn', function (e) {
+
+      
 
         
 
