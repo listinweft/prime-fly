@@ -13,12 +13,10 @@
 
 
     <script>
-   $(document).ready(function() {
-    var calendar = $('#calendar').fullCalendar({
-        events: [], // Initialize with an empty array
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
         editable: true, // Allow dragging and resizing of events
 
-        // Fetch orders from the server and update the calendar
         events: function(start, end, timezone, callback) {
             $.ajax({
                 url: '{{ route('admin.calendar.orders') }}', // Adjust the route as needed
@@ -26,17 +24,18 @@
                 dataType: 'json',
                 success: function(response) {
                     var events = [];
-                    // Process your order data and convert it to FullCalendar events format
+                    // Process the order data and convert it to FullCalendar events format
                     $.each(response.orders, function(index, order) {
-                        var startDate = moment(order.created_at).format('YYYY-MM-DD');
-                        var endDate = moment(order.exit_date).format('YYYY-MM-DD'); // No extra day added 
-                        console.log('Order Code:', order.order_code);
-                        console.log('Start Date:', startDate);
-                        console.log('End Date:', endDate);
+                        var startDate = moment(order.exit_date).format('YYYY-MM-DD');
+                        // console.log("lastdata",startDate);
+                        var created_date = moment(order.created_date).format('YYYY-MM-DD');
+                        console.log('Exit Date:', created_date);
                         events.push({
-                            title: order.order_code,
-                            start: endDate, 
-                            orderId: order.id
+                            title: `Orders: ${order.total_orders}`, // Show total orders in the title
+                            start: startDate,
+                            allDay: true, // Make sure it's an all-day event
+                            createdDate: order.created_date,
+                            exitdat: startDate,
                         });
                     });
                     callback(events);
@@ -49,14 +48,18 @@
 
         eventClick: function(calEvent, jsEvent, view) {
             // Redirect to the order view page using the order ID
-            window.location.href = base_url + '/order/view/' + calEvent.orderId;
+            const orderUrl = `${base_url}/order/listdate/${calEvent.exitdat}`;
+        
+        // Redirect to the order view page
+        window.location.href = orderUrl;
         }
     });
 
     setInterval(function() {
-        calendar.fullCalendar('refetchEvents');
+        $('#calendar').fullCalendar('refetchEvents');
     }, 30000); // 30 seconds
 });
+
 
 
     </script>

@@ -32,7 +32,8 @@
           </tr>
           @php
           $personaladdress = App\Models\PersonalDetails::where('order_id', $order->id)->first();
-          $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)->get();
+          $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)->where('type','meet_and_greet')->get();
+          $personaladdresnormal = App\Models\PersonalDetails::where('order_id', $order->id)->where('type','normal')->first();
           @endphp
           <tr>
             <td align="center" style="padding-bottom:20px;border-bottom:1px solid #efefef;">
@@ -63,13 +64,12 @@
                                             <h4 style="Margin:0;line-height:23px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:14px;font-style:normal;font-weight:normal;color:#000;padding: 10px; padding-top: 0;">
                                                <strong>{{ $product->productData->title }}</strong>
                                             </h4>
-                                            @foreach($personaladdressfull as $personaladdresss)
-                                            <div style="padding: 0 10px;">
-                                                <span>{{ $personaladdresss->name }} </span>
-                                                <span>{{ $personaladdresss->age }} </span>  
-                                                <span>{{ $personaladdresss->passport_number }} </span>
-                                            </div> 
-                                            @endforeach
+
+
+
+
+
+
                                             @php
                                             $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
                                             $package = App\Models\Product::where('id', $product->product_id)->first();
@@ -80,6 +80,48 @@
                                             }
                                             @endphp
                                             @foreach($product->productData->product_categories ?? [] as $product_category)
+
+                                            @if($product_category->title == "Meet and Greet" )
+                                            @if($personaladdressfull->isNotEmpty())
+                                             @foreach($personaladdressfull as $personaladdresss)
+                                                
+                                                      <div style="padding: 0 10px;">
+                                                         @if(!empty($personaladdresss->name))
+                                                            <span>Name: {{ $personaladdresss->name }}</span><br>
+                                                         @endif
+
+                                                         @if(!empty($personaladdresss->age))
+                                                            <span>Age: {{ $personaladdresss->age }}</span><br>
+                                                         @endif
+
+                                                         @if(!empty($personaladdresss->passport_number))
+                                                            <span>Passport Number: {{ $personaladdresss->passport_number }}</span><br>
+                                                         @endif
+                                                      </div>
+                                                
+                                             @endforeach
+                                          @endif
+
+                                          @else
+
+
+                                          <div style="padding: 0 10px;">
+                                                         @if(!empty($personaladdresnormal->name))
+                                                            <span>Name: {{ $personaladdresnormal->name }}</span><br>
+                                                         @endif
+
+                                                         @if(!empty($personaladdresnormal->age))
+                                                            <span>Age: {{ $personaladdresnormal->age }}</span><br>
+                                                         @endif
+
+                                                         @if(!empty($personaladdresnormal->passport_number))
+                                                            <span>Passport Number: {{ $personaladdresnormal->passport_number }}</span><br>
+                                                         @endif
+                                                      </div>
+
+
+
+                                          @endif
                                             <div style="padding: 0 10px;">
                                                <span style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }} | </span>
                                                <span style="color:#707070;font-size:11px;">Package: {{ ucfirst($package->title) }}</span> |
@@ -89,6 +131,10 @@
                                                @endif
                                                @if($product->travel_type == 'departure')
                                                <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->origin }}</span> | 
+
+                                               @elseif($product->travel_type == 'Transit')
+                                               <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->trans }}</span> | 
+
                                                @else
                                                <span style="color:#707070;font-size:11px;">Service Airport: {{ $product->destination }}</span> | 
                                                @endif
@@ -101,7 +147,7 @@
                                                @if($product->status == 'Refunded')
                                                <span style="color:#707070;font-size:11px;">Refund Status: {{ $refundStatus->status }}</span> | 
                                                @endif
-                                               <span style="color:#707070;font-size:11px;">Qty: {{ $product->quantity }}</span>
+                                              
                                             </div>
                                             @endforeach
                                          </td>
@@ -112,7 +158,7 @@
                           </table>
                        </td>
                        <td align="right" style="padding:0;Margin:0;text-align:right;vertical-align: top;">
-                          <p style="margin-bottom:0;font-size:14px;font-weight:600;color:#7b45f6">${{ number_format($product->total, 2) }}</p>
+                          <p style="margin-bottom:0;font-size:14px;font-weight:600;color:#7b45f6">INR{{ number_format($product->total, 2) }}</p>
                        </td>
                     </tr>
                     @endforeach

@@ -70,7 +70,7 @@
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>State</label>
-                                                    <input type="text" placeholder="Select State" id="state" name="state" class="required">
+                                                    <input type="text" placeholder="Enter State" id="state" name="state" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>Phone Number</label>
@@ -79,7 +79,7 @@
                                                     <!-- <div class="input-phone"></div> -->
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
-                                                    <label>PIN</label>
+                                                    <label>Password</label>
                                                     <input type="password" placeholder="Type Your Password" name="password" id="pin" class="required">
                                                 </div>
                                                 <div class="col-12 register_form_grid mb-0">
@@ -90,7 +90,7 @@
                                                 <input type="submit"  class="primary_btn registerform_submit_btn" data-url="/register-corporate" value="Submit"/>
                                                  </div>
                                                  <div class="text-center otp_grid ">
-                                                    <p>Already have an account ? <a href="http://127.0.0.1:8000/register">Login</a></p></div>
+                                                    <p>Already have an account ? <a href="{{ url('/login/b2b') }}">Login</a></p></div>
                                             </div> 
                                         </div> 
 

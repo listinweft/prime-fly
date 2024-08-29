@@ -73,6 +73,7 @@ Route::middleware(['web'])->group(function () {
 
     Route::post('/get-locations', [WebController::class, 'getLocations']);
     Route::post('/get-locations-meet', [WebController::class, 'getLocations_meet']);
+    Route::post('/get-locations-meet-transit', [WebController::class, 'getLocationsMeetTransit']);
     Route::post('/get-locations-porter', [WebController::class, 'getLocations_porter']);
 
     Route::get('/cors-proxy', [WebController::class, 'proxy']);
@@ -80,6 +81,9 @@ Route::middleware(['web'])->group(function () {
 
 
     Route::post('search-booking', [WebController::class, 'search_booking']);
+    Route::post('search-booking-transit', [WebController::class, 'search_booking_transit']);
+
+    
     Route::post('search-booking-baggage', [WebController::class, 'search_booking_baggage']);
     Route::post('search-booking-lounch', [WebController::class, 'search_booking_lounch']);
     Route::post('search-booking-porter', [WebController::class, 'search_booking_porter']);
@@ -295,6 +299,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('home-heading', [HomeController::class, 'update_home_heading']);
     Route::get('home-heading', [HomeController::class, 'create_home_heading']);
     Route::post('status-change', [HomeController::class, 'status_change']);
+    Route::post('status-change-cod', [HomeController::class, 'status_change_cod']);
     Route::post('agerange-change', [HomeController::class, 'agerange_change']);
     Route::post('change-bool-status', [HomeController::class, 'change_bool_status']);
     Route::post('sort_order/', [HomeController::class, 'sort_order']);
@@ -733,6 +738,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::get('/admin/calendar/orders', [OrderController::class, 'getOrders'])->name('admin.calendar.orders');
 
         Route::get('/', [OrderController::class, 'list']);
+        Route::get('/listdate/{createdDate}', [OrderController::class, 'listdate']);
         Route::get('create', [OrderController::class, 'create']);
         Route::get('view/{id}', [OrderController::class, 'order_view']);
         Route::post('order_status', [OrderController::class, 'order_status']);
@@ -881,7 +887,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
       // routes/web.php
       Route::match(['get', 'post'], 'detail-report', [ReportController::class, 'detail_report'])->name('admin.report.detail-report');
       Route::match(['get', 'post'], 'detail_report_subadmin', [ReportController::class, 'detail_report_subadmin'])->name('admin.report.detail-report-subadmin');
-      
+      Route::get('/get-locations-by-category', [ReportController::class, 'getLocationsByCategory'])->name('get.locations.by.category');
+      Route::get('/get-locations-by-category-sub', [ReportController::class, 'getLocationsByCategory_sub'])->name('get.locations.by.category.sub');
+      Route::get('/get-products-by-location', [ReportController::class, 'getProductsByLocation'])->name('get.products.by.location');
+
 
         Route::get('export', [ReportController::class, 'export'])->name('export');
         Route::post('order_detail_filter', [ReportController::class, 'order_detail_filter']);

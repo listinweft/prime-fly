@@ -119,13 +119,13 @@ class CartController extends Controller
         if (strpos($request->product_id, ',')) {
             $productIds = explode(',', $request->product_id);
             foreach ($productIds as $product) {
-                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
+                $addStatus = $this->cartAddItems($request, $product, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest,$request->meet_guestn);
                 if (!$addStatus) {
                     break; // If adding any product fails, stop the loop
                 }
             }
         } else {
-            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest);
+            $addStatus = $this->cartAddItems($request, $request->product_id, $sessionKey, $request->totalprice, $request->totalguest, $request->setdate, $request->origin, $request->trans, $request->destination, $request->travel_sector, $request->flight_number, $request->entry_date, $request->travel_type,$request->terminal,$request->bag_count,$request->exit_time,$request->entry_time,$request->adults,$request->infants,$request->children,$request->pnr,$request->meet_guest,$request->meet_guestn);
         }
     
         $count = 0;
@@ -169,9 +169,10 @@ class CartController extends Controller
     // Return data to view or as a JSON response
 
 }
-    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest)
+    public function cartAddItems($request, $product_id, $sessionKey, $totalprice, $totalguest, $setdate, $origin, $trans, $destination, $travel_sector, $flight_number, $entry_date, $travel_type, $terminal, $bag_count, $exit_time, $entry_time, $adults, $infants, $children,$pnr,$meet_guest,$meet_guestn)
     {
         $origin = $origin ?? '';
+        $trans = $trans ?? '';
         $destination = $destination ?? '';
         $travel_sector = $travel_sector ?? '';
         $flight_number = $flight_number ?? '';
@@ -222,6 +223,7 @@ class CartController extends Controller
                     'travel_type' => $travel_type,
                     'setdate' => $setdate,
                     'origin' => $origin,
+                    'trans' => $trans,
                     'destination' => $destination,
                     'travel_sector' => $travel_sector,
                     'flight_number' => $flight_number,
@@ -234,7 +236,8 @@ class CartController extends Controller
                     'children' => $children,
                     'porter_count' => $totalguest,
                     'pnr' => $pnr,
-                    'meet_guest' => $meet_guest
+                    'meet_guest' => $meet_guest,
+                    'meet_guestn' => $meet_guestn
                     
 
                 ],
@@ -1541,6 +1544,7 @@ class CartController extends Controller
                         $personalDetailsData[] = [
                             'order_id' => $order->id,
                             'name' => $request->name[$key] ?? '',
+                            'type' => $request->type[$key] ?? '',
                             'age' => $request->age[$key] ?? '',
                             'address' => $request->address ?? '',
                             'passport_number' => $request->passport_number ?? '',
@@ -1587,19 +1591,18 @@ class CartController extends Controller
 
                         $detail->entry_time = $row->attributes['entry_time'] ?? '';
 
-                        $dateString = $row->attributes['setdate'] ?? '';
+                        $dateString = $row->attributes['setdate'] ?? ''; // Fetch the date string
 
-                        $entryTime = $row->attributes['entry_time'] ?? '';
-
-
+                        $entryTime = $row->attributes['entry_time'] ?? ''; // Fetch the entry time if available
+                        
                         $formattedTimestamp = '';
-
+                        
                         if ($dateString) {
-                            // Define possible date formats
-                            $possibleDateFormats = ['m/d/Y', 'm-d-Y', 'Y-m-d', 'd/m/Y'];
+                            // Define possible date formats (including 'd-m-Y')
+                            $possibleDateFormats = ['m/d/Y', 'd-m-Y', 'Y-m-d', 'd/m/Y'];
                             $possibleDateTimeFormats = [
-                                'm/d/Y H:i:s', 'm-d-Y H:i:s', 'Y-m-d H:i:s', 'd/m/Y H:i:s',
-                                'm/d/Y g:ia', 'm-d-Y g:ia', 'Y-m-d g:ia', 'd/m/Y g:ia'
+                                'm/d/Y H:i:s', 'd-m-Y H:i:s', 'Y-m-d H:i:s', 'd/m/Y H:i:s',
+                                'm/d/Y g:ia', 'd-m-Y g:ia', 'Y-m-d g:ia', 'd/m/Y g:ia'
                             ];
                         
                             // Try parsing the date string with each format
@@ -1638,12 +1641,15 @@ class CartController extends Controller
                         }
                         
                    
+                        
+                   
                         // Assign the combined date and time to exit_date
                         $detail->exit_date = $formattedTimestamp;
                         $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
                         $detail->flight_number = $row->attributes['flight_number'] ?? '';
                         $detail->travel_type = $row->attributes['travel_type'] ?? '';
                         $detail->origin = $row->attributes['origin'] ?? '';
+                        $detail->trans = $row->attributes['trans'] ?? '';
                         $detail->destination = $row->attributes['destination'] ?? '';
                         $detail->guest = $row->attributes['guest'] ?? 0;
                         $detail->terminal = $row->attributes['terminal'] ?? '';
@@ -1811,11 +1817,12 @@ class CartController extends Controller
     
             return response()->json(['status' => 'success',  'message' => 'Order has been placed successfully',]); // Redirect to home page after successful payment
         } catch (\Exception $e) {
-            // Handle verification failure
+           \Log::error('Payment failed: ' . $e->getMessage());
             return response()->json(['status' => 'error', 'message' => 'Your Payment not completed']);
         }
     }
     
+  
 
     // PaymentController.php
 public function verify(Request $request)

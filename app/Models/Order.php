@@ -7,10 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
+
 
 class Order extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'payment_mode',
+       
+    ];
+
+   
+
 
     public function orderProducts()
     {
@@ -62,36 +73,51 @@ class Order extends Model
         return true;
     }
 
-    public static function sendOrderStatusMail($order, $status, $productName)
-    {
-        $common = SiteInformation::first();
-        $contactAddress = ContactAddress::where('status', 'Active')->first();
-        $to = $order->orderCustomer->shippingAddress->email;
-        $to_name = $order->orderCustomer->shippingAddress->first_name . ' ' . $order->orderCustomer->shippingAddress->last_name;
-        //mail to customer
-        Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $to_name,
-            'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $contactAddress) {
-            $message->to($to, $to_name)->subject(config('app.name') . ' - Order Status Changed');
-            $message->from($common->email, $common->email_recipient);
-            /*if($status=="Cancelled"){
-                $message->bcc($common->admin_mail, $common->admin_name);
-            }*/
-        });
-        //mail to /admins
-        $emails = explode(',', $common->order_emails);
-        foreach ($emails as $email) {
-
-            Mail::send('mail_templates.order_status_change', array('code' => $order->order_code, 'name' => $common->email_recipient,
-                'status' => $status, 'product' => $productName, 'common' => $common), function ($message) use ($to, $to_name, $common, $email) {
-                    $message->to($email, $common->email_recipient)->subject(config('app.name') . ' - Order Status Changed');
-                $message->from($common->email, $common->email_recipient);
-                /*if($status=="Cancelled"){
-                    $message->bcc($common->admin_mail, $common->admin_name);
-                }*/
-            });
-        }
-        return true;
-    }
+    // public static function sendOrderStatusMail($order, $status, $productName)
+    // {
+    //     $common = SiteInformation::first();
+    //     $contactAddress = ContactAddress::where('status', 'Active')->first();
+        
+    //     // Log start of email sending
+    //     Log::info("Starting to send order status email for order: " . $order->order_code);
+        
+    //     // Create an instance of BrevoMailService
+    //     $brevoMailService = new \App\Services\BrevoMailService();
+    
+    //     // Prepare the email content
+    //     $searchArr = ["{code}", "{name}", "{status}", "{product}", "{app_name}"];
+    //     $replaceArr = [$order->order_code, $order->orderCustomer->CustomerData->first_name, $status, $productName, config('app.name')];
+    //     $body = File::get(resource_path('views/mail_templates/order_status_change.blade.php'));
+    //     $body = str_replace($searchArr, $replaceArr, $body);
+    
+    //     // Log email body preparation
+    //     Log::info("Email body prepared successfully for order: " . $order->order_code);
+    
+    //     // Send email to customer
+    //     $to = $order->orderCustomer->CustomerData->user->email;
+    //     $toName = $order->orderCustomer->CustomerData->first_name;
+    //     $subject = config('app.name') . ' - Order Status Changed';
+    
+    //     try {
+    //         $brevoMailService->sendEmail($to, $toName, $subject, $body);
+    //         Log::info("Order status email sent successfully to customer: " . $to);
+    //     } catch (\Exception $e) {
+    //         Log::error("Failed to send email to customer: " . $e->getMessage());
+    //     }
+    
+    //     // Send email to admins
+    //     $emails = explode(',', $common->order_emails);
+    //     foreach ($emails as $email) {
+    //         try {
+    //             $brevoMailService->sendEmail($email, $common->email_recipient, $subject, $body);
+    //             Log::info("Order status email sent successfully to admin: " . $email);
+    //         } catch (\Exception $e) {
+    //             Log::error("Failed to send email to admin: " . $e->getMessage());
+    //         }
+    //     }
+    
+    //     return true;
+    // }
 
     // to get maximum of minimum_spend of coupon
     public function getMaxCouponsMinimumSpend()
@@ -644,82 +670,109 @@ class Order extends Model
 
     public static function boxValues($start = NULL, $end = NULL)
     {
+        // Initialize the query for orders with 'Success' payment_mode
+        $orderQuery = Order::where('payment_mode', 'Success');
+    
         if ($start != NULL && $end != NULL) {
-            $orders = Order::whereBetween('created_at', [$start, $end])->get();
-            $totalProducts = OrderProduct::whereIn('order_id', $orders->pluck('id')->toArray())->count();
-            $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
-           
+            // Filter orders by date range
+            $orders = $orderQuery->whereBetween('created_at', [$start, $end])->get();
         } else {
-            $orders = Order::get();
-            $totalProducts = OrderProduct::count();
-            $totalOrderProductCost = OrderProduct::sum('cost');
+            // Get all orders with 'Success' payment_mode
+            $orders = $orderQuery->get();
         }
     
+        // Get total count of products and total cost
+        $orderIds = $orders->pluck('id')->toArray();
+        $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
+        $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
+    
+        // Initialize array for return data
         $boxValues = [];
         $returnData = ['total_price' => [], 'coupon' => []];
-        
+    
+        // Loop through orders to compute additional values
         foreach ($orders as $order) {
             $orderGrandTotal = Order::OrderGrandTotal($order->id);
             $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
             $returnData['coupon'][] = Order::getActiveProductCouponValue($order->id);
         }
     
+        // Compute total amounts
         $boxValues['totalProducts'] = $totalProducts;
-        $boxValues['totalOrders'] = count($orders);
-      // Assuming $totalOrderProductCost is already defined and contains the original total cost
-$taxAmount = $totalOrderProductCost * 0.18;
-$boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
-
-       
+        $boxValues['totalOrders'] = $orders->count(); // Use count() method on collection
+    
+        // Tax and total amount calculation
+        $taxAmount = $totalOrderProductCost * 0.18;
+        $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
+    
+        // Set total coupon amount (if applicable, currently 0)
         $boxValues['totalCoupon'] = 0;
-        
+    
         return $boxValues;
     }
     
     
-    public static function boxValues_subadmin($assignedLocations = [], $start = NULL, $end = NULL)
+    public static function boxValues_subadmin($assignedLocations = [], $category = [], $start = NULL, $end = NULL)
     {
-        if ($start != NULL && $end != NULL) {
-            $orders = Order::whereBetween('created_at', [$start, $end])
-                           ->whereHas('orderProducts', function($query) use ($assignedLocations) {
-                               $query->whereIn('origin', $assignedLocations)
-                                     ->orWhereIn('destination', $assignedLocations);
-                           })
-                           ->get();
-            $orderIds = $orders->pluck('id')->toArray();
-            $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
-            $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
-        } else {
-            $orders = Order::whereHas('orderProducts', function($query) use ($assignedLocations) {
-                            $query->whereIn('origin', $assignedLocations)
-                                  ->orWhereIn('destination', $assignedLocations);
-                        })
-                        ->get();
-            $orderIds = $orders->pluck('id')->toArray();
-            $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
-            $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
+        \Log::info('boxValues_subadmin called with:', [
+            'assignedLocations' => $assignedLocations,
+            'category' => $category,
+            'start' => $start,
+            'end' => $end
+        ]);
+    
+        // Build the query based on the presence of start and end dates
+        $query = Order::where('payment_mode', 'Success'); // Filter by payment_mode first
+    
+        if ($start && $end) {
+            $query->whereBetween('created_at', [$start, $end]);
         }
     
+        $query->whereHas('orderProducts', function($query) use ($assignedLocations, $category) {
+            $query->whereIn('origin', $assignedLocations)
+            ->orWhereIn('trans', $assignedLocations)
+                  ->orWhereIn('destination', $assignedLocations);
+    
+            if (!empty($category)) {
+                $query->whereHas('productData', function($subQuery) use ($category) {
+                    $subQuery->whereIn('category_id', $category);
+                });
+            }
+        });
+    
+        // Handle case when $assignedLocations is empty
+        $query->when(empty($assignedLocations), function ($query) {
+            return $query->whereRaw('1=0'); // Force a condition that is never true
+        });
+    
+        // Apply category filter
+        $query->whereHas('orderProducts.productData', function ($query) use ($category) {
+            $query->whereIn('category_id', $category);
+        });
+    
+        $orders = $query->get();
+    
+        \Log::info('Orders found:', ['count' => $orders->count()]);
+    
+        $orderIds = $orders->pluck('id')->toArray();
+        $totalProducts = OrderProduct::whereIn('order_id', $orderIds)->count();
+        $totalOrderProductCost = OrderProduct::whereIn('order_id', $orderIds)->sum('cost');
+    
         $boxValues = [];
-        $returnData = ['total_price' => [], 'coupon' => []];
-    
-        // foreach ($orders as $order) {
-        //     $orderGrandTotal = Order::OrderGrandTotal($order->id);
-        //     $returnData['total_price'][] = $orderGrandTotal['orderGrandTotal'];
-        //     $returnData['coupon'][] = Order::getActiveProductCouponValue($order->id);
-        // }
-    
         $totalAmount = $totalOrderProductCost;
         $extraAmount = $totalAmount * 0.18;
         $totalAmountWithExtra = $totalAmount + $extraAmount;
     
         $boxValues['totalProducts'] = $totalProducts;
-        $boxValues['totalOrders'] = count($orders);
+        $boxValues['totalOrders'] = $orders->count(); // Use count() method on collection
         $boxValues['totalAmount'] = $totalAmountWithExtra;
-        $boxValues['totalCoupon'] = 0;
+        $boxValues['totalCoupon'] = 0; // Assuming coupon calculation is handled elsewhere
     
         return $boxValues;
     }
+    
+    
+    
     
     
     
@@ -817,7 +870,90 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
         $endDate = date("Y-m-d", strtotime($dateExploded[1]));
         $start = $startDate . ' 00:00:00';
         $end = $endDate . ' 23:59:59';
-        $orders = SELF::whereBetween('created_at', [$start, $end])->get();
+    
+        // Start query with payment_mode filter
+        $orders = SELF::where('payment_mode', 'Success')
+            ->whereBetween('created_at', [$start, $end]);
+    
+        if ($status != NULL) {
+            $ordersList = [];
+            foreach ($orders->get() as $order) {
+                $orderProducts = OrderProduct::where('order_id', '=', $order->id)->get();
+                if ($orderProducts) {
+                    foreach ($orderProducts as $products) {
+                        $orderStatusData = OrderLog::where('order_product_id', '=', $products->id)->latest()->first();
+                        if ($orderStatusData != NULL && $orderStatusData->status == $status) {
+                            $ordersList[] = $order->id;
+                        }
+                    }
+                }
+            }
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $ordersList);
+        }
+    
+        if ($customer != NULL) {
+            $orderIds = $orders->pluck('id')->toArray();
+            $customerOrders = OrderCustomer::where('customer_id', '=', $customer)
+                ->whereIn('order_id', $orderIds)
+                ->pluck('order_id')->toArray();
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $customerOrders);
+        }
+    
+        if ($product != NULL) {
+            $orderIds = $orders->pluck('id')->toArray();
+            $productOrders = OrderProduct::whereIn('product_id', [$product])
+                ->whereIn('order_id', $orderIds)
+                ->pluck('order_id')->toArray();
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $productOrders);
+        }
+    
+        if ($coupon != NULL) {
+            $orderIds = $orders->pluck('id')->toArray();
+            $orderCoupon = OrderCoupon::whereIn('order_id', $orderIds)
+                ->where([['status', '=', 'Active'], ['coupon_id', '=', $coupon]])
+                ->pluck('order_id')->toArray();
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $orderCoupon);
+        }
+    
+        return $orders->get();
+    }
+    
+    public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $location_ids = NULL, $category = NULL)
+    {
+        // Parse location IDs from comma-separated string
+        $locationCodes =  $location_ids;
+    
+        // Handle date range
+        $dateExploded = explode('-', $date_range);
+        $startDate = date("Y-m-d", strtotime($dateExploded[0]));
+        $endDate = date("Y-m-d", strtotime($dateExploded[1]));
+        $start = $startDate . ' 00:00:00';
+        $end = $endDate . ' 23:59:59';
+    
+        // Start query with payment_mode filter
+        $query = SELF::where('payment_mode', 'Success')
+            ->when($start && $end, function ($query) use ($start, $end) {
+                return $query->whereBetween('created_at', [$start, $end]);
+            })
+            ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+                return $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
+                    $query->whereIn('origin', $locationCodes)
+                        ->orWhereIn('trans', $locationCodes)
+                        ->orWhereIn('destination', $locationCodes);
+                });
+            })
+            ->when(empty($locationCodes), function ($query) {
+                return $query->whereRaw('1=0'); // Force a condition that is never true
+            })
+            ->when(!empty($category), function ($query) use ($category) {
+                return $query->whereHas('orderProducts.productData', function ($query) use ($category) {
+                    $query->whereIn('category_id', $category);
+                });
+            });
+    
+        $orders = $query->get();
+    
+        // Filter by status if provided
         if ($status != NULL) {
             $ordersList = [];
             foreach ($orders as $order) {
@@ -825,111 +961,37 @@ $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
                 if ($orderProducts) {
                     foreach ($orderProducts as $products) {
                         $orderStatusData = OrderLog::where('order_product_id', '=', $products->id)->latest()->first();
-                        if ($orderStatusData != NULL) {
-                            if ($orderStatusData->status == $status) {
-                                $ordersList[] = $order->id;
-                            }
-                        }
-                    }
-                }
-            }
-            $orders = Order::whereIn('id', $ordersList)->get();
-        }
-        if ($customer != NULL) {
-            $orderIds = $orders->pluck('id')->toArray();
-            $customerOrders = OrderCustomer::where('customer_id', '=', $customer)->whereIn('order_id', $orderIds)->get();
-            $orders = Order::whereIn('id', $customerOrders->pluck('order_id')->toArray())->get();
-        }
-        if ($product != NULL) {
-            DB::enableQueryLog();
-            $orderIds = $orders->pluck('id')->toArray();//dd($orderIds);
-            $productOrders = Product::where('id', '=', $product)->first();
-            // $variants = Product::where('similar_product_id', '=', $product)->get();
-            $variants = Product::where('id', '=', $product)->get();
-            $productOrders = OrderProduct::whereIn('product_id', $variants->pluck('id')->toArray())->whereIn('order_id', $orderIds)->get();
-            // $productOrders = OrderProduct::whereIn('order_id', $orderIds)->get();
-            $quries = DB::getQueryLog();
-            // dd($quries);
-            // dd($productOrders);
-            $orders = Order::whereIn('id', $productOrders->pluck('order_id')->toArray())->get();
-        }
-        if ($coupon != NULL) {
-            $orderIds = $orders->pluck('id')->toArray();
-            $orderCoupon = OrderCoupon::whereIn('order_id', $orderIds)->where([['status', '=', 'Active'], ['coupon_id', '=', $coupon]])->get();
-            $orders = Order::whereIn('id', $orderCoupon->pluck('order_id')->toArray())->get();
-        }
-        //dd($orders);
-        return $orders;
-    }
-    public static function getDetailedOrders_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $location_ids = NULL)
-{
-    // Parse location IDs from comma-separated string
-   
-    
-    // Fetch location codes based on location IDs
-    $locationCodes = $location_ids;
-    
-    // Handle date range
-    $dateExploded = explode('-', $date_range);
-    $startDate = date("Y-m-d", strtotime($dateExploded[0]));
-    $endDate = date("Y-m-d", strtotime($dateExploded[1]));
-    $start = $startDate . ' 00:00:00';
-    $end = $endDate . ' 23:59:59';
-    
-    // Initialize query
-    $orders = SELF::when($start && $end, function ($query) use ($start, $end) {
-        return $query->whereBetween('created_at', [$start, $end]);
-    })
-    ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
-        return $query->whereHas('orderProducts', function($query) use ($locationCodes) {
-            $query->whereIn('origin', $locationCodes)
-                  ->orWhereIn('destination', $locationCodes);
-        });
-    })
-    ->when(empty($locationCodes), function ($query) {
-        return $query->whereRaw('1=0'); // Force a condition that is never true
-    })
-    ->get();
-    
-    // Filter by status if provided
-    if ($status != NULL) {
-        $ordersList = [];
-        foreach ($orders as $order) {
-            $orderProducts = OrderProduct::where('order_id', '=', $order->id)->get();
-            if ($orderProducts) {
-                foreach ($orderProducts as $products) {
-                    $orderStatusData = OrderLog::where('order_product_id', '=', $products->id)->latest()->first();
-                    if ($orderStatusData != NULL) {
-                        if ($orderStatusData->status == $status) {
+                        if ($orderStatusData != NULL && $orderStatusData->status == $status) {
                             $ordersList[] = $order->id;
                         }
                     }
                 }
             }
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $ordersList)->get();
         }
-        $orders = Order::whereIn('id', $ordersList)->get();
+    
+        // Filter by customer if provided
+        if ($customer !== NULL) {
+            $orderIds = $orders->pluck('id')->toArray();
+            $customerOrders = OrderCustomer::where('customer_id', $customer)
+                ->whereIn('order_id', $orderIds)
+                ->pluck('order_id')->toArray();
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $customerOrders)->get();
+        }
+    
+        // Filter by product if provided
+        if ($product !== NULL) {
+            $orderIds = $orders->pluck('id')->toArray();
+            $productIds = Product::where('id', $product)->pluck('id')->toArray();
+            $productOrders = OrderProduct::whereIn('product_id', $productIds)
+                ->whereIn('order_id', $orderIds)
+                ->pluck('order_id')->toArray();
+            $orders = SELF::where('payment_mode', 'Success')->whereIn('id', $productOrders)->get();
+        }
+    
+        return $orders;
     }
     
-    
-    
-    // Filter by customer if provided
-    if ($customer !== NULL) {
-        $orderIds = $orders->pluck('id')->toArray();
-        $customerOrders = OrderCustomer::where('customer_id', $customer)->whereIn('order_id', $orderIds)->pluck('order_id')->toArray();
-        $orders = Order::whereIn('id', $customerOrders)->get();
-    }
-    
-    // Filter by product if provided
-    if ($product !== NULL) {
-        $orderIds = $orders->pluck('id')->toArray();
-        $productIds = Product::where('id', $product)->pluck('id')->toArray();
-        $productOrders = OrderProduct::whereIn('product_id', $productIds)->whereIn('order_id', $orderIds)->pluck('order_id')->toArray();
-        $orders = Order::whereIn('id', $productOrders)->get();
-    }
-    
-    return $orders;
-}
-
 
 
     
@@ -979,10 +1041,10 @@ public static function getDetailedOrdersBoxValues($date_range = NULL, $status = 
     return $boxValues;
 }
 
-public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [])
+public static function getDetailedOrdersBoxValues_subadmin($date_range = NULL, $status = NULL, $customer = NULL, $product = NULL, $assignedLocations = [],$category = [])
 {
     // Retrieve filtered orders
-    $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations);
+    $orders = SELF::getDetailedOrders_subadmin($date_range, $status, $customer, $product, $assignedLocations,$category);
     
     // Initialize variables to store metrics
     $boxValues = [];

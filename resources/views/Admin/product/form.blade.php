@@ -290,14 +290,12 @@
     <select name="service_type[]"  class="form-control select2">
         <option value="departure" @if(in_array('departure', $selectedServiceTypes)) selected @endif>Departure</option>
         <option value="arrival" @if(in_array('arrival', $selectedServiceTypes)) selected @endif>Arrival</option>
-        <option value="round_trip" @if(in_array('round_trip', $selectedServiceTypes)) selected @endif>Round Trip</option>
-        <option value="transit_type" @if(in_array('transit_type', $selectedServiceTypes)) selected @endif>Transit type</option>
+        <!-- <option value="round_trip" @if(in_array('round_trip', $selectedServiceTypes)) selected @endif>Round Trip</option> -->
+        <option value="transit" @if(in_array('transit', $selectedServiceTypes)) selected @endif>Transit </option>
     </select>
    
   
 </div>
-
-
 <div class="form-group col-md-6" id="travelSectorGroup">
     <label>Travel Sector</label>
     <select name="sector" id="sector" class="form-control select2">
@@ -306,9 +304,13 @@
         @endphp
         <option value="international" @if($defaultSector == 'international') selected @endif>International</option>
         <option value="domestic" @if($defaultSector == 'domestic') selected @endif>Domestic</option>
+        <option value="domestic_to_domestic" @if($defaultSector == 'domestic_to_domestic') selected @endif>Domestic To Domestic</option>
+        <option value="domestic_to_international" @if($defaultSector == 'domestic_to_international') selected @endif>Domestic To International</option>
+        <option value="international_to_international" @if($defaultSector == 'international_to_international') selected @endif>International To International</option>
+        <option value="international_to_domestic" @if($defaultSector == 'international_to_domestic') selected @endif>International To Domestic</option>
     </select>
-    
 </div>
+
 
 
 

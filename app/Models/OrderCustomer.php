@@ -15,6 +15,12 @@ class OrderCustomer extends Model
         return $this->belongsTo(Order::class, 'order_id');
     }
 
+   // OrderCustomer.php
+
+    
+            // OrderCustomer.php
+        
+
     public function CustomerData()
     {
         return $this->belongsTo(Customer::class, 'customer_id', 'id');

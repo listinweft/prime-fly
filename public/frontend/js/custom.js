@@ -654,6 +654,7 @@ $(document).ready(function () {
             var totalguest = $button.data('guest');
             var setdate = $button.data('setdate');
             var origin = $button.data('origin');
+            var trans = $button.data('trans');
             var destination = $button.data('destination');
             var travel_sector = $button.data('travel_sector');
             var flight_number = $button.data('flight_number');
@@ -668,6 +669,7 @@ $(document).ready(function () {
             var children = $button.data('children');
             var pnr = $button.data('pnr');
             var meet_guest = $button.data('meet_guest');
+            var meet_guestn = $button.data('meet_guestn');
     
             var qty = 1;
             var checkout = $button.data('checkout');
@@ -697,6 +699,7 @@ $(document).ready(function () {
                     countRelative: countRelative,
                     attributeList: attributeList,
                     origin: origin,
+                    trans: trans,
                     destination: destination,
                     travel_sector: travel_sector,
                     flight_number: flight_number,
@@ -711,6 +714,7 @@ $(document).ready(function () {
                     children: children,
                     pnr: pnr,
                     meet_guest: meet_guest,
+                    meet_guestn: meet_guestn,
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1157,6 +1161,7 @@ $(document).ready(function () {
                     name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
                     age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
                     pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
+                    type: $('input[name^="type["]').map(function() { return $(this).val(); }).get(),
                 },
                 success: function (response) {
                     if (response.status === 'online-payment') {
@@ -1698,6 +1703,7 @@ $(document).ready(function () {
     });
     
     $(document).on('click', '.loginform_submit_btn', function (e) {
+       
 
         e.preventDefault();
 
@@ -1823,6 +1829,8 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.forgotpasswdform_submit_btn', function (e) {
+
+      
 
         
 

@@ -28,6 +28,146 @@ class OrderController extends Controller
         return View::share(compact('siteInformation'));
     }
 
+
+//     public function index()
+//     {
+//         $admintype = Auth::guard('admin')->user()->admin;
+    
+//         if ($admintype->role == "Admin") {
+//             // Retrieve location IDs
+//             $location_ids = Auth::guard('admin')->user()->location_ids;
+    
+//             // Convert the location IDs to an array and filter out any empty values
+//             $assignedLocationIds = array_filter(explode(',', $location_ids));
+    
+//             // Fetch location codes based on location IDs
+//             $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+
+//             $category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+// // Ensure category_id is an array
+//                     if (!is_array($category_id)) {
+//                         $category_id = explode(',', $category_id);
+//                     }
+
+    
+//             // Query to get orders based on location codes with max exit_date
+//             $orders = Order::select('orders.id', 'orders.order_code', 'orders.created_at', DB::raw('MAX(order_products.exit_date) as exit_date'))
+//                 ->join('order_products', 'orders.id', '=', 'order_products.order_id')
+//                 ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+//                     return $query->where(function ($query) use ($locationCodes) {
+//                         $query->whereIn('order_products.origin', $locationCodes)
+//                         ->orWhereIn('destination', $locationCodes)
+//                         ->orWhereIn('trans', $locationCodes);
+//                     });
+//                 })
+//                 ->when(empty($locationCodes), function ($query) {
+//                     return $query->whereRaw('1=0'); // Force a condition that is never true
+//                 })
+//                 ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+//                     $query->whereIn('category_id', $category_id); // Filter by category_id array
+//                 })
+
+//                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
+//                 ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
+//                 ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
+//                 ->where('payment_mode', 'Success')
+//                 ->get();
+    
+//         } else {
+//             $orders = Order::select('orders.id', 'orders.order_code', 'orders.created_at', DB::raw('MAX(order_products.exit_date) as exit_date'))
+//                 ->join('order_products', 'orders.id', '=', 'order_products.order_id')
+//                 ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
+//                 ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
+//                 ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
+//                 ->where('payment_mode', 'Success')
+//                 ->get();
+//         }
+    
+//         // Format the orders with exit_date included
+//         $formattedOrders = $orders->map(function ($order) {
+//             return [
+//                 'id' => $order->id,
+//                 'order_code' => $order->order_code,
+//                 'created_at' => $order->created_at->format('c'), // Convert timestamp to ISO 8601 format
+//                 'exit_date' => $order->exit_date ? (new \DateTime($order->exit_date))->format('c') : null,
+//             ];
+//         });
+    
+//         return view('Admin.calendar', compact('formattedOrders'));
+//     }
+    
+    
+    
+
+   
+//     public function getOrders()
+//     {
+//         $admintype = Auth::guard('admin')->user()->admin;
+    
+//         if ($admintype->role == "Admin") {
+//             // Retrieve location IDs
+//             $location_ids = Auth::guard('admin')->user()->location_ids;
+    
+//             // Convert the location IDs to an array and filter out any empty values
+//             $assignedLocationIds = array_filter(explode(',', $location_ids));
+    
+//             // Fetch location codes based on location IDs
+//             $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+//             $category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+//             // Ensure category_id is an array
+//                                 if (!is_array($category_id)) {
+//                                     $category_id = explode(',', $category_id);
+//                                 }
+    
+//             // Query to get orders based on location codes
+//             $orders = Order::with('orderProducts') // Eager load orderProducts to avoid N+1 query issue
+//                 ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+//                     return $query->where(function ($query) use ($locationCodes) {
+//                         $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
+//                             $query->whereIn('origin', $locationCodes)
+//                                   ->orWhereIn('destination', $locationCodes)
+//                                   ->orWhereIn('trans', $locationCodes);
+//                         });
+//                     });
+//                 })
+//                 ->when(empty($locationCodes), function ($query) {
+//                     // Handle case when locationCodes is empty
+//                     return $query->whereRaw('1=0'); // Force a condition that is never true
+//                 })
+
+//                 ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+//                     $query->whereIn('category_id', $category_id); // Filter by category_id array
+//                 })
+//                 ->where('payment_mode', 'Success')
+//                 ->latest()
+//                 ->get();
+//         } else {
+//             $orders = Order::with('orderProducts')
+//     ->where('payment_mode', 'Success') // Apply the payment_mode filter
+//     ->latest() // Order by the latest first
+//     ->get(); // Retrieve the results
+
+
+//         }
+    
+//         // Format the orders with the maximum exit_date included
+//         $formattedOrders = $orders->map(function ($order) {
+//             // Find the maximum exit_date from the order's products
+//             $exitDate = $order->orderProducts->max('exit_date');
+//             return [
+//                 'id' => $order->id,
+//                 'order_code' => $order->order_code,
+//                 'created_at' => $order->created_at->format('c'), // Convert timestamp to ISO 8601 format
+//                 'exit_date' => $exitDate ? (new \DateTime($exitDate))->format('c') : null,
+//             ];
+//         });
+    
+//         return response()->json(['orders' => $formattedOrders]);
+//     }
+    
+
     public function list()
     {
 
@@ -61,6 +201,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                     // Handle case when locationCodes is empty
                     return $query->whereRaw('1=0'); // Force a condition that is never true
                 })
+                ->where('payment_mode', 'Success') 
                 ->latest()
                 ->get();
 
@@ -77,7 +218,8 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
 
        {
 
-        $orderList = Order::latest()->get();
+        $orderList = Order::where('payment_mode', 'Success')->latest()->get();
+
 
 
        }
@@ -87,8 +229,15 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
         return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues'));
     }
 
-    public function index()
+    public function listdate($createdDate = null)
     {
+        // Fetch all unique order_id values from order_products table based on the provided createdDate
+        $orderIds = OrderProduct::whereDate('exit_date', $createdDate)
+            ->distinct()
+            ->pluck('order_id')
+            ->toArray();
+    
+        $title = "Order List";
         $admintype = Auth::guard('admin')->user()->admin;
     
         if ($admintype->role == "Admin") {
@@ -101,172 +250,10 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
             // Fetch location codes based on location IDs
             $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
     
-            // Query to get orders based on location codes with max exit_date
-            $orders = Order::select('orders.id', 'orders.order_code', 'orders.created_at', DB::raw('MAX(order_products.exit_date) as exit_date'))
-                ->join('order_products', 'orders.id', '=', 'order_products.order_id')
-                ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+            // Query to get orders based on location codes, order_ids, and optionally created_date
+            $ordersQuery = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
                     return $query->where(function ($query) use ($locationCodes) {
-                        $query->whereIn('order_products.origin', $locationCodes)
-                              ->orWhereIn('order_products.destination', $locationCodes);
-                    });
-                })
-                ->when(empty($locationCodes), function ($query) {
-                    return $query->whereRaw('1=0'); // Force a condition that is never true
-                })
-                ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
-                ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
-                ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
-                ->get();
-    
-        } else {
-            $orders = Order::select('orders.id', 'orders.order_code', 'orders.created_at', DB::raw('MAX(order_products.exit_date) as exit_date'))
-                ->join('order_products', 'orders.id', '=', 'order_products.order_id')
-                ->groupBy('orders.id', 'orders.order_code', 'orders.created_at')
-                ->havingRaw('MAX(order_products.exit_date) IS NOT NULL') // Only include orders with exit_date
-                ->orderBy('orders.created_at', 'desc') // Specify the table for created_at
-                ->get();
-        }
-    
-        // Format the orders with exit_date included
-        $formattedOrders = $orders->map(function ($order) {
-            return [
-                'id' => $order->id,
-                'order_code' => $order->order_code,
-                'created_at' => $order->created_at->format('c'), // Convert timestamp to ISO 8601 format
-                'exit_date' => $order->exit_date ? (new \DateTime($order->exit_date))->format('c') : null,
-            ];
-        });
-    
-        return view('Admin.calendar', compact('formattedOrders'));
-    }
-    
-    
-    
-
-   
-//     public function index()
-//     {
-//         $admintype =  Auth::guard('admin')->user()->admin;
-
-//        if($admintype->role == "Admin" )
-//        {
-
-
-//       // Retrieve location IDs
-// $location_ids = Auth::guard('admin')->user()->location_ids;
-
-// // Convert the location IDs to an array and filter out any empty values
-// $assignedLocationIds = array_filter(explode(',', $location_ids));
-
-// // Fetch location codes based on location IDs
-//  $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
-
-// // Query to get orders based on location codes
-// $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
-//                     return $query->where(function ($query) use ($locationCodes) {
-//                         $query->whereHas('orderProducts', function($query) use ($locationCodes) {
-//                             $query->whereIn('origin', $locationCodes)
-//                                   ->orWhereIn('destination', $locationCodes);
-//                         });
-//                     });
-//                 })
-//                 ->when(empty($locationCodes), function ($query) {
-//                     // Handle case when locationCodes is empty
-//                     return $query->whereRaw('1=0'); // Force a condition that is never true
-//                 })
-//                 ->latest()
-//                 ->get();
-
-
-
-
-//        }
-       
-
-    
-//        else
-
-//        {
-
-//         $orders= Order::latest()->get();
-
-
-//        }
-//         return view('Admin.calendar', compact('orders'));
-//     }
-
-    // public function getOrders()
-    // {
-    //     $admintype =  Auth::guard('admin')->user()->admin;
-
-    //    if($admintype->role == "Admin" )
-    //    {
-
-
-    //     $location_ids = Auth::guard('admin')->user()->location_ids;
-    //     $assignedLocationIds = array_filter(explode(',', $location_ids)); // Remove empty values from array
-    //     $assignedLocations = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
-
-    //     $orders = Order::when(!empty($assignedLocations), function ($query) use ($assignedLocations) {
-    //                         return $query->where(function ($query) use ($assignedLocations) {
-    //                             $query->whereHas('orderProducts', function($query) use ($assignedLocations) {
-    //                                 $query->whereIn('origin', $assignedLocations)
-    //                                       ->orWhereIn('destination', $assignedLocations);
-    //                             });
-    //                         });
-    //                     })
-    //                     ->when(empty($assignedLocations), function ($query) {
-    //                         // Handle case when assignedLocations is empty or contains only empty values
-    //                         return $query->whereRaw('1=0'); // Force a condition that is never true
-    //                     })
-    //                     ->latest()
-    //                     ->get();
-
-
-    //    }
-       
-
-    
-    //    else
-
-    //    {
-
-    //     $orders= Order::latest()->get();
-
-
-    //    }
-
-    //     // Format timestamps as strings for FullCalendar
-    //     $formattedOrders = $orders->map(function ($order) {
-    //         return [
-    //             'id'=> $order->id,
-    //             'title' => $order->order_code,
-    //             'start' => $order->created_at->toIso8601String(), // Convert timestamp to ISO 8601 format
-    //             'end' => $order->created_at->toIso8601String(),
-    //         ];
-    //     });
-
-    //     return response()->json(['orders' => $formattedOrders]);
-    // }
-    public function getOrders()
-    {
-        $admintype = Auth::guard('admin')->user()->admin;
-    
-        if ($admintype->role == "Admin") {
-            // Retrieve location IDs
-            $location_ids = Auth::guard('admin')->user()->location_ids;
-    
-            // Convert the location IDs to an array and filter out any empty values
-            $assignedLocationIds = array_filter(explode(',', $location_ids));
-    
-            // Fetch location codes based on location IDs
-            $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
-    
-            // Query to get orders based on location codes
-            $orders = Order::with('orderProducts') // Eager load orderProducts to avoid N+1 query issue
-                ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
-                    return $query->where(function ($query) use ($locationCodes) {
-                        $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
+                        $query->whereHas('orderProducts', function($query) use ($locationCodes) {
                             $query->whereIn('origin', $locationCodes)
                                   ->orWhereIn('destination', $locationCodes);
                         });
@@ -276,27 +263,172 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
                     // Handle case when locationCodes is empty
                     return $query->whereRaw('1=0'); // Force a condition that is never true
                 })
-                ->latest()
-                ->get();
+                ->where('payment_mode', 'Success')
+                ->whereIn('id', $orderIds) // Filter by the plucked order IDs
+                ->latest();
+    
+            // // Apply created_date filter if provided
+            // if ($createdDate) {
+            //     $ordersQuery->whereDate('created_at', $createdDate);
+            // }
+    
+            // Fetch orders
+            $orderList = $ordersQuery->get();
         } else {
-            $orders = Order::with('orderProducts')->latest()->get();
+            // For non-admin users
+            $ordersQuery = Order::where('payment_mode', 'Success')
+                ->whereIn('id', $orderIds) // Filter by the plucked order IDs
+                ->latest();
+    
+            // Apply created_date filter if provided
+            // if ($createdDate) {
+            //     $ordersQuery->whereDate('created_at', $createdDate);
+            // }
+    
+            $orderList = $ordersQuery->get();
         }
     
-        // Format the orders with the maximum exit_date included
+        $boxValues = Order::boxValues();
+        return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues'));
+    }
+    
+
+    public function index()
+    {
+        $admintype = Auth::guard('admin')->user()->admin;
+    
+        if ($admintype->role == "Admin") {
+            // Retrieve location IDs
+            $location_ids = Auth::guard('admin')->user()->location_ids;
+            $assignedLocationIds = array_filter(explode(',', $location_ids));
+            $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+            $category_id = Auth::guard('admin')->user()->category_id;
+            if (!is_array($category_id)) {
+                $category_id = explode(',', $category_id);
+            }
+    
+            // Query to get the count of orders based on exit_date
+            $orders = Order::select(
+                    DB::raw('DATE(order_products.exit_date) as exit_date'),
+                    DB::raw('COUNT(DISTINCT orders.id) as total_orders'), // Count unique orders
+                    DB::raw('MIN(orders.created_at) as created_date') // Fetch the minimum created_date for grouping
+                )
+                ->join('order_products', 'orders.id', '=', 'order_products.order_id')
+                ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+                    return $query->where(function ($query) use ($locationCodes) {
+                        $query->whereIn('order_products.origin', $locationCodes)
+                              ->orWhereIn('order_products.destination', $locationCodes)
+                              ->orWhereIn('order_products.trans', $locationCodes);
+                    });
+                })
+                ->when(empty($locationCodes), function ($query) {
+                    return $query->whereRaw('1=0'); // Force a condition that is never true
+                })
+                ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+                    $query->whereIn('category_id', $category_id);
+                })
+                ->groupBy(DB::raw('DATE(order_products.exit_date)'))
+                ->havingRaw('MAX(order_products.exit_date) IS NOT NULL')
+                ->orderBy('exit_date', 'asc')
+                ->where('payment_mode', 'Success')
+                ->get();
+        } else {
+            // Non-admin query
+            $orders = Order::select(
+                    DB::raw('DATE(order_products.exit_date) as exit_date'),
+                    DB::raw('COUNT(DISTINCT orders.id) as total_orders'), // Count unique orders
+                    DB::raw('MIN(orders.created_at) as created_date') // Fetch the minimum created_date for grouping
+                )
+                ->join('order_products', 'orders.id', '=', 'order_products.order_id')
+                ->groupBy(DB::raw('DATE(order_products.exit_date)'))
+                ->havingRaw('MAX(order_products.exit_date) IS NOT NULL')
+                ->orderBy('exit_date', 'asc')
+                ->where('payment_mode', 'Success')
+                ->get();
+
+                
+        }
+    
+        // Format the orders for calendar
         $formattedOrders = $orders->map(function ($order) {
-            // Find the maximum exit_date from the order's products
-            $exitDate = $order->orderProducts->max('exit_date');
             return [
-                'id' => $order->id,
-                'order_code' => $order->order_code,
-                'created_at' => $order->created_at->format('c'), // Convert timestamp to ISO 8601 format
-                'exit_date' => $exitDate ? (new \DateTime($exitDate))->format('c') : null,
+                'exit_date' => $order->exit_date ? (new \DateTime($order->exit_date))->format('Y-m-d') : null,
+                'created_date' => $order->created_date ? (new \DateTime($order->created_date))->format('Y-m-d H:i:s') : null, // Database format
+                'total_orders' => $order->total_orders // Count of unique orders
             ];
         });
     
-        return response()->json(['orders' => $formattedOrders]);
+        return view('Admin.calendar', compact('formattedOrders'));
     }
     
+    
+    
+    
+    public function getOrders()
+{
+    $admintype = Auth::guard('admin')->user()->admin;
+
+    if ($admintype->role == "Admin") {
+        // Retrieve location IDs
+        $location_ids = Auth::guard('admin')->user()->location_ids;
+        $assignedLocationIds = array_filter(explode(',', $location_ids));
+        $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
+        $category_id = Auth::guard('admin')->user()->category_id;
+
+        // Ensure category_id is an array
+        if (!is_array($category_id)) {
+            $category_id = explode(',', $category_id);
+        }
+
+        // Query to get orders based on location codes
+        $orders = Order::select(
+                DB::raw('DATE(order_products.exit_date) as exit_date'),
+                DB::raw('COUNT(DISTINCT orders.id) as total_orders'), // Count unique orders
+                DB::raw('MIN(orders.created_at) as created_date') // Fetch the minimum created_date for grouping
+            )
+            ->join('order_products', 'orders.id', '=', 'order_products.order_id')
+            ->when(!empty($locationCodes), function ($query) use ($locationCodes) {
+                return $query->where(function ($query) use ($locationCodes) {
+                    $query->whereIn('order_products.origin', $locationCodes)
+                          ->orWhereIn('order_products.destination', $locationCodes)
+                          ->orWhereIn('order_products.trans', $locationCodes);
+                });
+            })
+            ->when(empty($locationCodes), function ($query) {
+                return $query->whereRaw('1=0'); // Handle case when locationCodes is empty
+            })
+            ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+                $query->whereIn('category_id', $category_id);
+            })
+            ->where('payment_mode', 'Success')
+            ->groupBy(DB::raw('DATE(order_products.exit_date)'))
+            ->orderBy(DB::raw('DATE(order_products.exit_date)'), 'asc')
+            ->get();
+    } else {
+        // For non-admin users, aggregate orders by exit_date
+        $orders = Order::select(
+                DB::raw('DATE(order_products.exit_date) as exit_date'),
+                DB::raw('COUNT(DISTINCT orders.id) as total_orders'), // Count unique orders
+                DB::raw('MIN(orders.created_at) as created_date') // Fetch the minimum created_date for grouping
+            )
+            ->join('order_products', 'orders.id', '=', 'order_products.order_id')
+            ->where('payment_mode', 'Success')
+            ->groupBy(DB::raw('DATE(order_products.exit_date)'))
+            ->orderBy(DB::raw('DATE(order_products.exit_date)'), 'asc')
+            ->get();
+    }
+
+    // Format the orders with the count of unique orders included
+    $formattedOrders = $orders->map(function ($order) {
+        return [
+            'exit_date' => $order->exit_date ? (new \DateTime($order->exit_date))->format('c') : null,
+            'created_date' => $order->created_date ? (new \DateTime($order->created_date))->format('Y-m-d') : null, // Database format
+            'total_orders' => $order->total_orders,
+        ];
+    });
+
+    return response()->json(['orders' => $formattedOrders]);
+}
 
     
 
@@ -360,14 +492,27 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
 
     public function order_status(Request $request)
     {
+
         date_default_timezone_set('Asia/Kolkata');
         $order_product_id = $request->product_id;
+
+        $orderProduct = OrderProduct::find($order_product_id);
+
         if ($order_product_id) {
            
             $orderLog = new OrderLog;
             $orderLog->order_product_id = $order_product_id;
             $orderLog->status = $request->status;
+
+            $orderData = Order::with(['orderProducts' => function ($t) {
+                $t->with('productData');
+            }])->with('orderCustomer')->with('orderCoupons')->find($request->order_id);
+
+            $produtName = $orderProduct->productData->title;
+
             if ($orderLog->save()) {
+
+                $orderMail = Helper::sendOrderStatusMail($orderData, $request->status, $produtName);
                 
                
               

@@ -55,7 +55,7 @@
                                         <input type="text" placeholder="Enter Your Email" id="email" name="email" class="form-control required">
                                     </div>  
                                     <div class="col-12 register_form_grid text-center mt-3">
-                                        <input type="submit" value="Login" id="forgotpasswdform_submit_btn" class="loginform_submit_btn forgotpasswdform_submit_btn" data-url="/forgot-password">
+                                        <input type="submit" value="Login" id="forgotpasswdform_submit_btn" class="forgotpasswdform_submit_btn" data-url="/forgot-password">
                                      </div>
                                      <div class="text-center otp_grid ">
                                         <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</a> </p> 

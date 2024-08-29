@@ -57,6 +57,7 @@
                                                 <th>Flight Number</th>
                                                 <th>Origin</th>
                                                 <th>Destination</th>
+                                                <th>Transit</th>
                                                 <th>Travel Type</th>
                                                 <th>Porter count</th>
                                                 <th>Guest</th>
@@ -98,6 +99,7 @@
                                                     <td>{{ $product->flight_number }}</td>
                                                     <td>{{ $product->origin }}</td>
                                                     <td>{{ $product->destination }}</td>
+                                                    <td>{{ $product->trans }}</td>
                                                     <td>{{ $product->travel_type }}</td>
                                                     @if ($product->porter_count > 0 && $product_category == 'Porter')
                                                         <td>{{ $product->porter_count }}</td>

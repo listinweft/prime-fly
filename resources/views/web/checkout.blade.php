@@ -84,6 +84,7 @@
                         <input type="text" name="age[{{ $index }}][]" id="age_{{ $index }}_{{ $i }}" placeholder="Enter your age" required>
                         <span class="error-message" style="display: none;">Age is required.</span>
                     </div>
+                    <input type="hidden" name="type[{{ $index }}][]" value="meet_and_greet" id="type_{{ $index }}_{{ $i }}">
                     <div class="details-item col-lg-4 ps-2 pe-2">
                         <label for="pnr_{{ $index }}_{{ $i }}">PNR Number*</label>
                         <input type="text" name="pnr[{{ $index }}][]" id="pnr_{{ $index }}_{{ $i }}" placeholder="Enter your PNR" required>
@@ -96,6 +97,56 @@
             </div>
         @endfor
     @endforeach
+
+    <!-- Static Fields Outside the Loop -->
+
+    @if ($row->attributes['meet_guestn'] == 1)
+<div class="price-summery personal-details customer-detail-form mb-3">
+    <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
+        <div class="details-item details-item-option col-12 ps-2 pe-2">
+            <label for="gender_static">Gender</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="gender_static_mr" value="Mr">
+                <label class="form-check-label" for="gender_static_mr">Mr.</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="gender_static_ms" value="Ms">
+                <label class="form-check-label" for="gender_static_ms">Ms.</label>
+            </div>
+        </div>
+        <div class="details-item col-lg-4 ps-2 pe-2">
+            <label for="name_static">Passenger Name*</label>
+            <input type="text" name="name[]" id="name_static" placeholder="Enter full name" required>
+            <span class="error-message" style="display: none;">Name is required.</span>
+        </div>
+        <div class="details-item col-lg-4 ps-2 pe-2">
+            <label for="age_static">Age*</label>
+            <input type="text" name="age[]" id="age_static" placeholder="Enter your age" required>
+             <span class="error-message" style="display: none;">Age is required.</span>
+        </div>
+        <input type="hidden" value="normal" name="type[]" id="type_static">
+        <div class="details-item col-lg-4 ps-2 pe-2">
+            <label for="pnr_static">PNR Number*</label>
+            <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" required>
+            <span class="error-message" style="display: none;">PNR is required.</span>
+        </div>
+        @if(array_sum($totals) > 0)
+        <!-- <div class="details-item col-12 ps-2 pe-2">
+            <input type="checkbox" id="auto_fill_static" />
+            <label for="auto_fill_static">Set As Default</label>
+        </div> -->
+        <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox"  id="auto_fill_static"  >
+                                    <label class="form-check-label" for="auto_fill_static" style="font-size:14px">
+                                       Same  Primary Name
+                                    </label>
+                                    <div id="termsError" class="text-danger"></div>
+                                </div>
+        @endif
+    </div>
+</div>
+@endif
+
 
 
 
@@ -186,6 +237,17 @@
                                     </div>
                                 </div>
                             </div>
+
+                            </table>
+                     @if(Auth::guard('customer')->check())
+
+                                                        @php
+                                        $user = Auth::guard('customer')->user();
+                                        
+                                    @endphp
+
+@if($user->status == "Active")
+                              
                             <div class="d-flex cart-pyment-list align-items-center justify-content-between">
                                 <div class="cart-pymentradio">
                                     <div class="form-check d-flex align-items-center">
@@ -197,6 +259,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @endif
                         </form>
                     </div>
                     <h4 class="mt-0">Price Details</h4>
@@ -257,6 +321,7 @@
 </section>
 @endsection
 @push('scripts')
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
    $(document).ready(function() {
       $('input[name=transfer]').click(function () {  
@@ -318,5 +383,52 @@
 });
 
 </script>
+
+<script>
+    document.getElementById('auto_fill_static').addEventListener('change', function() {
+        const nameStatic = document.getElementById('name_static');
+        const ageStatic = document.getElementById('age_static');
+        const pnrStatic = document.getElementById('pnr_static');
+        const genderStaticMr = document.getElementById('gender_static_mr');
+        const genderStaticMs = document.getElementById('gender_static_ms');
+
+        if (this.checked) {
+            const firstGuest = document.querySelector('[id^="name_0_0"]').value;
+            const firstGender = document.querySelector('[id^="inlineRadio1_0_0"]').checked ? 'Mr' : 'Ms';
+            const firstAge = document.querySelector('[id^="age_0_0"]').value;
+            const firstPnr = document.querySelector('[id^="pnr_0_0"]').value;
+
+            nameStatic.value = firstGuest;
+            ageStatic.value = firstAge;
+            pnrStatic.value = firstPnr;
+            if (firstGender === 'Mr') {
+                genderStaticMr.checked = true;
+            } else {
+                genderStaticMs.checked = true;
+            }
+
+            // Disable editing when auto-filled
+            nameStatic.disabled = true;
+            ageStatic.disabled = true;
+            pnrStatic.disabled = true;
+            genderStaticMr.disabled = true;
+            genderStaticMs.disabled = true;
+        } else {
+            // Clear inputs and enable editing
+            nameStatic.value = '';
+            ageStatic.value = '';
+            pnrStatic.value = '';
+            genderStaticMr.checked = false;
+            genderStaticMs.checked = false;
+
+            nameStatic.disabled = false;
+            ageStatic.disabled = false;
+            pnrStatic.disabled = false;
+            genderStaticMr.disabled = false;
+            genderStaticMs.disabled = false;
+        }
+    });
+</script>
+
 
 @endpush

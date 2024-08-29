@@ -20,7 +20,7 @@ class BulkExport implements FromView
             $orderList = Order::getDetailedOrders($date_range, $status, $customer, $product, $coupon);
             $boxValues = Order::getDetailedOrdersBoxValues($date_range, $status, $customer, $product, $coupon);
         } else {
-            $orderList = Order::get();
+            $orderList = Order::where('payment_mode','Success')->get();
             $boxValues = Order::boxValues();
         }
         session()->forget('date_range');

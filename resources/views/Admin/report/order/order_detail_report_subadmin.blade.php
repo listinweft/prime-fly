@@ -72,23 +72,31 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
-                                            <select class="form-control select2" id="order_report_product"
-                                                    name="order_report_product">
-                                                <option value="">Select service</option>
-                                                @foreach($productList as $product)
-                                                    <option value="{{$product->id}}">{{$product->title}}</option>
-                                                @endforeach
-                                            </select>
+                                            <select class="form-control select2" id="order_report_category" name="order_report_category">
+    <option value="">Select Service</option>
+    @foreach($categoryList as $category)
+        <option value="{{$category->id}}">{{$category->title}}</option>
+    @endforeach
+</select>
+
                                         </div>
-                                        <!-- <div class="col-sm-2">
-                                            <select class="form-control select2" id="order_report_coupon"
-                                                    name="order_report_coupon">
-                                                <option value="">Select Coupon</option>
-                                                @foreach($couponList as $coupon)
-                                                    <option value="{{$coupon->id}}">{{$coupon->code}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div> -->
+                                        <div class="col-sm-2">
+    <select class="form-control select2" id="order_report_location" name="order_report_location">
+        <option value="">Select Location</option>
+        <!-- Locations will be dynamically populated here -->
+    </select>
+    <span id="location-error" class="text-danger" style="display:none;">Please select a location.</span>
+</div>
+
+<div class="col-sm-2">
+    <select class="form-control select2" id="order_report_product" name="order_report_product">
+        <option value="">Select Product</option>
+        <!-- @foreach($productList as $product)
+            <option value="{{$product->id}}">{{$product->title}}-{{$product->sector}}</option>
+        @endforeach -->
+    </select>
+    <span id="product-error" class="text-danger" style="display:none;">Please select a product.</span>
+</div>
                                         <div class="col-sm-2">
                                             <button class="btn btn-primary" id="order-subdetail-search-result">Search
                                             </button>
@@ -131,4 +139,68 @@
             display: none;
         }
     </style>
+    <script>
+$(document).ready(function () {
+    $('#order_report_category').change(function () {
+        var categoryId = $(this).val();
+        
+        // Clear product and location dropdowns when a new category is selected
+        $('#order_report_location').empty().append('<option value="">Select Location</option>');
+        $('#order_report_product').empty().append('<option value="">Select Product</option>');
+        $('#location-error').hide();
+        $('#product-error').hide();
+
+        if (categoryId) {
+
+           
+            $.ajax({
+                url: '{{ route("get.locations.by.category.sub") }}',
+                type: 'GET',
+                data: { category_id: categoryId },
+                success: function (response) {
+                    var locationSelect = $('#order_report_location');
+                    
+                    // Populate locations from the response
+                    $.each(response.locations, function (index, location) {
+                        locationSelect.append('<option value="' + location.id + '">' + location.title + '</option>');
+                    });
+
+                    // Trigger product update when a location is selected
+                    locationSelect.change(function () {
+                        var locationId = $(this).val();
+
+                        // Clear product dropdown when a new location is selected
+                        $('#order_report_product').empty().append('<option value="">Select Product</option>');
+                        $('#product-error').hide();
+
+                        if (locationId) {
+                            var categoryId = $('#order_report_category').val();
+                            var categoryIds = Array.isArray(categoryId) ? categoryId : [categoryId];
+                            
+                            $.ajax({
+                                url: '{{ route("get.products.by.location") }}',
+                                type: 'GET',
+                                data: { location_id: locationId,categoryIds: categoryIds },
+                                success: function (productResponse) {
+                                    var productSelect = $('#order_report_product');
+
+                                    // Populate products from the response
+                                                            $.each(productResponse.products, function (index, product) {
+                            productSelect.append('<option value="' + product.id + '">' + product.title + ' - ' + product.sector + '</option>');
+                        });
+
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+
+   
+});
+</script>
+
 @endsection

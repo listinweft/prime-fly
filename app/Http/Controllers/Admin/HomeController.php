@@ -49,7 +49,8 @@ class HomeController extends Controller
     $admintype = $admin->admin;
 
     // Fetch general counts
-    $Totaljournal = Order::count();
+    $Totaljournal = Order::where('payment_mode', 'Success')->count();
+
     $Totalcustomer = Customer::count();
     $Totalblog = Blog::active()->count();
     $TotalPost = Category::count();
@@ -62,6 +63,14 @@ class HomeController extends Controller
         $location_ids = $admin->location_ids;
         $assignedLocationIds = array_filter(explode(',', $location_ids));
 
+        // Initialize query with pagination
+$category_id = Auth::guard('admin')->user()->category_id; // Retrieve category_id
+
+// Ensure category_id is an array
+if (!is_array($category_id)) {
+    $category_id = explode(',', $category_id);
+}
+
         // Fetch location codes based on location IDs
         $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
 
@@ -69,12 +78,17 @@ class HomeController extends Controller
         $orderCount = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
             return $query->whereHas('orderProducts', function ($query) use ($locationCodes) {
                 $query->whereIn('origin', $locationCodes)
+                ->orWhereIn('trans', $locationCodes)
                       ->orWhereIn('destination', $locationCodes);
             });
         })
         ->when(empty($locationCodes), function ($query) {
             return $query->whereRaw('1=0'); // Force a condition that is never true
         })
+        ->whereHas('orderProducts.productData', function ($query) use ($category_id) {
+            $query->whereIn('category_id', $category_id); // Filter by category_id array
+        })
+        ->where('payment_mode', 'Success') 
         ->count();
 
         return view('Admin.dashboard.subadmin_dashboard', compact('title', 'orderCount'));
@@ -340,7 +354,64 @@ class HomeController extends Controller
 
     }
 
-
+    public function status_change_cod(Request $request)
+    {
+        $table = $request->table;
+        $state = $request->state;
+        $primary_key = $request->primary_key;
+        $field = $request->field ?? 'payment_method';
+        $limit = $request->limit;
+        $limit_field = $request->limit_field;
+        $limit_field_value = $request->limit_field_value;
+        
+        // Define the status based on the state
+        $status = ($state == 'true') ? 'COD' : 'Credit-Card';
+        
+        $model = 'App\\Models\\' . $table;
+        $data = $model::find($primary_key);
+        
+        // Check if the record exists
+        if (!$data) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Record not found.'
+            ]);
+        }
+    
+        // If there's a limit and the status is being set to 'COD'
+        if ($limit && $status == "COD") {
+            if ($limit_field && $limit_field_value) {
+                $active_data = $model::where($limit_field, $limit_field_value)
+                                      ->where($field, 'COD');
+            } else {
+                $active_data = $model::where($field, 'COD');
+            }
+            
+            if ($active_data->count() >= $limit) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Only ' . $limit . ' active items with COD are allowed.'
+                ]);
+            }
+        }
+        
+        // Update the field with the new status
+        $data->$field = $status;
+        
+        if ($data->save()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Status has been changed successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error while changing the status.'
+            ]);
+        }
+    }
+    
+    
 
     public function status_change(Request $request)
     {

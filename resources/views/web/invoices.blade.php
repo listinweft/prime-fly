@@ -78,7 +78,18 @@
    <table>
       <tr>
          <td style="vertical-align:bottom;">
+        @if($order->payment_method == "COD")
+
+
+        <h1 style="font-size:30px;color:#B2B7C2;">CREDIT INVOICE</h1>
+
+
+        @else
+
             <h1 style="font-size:30px;color:#B2B7C2;">INVOICE</h1>
+
+
+            @endif
             <h4 style="color:#707070; font-size: 14px; text-transform: uppercase;margin-bottom:10px">#primefly {{ $order->order_code }}</h4>
             
          </td>
@@ -187,6 +198,11 @@
 
 
 <h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->origin}}</h4>
+
+@elseif($product->travel_type == 'Transit')
+
+<h4 style="color:#707070;font-size:11px; ">Service Airport:{{$product->trans}}</h4>
+
 
 @else
 

@@ -197,8 +197,7 @@ return [
          */
         Darryldecode\Cart\CartServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
-
+   
     ],
 
     /*
@@ -258,7 +257,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Webp' => Buglinjo\LaravelWebp\Facades\Webp::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+       
 
     ],
 

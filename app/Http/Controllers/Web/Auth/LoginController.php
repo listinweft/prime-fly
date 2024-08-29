@@ -543,7 +543,7 @@ public function register(Request $request)
         $user->user_type = 'Customer';
         $user->username = $request->email;
         $user->email = $request->email;
-        $user->status = 'Active';
+        $user->status = 'Inactive';
         $user->phone = $request->phone;
         $user->btype = 'public';
         

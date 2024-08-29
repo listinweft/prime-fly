@@ -59,14 +59,22 @@ class CustomerController extends Controller
             $customer = $user->customer;
        
           
-            $orders = OrderCustomer::with(['orderData' => function ($q) {
-                $q->with(['orderProducts' => function ($t) {
-                    $t->with('productData');
-                    $t->with('colorData');
-                }]);
-            }])->where('customer_id', Auth::guard('customer')->user()->customer->id)->latest()->get();
-            return view('web.profile', compact('customer', 
-                  'orders', 'seo_data',  'user', 'customer'));
+            $orders = OrderCustomer::where('customer_id', Auth::guard('customer')->user()->customer->id)
+            ->whereHas('orderData', function($query) {
+                $query->where('payment_mode', 'Success');
+            })
+            ->with(['orderData' => function ($q) {
+                $q->where('payment_mode', 'Success')
+                  ->with(['orderProducts' => function ($t) {
+                      $t->with('productData')
+                        ->with('colorData');
+                  }]);
+            }])
+            ->latest()
+            ->get();
+        
+        return view('web.profile', compact('customer', 'orders', 'seo_data', 'user', 'customer'));
+        
 
         } else {
             abort(403, 'You are not authorised');
