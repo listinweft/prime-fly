@@ -26,7 +26,7 @@
                             <option value="">Select Travel Type</option>
                             <option value="departure">Departure</option>
                             <option value="arrival">Arrival</option>
-                            <option value="round_trip">Round Trip</option>
+                           home -->
                             <option value="transit_type">Transit</option>
                         </select>
                     </div>
