@@ -34,6 +34,7 @@
                     <ul>
                       <li><a href="{{ url('contact/') }}">Contact Us</a></li>
                       <li><a href="{{ url('blogs/') }}">Blog</a></li>
+                      <li><a href="{{ url('register-corporate/') }}">Become a B2B Partner</a></li>
                       <li><a href="{{ url('privacy-policy/') }}">Privacy Policy</a></li>
                       <li><a href="{{ url('terms-and-conditions/') }}">Terms & Condition</a></li> 
                     </ul>
@@ -114,6 +115,8 @@
 
 <!-- Add Select2 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-selectbox/0.2.4/jquery.selectbox-0.2.min.js"></script>
 
       <script>
         $('.head_search a').click(function(){
@@ -444,6 +447,17 @@
             });
         });
     </script>
+
+<script>
+  $(document).ready(function() {
+    $(".chosen-select").chosen({
+      width: "100%",  // Adjust width as needed
+      no_results_text: "No results found"
+    });
+  });
+</script>
+
+
 
 
 

@@ -155,7 +155,7 @@
                                  <div class="card-footer">
                                     <input type="submit" name="btn_save" value="Submit"
                                            class="btn btn-primary pull-left submitBtn">
-                                    <button type="reset" class="btn btn-default">Cancel</button>
+                                    <button type="reset" class="btn btn-default">Clear</button>
                                 </div>
 
 

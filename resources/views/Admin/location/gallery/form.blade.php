@@ -104,8 +104,8 @@
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
                             <input type="hidden" name="product_id" id="product_id" value="{{$product_id}}">
-                            <button type="reset" class="btn btn-default">Cancel</button>
-                            <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                            <button type="reset" class="btn btn-default">Clear</button>
+                            <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                  style="display:none;">
                         </div>
                     </div>

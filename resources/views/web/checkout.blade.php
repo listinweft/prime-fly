@@ -101,7 +101,7 @@
                     </div>
                     <input type="hidden" name="type[{{ $index }}][]" value="meet_and_greet" id="type_{{ $index }}_{{ $i }}">
                     <div class="details-item col-lg-4 ps-2 pe-2">
-                        <label for="pnr_{{ $index }}_{{ $i }}">PNR Number*</label>
+                        <label for="pnr_{{ $index }}_{{ $i }}">PNR Number</label>
                         <input type="text" name="pnr[{{ $index }}][]" id="pnr_{{ $index }}_{{ $i }}" placeholder="Enter your PNR" >
                         <span class="error-message" style="display: none;">PNR is required.</span>
                     </div>
@@ -114,7 +114,7 @@
     @endforeach
 
     <!-- Static Fields Outside the Loop -->
-@if(array_sum($totals) >= 1 && !empty(array_filter($totalsn)))
+@if(array_sum($totalsn) >= 1 && !empty(array_filter($totalsn)))
     
     
 <div class="price-summery personal-details customer-detail-form mb-3">
@@ -132,7 +132,13 @@
         </div>
         <div class="details-item col-lg-4 ps-2 pe-2">
             <label for="name_static">Passenger Name*</label>
+            @if( !empty(array_filter($totals)))
             <input type="text" name="name[]" id="name_static" placeholder="Enter full name" required>
+            @else
+            <input type="text" name="name[]" id="name_static" placeholder="Enter full name" required value="{{$customer}}">
+
+            @endif
+
             <span class="error-message" style="display: none;">Name is required.</span>
         </div>
         <div class="details-item col-lg-4 ps-2 pe-2">
@@ -142,7 +148,7 @@
         </div>
         <input type="hidden" value="normal" name="type[]" id="type_static">
         <div class="details-item col-lg-4 ps-2 pe-2">
-            <label for="pnr_static">PNR Number*</label>
+            <label for="pnr_static">PNR Number</label>
             <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" >
             <span class="error-message" style="display: none;">PNR is required.</span>
         </div>
@@ -173,7 +179,7 @@
                            <div class="price-summery customer-detail-form">
                               <div class="details-item">
                                  <div class="details-item  ps-2 pe-2">
-                                    <label for="address">Address*</label>
+                                    <label for="address">Address</label>
                                     <textarea name="address" id="address"></textarea>
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>

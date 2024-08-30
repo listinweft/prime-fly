@@ -445,7 +445,7 @@
                                    <input type="hidden" value="{{@$key}}" name="copy">
                                    <input type="hidden" value="{{@$product->id}}" name="copy_product_id">
                                @endif
-                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="reset" class="btn btn-default">Clear</button>
                             <input type="hidden" name="id" id="id" value="{{ isset($product)?$product->id:'0' }}">
                             <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                  style="display:none;">

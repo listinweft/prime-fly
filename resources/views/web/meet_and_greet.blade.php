@@ -227,12 +227,11 @@
 <script>
 $(document).ready(function() {
 
-    // initializeSelect2();
-
-$("#origins").select2();
-$("#destinations").select2();
-$("#origint").select2();
-$("#destinationt").select2();
+    $("#origins, #destinations, #origint, #destinationt").select2({
+        placeholder: "Select an option",
+        allowClear: true,
+        width: '100%'
+    });;
 
 
 

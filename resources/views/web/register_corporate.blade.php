@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-lg-7 corprt_rgster_form">
                                     <div class="register_form mt-0 pt-0 pb-0" style="border: 0;">
-                                        <h4 class="text-center mb-4">Register Account</h4>
+                                        <h4 class="text-center mb-4">B2B Partner Request Form</h4>
 
                                         <form action="" id="registerForm">
                                         <div class="register_form_wrap">

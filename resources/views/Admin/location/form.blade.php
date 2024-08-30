@@ -102,7 +102,7 @@
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
-                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="reset" class="btn btn-default">Clear</button>
                             <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                  style="display:none;">
                         </div>
