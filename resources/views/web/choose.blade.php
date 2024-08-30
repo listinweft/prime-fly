@@ -8,6 +8,7 @@
       <meta name="generator" content="Hugo 0.122.0">
       <meta name="csrf-token" content="{{ csrf_token() }}"/>
       <title>Public Register | Primefly</title>
+      <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
       <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
       <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css')}}">
       <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css')}}">

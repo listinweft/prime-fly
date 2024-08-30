@@ -575,7 +575,7 @@ public static function sendOrderPlacedMail($order, $flag)
             $imageData .= '<source srcset="' . asset($collection->$webpField) . '" type="image/webp">';
         }
         if (!empty($collection->$field) && File::exists(public_path($collection->$field))) {
-            $imageData .= '<img src="' . asset($collection->$field) . '" ' . $collection->$attributeField;
+            $imageData .= '<img src="' . asset($collection->$field) . '" ' . $collection->$attributeField. '" alt="Default Image"';
         } else {
             if ($field == 'desktop_image' || $field == 'desktop_banner') {
                 $imageData .= '<img src="' . asset('frontend/images/default-image-rect.jpg') . '" alt="Default Image"';

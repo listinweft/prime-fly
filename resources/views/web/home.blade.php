@@ -513,7 +513,7 @@ $sessionKey = session('session_key');
                         {!! Helper::printImage(@$blog, 'image', 'image_webp', '', 'img-fluid') !!}
                         <h4>{{$blog->title}}</h4>
                           <p> {!! strlen($blog->description) > 100  ? substr($blog->description, 0, 100) . '...' : $blog->description !!} </p>
-                          <a href="{{ url('blog/'.@$blog->short_url) }}" class="btn-style-2"><div class="btn-in">Read More</div></a>
+                          <a href="{{ url('blog/'.@$blog->short_url) }}" class="btn-style-2"><div class="btn-in">Read Blog</div></a>
                       </div>
                     </div>
                   </div>
