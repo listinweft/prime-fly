@@ -22,6 +22,7 @@
 
                   @php
                         $totals = [];
+                         $totalsn = [];
                      @endphp
                      @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                      @php
@@ -59,6 +60,11 @@
                   </div>
                   <div  class="">
                      <form id="personal-details-form">
+
+                     @php
+                  $user = Auth::guard('customer')->user();
+                  $customer = $user->customer->first_name;
+                  @endphp
                     
     @foreach($totals as $index => $guestCount)
         @for($i = 0; $i < $guestCount; $i++)
@@ -77,7 +83,15 @@
                     </div>
                     <div class="details-item col-lg-4 ps-2 pe-2">
                         <label for="name_{{ $index }}_{{ $i }}">Passenger Name*</label>
-                        <input type="text" name="name[{{ $index }}][]" id="name_{{ $index }}_{{ $i }}" placeholder="Enter full name" required>
+                        @if($i == 0)
+                    
+
+                            <input type="text" name="name[{{ $index }}][]" id="name_{{ $index }}_{{ $i }}" placeholder="Enter full name" required  value="{{$customer}}">
+
+@else
+<input type="text" name="name[{{ $index }}][]" id="name_{{ $index }}_{{ $i }}" placeholder="Enter full name" required  value="">
+@endif             
+                        
                         <span class="error-message" style="display: none;">Name is required.</span>
                     </div>
                     <div class="details-item col-lg-4 ps-2 pe-2">
@@ -88,7 +102,7 @@
                     <input type="hidden" name="type[{{ $index }}][]" value="meet_and_greet" id="type_{{ $index }}_{{ $i }}">
                     <div class="details-item col-lg-4 ps-2 pe-2">
                         <label for="pnr_{{ $index }}_{{ $i }}">PNR Number*</label>
-                        <input type="text" name="pnr[{{ $index }}][]" id="pnr_{{ $index }}_{{ $i }}" placeholder="Enter your PNR" required>
+                        <input type="text" name="pnr[{{ $index }}][]" id="pnr_{{ $index }}_{{ $i }}" placeholder="Enter your PNR" >
                         <span class="error-message" style="display: none;">PNR is required.</span>
                     </div>
                     <div class="details-item">
@@ -100,7 +114,9 @@
     @endforeach
 
     <!-- Static Fields Outside the Loop -->
-    @if (!empty($totalsn))
+@if(array_sum($totals) >= 1 && !empty(array_filter($totalsn)))
+    
+    
 <div class="price-summery personal-details customer-detail-form mb-3">
     <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
         <div class="details-item details-item-option col-12 ps-2 pe-2">
@@ -127,7 +143,7 @@
         <input type="hidden" value="normal" name="type[]" id="type_static">
         <div class="details-item col-lg-4 ps-2 pe-2">
             <label for="pnr_static">PNR Number*</label>
-            <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" required>
+            <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" >
             <span class="error-message" style="display: none;">PNR is required.</span>
         </div>
         @if(array_sum($totals) > 0)
@@ -138,13 +154,14 @@
         <div class="form-check mt-3">
                                     <input class="form-check-input" type="checkbox"  id="auto_fill_static"  >
                                     <label class="form-check-label" for="auto_fill_static" style="font-size:14px">
-                                       Same  Primary Name
+                                    Same as primary Name
                                     </label>
                                     <div id="termsError" class="text-danger"></div>
                                 </div>
         @endif
     </div>
 </div>
+
 @endif
 
 
@@ -157,7 +174,7 @@
                               <div class="details-item">
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="address">Address*</label>
-                                    <textarea name="address" id="address"  required></textarea>
+                                    <textarea name="address" id="address"></textarea>
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )

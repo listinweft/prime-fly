@@ -292,7 +292,7 @@ class LocationController extends Controller
     {
         $product = Location::find($product_id);
         $key = "Create";
-        $title = "Create Product Gallery  - " . $product->title;
+        $title = "Create Location Gallery  - " . $product->title;
         return view('Admin.product.gallery.form', compact('key', 'title', 'product_id'));
     }
 

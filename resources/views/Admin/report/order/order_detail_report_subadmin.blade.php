@@ -54,7 +54,7 @@
                                             <select class="form-control seelct2" id="order_report_status"
                                                     name="order_report_status">
                                                 <option value="">Select Status</option>
-                                                @foreach(['Pending','Processing','On Hold','Cancelled','Packed','Shipped','Out for Delivery','Delivered','Completed','Returned','Refunded','Failed'] AS $status)
+                                                @foreach(['Pending','Processing','On Hold','Cancelled','Completed','Refunded','Failed'] AS $status)
                                                     <option value="{{ $status }}"
                                                         {{ (old("order_report_status") == $status)? "selected" : "" }}>
                                                         {{ $status }}</option>
@@ -90,7 +90,7 @@
 
 <div class="col-sm-2">
     <select class="form-control select2" id="order_report_product" name="order_report_product">
-        <option value="">Select Product</option>
+        <option value="">Select Package</option>
         <!-- @foreach($productList as $product)
             <option value="{{$product->id}}">{{$product->title}}-{{$product->sector}}</option>
         @endforeach -->

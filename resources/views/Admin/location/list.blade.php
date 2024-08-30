@@ -40,7 +40,7 @@
                             <div class="card-header">
                                
                                     <a href="{{url(Helper::sitePrefix().$urlType.'/create')}}"
-                                       class="btn btn-success pull-right">Add Location <i
+                                       class="btn btn-success pull-right">Create Location  <i
                                             class="fa fa-plus-circle pull-right mt-1 ml-2"></i>
                                     </a>
                                

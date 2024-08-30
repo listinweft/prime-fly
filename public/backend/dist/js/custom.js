@@ -21,11 +21,7 @@ $(document).ready(function () {
         $('.placeholder-cls').val('alt="PRIMEFLY"');
     }
 
-    if ($('.fancy').length > 0) {
-        $("a.fancy").fancybox({
-            'zoomSpeedIn': 300, 'zoomSpeedOut': 300, 'overlayShow': false
-        });
-    }
+  
 
     $('.deal_type_drop').on('change', function () {
         if ($(this).val() == 'Deal') {
@@ -967,7 +963,7 @@ $(document).ready(function () {
        
         var id = $(this).data('id');
         var url = $(this).data('url');
-        alert(url);
+        // alert(url);
         var _token = token;
         if (id) {
             swal({

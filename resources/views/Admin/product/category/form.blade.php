@@ -110,7 +110,7 @@
                                    @enderror
                                  </div>
 
-                                 <div class="form-group col-md-4">
+                                 <!-- <div class="form-group col-md-4">
                                        <label> Icon Image*</label>
                                         <div class="file-loading">
                                           <input id="icon" name="icon" type="file"
@@ -119,7 +119,7 @@
                                           class="caption_note">Note: Image size should be minimum of 1920 x 340</span>                                      @error('icon')
                                       <div class="invalid-feedback">{{ $message }}</div>
                                    @enderror
-                                 </div>
+                                 </div> -->
 
                                  @endif
                                 
@@ -128,7 +128,7 @@
                         <div class="card-footer">
                             <input type="submit" name="btn_save" value="Submit"
                                    class="btn btn-primary pull-left submitBtn">
-                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="reset" class="btn btn-default">Clear</button>
                             <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                  style="display:none;">
                         </div>

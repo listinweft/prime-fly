@@ -119,7 +119,7 @@ $(".airport-carousel").owlCarousel({
             margin:10,
             dots:false,
             nav: true,
-            navText: ["<img src='img/prev.png'>","<img src='img/next.png'>"],
+            navText: ["<img src='https://primefly.in/public/frontend/img/prev.png'>","<img src='https://primefly.in/public/frontend/img/next.png'>"],
             responsiveClass:true,
             responsive:{
                 0:{

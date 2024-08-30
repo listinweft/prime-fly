@@ -7,7 +7,7 @@
                     <div class="col-sm-6">
                     @if($type == "Sub Category")
 
-                    <h1><i class="nav-icon fas fa-user-shield"></i>How It Works LIst</h1>
+                    <h1><i class="nav-icon fas fa-user-shield"></i>How It Works List</h1>
 
                     @else
                         <h1><i class="nav-icon fas fa-user-shield"></i> {{$title}}</h1>

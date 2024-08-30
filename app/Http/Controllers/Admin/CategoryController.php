@@ -476,7 +476,7 @@ public function getCategoryDetails(Request $request)
 
          $request->product_id;
         $request->validate([
-            'image.*' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+            'image.*' => 'required|image:jpeg,png,jpg|max:10240',
             'image_attribute' => 'required',
         ]);
 

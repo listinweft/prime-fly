@@ -680,7 +680,7 @@
                 '<div class="input-group {class}">\n' +
                 '  {caption}\n' +
                 '<div class="input-group-btn input-group-append">\n' +
-                '      {remove}\n' +
+               
                 '      {cancel}\n' +
                 '      {upload}\n' +
                 '      {browse}\n' +

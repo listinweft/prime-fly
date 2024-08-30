@@ -37,7 +37,7 @@
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'location/gallery/create/'.$product_id)}}"
-                                   class="btn btn-success pull-right">Add Location Gallery <i
+                                   class="btn btn-success pull-right">Create Location Gallery <i
                                         class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
