@@ -173,14 +173,14 @@
 
 
 
-
+@if($user->btype == "b2b")
                         <div class="mt-4">
                            <h4>Address</h4>
                            <div class="price-summery customer-detail-form">
                               <div class="details-item">
                                  <div class="details-item  ps-2 pe-2">
-                                    <label for="address">Address</label>
-                                    <textarea name="address" id="address"></textarea>
+                                    <label for="address">Address*</label>
+                                    <textarea name="address" id="address" required></textarea>
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
@@ -231,6 +231,68 @@
                               </div>
                            </div>
                         </div>
+
+                        @else
+
+                        <div class="mt-4">
+                           <h4>Address</h4>
+                           <div class="price-summery customer-detail-form">
+                              <div class="details-item">
+                                 <div class="details-item  ps-2 pe-2">
+                                    <label for="address">Address</label>
+                                    <textarea name="address" id="address" required></textarea>
+                                    <span class="error-message" style="display: none;">Address is required.</span>
+                                 </div>
+                                 @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
+                                 <div class="details-item  ps-2 pe-2">
+                                    <label for="passport_number">Passport Number*</label>
+                                    <input type="text" name="passport_number" id="passport_number" required>
+                                    <span class="error-message" style="display: none;">Passport Number is required.</span>
+                                 </div>
+                                 @endif
+                              </div>
+                              <div class="col-12  ps-2 pe-2">
+                                 <div class="row">
+                                    
+                                    <div class="col-lg-6">
+                                       <div class="details-item">
+                                          <label for="name">Country</label>
+                                          <select name="country" id="country" >
+                                 <!-- <option value="">Select a Country</option> -->
+                                 <option value="india">India</option>
+                                 <option value="usa">USA</option>
+                              </select>
+                               <span class="error-message" style="display: none;">Country name is required.</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="details-item">
+                                          <label for="name">State</label>
+                                          <input type="text" name="state" id="state" placeholder="State" > 
+                                          <span class="error-message" style="display: none;">State is required.</span>
+                                       </div>
+                                     
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="details-item">
+                                          <label for="name">City</label>
+                                          <input type="text" name="city" id="city" placeholder="City" > 
+                                          <span class="error-message" style="display: none;">City is required.</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="details-item"> 
+                                          <label for="name">Pincode</label>
+                                          <input type="text" name="pincode" id="pincode" placeholder="Pincode" > 
+                                          <span class="error-message" style="display: none;">Pincode is required.</span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        @endif
                      </form>
                   </div>
                </div>
@@ -244,7 +306,7 @@
                             <div class="d-flex flex-wrap cart-pyment-list align-items-center justify-content-between">
                                 <div class="cart-pymentradio">
                                     <div class="form-check d-flex align-items-center">
-                                        <input class="form-check-input" type="radio" name="transfer" id="online-payment" value="online-payment">
+                                        <input class="form-check-input" type="radio" name="transfer" id="online-payment" value="online-payment" checked>
                                         <label class="form-check-label ms-2" for="online-payment">
                                             <h4>Online Payment</h4>
                                             <p>Pay using credit/debit cards, UPI, or other methods.</p>
