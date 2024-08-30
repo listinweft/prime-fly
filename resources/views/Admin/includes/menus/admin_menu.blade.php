@@ -6,7 +6,7 @@
 
 
             <i class="nav-icon fas fa-calendar"></i>
-            <p>calendar</p>
+            <p>Calendar</p>
         </a>
     </li>
   

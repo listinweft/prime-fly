@@ -94,7 +94,9 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table
     float: right;
     font-size: 10px;
 }
-
+.bg-green {
+    background-color: #6d55a4 !important;
+}
 .bg-danger-cls {
     background-color: #dc3545 !important;
     border-color: #dc3545 !important;
@@ -229,7 +231,7 @@ input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-    background-color: #28a745;
+    background-color: #6d55a4;
     content: "ON";
 }
 
@@ -264,7 +266,7 @@ input[type=number] {
     background-color: #341de0;
 }
 .card-success.card-outline {
-    border-top:7px solid #533dff;
+    border-top:3px solid #533dff;
 }
 .btn-success { 
     background-color: #533dff;
@@ -296,8 +298,14 @@ input[type=number] {
 .content-header h1 {
     font-size: 1.35rem;
     margin: 0;
-    font-weight: 600;
+    font-weight:500;
     color: #767676;
+}
+.table td, .table th {
+    padding: 5px 10px;
+    vertical-align: middle;
+    font-size: 15px;
+    line-height: 1.4;
 }
 .content-header h1 i{
     color: #341ddf;
@@ -330,8 +338,8 @@ input[type=number] {
     padding-left:50px;
 }
 .btn-primary { 
-    background-color: #429352;
-    border-color: #429352; 
+    background-color: #6d55a4;
+    border-color: #6d55a4; 
 }
 .card-info:not(.card-outline)>.card-header {
     background-color: #f4f6f9;
@@ -379,4 +387,16 @@ td.fc-day.fc-widget-content.fc-wed.fc-today {
     float: right;
     font-size: 22px;
     font-weight: 400;
+}
+
+@media(max-width:1700px){
+    .nav-sidebar .nav-item>.nav-link { 
+        font-size: 15px;
+    }
+    .nav-sidebar>.nav-item .nav-icon.fa, .nav-sidebar>.nav-item .nav-icon.fab, .nav-sidebar>.nav-item .nav-icon.fad, .nav-sidebar>.nav-item .nav-icon.fal, .nav-sidebar>.nav-item .nav-icon.far, .nav-sidebar>.nav-item .nav-icon.fas, .nav-sidebar>.nav-item .nav-icon.ion, .nav-sidebar>.nav-item .nav-icon.svg-inline--fa{
+        font-size: 15px;
+    }
+    .content-header {
+        padding-top: 20px;
+    }
 }
