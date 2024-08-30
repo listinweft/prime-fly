@@ -229,8 +229,17 @@
 <script>
 $(document).ready(function() {
 
+    $("#origins").select2();
+    $("#destinations").select2();
+    $("#origint").select2();
+    $("#destinationt").select2();
+
+    
+   
+
 document.getElementById('bookingForm').style.display = 'block';
 document.getElementById('bookingFormt').style.display = 'none';
+
 
 $( function() {
         $( "#datepickert" ).datepicker({
@@ -438,7 +447,7 @@ $('#origins').change(function() {
 
     // Manually clear validation errors
     $("#bookingForm").validate().element("#origins");
-    $("#bookingForm").validate().element("#destinations");
+    // $("#bookingForm").validate().element("#destinations");
 });
 
 // Event listener for destination change
@@ -666,7 +675,7 @@ if (origin && destination && travel_type) {
 }
 
 $("#bookingFormt").validate().element("#origint");
-$("#bookingFormt").validate().element("#destinationt");
+// $("#bookingFormt").validate().element("#destinationt");
 });
 
 $('#destinationt').change(function() {

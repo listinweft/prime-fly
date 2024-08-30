@@ -2457,11 +2457,7 @@ $(document).ready(function () {
         });
     }
 
-    // function select2() {
-    //     $('.select2').select2({
-    //         theme: 'bootstrap4', minimumResultsForSearch: -1,
-    //     });
-    // }
+ 
 
     $(document).mouseup(function (e) {
         var container = $("#main-search");
