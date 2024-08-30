@@ -134,9 +134,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control select2" name="origint" id="origint">
                     <option value="">Select Origin</option>
-                    <!-- @foreach ($locations as $location)
+                    @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach -->
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -162,9 +162,9 @@
             <div class="booking_select">
                 <select class="form-control select2" name="destinationt" id="destinationt">
                     <option value="">Select Destination</option>
-                    <!-- @foreach ($locations as $location)
+                    @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach -->
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -384,7 +384,7 @@ function populateLocations(travel_type) {
 $('#travel_sector').change(function() {
     // Reset dropdowns
     // $('#travel_type').val('').change();
-    $('#origins').empty().append('<option value="">Select Origin</option>');
+    // $('#origins').empty().append('<option value="">Select Origin</option>');
     $('#destinations').empty().append('<option value="">Select Destination</option>');
     $('#flights').empty().append('<option value="">Select Flight</option>');
 
@@ -617,7 +617,7 @@ if (travel_type) {
 
 $('#travel_sectort').change(function() {
 // $('#travel_typet').val('').change();
-$('#origint').empty().append('<option value="">Select Origin</option>');
+// $('#origint').empty().append('<option value="">Select Origin</option>');
 $('#destinationt').empty().append('<option value="">Select Destination</option>');
 $('#flightst').empty().append('<option value="">Select Flight</option>');
 

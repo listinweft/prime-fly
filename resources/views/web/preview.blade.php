@@ -153,7 +153,7 @@
                                     </tfoot>
                                 </table>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox">
+                                    <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox" checked>
                                     <label class="form-check-label" for="termsCheckbox">
                                         I confirm that I have read and agree with the terms and conditions.
                                     </label>

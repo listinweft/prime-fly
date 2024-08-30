@@ -227,11 +227,10 @@
 <script>
 $(document).ready(function() {
 
-    $("#origins, #destinations, #origint, #destinationt").select2({
-        placeholder: "Select an option",
-        allowClear: true,
-        width: '100%'
-    });;
+$("#origins").select2();
+$("#destinations").select2();
+$("#origint").select2();
+$("#destinationt").select2();
 
 
 
@@ -383,7 +382,7 @@ if (travel_type) {
 $('#travel_sector').change(function() {
 // Reset dropdowns
 // $('#travel_type').val('').change();
-$('#origins').empty().append('<option value="">Select Origin</option>');
+// $('#origins').empty().append('<option value="">Select Origin</option>');
 $('#destinations').empty().append('<option value="">Select Destination</option>');
 $('#flights').empty().append('<option value="">Select Flight</option>');
 
@@ -616,7 +615,7 @@ $('#destinationt').empty().append('<option value="">Select Destination</option>'
 
 $('#travel_sectort').change(function() {
 // $('#travel_typet').val('').change();
-$('#origint').empty().append('<option value="">Select Origin</option>');
+// $('#origint').empty().append('<option value="">Select Origin</option>');
 $('#destinationt').empty().append('<option value="">Select Destination</option>');
 $('#flightst').empty().append('<option value="">Select Flight</option>');
 
