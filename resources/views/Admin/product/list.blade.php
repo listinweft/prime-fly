@@ -69,8 +69,8 @@
                                             <td>{{ $product->title }}</td>
                                             
                                             <td><a href="{{url(Helper::sitePrefix().'product/offer/'.$product->id)}}"
-                                                   class="btn btn-sm btn-warning mr-2 tooltips"
-                                                   title="Add B2b-Price">B2b-Price</a></td>
+                                                   class="btn btn-sm btn-warning warning  warning-btntext  mr-2 tooltips"
+                                                   title="Add B2b-Price">Price</a></td>
                                            
                                            <td>
                                                 <label class="switch">
