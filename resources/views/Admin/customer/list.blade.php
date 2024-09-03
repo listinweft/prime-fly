@@ -48,6 +48,7 @@
                                         <th>Email</th>
                                         <th>Businees Type</th>
                                         <th>Phone Number</th>
+                                        <th>Status</th>
                                         
                                         <th>Pay Credit</th>
                                         <th>Created Date</th>
@@ -70,6 +71,22 @@
                                                            data-url="/status-change" data-table="User"
                                                            data-field="status" data-pk="{{ $customer->user->id }}"
                                                         {{($customer->user->status=="Active")?'checked':''}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                                @endif
+                                                @else
+                                                    
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                @if ($customer->user != null)
+                                                @if( $customer->user->btype == "b2b")
+                                                <label class="switch">
+                                                    <input type="checkbox" class="status_check"
+                                                           data-url="/status-change" data-table="User"
+                                                           data-field="status" data-pk="{{ $customer->user->id }}"
+                                                        {{($customer->user->pay_status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
                                                 @endif

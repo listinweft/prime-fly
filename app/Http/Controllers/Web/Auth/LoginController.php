@@ -46,6 +46,12 @@ class LoginController extends Controller
 
             {
 
+
+                if (Auth::guard('customer')->user()->status == 'Inactive') {
+                    Auth::guard('customer')->logout();
+                    return response()->json(['status' => 'error', 'message' => 'Account is inactive, Please contact your Business Partner']);
+                }
+
                 
 
             $sessionKey = Auth::guard('customer')->user()->customer->id;
@@ -621,7 +627,7 @@ public function register_corporate(Request $request)
         $user->user_type = 'Customer';
         $user->username = $request->email;
         $user->email = $request->email;
-        $user->status = 'Active';
+        $user->status = 'Inactive';
         $user->phone = $request->phone;
         $user->btype = 'b2b';
         
@@ -645,23 +651,23 @@ public function register_corporate(Request $request)
         }
 
         // Commit the transaction
-        DB::commit();
+       
 
         Auth::guard('customer')->logout();
 
-        if (Helper::sendCredentials($user, $customer->first_name . ' ' . $customer->last_name, $request->password)) {
+        if (Helper::sendCredentials($user, $customer->first_name, $request->password)) {
             return response()->json([
                 'status' => 'success-reload',
-                'message' => 'Registration completed successfully.',
+                'message' => 'B2B Request form has been submitted.Our team will review the details and get back you soon.',
                 'redirect' => '/login'
             ]);
         }
 
-        return response()->json([
-            'status' => 'success-reload',
-            'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
-            'redirect' => '/login'
-        ]);
+        // return response()->json([
+        //     'status' => 'success-reload',
+        //     'message' => 'Registration completed successfully. Credentials have been sent to your registered email.',
+        //     'redirect' => '/login'
+        // ]);
 
         throw new \Exception('Failed to send credentials.');
     } catch (\Exception $e) {
