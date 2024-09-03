@@ -49,6 +49,7 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Service</th>
+                                        <th>Travel Sector</th>
                                         <th>Status</th>
                                         <th>Posted Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -60,6 +61,7 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{ $service->title }}</td>
                                             <td>{{ @$service->service->title }}</td>
+                                            <td>{{ $service->sector }}</td>
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
