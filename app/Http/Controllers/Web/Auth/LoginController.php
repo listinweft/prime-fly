@@ -542,7 +542,7 @@ public function register(Request $request)
     ]);
 
     
-    DB::beginTransaction();
+    // DB::beginTransaction();
 
     try {
         $user = new User();
@@ -550,6 +550,7 @@ public function register(Request $request)
         $user->username = $request->email;
         $user->email = $request->email;
         $user->status = 'Inactive';
+        $user->pay_status = 'Inactive';
         $user->phone = $request->phone;
         $user->btype = 'public';
         
@@ -570,7 +571,7 @@ public function register(Request $request)
         }
 
         // Commit the transaction
-        DB::commit();
+        // DB::commit();
 
         Auth::guard('customer')->logout();
 
@@ -591,7 +592,7 @@ public function register(Request $request)
         throw new \Exception('Failed to send credentials.');
     } catch (\Exception $e) {
         // Roll back the transaction in case of an error
-        DB::rollBack();
+        // DB::rollBack();
 
         return response()->json([
             'status' => 'error',
@@ -620,7 +621,7 @@ public function register_corporate(Request $request)
     ]);
 
     
-    DB::beginTransaction();
+    // DB::beginTransaction();
 
     try {
         $user = new User();
@@ -628,6 +629,7 @@ public function register_corporate(Request $request)
         $user->username = $request->email;
         $user->email = $request->email;
         $user->status = 'Inactive';
+        $user->pay_status = 'Inactive';
         $user->phone = $request->phone;
         $user->btype = 'b2b';
         
@@ -672,7 +674,7 @@ public function register_corporate(Request $request)
         throw new \Exception('Failed to send credentials.');
     } catch (\Exception $e) {
         // Roll back the transaction in case of an error
-        DB::rollBack();
+        // DB::rollBack();
 
         return response()->json([
             'status' => 'error',
