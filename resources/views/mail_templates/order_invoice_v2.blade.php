@@ -147,6 +147,18 @@
                                                @if($product->status == 'Refunded')
                                                <span style="color:#707070;font-size:11px;">Refund Status: {{ $refundStatus->status }}</span> | 
                                                @endif
+
+
+                                               @if(!is_null($product->exit_date) && $product->exit_date !== '')
+
+<h4 style="color:#707070;font-size:11px; ">Service Date:{{$product->exit_date}}</h4>
+
+         @endif
+         @if(!is_null($product->entry_time) && $product->entry_time !== '')
+
+<h4 style="color:#707070;font-size:11px; ">Service Time:{{$product->entry_time}}</h4>
+
+         @endif
                                               
                                             </div>
                                             @endforeach

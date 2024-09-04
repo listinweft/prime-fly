@@ -1277,12 +1277,14 @@ class ProductController extends Controller
 
             $productPrice = DB::table('product_offer_size')->where('product_id',$request->p_id)->where('user_id',  $offer->user_id)->first();
 
-            if ($request->pricenormal !== "") {
+            if ($request->has('pricenormal')) {
               
-                Offer::where('id', $request->p_id)->update(['price' =>  $request->pricenormal]);
+                Offer::where('id', $insertedId)->update(['price' =>  $request->pricenormal]);
             }
             else{
-                Offer::where('id', $request->p_id)->update(['price' =>  $productPrice]);
+
+               
+               Offer::where('id', $insertedId)->update(['price' =>  $productPrice->price]);
 
             }
 
@@ -1347,6 +1349,8 @@ class ProductController extends Controller
     
     {
     
+
+        //  return $request->all();
     
 
 
@@ -1375,14 +1379,16 @@ class ProductController extends Controller
             $priceWithSize = $request->price;
 
 
-            $productPrice = DB::table('product_offer_size')->where('product_id', $request->product_id)->where('user_id',  $offer->user_id)->first();
+              $productPrice = DB::table('product_offer_size')->where('product_id', $request->product_id)->where('user_id',  $offer->user_id)->first();
             
-            if ($request->pricenormal !== "") {
+             if ($request->has('pricenormal')) {
               
-                Offer::where('id', $request->product_id)->update(['price' =>  $request->pricenormal]);
+                Offer::where('id', $id)->update(['price' =>  $request->pricenormal]);
             }
             else{
-                Offer::where('id', $request->product_id)->update(['price' =>  $productPrice]);
+
+               
+               Offer::where('id', $id)->update(['price' =>  $productPrice->price]);
 
             }
             
