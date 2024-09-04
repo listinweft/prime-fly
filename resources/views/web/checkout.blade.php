@@ -332,7 +332,7 @@
                                         
                                     @endphp
 
-@if($user->status == "Active")
+@if($user->pay_status == "Active")
                               
                             <div class="d-flex cart-pyment-list align-items-center justify-content-between">
                                 <div class="cart-pymentradio">

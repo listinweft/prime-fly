@@ -12,6 +12,8 @@ use App\Models\Coupon;
 use App\Models\CustomerAddress;
 use App\Models\Offer;
 use App\Models\Order;
+use App\Models\Location;
+use App\Models\User;
 use App\Models\OrderCoupon;
 use App\Models\OrderCustomer;
 use App\Models\OrderLog;
@@ -1523,6 +1525,13 @@ class CartController extends Controller
             $calculation_box = Helper::calculationBox();
             $siteInformation = SiteInformation::first();
 
+            
+
+
+            // $userorigin = $row->attributes['origin'] ?? '';
+            // $userorigin    = $detail->trans = $row->attributes['trans'] ?? '';
+            // $userorigin = $row->attributes['destination'] ?? '';
+
             $orderCode = Order::order_code();
             $order = new Order();
             $order->order_code = $orderCode;
@@ -1536,6 +1545,7 @@ class CartController extends Controller
             $order->currency = "INR";
             $order->currency_charge = 25;
             $order->cod_extra_charge = $request->final_amount;
+           
 
             if ($order->save()) {
                 if (!empty($request->name)) {
@@ -1594,6 +1604,68 @@ class CartController extends Controller
                         $dateString = $row->attributes['setdate'] ?? ''; // Fetch the date string
 
                         $entryTime = $row->attributes['entry_time'] ?? ''; // Fetch the entry time if available
+
+
+                        $travelType = $row->attributes['travel_type'];
+
+            if($travelType == 'departure')
+
+            {
+
+             $userorigin = $row->attributes['origin'] ?? '';
+
+
+
+            }
+            elseif($travelType == 'arrival')
+
+            {
+
+                $userorigin = $row->attributes['destination'] ?? '';
+
+
+
+
+
+            }
+
+            elseif($travelType == 'Transit')
+
+            {
+
+                $userorigin = $row->attributes['trans'] ?? '';
+
+
+
+
+
+            }
+            else
+            {
+
+
+                $userorigin = $row->attributes['origin'] ?? '';
+
+
+
+            }
+
+            $location = Location::active()->where('code', $userorigin)->first();
+
+            $users = User::active()
+       ->whereRaw("FIND_IN_SET(?, location_ids)", [$location->id])
+        ->pluck('email'); // Fetch only the email field
+
+// Implode the emails into a comma-separated string
+          $emails = $users->implode(',');
+
+
+          Order::where('id', $order->id)->update(['emails_b' => $emails]);
+
+
+
+
+
                         
                         $formattedTimestamp = '';
                         

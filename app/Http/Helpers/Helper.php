@@ -498,7 +498,23 @@ public static function sendOrderPlacedMail($order, $flag)
     $orderGrandTotal = Order::OrderGrandTotal($order->id);
     $orderTotal = Order::getProductTotal($order->id);
 
+    // Fetch the order by its ID
+$orderemailb = Order::where('id', $order->id)->first();
+
+// Explode the existing emails from $common->order_emails into an array
+$emails = explode(',', $common->order_emails);
+
+// Check if $orderemailb->emails_b exists and is not empty
+if (!empty($orderemailb->emails_b)) {
+    // Explode the emails_b field into an array and merge with the $emails array
+    $emails_b_array = explode(',', $orderemailb->emails_b);
+    $emails = array_merge($emails, $emails_b_array);
+} else {
+    // If emails_b is empty, just use the normal $emails
     $emails = explode(',', $common->order_emails);
+}
+
+// Now $emails contains the combined email addresses or just the original emails
 
     $subject = 'Congratulations, Order Successful!';
     $htmlContent = view('mail_templates.order_invoice_v2', compact('order', 'to_name', 'common', 'orderGrandTotal', 'orderTotal', 'link'))->render();
@@ -619,21 +635,60 @@ public static function sendOrderPlacedMail($order, $flag)
         return $mail;
     }
 
+    // public static function sendCredentials($user, $name, $password)
+    // {
+    //     $subject = "Thank you for registering with us";
+
+    //     // Create an instance of BrevoMailService with fully qualified namespace
+    //     $brevoMailService = new \App\Services\BrevoMailService();
+
+    //     // Prepare the email content
+    //     $searchArr = ["{name}", "{email}", "{phone}", "{password}", "{owner}"];
+    //     $replaceArr = [$name, $user->email, $user->phone, $password, config('app.name')];
+    //     $body = File::get(resource_path('views/mail_templates/send_credentials.blade.php'));
+    //     $body = str_replace($searchArr, $replaceArr, $body);
+
+    //     // Send the email using BrevoMailService
+    //     $brevoMailService->sendEmail($user->email, $name, $subject, $body);
+    // }
+
     public static function sendCredentials($user, $name, $password)
     {
         $subject = "Thank you for registering with us";
-
-        // Create an instance of BrevoMailService with fully qualified namespace
+    
+        // Create an instance of BrevoMailService
         $brevoMailService = new \App\Services\BrevoMailService();
-
+    
         // Prepare the email content
         $searchArr = ["{name}", "{email}", "{phone}", "{password}", "{owner}"];
         $replaceArr = [$name, $user->email, $user->phone, $password, config('app.name')];
-        $body = File::get(resource_path('views/mail_templates/send_credentials.blade.php'));
+        $body = \File::get(resource_path('views/mail_templates/send_credentials.blade.php'));
         $body = str_replace($searchArr, $replaceArr, $body);
-
-        // Send the email using BrevoMailService
-        $brevoMailService->sendEmail($user->email, $name, $subject, $body);
+    
+        // Log the email details
+        \Log::info('Sending credentials email', [
+            'email' => $user->email,
+            'name' => $name,
+            'subject' => $subject,
+            'body_preview' => substr($body, 0, 100), // Log a preview of the email body
+        ]);
+    
+        try {
+            // Send the email using BrevoMailService
+            $brevoMailService->sendEmail($user->email, $name, $subject, $body);
+    
+            \Log::info('Email sent successfully', ['email' => $user->email]);
+            return true;
+        } catch (\Exception $e) {
+            // Log the error details
+            \Log::error('Failed to send credentials email', [
+                'email' => $user->email,
+                'error_message' => $e->getMessage(),
+            ]);
+    
+            // Re-throw the exception or handle it as needed
+            throw $e;
+        }
     }
     
 
