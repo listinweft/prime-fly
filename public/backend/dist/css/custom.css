@@ -521,6 +521,10 @@ table.dataTable>tbody>tr.child ul.dtr-details{
 .page-link { 
     color: #6d55a4; 
 }
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active, [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:focus, [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active:hover {
+    background-color: rgb(109 85 164);
+    color: #ffffff;
+}
 @media(max-width:1700px){
     .nav-sidebar .nav-item>.nav-link { 
         font-size: 13px;

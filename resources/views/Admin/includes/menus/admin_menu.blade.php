@@ -1,16 +1,10 @@
 
     <li class="nav-item">
-        <a href="{{ url(Helper::sitePrefix().'order/calendar') }}"
-         
-          class="nav-link {{ (Request::segment(3) == 'calendar') ? 'active' : '' }}">
-
-
+        <a href="{{ url(Helper::sitePrefix().'order/calendar') }}" class="nav-link {{ (Request::segment(3) == 'calendar') ? 'active' : '' }}">
             <i class="nav-icon fas fa-calendar"></i>
             <p>Calendar</p>
         </a>
     </li>
-  
-
 
     @if (Auth::user()->admin->role == "Super Admin")
 
