@@ -11,7 +11,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'/dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'product/product_list')}}">Product</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'service/')}}">product</a>
                             </li>
                             <li class="breadcrumb-item active">Service  B2b - {{$product->title}}</li>
                         </ol>

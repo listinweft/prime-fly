@@ -892,6 +892,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
       Route::get('/get-locations-by-category', [ReportController::class, 'getLocationsByCategory'])->name('get.locations.by.category');
       Route::get('/get-locations-by-category-sub', [ReportController::class, 'getLocationsByCategory_sub'])->name('get.locations.by.category.sub');
       Route::get('/get-products-by-location', [ReportController::class, 'getProductsByLocation'])->name('get.products.by.location');
+      Route::get('/get-customers-by-type', [ReportController::class, 'getCustomersByType'])->name('get.customers.by.type');
+
 
 
         Route::get('export', [ReportController::class, 'export'])->name('export');
