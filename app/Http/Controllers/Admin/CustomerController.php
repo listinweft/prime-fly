@@ -48,7 +48,7 @@ class CustomerController extends Controller
             'first_name' => 'required|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
 //            'username' => 'required|string|max:255|unique:users,username',
-            'phone' => 'required|min:7|max:15|unique:users,phone',
+            // 'phone' => 'required|min:7|max:15|unique:users,phone',
             'profile_image' => 'image|mimes:jpeg,png,jpg|max:512',
             'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
         ]);

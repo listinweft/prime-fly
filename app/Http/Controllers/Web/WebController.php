@@ -611,7 +611,7 @@ public function getLocations_meet(Request $request)
         $data = $request->all();
     
         // Calculate total amounts for all matching products 
-        $totalAmounts = $this->calculateTotalAmounts($data);
+         $totalAmounts = $this->calculateTotalAmounts($data);
     
         // Check if totalAmounts is empty
         if (empty($totalAmounts)) {
@@ -664,7 +664,7 @@ public function getLocations_meet(Request $request)
         $isB2BUser = $user && $user->btype == "b2b";
     
         foreach ($products as $product) {
-            if ($isB2BUser) {
+            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
                 $userId = $user->id;
                 $adultPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 1)->where('user_id', $userId)->value('price') ?? $product->price;
                 $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
@@ -685,6 +685,13 @@ public function getLocations_meet(Request $request)
                 $totalAmount = ($additionalAdults * $additionalPrice) + ($data['infants'] * $infantPrice) + ($data['children'] * $childrenPrice + $adultPrice);
             }
     
+
+
+            if ($totalAmount <= 0) {
+                continue;
+            }
+
+            
             $result[] = [
                 'product' => $product,
                 'location_title' => $product->location_title,
@@ -998,6 +1005,8 @@ public function search_booking_lounch(Request $request)
     public function search_booking_entry_ticket(Request $request)
     {
         // Validate request
+
+      
         $request->validate([
             'terminal' => 'required|string',
             'origin' => 'required',
@@ -1158,7 +1167,7 @@ public function search_booking_lounch(Request $request)
                 'product' => $product,
                 'location_title' => $product->location_title,
                 'total_amount' => $totalAmount, // Use the calculated total amount
-                'setdate' => $data['exit_date'],
+                'setdate' => $data['entry_date'],
                 'totalguest' => $data['count'],
                 'origin' => $data['origin'],
                 'terminal' => $data['terminal'],
@@ -1260,7 +1269,7 @@ public function search_booking_lounch(Request $request)
                 'product' => $product,
                 'location_title' => $product->location_title,
                 'total_amount' => $totalAmount, // Use the calculated total amount
-                'setdate' => $data['exit_date'],
+                'setdate' => $data['entry_date'],
                 'totalguest' => $data['count'],
                 'origin' => $data['origin'],
                 'terminal' => $data['terminal'],

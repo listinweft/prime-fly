@@ -52,6 +52,7 @@
                                         <th>Service</th>
                                         <th>Locations</th>
                                         <th>Package</th>
+                                        <th>Travel Sector</th>
                                      
                                       
                                         <th>B2b</th>
@@ -67,6 +68,8 @@
                                             <td>{{ implode(', ', $product->category_titles) }}</td>
                                             <td>{{ implode(', ', $product->location_titles) }}</td>
                                             <td>{{ $product->title }}</td>
+                                            <td>{{ ucwords(str_replace('_', ' ', $product->sector)) }}</td>
+
                                             
                                             <td><a href="{{url(Helper::sitePrefix().'product/offer/'.$product->id)}}"
                                                    class="btn btn-sm btn-warning warning  warning-btntext  mr-2 tooltips"

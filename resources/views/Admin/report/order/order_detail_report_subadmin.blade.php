@@ -92,7 +92,7 @@
                                     <option value="{{$product->id}}">{{$product->title}}-{{$product->sector}}</option>
                                     @endforeach -->
                               </select>
-                              <span id="product-error" class="text-danger" style="display:none;">Please select a product.</span>
+                              <span id="product-error" class="text-danger" style="display:none;">Please select a Package.</span>
                            </div>
                            <div class="col-sm-2">
                               <button class="btn btn-primary" id="order-subdetail-search-result">Search
