@@ -406,7 +406,7 @@ $sessionKey = session('session_key');
             <a href="{{ url('location/' . @$location->title) }}">
               <div class="airtport_list_thumb">
                 {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
-                <h3>{{ $location->title }}</h3>
+                <h3>{{ $location->code }}</h3>
               </div>
               <h4>{{ $location->code }}</h4>
               <p>{{ $location->title }} International Airport</p>

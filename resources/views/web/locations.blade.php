@@ -28,10 +28,10 @@
                   <a href="{{ url('location/' . @$location->title) }}">
                       <div class="airtport_list_thumb">
                       {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
-                        <h3>{{ $location->code }}</h3>
-                      </div>
-                      <h4>{{ $location->code }}</h4>
-                      <p>{{ $location->title }}</p>
+                      <h3>{{ $location->code }}</h3>
+              </div>
+              <h4>{{ $location->code }}</h4>
+              <p>{{ $location->title }} International Airport</p>
                     </a> 
                   </div>
                   @endforeach

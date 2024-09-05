@@ -536,16 +536,20 @@ public function getLocations_meet(Request $request)
     
         $result = [];
         $guestCount = $data['adultst'] + $data['infantst'] + $data['childrent'];
-        $user = Auth::guard('customer')->user();
-        $isB2BUser = $user && $user->btype == "b2b";
+      
     
         foreach ($products as $product) {
-            if ($isB2BUser) {
+            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+                $user = Auth::guard('customer')->user();
                 $userId = $user->id;
                 $adultPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 1)->where('user_id', $userId)->value('price') ?? $product->price;
                 $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
                 $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
                 $additionalPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 4)->where('user_id', $userId)->value('price') ?? $product->additional_price;
+
+                 if (is_null($adultPrice) ) {
+                    return []; // No packages found
+                }
             } else {
                 $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
                 $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
@@ -660,16 +664,23 @@ public function getLocations_meet(Request $request)
     
         $result = [];
         $guestCount = $data['adults'] + $data['infants'] + $data['children'];
-        $user = Auth::guard('customer')->user();
-        $isB2BUser = $user && $user->btype == "b2b";
+
+        
     
+        
         foreach ($products as $product) {
-            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+            $user = Auth::guard('customer')->user();
                 $userId = $user->id;
                 $adultPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 1)->where('user_id', $userId)->value('price') ?? $product->price;
                 $childrenPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 2)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
                 $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
                 $additionalPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 4)->where('user_id', $userId)->value('price') ?? $product->additional_price;
+
+                if (is_null($adultPrice) ) {
+                    return []; // No packages found
+                }
             } else {
                 $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
                 $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;
@@ -765,10 +776,11 @@ public function getLocations_meet(Request $request)
     $setdate = $data['datepicker'];
 
     foreach ($products as $product) {
-        // Fetch B2B pricing details if user is authenticated and B2B type
-        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
 
+            
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
             $user = Auth::guard('customer')->user();
+
             $offer = Offer::where('product_id', $product->id)
                 ->where('user_id', $user->id)
                 ->first();
@@ -778,7 +790,7 @@ public function getLocations_meet(Request $request)
                 
             } else {
                 // Use default pricing if no offer found
-                $totalAmount = $data['adults'] * $product->price;
+                return response()->json(['status' => 'error', 'message' => 'No packages found']);
                
             }
         } else {
@@ -856,9 +868,11 @@ public function search_booking_lounch(Request $request)
     $category = Category::where('id', $data['category'])->first();
 
     foreach ($products as $product) {
-        // Fetch B2B pricing details if user is authenticated and B2B type
-        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
+       
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
             $user = Auth::guard('customer')->user();
+
+
             $offer = Offer::where('product_id', $product->id)
                 ->where('user_id', $user->id)
                 ->first();
@@ -867,7 +881,7 @@ public function search_booking_lounch(Request $request)
                 $totalAmount = $data['adults'] * $offer->price;
             } else {
                 // Use default pricing if no offer found
-                $totalAmount = $data['adults'] * $product->price;
+                return response()->json(['status' => 'error', 'message' => 'No packages found']);
             }
         } else {
             // Use default pricing for non-authenticated or non-B2B users
@@ -953,8 +967,11 @@ public function search_booking_lounch(Request $request)
     
         foreach ($products as $product) {
             // Fetch B2B pricing details if user is authenticated and B2B type
-            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
-                $user = Auth::guard('customer')->user();
+         
+            
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+            $user = Auth::guard('customer')->user();
+
                 $offer = Offer::where('product_id', $product->id)
                     ->where('user_id', $user->id)
                     ->first();
@@ -963,7 +980,8 @@ public function search_booking_lounch(Request $request)
                     $totalAmount = $data['count'] * $offer->price;
                 } else {
                     // Use default pricing if no offer found
-                    $totalAmount = $data['count'] * $product->price;
+                    // $totalAmount = $data['count'] * $product->price;
+                    return response()->json(['status' => 'error', 'message' => 'No packages found']);
                 }
             } else {
                 // Use default pricing for non-authenticated or non-B2B users
@@ -1046,8 +1064,10 @@ public function search_booking_lounch(Request $request)
             $ticketPrice = $product->price;
     
             // Check if the user is authenticated and is a B2B type
-            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
-                $user = Auth::guard('customer')->user();
+                
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+            $user = Auth::guard('customer')->user();
+
                 $offer = Offer::where('product_id', $product->id)
                     ->where('user_id', $user->id)
                     ->first();
@@ -1055,6 +1075,10 @@ public function search_booking_lounch(Request $request)
                 // Use B2B pricing if available
                 if ($offer) {
                     $ticketPrice = $offer->price;
+                }
+                else {
+                    // If no offer is available for B2B user, return error
+                    return response()->json(['status' => 'error', 'message' => 'No packages found']);
                 }
             }
     
@@ -1135,9 +1159,9 @@ public function search_booking_lounch(Request $request)
             $additionalBagPrice = $product->additional_price ?? 0; // Assuming the column name is additional_price
     
             // Check if the user is authenticated and B2B
-            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
-                // Fetch offer details for the B2B user
-                $user = Auth::guard('customer')->user();
+                
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+            $user = Auth::guard('customer')->user();
                 $offer = Offer::where('product_id', $product->id)
                     ->where('user_id', $user->id)
                     ->first();
@@ -1147,7 +1171,9 @@ public function search_booking_lounch(Request $request)
                     $additionalHourPrice = $offer->additional_hourly_price ?? $additionalHourPrice;
                     $additionalBagPrice = $offer->additional_price ?? $additionalBagPrice;
                 } else {
-                    $totalAmount = $basePrice; // Use default base price if no offer found
+                    // $totalAmount = $basePrice; // Use default base price if no offer found
+
+                    return response()->json(['status' => 'error', 'message' => 'No packages found']);
                 }
             } else {
                 // Use default pricing for non-authenticated or non-B2B users
@@ -1236,9 +1262,9 @@ public function search_booking_lounch(Request $request)
             $additionalBagPrice = $product->additional_price ?? 0; // Assuming the column name is additional_price
     
             // Check if the user is authenticated and B2B
-            if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b') {
-                // Fetch offer details for the B2B user
-                $user = Auth::guard('customer')->user();
+               
+        if (Auth::guard('customer')->check() && Auth::guard('customer')->user()->btype == 'b2b'){
+            $user = Auth::guard('customer')->user();
                 $offer = Offer::where('product_id', $product->id)
                     ->where('user_id', $user->id)
                     ->first();
@@ -1249,7 +1275,7 @@ public function search_booking_lounch(Request $request)
                     $additionalHourPrice = $offer->additional_hourly_price ?? $additionalHourPrice;
                     $additionalBagPrice = $offer->additional_price ?? $additionalBagPrice;
                 } else {
-                    $totalAmount = $basePrice; // Use default base price if no offer found
+                    return response()->json(['status' => 'error', 'message' => 'No packages found']);
                 }
             } else {
                 // Use default pricing for non-authenticated or non-B2B users

@@ -399,6 +399,8 @@ if (!is_array($category_id)) {
         $data->$field = $status;
         
         if ($data->save()) {
+
+
             return response()->json([
                 'status' => true,
                 'message' => 'Status has been changed successfully.'
@@ -411,12 +413,64 @@ if (!is_array($category_id)) {
         }
     }
     
-    
+    public function status_pay_change(Request $request)
+{
+    $table = $request->table;
+    $state = $request->state;
+    $primary_key = $request->primary_key;
+    $field = $request->field ?? 'pay_status'; // Change default field to 'pay_status'
+    $limit = $request->limit;
+    $limit_field = $request->limit_field;
+    $limit_field_value = $request->limit_field_value;
+
+    // Set the pay_status based on the state
+    if ($state == 'true') {
+        $status = "Active";
+    } else {
+        $status = "Inactive";
+    }
+
+    $model = 'App\\Models\\' . $table;
+    $data = $model::find($primary_key);
+
+    if ($limit && $status == "Active") {
+        if ($limit_field && $limit_field_value) {
+            $active_data = $model::where($limit_field, $limit_field_value)->where($field, 'Active');
+        } else {
+            $active_data = $model::where($field, 'Active');
+        }
+        if ($active_data->count() >= $limit) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Only ' . $limit . ' active items are possible.'
+            ]);
+        }
+    }
+
+    $data->$field = $status; // Update the specified field with the new status
+
+    if ($data->save()) {
+        
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Pay status has been changed successfully.'
+        ]);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Error while changing the pay status.'
+        ]);
+    }
+}
+
 
     public function status_change(Request $request)
     {
 
          $table = $request->table;
+
+         
         $state = $request->state;
         $primary_key = $request->primary_key;
         $field = $request->field ?? 'status';
@@ -447,6 +501,56 @@ if (!is_array($category_id)) {
         $data->$field = $status;
 
         if ($data->save()) {
+
+
+            If($table == "User")
+
+         {
+
+
+             $data = $model::find($primary_key);
+
+              $to = $data->email;
+
+                 $customer = Customer::where('user_id',$primary_key)->first();
+
+
+                 $toname  = $customer->first_name;
+
+                 if($status == "Active")
+                 {
+
+                    $statusnew = "Active";
+
+
+
+                 }
+
+                 else
+                 {
+
+
+                    $statusnew = "Inactive";
+
+
+
+
+                 }
+
+
+
+            $orderMail = Helper::sendCustomerStatusMail ($statusnew, $toname, $to);
+
+
+
+
+         }
+
+          
+           
+            
+            
+
             return response()->json([
                 'status' => true,
                 'message' => 'Status has been changed successfully.'

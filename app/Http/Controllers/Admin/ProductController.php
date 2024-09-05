@@ -1271,11 +1271,14 @@ class ProductController extends Controller
         }
 
         if ($offer->save()) {
+
+        //     echo $request->p_id;
+        //   echo  $offer->user_id;
+        //   die();
+
             $insertedId = $offer->id;
 
             $priceWithSize = $request->price;
-
-            $productPrice = DB::table('product_offer_size')->where('product_id',$request->p_id)->where('user_id',  $offer->user_id)->first();
 
             if ($request->has('pricenormal')) {
               
@@ -1283,12 +1286,7 @@ class ProductController extends Controller
             }
             else{
 
-               
-               Offer::where('id', $insertedId)->update(['price' =>  $productPrice->price]);
-
-            }
-
-
+                
             if (isset($priceWithSize) && !empty($priceWithSize)) {
                 // First, delete existing entries for the given product and user
                 DB::table('product_offer_size')
@@ -1309,6 +1307,17 @@ class ProductController extends Controller
                 }
             }
             
+
+            
+         $productPrice = DB::table('product_offer_size')->where('product_id',$offer->product_id)->where('user_id',  $offer->user_id)->where('size_id',1)->first();
+
+
+               
+               Offer::where('id', $insertedId)->update(['price' =>  $productPrice->price]);
+
+            }
+
+
             
             
 
@@ -1345,82 +1354,66 @@ class ProductController extends Controller
     }
 
     public function offer_update(Request $request, $id)
-
-    
     {
-    
-
-        //  return $request->all();
-    
-
-
         $offer = Offer::find($id);
         $validatedData = $request->validate([
-            // 'product_id' => 'required',
-            'customer' =>'required',
-          
-          
-           
-            // 'sale_condition' => 'required',
+            'customer' => 'required',
         ]);
+    
         $offer->product_id = $request->product_id;
         $offer->user_id = $validatedData['customer'];
-        // $offer->price = $validatedData['price'];
         $offer->additional_hourly_price = $request->additional_hourly_price ?? '';
         $offer->hourly_price = $request->hourly_price ?? '';
         $offer->price = $request->pricenormal ?? '';
         $offer->additional_price = $request->additional_price ?? '';
-      
-      
-        $offer->updated_at = date('Y-m-d h:i:s');
-
+        $offer->updated_at = now();
+    
         if ($offer->save()) {
-
             $priceWithSize = $request->price;
-
-
-              $productPrice = DB::table('product_offer_size')->where('product_id', $request->product_id)->where('user_id',  $offer->user_id)->first();
-            
-             if ($request->has('pricenormal')) {
-              
-                Offer::where('id', $id)->update(['price' =>  $request->pricenormal]);
-            }
-            else{
-
-               
-               Offer::where('id', $id)->update(['price' =>  $productPrice->price]);
-
-            }
-            
-            if (isset($priceWithSize) && !empty($priceWithSize)) {
-                // First, delete existing entries for the given product and user
-                DB::table('product_offer_size')
+    
+            if ($request->has('pricenormal')) {
+                Offer::where('id', $id)->update(['price' => $request->pricenormal]);
+            } else {
+                if (isset($priceWithSize) && !empty($priceWithSize)) {
+                    // Delete existing entries
+                    DB::table('product_offer_size')
+                        ->where('product_id', $offer->product_id)
+                        ->where('user_id', $offer->user_id)
+                        ->whereIn('size_id', $request->size)
+                        ->delete();
+    
+                    // Insert new prices
+                    foreach ($priceWithSize as $key => $value) {
+                        $value = !is_null($value) ? $value : 0;
+                        DB::table('product_offer_size')->insert([
+                            'product_id' => $offer->product_id,
+                            'size_id' => $key,
+                            'price' => $value,
+                            'user_id' => $offer->user_id
+                        ]);
+                    }
+                }
+    
+                // Fetch the latest price from product_offer_size
+                $productPrice = DB::table('product_offer_size')
                     ->where('product_id', $offer->product_id)
                     ->where('user_id', $offer->user_id)
-                    ->whereIn('size_id', $request->size)
-                    ->delete();
-            
-                // Now, insert entries, setting value to 0 if it is null or 0
-                foreach ($priceWithSize as $key => $value) {
-                    $value = !is_null($value) ? $value : 0;
-                    DB::table('product_offer_size')->insert([
-                        'product_id' => $offer->product_id,
-                        'size_id' => $key,
-                        'price' => $value,
-                        'user_id' => $offer->user_id
-                    ]);
+                    ->where('size_id', 1) // Modify size_id if necessary
+                    ->first();
+    
+                if ($productPrice) {
+                    Offer::where('id', $id)->update(['price' => $productPrice->price]);
+                } else {
+                    Offer::where('id', $id)->update(['price' => 0]); // Fallback to 0 if no price found
                 }
             }
-            
-            
-            
-            session()->flash('message', "Price '" . $offer->title . "' has been updated successfully");
+    
+            session()->flash('message', "Price has been updated successfully");
             return redirect(Helper::sitePrefix() . 'product/offer/' . $offer->product_id);
         } else {
             return back()->with('message', 'Error while updating the Price');
         }
     }
-
 
     public function delete_offer(Request $request)
     {
