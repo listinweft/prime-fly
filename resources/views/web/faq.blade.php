@@ -2,19 +2,30 @@
 @section('content')
 
 <main class="faq-page">
-    <img src="{{ asset('frontend/images/faq-banner.png')}}" alt="" class="faq-bckdrop">
+<section class="col-12 locationbanner p-0">
+           <div class="d-flex justify-content-end">
+              <div class="locinner_bannerimg w-100">
+                <img src="{{ asset('frontend/img/faq.png')}}" class="w-100" alt="Meet and Greet" />
+                <div class="loc-text text-start">
+                    <div class="container">
+                        <h1>FAQ</h1>
+                    </div> 
+                </div>
+              </div>
+           </div> 
+         </section>
 
-    <div class="container position-relative">
-        <div class="faq-header">
-            <h1>Frequently Asked <br> Questions</h1>
-            <p>Id volutpat aliquet eget soenim. Sed auctor feugiat volutpat metus vitae laoreet sed </p>
+    <div class="container position-relative pt-5 pb-5">
+        <div class="faq-header text-center mb-4">
+            <h1>Frequently Asked   Questions</h1>
+            <!-- <p>Id volutpat aliquet eget soenim. Sed auctor feugiat volutpat metus vitae laoreet sed </p> -->
         </div>
 
         <div class="faq-contents">
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="row">
-                    <div class="col-lg-6">   @php   $i = 1; @endphp
-                        @foreach($faqs->slice(0, 5) as $faq)
+                    <div class="col-lg-12">   @php   $i = 1; @endphp
+                        @foreach($faqs->slice(0, 20) as $faq)
 
                      
                             <div class="accordion-item">
@@ -22,7 +33,7 @@
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#flush-collapse{{ $faq->id }}" aria-expanded="false"
                                             aria-controls="flush-collapse{{ $faq->id }}">
-                                        <div class="faq-number">{{ $i }}</div> {{ $faq->question }}
+                                        <div class="faq-number me-2">{{ $i }}</div> {{ $faq->question }}
                                     </button>
                                 </h2>
                                 <div id="flush-collapse{{ $faq->id }}" class="accordion-collapse collapse"
@@ -35,8 +46,8 @@
                           @php   $i++; @endphp
                         @endforeach
                     </div>
-                    <div class="col-lg-6">
-                    @php   $i = 6; @endphp
+                    <div class="col-lg-12">
+                    @php   $i = 21; @endphp
                         @foreach($faqs->slice(5) as $faq)
                   
                             <div class="accordion-item">

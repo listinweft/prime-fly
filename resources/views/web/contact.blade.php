@@ -45,13 +45,13 @@
                             </div>
                         </div>
                         <ul class="d-flex contact-links p-0">
-                            <li>
+                            <!-- <li>
                                 <a href="{{ url('support') }}" class="btn-style-2">
                                     <div class="btn-in"> 
                                         Help & Support
                                     </div>
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="{{ url('faq') }}" class="btn-style-2">
                                     <div class="btn-in"> 
