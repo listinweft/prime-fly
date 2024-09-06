@@ -84,8 +84,8 @@
                                                 @if( $customer->user->btype == "b2b")
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
-                                                           data-url="/status-change" data-table="User"
-                                                           data-field="status" data-pk="{{ $customer->user->id }}"
+                                                           data-url="/status-change-pay" data-table="User"
+                                                           data-field="pay_status" data-pk="{{ $customer->user->id }}"
                                                         {{($customer->user->pay_status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>

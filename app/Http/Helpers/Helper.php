@@ -466,6 +466,41 @@ public static function sendOrderStatusMail($order, $status, $productName)
 
 
 
+public static function sendCustomerStatusMail($status, $toName, $to)
+{
+    // Log start of email sending
+    \Illuminate\Support\Facades\Log::info("Starting change");
+
+    // Create an instance of BrevoMailService
+    $brevoMailService = new \App\Services\BrevoMailService();
+
+    // Retrieve common site information and active contact address
+    
+    $subject = config('app.name') . ' - Status Changed';
+
+    // Generate the email content using a Blade view
+    $htmlContent = view('mail_templates.customer_status_change', [
+        
+        'name' => $toName,
+        'status' => $status,
+       
+        'app_name' => config('app.name')
+    ])->render();
+
+    // Send email to customer
+    try {
+        $brevoMailService->sendEmail($to, $toName, $subject, $htmlContent);
+        \Illuminate\Support\Facades\Log::info("Order status email sent successfully to customer: " . $to);
+    } catch (\Exception $e) {
+        \Illuminate\Support\Facades\Log::error("Failed to send email to customer: " . $e->getMessage());
+    }
+
+    // Send email to admins
+   
+
+    return true;
+}
+
 public static function sendOrderPlacedMail($order, $flag)
 {
     $brevoMailService = new \App\Services\BrevoMailService();

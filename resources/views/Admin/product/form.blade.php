@@ -116,7 +116,7 @@
                               <tr>
                                  <td>Price</td>
                                  <td>
-                                    <input type="number" name="pricenormal" class="form-control" id="pricenormal" value="{{ isset($product) ? $product->price : '' }}">
+                                    <input type="text" name="pricenormal" class="form-control" id="pricenormal" value="{{ isset($product) ? $product->price : '' }}">
                                     <div class="help-block with-errors" id="pricenormal_error"></div>
                                  </td>
                               </tr>
@@ -159,7 +159,7 @@
                                  </td>
                                  <td>
                                     <input type="hidden" name="size[]" id=""   value="{{$size->id}}">
-                                    <input type="number" name="price[{{$size->id}}]" id="pricesize"   class="form-control" value="">
+                                    <input type="text" name="price[{{$size->id}}]" id="pricesize"   class="form-control" value="">
                                     <div class="help-block with-errors" id="pricesize_error"></div>
                                  </td>
                               </tr>
@@ -177,7 +177,7 @@
                                     $price = App\Models\ProductPrice::where('product_id',$product->id)->where('size_id',$size->id)->first();
                                     @endphp
                                     <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                    <input type="number" name="price[{{$size->id}}]" id="pricesize" class="form-control" value="{{isset($price)?$price->price:''}}">
+                                    <input type="text" name="price[{{$size->id}}]" id="pricesize" class="form-control" value="{{isset($price)?$price->price:''}}">
                                     <div class="help-block with-errors" id="pricesize_error"></div>
                                  </td>
                               </tr>
@@ -535,7 +535,7 @@
                    $(this).find('tr:first-child input[name^="price["]').addClass('required');
                });
                $('[id^=firstpricing]').hide().find('#pricenormal').removeClass('required');
-               $('#firstpricing input[type="number"]').val('');
+               $('#firstpricing input[type="text"]').val('');
            } else {
    
                   document.getElementById('travelSectorGroup').style.display = 'none';
@@ -543,7 +543,7 @@
    
                 
                $('[id^=size_price_listing_table]').hide();
-               $('#size_price_listing_table input[type="number"]').val('');
+               $('#size_price_listing_table input[type="text"]').val('');
                $('[id^=firstpricing]').show().find('#pricenormal').addClass('required');
            }
        }

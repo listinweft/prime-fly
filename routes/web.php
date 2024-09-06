@@ -299,6 +299,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::post('home-heading', [HomeController::class, 'update_home_heading']);
     Route::get('home-heading', [HomeController::class, 'create_home_heading']);
     Route::post('status-change', [HomeController::class, 'status_change']);
+     Route::post('status-change-pay', [HomeController::class, 'status_pay_change']);
+    
     Route::post('status-change-cod', [HomeController::class, 'status_change_cod']);
     Route::post('agerange-change', [HomeController::class, 'agerange_change']);
     Route::post('change-bool-status', [HomeController::class, 'change_bool_status']);
@@ -890,6 +892,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
       Route::get('/get-locations-by-category', [ReportController::class, 'getLocationsByCategory'])->name('get.locations.by.category');
       Route::get('/get-locations-by-category-sub', [ReportController::class, 'getLocationsByCategory_sub'])->name('get.locations.by.category.sub');
       Route::get('/get-products-by-location', [ReportController::class, 'getProductsByLocation'])->name('get.products.by.location');
+      Route::get('/get-customers-by-type', [ReportController::class, 'getCustomersByType'])->name('get.customers.by.type');
+
 
 
         Route::get('export', [ReportController::class, 'export'])->name('export');

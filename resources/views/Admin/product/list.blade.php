@@ -53,6 +53,7 @@
                                         <th>Locations</th>
                                         <th>Package</th>
                                         <th>Travel Sector</th>
+                                        <th>Travel Type</th>
                                      
                                       
                                         <th>B2b</th>
@@ -69,6 +70,7 @@
                                             <td>{{ implode(', ', $product->location_titles) }}</td>
                                             <td>{{ $product->title }}</td>
                                             <td>{{ ucwords(str_replace('_', ' ', $product->sector)) }}</td>
+                                            <td>{{ ucwords(str_replace('_', ' ', $product->service_type)) }}</td>
 
                                             
                                             <td><a href="{{url(Helper::sitePrefix().'product/offer/'.$product->id)}}"

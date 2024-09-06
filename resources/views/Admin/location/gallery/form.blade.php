@@ -11,11 +11,11 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'dashboard')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'product/product_list')}}">Products</a>
+                            <li class="breadcrumb-item"><a href="{{url(Helper::sitePrefix().'location')}}">Location</a>
                             </li>
-                            <li class="breadcrumb-item"><a
+                            <!-- <li class="breadcrumb-item"><a
                                     href="{{url(Helper::sitePrefix().'product/gallery/'.$product_id)}}">Gallery</a></li>
-                            <li class="breadcrumb-item active">{{$title}}</li>
+                            <li class="breadcrumb-item active">{{$title}}</li> -->
                         </ol>
                     </div>
                 </div>

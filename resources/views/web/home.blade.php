@@ -406,7 +406,7 @@ $sessionKey = session('session_key');
             <a href="{{ url('location/' . @$location->title) }}">
               <div class="airtport_list_thumb">
                 {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
-                <h3>{{ $location->title }}</h3>
+                <h3>{{ $location->code }}</h3>
               </div>
               <h4>{{ $location->code }}</h4>
               <p>{{ $location->title }} International Airport</p>
@@ -520,9 +520,11 @@ $sessionKey = session('session_key');
                   
                   @endforeach
                  
+<!--                  
                   <div class="col-12 text-center mt-3">
                     <a href="{{ url('blogs') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
-                  </div>
+                  </div> -->
+              
                 </div>
               </div>
             </div>

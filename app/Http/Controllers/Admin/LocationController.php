@@ -363,7 +363,7 @@ class LocationController extends Controller
     {
         $key = "Update";
         $product_gallery = LocationGallery::find($id);
-        $title = "Update Product Gallery  - " . $product_gallery->location->title;
+        $title = "Update Location Gallery  - " . $product_gallery->location->title;
         if ($product_gallery) {
             $product_id = $product_gallery->location_id;
             return view('Admin.location.gallery.form', compact('key', 'product_gallery', 'title', 'product_id'));

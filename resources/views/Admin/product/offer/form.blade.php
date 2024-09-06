@@ -91,7 +91,7 @@
                            <tr>
                               <td>Price</td>
                               <td>
-                                 <input type="number" name="pricenormal" class="form-control" id="pricenormal" value="{{ isset($offer) ? $offer->price : '' }}">
+                                 <input type="text" name="pricenormal" class="form-control" id="pricenormal" value="{{ isset($offer) ? $offer->price : '' }}">
                                  <div class="help-block with-errors" id="pricenormal_error"></div>
                               </td>
                            </tr>
@@ -135,7 +135,7 @@
                               </td>
                               <td>
                                  <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                 <input type="number" name="price[{{$size->id}}]" id="price{{$size->id}}"   class="form-control" value="{{isset($product)?$product->price:''}}">
+                                 <input type="text" name="price[{{$size->id}}]" id="price{{$size->id}}"   class="form-control" value="{{isset($product)?$product->price:''}}">
                               </td>
                            </tr>
                            @endforeach
@@ -152,7 +152,7 @@
                                  $price = App\Models\ProductOfferSize::where('product_id',$product->product_id)->where('size_id',$size->id)->where('user_id',$product->user_id)->first();
                                  @endphp
                                  <input type="hidden" name="size[]" id="" value="{{$size->id}}">
-                                 <input type="number" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
+                                 <input type="text" name="price[{{$size->id}}]" id="price" class="form-control" value="{{isset($price)?$price->price:''}}">
                               </td>
                            </tr>
                            @endforeach
@@ -185,12 +185,12 @@
      var categoryEmpty = @json(empty($categorystatus));
      
      if (categoryEmpty->age_range=="Active") {
-         $('#size_price_listing_table tbody tr:first-child input[type="number"]').removeClass('required');
+         $('#size_price_listing_table tbody tr:first-child input[type="text"]').removeClass('required');
          $('input[name="pricenormal"]').attr('required', 'required');
-         $('#size_price_listing_table tbody tr:first-child input[type="number"]').removeAttr('required');
+         $('#size_price_listing_table tbody tr:first-child input[type="text"]').removeAttr('required');
      } else {
-         $('#size_price_listing_table tbody tr:first-child input[type="number"]').addClass('required');
-         $('#size_price_listing_table tbody tr:first-child input[type="number"]').attr('required', 'required');
+         $('#size_price_listing_table tbody tr:first-child input[type="text"]').addClass('required');
+         $('#size_price_listing_table tbody tr:first-child input[type="text"]').attr('required', 'required');
          $('input[name="pricenormal"]').removeAttr('required');
      }
    });

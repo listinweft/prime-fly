@@ -65,15 +65,21 @@
                                  @endforeach
                               </select>
                            </div>
+
                            <div class="col-sm-3 mb-3">
-                              <select class="form-control select2" id="order_report_customer"
-                                 name="order_report_customer">
-                                 <option value="">Select Customer</option>
-                                 @foreach($customerList as $customer)
-                                 <option
-                                    value="{{$customer->id}}">{{$customer->first_name.' '.$customer->last_name}}</option>
-                                 @endforeach
-                              </select>
+                           <select class="form-control select2" id="order_report_type" name="order_report_type">
+    <option value="">Select Customer Type</option>
+    @foreach(['public', 'b2b'] as $status)
+        <option value="{{ $status }}">{{ $status }}</option> <!-- Use Blade echo tags here -->
+    @endforeach
+</select>
+
+                           </div>
+                           <div class="col-sm-3 mb-3">
+                           <select class="form-control select2" id="order_report_customer" name="order_report_customer">
+    <option value="">Select Customer</option>
+    <!-- The customer list will be dynamically populated based on the selected type -->
+</select>
                            </div>
                            <div class="col-sm-3 mb-3">
                               <select class="form-control select2" id="order_report_category" name="order_report_category">
@@ -143,6 +149,29 @@
 </style>
 <script>
    $(document).ready(function () {
+
+      $('#order_report_type').change(function () {
+        var customerType = $(this).val();
+        
+        // Clear customer dropdown
+        $('#order_report_customer').empty().append('<option value="">Select Customer</option>');
+
+        if (customerType) {
+            $.ajax({
+                url: '{{ route("get.customers.by.type") }}', // You will create this route
+                type: 'GET',
+                data: { type: customerType },
+                success: function (response) {
+                    var customerSelect = $('#order_report_customer');
+                    
+                    // Populate customers from the response
+                    $.each(response.customers, function (index, customer) {
+                        customerSelect.append('<option value="' + customer.id + '">' + customer.first_name + ' ' + customer.last_name + '</option>');
+                    });
+                }
+            });
+        }
+    });
        $('#order_report_category').change(function () {
            var categoryId = $(this).val();
            

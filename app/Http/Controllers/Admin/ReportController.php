@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Category;
+use App\Models\User;
 
 use App\Models\Order;
 use App\Models\Location;
@@ -152,6 +153,24 @@ public function getProductsByLocation(Request $request)
 
     return response()->json(['products' => $products]);
 }
+
+
+public function getCustomersByType(Request $request)
+{
+    $customerType = $request->get('type');
+
+    // Get all user IDs based on the selected customer type
+    $userIds = User::where('btype', $customerType)->pluck('id')->toArray(); // Get only the IDs
+
+    // Filter customers by user IDs
+    $customers = Customer::whereIn('user_id', $userIds)->get();
+
+    return response()->json([
+        'customers' => $customers
+    ]);
+}
+
+
 
 
  
