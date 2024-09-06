@@ -180,7 +180,8 @@
                               <div class="details-item">
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="address">Address*</label>
-                                    <textarea name="address" id="address" required></textarea>
+                                    <textarea name="address" id="address" required>{{ $user->customer->businessAddress->address ?? '' }}</textarea>
+
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
@@ -198,17 +199,19 @@
                                        <div class="details-item">
                                           <label for="name">Country*</label>
                                           <select name="country" id="country" required>
-                                 <!-- <option value="">Select a Country</option> -->
-                                 <option value="india">India</option>
-                                 <option value="usa">USA</option>
-                              </select>
+    <option value="">Select a Country</option>
+    <option value="india" {{ ($user->customer->businessAddress && $user->customer->businessAddress->country === 'india') ? 'selected' : '' }}>India</option>
+    <option value="usa" {{ ($user->customer->businessAddress && $user->customer->businessAddress->country === 'usa') ? 'selected' : '' }}>USA</option>
+</select>
+
                                <span class="error-message" style="display: none;">Country name is required.</span>
                                        </div>
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item">
                                           <label for="name">State*</label>
-                                          <input type="text" name="state" id="state" placeholder="State" required> 
+                                          <input type="text" name="state" id="state" placeholder="State" required value="{{ $user->customer->businessAddress->state ?? '' }}">
+
                                           <span class="error-message" style="display: none;">State is required.</span>
                                        </div>
                                      
@@ -216,14 +219,14 @@
                                     <div class="col-lg-6">
                                        <div class="details-item">
                                           <label for="name">City*</label>
-                                          <input type="text" name="city" id="city" placeholder="City" required> 
+                                          <input type="text" name="city" id="city" placeholder="City" value="{{ $user->customer->businessAddress->city ?? '' }}" required> 
                                           <span class="error-message" style="display: none;">City is required.</span>
                                        </div>
                                     </div>
                                     <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode*</label>
-                                          <input type="text" name="pincode" id="pincode" placeholder="Pincode" required> 
+                                          <input type="text" name="pincode" id="pincode" placeholder="Pincode" value="{{ $user->customer->businessAddress->pincode ?? '' }}" required> 
                                           <span class="error-message" style="display: none;">Pincode is required.</span>
                                        </div>
                                     </div>
@@ -240,13 +243,13 @@
                               <div class="details-item">
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="address">Address</label>
-                                    <textarea name="address" id="address" required></textarea>
+                                    <textarea name="address" id="address" ></textarea>
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="passport_number">Passport Number*</label>
-                                    <input type="text" name="passport_number" id="passport_number" required>
+                                    <input type="text" name="passport_number" id="passport_number" >
                                     <span class="error-message" style="display: none;">Passport Number is required.</span>
                                  </div>
                                  @endif

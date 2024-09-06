@@ -44,13 +44,41 @@
                                             <p class="text-muted">{{$Customer->first_name}}</p>
                                             <hr> -->
                                             <strong><i class="fas fa-star mr-1"></i>Address</strong>
-                                            <p class="text-muted">{{$Customer->address}}</p>
+                                            @if(!empty($Customer->businessAddress->address))
+    <p class="text-muted">{{ $Customer->businessAddress->address }}</p>
+@endif
+
                                             <hr>
-                                            <strong><i class="fas fa-envelope mr-1"></i>Work place</strong>
-                                            <p class="text-muted">{{$Customer->workplace}}</p>
+                                            <strong><i class="fas fa-envelope mr-1"></i>Country</strong>
+                                            @if(!empty($Customer->businessAddress->country))
+    <p class="text-muted">{{ $Customer->businessAddress->country }}</p>
+@endif
+
                                             <hr>
-                                            <strong><i class="fas fa-address-book mr-1"></i>id/Licence</strong>
-                                            <p class="text-muted">{{$Customer->licenc}}</p>
+                                            <strong><i class="fas fa-address-book mr-1"></i>state</strong>
+                                            @if(!empty($Customer->businessAddress->state))
+    <p class="text-muted">{{ $Customer->businessAddress->state }}</p>
+@endif
+
+<hr>
+
+
+<strong><i class="fas fa-address-book mr-1"></i>City</strong>
+                                            @if(!empty($Customer->businessAddress->city))
+    <p class="text-muted">{{ $Customer->businessAddress->city }}</p>
+@endif
+                                            <hr>
+                                            
+<strong><i class="fas fa-address-book mr-1"></i>Pincode</strong>
+                                            @if(!empty($Customer->businessAddress->pincode))
+    <p class="text-muted">{{ $Customer->businessAddress->pincode }}</p>
+@endif
+                                            <hr>
+
+                                            <strong><i class="fas fa-address-book mr-1">   </i>Gst Number</strong>
+                                            @if(!empty($Customer->businessAddress->gst_number))
+    <p class="text-muted">{{ $Customer->businessAddress->gst_number }}</p>
+@endif
                                             <hr>
                                             
                                             <hr>

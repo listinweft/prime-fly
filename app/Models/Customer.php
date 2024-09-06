@@ -39,4 +39,9 @@ class Customer extends Model
     {
         return $this->hasMany(CustomerAddress::class, 'customer_id')->orderBy('is_default','asc')->active();
     }
+
+    public function businessAddress()
+    {
+        return $this->hasOne(BusinessAddress::class);
+    }
 }

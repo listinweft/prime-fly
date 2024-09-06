@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('pay_status', ['Active', 'Inactive'])
-                  ->default('Inactive');
+        Schema::create('business_addresses', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('pay_status');
-        });
+        Schema::dropIfExists('business_addresses');
     }
 };

@@ -186,7 +186,7 @@ class AdministrationController extends Controller
                                 'message' => 'Not Permitted : ' . $admin->name . ' tagged with customer'
                             ]);
                         } else {
-                            DB::beginTransaction();
+                            // DB::beginTransaction();
                             if (File::exists(public_path($user->profile_image))) {
                                 File::delete(public_path($user->profile_image));
                             }
@@ -196,11 +196,11 @@ class AdministrationController extends Controller
                             $user->profile_image = null;
                             $user->profile_image_webp = null;
                             $user->save();
-                            if ($user->delete() && $admin->delete()) {
-                                DB::commit();
+                            if ($user->forceDelete() && $admin->forceDelete()) {
+                                // DB::commit();
                                 return response()->json(['status' => true,]);
                             } else {
-                                DB::rollBack();
+                                // DB::rollBack();
                                 return response()->json(['status' => false, 'message' => 'Error while deleting admin']);
                             }
                         }
