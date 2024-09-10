@@ -49,6 +49,17 @@
                                     inputmode="numeric">
                               </div>
                            </div>
+                           <div class="col-sm-3 mb-3">
+                              <select class="form-control seelct2" id="order_report_status"
+                                 name="order_report_status">
+                                 <option value="">Select Status</option>
+                                 @foreach(['Pending','Processing','On Hold','Cancelled','Completed','Refunded','Failed'] AS $status)
+                                 <option value="{{ $status }}"
+                                 {{ (old("order_report_status") == $status)? "selected" : "" }}>
+                                 {{ $status }}</option>
+                                 @endforeach
+                              </select>
+                           </div>
                            <div class="col-sm-2">
                            <select class="form-control select2" id="order_report_type" name="order_report_type">
     <option value="">Select Customer Type</option>

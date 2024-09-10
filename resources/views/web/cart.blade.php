@@ -183,7 +183,7 @@
                 <h4 class="text-center mb-4">Add-on Services</h4>
                 <div class="col-lg-12 service-slider" data-aos="fade-up" data-aos-duration="600">
                     <div class="owl-carousel owl-theme service-carousel">
-                        @foreach ($categorys as $category)
+                        @foreach ($categories as $category)
                         <div class="item"> 
                             <a href="{{ url('service/'.@$category->short_url) }}">
                                 {!! Helper::printImage(@$category, 'image', 'image_webp', '', 'img-fluid') !!}

@@ -68,7 +68,7 @@
                                 <input type="hidden" name="type" id="type" value="{{ $type }}">
                                 <input type="submit" name="btn_save" value="Submit"
                                        class="btn btn-primary pull-left submitBtn">
-                                <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                                <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                      style="display:none;">
                             </div>
                         </div>
