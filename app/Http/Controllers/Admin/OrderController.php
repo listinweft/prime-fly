@@ -226,7 +226,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
       
        
         $boxValues = Order::boxValues();
-        return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues'));
+        return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues','admintype'));
     }
 
     public function listdate($createdDate = null)
@@ -289,7 +289,7 @@ $orders = Order::when(!empty($locationCodes), function ($query) use ($locationCo
         }
     
         $boxValues = Order::boxValues();
-        return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues'));
+        return view('Admin/order/order_list', compact('orderList', 'title', 'boxValues','admintype'));
     }
     
 

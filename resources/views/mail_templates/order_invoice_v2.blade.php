@@ -250,7 +250,7 @@
                       </h4>
                    </td>
                    <td style="padding: 0; Margin: 0;color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                      <strong>{{ $order->currency }} {{ number_format($totalIncluding18Percent, 2) }}</strong>
+                      <strong>{{ $order->currency }} {{ round($totalIncluding18Percent) }}</strong>
                    </td>
                 </tr>
              </table>

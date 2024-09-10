@@ -391,8 +391,12 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     });
 
     Route::prefix('banner')->group(function () {
-        Route::get('/{type}', [BannerController::class, 'banner']);
-        Route::post('{type}', [BannerController::class, 'banner_store']);
+        Route::get('/list', [BannerController::class, 'banner']);
+        Route::get('create/', [BannerController::class, 'banner_create']);
+        Route::post('create/', [BannerController::class, 'banner_store']);
+        Route::get('edit/{id}', [BannerController::class, 'banner_edit']);
+        Route::post('edit/{id}', [BannerController::class, 'banner_update']);
+        Route::post('delete', [BannerController::class, 'delete_banner']);
     });
 
     Route::prefix('blog')->group(function () {

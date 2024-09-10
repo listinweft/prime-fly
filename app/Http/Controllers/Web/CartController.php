@@ -267,6 +267,8 @@ class CartController extends Controller
        
         $sessionKey = session('session_key');
 
+        
+
 
     //    return Cart::session($sessionKey)->getContent();
         // $cartItems = Cart::session($sessionKey)->getContent();
@@ -288,7 +290,7 @@ class CartController extends Controller
         $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
-        $banner = Banner::type('cart')->first();
+        $banner = Banner::first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
         $categorys = Category::whereNull('parent_id')->get();
@@ -528,7 +530,7 @@ class CartController extends Controller
         $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
-        $banner = Banner::type('cart')->first();
+        $banner = Banner::first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
    
@@ -549,7 +551,7 @@ class CartController extends Controller
         $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
-        $banner = Banner::type('cart')->first();
+        $banner = Banner::first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
    
@@ -1563,7 +1565,8 @@ class CartController extends Controller
                             'state' => $request->state ?? '',
                             'city' => $request->city ?? '',
                             'gender' => $request->gender[$key] ?? '',
-                            'pincode' => $request->pincode ?? ''
+                            'pincode' => $request->pincode ?? '',
+                            'gst_number' => $request->gst_number ?? ''
                         ];
                     }
                     PersonalDetails::insert($personalDetailsData);

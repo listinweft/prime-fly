@@ -86,12 +86,19 @@ class WebController extends Controller
         $locations = Location::active()->get();
         $blogs = Blog::active()->latest()->take(3)->get();
 
+        $type = 'home'; // Ensure this is a string
+        // dd($type); // or Log::info($type);
+        $banners = HomeBanner::first();
+        
+        
+
+
         $categorys = Category::whereNull('parent_id')->orderBy('sort_order')->get();
         
         $testimonials = Testimonial::active()->get();
         $locationsall = Location::active()->get();
        
-        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials','locationsall'));
+        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials','locationsall','banners'));
     }
 
     public function proxy(Request $request)

@@ -223,6 +223,9 @@
                                           <span class="error-message" style="display: none;">City is required.</span>
                                        </div>
                                     </div>
+
+                                    <input type="hidden" name="gst_number" id="gst_number" placeholder="" value="{{ $user->customer->businessAddress->gst_number ?? '' }}" > 
+
                                     <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode*</label>
@@ -384,7 +387,8 @@
                            </tr>
                            <tr>
                               <td><b>Total Amount</b></td>
-                              <td><b>&#8377;  {{$finalamount}}</b></td>
+                              <td><b>&#8377; {{ round($finalamount) }}</b></td>
+
                            </tr>
                         </tfoot>
                      </table>

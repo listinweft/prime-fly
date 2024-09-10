@@ -3,6 +3,8 @@
 
 <section class="col-12 banner d-none d-sm-block">
             <img src="{{ asset('frontend/img/banner.webp')}}" alt="Banner" />
+
+            <!-- {!! Helper::printImage(@$banners, 'desktop_image', 'desktop_image_webp', '', 'img-fluid') !!} -->
             <div class="banner_content">
                <div class="container">
                   <div class="d-flex justify-content-center">

@@ -150,7 +150,8 @@
                                     </tr>
                                     <tr>
                                         <td><b>Total Amount</b></td>
-                                        <td><b>&#8377; {{ $finalamount }}</b></td>
+                                        <td><b>&#8377; {{ round($finalamount) }}</b></td>
+
                                     </tr>
                                 </tfoot>
                             </table>

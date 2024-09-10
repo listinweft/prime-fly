@@ -10,14 +10,14 @@
             <td rowspan="2">Customer</td>
             <td colspan="4" style="text-align: center;">Services</td>
            
-            <td rowspan="2">Created Date</td>
+            <td rowspan="2">Status</td>
         </tr>
         <tr>
             <td>#</td>
             <td>Service</td>
             <td>Package</td>
-            <td>Sub Total</td>
-            <td style="border-right: 1px solid #f4f4f4;">Status</td>
+            <!-- <td>Sub Total</td> -->
+            <td style="border-right: 1px solid #f4f4f4;">Created Date</td>
         </tr>
         @php $i = 1 @endphp 
         @foreach($orderList as $order)
@@ -44,7 +44,7 @@
                         @endif
                     </td>
                     <td>{{ ($products[0]->productData) ? $products[0]->productData->title : '' }}</td>
-                    <td>{{ $order->currency . ' ' . $products[0]->total }}</td>
+                    <!-- <td>{{ $order->currency . ' ' . $products[0]->total }}</td> -->
                    
                   
                     <td rowspan="{{ count($products) }}">{{ date("d-M-Y", strtotime($order->created_at)) }}</td>

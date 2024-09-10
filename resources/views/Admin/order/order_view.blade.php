@@ -21,6 +21,12 @@
                 </div>
             </div>
         </section>
+        @php
+                                    $admintype = Auth::guard('admin')->user()->admin;
+                                    @endphp
+
+                                    
+                                    
 
         <section class="content">
             <div class="container-fluid">
@@ -65,9 +71,13 @@
                                                 <th>Adults</th>
                                                 <th>Infants</th>
                                                 <th>Children</th>
+                                                @if($admintype->role == "Super Admin")
                                                 <th>Cost</th>
+                                                @endif
                                                 <th>Status</th>
+                                                @if($admintype->role == "Super Admin")
                                                 <th>Price</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -119,7 +129,9 @@
                                                     <td>{{ $product->adults }}</td>
                                                     <td>{{ $product->infants }}</td>
                                                     <td>{{ $product->children }}</td>
+                                                    @if($admintype->role == "Super Admin")
                                                     <td>{{ $order->currency }} {{ $product->cost }}</td>
+                                                    @endif
                                                     <td>
                                                         <select name="status" id="orderStatus" class="form-control" style="min-width: 130px;"
                                                                 data-id="{{ $product->id }}" data-order_id="{{ $order->id }}"
@@ -135,6 +147,7 @@
                                                             @endforeach
                                                         </select>
                                                     </td>
+                                                    @if($admintype->role == "Super Admin")
                                                     <td>{{ $order->currency }}
                                                         @if (count($order->orderProducts) == 1)
                                                             @if ($order->orderCoupons != null)
@@ -146,6 +159,7 @@
                                                             {{ $product->total }}
                                                         @endif
                                                     </td>
+                                                   @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -157,6 +171,11 @@
                                 <div class="col-6"></div>
                                 <div class="col-6">
                                     <div class="table-responsive">
+
+                                   
+
+                                    @if($admintype->role == "Super Admin")
+
                                         <table class="table">
                                             <tbody>
                                                 <tr>
@@ -183,6 +202,9 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>

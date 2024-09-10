@@ -1157,6 +1157,7 @@ $(document).ready(function () {
                     country: $('#country').val(),
                     city: $('#city').val(),
                     state: $('#state').val(),
+                    gst_number: $('#gst_number').val(),
                     gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
                     name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
                     age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
