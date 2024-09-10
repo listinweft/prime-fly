@@ -11,6 +11,8 @@ use App\Models\OrderCustomer;
 use App\Models\SiteInformation;
 use App\Models\State;
 use App\Models\User;
+use App\Models\Offer;
+use App\Models\BusinessAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -73,6 +75,20 @@ class CustomerController extends Controller
             $customer->last_name = $request->last_name ?? '';
             $customer->user_id = $user->id;
             if ($customer->save()) {
+
+                $businessAddress = new BusinessAddress;
+                $businessAddress->customer_id = $customer->id; // Assuming customer_id should match user_id
+                $businessAddress->address = $request->address;
+                $businessAddress->country = $request->country;
+                $businessAddress->state = $request->state;
+                $businessAddress->city = $request->city;
+                $businessAddress->pincode = $request->pincode;
+                $businessAddress->gst_number = $request->gst_number;
+                $businessAddress->passport_number =" ";
+
+                $businessAddress->save();
+
+
                 DB::commit();
                 session()->flash('success', 'Customer has been added successfully');
                 return redirect(Helper::sitePrefix() . 'customer');
@@ -100,22 +116,40 @@ class CustomerController extends Controller
             return view('Admin.error.404');
         }
     }
-
     public function customer_update(Request $request, $id)
     {
         $customer = Customer::find($id);
+        if (!$customer) {
+            return back()->with('error', 'Customer not found');
+        }
+    
         $user = $customer->user;
         $validatedData = $request->validate([
             'first_name' => 'required|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone' => 'required|min:7|max:15|unique:users,phone,' . $user->id,
-            'profile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'address' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'city' => 'nullable|string|max:100',
+            'pincode' => 'nullable|string|max:20',
+            'gst_number' => 'nullable|string|max:20',
         ]);
-        DB::beginTransaction();
-        $customer->first_name = $validatedData['first_name'];
-        $customer->last_name = $request->last_name ?? '';
-        $customer->updated_at = now();
-        if ($customer->save()) {
+    
+        try {
+            DB::beginTransaction();
+    
+            // Update customer details
+            $customer->first_name = $validatedData['first_name'];
+            $customer->last_name = $request->last_name ?? '';
+            $customer->updated_at = now();
+            if (!$customer->save()) {
+                DB::rollBack();
+                return back()->with('error', 'Error while updating customer');
+            }
+    
+            // Update user details
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->username = $request->username;
@@ -123,27 +157,49 @@ class CustomerController extends Controller
             $user->updated_by = Auth::id();
             $user->image_attribute = $request->image_attribute;
             $user->updated_at = now();
+    
             if ($request->hasFile('profile_image')) {
+                // Delete old profile images if they exist
                 if (File::exists(public_path($user->profile_image))) {
                     File::delete(public_path($user->profile_image));
                 }
                 if (File::exists(public_path($user->profile_image_webp))) {
                     File::delete(public_path($user->profile_image_webp));
                 }
+                // Upload new profile images
                 $user->profile_image_webp = Helper::uploadWebpImage($request->profile_image, 'uploads/customer/profile_image/webp/', $request->email);
                 $user->profile_image = Helper::uploadFile($request->profile_image, 'uploads/customer/profile_image/', $request->email);
             }
-            if ($user->save()) {
-                DB::commit();
-                session()->flash('success', 'Customer has been updated successfully');
-                return redirect(Helper::sitePrefix() . 'customer');
-            } else {
+    
+            if (!$user->save()) {
                 DB::rollBack();
-                return back()->with('message', 'Error while updating customer');
+                return back()->with('error', 'Error while updating user details');
             }
-        } else {
+    
+            // Update business address details
+            $businessAddress = BusinessAddress::where('customer_id', $customer->id)->first();
+            if (!$businessAddress) {
+                $businessAddress = new BusinessAddress;
+                $businessAddress->customer_id = $customer->id;
+            }
+            $businessAddress->address = $request->address;
+            $businessAddress->country = $request->country;
+            $businessAddress->state = $request->state;
+            $businessAddress->city = $request->city;
+            $businessAddress->pincode = $request->pincode;
+            $businessAddress->gst_number = $request->gst_number;
+    
+            if (!$businessAddress->save()) {
+                DB::rollBack();
+                return back()->with('error', 'Error while updating business address');
+            }
+    
+            DB::commit();
+            session()->flash('success', 'Customer has been updated successfully');
+            return redirect(Helper::sitePrefix() . 'customer');
+        } catch (Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Error while updating customer');
+            return back()->with('error', 'Operation failed: ' . $e->getMessage());
         }
     }
 
@@ -154,42 +210,59 @@ class CustomerController extends Controller
             if ($customer) {
                 $user = $customer->user;
                 if ($user) {
+                    // Check for related records
                     $customerAddress = CustomerAddress::where('customer_id', $request->id)->count();
                     $orderTagged = OrderCustomer::where('customer_id', $request->id)->count();
+                    $businessAddress = BusinessAddress::where('customer_id', $request->id)->first();
+                    $offer = Offer::where('user_id', $user->id)->first();
+    
                     if ($customerAddress != 0) {
-                        return response()->json(['status' => false, 'message' => 'Error : Customer "' . $customer->first_name . '" has tagged with address']);
+                        return response()->json(['status' => false, 'message' => 'Error: Customer "' . $customer->first_name . '" is tagged with address']);
                     } elseif ($orderTagged != 0) {
-                        return response()->json(['status' => false, 'message' => 'Error : Customer "' . $customer->first_name . '" has tagged with Orders']);
+                        return response()->json(['status' => false, 'message' => 'Error: Customer "' . $customer->first_name . '" is tagged with orders']);
+                    } elseif ($offer) {
+                        return response()->json(['status' => false, 'message' => 'Error: Customer "' . $customer->first_name . '" has an offer associated. Remove it first.']);
                     } else {
                         DB::beginTransaction();
+    
+                        // Delete profile images if they exist
                         if (File::exists(public_path($user->profile_image))) {
                             File::delete(public_path($user->profile_image));
                         }
                         if (File::exists(public_path($user->profile_image_webp))) {
                             File::delete(public_path($user->profile_image_webp));
                         }
+                        
+                        // Clear image paths in user record
                         $user->profile_image = null;
                         $user->profile_image_webp = null;
                         $user->save();
+    
+                        // Delete associated business address if exists
+                        if ($businessAddress) {
+                            $businessAddress->delete();
+                        }
+    
+                        // Delete customer and user records
                         if ($user->forceDelete() && $customer->forceDelete()) {
                             DB::commit();
-                            return response()->json(['status' => true,]);
+                            return response()->json(['status' => true, 'message' => 'Customer deleted successfully']);
                         } else {
                             DB::rollBack();
                             return response()->json(['status' => false, 'message' => 'Error while deleting customer']);
                         }
                     }
                 } else {
-                    return response()->json(['status' => false, 'message' => 'Record not found']);
+                    return response()->json(['status' => false, 'message' => 'User record not found']);
                 }
             } else {
-                return response()->json(['status' => false, 'message' => 'Model class not found']);
+                return response()->json(['status' => false, 'message' => 'Customer record not found']);
             }
-
         } else {
-            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+            return response()->json(['status' => false, 'message' => 'No ID provided']);
         }
     }
+    
 
     public function address($customer_id)
     {

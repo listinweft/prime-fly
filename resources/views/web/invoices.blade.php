@@ -125,6 +125,16 @@
 
                            <br> +91 {{$user->phone}}
                         </p>
+
+                        @if(!empty($user->customer->businessAddress->gst_number))
+    <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">GST Number</h5>
+    <p style="color:#5E6470;font-size:11px;line-height:1.4">{{ $user->customer->businessAddress->gst_number }}</p>
+@endif
+
+                           
+
+                           
+                        </p>
                      </td>
                      <td style="width:33%;border:1px solid #D7DAE0;border-right:0;padding:20px;padding-right:0">
                         <h4 style="color:#1A1C21;font-size:12px;font-weight:700;margin-bottom:10px">From</h4>

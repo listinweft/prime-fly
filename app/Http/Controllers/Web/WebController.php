@@ -657,10 +657,10 @@ public function getLocations_meet(Request $request)
             ->groupBy('products.id')
             ->get();
     
-        // Check if products is empty
-        // if ($products->isEmpty()) {
-        //     return []; // Return empty array
-        // }
+        
+        if ($products->isEmpty()) {
+            return []; // Return empty array
+        }
     
         $result = [];
         $guestCount = $data['adults'] + $data['infants'] + $data['children'];
@@ -678,9 +678,9 @@ public function getLocations_meet(Request $request)
                 $infantPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 3)->where('user_id', $userId)->value('price') ?? ProductPrice::where('product_id', $product->id)->where('size_id', 3)->value('price') ?? 0;
                 $additionalPrice = DB::table('product_offer_size')->where('product_id', $product->id)->where('size_id', 4)->where('user_id', $userId)->value('price') ?? $product->additional_price;
 
-                if (is_null($adultPrice) ) {
-                    return []; // No packages found
-                }
+                // if (is_null($adultPrice) ) {
+                //     return []; // No packages found
+                // }
             } else {
                 $adultPrice =  ProductPrice::where('product_id', $product->id)->where('size_id', 1)->value('price') ?? 0;
                 $childrenPrice = ProductPrice::where('product_id', $product->id)->where('size_id', 2)->value('price') ?? 0;

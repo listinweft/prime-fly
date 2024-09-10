@@ -124,6 +124,75 @@
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
+    <label>Country</label>
+    <select name="country" id="country" class="form-control required">
+        <option value="india" {{ old('country', @$customer->businessAddress->country) == 'india' ? 'selected' : '' }}>India</option>
+        <option value="usa" {{ old('country', @$customer->businessAddress->country) == 'usa' ? 'selected' : '' }}>USA</option>
+    </select>
+    <div class="help-block with-errors" id="country_error"></div>
+    @error('country')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group col-md-6">
+    <label>Address</label>
+    <textarea name="address" id="address" placeholder="Address"
+              class="form-control required" rows="4" maxlength="255">{{ old('address', @$customer->businessAddress->address) }}</textarea>
+    <div class="help-block with-errors" id="address_error"></div>
+    @error('address')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+                                <div class="form-group col-md-6">
+                                    <label> State</label>
+                                    <input type="text" name="state" id="state" placeholder="State"
+                                           class="form-control required" autocomplete="off" maxlength="60"
+                                           value="{{ old('state', @$customer->businessAddress->state) }}">
+                                           <div class="help-block with-errors" id="state_error"></div>
+                                    @error('state')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label> City</label>
+                                    <input type="text" name="city" id="city" placeholder="City"
+                                           class="form-control required" autocomplete="off" maxlength="60"
+                                           value="{{ old('state', @$customer->businessAddress->city) }}">
+                                           <div class="help-block with-errors" id="city_error"></div>
+                                    @error('city')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                               
+
+                                <div class="form-group col-md-6">
+                                    <label> Pin Code</label>
+                                    <input type="text" name="pincode" id="pincode" placeholder="Pin Code"
+                                           class="form-control required" autocomplete="off" maxlength="60"
+                                           value="{{ old('state', @$customer->businessAddress->pincode) }}">
+                                           <div class="help-block with-errors" id="pincode_error"></div>
+                                    @error('pincode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label> Gst Number</label>
+                                    <input type="text" name="gst_number" id="gst_number" placeholder="Gst Number"
+                                           class="form-control required" autocomplete="off" maxlength="60"
+                                           value="{{ old('state', @$customer->businessAddress->gst_number) }}">
+                                           <div class="help-block with-errors" id="gst_number_error"></div>
+                                    @error('gst_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                
+                                <div class="form-group col-md-6">
                                     <label> Profile Image</label>
                                     <div class="file-loading">
                                         <input id="profile_image" name="profile_image" type="file" accept="image/*">
