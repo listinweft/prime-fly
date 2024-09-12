@@ -4046,7 +4046,13 @@ footer {
     padding: 10px 15px;
     line-height: 1
 }
-
+.gst_check label{
+    font-size: 13px;
+    font-weight: 500;
+}
+.gst_check label span{
+    color: #aaaaaa;
+}
 .details-item select {
     width: 100%;
     font-size: 13px;

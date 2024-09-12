@@ -290,6 +290,23 @@
                                           <span class="error-message" style="display: none;">Pincode is required.</span>
                                        </div>
                                     </div>
+                                    <div class="col-lg-12 mt-3 mb-3">
+                                       <div class="form-check gst_check">
+                                          <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox" >
+                                          <label class="form-check-label" for="termsCheckbox">
+                                             If have a GST number <span>(Optional)</span>
+                                          </label>
+                                          <div id="termsError" class="text-danger"></div>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       
+                                       <div class="details-item"> 
+                                          <!-- <label for="gst">If have a GST number <span>( Optional )</span></label> -->
+                                          <input type="text" name="gst" id="gst" placeholder="Enter GST No." > 
+                                          <!-- <span class="error-message" style="display: none;">Pincode is required.</span> -->
+                                       </div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
