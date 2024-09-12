@@ -286,13 +286,7 @@
                                           <span class="error-message" style="display: none;">City is required.</span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                       <div class="details-item">
-                                          <label for="name">GST Number</label>
-                                          <input type="text" name="gst_number" id="gst_number" placeholder="Gst Number" > 
-                                          <!-- <span class="error-message" style="display: none;">City is required.</span> -->
-                                       </div>
-                                    </div>
+                                   
                                     <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode</label>
@@ -301,22 +295,19 @@
                                        </div>
                                     </div>
                                     <div class="col-lg-12 mt-3 mb-3">
-                                       <div class="form-check gst_check">
-                                          <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox" >
-                                          <label class="form-check-label" for="termsCheckbox">
-                                             If have a GST number <span>(Optional)</span>
-                                          </label>
-                                          <div id="termsError" class="text-danger"></div>
-                                       </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                       
-                                       <div class="details-item"> 
-                                          <!-- <label for="gst">If have a GST number <span>( Optional )</span></label> -->
-                                          <input type="text" name="gst" id="gst" placeholder="Enter GST No." > 
-                                          <!-- <span class="error-message" style="display: none;">Pincode is required.</span> -->
-                                       </div>
-                                    </div>
+   <div class="form-check gst_check">
+      <input class="form-check-input termsCheckbox" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox">
+      <label class="form-check-label" for="termsCheckbox">
+         If have a GST number <span>(Optional)</span>
+      </label>
+      <div id="termsError" class="text-danger"></div>
+   </div>
+</div>
+<div class="col-lg-6">
+   <div class="details-item gstField d-none"> 
+      <input type="text" name="gst_number" id="gst_number" placeholder="Enter GST No.">
+   </div>
+</div>
                                  </div>
                               </div>
                            </div>
@@ -563,6 +554,22 @@
 });
 
 </script>
+
+<script>
+   document.querySelector('.termsCheckbox').addEventListener('change', function() {
+      var gstFields = document.querySelectorAll('.gstField');
+      gstFields.forEach(function(gstField) {
+         if (this.checked) {
+            gstField.classList.remove('d-none'); // Show the GST field
+            gstField.classList.add('d-block');   // Ensure it's displayed as block
+         } else {
+            gstField.classList.remove('d-block'); // Hide the GST field
+            gstField.classList.add('d-none');     // Ensure it's hidden
+         }
+      }.bind(this));
+   });
+</script>
+
 
 
 
