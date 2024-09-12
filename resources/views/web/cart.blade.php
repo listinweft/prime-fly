@@ -8,8 +8,8 @@
         <div class="d-flex justify-content-center">
             <ul class="d-flex justify-content-center mb-0 ps-0">
                 <li class="active"><span>1</span>Cart</li>
-                <li><span>2</span>Preview</li>
-                <li><span>3</span>Payment</li>
+                <!-- <li><span>2</span>Preview</li> -->
+                <li><span>2</span>Payment</li>
             </ul>
         </div>
     </div>
@@ -156,7 +156,7 @@
                                 </tfoot>
                             </table>
                             <div class="col-12 package-content-button text-center mt-3">
-                                <a href="{{ route('preview') }}" class="btn btn-primary">Continue</a>
+                                <a href="{{ route('checkout') }}" class="btn btn-primary">Continue</a>
                             </div>
                         </div>
                     </div>

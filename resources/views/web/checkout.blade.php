@@ -5,8 +5,8 @@
       <div class="d-flex justify-content-center">
          <ul class="d-flex justify-content-center mb-0">
             <li class="active"><span>1</span>Cart</li>
-            <li class="active"><span>2</span>Preview</li>
-            <li class="active"><span>3</span>Payment</li>
+            <!-- <li class="active"><span>2</span>Preview</li> -->
+            <li class="active"><span>2</span>Payment</li>
          </ul>
       </div>
    </div>
@@ -410,8 +410,8 @@
 
                                     @endif
                      <div class="d-flex justify-content-center">
-                        <a href="{{ route('preview') }}" class="btn btn-primary-outline me-2">Back</a>
-                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ $finalamount }}" data-phone_number="{{ $user->phone }}">Place Order</button>
+                        <a href="{{ route('cart') }}" class="btn btn-primary-outline me-2">Back</a>
+                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ round($finalamount) }}" data-phone_number="{{ $user->phone }}">Place Order</button>
                      </div>
                   </div>
 
