@@ -95,12 +95,12 @@
                                     My Profile
                                 </a>
                             </li>
-                            <li class="nav-item" data-section="help">
+                            <!-- <li class="nav-item" data-section="help">
                                 <a href="{{ url('support/') }}">
                                     <img src="{{ asset('frontend/img/chat.svg')}}"/>
                                     Help & Support
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

@@ -158,7 +158,7 @@
 
 @if(!$galleryItems->isEmpty())
     @foreach($galleryItems as $galleryItem)
-        <div class="col-lg-3 col-md-4 col-sm-4 col-6">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-6 service_grid_wrap">
             <div class="srvc_wrk_grid">
                 {!! Helper::printImage($galleryItem, 'image', 'image_webp', '', 'img-fluid') !!}
                 <h4>{{ $galleryItem->title }}</h4>
