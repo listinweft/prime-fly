@@ -93,7 +93,7 @@ class WebController extends Controller
         
 
 
-        $categorys = Category::whereNull('parent_id')->orderBy('sort_order')->get();
+        $categorys = Category::active()->whereNull('parent_id')->orderBy('sort_order')->get();
         
         $testimonials = Testimonial::active()->get();
         $locationsall = Location::active()->get();
@@ -148,7 +148,7 @@ class WebController extends Controller
 
     public function services()
     {
-        $categorys = Category::whereNull('parent_id')->get();
+        $categorys = Category::active()->whereNull('parent_id')->get();
 
         return view('web.services',compact('categorys'));
     }

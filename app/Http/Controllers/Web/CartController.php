@@ -335,7 +335,7 @@ class CartController extends Controller
             $categoryIds = $products->pluck('category_id')->unique();
     
             // Fetch unique categories based on the category IDs
-            $categories = \App\Models\Category::whereIn('id', $categoryIds)
+            $categories = \App\Models\Category::whereIn('id', $categoryIds)->where('status','Active')
                 ->whereNull('parent_id')
                 ->get();
     
@@ -347,7 +347,7 @@ class CartController extends Controller
     
         } else {
             // If no session key, fetch all categories with null parent_id
-            $categories = \App\Models\Category::whereNull('parent_id')->get();
+            $categories = \App\Models\Category::whereNull('parent_id')->where('status','Active')->get();
         }
     
         // Additional data for the view

@@ -37,7 +37,7 @@ class Location extends Model
             $categoryIds = array_merge($categoryIds, explode(',', $product->category_id));
         }
 
-        return Category::whereIn('id', array_unique($categoryIds))->get();
+        return Category::whereIn('id', array_unique($categoryIds))->where('status','Active')->get();
     }
 
 }
