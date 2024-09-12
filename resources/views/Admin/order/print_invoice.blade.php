@@ -259,7 +259,7 @@ $admintype = Auth::guard('admin')->user()->admin;
 </tr>
 <tr>
     <td style="width: 75%; padding: 10px 0;">
-        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Final Total</h3>
+        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Total Amount</h3>
     </td>
     <td style="width: 25%; padding: 10px 0; text-align: right;">
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹{{ number_format($totalWithGST, 2) }}</h3>
