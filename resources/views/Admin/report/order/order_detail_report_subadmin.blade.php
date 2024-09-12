@@ -190,7 +190,7 @@
                            var locationId = $(this).val();
    
                            // Clear product dropdown when a new location is selected
-                           $('#order_report_product').empty().append('<option value="">Select Product</option>');
+                           $('#order_report_product').empty().append('<option value="">Select Package</option>');
                            $('#product-error').hide();
    
                            if (locationId) {

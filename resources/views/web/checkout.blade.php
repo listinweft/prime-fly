@@ -287,12 +287,20 @@
                                        </div>
                                     </div>
                                     <div class="col-lg-6">
+                                       <div class="details-item">
+                                          <label for="name">GST Number</label>
+                                          <input type="text" name="gst_number" id="gst_number" placeholder="Gst Number" > 
+                                          <!-- <span class="error-message" style="display: none;">City is required.</span> -->
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode</label>
                                           <input type="text" name="pincode" id="pincode" placeholder="Pincode" > 
                                           <span class="error-message" style="display: none;">Pincode is required.</span>
                                        </div>
                                     </div>
+
                                  </div>
                               </div>
                            </div>
