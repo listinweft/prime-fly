@@ -294,7 +294,7 @@
                                        <div class="form-check gst_check">
                                           <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox" >
                                           <label class="form-check-label" for="termsCheckbox">
-                                             If have a GST number <span>(Optional)</span>
+                                             I have a GST number <span>(Optional)</span>
                                           </label>
                                           <div id="termsError" class="text-danger"></div>
                                        </div>

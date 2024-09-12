@@ -1186,7 +1186,11 @@ $(document).ready(function () {
             });
         } else {
             // Notify the user to fill out all required fields and select a payment method
-            Toast.fire('Error', 'Please fill out all required fields and select a payment method', "error");
+            Toast.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'Please fill out all required fields and select a payment method',
+              });
         }
     });
     
