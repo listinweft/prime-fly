@@ -80,7 +80,7 @@
                                            <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
-                                                           data-url="/status-change" data-table="Service"
+                                                           data-url="/status-change" data-table="Product"
                                                            data-field="status" data-pk="{{ $product->id}}"
                                                         {{($product->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>

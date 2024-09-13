@@ -533,6 +533,7 @@ public function getLocations_meet(Request $request)
                 return $query->where('locations.id', $locationId);
             })
             ->where('products.category_id', $data['categoryt'])
+            ->where('products.status', 'Active')
             ->groupBy('products.id')
             ->get();
     
@@ -661,6 +662,7 @@ public function getLocations_meet(Request $request)
                 return $query->where('locations.id', $locationId);
             })
             ->where('products.category_id', $data['category'])
+            ->where('products.status', 'Active')
             ->groupBy('products.id')
             ->get();
     
@@ -767,6 +769,7 @@ public function getLocations_meet(Request $request)
         ->where('products.category_id', $data['category']) // Add category filter
         // ->where('products.service_type', 'departure') // Ensure this checks the correct service type
         ->where('locations.id', $locationId)
+        ->where('products.status', 'Active')
         ->groupBy('products.id')
         ->get();
 
@@ -860,6 +863,7 @@ public function search_booking_lounch(Request $request)
         ->where('products.category_id', $data['category']) // Add category filter
         // ->where('products.service_type', 'departure') // Ensure this checks the correct service type
         ->where('locations.id', $locationId)
+        ->where('products.status', 'Active')
         ->groupBy('products.id')
         ->get();
 
@@ -958,6 +962,7 @@ public function search_booking_lounch(Request $request)
             }
         })
         ->where('products.category_id', $data['category'])
+        ->where('products.status', 'Active')
         ->groupBy('products.id')
         ->get();
     
@@ -1050,6 +1055,7 @@ public function search_booking_lounch(Request $request)
                 $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
             })
             ->where('products.category_id', $data['category']) // Add category filter
+            ->where('products.status', 'Active')
             ->where('locations.code', $data['origin'])
             ->groupBy('products.id')
             ->get();
@@ -1149,6 +1155,7 @@ public function search_booking_lounch(Request $request)
             })
             ->where('products.category_id', $data['category']) // Add category filter
             ->where('locations.code', $data['origin'])
+            ->where('products.status', 'Active')
             ->groupBy('products.id')
             ->get();
     
@@ -1252,6 +1259,7 @@ public function search_booking_lounch(Request $request)
             })
             ->where('products.category_id', $data['category']) // Add category filter
             ->where('locations.code', $data['origin'])
+            ->where('products.status', 'Active')
             ->groupBy('products.id')
             ->get();
     

@@ -332,13 +332,14 @@ class AdministrationController extends Controller
     public function assignLocations(Request $request)
     {
 
+
+        dd($request->all());
        
         $request->validate([
             'role' => 'required',
             'location_ids' => 'required|array',
             'category_id' => 'required|array',
         ]);
-    
         // Get the selected administrator
         $adminId = $request->input('role');
          $admincreate = User::findOrFail($adminId);
@@ -355,6 +356,8 @@ class AdministrationController extends Controller
     public function assign_edit($id)
     {
         if (auth()->check() && auth()->user()->admin->role == "Super Admin") {
+
+            
             $title = "Edit";
             $locations = Location::get();
             $categorys = Category::whereNull('parent_id')->orderBy('sort_order')->get();
@@ -406,6 +409,7 @@ class AdministrationController extends Controller
         $request->validate([
             'role' => 'required',
             'location_ids' => 'required|array',
+            'category_id' => 'required|array',
         ]);
     
         // Get the selected administrator

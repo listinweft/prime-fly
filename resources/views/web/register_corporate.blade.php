@@ -16,6 +16,7 @@
       <link rel="stylesheet" href="{{ asset('frontend/build/css/intlTelInput.css')}}" />
       <link href="{{ asset('frontend/css/aos.css')}}" rel="stylesheet">
       <link href="{{ asset('frontend/css/btob.css')}}" rel="stylesheet">
+      <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
 
       <!-- <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css"> -->

@@ -1,5 +1,6 @@
 <form id="bookingForm">
-    <input type="hidden" value="{{$category->id}}" name="category">
+<input type="hidden" value="{{ $category ? $category->id : '' }}" name="category">
+
     <div class="d-flex flex-wrap justify-content-start home-form-flex">
         <div class="booking_field">
             <div class="custom-date-picker">
@@ -99,7 +100,7 @@
 </form>
 
 <form id="bookingFormt">
-    <input type="hidden" value="{{$category->id}}" name="categoryt">
+<input type="hidden" value="{{ $category ? $category->id : '' }}" name="categoryt">
     <div class="d-flex flex-wrap justify-content-start home-form-flex">
         <div class="booking_field">
             <div class="custom-date-picker">
@@ -327,7 +328,7 @@ $("#bookingForm").validate({
 
 // Function to populate locations based on travel type
 function populateLocations(travel_type) {
-    var category = @json($category->id);
+    var category = @json($category ? $category->id : null);
     var sector = $('#travel_sector').val();
 
     if (travel_type) {
@@ -574,7 +575,7 @@ submitHandler: function(form) {
 }
 });
 function populateLocationst(travel_type) {
-var category = @json($category->id);
+    var category = @json($category ? $category->id : null);
 var sector = $('#travel_sectort').val();
 
 if (travel_type) {

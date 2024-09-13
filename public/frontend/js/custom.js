@@ -1207,102 +1207,15 @@ $(document).ready(function () {
     });
     
     
-    function initiateRazorpayPayment(order_id, amount, currency, key, phone_number,db_orderid) {
-        var options = {
-            "key": key, // Enter the Key ID generated from the Dashboard
-            "amount": amount, // Amount is in currency subunits. Default is in paise (INR), so multiply by 100
-            "currency": currency,
-            "name": "Primefly",
-            "description": "Order Payment",
-            "order_id": order_id,
-            "handler": function (response) {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: base_url + '/razorpay-callback',
-                    data: {
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_signature: response.razorpay_signature,
-                        db_orderid:db_orderid
-                    },
-                    success: function (response) {
-                        if (response.status == 'success') {
-
-
-                            Toast.fire({
-                                title: "Success!", text: response.message, icon: "success"
-                            });
-                            setTimeout(() => {
-                                window.location.href = base_url;
-                            }, 2000);
-                          
-                           
-                            // window.location.href = base_url;
-
-
-                                           }
-                    },
-                    error: function () {
-                        alert('Payment failed');
-                    }
-                });
-            },
-            "prefill": {
-            "contact": phone_number // Only the phone number is included in prefill
-        },
-            "notes": {
-                "address": "Customer Address"
-            },
-            "theme": {
-                "color": "#F37254"
-            }
-        };
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
-    }
-    
-    function handleOrderResponse(response) {
-        $('.order-submit-loader').hide();
-        if (response.status === true) {
-            swal.fire({
-                title: "",
-                text: response.message,
-                type: "success",
-                icon: "success",
-            });
-            setTimeout(() => {
-                $('#submit-loader').hide();
-                window.location.href = base_url + response.data;
-            }, 900);
-        } else {
-            swal.fire({
-                confirmButtonColor: '#3085d6',
-                title: "",
-                text: response.message,
-                type: "error",
-                icon: "error",
-            });
-            setTimeout(() => {
-                $('#submit-loader').hide();
-                window.location.href = base_url + response.data;
-            }, 3000);
-            $('#confirm_payment').text("Confirm Order");
-        }
-    }
-    
-    // function initiateRazorpayPayment(order_id, amount, currency, key) {
+    // function initiateRazorpayPayment(order_id, amount, currency, key, phone_number,db_orderid) {
     //     var options = {
     //         "key": key, // Enter the Key ID generated from the Dashboard
     //         "amount": amount, // Amount is in currency subunits. Default is in paise (INR), so multiply by 100
     //         "currency": currency,
-    //         "name": "Your Company Name",
+    //         "name": "Primefly",
     //         "description": "Order Payment",
     //         "order_id": order_id,
-    //         "handler": function (response){
+    //         "handler": function (response) {
     //             $.ajax({
     //                 type: 'POST',
     //                 dataType: 'json',
@@ -1313,10 +1226,25 @@ $(document).ready(function () {
     //                 data: {
     //                     razorpay_payment_id: response.razorpay_payment_id,
     //                     razorpay_order_id: response.razorpay_order_id,
-    //                     razorpay_signature: response.razorpay_signature
+    //                     razorpay_signature: response.razorpay_signature,
+    //                     db_orderid:db_orderid
     //                 },
     //                 success: function (response) {
-    //                     handleOrderResponse(response);
+    //                     if (response.status == 'success') {
+
+
+    //                         Toast.fire({
+    //                             title: "Success!", text: response.message, icon: "success"
+    //                         });
+    //                         setTimeout(() => {
+    //                             window.location.href = base_url;
+    //                         }, 2000);
+                          
+                           
+    //                         // window.location.href = base_url;
+
+
+    //                                        }
     //                 },
     //                 error: function () {
     //                     alert('Payment failed');
@@ -1324,10 +1252,8 @@ $(document).ready(function () {
     //             });
     //         },
     //         "prefill": {
-    //             "name": "Customer Name",
-    //             "email": "customer@example.com",
-    //             "contact": "9999999999"
-    //         },
+    //         "contact": phone_number // Only the phone number is included in prefill
+    //     },
     //         "notes": {
     //             "address": "Customer Address"
     //         },
@@ -1357,8 +1283,8 @@ $(document).ready(function () {
     //             confirmButtonColor: '#3085d6',
     //             title: "",
     //             text: response.message,
-    //             type: "success",
-    //             icon: "success",
+    //             type: "error",
+    //             icon: "error",
     //         });
     //         setTimeout(() => {
     //             $('#submit-loader').hide();
@@ -1368,6 +1294,105 @@ $(document).ready(function () {
     //     }
     // }
     
+    
+    function initiateRazorpayPayment(order_id, amount, currency, key, phone_number, db_orderid) {
+        var options = {
+            "key": key, // Enter the Key ID generated from the Dashboard
+            "amount": amount, // Amount is in currency subunits. Default is in paise (INR), so multiply by 100
+            "currency": currency,
+            "name": "Primefly",
+            "description": "Order Payment",
+            "order_id": order_id,
+            "handler": function (response) {
+                // Handle successful payment, call backend
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: base_url + '/razorpay-callback',
+                    data: {
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_signature: response.razorpay_signature,
+                        db_orderid: db_orderid
+                    },
+                    success: function (response) {
+                        if (response.status == 'success') {
+                            Toast.fire({
+                                title: "Success!",
+                                text: response.message,
+                                icon: "success"
+                            });
+                            setTimeout(() => {
+                                window.location.href = base_url;
+                            }, 2000);
+                        }
+                    },
+                    error: function () {
+                        // Payment failed, reset loader and button
+                        alert('Payment failed');
+                        $('#confirm_payment').text("Confirm Order").removeAttr('disabled');
+                    }
+                });
+            },
+            "prefill": {
+                "contact": phone_number // Only the phone number is included in prefill
+            },
+            "notes": {
+                "address": "Customer Address"
+            },
+            "theme": {
+                "color": "#F37254"
+            },
+            "modal": {
+                "ondismiss": function() {
+                    // Razorpay modal dismissed, reset the button
+                    $('#confirm_payment').text("Confirm Order").removeAttr('disabled');
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Payment Cancelled',
+                        text: 'Payment process was cancelled.',
+                    });
+                }
+            }
+        };
+        
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+    
+    function handleOrderResponse(response) {
+        $('.order-submit-loader').hide();
+        if (response.status === true) {
+            swal.fire({
+                title: "",
+                text: response.message,
+                type: "success",
+                icon: "success",
+            });
+            setTimeout(() => {
+                $('#submit-loader').hide();
+                window.location.href = base_url + response.data;
+            }, 900);
+        } else {
+            swal.fire({
+                confirmButtonColor: '#3085d6',
+                title: "",
+                text: response.message,
+                type: "error",
+                icon: "error",
+            });
+            setTimeout(() => {
+                $('#submit-loader').hide();
+                window.location.href = base_url + response.data;
+            }, 3000);
+            // Reset the button in case of failure
+            $('#confirm_payment').text("Confirm Order").removeAttr('disabled');
+        }
+    }
+     
     
     
     
