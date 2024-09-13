@@ -37,41 +37,51 @@
                             </div>
                         @endif
                         <div class="card card-success card-outline">
-                            <!-- <div class="card-header">
-                                <a href="{{url(Helper::sitePrefix().'order/create')}}" class="btn btn-success pull-right">Add
-                                    Order <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
-                            </div> -->
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
                                     <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Code</th>
+                                        <th>Service</th>
                                         <th>Customer</th>
+                                        
                                         <th>Credit Bill status</th>
                                         @if($admintype->role == "Super Admin")
-                                        <th>Order Total</th>
+                                        <th> Service Price</th>
                                         @endif
-                                        <th>Created Date</th>
+                                        <th>Service Date</th> <!-- Display service date -->
                                         <th class="not-sortable">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($orderList as $order)
-                                        @if($order->orderProducts->count() > 0)
+                                        @foreach($order->orderProducts as $product)
                                             @php
-                                                // Calculate total from OrderProduct model
-                                                $productTotal = $order->orderProducts->sum('total'); // Sum of 'total' field from order_products
-                                                $productTotalWithTax = $productTotal * 1.18; // Adding 18% to order total
+                                                // Calculate the total for this product
+                                                $productTotal = $product->total;
+                                                $productTotalWithTax = $productTotal * 1.18; // Adding 18% tax
                                             @endphp
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $loop->parent->iteration . '.' . $loop->iteration }}</td> <!-- Unique identifier -->
                                                 <td>{{ 'Primefly#'.$order->order_code }}</td>
-                                                @if(@$order->orderCustomer->user_type=="User")
-                                                    <!-- Display customer name based on user type -->
+
+                                                @php
+
+                                                $package = App\Models\Product::where('id', $product->product_id)->first();
+
+                                                $category = App\Models\Category::where('id', $package->category_id)->first();
+                                                @endphp
+
+
+                                                <td>{{ $category->title }}</td>
+
+                                               
+                                                
+                                                <!-- Display customer name based on user type -->
+                                                @if(@$order->orderCustomer->user_type == "User")
                                                     <td>{{ $order->orderCustomer->CustomerData->first_name.' '.$order->orderCustomer->CustomerData->last_name }}</td>
                                                 @else
-                                                    <!-- Display billing address if available -->
                                                     @if (@$order->orderCustomer->billingAddress)
                                                         <td>{{ $order->orderCustomer->billingAddress->first_name. ' '.$order->orderCustomer->billingAddress->last_name}}</td>
                                                     @else
@@ -80,27 +90,29 @@
                                                 @endif
 
                                                 <td>
-
-                                               @php
-
-                                                $btype =  $order->orderCustomer->CustomerData->user->btype;
+                                                @php
+                                                    $btype =  $order->orderCustomer->CustomerData->user->btype;
                                                 @endphp
 
-                                                @if($btype=="b2b")
+                                                @if($btype == "b2b")
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="status_check"
+                                                               data-url="/status-change-cod" data-table="Order"
+                                                               data-field="payment_method" data-pk="{{ $order->id }}"
+                                                            {{( $order->payment_method == "COD") ? 'checked' : ''}}>
+                                                        <span class="slider"></span>
+                                                    </label>
+                                                @endif
+                                                </td>
 
-                                                <label class="switch">
-                                                    <input type="checkbox" class="status_check"
-                                                           data-url="/status-change-cod" data-table="Order"
-                                                           data-field="payment_method" data-pk="{{ $order->id }}"
-                                                        {{( $order->payment_method=="COD")?'checked':''}}>
-                                                    <span class="slider"></span>
-                                                </label>
-                                                @endif
+                                             
                                                 @if($admintype->role == "Super Admin")
-</td>
-                                                <td>{{ number_format($productTotalWithTax, 2).' '.$order->currency }}</td>
+                                                    <td>{{ number_format($productTotalWithTax, 2).' '.$order->currency }}</td>
                                                 @endif
-                                                <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
+
+                                                <!-- Display service date of the current product -->
+                                                <td>{{ date("d-M-Y", strtotime($product->exit_date)) }}</td>
+
                                                 <td class="text-right py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">
                                                         <!-- Action buttons -->
@@ -110,7 +122,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endif
+                                        @endforeach
                                     @endforeach
                                     </tbody>
                                 </table>
@@ -120,13 +132,5 @@
                 </div>
             </div>
         </section>
-    </div>
-    <div class="modal fade" id="order-product-modal">
-        <div class="modal-dialog modal-lg" id="order-product-modal-content">
-        </div>
-    </div>
-    <div class="modal fade" id="refund-splitup-modal">
-        <div class="modal-dialog" id="refund-splitup-modal-content">
-        </div>
     </div>
 @endsection

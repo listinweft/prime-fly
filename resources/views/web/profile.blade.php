@@ -110,12 +110,12 @@
                     </div>
                     <div class="top-menu">
                         <ul class="p-0">
-                            <li class="nav-item" data-section="chat">
+                            <!-- <li class="nav-item" data-section="chat">
                                 <a href="javascript:void(0);">
                                     <img src="{{ asset('frontend/img/chat.svg')}}"/>
                                     Chat Support
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item" data-section="terms">
                                 <a href="{{ url('terms-and-conditions/') }}">
                                     <img src="{{ asset('frontend/img/terms-icon.svg')}}"/>

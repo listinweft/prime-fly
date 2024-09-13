@@ -142,11 +142,11 @@
                                 <tfoot>
                                     <tr>
                                         <td><b>CGST (9%)</b></td>
-                                        <td><b>&#8377; {{ $cgst }}</b></td>
+                                        <td><b>&#8377;  {{ number_format($cgst, 2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td><b>SGST (9%)</b></td>
-                                        <td><b>&#8377; {{ $sgst }}</b></td>
+                                        <td><b>&#8377;  {{ number_format($sgst, 2) }}</b></td>
                                     </tr>
                                     <tr>
                                         <td><b>Total Amount</b></td>

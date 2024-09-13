@@ -189,21 +189,21 @@ $assignedLocationIds = array_filter(explode(',', $location_ids));
 $locationCodes = Location::whereIn('id', $assignedLocationIds)->pluck('code')->toArray();
 
 // Query to get orders based on location codes
-$orders = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
-                    return $query->where(function ($query) use ($locationCodes) {
-                        $query->whereHas('orderProducts', function($query) use ($locationCodes) {
-                            $query->whereIn('origin', $locationCodes)
-                                  ->orWhereIn('destination', $locationCodes);
-                        });
-                    });
-                })
-                ->when(empty($locationCodes), function ($query) {
-                    // Handle case when locationCodes is empty
-                    return $query->whereRaw('1=0'); // Force a condition that is never true
-                })
-                ->where('payment_mode', 'Success') 
-                ->latest()
-                ->get();
+$orderList = Order::when(!empty($locationCodes), function ($query) use ($locationCodes) {
+    // Filter orders with non-empty locationCodes
+    $query->whereHas('orderProducts', function($query) use ($locationCodes) {
+        $query->whereIn('origin', $locationCodes)
+              ->orWhereIn('destination', $locationCodes);
+    });
+}, function ($query) {
+    // Handle case when locationCodes is empty
+    // This will ensure no orders are returned
+    $query->whereRaw('1 = 0');
+})
+->where('payment_mode', 'Success')
+->latest()
+->get();
+
 
         
         

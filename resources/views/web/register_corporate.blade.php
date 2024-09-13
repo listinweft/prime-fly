@@ -66,7 +66,7 @@
                                                     <input type="text" placeholder="Type Your Address" id="address" name="address" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
-                                                    <label>Email</label>
+                                                    <label>Business Email</label>
                                                     <input type="email" placeholder="Enter Your Email" id="email" name="email" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">

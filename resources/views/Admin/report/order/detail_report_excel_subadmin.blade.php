@@ -16,8 +16,9 @@
             <td>#</td>
             <td>Service</td>
             <td>Package</td>
+            <td>Service Date</td>
             <!-- <td>Sub Total</td> -->
-            <td style="border-right: 1px solid #f4f4f4;">Created Date</td>
+            <!-- <td style="border-right: 1px solid #f4f4f4;">Created Date</td> -->
         </tr>
         @php $i = 1 @endphp 
         @foreach($orderList as $order)
@@ -44,10 +45,11 @@
                         @endif
                     </td>
                     <td>{{ ($products[0]->productData) ? $products[0]->productData->title : '' }}</td>
+                    <td>{{  $products[0]->exit_date  }}</td>
                     <!-- <td>{{ $order->currency . ' ' . $products[0]->total }}</td> -->
                    
                   
-                    <td rowspan="{{ count($products) }}">{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
+                    <!-- <td rowspan="{{ count($products) }}">{{ date("d-M-Y", strtotime($order->created_at)) }}</td> -->
                     <td>{!! Order::getStatus($orderStatus->status) !!}</td>
                 </tr>
                 @for($j = 1; $j < count($products); $j++)
@@ -64,7 +66,8 @@
                             @endif
                         </td>
                         <td>{{ ($products[$j]->productData) ? $products[$j]->productData->title : '' }}</td>
-                        <td>{{ $order->currency . ' ' . $products[$j]->total }}</td>
+                        <!-- <td>{{ $order->currency . ' ' . $products[$j]->total }}</td> -->
+                        <td>{{ $products[$j]->exit_date }}</td>
                         <td style="border-right: 1px solid #f4f4f4;">{!! Order::getStatus($orderStatus->status) !!}</td>
                     </tr>
                 @endfor

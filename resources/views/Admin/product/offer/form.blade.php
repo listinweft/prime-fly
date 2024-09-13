@@ -169,7 +169,7 @@
                   <input type="hidden" name="product_id" id="product_id" value="{{ isset($offer)?$offer->product_id:'0' }}">
                   <input type="hidden" name="p_id" id="p_id" value="{{ isset($product)?$product->id:'0' }}">
                   <button type="reset" class="btn btn-default">Clear</button>
-                  <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                  <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                      style="display:none;">
                </div>
                </div>

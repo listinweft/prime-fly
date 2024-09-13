@@ -71,6 +71,7 @@
                                                 <th>Adults</th>
                                                 <th>Infants</th>
                                                 <th>Children</th>
+                                                <th>Service Date</th>
                                                 @if($admintype->role == "Super Admin")
                                                 <th>Cost</th>
                                                 @endif
@@ -129,6 +130,8 @@
                                                     <td>{{ $product->adults }}</td>
                                                     <td>{{ $product->infants }}</td>
                                                     <td>{{ $product->children }}</td>
+                                                    <td>{{ $product->exit_date }}</td>
+                                                    
                                                     @if($admintype->role == "Super Admin")
                                                     <td>{{ $order->currency }} {{ $product->cost }}</td>
                                                     @endif
