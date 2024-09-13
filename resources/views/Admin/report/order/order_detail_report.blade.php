@@ -42,7 +42,7 @@
                      <form method="POST" id="order-detail-filter-form" role="form">
                         {{csrf_field()}}
                         <div class="row">
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                               <div class="input-group">
                                  <div class="input-group-prepend">
                                     <span class="input-group-text"><i
@@ -54,7 +54,7 @@
                                     inputmode="numeric">
                               </div>
                            </div>
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                               <select class="form-control seelct2" id="order_report_status"
                                  name="order_report_status">
                                  <option value="">Select Status</option>
@@ -66,7 +66,7 @@
                               </select>
                            </div>
 
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                            <select class="form-control select2" id="order_report_type" name="order_report_type">
     <option value="">Select Customer Type</option>
     @foreach(['public', 'b2b'] as $status)
@@ -75,13 +75,13 @@
 </select>
 
                            </div>
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                            <select class="form-control select2" id="order_report_customer" name="order_report_customer">
     <option value="">Select Customer</option>
     <!-- The customer list will be dynamically populated based on the selected type -->
 </select>
                            </div>
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                               <select class="form-control select2" id="order_report_category" name="order_report_category">
                                  <option value="">Select Service</option>
                                  @foreach($categoryList as $category)
@@ -89,14 +89,14 @@
                                  @endforeach
                               </select>
                            </div>
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                               <select class="form-control select2" id="order_report_location" name="order_report_location">
                                  <option value="">Select Location</option>
                                  <!-- Locations will be dynamically populated here -->
                               </select>
                               <span id="location-error" class="text-danger" style="display:none;">Please select a location.</span>
                            </div>
-                           <div class="col-sm-3 mb-3">
+                           <div class="col-sm-3 mb-4">
                               <select class="form-control select2" id="order_report_product" name="order_report_product">
                                  <option value="">Select Package</option>
                                  <!-- @foreach($productList as $product)

@@ -5,8 +5,8 @@
       <div class="d-flex justify-content-center">
          <ul class="d-flex justify-content-center mb-0">
             <li class="active"><span>1</span>Cart</li>
-            <li class="active"><span>2</span>Preview</li>
-            <li class="active"><span>3</span>Payment</li>
+            <!-- <li class="active"><span>2</span>Preview</li> -->
+            <li class="active"><span>2</span>Payment</li>
          </ul>
       </div>
    </div>
@@ -223,6 +223,9 @@
                                           <span class="error-message" style="display: none;">City is required.</span>
                                        </div>
                                     </div>
+
+                                    <input type="hidden" name="gst_number" id="gst_number" placeholder="" value="{{ $user->customer->businessAddress->gst_number ?? '' }}" > 
+
                                     <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode*</label>
@@ -283,6 +286,7 @@
                                           <span class="error-message" style="display: none;">City is required.</span>
                                        </div>
                                     </div>
+                                   
                                     <div class="col-lg-6">
                                        <div class="details-item"> 
                                           <label for="name">Pincode</label>
@@ -291,22 +295,19 @@
                                        </div>
                                     </div>
                                     <div class="col-lg-12 mt-3 mb-3">
-                                       <div class="form-check gst_check">
-                                          <input class="form-check-input" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox" >
-                                          <label class="form-check-label" for="termsCheckbox">
-                                             I have a GST number <span>(Optional)</span>
-                                          </label>
-                                          <div id="termsError" class="text-danger"></div>
-                                       </div>
+                                    <div class="form-check gst_check">
+                                       <input class="form-check-input termsCheckbox" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox">
+                                       <label class="form-check-label" for="termsCheckbox">
+                                          If have a GST number <span>(Optional)</span>
+                                       </label>
+                                       <div id="termsError" class="text-danger"></div>
                                     </div>
-                                    <div class="col-lg-6">
-                                       
-                                       <div class="details-item"> 
-                                          <!-- <label for="gst">If have a GST number <span>( Optional )</span></label> -->
-                                          <input type="text" name="gst" id="gst" placeholder="Enter GST No." > 
-                                          <!-- <span class="error-message" style="display: none;">Pincode is required.</span> -->
-                                       </div>
+                                 </div>
+                                 <div class="col-lg-6">
+                                    <div class="details-item gstField d-none"> 
+                                       <input type="text" name="gst_number" id="gst_number" placeholder="Enter GST No.">
                                     </div>
+                                 </div>
                                  </div>
                               </div>
                            </div>
@@ -401,7 +402,8 @@
                            </tr>
                            <tr>
                               <td><b>Total Amount</b></td>
-                              <td><b>&#8377;  {{$finalamount}}</b></td>
+                              <td><b>&#8377; {{ round($finalamount) }}</b></td>
+
                            </tr>
                         </tfoot>
                      </table>
@@ -415,8 +417,8 @@
 
                                     @endif
                      <div class="d-flex justify-content-center">
-                        <a href="{{ route('preview') }}" class="btn btn-primary-outline me-2">Back</a>
-                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ $finalamount }}" data-phone_number="{{ $user->phone }}">Place Order</button>
+                        <a href="{{ route('cart') }}" class="btn btn-primary-outline me-2">Back</a>
+                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ round($finalamount) }}" data-phone_number="{{ $user->phone }}">Place Order</button>
                      </div>
                   </div>
 
@@ -552,6 +554,22 @@
 });
 
 </script>
+
+<script>
+   document.querySelector('.termsCheckbox').addEventListener('change', function() {
+      var gstFields = document.querySelectorAll('.gstField');
+      gstFields.forEach(function(gstField) {
+         if (this.checked) {
+            gstField.classList.remove('d-none'); // Show the GST field
+            gstField.classList.add('d-block');   // Ensure it's displayed as block
+         } else {
+            gstField.classList.remove('d-block'); // Hide the GST field
+            gstField.classList.add('d-none');     // Ensure it's hidden
+         }
+      }.bind(this));
+   });
+</script>
+
 
 
 

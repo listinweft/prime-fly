@@ -1157,6 +1157,7 @@ $(document).ready(function () {
                     country: $('#country').val(),
                     city: $('#city').val(),
                     state: $('#state').val(),
+                    gst_number: $('#gst_number').val(),
                     gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
                     name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
                     age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
@@ -1187,10 +1188,10 @@ $(document).ready(function () {
         } else {
             // Notify the user to fill out all required fields and select a payment method
             Toast.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'Please fill out all required fields and select a payment method',
-              });
+  icon: 'warning',
+  title: 'Warning',
+  text: 'Please fill out all required fields and select a payment method',
+});
         }
     });
     
@@ -1211,7 +1212,7 @@ $(document).ready(function () {
             "key": key, // Enter the Key ID generated from the Dashboard
             "amount": amount, // Amount is in currency subunits. Default is in paise (INR), so multiply by 100
             "currency": currency,
-            "name": "Your Company Name",
+            "name": "Primefly",
             "description": "Order Payment",
             "order_id": order_id,
             "handler": function (response) {

@@ -126,9 +126,9 @@
                            <br> +91 {{$user->phone}}
                         </p>
 
-                        @if(!empty($user->customer->businessAddress->gst_number))
+                        @if(!empty($personaladdress->gst_number))
     <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">GST Number</h5>
-    <p style="color:#5E6470;font-size:11px;line-height:1.4">{{ $user->customer->businessAddress->gst_number }}</p>
+    <p style="color:#5E6470;font-size:11px;line-height:1.4">{{$personaladdress->gst_number}}</p>
 @endif
 
                            
@@ -348,7 +348,7 @@
                         <h4 style="color:#151525;font-size:11px;font-weight:700">Total To Pay</h4>
                      </td>
                      <td style="text-align:right;padding:10px 0">
-                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700">INR {{ number_format($finalamount, 2) }}</h1>
+                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700">INR {{ round($finalamount) }}.00</h1>
                      </td>
                   </tr>
                </table>

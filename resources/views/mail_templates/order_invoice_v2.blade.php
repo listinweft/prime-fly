@@ -213,13 +213,18 @@
                    </td>
                 </tr>
                 <tr style="border-collapse: collapse;">
-                   @php
-                   // Calculate CGST and SGST based on order grand total
-                   $cgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
-                   $sgst = ($orderGrandTotal['orderGrandTotal'] > 0 ? $orderGrandTotal['orderGrandTotal'] : 0) * 0.09;
-                   // Calculate total amount including 18%
-                   $totalIncluding18Percent = $cgst + $sgst + $orderTotal;
-                   @endphp
+                @php
+// Ensure $orderGrandTotal['orderGrandTotal'] is correctly assigned and greater than 0
+$orderTotal = $orderTotal > 0 ? $orderTotal : 0;
+
+// Calculate CGST and SGST (9% each)
+$cgst = $orderTotal * 0.09;
+$sgst = $orderTotal * 0.09;
+
+// Calculate total amount including 18% tax (9% CGST + 9% SGST)
+$totalIncluding18Percent = $cgst + $sgst + $orderTotal;
+@endphp
+
                 <tr style="border-collapse: collapse;">
                    <td style="padding: 0; Margin: 0;">
                       <h4 style="Margin: 0; line-height:1.2; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 13px;
@@ -250,7 +255,7 @@
                       </h4>
                    </td>
                    <td style="padding: 0; Margin: 0;color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                      <strong>{{ $order->currency }} {{ number_format($totalIncluding18Percent, 2) }}</strong>
+                      <strong>{{ $order->currency }} {{ round($totalIncluding18Percent) }}.00</strong>
                    </td>
                 </tr>
              </table>

@@ -8,8 +8,8 @@
         <div class="d-flex justify-content-center">
             <ul class="d-flex justify-content-center mb-0 ps-0">
                 <li class="active"><span>1</span>Cart</li>
-                <li><span>2</span>Preview</li>
-                <li><span>3</span>Payment</li>
+                <!-- <li><span>2</span>Preview</li> -->
+                <li><span>2</span>Payment</li>
             </ul>
         </div>
     </div>
@@ -150,12 +150,13 @@
                                     </tr>
                                     <tr>
                                         <td><b>Total Amount</b></td>
-                                        <td><b>&#8377; {{ $finalamount }}</b></td>
+                                        <td><b>&#8377; {{ round($finalamount) }}</b></td>
+
                                     </tr>
                                 </tfoot>
                             </table>
                             <div class="col-12 package-content-button text-center mt-3">
-                                <a href="{{ route('preview') }}" class="btn btn-primary">Continue</a>
+                                <a href="{{ route('checkout') }}" class="btn btn-primary">Continue</a>
                             </div>
                         </div>
                     </div>
@@ -182,7 +183,7 @@
                 <h4 class="text-center mb-4">Add-on Services</h4>
                 <div class="col-lg-12 service-slider" data-aos="fade-up" data-aos-duration="600">
                     <div class="owl-carousel owl-theme service-carousel">
-                        @foreach ($categorys as $category)
+                        @foreach ($categories as $category)
                         <div class="item"> 
                             <a href="{{ url('service/'.@$category->short_url) }}">
                                 {!! Helper::printImage(@$category, 'image', 'image_webp', '', 'img-fluid') !!}

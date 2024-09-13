@@ -52,12 +52,26 @@
                             <a href="{{ url(Helper::sitePrefix().'order') }}">Orders</a>
                         </li>
                         <li class="breadcrumb-item active">Order View - {{ 'CFF#' . $order->order_code }}</li>
+
+                        @php
+                        $personaladdress = App\Models\PersonalDetails::where('order_id', $order->id)->first();
+
+                        @endphp
+
+
+               
+
+
                     </ol>
                 </div>
             </div>
         </div>
     </section>
+    @php 
 
+$admintype = Auth::guard('admin')->user()->admin;
+
+@endphp
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -88,6 +102,19 @@
                                                 <h4 style="color: #1A1C21; font-size: 14px; font-weight: 700; margin-bottom: 10px">Issued</h4>
                                                 <h5 style="color: #5E6470; font-size: 13px">{{ date('F, d Y', strtotime($order->created_at)) }}</h5>
                                             </td>
+
+                                            @if(!empty($personaladdress->gst_number))
+
+                                            <td style="width: 33%; border: 1px solid #D7DAE0; border-left: 0; padding: 20px; padding-left: 0; border-right: 0;">
+                                                <h4 style="color: #1A1C21; font-size: 14px; font-weight: 700; margin-bottom: 10px">GST  Number</h4>
+                                                <h5 style="color: #5E6470; font-size: 13px">{{  $personaladdress->gst_number  }}</h5>
+                                            </td>
+
+                                            @endif
+                                           
+
+
+
                                             <td style="width: 33%; border: 1px solid #D7DAE0; border-left: 0; border-right: 0; padding: 20px;">
                                                 <p style="color: #5E6470; font-size: 13px; line-height: 1.4">
                                                     @if($order->orderCustomer)
@@ -112,9 +139,11 @@
                                             <td style="width: 75%; padding: 10px 0;">
                                                 <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Bookings</h3>
                                             </td>
+                                            @if($admintype->role == "Super Admin")
                                             <td style="width: 25%; text-align: right;">
                                                 <h4 style="color: #707070; font-size: 14px; font-weight: 700;">SUBTOTAL</h4>
                                             </td>
+                                            @endif
                                         </tr>
                                     </table>
                                 </td>
@@ -175,9 +204,11 @@
                                                 <h4 style="color: #707070; font-size: 12px;">Flight Date: {{ date('Y-m-d', strtotime($product->flight_date)) }}</h4>
                                                 @endif
                                             </td>
+                                            @if($admintype->role == "Super Admin")
                                             <td style="width: 35%; padding: 10px 0; text-align: right;">
                                                 <h3 style="color: #151525; font-size: 14px; font-weight: 700;">₹{{ number_format($product->total, 2) }}</h3>
                                             </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                     </table>
@@ -185,6 +216,14 @@
                             </tr>
                             <tr>
                                 <td style="padding: 10px 0;">
+
+                                @php 
+
+                                $admintype = Auth::guard('admin')->user()->admin;
+
+                                @endphp
+
+                                @if($admintype->role == "Super Admin")
                                     <table>
                                     @php
     $subtotal = array_sum($shoppingTotal); // Total amount before taxes
@@ -220,7 +259,7 @@
 </tr>
 <tr>
     <td style="width: 75%; padding: 10px 0;">
-        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Final Total</h3>
+        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Total Amount</h3>
     </td>
     <td style="width: 25%; padding: 10px 0; text-align: right;">
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹{{ number_format($totalWithGST, 2) }}</h3>
@@ -229,6 +268,8 @@
 
 
                                     </table>
+
+                                    @endif
                                 </td>
                             </tr>
                         </table>

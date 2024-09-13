@@ -73,6 +73,18 @@
                                                     <input type="text" placeholder="Enter State" id="state" name="state" class="required">
                                                 </div>
                                                 <div class="col-md-6 register_form_grid" style="width: 50%;">
+                                                    <label>City</label>
+                                                    <input type="text" placeholder="Enter City" id="state" name="city" class="required">
+                                                </div>
+                                                <div class="col-md-6 register_form_grid" style="width: 50%;">
+                                                    <label>GST Number</label>
+                                                    <input type="text" placeholder="Enter Gst Number" id="gst_number" name="gst_number" class="required">
+                                                </div>
+                                                <div class="col-md-6 register_form_grid" style="width: 50%;">
+                                                    <label>Pincode</label>
+                                                    <input type="text" placeholder="Enter Pincode" id="pincode" name="pincode" class="required">
+                                                </div>
+                                                <div class="col-md-6 register_form_grid" style="width: 50%;">
                                                     <label>Phone Number</label>
                                                     <!-- <input type="tel" placeholder="91"> -->
                                                     <input id="phone" name="phone" type="tel" value="" name="phone" id="phone" class="required" />

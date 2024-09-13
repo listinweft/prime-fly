@@ -36,14 +36,14 @@
             </form>
         </div>
 
-        <div class="login register-show">
+        <!-- <div class="login register-show">
             <form method="post">
                 @csrf
                 <label for="chk" aria-hidden="true">Forgot Password</label>
                 <input type="text" placeholder="Email" maxlength="30" name="forgot_email" id="forgot_email">
                 <input class="login-btn" type="button" value="Submit" id="forgot_password_btn">
             </form>
-        </div>
+        </div> -->
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{asset('backend/dist/js/sweetalert.min.js')}}"></script>

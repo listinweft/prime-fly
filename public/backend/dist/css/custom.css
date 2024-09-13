@@ -525,6 +525,15 @@ table.dataTable>tbody>tr.child ul.dtr-details{
     background-color: rgb(109 85 164);
     color: #ffffff;
 }
+.daterangepicker td, .daterangepicker th { 
+    font-size: 12px;
+}
+span.validation-error.text-danger {
+    font-size: 12px;
+    bottom: -17px;
+    position: absolute;
+    font-weight: 500;
+}
 @media(max-width:1700px){
     .nav-sidebar .nav-item>.nav-link { 
         font-size: 13px;

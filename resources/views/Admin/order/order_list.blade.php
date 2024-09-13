@@ -49,7 +49,9 @@
                                         <th>Code</th>
                                         <th>Customer</th>
                                         <th>Credit Bill status</th>
+                                        @if($admintype->role == "Super Admin")
                                         <th>Order Total</th>
+                                        @endif
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
                                     </tr>
@@ -79,6 +81,13 @@
 
                                                 <td>
 
+                                               @php
+
+                                                $btype =  $order->orderCustomer->CustomerData->user->btype;
+                                                @endphp
+
+                                                @if($btype=="b2b")
+
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change-cod" data-table="Order"
@@ -86,8 +95,11 @@
                                                         {{( $order->payment_method=="COD")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
+                                                @endif
+                                                @if($admintype->role == "Super Admin")
 </td>
                                                 <td>{{ number_format($productTotalWithTax, 2).' '.$order->currency }}</td>
+                                                @endif
                                                 <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
                                                 <td class="text-right py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">

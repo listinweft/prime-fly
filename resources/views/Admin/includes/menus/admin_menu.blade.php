@@ -132,6 +132,11 @@
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
+    
+       
+        
+
+  
     <ul class="nav nav-treeview">
         <!-- <li class="nav-item">
             <a href="{{url(Helper::sitePrefix().'gallery')}}"
@@ -147,6 +152,15 @@
                 <p>FAQs</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{url(Helper::sitePrefix().'banner/list')}}"
+               class="nav-link {{ (Request::segment(3)=='list')?'active':'' }}">
+               <i class="fas fa-circle nav-icon"></i>
+
+                <p>Home Banner</p>
+            </a>
+        </li>
+
        
         <li class="nav-item">
                 <a href="{{ url(Helper::sitePrefix().'product/sub-category') }}"

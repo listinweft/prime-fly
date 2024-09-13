@@ -46,7 +46,7 @@
                                 <div class="form-group col-md-6">
                                     <label> Banner*</label>
                                     <div class="file-loading">
-                                        <input id="desktop_banner" name="desktop_banner" type="file" accept="image/*">
+                                        <input id="desktop_image" name="desktop_banner" type="file" accept="image/*">
                                     </div>
                                     <span class="caption_note">Note: Image dimension must be 1920 x 340 PX and Size must be less than 512 KB</span>
                                     @error('desktop_banner')
@@ -68,7 +68,7 @@
                                 <input type="hidden" name="type" id="type" value="{{ $type }}">
                                 <input type="submit" name="btn_save" value="Submit"
                                        class="btn btn-primary pull-left submitBtn">
-                                <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}"
+                                <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
                                      style="display:none;">
                             </div>
                         </div>
@@ -78,7 +78,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#desktop_banner").fileinput({
+            $("#desktop_image").fileinput({
                 'theme': 'explorer-fas',
                 validateInitialCount: true,
                 overwriteInitial: false,
@@ -89,17 +89,17 @@
                 dropZoneEnabled: false,
                 required: true,
                 showRemove: false,
-                minImageWidth: 1920,
-                minImageHeight: 500,
-                maxImageWidth: 1920,
-                maxImageHeight: 500,
+                // minImageWidth: 1920,
+                // minImageHeight: 500,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 500,
                 maxFileSize: 512,
-                @if(isset($banner) && $banner->desktop_banner != NULL)
-                initialPreview: ["{{asset($banner->desktop_banner)}}"],
+                @if(isset($banner) && $banner->desktop_image != NULL)
+                initialPreview: ["{{asset($banner->desktop_image)}}"],
                 initialPreviewConfig: [{
-                    caption: "{{ last(explode('/',$banner->desktop_banner))}}",
+                    caption: "{{ last(explode('/',$banner->desktop_image))}}",
                     width: "120px",
-                    key: "{{($banner->desktop_banner)}}",
+                    key: "{{($banner->desktop_image)}}",
                 }]
                 @endif
             });

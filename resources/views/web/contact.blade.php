@@ -39,10 +39,20 @@
                             <div class="col-lg-4 address-grid">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/mail.png')}}    ">
-                                    <p>support@primefly.in
-                                        </p>
+                                    <div>
+                                    <p>support@primefly.in</p>  
+                                    <p>bookings@primefly.in</p>
+                                    <p>groupbookings@primefly.in</p>
+                                    </div>
+                                    
+
+
+                                       
+                                        
+                                        
                                 </div>
                             </div>
+                            
                         </div>
                         <ul class="d-flex contact-links p-0">
                             <!-- <li>
