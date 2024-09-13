@@ -261,115 +261,42 @@ class CartController extends Controller
     
     
     
-    // public function cart()
-    // {
+    public function cart()
+    {
 
        
-    //     $sessionKey = session('session_key');
+        $sessionKey = session('session_key');
 
 
-    // //    return Cart::session($sessionKey)->getContent();
-    //     // $cartItems = Cart::session($sessionKey)->getContent();
+    //    return Cart::session($sessionKey)->getContent();
+        // $cartItems = Cart::session($sessionKey)->getContent();
 
-    //     // foreach ($cartItems as $item) {
-    //     //     echo "Product ID: " . $item->id . "<br>";
-    //     //     echo "Product Name: " . $item->name . "<br>";
-    //     //     echo "Price: " . $item->price . "<br>";
-    //     //     echo "Quantity: " . $item->quantity . "<br>";
-    //     //     echo "Guest: " . $item->guest . "<br>"; // Ensure 'guest' is correctly accessed
-    //     //     echo "Attributes: " . json_encode($item->attributes) . "<br>";
-    //     //     echo "Conditions: " . json_encode($item->conditions) . "<br>";
-    //     //     echo "<br>";
-    //     // }
+        // foreach ($cartItems as $item) {
+        //     echo "Product ID: " . $item->id . "<br>";
+        //     echo "Product Name: " . $item->name . "<br>";
+        //     echo "Price: " . $item->price . "<br>";
+        //     echo "Quantity: " . $item->quantity . "<br>";
+        //     echo "Guest: " . $item->guest . "<br>"; // Ensure 'guest' is correctly accessed
+        //     echo "Attributes: " . json_encode($item->attributes) . "<br>";
+        //     echo "Conditions: " . json_encode($item->conditions) . "<br>";
+        //     echo "<br>";
+        // }
         
         
          
        
-    //     $calculation_box = Helper::calculationBox();
-        
-    //     $tag = $this->seo_content('Cart');
-    //     $banner = Banner::first();
-    //     $featuredProducts = Product::active()->featured()->get();
-    //     $cartContents = $this->cartData();
-    //     $categorys = Category::whereNull('parent_id')->get();
-
-    //     $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-    //     return view('web.cart', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
-    //         'banner', 'featuredProducts','categorys'));
-    // }
-
-    public function cart()
-    {
-        $sessionKey = session('session_key');
-    
-        if (!empty($sessionKey)) {
-            $cartItems = Cart::session($sessionKey)->getContent();
-    
-            $locationCodes = [];
-            $categoryIds = [];
-    
-            // Extract location codes from cart items
-            $cartItems->each(function ($item) use (&$locationCodes) {
-                $travelType = $item->attributes['travel_type'] ?? null;
-                $locationCode = ($travelType == 'departure' || $travelType == 'Transit' || $travelType === null) 
-                                 ? $item->attributes['origin'] 
-                                 : $item->attributes['destination'];
-    
-                if ($locationCode) {
-                    $locationCodes[] = $locationCode;
-                }
-            });
-    
-            // Fetch location IDs based on location codes
-            $locationIds = \App\Models\Location::whereIn('code', array_unique($locationCodes))
-                ->pluck('id')
-                ->toArray();
-    
-            // Fetch all products and filter by location IDs
-            $products = \App\Models\Product::all()->filter(function ($product) use ($locationIds) {
-                $productLocationIds = explode(',', $product->location_id);
-                return !empty(array_intersect($productLocationIds, $locationIds));
-            });
-    
-            // Extract category IDs from fetched products
-            $categoryIds = $products->pluck('category_id')->unique();
-    
-            // Fetch unique categories based on the category IDs
-            $categories = \App\Models\Category::whereIn('id', $categoryIds)->where('status','Active')
-                ->whereNull('parent_id')
-                ->get();
-    
-            // Log data for debugging
-            Log::info('Location Codes:', ['codes' => array_unique($locationCodes)]);
-            Log::info('Location IDs:', ['ids' => $locationIds]);
-            Log::info('Category IDs:', ['ids' => $categoryIds->toArray()]);
-            Log::info('Fetched Categories:', ['categories' => $categories->toArray()]);
-    
-        } else {
-            // If no session key, fetch all categories with null parent_id
-            $categories = \App\Models\Category::whereNull('parent_id')->where('status','Active')->get();
-        }
-    
-        // Additional data for the view
         $calculation_box = Helper::calculationBox();
+        
         $tag = $this->seo_content('Cart');
-        $banner = Banner::first();
+        $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
+        $categorys = Category::whereNull('parent_id')->get();
+
         $cartAdDetail = Advertisement::active()->type('cart')->latest()->get();
-    
-        // Return view with the required data
-        return view('web.cart', compact(
-            'sessionKey', 
-            'calculation_box', 
-            'tag', 
-            'cartAdDetail', 
-            'banner', 
-            'featuredProducts', 
-            'categories'
-        ));
+        return view('web.cart', compact('sessionKey', 'calculation_box', 'tag', 'cartAdDetail',
+            'banner', 'featuredProducts','categorys'));
     }
-    
 
     public function setSession()
     {
@@ -601,7 +528,7 @@ class CartController extends Controller
         $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
-        $banner = Banner::first();
+        $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
    
@@ -622,7 +549,7 @@ class CartController extends Controller
         $calculation_box = Helper::calculationBox();
         
         $tag = $this->seo_content('Cart');
-        $banner = Banner::first();
+        $banner = Banner::type('cart')->first();
         $featuredProducts = Product::active()->featured()->get();
         $cartContents = $this->cartData();
    
@@ -1636,8 +1563,7 @@ class CartController extends Controller
                             'state' => $request->state ?? '',
                             'city' => $request->city ?? '',
                             'gender' => $request->gender[$key] ?? '',
-                            'pincode' => $request->pincode ?? '',
-                            'gst_number' => $request->gst_number ?? ''
+                            'pincode' => $request->pincode ?? ''
                         ];
                     }
                     PersonalDetails::insert($personalDetailsData);

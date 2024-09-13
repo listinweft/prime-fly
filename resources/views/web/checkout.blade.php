@@ -295,19 +295,19 @@
                                        </div>
                                     </div>
                                     <div class="col-lg-12 mt-3 mb-3">
-   <div class="form-check gst_check">
-      <input class="form-check-input termsCheckbox" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox">
-      <label class="form-check-label" for="termsCheckbox">
-         If have a GST number <span>(Optional)</span>
-      </label>
-      <div id="termsError" class="text-danger"></div>
-   </div>
-</div>
-<div class="col-lg-6">
-   <div class="details-item gstField d-none"> 
-      <input type="text" name="gst_number" id="gst_number" placeholder="Enter GST No.">
-   </div>
-</div>
+                                    <div class="form-check gst_check">
+                                       <input class="form-check-input termsCheckbox" type="checkbox" value="1" id="termsCheckbox" name="termsCheckbox">
+                                       <label class="form-check-label" for="termsCheckbox">
+                                          If have a GST number <span>(Optional)</span>
+                                       </label>
+                                       <div id="termsError" class="text-danger"></div>
+                                    </div>
+                                 </div>
+                                 <div class="col-lg-6">
+                                    <div class="details-item gstField d-none"> 
+                                       <input type="text" name="gst_number" id="gst_number" placeholder="Enter GST No.">
+                                    </div>
+                                 </div>
                                  </div>
                               </div>
                            </div>
