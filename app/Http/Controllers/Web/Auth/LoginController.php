@@ -7,6 +7,8 @@ use App\Http\Helpers\Helper;
 use App\Models\Customer;
 use App\Models\PasswordReset;
 use App\Models\User;
+use App\Models\BusinessAddress;
+
 Use App\Models\Usersverifie;
 use Exception;
 use Illuminate\Http\Request;
@@ -648,11 +650,29 @@ public function register_corporate(Request $request)
        
         $customer->user_id = $user->id;
 
+
+       
+
         if (!$customer->save()) {
             throw new \Exception('Failed to create customer.');
         }
 
-        // Commit the transaction
+       
+        $businessAddress = new BusinessAddress;
+
+
+
+        $businessAddress->address = $request->address;
+        $businessAddress->customer_id = $customer->id;
+       
+        $businessAddress->country = "india";
+        $businessAddress->state = $request->state;
+        $businessAddress->city = $request->city;
+        $businessAddress->pincode = $request->pincode;
+        $businessAddress->gst_number = $request->gst_number;
+
+         $businessAddress->save();
+
        
 
         Auth::guard('customer')->logout();
