@@ -90,6 +90,18 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label> Home Thumbnail Image*</label>
+                                    <div class="file-loading">
+                                        <input id="desktop_banner" name="desktop_banner" type="file">
+                                    </div>
+                                    <span class="caption_note">Note: Image size must be 550 x 550px</span>
+                                    @error('desktop_banner')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                
                             </div>
                                
@@ -140,5 +152,32 @@
             });
 
         });
+
+        $("#desktop_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 1000,
+                // minImageHeight: 500,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 500,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($category) && $category->desktop_banner!=NULL)
+                initialPreview: ["{{asset($category->desktop_banner)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$category->desktop_banner))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
     </script>
 @endsection
