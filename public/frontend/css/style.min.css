@@ -4999,3 +4999,9 @@ footer {
         width:50%;
     }
 }
+.price-summery h4{
+    font-size: 12px;
+    margin: 18px 0 8px 0;
+    text-align: center;
+    line-height: 1.4;
+}
