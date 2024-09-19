@@ -421,6 +421,12 @@
                         <a href="{{ route('cart') }}" class="btn btn-primary-outline me-2">Back</a>
                         <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ round($finalamount) }}" data-phone_number="{{ $user->phone }}">Place Order</button>
                      </div>
+                     <div>
+
+                     <h4>By proceeding, you accept our <a href="{{ url('/terms-and-conditions') }}">T&Cs</a> and <a href="{{ url('/privacy-policy') }}">Privacy Policy</a></h4>
+
+                     
+</div>
                   </div>
 
             </div>

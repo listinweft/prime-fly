@@ -45,6 +45,7 @@
                                         <th>Code</th>
                                         <th>Service</th>
                                         <th>Customer</th>
+                                        <th>Customer phone Number</th>
                                         
                                         <th>Credit Bill status</th>
                                         @if($admintype->role == "Super Admin")
@@ -88,6 +89,9 @@
                                                         <td></td>
                                                     @endif
                                                 @endif
+
+                                                <td>{{ $order->orderCustomer->CustomerData->user->phone }}</td>
+
 
                                                 <td>
                                                 @php
