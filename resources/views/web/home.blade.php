@@ -483,7 +483,8 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
           <div class="airport_list_grid text-center" data-aos="fade-up" data-aos-duration="1000">
             <a href="{{ url('location/' . @$location->title) }}">
               <div class="airtport_list_thumb">
-                {!! Helper::printImage(@$location, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
+                <!-- {!! Helper::printImage(@$location, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!} -->
+                {!! Helper::printImage(@$location, 'image', 'image_webp', '', 'img-fluid') !!}
                 <h3>{{ $location->code }}</h3>
               </div>
               <h4>{{ $location->code }}</h4>
