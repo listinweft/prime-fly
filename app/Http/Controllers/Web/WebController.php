@@ -361,56 +361,109 @@ public function getLocations_meet(Request $request)
 }
 
 
-        public function getLocations(Request $request)
-    {
+    //     public function getLocations(Request $request)
+    // {
 
        
-        $travelSector = $request->input('travel_type');
+    //     $travelSector = $request->input('travel_type');
 
+    //     $sector = $request->input('sector');
+    //     $category = $request->input('category');
+    
+    //     $products = Product::where('category_id', $category)->where('service_type',$travelSector)->get();
+    
+    //     $allLocationIds = [];
+    //     foreach ($products as $product) {
+    //         $locationIds = explode(',', $product->location_id);
+    //         $allLocationIds = array_merge($allLocationIds, $locationIds);
+    //     }
+    //     $uniqueLocationIds = array_unique($allLocationIds);
+    //     $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+
+    //     $mappedLocations = $locationsspecific->map(function ($location) {
+    //         return [
+    //             'fs' => $location->code, // Assuming 'code' in DB corresponds to 'faa'
+    //             'city' => $location->title // Assuming 'title' in DB corresponds to 'name'
+    //         ];
+    //     });
+    
+    //     $origins = [];
+    //     $destinations = [];
+    //     $locationsFromDb = DB::table('international_airport')
+    //     ->select('faa', 'name')
+    //     ->get()
+    //     ->map(function ($location) {
+    //         return [
+    //             'fs' => $location->faa,  // FAA code
+    //             'city' => $location->name // Name
+    //         ];
+    //     });
+
+
+    // // if ($travelSector == 'departure')
+    // //  {
+    //     $origins = $mappedLocations;
+    //     $destinations = $locationsFromDb;
+    // // } elseif ($travelSector == 'arrival') {
+    // //     $origins = $locationsFromDb;
+    // //     $destinations = $mappedLocations;
+    // // }
+    
+    //     return response()->json(['origins' => $origins, 'destinations' => $destinations]);
+    // }
+
+    public function getLocations(Request $request)
+    {
+        $travelSector = $request->input('travel_type');
         $sector = $request->input('sector');
         $category = $request->input('category');
     
-        $products = Product::where('category_id', $category)->where('service_type',$travelSector)->get();
+        // Fetch products based on category and service type
+        $products = Product::where('category_id', $category)
+            ->where('service_type', $travelSector)
+            ->get();
     
-        $allLocationIds = [];
-        foreach ($products as $product) {
-            $locationIds = explode(',', $product->location_id);
-            $allLocationIds = array_merge($allLocationIds, $locationIds);
-        }
-        $uniqueLocationIds = array_unique($allLocationIds);
-        $locationsspecific = Location::active()->whereIn('id', $uniqueLocationIds)->get();
-
+        // Collect unique location IDs
+        $uniqueLocationIds = $products->flatMap(function ($product) {
+            return explode(',', $product->location_id);
+        })->unique();
+    
+        // Fetch active locations based on unique IDs
+        $locationsspecific = Location::active()
+            ->whereIn('id', $uniqueLocationIds)
+            ->get();
+    
+        // Map locations
         $mappedLocations = $locationsspecific->map(function ($location) {
             return [
-                'fs' => $location->code, // Assuming 'code' in DB corresponds to 'faa'
-                'city' => $location->title // Assuming 'title' in DB corresponds to 'name'
+                'fs' => $location->code, // Assuming 'code' corresponds to 'faa'
+                'city' => $location->title // Assuming 'title' corresponds to 'name'
             ];
         });
     
-        $origins = [];
-        $destinations = [];
-        $locationsFromDb = DB::table('international_airport')
-        ->select('faa', 'name')
-        ->get()
-        ->map(function ($location) {
-            return [
-                'fs' => $location->faa,  // FAA code
-                'city' => $location->name // Name
-            ];
-        });
-
-
-    // if ($travelSector == 'departure')
-    //  {
+        // Initialize an empty array for international airport locations
+        $locationsFromDb = [];
+    
+        // Use chunking to fetch international airport data with an orderBy clause
+        DB::table('international_airport')
+            ->select('faa', 'name')
+            ->orderBy('faa') // Add an orderBy clause here
+            ->chunk(500, function ($airportChunk) use (&$locationsFromDb) {
+                foreach ($airportChunk as $location) {
+                    $locationsFromDb[] = [
+                        'fs' => $location->faa,
+                        'city' => $location->name
+                    ];
+                }
+            });
+    
+        // Set origins and destinations based on travel type
         $origins = $mappedLocations;
         $destinations = $locationsFromDb;
-    // } elseif ($travelSector == 'arrival') {
-    //     $origins = $locationsFromDb;
-    //     $destinations = $mappedLocations;
-    // }
     
         return response()->json(['origins' => $origins, 'destinations' => $destinations]);
     }
+    
     public function getLocations_porter(Request $request)
     {
         $travelSector = $request->input('travel_type');

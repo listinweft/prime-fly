@@ -17,7 +17,8 @@
                            type="button" role="tab" aria-controls="package{{ $index + 1 }}-tab-pane" aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
                            <p>{{ ucwords($item['product']['title']) }}</p>
 
-                            <h4>&#8377; {{ number_format($item['total_amount']) }}</h4>
+                            <h4>&#8377;  {{ number_format($item['total_amount'], 2) }}</h4>
+                           
                         </a>
                     </li>
                     @endif

@@ -380,7 +380,7 @@
                            @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                            <tr>
                               <td>{{$row->name}}</td>
-                              <td>&#8377; {{$row->price}}</td>
+                              <td>&#8377;  {{ number_format($row->price, 2) }}</td>
                            </tr>
                            @php 
                            $totalAmount += $row->price;
@@ -403,7 +403,7 @@
                            </tr>
                            <tr>
                               <td><b>Total Amount</b></td>
-                              <td><b>&#8377; {{ round($finalamount) }}</b></td>
+                              <td><b>&#8377; {{ number_format(round($finalamount), 2, '.', ',') }}</b></td>
 
                            </tr>
                         </tfoot>

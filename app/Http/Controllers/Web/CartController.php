@@ -309,21 +309,56 @@ class CartController extends Controller
             $categoryIds = [];
     
             // Extract location codes from cart items
+            // $cartItems->each(function ($item) use (&$locationCodes) {
+            //     $travelType = $item->attributes['travel_type'] ?? null;
+            //     $locationCode = ($travelType == 'departure' || $travelType == 'Transit' || $travelType === null) 
+            //                      ? $item->attributes['origin'] 
+            //                      : $item->attributes['destination'];
+    
+            //     if ($locationCode) {
+            //         $locationCodes[] = $locationCode;
+            //     }
+            // });
+    
+
             $cartItems->each(function ($item) use (&$locationCodes) {
+                // Handle cases where travel_type could be null or an empty value
                 $travelType = $item->attributes['travel_type'] ?? null;
-                $locationCode = ($travelType == 'departure' || $travelType == 'Transit' || $travelType === null) 
+            
+                // Debugging: Check what is being captured as travel type
+                \Log::info('Travel Type:', ['travelType' => $travelType]);
+            
+                // Compare travel_type using a more flexible check for null and empty values
+                $locationCode = ($travelType === 'departure' || $travelType === 'Transit' || empty($travelType))
                                  ? $item->attributes['origin'] 
                                  : $item->attributes['destination'];
-    
+            
+                // Debugging: Check what is stored in 'origin' or 'destination'
+                \Log::info('Location Code:', ['locationCode' => $locationCode]);
+            
                 if ($locationCode) {
-                    $locationCodes[] = $locationCode;
+                    $locationCodes[] = $locationCode; // Collect location codes
                 }
             });
-    
-            // Fetch location IDs based on location codes
-            $locationIds = \App\Models\Location::whereIn('code', array_unique($locationCodes))
+            
+            // Normalize and remove duplicates from location codes
+            $locationCodes = array_map(function ($code) {
+                return strtoupper(trim($code)); // Convert to uppercase and trim spaces
+            }, array_unique($locationCodes));
+            
+            // Debugging: Check if location codes are correct before querying the database
+            \Log::info('Final Location Codes:', ['locationCodes' => $locationCodes]);
+            
+            // Fetch location IDs based on normalized and unique location codes
+            $locationIds = \App\Models\Location::whereIn('code', $locationCodes)
                 ->pluck('id')
                 ->toArray();
+            
+            // Debugging: Check the result of the query
+            \Log::info('Location IDs:', ['locationIds' => $locationIds]);
+            
+            // You can also dump the data for immediate inspection during testing
+            
     
             // Fetch all products and filter by location IDs
             $products = \App\Models\Product::all()->filter(function ($product) use ($locationIds) {

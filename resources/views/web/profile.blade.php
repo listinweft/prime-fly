@@ -239,7 +239,9 @@
                         <p><b>Date: {{date('d-m-Y', strtotime($order->orderData->created_at))}}</b></p>
                     </div>
                     <div class="col-lg-2 text-center">
-                        <h4>Total: ₹ {{ $product->total }}</h4>
+                        <h4>Total: ₹  {{ number_format($product->total, 2) }}</h4>
+
+                       
                     </div>
                 </div>
             @endforeach
