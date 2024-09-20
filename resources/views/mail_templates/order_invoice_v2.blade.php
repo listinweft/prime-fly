@@ -208,8 +208,10 @@
                       </h4>
                    </td>
                    <td style=" Margin:0;color:#333333;padding:5px 10px;">
-                      <strong style="font-size: 13px;
-                         font-weight:600;"> {{$order->currency.' '.$orderTotal}}</strong>
+                   <strong style="font-size: 13px; font-weight: 600;">
+    {{ $order->currency }} {{ number_format($orderTotal, 2) }}
+</strong>
+
                    </td>
                 </tr>
                 <tr style="border-collapse: collapse;">
@@ -255,7 +257,8 @@ $totalIncluding18Percent = $cgst + $sgst + $orderTotal;
                       </h4>
                    </td>
                    <td style="padding: 0; Margin: 0;color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                      <strong>{{ $order->currency }} {{ round($totalIncluding18Percent) }}.00</strong>
+                   <strong>{{ $order->currency }} {{ number_format(round($totalIncluding18Percent), 0, '.', ',') }}.00</strong>
+
                    </td>
                 </tr>
              </table>

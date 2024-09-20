@@ -361,10 +361,11 @@ class CartController extends Controller
             
     
             // Fetch all products and filter by location IDs
-            $products = \App\Models\Product::all()->filter(function ($product) use ($locationIds) {
+            $products = \App\Models\Product::where('status', 'Active')->get()->filter(function ($product) use ($locationIds) {
                 $productLocationIds = explode(',', $product->location_id);
                 return !empty(array_intersect($productLocationIds, $locationIds));
             });
+            
     
             // Extract category IDs from fetched products
             $categoryIds = $products->pluck('category_id')->unique();

@@ -201,7 +201,9 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Total:</td>
-                                                    <td>{{ $order->currency }} {{ number_format($totalWithTax, 2) }}</td>
+                                                    <td>{{ $order->currency }} {{ number_format(round($totalWithTax), 0, '.', ',') }}.00</td>
+
+
                                                 </tr>
                                             </tbody>
                                         </table>

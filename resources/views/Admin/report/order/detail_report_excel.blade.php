@@ -45,7 +45,8 @@
                         @endif
                     </td>
                     <td>{{ ($products[0]->productData) ? $products[0]->productData->title : '' }}</td>
-                    <td>{{ $order->currency . ' ' . $products[0]->total }}</td>
+                    <td>{{ $order->currency . ' ' . number_format($products[0]->total, 2) }}</td>
+
                     <td>{{  $products[0]->exit_date }}</td>
                     
                    
@@ -66,7 +67,8 @@
                             @endif
                         </td>
                         <td>{{ ($products[$j]->productData) ? $products[$j]->productData->title : '' }}</td>
-                        <td>{{ $order->currency . ' ' . $products[$j]->total }}</td>
+                        <td>{{ $order->currency . ' ' . number_format($products[0]->total, 2) }}</td>
+
 
                         <td>{{  $products[$j]->exit_date }}</td>
 
