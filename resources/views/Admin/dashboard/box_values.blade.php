@@ -1,7 +1,11 @@
 <div class="row">
     <div class="col-lg-3 col-6">
         <!-- small box -->
+
+        <a href="{{url(Helper::sitePrefix().'customer')}}" class="small-box-footer">
+
         <div class="small-box bg-info">
+
             <div class="inner">
                 <h3>{{$Totalcustomer}}</h3>
                 <p>Total Customers</p>
@@ -9,13 +13,17 @@
             <div class="icon">
                 <i class="fas fa-users"></i>
             </div>
-            <!-- <a href="{{url(Helper::sitePrefix().'report/order/processing')}}" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i></a> -->
+          
+               
         </div>
+
+        </a>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
+
+        <a href="{{url(Helper::sitePrefix().'order')}}" class="small-box-footer">
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>{{$Totaljournal}}</h3>
@@ -24,14 +32,17 @@
             <div class="icon">
                 <i class="journal-icon fas fa-book"></i>
             </div>
-            <!-- <a href="{{url(Helper::sitePrefix().'report/order/on hold')}}" class="small-box-footer">More info
-                <i
-                    class="fas fa-arrow-circle-right"></i></a> -->
+           
+       
         </div>
+
+        </a>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
+
+        <a href="{{url(Helper::sitePrefix().'blog')}}" class="small-box-footer">
         <div class="small-box bg-info">
             <div class="inner">
                 <h3>{{$Totalblog}}</h3>
@@ -40,13 +51,14 @@
             <div class="icon">
                 <i class="blog-icon fas fa-file-alt"></i>
             </div>
-            <!-- <a href="{{url(Helper::sitePrefix().'report/product/out-of-stock')}}" class="small-box-footer">More info <i
-                    class="fas fa-arrow-circle-right"></i></a> -->
+       
         </div>
+        </a>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
+        <a href="{{url(Helper::sitePrefix().'product/category')}}" class="small-box-footer">
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>{{$Totalservices}}</h3>
@@ -55,8 +67,9 @@
             <div class="icon">
                 <i class="total-events-icon fas fa-calendar"></i>
             </div>
-            {{--            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
+             
         </div>
+        </a>
     </div>
 </div>
 <div class="row">
