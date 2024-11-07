@@ -119,18 +119,41 @@
 
                            <!-- <br> +91 {{$user->phone}} -->
                         </p>
-                        <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">Address</h5>
-                        <p style="color:#5E6470;font-size:11px;line-height:1.4">{{$personaladdress->address}}
-                           
+                        <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">Contact Address</h5>
 
-                           <br> +91 {{$user->phone}}
-                        </p>
-
-                        @if(!empty($personaladdress->gst_number))
-    <h5 style="color:#5E6470;font-size:12px;font-weight:700;margin-bottom:5px">GST Number</h5>
-    <p style="color:#5E6470;font-size:11px;line-height:1.4">{{$personaladdress->gst_number}}</p>
+@if(!empty($personaladdress->address))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>Address:</strong> {{ $personaladdress->address }}</p>
 @endif
 
+@if(!empty($personaladdress->passport_number))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>Passport Number:</strong> {{ $personaladdress->passport_number }}</p>
+@endif
+
+@if(!empty($personaladdress->country))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>Country:</strong> {{ $personaladdress->country }}</p>
+@endif
+
+@if(!empty($personaladdress->state))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>State:</strong> {{ $personaladdress->state }}</p>
+@endif
+
+@if(!empty($personaladdress->city))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>City:</strong> {{ $personaladdress->city }}</p>
+@endif
+
+@if(!empty($personaladdress->pincode))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>Pincode:</strong> {{ $personaladdress->pincode }}</p>
+@endif
+
+@if(!empty($personaladdress->gst_number))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>GST Number:</strong> {{ $personaladdress->gst_number }}</p>
+@endif
+
+@if(!empty($personaladdress->phone))
+    <p style="color:#5E6470;font-size:11px;line-height:1.4"><strong>Phone:</strong> +91 {{ $personaladdress->phone }}</p>
+@endif
+
+                
                            
 
                            

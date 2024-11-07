@@ -224,6 +224,14 @@
                                        </div>
                                     </div>
 
+                                    <div class="col-lg-6">
+                                       <div class="details-item">
+                                          <label for="name">Phone*</label>
+                                          <input type="text" name="phone" id="phone" placeholder="Phone" value="" required> 
+                                          <span class="error-message" style="display: none;">Phone is required.</span>
+                                       </div>
+                                    </div>
+
                                     <input type="hidden" name="gst_number" id="gst_number" placeholder="" value="{{ $user->customer->businessAddress->gst_number ?? '' }}" > 
 
                                     <div class="col-lg-6">
@@ -284,6 +292,14 @@
                                           <label for="name">City</label>
                                           <input type="text" name="city" id="city" placeholder="City" > 
                                           <span class="error-message" style="display: none;">City is required.</span>
+                                       </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                       <div class="details-item">
+                                          <label for="name">Phone*</label>
+                                          <input type="text" name="phone" id="phone" placeholder="Phone" value="" required> 
+                                          <span class="error-message" style="display: none;">Phone is required.</span>
                                        </div>
                                     </div>
                                    

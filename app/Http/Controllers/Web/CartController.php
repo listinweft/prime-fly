@@ -1673,11 +1673,38 @@ class CartController extends Controller
                             'city' => $request->city ?? '',
                             'gender' => $request->gender[$key] ?? '',
                             'pincode' => $request->pincode ?? '',
-                            'gst_number' => $request->gst_number ?? ''
+                            'gst_number' => $request->gst_number ?? '',
+                            'phone' => $request->phone ?? ''
                         ];
                     }
                     PersonalDetails::insert($personalDetailsData);
                 }
+                // if (!empty($request->phone)) {
+                //     // Get the currently authenticated user
+                //     $user = User::find(Auth::guard('customer')->user()->id);
+                
+                //     if ($user) {
+                //         // Check if the phone number already exists for another user
+                //         $existingUserWithPhone = User::where('phone', $request->phone)
+                //                                       ->where('id', '!=', $user->id)  // Make sure it doesn't include the current user
+                //                                       ->first();
+                
+                //         if ($existingUserWithPhone) {
+                //             // If the phone number already exists for another user, you can return an error message
+                //             return response()->json([
+                //                 'status' => false,
+                //                 'message' => 'This Phone Number is already taken',
+                //                 'data' => '/checkout'
+                //             ], 200);
+                //         } else {
+                //             // If no user has the same phone number, update the phone number
+                //             $user->phone = $request->phone;
+                //             $user->update(); // Using update instead of save
+                //         }
+                //     }
+                // }
+                 
+                
 
                 $order_customer = new OrderCustomer();
                 $order_customer->order_id = $order->id;
