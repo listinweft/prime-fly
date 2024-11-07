@@ -226,7 +226,7 @@
 
                                     <div class="col-lg-6">
                                        <div class="details-item">
-                                          <label for="name">Phone*</label>
+                                          <label for="name">Passenger Phone Number*</label>
                                           <input type="text" name="phone" id="phone" placeholder="Phone" value="" required> 
                                           <span class="error-message" style="display: none;">Phone is required.</span>
                                        </div>
@@ -297,7 +297,7 @@
 
                                     <div class="col-lg-6">
                                        <div class="details-item">
-                                          <label for="name">Phone*</label>
+                                       <label for="name">Passenger Phone Number*</label>
                                           <input type="text" name="phone" id="phone" placeholder="Phone" value="" required> 
                                           <span class="error-message" style="display: none;">Phone is required.</span>
                                        </div>
