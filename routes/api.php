@@ -48,6 +48,7 @@ Route::post('/search-booking-baggage-api', [CommonController::class, 'searchBook
 Route::post('/search-booking-entry-ticket-api', [CommonController::class, 'search_booking_entry_ticket_api']);
 Route::post('/search-booking-carparking-api', [CommonController::class, 'search_booking_carparking']);
 Route::post('/search-booking-porter-api', [CommonController::class, 'searchBookingPorter']);
+Route::post('/search-booking-cloackroom-api', [CommonController::class, 'search_booking_cloakroom_api']);
 Route::get('/internationa-airports', [CommonController::class, 'getInternationalAirports']);
 
 

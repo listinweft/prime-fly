@@ -996,6 +996,107 @@ public function getInternationalAirports(Request $request)
     ]);
 }
 
+public function search_booking_cloakroom_api(Request $request)
+{
+    // Validate request
+    $request->validate([
+        'terminal' => 'required|string',
+        'origin' => 'required',
+        'count' => 'required|integer', // Number of bags
+        'entry_date' => 'required',
+        'exit_date' => 'required',
+        'entry_time' => 'required',
+        'exit_time' => 'required',
+        'category' => 'required|integer'
+    ]);
 
+    // Collect data
+    $data = $request->all();
+
+    // Calculate the duration in hours
+    $entryDateTime = new DateTime($data['entry_date'] . ' ' . $data['entry_time']);
+    $exitDateTime = new DateTime($data['exit_date'] . ' ' . $data['exit_time']);
+    $interval = $entryDateTime->diff($exitDateTime);
+    $hours = $interval->days * 24 + $interval->h + ($interval->i > 0 ? 1 : 0); // Round up if there are any minutes
+
+    // Fetch products based on travel type and locations
+    $products = Product::select('products.*', 'locations.title as location_title')
+        ->join('locations', function ($join) {
+            $join->on(DB::raw("FIND_IN_SET(locations.id, products.location_id)"), '>', DB::raw('0'));
+        })
+        ->where('products.category_id', $data['category']) // Add category filter
+        ->where('locations.code', $data['origin'])
+        ->where('products.status', 'Active')
+        ->groupBy('products.id')
+        ->get();
+
+    if ($products->isEmpty()) {
+        return response()->json(['status' => 'error', 'message' => 'No packages found'], 404);
+    }
+
+    $result = [];
+    $category = Category::where('id', $data['category'])->first();
+
+    foreach ($products as $product) {
+        // Fetch default pricing details from product
+        $basePrice = $product->price; // Assuming the column name is price
+        $additionalHourPrice = $product->additional_hourly_price ?? 0; // Assuming the column name is additional_hourly_price
+        $additionalBagPrice = $product->additional_price ?? 0; // Assuming the column name is additional_price
+
+        // Check if the user is authenticated and B2B
+        if (!empty($data['user_id'])) {
+            $user = User::where('id', $data['user_id'])->where('btype', 'b2b')->first();
+            $offer = Offer::where('product_id', $product->id)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if ($offer) {
+                $totalAmount = $data['count'] * $offer->price; // Use offer price if available
+                $additionalHourPrice = $offer->additional_hourly_price ?? $additionalHourPrice;
+                $additionalBagPrice = $offer->additional_price ?? $additionalBagPrice;
+            } else {
+                // If no offer found, return an error
+                return response()->json(['status' => 'error', 'message' => 'No offer found for the package'], 404);
+            }
+        } else {
+            // Use default pricing for non-authenticated or non-B2B users
+            $totalAmount = $basePrice;
+        }
+
+        // Apply additional pricing rules
+        if ($hours > 4) {
+            $totalAmount += ($hours - 4) * $additionalHourPrice;
+        }
+        if ($data['count'] > 2) {
+            $totalAmount += ($data['count'] - 2) * $additionalBagPrice;
+        }
+
+        // Prepare result array
+        $result[] = [
+            'product' => $product,
+            'location_title' => $product->location_title,
+            'total_amount' => $totalAmount, // Use the calculated total amount
+            'setdate' => $data['entry_date'],
+            'totalguest' => $data['count'],
+            'origin' => $data['origin'],
+            'terminal' => $data['terminal'],
+            'entry_date' => $data['entry_date'],
+            'exit_date' => $data['exit_date'],
+            'entry_time' => $data['entry_time'],
+            'exit_time' => $data['exit_time'],
+            'bag_count' => $data['count'],
+            'meet_guestn' => 1
+        ];
+    }
+
+
+
+    // Return the results in JSON format
+    return response()->json([
+        'success' => true,
+        'data' => $result,
+      
+    ]);
+}
 
 }
