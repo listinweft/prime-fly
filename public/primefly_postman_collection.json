@@ -1,0 +1,144 @@
+{
+    "info": {
+        "name": "Primefly API Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "api/login",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/login",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "login"]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"email\": \"john@example.com\", \"password\": \"password123\"}"
+                }
+            }
+        },
+        {
+            "name": "api/registerpublic",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/registerpublic",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "registerpublic"]
+                },
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        { "key": "firstname", "value": "John", "type": "text" },
+                        { "key": "lastname", "value": "Doe", "type": "text" },
+                        { "key": "email", "value": "john.doe@example.com", "type": "text" },
+                        { "key": "phone", "value": "1234567890", "type": "text" },
+                        { "key": "password", "value": "password123", "type": "text" }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "api/registercorporate",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/registercorporate",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "registercorporate"]
+                },
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        { "key": "company_name", "value": "ABC Corp", "type": "text" },
+                        { "key": "contact_name", "value": "Jane Smith", "type": "text" },
+                        { "key": "email", "value": "jane.smith@abccorp.com", "type": "text" },
+                        { "key": "phone", "value": "9876543210", "type": "text" },
+                        { "key": "password", "value": "corporate123", "type": "text" }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "api/forgot-password",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/forgot-password",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "forgot-password"]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"email\": \"john.doe@example.com\"}"
+                }
+            }
+        },
+        {
+            "name": "api/user",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/user",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "user"]
+                }
+            }
+        },
+        {
+            "name": "api/locations",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/locations",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "locations"]
+                }
+            }
+        },
+        {
+            "name": "api/services",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/services",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "services"]
+                }
+            }
+        },
+        {
+            "name": "api/blogs",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/blogs",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "blogs"]
+                }
+            }
+        },
+        {
+            "name": "api/testimonials",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/api/testimonials",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "testimonials"]
+                }
+            }
+        }
+    ]
+}
