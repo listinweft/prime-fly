@@ -50,6 +50,8 @@ Route::post('/search-booking-carparking-api', [CommonController::class, 'search_
 Route::post('/search-booking-porter-api', [CommonController::class, 'searchBookingPorter']);
 Route::post('/search-booking-cloackroom-api', [CommonController::class, 'search_booking_cloakroom_api']);
 Route::get('/internationa-airports', [CommonController::class, 'getInternationalAirports']);
+Route::get('/single-serviceDetail', [CommonController::class, 'serviceDetailApi']);
+Route::get('/single-locationDetail', [CommonController::class, 'locationDetailApi']);
 
 
 

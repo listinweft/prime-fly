@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\OrderCustomer;
 use App\Models\Offer;
 use App\Models\ProductPrice;
+use App\Models\LocationGallery;
 use App\Models\Blog;
 use App\Models\Testimonial; // Import the Testimonial model
 use Illuminate\Support\Facades\File;
@@ -1098,5 +1099,103 @@ public function search_booking_cloakroom_api(Request $request)
       
     ]);
 }
+
+
+public function serviceDetailApi(Request $request)
+{
+    try {
+        // Fetch the category based on the short URL
+        $category = Category::active()->where('id',$request->id)->first();
+
+        if (!$category) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found.'
+            ], 404);
+        }
+
+        // Fetch all products under the category
+        $products = Product::where('category_id', $category->id)->get();
+
+        // Collect all unique location IDs
+        $allLocationIds = [];
+        foreach ($products as $product) {
+            $locationIds = explode(',', $product->location_id);
+            $allLocationIds = array_merge($allLocationIds, $locationIds);
+        }
+        $uniqueLocationIds = array_unique($allLocationIds);
+
+        // Fetch active locations
+        $locations = Location::active()->whereIn('id', $uniqueLocationIds)->get();
+        
+
+        // Fetch other related data
+      
+       
+        $subcategories = Category::where('parent_id', $category->id)->active()->get();
+
+        // Return data as JSON response
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'category' => $category,
+               
+                'locations' => $locations,
+               
+                
+                'Howitworks' => $subcategories,
+            ],
+        ], 200);
+    } catch (\Exception $e) {
+        // Handle unexpected errors
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while fetching service details.',
+            'error' => $e->getMessage(),
+        ], 500);
+    }
+}
+
+public function locationDetailApi(Request $request)
+{
+    try {
+        // Fetch the location based on the title (short URL)
+        $location = Location::where('id', $request->id)->first();
+
+        if (!$location) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Location not found.'
+            ], 404);
+        }
+
+        // Fetch related data
+        $type = $location->title;
+        $categories = $location->categories(); // Assuming categories is a relationship
+       
+        $gallery = LocationGallery::where('location_id', $location->id)->get();
+
+        // Return the response as JSON
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'location' => $location,
+                'type' => $type,
+                'categories' => $categories,
+              
+                'galleryimages' => $gallery,
+            ],
+        ], 200);
+    } catch (\Exception $e) {
+        // Handle unexpected errors
+        return response()->json([
+            'success' => false,
+            'message' => 'An error occurred while fetching location details.',
+            'error' => $e->getMessage(),
+        ], 500);
+    }
+}
+
+
 
 }
