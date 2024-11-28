@@ -13,6 +13,7 @@ use App\Models\Offer;
 use App\Models\ProductPrice;
 use App\Models\LocationGallery;
 use App\Models\Blog;
+use App\Models\Faq;
 use App\Models\Testimonial; // Import the Testimonial model
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -1195,6 +1196,113 @@ public function locationDetailApi(Request $request)
         ], 500);
     }
 }
+
+
+public function getCartCategories(Request $request)
+{
+    // Retrieve session key from the request
+    $customer = Customer::where('user_id', $request->user_id)->first();
+
+
+
+    
+    // Check if customer exists
+    if (!$customer) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Customer not found.',
+        ], 404);
+    }
+    $customerId = $customer->id;
+    // Set session key based on the customer ID
+    $newSessionKey = $customerId;
+    session(['session_key' => $newSessionKey]);
+
+    if (!empty($newSessionKey)) {
+        // Get cart items
+        $cartItems = Cart::session($newSessionKey)->getContent();
+
+        $locationCodes = [];
+        $categoryIds = [];
+
+        // Extract location codes from cart items
+        $cartItems->each(function ($item) use (&$locationCodes) {
+            $travelType = $item->attributes['travel_type'] ?? null;
+
+           
+            $locationCode = ($travelType === 'departure' || $travelType === 'Transit' || empty($travelType))
+                ? $item->attributes['origin']
+                : $item->attributes['destination'];
+
+          
+
+            if ($locationCode) {
+                $locationCodes[] = $locationCode;
+            }
+        });
+
+        // Normalize and remove duplicates
+        $locationCodes = array_map(function ($code) {
+            return strtoupper(trim($code));
+        }, array_unique($locationCodes));
+
+      
+        // Fetch location IDs
+        $locationIds = Location::whereIn('code', $locationCodes)
+            ->pluck('id')
+            ->toArray();
+
+      
+
+        // Fetch products and filter by location IDs
+        $products = Product::where('status', 'Active')->get()->filter(function ($product) use ($locationIds) {
+            $productLocationIds = explode(',', $product->location_id);
+            return !empty(array_intersect($productLocationIds, $locationIds));
+        });
+
+        // Extract unique category IDs
+        $categoryIds = $products->pluck('category_id')->unique();
+
+        // Fetch categories
+        $categories = Category::whereIn('id', $categoryIds)
+            ->where('status', 'Active')
+            ->whereNull('parent_id')
+            ->get();
+
+        
+
+        // Return response
+        return response()->json([
+            'success' => true,
+            'categories' => $categories,
+        ], 200);
+    } else {
+        // If no session key, fetch all active parent categories
+        $categories = Category::whereNull('parent_id')->where('status', 'Active')->get();
+
+        return response()->json([
+            'success' => true,
+            'categories' => $categories,
+        ], 200);
+    }
+}
+
+
+public function faq_api()
+{
+    // Fetch active FAQs
+    $faqs = Faq::active()->latest()->take(10)->get();
+
+    // Return response in JSON format
+    return response()->json([
+        'success' => true,
+        'data' => [
+            'faqs' => $faqs,
+        ],
+    ], 200);
+}
+
+
 
 
 

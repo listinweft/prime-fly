@@ -29,7 +29,7 @@ Route::get('/getCartByuserid', [AuthController::class, 'getCartByCustomerId']);
 // Protected route example to get user data for authenticated users
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+}); 
   
 // Add routes for locations and services
 Route::get('/locations', [CommonController::class, 'locations']);
@@ -52,6 +52,8 @@ Route::post('/search-booking-cloackroom-api', [CommonController::class, 'search_
 Route::get('/internationa-airports', [CommonController::class, 'getInternationalAirports']);
 Route::get('/single-serviceDetail', [CommonController::class, 'serviceDetailApi']);
 Route::get('/single-locationDetail', [CommonController::class, 'locationDetailApi']);
+Route::get('/getaddons', [CommonController::class, 'getCartCategories']);
+Route::get('/faq', [CommonController::class, 'faq_api']);
 
 
 
