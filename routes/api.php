@@ -54,6 +54,7 @@ Route::get('/single-serviceDetail', [CommonController::class, 'serviceDetailApi'
 Route::get('/single-locationDetail', [CommonController::class, 'locationDetailApi']);
 Route::get('/getaddons', [CommonController::class, 'getCartCategories']);
 Route::get('/faq', [CommonController::class, 'faq_api']);
+Route::get('/main-search', [CommonController::class, 'main_search_api']);
 
 
 

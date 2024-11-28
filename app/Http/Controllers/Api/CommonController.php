@@ -1303,6 +1303,25 @@ public function faq_api()
 }
 
 
+public function main_search_api(Request $request)
+{
+    // $searchResult = array();
+    // $products = Product::active()->where('title', 'LIKE', "%{$request->search_param}%")->get();
+
+
+    $searchResult = array();
+
+           
+            $blogs = category::active()->Where('title', 'LIKE', "%{$request->search_param}%")->whereNull('parent_id')->get();
+            
+    if ($blogs->isNotEmpty()) {
+        foreach ($blogs as $blog) {
+            
+            $searchResult[] = array("id" => $blog->id, "title" => $blog->title,   'link' => url('service/' . $blog->short_url));
+        }
+    }
+    return response()->json(['status' => true, 'message' => $searchResult]);
+}
 
 
 
