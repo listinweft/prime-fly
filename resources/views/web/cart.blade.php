@@ -29,10 +29,15 @@
                             $categorydata = $product ? App\Models\Category::where('id', $product->category_id)
                                 ->whereNull('parent_id')
                                 ->first() : null;
+                                $uniquepackageid = isset($row->attributes['unique_package_id']) ? $row->attributes['unique_package_id'] : null;
                         @endphp
 
                         @if($product && $categorydata)
                         <div class="col-12 cart-product">
+                      
+
+                       
+
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="cart-dtl-wrp">
                                     <div class="d-flex align-items-center">
@@ -64,6 +69,12 @@
                                             @endif
 
                                             <h4>{{ ucwords($product->title) }}</h4>
+
+                                            @if(!empty($uniquepackageid))
+                <p> Package ID: {{$uniquepackageid}}</p>
+            
+            @endif
+
 
                                             @if (in_array($categorydata->title, ['Meet and Greet', 'Airport Entry','Lounge Booking']))
                                                 @if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)

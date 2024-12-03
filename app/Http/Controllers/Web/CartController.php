@@ -207,11 +207,17 @@ class CartController extends Controller
                 $attrText .= "<span>" . $attr . "</span><br/>";
             }
         }
-    
         try {
             // Generate a more robust unique cart item ID
             $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
-    
+            
+            // Extract the base part of the product ID for the package ID
+            $product_id_parts = explode('_', $product->id);
+            $basePackageId = $product_id_parts[0];
+            
+            // Generate the unique package ID
+            $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($uniqueId), 0, 8);
+        
             // Add the product to the cart session
             Cart::session($sessionKey)->add([
                 'id' => $uniqueId,
@@ -239,23 +245,23 @@ class CartController extends Controller
                     'porter_count' => $totalguest,
                     'pnr' => $pnr,
                     'meet_guest' => $meet_guest,
-                    'meet_guestn' => $meet_guestn
-                    
-
+                    'meet_guestn' => $meet_guestn,
+                    'unique_package_id' => $uniquePackageId // Add the unique package ID here
                 ],
                 'conditions' => [],
             ]);
-    
+        
             // Remove the product from the wishlist if it exists
             $wish_list = app('wishlist');
             if ($wish_list->get($product->id)) {
                 $wish_list->remove($product->id);
             }
-    
+        
             return response()->json(['status' => true, 'message' => 'Product added to cart']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['status' => false, 'message' => $e->getMessage()]);
         }
+        
     }
     
     
@@ -1863,6 +1869,7 @@ class CartController extends Controller
                         $detail->guest = $row->attributes['guest'] ?? 0;
                         $detail->terminal = $row->attributes['terminal'] ?? '';
                         $detail->bag_count = $row->attributes['bag_count'] ?? 0;
+                        $detail->unique_pckageid = $row->attributes['unique_package_id'] ?? 0;
                        
                         $detail->exit_time = $row->attributes['exit_time'] ?? '';
                         $detail->adults = $row->attributes['adults'] ?? '';

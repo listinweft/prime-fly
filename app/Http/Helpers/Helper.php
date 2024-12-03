@@ -240,6 +240,7 @@ class Helper
                                 'pnr' => $row->attributes->pnr,
                                 'meet_guest' => $row->attributes->meet_guest,
                                 'meet_guestn' => $row->attributes->meet_guestn,
+                                'unique_package_id' => $row->attributes->unique_package_id,
                             ],
                             'conditions' => [],
                         ]);

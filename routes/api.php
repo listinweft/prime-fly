@@ -55,6 +55,5 @@ Route::get('/single-locationDetail', [CommonController::class, 'locationDetailAp
 Route::get('/getaddons', [CommonController::class, 'getCartCategories']);
 Route::get('/faq', [CommonController::class, 'faq_api']);
 Route::get('/main-search', [CommonController::class, 'main_search_api']);
-
-
+Route::get('/homebanner', [CommonController::class, 'get_banner']);
 

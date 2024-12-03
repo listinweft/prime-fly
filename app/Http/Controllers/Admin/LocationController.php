@@ -81,34 +81,34 @@ class LocationController extends Controller
         // $category->banner_attribute = $request->banner_attribute ?? '';
         // $category->banner_title = $request->banner_title ?? '';
         // $category->banner_sub_title = $request->banner_sub_title ?? '';
-        // $meta_title =  $category->meta_title = $request->meta_title ?? '';
-        // $meta_description = $category->meta_description = $request->meta_description ?? '';
-        // $meta_keyword=  $category->meta_keyword = $request->meta_keyword ?? '';
-        // $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
-        // if($meta_title==''){
-        //     $category->meta_title = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->meta_title = $request->meta_title ?? '';
-        //  }
-        //  if($meta_description==''){
-        //     $category->meta_description = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->meta_description = $request->meta_description ?? '';
-        //  }
-        //  if($meta_keyword==''){
-        //     $category->meta_keyword = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->meta_keyword = $request->meta_keyword ?? '';
-        //  }
-        //  if($other_meta_tag==''){
-        //     $category->other_meta_tag = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->other_meta_tag = $request->other_meta_tag ?? '';
-        //  }
+        $meta_title =  $category->meta_title = $request->meta_title ?? '';
+        $meta_description = $category->meta_description = $request->meta_description ?? '';
+        $meta_keyword=  $category->meta_keyword = $request->meta_keyword ?? '';
+        $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
+        if($meta_title==''){
+            $category->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $category->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $category->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $category->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->other_meta_tag = $request->other_meta_tag ?? '';
+         }
 
 
 
@@ -200,36 +200,36 @@ class LocationController extends Controller
         // $category->banner_attribute = $request->banner_attribute ?? '';
         // $category->banner_title = $request->banner_title ?? '';
         // $category->banner_sub_title = $request->banner_sub_title ?? '';
-        // $meta_title =  $category->meta_title = $request->meta_title ?? '';
-        // $meta_description =  $category->meta_description = $request->meta_description ?? '';
-        // $meta_keyword = $category->meta_keyword = $request->meta_keyword ?? '';
-        // $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
+        $meta_title =  $category->meta_title = $request->meta_title ?? '';
+        $meta_description =  $category->meta_description = $request->meta_description ?? '';
+        $meta_keyword = $category->meta_keyword = $request->meta_keyword ?? '';
+        $other_meta_tag = $category->other_meta_tag = $request->other_meta_tag ?? '';
         // $category->updated_at = now();
 
-        // if($meta_title==''){
-        //     $category->meta_title = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->meta_title = $request->meta_title ?? '';
-        //  }
-        //  if($meta_description==''){
-        //     $category->meta_description = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->meta_description = $request->meta_description ?? '';
-        //  }
-        //  if($meta_keyword==''){
-        //     $category->meta_keyword = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->meta_keyword = $request->meta_keyword ?? '';
-        //  }
-        //  if($other_meta_tag==''){
-        //     $category->other_meta_tag = strtoupper($validatedData['title']) ;
-        //  }
-        //  else{
-        //     $category->other_meta_tag = $request->other_meta_tag ?? '';
-        //  }
+        if($meta_title==''){
+            $category->meta_title = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_title = $request->meta_title ?? '';
+         }
+         if($meta_description==''){
+            $category->meta_description = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_description = $request->meta_description ?? '';
+         }
+         if($meta_keyword==''){
+            $category->meta_keyword = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->meta_keyword = $request->meta_keyword ?? '';
+         }
+         if($other_meta_tag==''){
+            $category->other_meta_tag = strtoupper($validatedData['title']) ;
+         }
+         else{
+            $category->other_meta_tag = $request->other_meta_tag ?? '';
+         }
 
         if ($category->save()) {
             session()->flash('message', "Location '" . $category->title . "' has been updated successfully");

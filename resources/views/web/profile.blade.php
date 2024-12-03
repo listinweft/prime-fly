@@ -179,6 +179,10 @@
                         <div class="col-lg-4">
                             <p class="ms-0"><span>{{ $product_category->title }}</span></p>
                             <span style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</span>
+                            
+                            <p class="ms-0">Package Id: <span>{{ $product->unique_pckageid }}</span></p>
+                          
+
 
 
 

@@ -98,6 +98,53 @@
                      </div> -->
                   @endif
                </div>
+               
+              
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                <label> Meta Title</label>
+                                                                                <textarea class="form-control" id="meta_title" name="meta_title"
+                                                                                        placeholder="Meta Title">{{ isset($category)?$category->meta_title:'' }}</textarea>
+                                                                                @error('meta_title')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label> Meta Description</label>
+                                                                                <textarea class="form-control" id="meta_description" name="meta_description"
+                                                                                        placeholder="Meta Description">{{ isset($category)?$category->meta_description:'' }}</textarea>
+                                                                                @error('meta_description')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                <label> Meta Keyword</label>
+                                                                                <textarea class="form-control" id="meta_keyword" name="meta_keyword"
+                                                                                        placeholder="Meta Keyword">{{ isset($category)?$category->meta_keyword:'' }}</textarea>
+                                                                                @error('meta_keyword')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label> Other Meta Tag</label>
+                                                                                <textarea class="form-control" id="other_meta_tag" name="other_meta_tag"
+                                                                                        placeholder="Other Meta Tag">{{ isset($category)?$category->other_meta_tag:'' }}</textarea>
+                                                                                @error('other_meta_tag')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>                            
+                             
+                             
+                      
                <div class="card-footer">
                   <input type="submit" name="btn_save" value="Submit"
                      class="btn btn-primary pull-left submitBtn">

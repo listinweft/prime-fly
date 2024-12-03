@@ -212,6 +212,7 @@
                             <td style="width: 60%; padding: 10px 0;">
                                 <h3 style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }}</h3>
                                 <h4 style="color:#707070;font-size:11px; ">Package:{{ ucfirst($package->title) }}</h4>
+                                <h4 style="color:#707070;font-size:11px; ">Package Id:{{ ucfirst($product->unique_pckageid) }}</h4>
 
                                 <h4 style="color:#707070;font-size:11px; ">Travel Sector:{{ ucfirst($product->travel_sector) }}</h4>
 

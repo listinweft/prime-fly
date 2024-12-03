@@ -107,6 +107,7 @@
                                           <div style="padding: 0 10px;">
                                              <span style="color:#151525;font-size:11px;">{{ ucfirst($product_category->title) }} | </span>
                                              <span style="color:#707070;font-size:11px;">Package: {{ ucfirst($package->title) }}</span> |
+                                             <span style="color:#707070;font-size:11px;">Package id: {{ ucfirst($product->unique_pckageid) }}</span> |
                                              <span style="color:#707070;font-size:11px;">Travel Sector: {{ ucfirst($product->travel_sector) }}</span> |
                                              @if($product->flight_number)
                                              <span style="color: #707070; font-size: 11px;">Flight Number: {{ $product->flight_number }}</span> |

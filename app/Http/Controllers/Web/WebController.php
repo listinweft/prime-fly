@@ -1412,6 +1412,8 @@ public function search_booking_lounch(Request $request)
 
         if ($category) {
 
+            $seo_data = $category;
+
 
        
             $products = Product::where('category_id', $category->id)->get();
@@ -1438,7 +1440,7 @@ public function search_booking_lounch(Request $request)
            $testimonials = Testimonial::active()->get();
            $subcategories = Category::where('parent_id',$category->id)->active()->get();
        
-        return view('web.service_detail', compact('blogs','locations','testimonials','category','subcategories','locationsall'));
+        return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall'));
 
         }
     }
@@ -1647,7 +1649,7 @@ public function search_booking_lounch(Request $request)
     {
           $blog = Location::where('title',$short_url)->first();
        
-         
+          $seo_data = $blog;
         if ($blog) {
            
             $type = $blog->title;
@@ -1659,7 +1661,7 @@ public function search_booking_lounch(Request $request)
              $gallery = LocationGallery::where('location_id',$blog->id)->get();
 
            
-            return view('web.location', compact('blog', 'type','categorys','faqs','gallery'));
+            return view('web.location', compact('blog','seo_data', 'type','categorys','faqs','gallery'));
         
          
 

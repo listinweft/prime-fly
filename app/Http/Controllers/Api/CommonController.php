@@ -13,6 +13,7 @@ use App\Models\Offer;
 use App\Models\ProductPrice;
 use App\Models\LocationGallery;
 use App\Models\Blog;
+use App\Models\HomeBanner;
 use App\Models\Faq;
 use App\Models\Testimonial; // Import the Testimonial model
 use Illuminate\Support\Facades\File;
@@ -185,6 +186,15 @@ public function getCartData(Request $request)
         $originalProductId = $productIdParts[0];
         $product = Product::find($originalProductId);
 
+        $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
+            
+        // Extract the base part of the product ID for the package ID
+        $product_id_parts = explode('_', $product->id);
+        $basePackageId = $product_id_parts[0];
+        
+        // Generate the unique package ID
+        $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($uniqueId), 0, 8);
+
         if ($product) {
             $category = Category::where('id', $product->category_id)
                 ->whereNull('parent_id')
@@ -203,6 +213,8 @@ public function getCartData(Request $request)
                 $formattedPrice = number_format($row->price, 2);
 
                 $cartData[] = [
+                    'id' => $uniqueId,
+                    'unique_package_id' => $uniquePackageId,
                     'product_title' => $product->title,
                     'category_title' => $category->title,
                     'location_title' => $locationTitle,
@@ -1321,6 +1333,37 @@ public function main_search_api(Request $request)
         }
     }
     return response()->json(['status' => true, 'message' => $searchResult]);
+}
+
+public function get_banner(Request $request)
+{
+    try {
+        // Fetch all banners
+        $banners = HomeBanner::all();
+
+        // Check if banners exist
+        if ($banners->isEmpty()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No banners available.',
+                'data' => []
+            ], 404); // Not Found
+        }
+
+        // Return banners with a success message
+        return response()->json([
+            'status' => true,
+            'message' => 'Banners fetched successfully.',
+            'data' => $banners
+        ], 200); // OK
+    } catch (\Exception $e) {
+        // Handle exceptions
+        return response()->json([
+            'status' => false,
+            'message' => 'An error occurred while fetching banners.',
+            'error' => $e->getMessage()
+        ], 500); // Internal Server Error
+    }
 }
 
 
