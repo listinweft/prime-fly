@@ -142,15 +142,19 @@ class WebController extends Controller
     public function locations()
     {
         $locations = Location::active()->get();
+        $seo_data = $this->seo_content('Locations');
 
-        return view('web.locations',compact('locations'));
+        return view('web.locations',compact('locations','seo_data'));
     }
 
     public function services()
+
+    
     {
+        $seo_data = $this->seo_content('Categories');
         $categorys = Category::active()->whereNull('parent_id')->get();
 
-        return view('web.services',compact('categorys'));
+        return view('web.services',compact('categorys','seo_data'));
     }
 
 
