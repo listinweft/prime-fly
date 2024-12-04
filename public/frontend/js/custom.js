@@ -1270,6 +1270,7 @@ $(document).on('click', '#confirm_payment', function (e) {
                 gst_number: $('#gst_number').val(),
                 gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
                 name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
+                unipackageid: $('input[name^="unipackageid["]').map(function() { return $(this).val(); }).get(),
                 age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
                 pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
                 type: $('input[name^="type["]').map(function() { return $(this).val(); }).get(),

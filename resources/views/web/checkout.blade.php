@@ -35,6 +35,8 @@
 
                      $totals[] = $row->attributes['meet_guest'];
                      $totalsn[] = $row->attributes['meet_guestn'];
+                     $productDetails[] = $product;
+                     $packageid[] = $row->attributes['unique_package_id'];
                      @endphp
                      <tr>
                        
@@ -67,8 +69,15 @@
                   @endphp
                     
     @foreach($totals as $index => $guestCount)
+    @php
+    $product = $productDetails[$index]; // Retrieve the product associated with the current index
+    $unipackageid = $packageid[$index];
+    @endphp
         @for($i = 0; $i < $guestCount; $i++)
             <div class="price-summery personal-details customer-detail-form mb-3">
+            <h4>{{ ucwords($product->title) }} - {{ $unipackageid }}</h4>
+
+            <input type="hidden" name="unipackageid[{{ $index }}][]" value="{{ $unipackageid }}">
                 <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
                     <div class="details-item details-item-option col-12 ps-2 pe-2">
                         <label for="gender_{{ $index }}_{{ $i }}">Gender</label><br>
@@ -116,6 +125,8 @@
     <!-- Static Fields Outside the Loop -->
 @if(array_sum($totalsn) >= 1 && !empty(array_filter($totalsn)))
     
+
+
     
 <div class="price-summery personal-details customer-detail-form mb-3">
     <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">

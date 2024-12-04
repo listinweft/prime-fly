@@ -1669,6 +1669,7 @@ class CartController extends Controller
                         $personalDetailsData[] = [
                             'order_id' => $order->id,
                             'name' => $request->name[$key] ?? '',
+                            'unique_pckageid' => $request->unipackageid[$key] ?? '',
                             'type' => $request->type[$key] ?? '',
                             'age' => $request->age[$key] ?? '',
                             'address' => $request->address ?? '',

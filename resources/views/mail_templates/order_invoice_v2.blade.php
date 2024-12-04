@@ -75,21 +75,26 @@
                                           }
                                           @endphp
                                           @foreach($product->productData->product_categories ?? [] as $product_category)
-                                          @if($product_category->title == "Meet and Greet" )
-                                          @if($personaladdressfull->isNotEmpty())
-                                          @foreach($personaladdressfull as $personaladdresss)
-                                          <div style="padding: 0 10px;">
-                                             @if(!empty($personaladdresss->name))
-                                             <span>Name: {{ $personaladdresss->name }}</span><br>
-                                             @endif
-                                             @if(!empty($personaladdresss->age))
-                                             <span>Age: {{ $personaladdresss->age }}</span><br>
-                                             @endif
-                                             @if(!empty($personaladdresss->passport_number))
-                                             <span>Passport Number: {{ $personaladdresss->passport_number }}</span><br>
-                                             @endif
-                                          </div>
-                                          @endforeach
+                                          @if($product_category->title == "Meet and Greet")
+        @php
+            // Filter personaladdressfull for the current product_category's unique_pckageid
+            $filteredAddresses = $personaladdressfull->where('unique_pckageid', $product->unique_pckageid);
+        @endphp
+
+        @if($filteredAddresses->isNotEmpty())
+            @foreach($filteredAddresses as $personaladdresss)
+                <div style="padding: 0 10px;">
+                    @if(!empty($personaladdresss->name))
+                        <span>Name: {{ $personaladdresss->name }}</span><br>
+                    @endif
+                    @if(!empty($personaladdresss->age))
+                        <span>Age: {{ $personaladdresss->age }}</span><br>
+                    @endif
+                    @if(!empty($personaladdresss->passport_number))
+                        <span>Passport Number: {{ $personaladdresss->passport_number }}</span><br>
+                    @endif
+                </div>
+            @endforeach
                                           @endif
                                           @else
                                           <div style="padding: 0 10px;">
