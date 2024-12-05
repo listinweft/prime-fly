@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Primefly is an exclusive airport hospitality service provided by Speedwings. They provide services such as meet and greet, 
-    parking, cloakroom, check-in assistance, and baby/elder sitting within the airport premises. ">
-    <title>Primefly</title> 
-   -->
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="description" content="Primefly is an exclusive airport hospitality service provided by Speedwings. They provide services such as meet and greet, -->
+    <!--parking, cloakroom, check-in assistance, and baby/elder sitting within the airport premises. ">-->
+    <!--<title>Primefly</title> -->
+
     <meta name="title" content="{!! @$seo_data->meta_title !!}">
     <meta name="description" content="{!! @$seo_data->meta_description !!}"/>
     <meta name="keywords" content="{!! @$seo_data->meta_keyword !!}"/>
