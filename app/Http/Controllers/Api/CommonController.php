@@ -51,7 +51,11 @@ class CommonController extends Controller
      */
     public function services()
     {
-        $categories = Category::active()->whereNull('parent_id')->get();
+        $categories = Category::active()
+        ->whereNull('parent_id')
+        ->orderBy('sort_order', 'asc') // or 'desc' for descending order
+        ->get();
+    
         return $this->sendResponse($categories, 'Services retrieved successfully.');
     }
 
