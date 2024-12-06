@@ -15,15 +15,15 @@
                                 <!-- <span>Jun . 7 . 2024 | 5 min read</span> -->
                             </div>
                             <div class="blog-content">
-                            {!! strip_tags($blog->description) !!}
+                            {!! $blog->description !!}
 
-                                <div class="blog-author">
+                                <!-- <div class="blog-author">
                                     <div class="blog-author-image"><img src="{{ asset('frontend/img/blog/blog-author.jpg')}}" alt=""></div>
                                     <div class="blog-author-content">
                                         <h5>By Joanna Wellick</h5>
                                         <p>{{ date('d-m-Y', strtotime($blog->posted_date)) }}</p>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="blog-share">
                                     <ul>
                                         
