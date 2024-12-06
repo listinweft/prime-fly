@@ -57,7 +57,8 @@
                                             <div class="recent-blog-item-content">
                                                 <span class="mb-2">{{ date('d-m-Y', strtotime($latestBlog->posted_date)) }}</span>
                                                 <h4>{{ $latestBlog->title }}</h4> 
-                                                {!! $latestBlog->description !!}
+                                               
+                                                {!! \Illuminate\Support\Str::limit($latestBlog->description, 200, '') !!}
                                               
                                                 
                                             </div> 
@@ -78,7 +79,8 @@
                                                     <a href="{{ url('blog/'.@$lastthree->short_url) }}"> 
                                                         <div class="recent-blog-item-content">
                                                             <h4>{{ $lastthree->title }}</h4>
-                                                            {!! $lastthree->description !!}
+                                                           {!! \Illuminate\Support\Str::limit($lastthree->description, 100, '') !!}
+
                                                             <span> {{ date('d-m-Y', strtotime($lastthree->posted_date)) }}</span>
                                                         </div>
                                                     </a> 
