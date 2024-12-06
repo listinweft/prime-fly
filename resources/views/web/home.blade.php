@@ -599,10 +599,10 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
                   
                   @endforeach
                  
-<!--                  
+                 
                   <div class="col-12 text-center mt-3">
                     <a href="{{ url('blogs') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
-                  </div> -->
+                  </div>
               
                 </div>
               </div>
