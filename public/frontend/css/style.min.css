@@ -5005,3 +5005,36 @@ footer {
     text-align: center;
     line-height: 1.4;
 }
+
+.btn-whatsapp-pulse {
+    background: #25d366;
+    color: #fff !important;
+    position: fixed;
+    bottom: 40px;
+    right: 25px;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    text-decoration: none;
+    border-radius: 50%;
+    animation-name: pulse;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    z-index: 5;
+}
+.btn-whatsapp-pulse svg{
+    max-width: 28px;
+    height: auto;
+}
+@keyframes pulse{
+    0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, .5);
+}
+80% {
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+}
+}
