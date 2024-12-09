@@ -39,6 +39,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WFM73QWD');</script>
 
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "image": "https://primefly.in/public/frontend/img/banner.webp",
+      "url": "https://primefly.in/",
+      "sameAs": ["https://www.facebook.com/primefly.airportservices", "https://www.instagram.com/_primefly/"],
+      "logo": "https://primefly.in/public/frontend/img/logo.png",
+      "name": "Primefly",
+      "description": "Primefly is an exclusive airport hospitality service provided by Speedwings. They provide services such as meet and greet, parking, cloakroom, check-in assistance and baby/elder sitting within the airport premises.",
+      "email": "support@primefly.in",
+      "telephone": "+91 8301920000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "TC 86/2018 KARTHIKA 2nd FLOOR",
+        "addressLocality": "AIRPORT ROAD",
+        "addressCountry": "CHACKAI",
+        "addressRegion": "TVM",
+        "postalCode": "695024"
+      }
+    }
+    </script>
+
 </head>
 
 <body>
