@@ -51,7 +51,7 @@
                   <div class="col-lg-4 col-sm-5 col-6  footer-bottom-social">
                       <ul class="d-flex justify-content-end">
                         <li>
-                          <a href="#" aria-label="facebook">
+                          <a href="https://www.facebook.com/primefly.airportservices" aria-label="facebook">
                             
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.453913" y="0.453913" width="44.4835" height="44.4835" rx="22.2417" stroke="white" stroke-width="0.907826"/>
@@ -60,7 +60,7 @@
   
                           </a>
                         </li>
-                        <li>
+                        <!-- <li>
                           <a href="#" aria-label="google">
                             
 <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,9 +70,9 @@
   </svg>
   
                           </a>
-                        </li>
+                        </li> -->
                         <li>
-                          <a href="#" aria-label="instagram">
+                          <a href="https://www.instagram.com/_primefly/" aria-label="instagram">
                             
 <svg width="47" height="46" viewBox="0 0 47 46" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="1.39312" y="0.453669" width="44.4835" height="44.4835" rx="22.2417" stroke="white" stroke-width="0.907826"/>
