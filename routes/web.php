@@ -61,7 +61,7 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('/api/orders', [OrderController::class, 'getOrders']);
     
-    Route::get('/thankyou', [WebController::class, 'thankYouPage'])->name('thankyou');
+    Route::get('/thank-you', [WebController::class, 'thankYouPage'])->name('thankyou');
     Route::get('/support', [WebController::class, 'support'])->name('support');
     
     Route::get('/services', [WebController::class, 'services'])->name('services');

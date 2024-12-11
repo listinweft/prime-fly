@@ -1285,7 +1285,8 @@ $(document).on('click', '#confirm_payment', function (e) {
                     });
                     setTimeout(() => {
                         $('#submit-loader').hide();
-                        window.location.href = base_url + response.data;
+                        // window.location.href = base_url + response.data;
+                        window.location.href = base_url + '/thank-you'; 
                     }, 3000);
                 } else {
                     handleOrderResponse(response);
@@ -1439,7 +1440,8 @@ $(document).on('click', '#confirm_payment', function (e) {
                                 icon: "success"
                             });
                             setTimeout(() => {
-                                window.location.href = base_url;
+                                // window.location.href = base_url;
+                                window.location.href = base_url + '/thank-you';
                             }, 2000);
                         }
                     },
@@ -1487,7 +1489,8 @@ $(document).on('click', '#confirm_payment', function (e) {
             });
             setTimeout(() => {
                 $('#submit-loader').hide();
-                window.location.href = base_url + response.data;
+                // window.location.href = base_url + response.data;
+                window.location.href = base_url + '/thank-you';
             }, 900);
         } else {
             swal.fire({
@@ -1499,7 +1502,8 @@ $(document).on('click', '#confirm_payment', function (e) {
             });
             setTimeout(() => {
                 $('#submit-loader').hide();
-                window.location.href = base_url + response.data;
+                // window.location.href = base_url + response.data;
+                window.location.href = base_url + '/thank-you';
             }, 3000);
             // Reset the button in case of failure
             $('#confirm_payment').text("Confirm Order").removeAttr('disabled');

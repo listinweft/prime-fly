@@ -2092,7 +2092,8 @@ public function verify(Request $request)
                 return array(
                     'status' => true,
                     'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully',
-                    'data' => '/response/' . $order->id,
+                    // 'data' => '/response/' . $order->id,
+                    'data' => '/thank-you',
                 );
             } else {
                 return array(
