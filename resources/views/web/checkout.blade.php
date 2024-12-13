@@ -37,6 +37,7 @@
                      $totalsn[] = $row->attributes['meet_guestn'];
                      $productDetails[] = $product;
                      $packageid[] = $row->attributes['unique_package_id'];
+                     $uniquepackageid = isset($row->attributes['unique_package_id']) ? $row->attributes['unique_package_id'] : null;
                      @endphp
                      <tr>
                        
@@ -51,7 +52,72 @@
                                  {!! Helper::printImage($categorydata, 'image','image_webp','thumbnail_image_attribute','d-block') !!}
                               </div>
                               <div class="cart-prdct-dtls">
-                                 <h4>{{ ucwords($product->title) }}</h4>
+                                 <!-- <h4>{{ ucwords($product->title) }}</h4> -->
+                                  
+                                 @if(isset($row->attributes['travel_type']) && $row->attributes['travel_type'] !== null)
+
+@php
+$travelType = $row->attributes['travel_type'];
+$locationId = ($travelType == 'departure' || $travelType == 'Transit') 
+? $row->attributes['origin'] 
+: $row->attributes['destination'];
+
+$location = App\Models\Location::where('code', $locationId)->first();
+
+$locationTitle = $location ? $location->title : $row->attributes['origin'];
+@endphp
+
+@else
+@php
+$origin = $row->attributes['origin'];
+$locationss = App\Models\Location::where('code',$origin)->first();
+$locationTitle = $location ? $location->title :$locationss->title;
+@endphp
+@endif
+
+<h4>{{ ucwords($product->title) }}</h4>
+
+@if(!empty($uniquepackageid))
+<p> Package ID: {{$uniquepackageid}}</p>
+
+@endif
+
+
+@if (in_array($categorydata->title, ['Meet and Greet', 'Airport Entry','Lounge Booking']))
+@if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+<p>From: {{ ucwords($locationTitle) }} | Guest: {{ $row->attributes['guest'] }}</p>
+@else
+<p>Guest information not available</p>
+@endif
+@elseif (in_array($categorydata->title, [ 'Cloak Room', 'Baggage Wrapping']))
+@if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+<p>From:  {{ ucwords($locationTitle) }} | Bag: {{ $row->attributes['guest'] }}</p>
+@else
+<p>Bag count information not available</p>
+@endif
+
+@elseif (in_array($categorydata->title, ['Car Parking']))
+@if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+<p>From:  {{ ucwords($locationTitle) }} | Car: {{ $row->attributes['guest'] }}</p>
+@else
+<p> count information not available</p>
+@endif
+
+@elseif (in_array($categorydata->title, ['Porter']))
+@if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+<p>From: {{ ucwords($locationTitle) }} | Porter: {{ $row->attributes['guest'] }}</p>
+@else
+<p>Guest information not available</p>
+@endif
+@else
+@if (isset($row->attributes['guest']) && $row->attributes['guest'] > 0)
+<p>From:  {{ ucwords($locationTitle) }} | Bag: {{ $row->attributes['guest'] }}</p>
+@else
+<p>Guest information not available</p>
+@endif
+@endif
+
+<p>Service Type: {{ ucwords($product->service_type) }} | Date: {{ $row->attributes['setdate'] }}</p>
                               </div>
                            </div>
                         </div>
