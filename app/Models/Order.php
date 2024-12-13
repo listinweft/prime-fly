@@ -703,7 +703,8 @@ class Order extends Model
     
         // Tax and total amount calculation
         $taxAmount = $totalOrderProductCost * 0.18;
-        $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
+        // $boxValues['totalAmount'] = $totalOrderProductCost + $taxAmount;
+        $boxValues['totalAmount'] = $totalOrderProductCost ;
     
         // Set total coupon amount (if applicable, currently 0)
         $boxValues['totalCoupon'] = 0;
@@ -1025,7 +1026,7 @@ public static function getDetailedOrdersBoxValues($date_range = NULL, $status = 
 
        $grandtotal =  $orderProductsTotal + $extraAmount;
 
-        $returnData['total_price'][] = $grandtotal;
+        $returnData['total_price'][] = $orderProductsTotal;
         $returnData['coupon'][] = $couponValue;
     }
 

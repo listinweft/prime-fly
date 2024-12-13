@@ -238,7 +238,8 @@ $admintype = Auth::guard('admin')->user()->admin;
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Subtotal</h3>
     </td>
     <td style="width: 25%; padding: 10px 0; text-align: right;">
-        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹{{ number_format($subtotal, 2) }}</h3>
+        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹{{ number_format($subtotal - ($subtotal * 0.09) - ($subtotal * 0.09), 2) }}</h3>
+       
     </td>
 </tr>
 <tr>
@@ -262,7 +263,7 @@ $admintype = Auth::guard('admin')->user()->admin;
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Total Amount</h3>
     </td>
     <td style="width: 25%; padding: 10px 0; text-align: right;">
-        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹ {{ number_format(round($totalWithGST), 0, '.', ',') }}.00</h3>
+        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹ {{ number_format($subtotal, 2) }}</h3>
     </td>
 </tr>
 

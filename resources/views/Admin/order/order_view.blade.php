@@ -72,9 +72,9 @@
                                                 <th>Infants</th>
                                                 <th>Children</th>
                                                 <th>Service Date</th>
-                                                @if($admintype->role == "Super Admin")
+                                                <!-- @if($admintype->role == "Super Admin")
                                                 <th>Cost</th>
-                                                @endif
+                                                @endif -->
                                                 <th>Status</th>
                                                 @if($admintype->role == "Super Admin")
                                                 <th>Price</th>
@@ -132,9 +132,9 @@
                                                     <td>{{ $product->children }}</td>
                                                     <td>{{ $product->exit_date }}</td>
                                                     
-                                                    @if($admintype->role == "Super Admin")
+                                                    <!-- @if($admintype->role == "Super Admin")
                                                     <td>{{ $order->currency }} {{ $product->cost }}</td>
-                                                    @endif
+                                                    @endif -->
                                                     <td>
                                                         <select name="status" id="orderStatus" class="form-control" style="min-width: 130px;"
                                                                 data-id="{{ $product->id }}" data-order_id="{{ $order->id }}"
@@ -183,7 +183,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Subtotal:</td>
-                                                    <td>{{ $order->currency }} {{ number_format($orderGrandTotal, 2) }}</td>
+                                                    <td>{{ $order->currency }} {{ number_format($orderGrandTotal - ($orderGrandTotal * 0.09) - ($orderGrandTotal * 0.09), 2) }}</td>
+                                                   
                                                 </tr>
                                                 @php
                                                     $subtotal = $orderGrandTotal;
@@ -201,7 +202,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Total:</td>
-                                                    <td>{{ $order->currency }} {{ number_format(round($totalWithTax), 0, '.', ',') }}.00</td>
+                                                    <td>{{ $order->currency }} {{ number_format($orderGrandTotal, 2) }}</td>
 
 
                                                 </tr>

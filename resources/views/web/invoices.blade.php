@@ -357,7 +357,8 @@
                         <h4 style="color:#151525;font-size:11px;font-weight:700">Total</h4>
                      </td>
                      <td style="text-align:right;padding:10px 0;border-bottom:1px solid #D7DAE0;">
-                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700;margin-bottom:8px">INR {{ number_format($totalAmount, 2) }}</h1>
+                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700;margin-bottom:8px">INR {{ number_format($totalAmount - ($totalAmount * 0.09) - ($totalAmount * 0.09), 2) }}</h1>
+                       
                         @php
                             $cgst = ($totalAmount * 0.09);
                             $sgst = ($totalAmount * 0.09);
@@ -372,7 +373,7 @@
                         <h4 style="color:#151525;font-size:11px;font-weight:700">Total To Pay</h4>
                      </td>
                      <td style="text-align:right;padding:10px 0">
-                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700">INR {{ number_format(round($finalamount), 2, '.', ',') }}</h1>
+                        <h1 style="color:#7B45F6;font-size:15px;font-weight:700">INR {{ number_format(round($totalAmount), 2, '.', ',') }}</h1>
                      </td>
                   </tr>
                </table>

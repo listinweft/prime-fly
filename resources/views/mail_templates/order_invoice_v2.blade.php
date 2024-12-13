@@ -235,7 +235,7 @@
                      </td>
                      <td style=" Margin:0;color:#333333;padding:5px 10px;">
                         <strong style="font-size: 13px; font-weight: 600;">
-                        {{ $order->currency }} {{ number_format($orderTotal, 2) }}
+                        {{ $order->currency }} {{ number_format($orderTotal - ($orderTotal * 0.09) - ($orderTotal * 0.09), 2) }}
                         </strong>
                      </td>
                   </tr>
@@ -279,7 +279,7 @@
                         </h4>
                      </td>
                      <td style="padding: 0; Margin: 0;color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
-                        <strong>{{ $order->currency }} {{ number_format(round($totalIncluding18Percent), 0, '.', ',') }}.00</strong>
+                        <strong>{{ $order->currency }} {{ number_format(round($orderTotal), 0, '.', ',') }}.00</strong>
                      </td>
                   </tr>
                </table>

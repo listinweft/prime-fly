@@ -111,7 +111,7 @@
 
                                              
                                                 @if($admintype->role == "Super Admin")
-                                                    <td>{{ number_format($productTotalWithTax, 2).' '.$order->currency }}</td>
+                                                    <td>{{ number_format($productTotal, 2).' '.$order->currency }}</td>
                                                 @endif
 
                                                 <!-- Display service date of the current product -->

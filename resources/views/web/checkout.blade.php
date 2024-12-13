@@ -407,7 +407,8 @@
                            @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                            <tr>
                               <td>{{$row->name}}</td>
-                              <td>&#8377;  {{ number_format($row->price, 2) }}</td>
+                              <td>&#8377; {{ number_format($row->price - ($row->price * 0.09) - ($row->price * 0.09), 2) }}</td>
+
                            </tr>
                            @php 
                            $totalAmount += $row->price;
@@ -430,7 +431,7 @@
                            </tr>
                            <tr>
                               <td><b>Total Amount</b></td>
-                              <td><b>&#8377; {{ number_format(round($finalamount), 2, '.', ',') }}</b></td>
+                              <td><b>&#8377; {{ number_format(round($totalAmount), 2, '.', ',') }}</b></td>
 
                            </tr>
                         </tfoot>
@@ -446,7 +447,7 @@
                                     @endif
                      <div class="d-flex justify-content-center">
                         <a href="{{ route('cart') }}" class="btn btn-primary-outline me-2">Back</a>
-                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ round($finalamount) }}" data-phone_number="{{ $user->phone }}">Place Order</button>
+                        <button type="button" class="btn btn-primary login confirm_payment_btn checkout_btn" id="confirm_payment" data-finalamount="{{ round($totalAmount) }}" data-phone_number="{{ $user->phone }}">Place Order</button>
                      </div>
                      <div>
 

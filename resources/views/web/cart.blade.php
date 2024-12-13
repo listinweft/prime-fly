@@ -137,7 +137,8 @@
                                     @foreach(Cart::session($sessionKey)->getContent()->sort() as $row)
                                     <tr>
                                         <td>{{ $row->name }}</td>
-                                        <td>&#8377; {{ number_format($row->price, 2) }}</td>
+                                        <td>&#8377; {{ number_format($row->price - ($row->price * 0.09) - ($row->price * 0.09), 2) }}</td>
+
                                     </tr>
                                     @php 
                                     $totalAmount += $row->price;
@@ -147,7 +148,7 @@
                                     @endforeach
 
                                     @php 
-                                    $finalamount = $totalAmount + $cgst + $sgst;
+                                    $finalamount = $totalAmount - $cgst - $sgst;
                                     @endphp
                                 </tbody>
                                 <tfoot>
@@ -161,7 +162,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Total Amount</b></td>
-                                        <td><b>&#8377; {{ number_format(round($finalamount), 2, '.', ',') }}</b></td>
+                                        <td><b>&#8377; {{ number_format(round($totalAmount), 2, '.', ',') }}</b></td>
 
 
 

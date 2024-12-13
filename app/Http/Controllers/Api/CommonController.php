@@ -15,6 +15,7 @@ use App\Models\LocationGallery;
 use App\Models\Blog;
 use App\Models\HomeBanner;
 use App\Models\Faq;
+use App\Models\CategoryGallery;
 use App\Models\Testimonial; // Import the Testimonial model
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -218,6 +219,8 @@ public function getCartData(Request $request)
 
                 $cartData[] = [
                     'id' => $uniqueId,
+                    'image'=>$product->thumbnail_image_webp,
+                    'webp'=>$product->thumbnail_image_webp,
                     'unique_package_id' => $uniquePackageId,
                     'product_title' => $product->title,
                     'category_title' => $category->title,
@@ -1183,6 +1186,10 @@ public function serviceDetailApi(Request $request)
       
        
         $subcategories = Category::where('parent_id', $category->id)->active()->get();
+        $subcategoriesWithGallery = $subcategories->map(function ($sub) {
+            $sub->galleryItems = CategoryGallery::where('category_id', $sub->id)->get();
+            return $sub;
+        });
 
         // Return data as JSON response
         return response()->json([
@@ -1193,7 +1200,7 @@ public function serviceDetailApi(Request $request)
                 'locations' => $locations,
                
                 
-                'Howitworks' => $subcategories,
+                'Howitworks' => $subcategoriesWithGallery,
             ],
         ], 200);
     } catch (\Exception $e) {
