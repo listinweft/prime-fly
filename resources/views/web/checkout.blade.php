@@ -52,9 +52,7 @@
                                  {!! Helper::printImage($categorydata, 'image','image_webp','thumbnail_image_attribute','d-block') !!}
                               </div>
                               <div class="cart-prdct-dtls">
-                                 <!-- <h4>{{ ucwords($product->title) }}</h4> -->
-                                  
-                                 @if(isset($row->attributes['travel_type']) && $row->attributes['travel_type'] !== null)
+                              @if(isset($row->attributes['travel_type']) && $row->attributes['travel_type'] !== null)
 
 @php
 $travelType = $row->attributes['travel_type'];
