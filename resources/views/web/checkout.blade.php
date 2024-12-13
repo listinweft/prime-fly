@@ -289,6 +289,7 @@ $locationTitle = $location ? $location->title :$locationss->title;
 
                                           <span class="error-message" style="display: none;">State is required.</span>
                                        </div>
+                                       
                                      
                                     </div>
                                     <div class="col-lg-6">
