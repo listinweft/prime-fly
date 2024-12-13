@@ -259,6 +259,21 @@ $locationTitle = $location ? $location->title :$locationss->title;
 
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
+                                 <div class="details-item ps-2 pe-2 mt-3">
+    <label>Location</label>
+    <div>
+        <input type="radio" name="kerala_location" id="inside_kerala_b2b" value="inside" checked>
+        <label for="inside_kerala_else">Inside Kerala</label>
+    </div>
+    <div>
+        <input type="radio" name="kerala_location" id="outside_kerala_b2b" value="outside">
+        <label for="outside_kerala_else">Outside Kerala</label>
+    </div>
+</div>
+      
+
+        
+
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="passport_number">Passport Number*</label>
@@ -333,6 +348,19 @@ $locationTitle = $location ? $location->title :$locationss->title;
                                     <textarea name="address" id="address" ></textarea>
                                     <span class="error-message" style="display: none;">Address is required.</span>
                                  </div>
+
+                                 <div class="details-item ps-2 pe-2 mt-3">
+    <label>Location</label>
+    <div>
+        <input type="radio" name="kerala_location" id="inside_kerala_else" value="inside" checked>
+        <label for="inside_kerala_else">Inside Kerala</label>
+    </div>
+    <div>
+        <input type="radio" name="kerala_location" id="outside_kerala_else" value="outside">
+        <label for="outside_kerala_else">Outside Kerala</label>
+    </div>
+</div>
+
                                  @if (isset($row->attributes['travel_sector']) && $row->attributes['travel_sector'] == "international" && $row->attributes['travel_type'] == "arrival" )
                                  <div class="details-item  ps-2 pe-2">
                                     <label for="passport_number">Passport Number*</label>
@@ -479,6 +507,7 @@ $locationTitle = $location ? $location->title :$locationss->title;
                            $totalAmount += $row->price;
                            $cgst = ($totalAmount * 0.09);
                            $sgst = ($totalAmount * 0.09);
+                           $igst = ($totalAmount * 0.18);
                            @endphp
                            @endforeach
                            @php 
@@ -486,14 +515,18 @@ $locationTitle = $location ? $location->title :$locationss->title;
                            @endphp
                         </tbody>
                         <tfoot>
-                           <td><b>CGST (9%)</b></td>
-                           <td><b>&#8377;  {{ number_format($cgst, 2) }}</b></td>
-
-                           </tr>
-                           <tr>
-                              <td><b>SGST (9%)</b></td>
-                              <td><b>&#8377;  {{ number_format($sgst, 2) }}</b></td>
-                           </tr>
+                        <tr class="cgst-sgst-row">
+        <td><b>CGST (9%)</b></td>
+        <td><b>&#8377; {{ number_format($cgst, 2) }}</b></td>
+    </tr>
+    <tr class="cgst-sgst-row">
+        <td><b>SGST (9%)</b></td>
+        <td><b>&#8377; {{ number_format($sgst, 2) }}</b></td>
+    </tr>
+    <tr class="igst-row" style="display: none;">
+        <td><b>IGST (18%)</b></td>
+        <td><b>&#8377; {{ number_format($igst, 2) }}</b></td>
+    </tr>
                            <tr>
                               <td><b>Total Amount</b></td>
                               <td><b>&#8377; {{ number_format(round($totalAmount), 2, '.', ',') }}</b></td>
@@ -669,6 +702,31 @@ $locationTitle = $location ? $location->title :$locationss->title;
       }.bind(this));
    });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to toggle tax rows based on the selected location
+        const toggleTaxRows = function () {
+            const selectedLocation = $('input[name="kerala_location"]:checked').val(); // Get selected location
+
+            if (selectedLocation === 'inside') {
+                $('.cgst-sgst-row').css('display', 'table-row'); // Show CGST and SGST rows
+                $('.igst-row').css('display', 'none');           // Hide IGST row
+            } else if (selectedLocation === 'outside') {
+                alert("Location: Outside Kerala selected!");     // Debugging alert (optional)
+                $('.cgst-sgst-row').css('display', 'none');       // Hide CGST and SGST rows
+                $('.igst-row').css('display', 'table-row');       // Show IGST row
+            }
+        };
+
+        // Bind the change event to all radio buttons with name="kerala_location"
+        $('input[name="kerala_location"]').change(toggleTaxRows);
+
+        // Run toggleTaxRows initially to set the correct display state on page load
+        toggleTaxRows();
+    });
+</script>
+
 
 
 
