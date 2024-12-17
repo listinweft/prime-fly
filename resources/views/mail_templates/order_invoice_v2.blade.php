@@ -246,10 +246,30 @@
                      // Calculate CGST and SGST (9% each)
                      $cgst = $orderTotal * 0.09;
                      $sgst = $orderTotal * 0.09;
+                     $igst = $orderTotal * 0.18;
                      // Calculate total amount including 18% tax (9% CGST + 9% SGST)
                      $totalIncluding18Percent = $cgst + $sgst + $orderTotal;
                      @endphp
+
+                   
                   <tr style="border-collapse: collapse;">
+                  @if($order->tax_type == "Outside")
+
+                  <tr style="border-collapse: collapse;">
+                     <td style="padding: 0; Margin: 0;">
+                        <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;font-size: 13px;
+                           font-weight: 500;text-align: right;">
+                           IGST (18%):
+                        </h4>
+                     </td>
+                     <td style="padding: 0; Margin: 0; color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
+                        <strong>{{ $order->currency }} {{ number_format($igst, 2) }}</strong>
+                     </td>
+
+
+                     
+                     @else 
+
                      <td style="padding: 0; Margin: 0;">
                         <h4 style="Margin: 0; line-height:1.2; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333; font-size: 13px;
                            font-weight: 500;text-align: right;">
@@ -270,7 +290,10 @@
                      <td style="padding: 0; Margin: 0; color: #333333;font-size: 13px; font-weight: 600;padding:5px 10px;">
                         <strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong>
                      </td>
+                    
+                     @endif
                   </tr>
+
                   <tr style="border-collapse: collapse;">
                      <td style="padding: 0; Margin: 0;">
                         <h4 style="Margin: 0; line-height: 200%; mso-line-height-rule: exactly; font-family: arial, 'helvetica neue', helvetica, sans-serif; color: #333333;font-size: 13px;

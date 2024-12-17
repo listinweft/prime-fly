@@ -229,6 +229,7 @@ $admintype = Auth::guard('admin')->user()->admin;
     $subtotal = array_sum($shoppingTotal); // Total amount before taxes
     $sgst = $subtotal * 0.09; // SGST 9%
     $cgst = $subtotal * 0.09; // CGST 9%
+    $igst = $subtotal * 0.18; // CGST 9%
     $totalWithGST = $subtotal + $sgst + $cgst; // Total with SGST and CGST
     $finalAmount = $totalWithGST * 1.18; // Final amount with additional 18% GST
 @endphp
@@ -242,6 +243,18 @@ $admintype = Auth::guard('admin')->user()->admin;
        
     </td>
 </tr>
+@if($order->tax_type == "Outside")
+
+<tr>
+    <td style="width: 75%; padding: 10px 0;">
+        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">IGST 9%</h3>
+    </td>
+    <td style="width: 25%; padding: 10px 0; text-align: right;">
+        <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹{{ number_format($igst, 2) }}</h3>
+    </td>
+</tr>
+
+@else
 <tr>
     <td style="width: 75%; padding: 10px 0;">
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">SGST 9%</h3>
@@ -258,6 +271,9 @@ $admintype = Auth::guard('admin')->user()->admin;
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">₹{{ number_format($cgst, 2) }}</h3>
     </td>
 </tr>
+
+@endif
+
 <tr>
     <td style="width: 75%; padding: 10px 0;">
         <h3 style="color: #1A1C21; font-size: 14px; font-weight: 700;">Total Amount</h3>

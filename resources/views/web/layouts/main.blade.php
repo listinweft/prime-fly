@@ -52,7 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "description": "Primefly is an exclusive airport hospitality service provided by Speedwings. They provide services such as meet and greet, parking, cloakroom, check-in assistance and baby/elder sitting within the airport premises.",
       "email": "support@primefly.in",
       "telephone": "+91 8301920000",
-      "address": {
+      "addr ess": {
         "@type": "PostalAddress",
         "streetAddress": "TC 86/2018 KARTHIKA 2nd FLOOR",
         "addressLocality": "AIRPORT ROAD",

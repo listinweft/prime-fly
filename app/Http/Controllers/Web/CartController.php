@@ -1654,7 +1654,9 @@ class CartController extends Controller
             $order->cod_extra_charge = 0;
             $order->remarks = "good";
             $order->tax = $siteInformation->tax;
-            $order->tax_type = $siteInformation->tax_type;
+         
+            $order->tax_type = $request->selected_kerala_location ?? "Inside";
+
             $order->tax_amount = 10;
             $order->shipping_charge = 10;
             $order->currency = "INR";

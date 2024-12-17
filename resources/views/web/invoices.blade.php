@@ -362,10 +362,18 @@
                         @php
                             $cgst = ($totalAmount * 0.09);
                             $sgst = ($totalAmount * 0.09);
+                            $igst = ($totalAmount * 0.18);
                             $finalamount = $totalAmount + $cgst + $sgst;
                         @endphp
+
+                        @if($order->tax_type == "Outside")
+                        <p style="color:#707070;font-size:10px;margin-bottom:8px">IGST 18% INR {{ number_format($igst, 2) }}</p>
+                        @else
                         <p style="color:#707070;font-size:10px;margin-bottom:8px">CGST 9% INR {{ number_format($cgst, 2) }}</p>
                         <p style="color:#707070;font-size:10px;margin-bottom:0">SGST 9% INR {{ number_format($sgst, 2) }}</p>
+                        @endif
+                       
+                       
                      </td>
                   </tr>
                   <tr>

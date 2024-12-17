@@ -190,8 +190,17 @@
                                                     $subtotal = $orderGrandTotal;
                                                     $sgst = $subtotal * 0.09;
                                                     $cgst = $subtotal * 0.09;
+                                                    $igst = $subtotal * 0.18;
                                                     $totalWithTax = $subtotal + $sgst + $cgst;
                                                 @endphp
+                                                @if($order->tax_type == "Outside")
+
+                                                <tr>
+                                                    <td>IGST (18%):</td>
+                                                    <td>{{ $order->currency }} {{ number_format($igst, 2) }}</td>
+                                                </tr>
+
+                                                @else
                                                 <tr>
                                                     <td>SGST (9%):</td>
                                                     <td>{{ $order->currency }} {{ number_format($sgst, 2) }}</td>
@@ -200,6 +209,8 @@
                                                     <td>CGST (9%):</td>
                                                     <td>{{ $order->currency }} {{ number_format($cgst, 2) }}</td>
                                                 </tr>
+                                                
+                                                @endif
                                                 <tr>
                                                     <td>Total:</td>
                                                     <td>{{ $order->currency }} {{ number_format($orderGrandTotal, 2) }}</td>

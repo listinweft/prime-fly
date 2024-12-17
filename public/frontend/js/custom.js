@@ -1261,6 +1261,7 @@ $(document).on('click', '#confirm_payment', function (e) {
                 payment_method: payment_method,
                 final_amount: finalAmount,
                 address: $('#address').val(),
+                selected_kerala_location: $('input[name="kerala_location"]:checked').val(),
                 passport_number: $('#passport_number').val(),
                 pincode: $('#pincode').val(),
                 country: $('#country').val(),
@@ -1274,6 +1275,7 @@ $(document).on('click', '#confirm_payment', function (e) {
                 age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
                 pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
                 type: $('input[name^="type["]').map(function() { return $(this).val(); }).get(),
+                
             },
             success: function (response) {
                 if (response.status === 'online-payment') {
