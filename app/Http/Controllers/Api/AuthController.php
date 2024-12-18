@@ -335,6 +335,49 @@ public function login_corporate(Request $request)
         ], 401);
     }
 }
+
+public function login_normal(Request $request)
+{ 
+    $request->validate([
+        'username' => 'required|string',
+        'password' => 'required',
+    ]);
+
+
+   
+    $field = is_numeric($request->username) ? 'phone' : 'email';
+    $user = User::where($field, $request->username)->first();
+ 
+    if ($user && Hash::check($request->password, $user->password) && $user->user_type == 'Customer') {
+        
+            $customer = $user->customer;
+
+            if ($customer) {
+               
+                 $token = $user->createToken('primefly')->plainTextToken;
+
+                return response()->json([
+                    'status' => 'success-reload',
+                    'message' => 'Successfully logged in',
+                    'token' => $token,
+                    'user_id'=>$user->id,
+                    'usertype'=>$user->btype
+                   
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Customer not found.',
+                ], 404);
+            }
+      
+    } else {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Invalid credentials',
+        ], 401);
+    }
+}
 public function forgot_password(Request $request)
 {
     $user = User::where('email', $request->email)

@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\CommonController; // Add this line for Location and
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::post('/login', [AuthController::class, 'login_normal']);
 Route::post('/loginpublic', [AuthController::class, 'login_public']);
 Route::post('/logincorporate', [AuthController::class, 'login_corporate']);
 Route::post('/registerpublic', [AuthController::class, 'registerpublic']);
