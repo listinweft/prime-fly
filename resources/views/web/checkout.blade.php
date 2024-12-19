@@ -151,7 +151,7 @@
                <span class="error-message" style="display: none;">PNR is required.</span>
                </div>
                <div class="details-item">
-               <button type="button" class="add-more-btn btn btn-primary">+</button>
+               <!-- <button type="button" class="add-more-btn btn btn-primary">+</button> -->
                </div>
                </div>
                </div>

@@ -10,7 +10,7 @@
       <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
       <meta name="generator" content="Hugo 0.122.0">
       <meta name="csrf-token" content="{{ csrf_token() }}"/>
-      <title>Corporate Login | Primefly</title>
+      <title> Login | Primefly</title>
       <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
       <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css')}}">
       <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css')}}">
@@ -46,7 +46,7 @@
                                 <img src="{{ asset('frontend/img/logo-blue.png')}}" alt="Logo"/>
                             </div> 
                             <div class="register_form">
-                                <h4 class="text-center">Corporate Login</h4>
+                                <h4 class="text-center">Login</h4>
                                 <form action="#0" id="login"> 
                                 <div class="register_form_wrap"> 
                                     <div class="register_form_grid">

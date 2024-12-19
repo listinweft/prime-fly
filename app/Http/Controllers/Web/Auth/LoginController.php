@@ -8,7 +8,7 @@ use App\Models\Customer;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Models\BusinessAddress;
-
+use Illuminate\Support\Facades\Log;
 Use App\Models\Usersverifie;
 use Exception;
 use Illuminate\Http\Request;
@@ -144,37 +144,89 @@ class LoginController extends Controller
     //         return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
     //     }
     // }
-
     public function login_public(Request $request)
-{
-    $request->validate([
-        'username' => 'required|string',
-        'password' => 'required',
-    ]);
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required',
+        ]);
+    
+        $field = is_numeric($request->username) ? 'phone' : 'email';
+    
+        if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
+            $user = Auth::guard('customer')->user()->btype;
+            
 
-    $field = is_numeric($request->username) ? 'phone' : 'email';
-
-    if (Auth::guard('customer')->attempt([$field => $request->username, 'password' => $request->password, 'user_type' => 'Customer'])) {
-        $user = Auth::guard('customer')->user()->btype;
-
-        if ($user == "public") {
-            $oldSessionKey = session('session_key'); // Store the old session key
-            $newSessionKey = Auth::guard('customer')->user()->customer->id;
-
-            // Set the new session key
-            session(['session_key' => $newSessionKey]);
-
-            // Preserve the cart items
-            $this->preserveCartItems($oldSessionKey, $newSessionKey);
-
-            return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+            
+            if ($user == "public") {
+                $oldSessionKey = session('session_key');
+                $newSessionKey = Auth::guard('customer')->user()->customer->id;
+    
+                // Preserve cart items from the old session if available
+                if ($oldSessionKey) {
+                    try {
+                        $this->preserveCartItems($oldSessionKey, $newSessionKey);
+                    } catch (\Exception $e) {
+                        Log::error('Failed to preserve cart items: ' . $e->getMessage());
+                    }
+                }
+    
+                session(['session_key' => $newSessionKey]);
+    
+                try {
+                    $cartItems = Cart::session($newSessionKey)->getContent();
+    
+                    // Check if the 'logged_out' flag is set, then redirect to the home page
+                    if (session('logged_out')) {
+                        // session()->forget('logged_out');
+                        return response()->json(['status' => 'success-reloadc', 'message' => 'Successfully logged in.']);
+                    }
+    
+                    // If cart has items, go to cart page
+                    // if ($cartItems->isNotEmpty()) {
+                    //     return response()->json(['status' => 'success-reloadc', 'message' => 'Successfully logged in']);
+                    // }
+    
+                    // If cart is empty and 'logged_out' flag is not set, just log in
+                    return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+                
+                } catch (\Exception $e) {
+                    Log::error('Failed to fetch cart items for new session: ' . $e->getMessage());
+                }
+    
+                return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+            }
+            
+             elseif ($user == "b2b") {
+                $sessionKeys = Auth::guard('customer')->user()->customer->id;
+    
+                // Check if session key exists and is not empty
+                if ($sessionKeys) {
+                    try {
+                        // Log and clear cart
+                        $cartContents = Cart::session($sessionKeys)->getContent();
+                        // Log::info('Cart contents before clearing:', ['cart' => $cartContents]);
+    
+                        Cart::session($sessionKeys)->clear();
+    
+                        // Log the cart contents after clearing
+                        $cartContentsAfterClear = Cart::session($sessionKeys)->getContent();
+                        return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+                    } catch (Exception $e) {
+                       
+                        return response()->json(['status' => 'error', 'message' => 'Failed to clear cart. Please try again later.']);
+                    }
+                } else {
+                    return response()->json(['status' => 'error', 'message' => 'Session key is required.']);
+                }
+            } else {
+                return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
+            }
         } else {
             return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
         }
-    } else {
-        return response()->json(['status' => 'error', 'message' => 'Invalid credentials']);
     }
-}
+    
 
 protected function preserveCartItems($oldSessionKey, $newSessionKey)
 {
@@ -221,6 +273,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     {
         Auth::guard('customer')->logout();
         Session::flush();
+        // session(['logged_out' => false]);
         return redirect('/')->with('status', 'User has been logged out!');
     }
     protected function forgot_password_form()

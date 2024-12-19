@@ -103,7 +103,7 @@
                                                 <input type="submit"  class="primary_btn registerform_submit_btn" data-url="/register-corporate" value="Submit"/>
                                                  </div>
                                                  <div class="text-center otp_grid ">
-                                                    <p>Already have an account ? <a href="{{ url('/login/b2b') }}">Login</a></p></div>
+                                                    <p>Already have an account ? <a href="{{ url('/login-public/public') }}">Login</a></p></div>
                                             </div> 
                                         </div> 
 

@@ -256,6 +256,8 @@ class CartController extends Controller
             if ($wish_list->get($product->id)) {
                 $wish_list->remove($product->id);
             }
+
+            session(['logged_out' => true]);
         
             return response()->json(['status' => true, 'message' => 'Product added to cart']);
         } catch (Exception $e) {

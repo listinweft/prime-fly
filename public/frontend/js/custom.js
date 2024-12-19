@@ -727,7 +727,7 @@ $(document).ready(function () {
     
                     if (response.status == true) {
                         if (!userid || userid.trim() === '') {
-                            window.location.href = base_url + '/choose';
+                            window.location.href = base_url + '/login-public/public';
                         } else if (checkout == 1) {
                             window.location.href = base_url + '/checkout';
                         } else {
@@ -1825,7 +1825,7 @@ $(document).on('click', '#confirm_payment', function (e) {
                             title: "Success!", text: response.message, icon: "success"
                         });
                         setTimeout(() => {
-                            window.location.href = base_url/choose;
+                            window.location.href = base_url + "/login-public/public";
                         }, 2000);
 
 
@@ -1834,7 +1834,7 @@ $(document).on('click', '#confirm_payment', function (e) {
                         title: "Success!", text: response.message, icon: "success"
                     });
                     setTimeout(() => {
-                        window.location.href = base_url + "/choose";
+                        window.location.href = base_url + "/login-public/public";
                     }, 2000);
                 } else {
                     // Handle other error responses
@@ -1932,6 +1932,19 @@ $(document).on('click', '#confirm_payment', function (e) {
                         });
                         setTimeout(() => {
                             window.location.href = base_url;
+                        }, 2000);
+
+                    }
+                    else if (response.status == "success-reloadc") {
+                        // alert("knbb");
+
+
+                        Toast.fire({
+                            title: "Success!", text: response.message, icon: "success"
+                        });
+                        setTimeout(() => {
+                            window.location.href = base_url + '/cart';
+
                         }, 2000);
 
                     }
