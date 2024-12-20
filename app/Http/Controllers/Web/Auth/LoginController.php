@@ -158,7 +158,7 @@ class LoginController extends Controller
             
 
             
-            if ($user == "public") {
+            if (Auth::guard('customer')->user()->btype == 'public') {
                 $oldSessionKey = session('session_key');
                 $newSessionKey = Auth::guard('customer')->user()->customer->id;
     
@@ -197,9 +197,13 @@ class LoginController extends Controller
                 return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
             }
             
-             elseif ($user == "b2b") {
-                $sessionKeys = Auth::guard('customer')->user()->customer->id;
-    
+
+            $sessionKeys = Auth::guard('customer')->user()->customer->id;
+            session(['session_key' => $sessionKeys]);
+
+            if (Auth::guard('customer')->user()->btype == 'b2b') {
+              
+                Log::info('Session Key for Clearing Cart:', ['sessionKey' => $sessionKeys]);
                 // Check if session key exists and is not empty
                 if ($sessionKeys) {
                     try {
