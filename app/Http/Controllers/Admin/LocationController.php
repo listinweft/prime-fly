@@ -75,6 +75,7 @@ class LocationController extends Controller
         $category->title = $validatedData['title'];
         $category->code = $validatedData['code'];
         $category->travel_sector = $validatedData['travel_sector'];
+        $category->description = $request->description ?? '';
         // $category->short_url = $validatedData['short_url'];
         // $category->parent_id = null;
         // $category->image_attribute = $request->image_attribute ?? '';
@@ -194,6 +195,7 @@ class LocationController extends Controller
         $category->title = $validatedData['title'];
         $category->code = $validatedData['code'];
         $category->travel_sector = $validatedData['travel_sector'];
+        $category->description = $request->description ?? '';
         // $category->short_url = $validatedData['short_url'];
         // $category->parent_id = null;
         // $category->image_attribute = $request->image_attribute ?? '';

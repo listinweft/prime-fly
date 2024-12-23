@@ -92,6 +92,14 @@
                                 </div>
 
 
+                                <div class="form-group col-md-12 mb-4">
+                                            <label for="description">Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="description" class="required"
+                                                    name="description">{!! isset($category)?$category->description:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="description_error"></div>
+                                        </div>
+
+
                                 <div class="form-group col-md-6">
                                     <label> Home Thumbnail Image*</label>
                                     <div class="file-loading">
@@ -105,10 +113,7 @@
                                
                             </div>
                                
-                                   
-                                </div>
-                              
-                                </div>
+                                
                                 
                         </div>
                         

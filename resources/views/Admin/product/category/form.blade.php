@@ -86,6 +86,12 @@
                      <div class="invalid-feedback">{{ $message }}</div>
                      @enderror
                   </div>
+                               <div class="form-group col-md-12 mb-4">
+                                            <label for="description">Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="description"
+                                                    name="description">{!! isset($category)?$category->description:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="description_error"></div>
+                                        </div>
                   <!-- <div class="form-group col-md-4">
                      <label> Icon Image*</label>
                       <div class="file-loading">

@@ -210,6 +210,21 @@
             </div>
           </div>
          </section> 
+
+         
+      
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-5 section-head text-center mb-4">
+                 
+                {!! @$category->description !!}
+
+                </div>
+              
+              </div>
+            </div>
+   
+
          <section class="col-12 home_testimonial">
             <div class="container">
               <div class="row justify-content-center">

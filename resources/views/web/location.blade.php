@@ -72,6 +72,11 @@
                 </div>
             </div>
          </section>
+         <div>
+
+         {!! $blog->description !!}
+
+</div>
          <section class="col-12 aiport-faq">
             <div class="container">
                 <div class="row justify-content-center">
