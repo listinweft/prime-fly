@@ -4162,14 +4162,28 @@ footer {
     padding-left: 25px
 }
 .service_detail_content {
-    background-color: #f4f4f4;
+    background-color:#fafafa;
     padding: 60px 15px;
 }
-.service_detail_content h2{
-    font-size:26px;
+.service_detail_content h2 span{
+    font-size:26px !important;
+    font-weight:600 !important;
+    color: #5B5D5F !important;
+    font-family: "Inter", sans-serif !important;
+    display:block !important;
+    margin-bottom:15px !important;
 }
-.service_detail_content h3{
-    font-size:22px;
+.service_detail_content h3 span{
+    font-size:22px !important;
+    font-weight:600 !important;
+    font-family: "Inter", sans-serif !important;
+    color: #5B5D5F !important;
+}
+.service_detail_content p,.service_detail_content p span,.service_detail_content li,.service_detail_content li span{
+        font-size:14px !important;
+        color: #4C4C4D !important;
+        font-family: "Inter", sans-serif !important;
+         margin-bottom:15px !important;
 }
 @media(max-width:1680px) {
     .airtport_list_thumb {
@@ -4223,6 +4237,10 @@ footer {
     }
     .features-item p {
         font-size: 14px
+    }
+    .service_detail_content p,.service_detail_content p span,.service_detail_content li,.service_detail_content li span{
+        font-size:14px;
+        color: #4C4C4D;
     }
 }
 
