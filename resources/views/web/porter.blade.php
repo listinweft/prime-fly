@@ -27,7 +27,7 @@
                             <option value="departure">Departure</option>
                             <option value="arrival">Arrival</option>
                           
-                           <option value="arrival">Transit</option>
+                           <!-- <option value="arrival">Transit</option> -->
                         </select>
                     </div>
                     </div>
