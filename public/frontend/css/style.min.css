@@ -4185,6 +4185,9 @@ footer {
         font-family: "Inter", sans-serif !important;
          margin-bottom:10px !important;
 }
+.service_detail_content p strong,.service_detail_content p strong span{
+    font-weight:600 !important;
+}
 @media(max-width:1680px) {
     .airtport_list_thumb {
         width: 140px;
