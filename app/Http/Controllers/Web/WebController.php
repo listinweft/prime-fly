@@ -324,16 +324,18 @@ public function getLocations_meet(Request $request)
 
     if ($sector == "international") {
         // Fetch locations from the international_airports table
-        $locationsFromDb = DB::table('international_airport')
+        DB::table('international_airport')
             ->select('faa', 'name')
-            ->get()
-            ->map(function ($location) {
-                return [
-                    'fs' => $location->faa,  // FAA code
-                    'city' => $location->name // Name
-                ];
+            ->orderBy('faa') // Add an orderBy clause here
+            ->chunk(100, function ($airportChunk) use (&$locationsFromDb) {
+                foreach ($airportChunk as $location) {
+                    $locationsFromDb[] = [
+                        'fs' => $location->faa,
+                        'city' => $location->name
+                    ];
+                }
             });
-
+    
         // For international sector, use locationsFromDb directly
         if ($travelSector == 'departure') {
             $origins = $mappedLocations;
@@ -497,15 +499,18 @@ public function getLocations_meet(Request $request)
 
         if ($sector == "international") {
             // Fetch locations from the international_airports table
-            $locationsFromDb = DB::table('international_airport')
-                ->select('faa', 'name')
-                ->get()
-                ->map(function ($location) {
-                    return [
-                        'fs' => $location->faa,  // FAA code
-                        'city' => $location->name // Name
+            DB::table('international_airport')
+            ->select('faa', 'name')
+            ->orderBy('faa') // Add an orderBy clause here
+            ->chunk(500, function ($airportChunk) use (&$locationsFromDb) {
+                foreach ($airportChunk as $location) {
+                    $locationsFromDb[] = [
+                        'fs' => $location->faa,
+                        'city' => $location->name
                     ];
-                });
+                }
+            });
+    
     
             // For international sector, use locationsFromDb directly
             if ($travelSector == 'departure') {

@@ -29,9 +29,17 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Models\PasswordReset;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Services\RazorpayService;
 use DateTime;
 class CommonController extends Controller
 {
+
+    protected $razorpayService;
+
+    public function __construct(RazorpayService $razorpayService)
+    {
+        $this->razorpayService = $razorpayService;
+    }
     /**
      * Method to retrieve active locations
      */
@@ -47,6 +55,21 @@ class CommonController extends Controller
         return $this->sendResponse($blogs, 'Blogs retrieved successfully.');
     }
 
+    public function createOrder(Request $request)
+    {
+        $receipt = $request->input('receipt', 'order_rcptid_11');
+        $amount = $request->input('amount', 5000);
+        $currency = $request->input('currency', 'INR');
+        $notes = $request->input('notes', []);
+
+        $response = $this->razorpayService->createOrder($receipt, $amount, $currency, $notes);
+
+        if (isset($response['error']) && $response['error']) {
+            return response()->json(['message' => $response['message']], 500);
+        }
+
+        return response()->json($response);
+    }
     /**
      * Method to retrieve active service categories
      */

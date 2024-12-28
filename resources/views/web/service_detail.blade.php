@@ -215,7 +215,7 @@
         <section class="col-12 service_detail_content">
             <div class="container">
               <div class="row justify-content-center">
-                <div class="col-lg-12 text-left mb-4">
+                <div class="col-lg-10 col-md-10 col-12 text-left mb-4">
                  
                 {!! @$category->description !!}
 
