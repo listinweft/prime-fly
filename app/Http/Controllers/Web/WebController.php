@@ -263,15 +263,19 @@ public function getLocationsMeetTransit(Request $request)
     }
 
     // Fetch locations from the international_airports table
-    $locationsFromDb = DB::table('international_airport')
-        ->select('faa', 'name')
-        ->get()
-        ->map(function ($location) {
-            return [
-                'fs' => $location->faa,  // FAA code
-                'city' => $location->name // Name
+    DB::table('international_airport')
+    ->select('faa', 'name')
+    ->where('faa', 'NOT LIKE', '0%') // Exclude records where 'faa' starts with '0'
+    ->orderBy('faa')
+    ->chunk(100, function ($airportChunk) use (&$locationsFromDb) {
+        foreach ($airportChunk as $location) {
+            $locationsFromDb[] = [
+                'fs' => $location->faa,
+                'city' => $location->name
             ];
-        });
+        }
+    });
+
 
     // Determine origins and destinations based on the sector
     if ($sector == "domestic_to_domestic") {
@@ -325,16 +329,18 @@ public function getLocations_meet(Request $request)
     if ($sector == "international") {
         // Fetch locations from the international_airports table
         DB::table('international_airport')
-            ->select('faa', 'name')
-            ->orderBy('faa') // Add an orderBy clause here
-            ->chunk(100, function ($airportChunk) use (&$locationsFromDb) {
-                foreach ($airportChunk as $location) {
-                    $locationsFromDb[] = [
-                        'fs' => $location->faa,
-                        'city' => $location->name
-                    ];
-                }
-            });
+        ->select('faa', 'name')
+        ->where('faa', 'NOT LIKE', '0%') // Exclude records where 'faa' starts with '0'
+        ->orderBy('faa')
+        ->chunk(100, function ($airportChunk) use (&$locationsFromDb) {
+            foreach ($airportChunk as $location) {
+                $locationsFromDb[] = [
+                    'fs' => $location->faa,
+                    'city' => $location->name
+                ];
+            }
+        });
+    
     
         // For international sector, use locationsFromDb directly
         if ($travelSector == 'departure') {
@@ -452,16 +458,18 @@ public function getLocations_meet(Request $request)
     
         // Use chunking to fetch international airport data with an orderBy clause
         DB::table('international_airport')
-            ->select('faa', 'name')
-            ->orderBy('faa') // Add an orderBy clause here
-            ->chunk(500, function ($airportChunk) use (&$locationsFromDb) {
-                foreach ($airportChunk as $location) {
-                    $locationsFromDb[] = [
-                        'fs' => $location->faa,
-                        'city' => $location->name
-                    ];
-                }
-            });
+    ->select('faa', 'name')
+    ->where('faa', 'NOT LIKE', '0%') // Exclude records where 'faa' starts with '0'
+    ->orderBy('faa')
+    ->chunk(100, function ($airportChunk) use (&$locationsFromDb) {
+        foreach ($airportChunk as $location) {
+            $locationsFromDb[] = [
+                'fs' => $location->faa,
+                'city' => $location->name
+            ];
+        }
+    });
+
     
         // Set origins and destinations based on travel type
         $origins = $mappedLocations;
@@ -501,8 +509,9 @@ public function getLocations_meet(Request $request)
             // Fetch locations from the international_airports table
             DB::table('international_airport')
             ->select('faa', 'name')
-            ->orderBy('faa') // Add an orderBy clause here
-            ->chunk(500, function ($airportChunk) use (&$locationsFromDb) {
+            ->where('faa', 'NOT LIKE', '0%') // Exclude records where 'faa' starts with '0'
+            ->orderBy('faa')
+            ->chunk(100, function ($airportChunk) use (&$locationsFromDb) {
                 foreach ($airportChunk as $location) {
                     $locationsFromDb[] = [
                         'fs' => $location->faa,
