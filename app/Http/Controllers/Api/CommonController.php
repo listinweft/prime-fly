@@ -1027,14 +1027,16 @@ public function getInternationalAirports(Request $request)
 
     // Fetch locations from the database with pagination
     $locationsFromDb = DB::table('international_airport')
-        ->select('faa', 'name')
-        ->paginate($perPage)
-        ->through(function ($location) {
-            return [
-                'fs' => $location->faa,  // FAA code
-                'city' => $location->name // City name
-            ];
-        });
+    ->select('faa', 'name')
+    // Exclude entries where FAA contains any digit
+    ->whereRaw("faa NOT REGEXP '[0-9]'")
+    ->paginate($perPage)
+    ->through(function ($location) {
+        return [
+            'fs' => $location->faa,  // FAA code
+            'city' => $location->name // City name
+        ];
+    });
 
     // Return the paginated data as a JSON response
     return response()->json([
@@ -1048,21 +1050,21 @@ public function international_search(Request $request)
     // Retrieve the search query from the request
     $searchQuery = $request->input('search', '');
 
-    // Fetch locations from the database with a search filter
     $locationsFromDb = DB::table('international_airport')
-        ->select('faa', 'name')
-        ->when($searchQuery, function ($query) use ($searchQuery) {
-            $query->where('faa', 'LIKE', "%{$searchQuery}%")
-                  ->orWhere('name', 'LIKE', "%{$searchQuery}%");
-        })
-        ->get()
-        ->map(function ($location) {
-            return [
-                'fs' => $location->faa,  // FAA code
-                'city' => $location->name // City name
-            ];
-        });
-
+    ->select('faa', 'name')
+    ->when($searchQuery, function ($query) use ($searchQuery) {
+        $query->where('faa', 'LIKE', "%{$searchQuery}%")
+              ->orWhere('name', 'LIKE', "%{$searchQuery}%");
+    })
+    // Exclude entries where FAA contains any digit
+    ->whereRaw("faa NOT REGEXP '[0-9]'")
+    ->get()
+    ->map(function ($location) {
+        return [
+            'fs' => $location->faa,  // FAA code
+            'city' => $location->name // City name
+        ];
+    });
     // Return the data as a JSON response
     return response()->json([
         'status' => 'success',
