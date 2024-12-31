@@ -32,9 +32,9 @@
                     <div class="booking_select">
                         <select type="text" class="form-control select2" name="origin" id="originpo">
                             <option value="">Select Origin</option>
-                            @foreach ($locations as $location)
+                            <!-- @foreach ($locations as $location)
                                 <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                            @endforeach
+                            @endforeach -->
                         </select>
                     </div>
                     </div>
@@ -42,9 +42,9 @@
                     <div class="booking_select">
                         <select type="text" class="form-control select2" name="destination" id="destinationpo">
                             <option value="">Select Destination</option>
-                            @foreach ($locations as $location)
+                            <!-- @foreach ($locations as $location)
                                 <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                            @endforeach
+                            @endforeach -->
                         </select>
                     </div>
                     </div>
@@ -158,6 +158,9 @@ $(document).ready(function() {
           var sector =   $('#travel_sectorpo').val();
 
             if (travel_type) {
+
+                $('#originpo').empty().append('<option>Loading...</option>');
+                $('#destinationpo').empty().append('<option>Loading...</option>');
                 $.ajax({
                     url: base_url + '/get-locations-porter',
                     type: 'POST',
@@ -329,6 +332,9 @@ $(document).ready(function() {
             var destination = $('#destinationpo').val(); // Get selected destination
             var date = $('#datepickerp').val(); // Get selected date, format yyyy-mm-dd
 
+            updateFlightDropdown('Loading flights...');
+
+
             var apiUrl = 'https://api.flightstats.com/flex/schedules/rest/v1/json/';
             var apiEndpoint = '';
 
@@ -382,10 +388,17 @@ if (response.scheduledFlights && response.scheduledFlights.length > 0) {
                     console.error("Flight API Error:", error);
                     var flightsSelect = $('#flightspo');
                     flightsSelect.empty().append('<option value="">Error retrieving flights</option>');
+                    updateFlightDropdown('Error retrieving flights');
                 }
             });
         }
 
+        
+function updateFlightDropdown(message) {
+    $('#flightspo')
+        .empty()
+        .append(`<option value="">${message || 'Select Flight'}</option>`);
+}
         // Function to format date as yyyy/mm/dd
         function formatDate(date) {
             var parts = date.split('-');

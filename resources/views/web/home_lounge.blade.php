@@ -139,6 +139,10 @@ $(document).ready(function() {
     var category = @json($category->id);
 
         if (travel_type) {
+
+            // $('#originl').empty().append('<option>Loading...</option>');
+            // $('#destinationl').empty().append('<option>Loading...</option>');
+
             $.ajax({
                 url: base_url + '/get-locations',
                 type: 'POST',
@@ -200,6 +204,7 @@ $(document).ready(function() {
         var apiEndpoint = 'from/' + origin + '/to/' + destination + '/departing/' + formatDate(date);
         var proxyUrl = apiUrl + apiEndpoint + '?appId=' + appId + '&appKey=' + appKey;
 
+        $('#flightsl').empty().append('<option>Loading...</option>');
         $.ajax({
             url: base_url + '/cors-proxy',
             type: 'GET',

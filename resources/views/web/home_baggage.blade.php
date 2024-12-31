@@ -218,6 +218,9 @@
         var apiEndpoint = 'from/' + origin + '/to/' + destination + '/departing/' + formatDate(date);
         var proxyUrl = apiUrl + apiEndpoint + '?appId=' + appId + '&appKey=' + appKey;
 
+        var flightsSelect = $('#flightsb');
+    flightsSelect.empty().append('<option value="">Loading...</option>'); 
+
         $.ajax({
             url: base_url + '/cors-proxy',
             type: 'GET',
