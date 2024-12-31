@@ -155,7 +155,7 @@
             </div>
         </div>
 
-        
+
         <div class="booking_field">
             <div class="custom-date-picker">
                 <input class="form-control" type="text" autocomplete="off" placeholder="Date" max="2023-12-31" id="datepickertd" name="datepickertd" readonly="readonly">
@@ -334,6 +334,10 @@ var category = @json($category->id);
 var sector = $('#travel_sector').val();
 
 if (travel_type) {
+
+    $('#origins').empty().append('<option>Loading...</option>');
+     $('#destinations').empty().append('<option>Loading...</option>');
+
     $.ajax({
         url: base_url + '/get-locations-meet',
         type: 'POST',
@@ -581,6 +585,12 @@ var category = @json($category->id);
 var sector = $('#travel_sectort').val();
 
 if (travel_type) {
+
+    var originSelect = $('#origint');
+        var destinationSelect = $('#destinationt');
+
+        originSelect.empty().append('<option>Loading...</option>');
+        destinationSelect.empty().append('<option>Loading...</option>');
 
 $.ajax({
     url: base_url + '/get-locations-meet-transit',

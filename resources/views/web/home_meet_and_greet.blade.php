@@ -33,9 +33,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control select2" name="origin" id="origins">
                     <option value="">Select Origin</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -43,9 +43,9 @@
             <div class="booking_select">
                 <select class="form-control select2" name="destination" id="destinations">
                     <option value="">Select Destination</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -135,9 +135,9 @@
             <div class="booking_select"> 
                 <select type="text" class="form-control select2" name="origint" id="origint">
                     <option value="">Select Origin</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -170,9 +170,9 @@
             <div class="booking_select">
                 <select class="form-control select2" name="destinationt" id="destinationt">
                     <option value="">Select Destination</option>
-                    @foreach ($locations as $location)
+                    <!-- @foreach ($locations as $location)
                         <option value="{{ $location->code }}">{{ $location->title }}-{{$location->code}}</option>
-                    @endforeach
+                    @endforeach -->
                 </select>
             </div>
         </div>
@@ -336,6 +336,10 @@ function populateLocations(travel_type) {
     var sector = $('#travel_sector').val();
 
     if (travel_type) {
+
+        $('#origins').empty().append('<option>Loading...</option>');
+        $('#destinations').empty().append('<option>Loading...</option>');
+
         $.ajax({
             url: base_url + '/get-locations-meet',
             type: 'POST',
@@ -583,6 +587,11 @@ function populateLocationst(travel_type) {
 var sector = $('#travel_sectort').val();
 
 if (travel_type) {
+    var originSelect = $('#origint');
+        var destinationSelect = $('#destinationt');
+
+        originSelect.empty().append('<option>Loading...</option>');
+        destinationSelect.empty().append('<option>Loading...</option>');
    
     $.ajax({
         url: base_url + '/get-locations-meet-transit',
