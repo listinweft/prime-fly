@@ -481,6 +481,9 @@ function fetchFlights(serviceType, origin) {
     var destination = $('#destinations').val();
     var date = $('#datepicker').val(); // Get selected date, format yyyy-mm-dd
 
+    updateFlightDropdown('Loading flights...');
+
+
     var apiUrl = 'https://api.flightstats.com/flex/schedules/rest/v1/json/';
     var apiEndpoint = '';
 
@@ -518,10 +521,17 @@ function fetchFlights(serviceType, origin) {
             console.error("Flight API Error:", error);
             var flightsSelect = $('#flights');
             flightsSelect.empty().append('<option value="">Error retrieving flights</option>');
+            updateFlightDropdown('Error retrieving flights');
         }
     });
 }
 
+
+function updateFlightDropdown(message) {
+    $('#flights')
+        .empty()
+        .append(`<option value="">${message || 'Select Flight'}</option>`);
+}
 
 function formatDate(date) {
     var parts = date.split('-');
@@ -720,6 +730,10 @@ var apiEndpoint = '';
 
 var proxyUrl = apiUrl + apiEndpoint + '?appId=' + appId + '&appKey=' + appKey;
 
+
+
+var flightsSelect = $('#flightst');
+    flightsSelect.empty().append('<option value="">Loading...</option>'); // Add loader
 $.ajax({
     url: base_url + '/cors-proxy',
     type: 'GET',
@@ -762,6 +776,10 @@ var apiEndpoint = '';
 
 
 var proxyUrl = apiUrl + apiEndpoint + '?appId=' + appId + '&appKey=' + appKey;
+
+
+var flightsSelect = $('#flightstd');
+flightsSelect.empty().append('<option value="">Loading...</option>'); // Add loader
 
 $.ajax({
     url: base_url + '/cors-proxy',
