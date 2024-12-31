@@ -159,6 +159,13 @@
             </div>
         </div>
 
+        
+        <div class="booking_field">
+            <div class="custom-date-picker">
+                <input class="form-control" type="text" autocomplete="off" placeholder="Date" max="2023-12-31" id="datepickertd" name="datepickertd" readonly="readonly">
+            </div>
+        </div>
+
         <div class="booking_field" id="destination_select">
             <div class="booking_select">
                 <select class="form-control select2" name="destinationt" id="destinationt">
@@ -170,6 +177,8 @@
             </div>
         </div>
 
+
+       
         <div class="booking_field" id="flight_select">
             <div class="normal_select">
                 <select type="text" class="form-control" name="flight_numbertd" id="flightstd">
@@ -210,11 +219,6 @@
                 </div>
             </div>
             <div class="note-2">0-2 Years </div>
-        </div>
-        <div class="booking_field">
-            <div class="custom-date-picker">
-                <input class="form-control" type="text" autocomplete="off" placeholder="Date" max="2023-12-31" id="datepickertd" name="datepickertd" readonly="readonly">
-            </div>
         </div>
        
         <div class="col-12 text-center mt-3">
