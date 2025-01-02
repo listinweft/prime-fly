@@ -618,17 +618,22 @@ if (!empty($orderemailb->emails_b)) {
      */
     public static function printImage($collection, $field, $webpField, $attributeField, $cssClass = null, $cssStyle = null, $pictureClass = null)
     {
-
-       
-
-        
         $imageData = '<picture' . ($pictureClass ? ' class="' . $pictureClass . '"' : '') . '>';
+    
+        // Check if webp version exists
         if (!empty($collection->$webpField) && File::exists(public_path($collection->$webpField))) {
             $imageData .= '<source srcset="' . asset($collection->$webpField) . '" type="image/webp">';
         }
+    
+        // Check if the main image field exists
         if (!empty($collection->$field) && File::exists(public_path($collection->$field))) {
-            $imageData .= '<img src="' . asset($collection->$field) . '" ' . $collection->$attributeField. '" alt="Default Image"';
+            // Get the alt text from the attribute field (like `image_attribute`), or use "other Image" if not set
+            $altText = !empty($collection->$attributeField) ? $collection->$attributeField : 'other Image';
+    
+            // Append the image with the correct alt attribute
+            $imageData .= '<img src="' . asset($collection->$field) . '" alt="' . $altText . '"';
         } else {
+            // Handle the default image scenarios
             if ($field == 'desktop_image' || $field == 'desktop_banner') {
                 $imageData .= '<img src="' . asset('frontend/images/default-image-rect.jpg') . '" alt="Default Image"';
             } else if ($field == 'profile_image') {
@@ -636,18 +641,23 @@ if (!empty($orderemailb->emails_b)) {
             } else if ($field == 'author_image') {
                 $imageData .= '<img src="' . asset('frontend/images/blog/profile/blog_profile.jpg') . '" alt="Default Image"';
             } else {
-                $imageData .= '<img src="' . asset('frontend/images/logo_emirati.png') . '" alt="defaults Image"';
+                $imageData .= '<img src="' . asset('frontend/images/logo_emirati.png') . '" alt="Default Image"';
             }
         }
+    
+        // Apply any CSS classes or styles if provided
         if ($cssClass) {
             $imageData .= ' class="' . $cssClass . '"';
         }
         if ($cssStyle) {
             $imageData .= ' style="' . $cssStyle . '"';
         }
+    
+        // Close the img and picture tags
         $imageData .= ' ></picture>';
         return $imageData;
     }
+    
 
     public static function mailConf($subject)
     {

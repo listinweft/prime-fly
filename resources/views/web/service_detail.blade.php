@@ -5,7 +5,8 @@
 <section class="col-12 servicebanner p-0">
            <div class="d-flex justify-content-end">
               <div class="serviceinner_bannerimg">
-              {!! Helper::printImage(@$category, 'desktop_banner', 'desktop_banner_webp', '', 'img-fluid') !!}
+              {!! Helper::printImage($category, 'desktop_banner', 'desktop_banner_webp', 'image_attribute', 'img-fluid') !!}
+
               </div>
            </div>
             <div class="banner_content">
@@ -160,7 +161,8 @@
     @foreach($galleryItems as $galleryItem)
         <div class="col-lg-3 col-md-4 col-sm-4 col-6 service_grid_wrap">
             <div class="srvc_wrk_grid">
-                {!! Helper::printImage($galleryItem, 'image', 'image_webp', '', 'img-fluid') !!}
+            {!! Helper::printImage($galleryItem, 'image', 'image_webp', 'image_attribute', 'img-fluid') !!}
+
                 <h4>{{ $galleryItem->title }}</h4>
                 <p>{!! strip_tags($galleryItem->description) !!}</p> 
             </div> 
@@ -224,6 +226,42 @@
               </div>
             </div>
         </section> 
+
+        <section class="col-12 aiport-faq">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7 section-head text-center mb-4"  data-aos="fade-up" data-aos-duration="600">
+                        <h2>Frequently asked questions </h2> 
+                      </div>
+                    <div class="col-lg-9 airport-faq-cont" data-aos="fade-up" data-aos-duration="800">
+                        <div class="accordion" id="accordionExample">
+                        @foreach ($faqs as $index => $faq)
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button @if ($index === 0){{ 'collapsed' }} @endif"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ $index }}"
+                                            aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
+                                            aria-controls="collapse{{ $index }}">
+                                            {!! $faq->question !!}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ $index }}" class="accordion-collapse collapse @if ($index === 0){{ 'show' }} @endif"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                    {!! $faq->answer !!}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                           
+                          </div>
+                    </div>
+                </div>
+            </div>
+         </section>
+      
         
         <section class="col-12 home_testimonial">
             <div class="container">

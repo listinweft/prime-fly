@@ -54,7 +54,17 @@ class FaqController extends Controller
         $blog->question = $validatedData['question'];
         $blog->answer = $validatedData['answer'];
         $blog->type = $validatedData['type'];
-        $blog->service_id = $request->service ?? "";
+
+        if ($validatedData['type'] == "location") {
+
+            $blog->service_id = "";
+        }
+        
+        else {
+            
+            $blog->service_id = $request->service ?? "";// or any other logic
+        }
+       
 
         if ($blog->save()) {
             session()->flash('success', 'Faq"' . $request->title . '" has been added successfully');
@@ -89,8 +99,16 @@ class FaqController extends Controller
         $faq->question = $validatedData['question'];
         $faq->answer = $validatedData['answer'];
         $faq->type = $validatedData['type'];
-        $faq->service_id = $request->service ?? "";
 
+        if ($validatedData['type'] == "location") {
+            $faq->service_id = "";
+        }
+
+        else {
+            // Your alternative logic goes here
+            // For example:
+            $faq->service_id = $request->service ?? "";// or any other logic
+        }
 
         if ($faq->save()) {
             session()->flash('success', 'Faq "' . $request->title . '" has been updated successfully');

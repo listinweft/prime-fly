@@ -86,6 +86,18 @@
                      <div class="invalid-feedback">{{ $message }}</div>
                      @enderror
                   </div>
+
+
+                      <div class="form-group col-md-6">
+                                                                                <label> image alt</label>
+                                                                                <textarea class="form-control" id="image_attribute" name="image_attribute"
+                                                                                        placeholder="Desktop image Alt">{{ isset($category)?$category->image_attribute:'' }}</textarea>
+                                                                                @error('image_attribute')
+                                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                                                @enderror
+                                                                            </div>
+
+                  
                                <div class="form-group col-md-12 mb-4">
                                             <label for="description">Description*</label>
                                             <textarea class="form-control tinyeditor required reset" id="description"

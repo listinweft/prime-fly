@@ -1463,8 +1463,14 @@ public function search_booking_lounch(Request $request)
            $blogs = Blog::active()->get();
            $testimonials = Testimonial::active()->get();
            $subcategories = Category::where('parent_id',$category->id)->active()->get();
+
+            $faqs = Faq::active()
+           ->where('type', 'location')
+           ->latest()
+           ->take(5)
+           ->get();
        
-        return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall'));
+        return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall','faqs'));
 
         }
     }

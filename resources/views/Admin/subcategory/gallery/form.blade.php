@@ -107,10 +107,10 @@
                                             <div class="help-block with-errors" id="description_error"></div>
                                         </div>
                                     <div class="form-group col-md-6">
-                                        <label> Image Attribute *</label>
+                                        <label> Image Alt *</label>
                                         <input type="text" class="form-control required placeholder-cls"
                                                id="image_attribute" name="image_attribute"
-                                               placeholder="Alt='Banner Attribute'"
+                                               placeholder="Alt='Banner Alt'"
                                                value="{{ isset($product_gallery)?$product_gallery->image_attribute:'' }}">
                                         <div class="help-block with-errors" id="image_attribute_error"></div>
                                         @error('image_attribute')
