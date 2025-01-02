@@ -1466,7 +1466,7 @@ public function search_booking_lounch(Request $request)
 
             $faqs = Faq::active()
            ->where('type', 'service')
-           ->where('service_id', 'category->id')
+           ->where('service_id', $category->id)
            ->latest()
            ->take(5)
            ->get();
