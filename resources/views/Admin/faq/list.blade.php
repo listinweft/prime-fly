@@ -55,6 +55,8 @@
                                         <th># <input type="checkbox" class="mt-2 ml-3" name="check_all" id="check_all">
                                         </th>
                                         <th>Question</th>
+                                        <th>Type</th>
+                                        <th>Service</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -68,6 +70,13 @@
                                                        id="{{ $faq->id }}" value="{{ $faq->id }}">
                                             </td>
                                             <td>{{ $faq->question }}</td>
+                                                           <td>{{ $faq->type }}</td>
+                                           
+                                           <td>
+                                               {{ \App\Models\Category::find($faq->service_id)->title ?? 'N/A' }}
+                                           </td>
+                                           
+                                            
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
@@ -77,6 +86,7 @@
                                                     <span class="slider"></span>
                                                 </label>
                                             </td>
+                     
                                             <td>{{ date("d-M-Y", strtotime($faq->created_at))  }}</td>
                                             <td class="text-right py-0 align-middle">
                                                 <div class="btn-group btn-group-sm">
