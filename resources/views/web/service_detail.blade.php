@@ -226,7 +226,7 @@
               </div>
             </div>
         </section> 
-
+        @if(!empty($faqs))
         <section class="col-12 aiport-faq">
             <div class="container">
                 <div class="row justify-content-center">
@@ -261,7 +261,7 @@
                 </div>
             </div>
          </section>
-      
+      @endif
         
         <section class="col-12 home_testimonial">
             <div class="container">

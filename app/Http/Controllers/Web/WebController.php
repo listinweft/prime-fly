@@ -1465,7 +1465,8 @@ public function search_booking_lounch(Request $request)
            $subcategories = Category::where('parent_id',$category->id)->active()->get();
 
             $faqs = Faq::active()
-           ->where('type', 'location')
+           ->where('type', 'service')
+           ->where('service_id', 'category->id')
            ->latest()
            ->take(5)
            ->get();
