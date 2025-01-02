@@ -62,6 +62,38 @@
                                     >{{ isset($faq)?$faq->answer:'' }}</textarea>
                                     <div class="help-block with-errors" id="answer_error"></div>
                                 </div>
+
+                                <div class="form-group col-md-12">
+    <label for="type">Type*</label>
+    <div>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="location" 
+                   {{ (isset($faq) && $faq->type === 'location') || !isset($faq) ? 'checked' : '' }}>
+            Location
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="service"
+                   {{ isset($faq) && $faq->type === 'service' ? 'checked' : '' }}>
+            Service
+        </label>
+    </div>
+    <div class="help-block with-errors" id="type_error"></div>
+</div>
+
+<div class="form-group col-md-12" id="service_dropdown" style="display: none;">
+    <label for="service">Service*</label>
+    <select class="form-control required" id="service" name="service">
+        <option value="" disabled selected>Select a service</option>
+        @foreach($services as $service)
+            <option value="{{ $service->id }}" 
+                {{ isset($faq) && $faq->service_id == $service->id ? 'selected' : '' }}>
+                {{ $service->title }}
+            </option>
+        @endforeach
+    </select>
+    <div class="help-block with-errors" id="service_error"></div>
+</div>
+
                             </div>
                         </div>
                         <div class="card-footer">
@@ -76,4 +108,30 @@
             </div>
         </section>
     </div>
+
+ 
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize display state based on current selection
+        toggleServiceDropdown();
+
+        // Add event listeners to the radio buttons
+        const typeRadios = document.querySelectorAll('input[name="type"]');
+        typeRadios.forEach(radio => {
+            radio.addEventListener('change', toggleServiceDropdown);
+        });
+
+        function toggleServiceDropdown() {
+            const selectedType = document.querySelector('input[name="type"]:checked').value;
+            const serviceDropdown = document.getElementById('service_dropdown');
+            
+            if (selectedType === 'service') {
+                serviceDropdown.style.display = 'block';
+            } else {
+                serviceDropdown.style.display = 'none';
+            }
+        }
+    });
+</script>

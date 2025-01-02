@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\HomeHeading;
 use App\Models\Faq;
+use App\Models\Category;
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -33,7 +34,9 @@ class FaqController extends Controller
     {
         $key = "Create";
         $title = "Create Faq";
-        return view('Admin.faq.form', compact('key', 'title'));
+        $services = Category::whereNull('parent_id')->get();
+
+        return view('Admin.faq.form', compact('key', 'title','services'));
     }
 
     public function faqs_store(Request $request)
@@ -42,6 +45,7 @@ class FaqController extends Controller
         $validatedData = $request->validate([
             'question' => 'required|min:2',
             'answer'=>'required|min:2',
+            'type'=>'required',
             
         ]);
         $blog = new Faq;
@@ -49,7 +53,8 @@ class FaqController extends Controller
 
         $blog->question = $validatedData['question'];
         $blog->answer = $validatedData['answer'];
-      
+        $blog->type = $validatedData['type'];
+        $blog->service_id = $request->service ?? "";
 
         if ($blog->save()) {
             session()->flash('success', 'Faq"' . $request->title . '" has been added successfully');
@@ -65,7 +70,8 @@ class FaqController extends Controller
         $title = "Faq Update";
         $faq = Faq::find($id);
         if ($faq != null) {
-            return view('Admin.faq.form', compact('key', 'faq', 'title'));
+            $services = Category::whereNull('parent_id')->get();
+            return view('Admin.faq.form', compact('key', 'faq', 'title','services'));
         } else {
             return view('Admin.error.404');
         }
@@ -76,11 +82,15 @@ class FaqController extends Controller
         $validatedData = $request->validate([
             'question' => 'required|min:2',
             'answer'=>'required|min:2',
+            'type'=>'required',
             
         ]);
         $faq = Faq::find($id);
         $faq->question = $validatedData['question'];
         $faq->answer = $validatedData['answer'];
+        $faq->type = $validatedData['type'];
+        $faq->service_id = $request->service ?? "";
+
 
         if ($faq->save()) {
             session()->flash('success', 'Faq "' . $request->title . '" has been updated successfully');

@@ -1680,7 +1680,12 @@ public function search_booking_lounch(Request $request)
 
             
             $categorys = $blog->categories();
-            $faqs = Faq::active()->latest()->take(5)->get();
+            $faqs = Faq::active()
+            ->where('type', 'location')
+            ->latest()
+            ->take(5)
+            ->get();
+        
 
              $gallery = LocationGallery::where('location_id',$blog->id)->get();
 
