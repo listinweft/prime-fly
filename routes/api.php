@@ -59,5 +59,6 @@ Route::get('/international-airport-search', [CommonController::class, 'internati
 Route::get('/homebanner', [CommonController::class, 'get_banner']);
 Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
 Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
+Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
 
 

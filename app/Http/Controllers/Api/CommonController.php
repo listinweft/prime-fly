@@ -1576,6 +1576,57 @@ public function cartAddItems_api(Request $request)
 }
 
 
+public function removeCartItemApi(Request $request)
+{
+    // Check if both user_id and cart_id are provided
+    if ($request->has('user_id') && $request->has('cart_id')) {
+        
+        $userId = $request->user_id;
+        $cartId = $request->product_id;
+        
+        // Retrieve or create a session for the user (cart session key)
+        $customer = Customer::where('user_id', $request->user_id)->first();
+
+        if (!$customer) {
+            return response()->json(['status' => false, 'message' => 'Customer not found']);
+        }
+    
+        // Use the customer's id as the session key
+        $sessionKey = $customer->id;
+        
+        // Optional: Set a specific session lifetime (can vary)
+        session(['session_key' => $sessionKey]);
+
+        // Check if the item exists in the cart and then remove it
+        if (Cart::session($sessionKey)->get($cartId)) {
+            Cart::session($sessionKey)->remove($cartId);
+            
+            // Prepare a success response
+            $message = "Item removed from cart successfully";
+            $status = true;
+        } else {
+            $message = "Item not found in the cart.";
+            $status = false;
+        }
+
+        // Get the updated cart count
+        // $cartCount = Cart::session($sessionKey)->getContent()->count();
+        
+        // Return response
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            // 'count' => $cartCount,
+        ]);
+    }
+
+    // Return an error if required fields are missing
+    return response()->json([
+        'status' => false,
+        'message' => 'User ID and Cart ID are required',
+    ], 400);  // Bad Request error
+}
+
 
 
 
