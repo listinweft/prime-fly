@@ -1579,7 +1579,7 @@ public function cartAddItems_api(Request $request)
 public function removeCartItemApi(Request $request)
 {
     // Check if both user_id and cart_id are provided
-    if ($request->has('user_id') && $request->has('cart_id')) {
+    if ($request->has('user_id') && $request->has('product_id')) {
         
         $userId = $request->user_id;
         $cartId = $request->product_id;
@@ -1596,6 +1596,10 @@ public function removeCartItemApi(Request $request)
         
         // Optional: Set a specific session lifetime (can vary)
         session(['session_key' => $sessionKey]);
+
+    //  return    $cartItems = \Cart::session($sessionKey)->getContent()->sort();
+
+  
 
         // Check if the item exists in the cart and then remove it
         if (Cart::session($sessionKey)->get($cartId)) {
