@@ -1451,6 +1451,11 @@ public function cartAddItems_api(Request $request)
     // Use the customer's id as the session key
     $sessionKey = $customer->id;
 
+    // Check if session exists; if not, create one
+    if (!Cart::session($sessionKey)->getContent()) {
+        session(['session_key' => $sessionKey]); // Start a new session if it's missing or corrupted
+    }
+
     // Default or fallback values in case parameters are missing
     $origin = $request->origin ?? '';
     $trans = $request->trans ?? '';
@@ -1472,26 +1477,12 @@ public function cartAddItems_api(Request $request)
 
     // Validate input parameters
     $validator = Validator::make($request->all(), [
-        'qty' => 'required',
+        'qty' => 'required|integer|min:1',
         'user_id' => 'required|integer|min:1',
         'attributeList' => 'nullable|array', // Attribute list if provided
-        'totalprice' => 'required',
-        'totalguest' => 'required',
-        'origin' => 'nullable',
-        'trans' => 'nullable',
-        'destination' => 'nullable',
-        'travel_sector' => 'nullable',
-        'flight_number' => 'nullable',
+        'totalprice' => 'required|numeric|min:0',
+        'totalguest' => 'required|integer|min:1',
         'entry_date' => 'nullable|date',
-        'travel_type' => 'nullable',
-        'terminal' => 'nullable',
-        'bag_count' => 'nullable',
-        'adults' => 'nullable',
-        'infants' => 'nullable',
-        'children' => 'nullable',
-        'pnr' => 'nullable',
-        'exit_time' => 'nullable',
-        'entry_time' => 'nullable',
         'meet_guest' => 'nullable|max:255',
         'meet_guestn' => 'nullable|max:255',
     ]);
@@ -1507,52 +1498,39 @@ public function cartAddItems_api(Request $request)
         return response()->json(['status' => false, 'message' => 'Product not found']);
     }
 
-    // Continue with adding product to the cart
-    $qty = $request->qty ?: 1;
-    $offer_amount = '0.00';
-    $offer_id = '0';
+    // Prepare necessary variables
+    $qty = $request->qty;
     $product_price = $request->totalprice;
 
-    // Process attributes if available
-    $attrText = '';
-    if ($request->attributeList) {
-        $attributeArray = is_array($request->attributeList) ? $request->attributeList : explode(',', $request->attributeList);
-        foreach ($attributeArray as $attr) {
-            $attrText .= "<span>" . $attr . "</span><br/>";
-        }
-    }
+    // Generate unique identifiers for the cart item
+    $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
+    $basePackageId = explode('_', $product->id)[0] ?? $product->id;
+    $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($uniqueId), 0, 8);
 
     try {
-        $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
-        $product_id_parts = explode('_', $product->id);
-        $basePackageId = $product_id_parts[0];
-        $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($uniqueId), 0, 8);
-
         // Add product to the cart
         Cart::session($sessionKey)->add([
             'id' => $uniqueId,
             'name' => $product->title,
-            'price' => $request->totalprice,
+            'price' => $product_price,
             'quantity' => $qty,
             'guest' => $request->totalguest,
             'attributes' => [
                 'guest' => $request->totalguest,
-                'entry_date' => $request->entry_date,
-                'travel_type' => $request->travel_type,
+                'entry_date' => $entry_date,
+                'travel_type' => $travel_type,
                 'setdate' => $setdate,
                 'origin' => $origin,
                 'trans' => $trans,
                 'destination' => $destination,
                 'travel_sector' => $travel_sector,
                 'flight_number' => $flight_number,
-                'terminal' => $request->terminal,
                 'entry_time' => $entry_time,
                 'exit_time' => $exit_time,
                 'bag_count' => $bag_count,
                 'adults' => $adults,
                 'infants' => $infants,
                 'children' => $children,
-                'porter_count' => $request->totalguest,
                 'pnr' => $pnr,
                 'meet_guest' => $meet_guest,
                 'meet_guestn' => $meet_guestn,
