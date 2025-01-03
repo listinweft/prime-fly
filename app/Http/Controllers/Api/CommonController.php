@@ -31,6 +31,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Services\RazorpayService;
 use DateTime;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Session;
 class CommonController extends Controller
 {
 
@@ -1434,6 +1436,146 @@ public function get_banner(Request $request)
         ], 500); // Internal Server Error
     }
 }
+
+
+
+
+
+public function cartAddItems_api(Request $request)
+{
+    // Retrieve customer from the database using user_id from the request
+    $customer = Customer::where('user_id', $request->user_id)->first();
+
+    if (!$customer) {
+        return response()->json(['status' => false, 'message' => 'Customer not found']);
+    }
+
+    // Use the customer's id as the session key
+    $sessionKey = $customer->id;
+
+    // Default or fallback values in case parameters are missing
+    $origin = $request->origin ?? '';
+    $trans = $request->trans ?? '';
+    $destination = $request->destination ?? '';
+    $travel_sector = $request->travel_sector ?? '';
+    $flight_number = $request->flight_number ?? '';
+    $entry_date = $request->entry_date ?? '';
+    $travel_type = $request->travel_type ?? '';
+    $bag_count = $request->bag_count ?? '';
+    $adults = $request->adults ?? '';
+    $infants = $request->infants ?? '';
+    $children = $request->children ?? '';
+    $entry_time = $request->entry_time ?? '';
+    $pnr = $request->pnr ?? '';
+    $exit_time = $request->exit_time ?? '';
+    $meet_guest = $request->meet_guest ?? '';
+    $meet_guestn = $request->meet_guestn ?? '';
+    $setdate = $request->setdate;
+
+    // Validate input parameters
+    $validator = Validator::make($request->all(), [
+        'qty' => 'required',
+        'user_id' => 'required|integer|min:1',
+        'attributeList' => 'nullable|array', // Attribute list if provided
+        'totalprice' => 'required|numeric|min:0',
+        'totalguest' => 'required|integer|min:0',
+        'origin' => 'nullable|string|max:255',
+        'trans' => 'nullable|string|max:255',
+        'destination' => 'nullable|string|max:255',
+        'travel_sector' => 'nullable|string|max:255',
+        'flight_number' => 'nullable|string|max:255',
+        'entry_date' => 'nullable|date',
+        'travel_type' => 'nullable|string|max:255',
+        'terminal' => 'nullable|string|max:255',
+        'bag_count' => 'nullable|integer|min:0',
+        'adults' => 'nullable|integer|min:0',
+        'infants' => 'nullable|integer|min:0',
+        'children' => 'nullable|integer|min:0',
+        'pnr' => 'nullable|string|max:255',
+        'exit_time' => 'nullable|date_format:H:i',
+        'entry_time' => 'nullable|date_format:H:i',
+        'meet_guest' => 'nullable|string|max:255',
+        'meet_guestn' => 'nullable|string|max:255',
+    ]);
+
+    // If validation fails, return the validation error message
+    if ($validator->fails()) {
+        return response()->json(['status' => false, 'message' => $validator->errors()->first()]);
+    }
+
+    // Fetch product using the product_id
+    $product = Product::find($request->product_id);
+    if (!$product) {
+        return response()->json(['status' => false, 'message' => 'Product not found']);
+    }
+
+    // Continue with adding product to the cart
+    $qty = $request->qty ?: 1;
+    $offer_amount = '0.00';
+    $offer_id = '0';
+    $product_price = $request->totalprice;
+
+    // Process attributes if available
+    $attrText = '';
+    if ($request->attributeList) {
+        $attributeArray = is_array($request->attributeList) ? $request->attributeList : explode(',', $request->attributeList);
+        foreach ($attributeArray as $attr) {
+            $attrText .= "<span>" . $attr . "</span><br/>";
+        }
+    }
+
+    try {
+        $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
+        $product_id_parts = explode('_', $product->id);
+        $basePackageId = $product_id_parts[0];
+        $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($uniqueId), 0, 8);
+
+        // Add product to the cart
+        Cart::session($sessionKey)->add([
+            'id' => $uniqueId,
+            'name' => $product->title,
+            'price' => $request->totalprice,
+            'quantity' => $qty,
+            'guest' => $request->totalguest,
+            'attributes' => [
+                'guest' => $request->totalguest,
+                'entry_date' => $request->entry_date,
+                'travel_type' => $request->travel_type,
+                'setdate' => $setdate,
+                'origin' => $origin,
+                'trans' => $trans,
+                'destination' => $destination,
+                'travel_sector' => $travel_sector,
+                'flight_number' => $flight_number,
+                'terminal' => $request->terminal,
+                'entry_time' => $entry_time,
+                'exit_time' => $exit_time,
+                'bag_count' => $bag_count,
+                'adults' => $adults,
+                'infants' => $infants,
+                'children' => $children,
+                'porter_count' => $request->totalguest,
+                'pnr' => $pnr,
+                'meet_guest' => $meet_guest,
+                'meet_guestn' => $meet_guestn,
+                'unique_package_id' => $uniquePackageId,
+            ],
+            'conditions' => [],
+        ]);
+
+        // Remove from wishlist if needed
+        $wish_list = app('wishlist');
+        if ($wish_list->get($product->id)) {
+            $wish_list->remove($product->id);
+        }
+
+        return response()->json(['status' => true, 'message' => 'Product added to cart']);
+    } catch (Exception $e) {
+        return response()->json(['status' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+
 
 
 

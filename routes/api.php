@@ -58,3 +58,6 @@ Route::get('/main-search', [CommonController::class, 'main_search_api']);
 Route::get('/international-airport-search', [CommonController::class, 'international_search']);
 Route::get('/homebanner', [CommonController::class, 'get_banner']);
 Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
+Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
+
+
