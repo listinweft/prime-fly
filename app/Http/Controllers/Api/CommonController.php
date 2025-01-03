@@ -1492,8 +1492,8 @@ public function cartAddItems_api(Request $request)
         'pnr' => 'nullable|string|max:255',
         'exit_time' => 'nullable|date_format:H:i',
         'entry_time' => 'nullable|date_format:H:i',
-        'meet_guest' => 'nullable|string|max:255',
-        'meet_guestn' => 'nullable|string|max:255',
+        'meet_guest' => 'nullable|max:255',
+        'meet_guestn' => 'nullable|max:255',
     ]);
 
     // If validation fails, return the validation error message
