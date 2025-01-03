@@ -212,23 +212,19 @@ public function getCartData(Request $request)
     $cartData = [];
 
     foreach ($cartItems as $row) {
+        // Assuming you can use the original product ID to generate the package ID only once
         $productIdParts = explode('_', $row->id);
         $originalProductId = $productIdParts[0];
         $product = Product::find($originalProductId);
 
-        $uniqueId = $product->id . '_' . time() . '_' . Str::random(8);
-            
-        // Extract the base part of the product ID for the package ID
-        $product_id_parts = explode('_', $product->id);
-        $basePackageId = $product_id_parts[0];
-        
-        // Generate the unique package ID
-        $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($uniqueId), 0, 8);
-
         if ($product) {
-            $category = Category::where('id', $product->category_id)
-                ->whereNull('parent_id')
-                ->first();
+            // We generate the package ID once, only when adding to the cart (to keep it static)
+            // You can store the unique package ID as part of the product, then use the same one later
+            $basePackageId = $product->id;  // Use product ID for the base part of the package ID
+            $uniquePackageId = 'PKG-' . $basePackageId . '-' . substr(md5($product->id), 0, 8);
+
+            // Now you can directly reference that `uniquePackageId` rather than regenerating it
+            $category = Category::where('id', $product->category_id)->whereNull('parent_id')->first();
 
             if ($category) {
                 $travelType = $row->attributes['travel_type'] ?? null;
@@ -243,10 +239,10 @@ public function getCartData(Request $request)
                 $formattedPrice = number_format($row->price, 2);
 
                 $cartData[] = [
-                    'id' => $uniqueId,
-                    'image'=>$product->thumbnail_image_webp,
-                    'webp'=>$product->thumbnail_image_webp,
-                    'unique_package_id' => $uniquePackageId,
+                    'id' => $row->id,  // Use the stable row ID instead of regenerating it
+                    'image' => $product->thumbnail_image_webp,
+                    'webp' => $product->thumbnail_image_webp,
+                    'unique_package_id' => $uniquePackageId,  // Static package ID
                     'product_title' => $product->title,
                     'category_title' => $category->title,
                     'location_title' => $locationTitle,
@@ -261,6 +257,8 @@ public function getCartData(Request $request)
 
     return response()->json(['cart_items' => $cartData]);
 }
+
+
 public function customerorders(Request $request)
 {
 
@@ -1578,58 +1576,51 @@ public function cartAddItems_api(Request $request)
 
 public function removeCartItemApi(Request $request)
 {
-    // Check if both user_id and cart_id are provided
+    // Check if both user_id and product_id are provided
     if ($request->has('user_id') && $request->has('product_id')) {
         
         $userId = $request->user_id;
-        $cartId = $request->product_id;
-        
-        // Retrieve or create a session for the user (cart session key)
-        $customer = Customer::where('user_id', $request->user_id)->first();
+        $cartId = $request->product_id; // product_id will be the uniqueId used to add the item to the cart
+
+        // Retrieve the customer and their session
+        $customer = Customer::where('user_id', $userId)->first();
 
         if (!$customer) {
             return response()->json(['status' => false, 'message' => 'Customer not found']);
         }
-    
-        // Use the customer's id as the session key
+
         $sessionKey = $customer->id;
-        
-        // Optional: Set a specific session lifetime (can vary)
-        session(['session_key' => $sessionKey]);
-
-    //  return    $cartItems = \Cart::session($sessionKey)->getContent()->sort();
-
-  
 
         // Check if the item exists in the cart and then remove it
-        if (Cart::session($sessionKey)->get($cartId)) {
+        $cartItem = Cart::session($sessionKey)->get($cartId);
+
+        if ($cartItem) {
+            // Remove the item using the same cartId (uniqueId)
             Cart::session($sessionKey)->remove($cartId);
-            
-            // Prepare a success response
+
+            // Prepare success response
             $message = "Item removed from cart successfully";
             $status = true;
         } else {
+            // Item not found in the cart
             $message = "Item not found in the cart.";
             $status = false;
         }
 
-        // Get the updated cart count
-        // $cartCount = Cart::session($sessionKey)->getContent()->count();
-        
-        // Return response
+        // Return the response with the status and message
         return response()->json([
             'status' => $status,
             'message' => $message,
-            // 'count' => $cartCount,
         ]);
     }
 
-    // Return an error if required fields are missing
+    // If user_id or product_id is missing in the request
     return response()->json([
         'status' => false,
-        'message' => 'User ID and Cart ID are required',
-    ], 400);  // Bad Request error
+        'message' => 'User ID and Product ID are required',
+    ], 400); // Bad Request error
 }
+
 
 
 
