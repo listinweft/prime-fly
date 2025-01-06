@@ -831,6 +831,14 @@ $(document).ready(function () {
                             window.location.href = base_url + '/';  // Redirect to home page
                         }, 2000);
                     }
+                else  {
+                        // alert("Cart is empty, redirecting to home.");
+                        
+                        // Redirect to the home page after 2 seconds
+                        
+                            window.location.href = base_url + '/cart';  // Redirect to home page
+                      
+                    }
                 } else {
                     Toast.fire('Error', response.message, "error");
                 }
