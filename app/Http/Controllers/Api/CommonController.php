@@ -239,7 +239,7 @@ public function getCartData(Request $request)
                 $formattedPrice = number_format($row->price, 2);
 
                 $cartData[] = [
-                    'product_id' =>$product->id,
+                    'product_id' => $product->id,
                     'id' => $row->id,  // Use the stable row ID instead of regenerating it
                     'image' => $product->thumbnail_image_webp,
                     'webp' => $product->thumbnail_image_webp,
