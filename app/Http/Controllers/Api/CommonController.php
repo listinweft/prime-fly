@@ -211,6 +211,12 @@ public function getCartData(Request $request)
 
     $cartData = [];
 
+    $totalPriceSum = 0;
+   $totalDiscountedSum = 0;
+   $totalIGSTSum = 0;
+   $totalCGSTSum = 0;
+   $totalSGSTSum = 0;
+
     foreach ($cartItems as $row) {
         // Assuming you can use the original product ID to generate the package ID only once
         $productIdParts = explode('_', $row->id);
@@ -237,6 +243,13 @@ public function getCartData(Request $request)
 
                 $guestCount = $row->attributes['guest'] ?? 0;
                 $formattedPrice = number_format($row->price, 2);
+               
+                $totalPriceSum += $row->price;
+                $totalDiscountedSum += ($row->price - ($row->price * 0.18));
+                $totalIGSTSum += ($row->price * 0.18);
+                $totalCGSTSum += ($row->price * 0.09);
+                $totalSGSTSum += ($row->price * 0.09);
+
 
                 $cartData[] = [
                     'product_id' => $product->id,
@@ -251,14 +264,27 @@ public function getCartData(Request $request)
                     'service_type' => $product->service_type,
                     'set_date' => $row->attributes['setdate'] ?? null,
                     'meet_guest' => $row->attributes['meet_guest'] ?? null,
-                    'meet_guestn' => $row->attributes['meet_guestn'] ?? null,
+                    'meet_guestn' => $row->attributes['meet_gue+stn'] ?? null,
                     'total_price' => $formattedPrice,
+                    
                 ];
             }
         }
     }
 
-    return response()->json(['cart_items' => $cartData]);
+    $cartSummary = [
+        'total_price_sum' => number_format($totalPriceSum, 2),
+        'total_discounted_sum' => number_format($totalDiscountedSum, 2),
+        'total_igst_sum' => number_format($totalIGSTSum, 2),
+        'total_cgst_sum' => number_format($totalCGSTSum, 2),
+        'total_sgst_sum' => number_format($totalSGSTSum, 2)
+    ];
+
+return response()->json([
+    'cart_items' => $cartData,
+    'cart_summary' => $cartSummary
+]);
+
 }
 
 
