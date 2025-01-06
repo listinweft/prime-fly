@@ -1451,10 +1451,8 @@ public function cartAddItems_api(Request $request)
     // Use the customer's id as the session key
     $sessionKey = $customer->id;
 
-    // Check if session exists; if not, create one
-    if (!Cart::session($sessionKey)->getContent()) {
-        session(['session_key' => $sessionKey]); // Start a new session if it's missing or corrupted
-    }
+    // Load the cart session for the user
+    Cart::session($sessionKey);
 
     // Default or fallback values in case parameters are missing
     $origin = $request->origin ?? '';
