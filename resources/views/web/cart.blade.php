@@ -182,6 +182,12 @@
 
 @else
 
+<div id="cartCountContainer">
+    <span id="cartCount" style="display: none;">0</span> <!-- Initially hidden -->
+    <i class="cart-icon"></i> <!-- Cart icon (add your preferred icon here) -->
+</div>
+
+
 <div class="cart-empty text-center">
     <img class="mb-3" src="{{ asset('frontend/img/empty-cart.png')}}" alt="logo">
     <h4>Your cart is empty</h4>

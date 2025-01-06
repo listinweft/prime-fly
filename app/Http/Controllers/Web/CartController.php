@@ -571,6 +571,7 @@ class CartController extends Controller
         if ($request->cart_id) {
             if (Session::has('session_key')) {
                 $sessionKey = session('session_key');
+    
                 if (Cart::session($sessionKey)->get($request->cart_id)) {
                     Cart::session($sessionKey)->remove($request->cart_id);
                     $message = "Item removed from cart successfully";
@@ -581,10 +582,13 @@ class CartController extends Controller
                     $icon = "fa fa-check";
                     $type = "success";
                 }
+    
+                // Check if the cart is empty and handle session variables accordingly
                 if (!Cart::session($sessionKey)->isEmpty()) {
                     $cartItem = Cart::session($sessionKey)->getContent();
-                    $cartCount = $cartItem->count();
+                    $cartCount = $cartItem->count();  // The number of items left in the cart
                 } else {
+                    // If the cart is empty, clear all session data related to the cart
                     session()->forget('session_key');
                     session()->forget('selected_shipping_address');
                     session()->forget('selected_customer_address');
@@ -592,19 +596,30 @@ class CartController extends Controller
                     session()->forget('shipping_charge');
                     session()->forget('coupons');
                     session()->forget('coupon_value');
-                    $cartCount = '0';
+                    $cartCount = 0;  // Cart is empty
                 }
-                return response(array(
+    
+                // Return the response including the cart count
+                return response([
                     'status' => true,
-                    'data' => [],
                     'message' => $message,
-                    'count' => $cartCount,
+                    'cartCount' => $cartCount,  // Include cart count here
                     'icon' => $icon,
                     'type' => $type
-                ), 200, []);
+                ], 200);
             }
         }
+    
+        // In case no cart_id is found, or any other conditions fail
+        return response([
+            'status' => false,
+            'message' => 'Cart ID is required or not valid',
+            'cartCount' => 0,
+            'icon' => 'fa-times',
+            'type' => 'error'
+        ], 400);
     }
+    
 
     public function wishlist()
     {
