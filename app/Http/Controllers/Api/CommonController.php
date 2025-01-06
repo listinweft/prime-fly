@@ -239,6 +239,7 @@ public function getCartData(Request $request)
                 $formattedPrice = number_format($row->price, 2);
 
                 $cartData[] = [
+                    'product_id' =>$product->id,
                     'id' => $row->id,  // Use the stable row ID instead of regenerating it
                     'image' => $product->thumbnail_image_webp,
                     'webp' => $product->thumbnail_image_webp,
@@ -249,6 +250,8 @@ public function getCartData(Request $request)
                     'guest_count' => $guestCount,
                     'service_type' => $product->service_type,
                     'set_date' => $row->attributes['setdate'] ?? null,
+                    'meet_guest' => $row->attributes['meet_guest'] ?? null,
+                    'meet_guestn' => $row->attributes['meet_guestn'] ?? null,
                     'total_price' => $formattedPrice,
                 ];
             }
