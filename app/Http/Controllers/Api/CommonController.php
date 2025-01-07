@@ -1573,7 +1573,7 @@ public function cartAddItems_api(Request $request)
             'name' => $product->title,
             'price' => $product_price,
             'quantity' => $qty,
-            'guest' => $request->total_guest,
+            'guest' => $request->totalguest,
             'attributes' => [
                 'guest' => $request->totalguest,
                 'entry_date' => $entry_date,
