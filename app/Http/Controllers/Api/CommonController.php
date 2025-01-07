@@ -671,7 +671,7 @@ public function search_booking_lounch_api(Request $request)
     return response()->json([
         'status' => 'success',
         'category_title' => $categoryTitle,
-        'total_amounts' => $result
+        'data' => $result
     ]);
 }
 public function searchBookingBaggageApi(Request $request)
