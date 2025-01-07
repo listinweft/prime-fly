@@ -568,6 +568,7 @@ private function calculateTotalAmounts_transit($data)
 
         $result[] = [
             'product' => $product,
+            'travel_details' => [
             'location_title' => $product->location_title,
             'location_code' => $product->location_code,
             'total_amount' => $totalAmount,
@@ -585,6 +586,7 @@ private function calculateTotalAmounts_transit($data)
             'children' => $data['childrent'],
             'pnr' => $data['pnr'] ?? '',
             'meet_guest' => $guestCount,
+            ],
         ];
     }
 
@@ -655,15 +657,18 @@ public function search_booking_lounch_api(Request $request)
         // Add product details to the result array
         $result[] = [
             'product' => $product,
-            'location_title' => $product->location_title,
-            'total_amount' => $totalAmount,
-            'entry_date' => $data['entry_date'] ?? '',
-            'total_guest' => $data['adults'],
-            'origin' => $data['origin'],
-            'destination' => $data['destination'],
-            'flight_number' => $data['flight_number'],
-            'travel_type' => 'departure',
-            'meet_guest' => 1,
+            'travel_details' => [
+                'location_title' => $product->location_title,
+                'total_amount' => $totalAmount,
+                'entry_date' => $data['entry_date'] ?? '',
+                'total_guest' => $data['adults'],
+                'origin' => $data['origin'],
+                'destination' => $data['destination'],
+                'flight_number' => $data['flight_number'],
+                'travel_type' => 'departure',
+                'meet_guest' => 1,
+            ],
+
         ];
     }
 
@@ -739,6 +744,10 @@ public function searchBookingBaggageApi(Request $request)
 
         $result[] = [
             'product' => $product,
+
+           
+
+            'travel_details' => [
             'location_title' => $product->location_title,
             'total_amount' => $totalAmount,
             'setdate' => $setdate,
@@ -747,7 +756,9 @@ public function searchBookingBaggageApi(Request $request)
             'destination' => $data['destination'],
             'flight_number' => $data['flight_number'],
             'terminal' => $data['terminal'],
-            'meet_guestn' => 1
+            'meet_guestn' => 1,
+
+            ],
         ];
     }
 
@@ -821,6 +832,7 @@ public function search_booking_entry_ticket_api(Request $request)
 
         $result[] = [
             'product' => $product,
+            'travel_details' => [
             'location_title' => $product->location_title,
             'total_amount' => $totalAmount,
             'setdate' => $entryDate,
@@ -830,6 +842,7 @@ public function search_booking_entry_ticket_api(Request $request)
             'entry_date' => $entryDate,
             'entry_time' => $data['entry_time'],
             'meet_guestn' => 1
+            ],
         ];
     }
 
@@ -929,6 +942,8 @@ public function search_booking_carparking(Request $request)
         // Store the result for each product
         $result[] = [
             'product_id' => $product->id,
+
+            'travel_details' => [
             'location_title' => $product->location_title,
             'total_amount' => $totalAmount, // Total amount after applying pricing rules
             'entry_date' => $data['entry_date'],
@@ -939,6 +954,7 @@ public function search_booking_carparking(Request $request)
             'terminal' => $data['terminal'],
             'totalguest' => $data['count'],
             'meet_guestn' => 1
+            ],
         ];
     }
 
@@ -1023,6 +1039,7 @@ public function searchBookingPorter(Request $request)
         // Prepare result array
         $result[] = [
             'product' => $product,
+            'travel_details' => [
             'location_title' => $product->location_title,
             'total_amount' => $totalAmount,
             'setdate' => $data['entry_date'] ?? null,
@@ -1035,6 +1052,7 @@ public function searchBookingPorter(Request $request)
             'travel_type' => $data['travel_type'],
             'porter_count' => $data['count'],
             'meet_guestn' => 1
+            ],
         ];
     }
 
@@ -1182,6 +1200,7 @@ public function search_booking_cloakroom_api(Request $request)
         // Prepare result array
         $result[] = [
             'product' => $product,
+            'travel_details' => [
             'location_title' => $product->location_title,
             'total_amount' => $totalAmount, // Use the calculated total amount
             'setdate' => $data['entry_date'],
@@ -1194,6 +1213,7 @@ public function search_booking_cloakroom_api(Request $request)
             'exit_time' => $data['exit_time'],
             'bag_count' => $data['count'],
             'meet_guestn' => 1
+            ],
         ];
     }
 
