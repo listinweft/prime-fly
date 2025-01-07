@@ -253,6 +253,7 @@ public function getCartData(Request $request)
 
                 $cartData[] = [
                     'product_id' => $product->id,
+                    'category_id' => $product->category_id,
                     'id' => $row->id,  // Use the stable row ID instead of regenerating it
                     'image' => $product->thumbnail_image,
                     'webp' => $product->thumbnail_image,
