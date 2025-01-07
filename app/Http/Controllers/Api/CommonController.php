@@ -479,6 +479,7 @@ private function calculateTotalAmounts($data)
                 'adults' => $data['adults'],
                 'infants' => $data['infants'],
                 'children' => $data['children'],
+                'meet_guest' => $guestCount,
             ],
         ];
     }
@@ -570,9 +571,10 @@ private function calculateTotalAmounts_transit($data)
             'product' => $product,
             'location_title' => $product->location_title,
             'location_code' => $product->location_code,
+            
+            'total_amount' => $totalAmount,
             'travel_details' => [
           
-            'total_amount' => $totalAmount,
             'set_date' => $data['datepickert'],
             'total_guest' => $guestCount,
             'origin' => $data['origint'],
