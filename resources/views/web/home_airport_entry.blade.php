@@ -104,7 +104,7 @@ $(document).ready(function() {
                 showMeridian: false,
                 showSeconds: true,
                 defaultTime: false,
-                minTime: getCurrentTime(today) // Set minTime to the current time
+                minTime: null // Set minTime to the current time
             });
         } else {
             // For future dates, allow all times
