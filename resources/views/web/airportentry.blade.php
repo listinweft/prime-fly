@@ -96,11 +96,19 @@ $(document).ready(function() {
         defaultTime: false
     });
 
+    function getCurrentTime(date) {
+    var hours = date.getHours().toString().padStart(2, '0');
+    var minutes = date.getMinutes().toString().padStart(2, '0');
+    var seconds = date.getSeconds().toString().padStart(2, '0');
+    return hours + ':' + minutes + ':' + seconds;
+}
+
     // Function to update minTime based on selected date
     function updateMinTime(selectedDate) {
         var today = new Date();
         var tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1); // Set to tomorrow
+        var currentTime = getCurrentTime(today); 
 
         // Clear existing timepicker selections
         $('.timepickerair').timepicker('remove');
@@ -111,7 +119,8 @@ $(document).ready(function() {
                 showMeridian: false,
                 showSeconds: true,
                 defaultTime: false,
-                minTime: null // Set minTime to the current time
+                minTime: currentTime,  // Set minTime to the current time
+                  maxTime: "23:59:00"  
             });
         } else {
             // For future dates, allow all times
@@ -120,18 +129,12 @@ $(document).ready(function() {
                 showSeconds: true,
                 defaultTime: false,
                 minTime: null,
-                
+                maxTime: null
             });
         }
     }
 
-    // Function to get the current time in hh:mm:ss format for a specific date
-    function getCurrentTime(date) {
-        var hours = date.getHours().toString().padStart(2, '0');
-        var minutes = date.getMinutes().toString().padStart(2, '0');
-        var seconds = date.getSeconds().toString().padStart(2, '0');
-        return hours + ':' + minutes + ':' + seconds;
-    }
+ 
 
     // Ensure minTime is updated on page load if a date is pre-selected or defaults to today
     var datepickerVal = $('#datepickerair').val() || $('#exitdatepickerair').val();
