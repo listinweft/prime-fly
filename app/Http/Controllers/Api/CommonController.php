@@ -1085,7 +1085,7 @@ public function getInternationalAirports(Request $request)
     // Generate cache key using pagination
     $cacheKey = 'international_airports_page_' . $request->input('page', 1) . '_per_page_' . $perPage;
 
-    $locationsFromDb = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($perPage) {
+    $locationsFromDb = Cache::remember($cacheKey, now()->addMinutes(20), function () use ($perPage) {
         return DB::table('international_airport')
             ->select('faa', 'name')
             ->whereRaw("faa NOT REGEXP '[0-9]'")
