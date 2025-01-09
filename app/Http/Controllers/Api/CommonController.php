@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Customer;
@@ -1080,29 +1080,29 @@ public function searchBookingPorter(Request $request)
 
 public function getInternationalAirports(Request $request)
 {
-    // Define the number of items per page (default or from the request)
-    $perPage = $request->input('per_page', 50); // Default is 10 items per page
+    $perPage = $request->input('per_page', 50);
 
-    // Fetch locations from the database with pagination
-    $locationsFromDb = DB::table('international_airport')
-    ->select('faa', 'name')
-    // Exclude entries where FAA contains any digit
-    ->whereRaw("faa NOT REGEXP '[0-9]'")
-    ->paginate($perPage)
-    ->through(function ($location) {
-        return [
-            'fs' => $location->faa,  // FAA code
-            'city' => $location->name // City name
-        ];
+    // Generate cache key using pagination
+    $cacheKey = 'international_airports_page_' . $request->input('page', 1) . '_per_page_' . $perPage;
+
+    $locationsFromDb = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($perPage) {
+        return DB::table('international_airport')
+            ->select('faa', 'name')
+            ->whereRaw("faa NOT REGEXP '[0-9]'")
+            ->paginate($perPage)
+            ->through(function ($location) {
+                return [
+                    'fs' => $location->faa,
+                    'city' => $location->name,
+                ];
+            });
     });
 
-    // Return the paginated data as a JSON response
     return response()->json([
         'status' => 'success',
         'locations' => $locationsFromDb
     ]);
 }
-
 public function international_search(Request $request)
 {
     // Retrieve the search query from the request
