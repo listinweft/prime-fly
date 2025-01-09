@@ -35,7 +35,7 @@
                     </div>
                     <div class="booking_field">
                         <div class="custom-time-picker">
-                            <input class="form-control timepickercar" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
+                            <input class="form-control timepickercarentry" type="text" name="entry_time" autocomplete="off" placeholder="Entry Time" id="starttime">
                         </div>
                     </div>
                     <div class="booking_field">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="booking_field">
                         <div class="custom-time-picker">
-                            <input class="form-control timepickercar" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
+                            <input class="form-control timepickercarexit" type="text" name="exit_time" autocomplete="off" placeholder="Exit Time" id="endtime">
                         </div>
                     </div>
                     <div class="booking_field">
@@ -80,66 +80,63 @@ $(document).ready(function() {
     format: 'yyyy-mm-dd',
     minDate: 0,
     autoclose: true,
-    onSelect: function(dateText, inst) {
+    onSelect: function (dateText, inst) {
         var selectedDate = new Date(dateText);
         if (inst.id === 'datepickercar') {
-            // Entry date selected, restrict exit date
+            // When entry date is selected
             $('#exitdatepickercar').datepicker('option', 'minDate', selectedDate);
-            // Clear selected exit date if it's before entry date
+
+            // Ensure exit date is valid; clear if invalid
             var exitDate = $('#exitdatepickercar').datepicker('getDate');
             if (exitDate && exitDate < selectedDate) {
-                $('#exitdatepickercar').val('');
+                $('#exitdatepickercar').val(''); // Clear exit date if it's before the entry date
             }
-        } else {
-            // Exit date selected, restrict entry date
+        } else if (inst.id === 'exitdatepickercar') {
+            // When exit date is selected
             $('#datepickercar').datepicker('option', 'maxDate', selectedDate);
         }
 
-        // Update minTime for timepicker based on selected date
-        updateMinTime(selectedDate);
-
-        // Validate date fields (if using jQuery Validation)
-        $('#datepickercar').valid();
-        $('#exitdatepickercar').valid();
+        // Update minTime for timepickers based on the selected date
+        updateMinTime(selectedDate, inst.id === 'datepickercar');
     }
 });
 
-// Initialize timepicker
-$('.timepickercar').timepicker({
+// Initialize timepickers with the updated classes
+$('.timepickercarentry, .timepickercarexit').timepicker({
     showMeridian: false,
     showSeconds: true,
     defaultTime: false
 });
 
-// Function to update minTime based on selected date
-function updateMinTime(selectedDate) {
+// Function to update minTime for entry and exit timepickers
+function updateMinTime(selectedDate, isEntryDatePicker) {
     var today = new Date();
-    var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1); // Set to tomorrow
-
-    // Clear existing timepicker selections
-    $('.timepickercar').timepicker('remove');
+    var currentTime = getCurrentTime(today);
 
     if (selectedDate.toDateString() === today.toDateString()) {
-        // If the selected date is today, restrict past times
-        $('.timepickercar').timepicker({
-            showMeridian: false,
-            showSeconds: true,
-            defaultTime: false,
-            minTime: getCurrentTime(today) // Set minTime to the current time
-        });
+        if (isEntryDatePicker) {
+            // If entry date is today, restrict entry time
+            $('.timepickercarentry').timepicker('option', {
+                minTime: currentTime,
+                maxTime: '23:59:00'
+            });
+        } else {
+            // If exit date is today, restrict exit time
+            $('.timepickercarexit').timepicker('option', {
+                minTime: currentTime,
+                maxTime: '23:59:00'
+            });
+        }
     } else {
-        // For future dates, allow all times
-        $('.timepickercar').timepicker({
-            showMeridian: false,
-            showSeconds: true,
-            defaultTime: false,
-            minTime: null
+        // Allow full time range for future or non-today dates
+        $('.timepickercarentry, .timepickercarexit').timepicker('option', {
+            minTime: null,
+            maxTime: '23:59:00'
         });
     }
 }
 
-// Function to get the current time in hh:mm:ss format for a specific date
+// Function to get the current time in hh:mm:ss format
 function getCurrentTime(date) {
     var hours = date.getHours().toString().padStart(2, '0');
     var minutes = date.getMinutes().toString().padStart(2, '0');
@@ -147,14 +144,15 @@ function getCurrentTime(date) {
     return hours + ':' + minutes + ':' + seconds;
 }
 
-// Ensure minTime is updated on page load if a date is pre-selected or defaults to today
+// Ensure minTime updates on page load if a date is preselected
 var datepickerVal = $('#datepickercar').val() || $('#exitdatepickercar').val();
 if (datepickerVal) {
     var selectedDate = new Date(datepickerVal);
-    updateMinTime(selectedDate);
+    updateMinTime(selectedDate, true);
 } else {
-    updateMinTime(new Date()); // Update minTime based on the current date
+    updateMinTime(new Date(), true);
 }
+
 
 
     // Form Validation

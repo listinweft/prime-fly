@@ -256,7 +256,7 @@ public function getCartData(Request $request)
                     'categoryimage' => $category->image_webp,
                     'id' => $row->id,  // Use the stable row ID instead of regenerating it
                     'image' => $product->thumbnail_image,
-                    'webp' => $product->thumbnail_image,
+                    'webp' => $product->thumbnail_image_webp,
                     'unique_package_id' =>  $row->attributes['unique_package_id'] ?? null,  // Static package ID
                     'product_title' => $product->title,
                     'category_title' => $category->title,
@@ -955,6 +955,7 @@ public function search_booking_carparking(Request $request)
            
            // Total amount after applying pricing rules
             'entry_date' => $data['entry_date'],
+            'setdate' => $data['entry_date'],
             'exit_date' => $data['exit_date'],
             'entry_time' => $data['entry_time'],
             'exit_time' => $data['exit_time'],
