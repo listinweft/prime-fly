@@ -576,7 +576,7 @@ private function calculateTotalAmounts_transit($data)
             'total_amount' => $totalAmount,
             'travel_details' => [
           
-            'set_date' => $data['datepickert'],
+            'setdate' => $data['datepickert'],
             'total_guest' => $guestCount,
             'origin' => $data['origint'],
             'trans' => $data['trans'],
