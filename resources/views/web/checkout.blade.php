@@ -11,6 +11,7 @@
       </div>
    </div>
 </section>
+@if (Session::has('session_key') && !Cart::session($sessionKey)->isEmpty())
 <section class="col-12 cart-wrap">
    <div class="container">
    <div class="d-flex justify-content-center">
@@ -490,6 +491,7 @@
       </div>
    </div>
 </section>
+@endif
 @endsection
 @push('scripts')
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
