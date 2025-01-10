@@ -153,8 +153,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url(Helper::sitePrefix().'banner/list')}}"
-               class="nav-link {{ (Request::segment(3)=='list')?'active':'' }}">
+            <a href="{{url(Helper::sitePrefix().'home/slider-banner')}}"
+               class="nav-link {{ (Request::segment(3)=='slider-banner')?'active':'' }}">
                <i class="fas fa-circle nav-icon"></i>
 
                 <p>Home Banner</p>

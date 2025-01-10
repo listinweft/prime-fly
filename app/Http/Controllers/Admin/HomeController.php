@@ -675,7 +675,7 @@ if (!is_array($category_id)) {
     /*********************** Banners Starts here *******************************/
     public function banner()
     {
-        $title = "Home Slider List";
+        $title = "Home banners List";
         $bannerList = HomeBanner::get();
         return view('Admin.home.banner.list', compact('bannerList', 'title'));
     }
@@ -683,8 +683,9 @@ if (!is_array($category_id)) {
 
     public function banner_create()
     {
+        
         $key = "Create";
-        $title = "Create Home Slider";
+        $title = "Create Home Banners ";
         return view('Admin.home.banner.form', compact('key', 'title'));
     }
 
@@ -694,7 +695,7 @@ if (!is_array($category_id)) {
         $validatedData = $request->validate([
 //            'title' => 'required|min:2|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'image_attribute' => 'required|min:5',
+            // 'image_attribute' => 'required|min:5',
         ]);
         $banner = new HomeBanner;
         if ($request->hasFile('image')) {
@@ -702,12 +703,17 @@ if (!is_array($category_id)) {
             $banner->desktop_image = Helper::uploadFile($request->image, 'uploads/home/banner/desktop_image/', $request->title);
         }
 
-       $banner->title = $request->title;
-       $banner->subtitle = $request->sub_title;
-       $banner->button_text = $request->button_text;
-       $banner->description= $request->description;
-        $banner->image_attribute = $validatedData['image_attribute'];
-        $banner->url = $request->url;
+       $banner->title = $request->title ?? null;
+       $banner->mode = $request->banner_type ?? 'home';
+
+
+       $banner->subtitle = $request->sub_title ?? null;
+       $banner->button_text = $request->button_text ?? null;
+       $banner->description = $request->description ?? null;
+       $banner->url = $request->url ?? null;
+
+       $banner->image_attribute = $request->image_attribute ?? null;
+      
         $sort_order = HomeBanner::latest('sort_order')->first();
         if ($sort_order) {
             $sort_number = ($sort_order->sort_order + 1);
@@ -717,7 +723,7 @@ if (!is_array($category_id)) {
         $banner->sort_order = $sort_number;
 
         if ($banner->save()) {
-            session()->flash('success', "Home Slider image has been added successfully");
+            session()->flash('success', "Home  image has been added successfully");
             return redirect(Helper::sitePrefix() . 'home/slider-banner');
         } else {
             return back()->with('error', 'Error while creating the banner');
@@ -744,7 +750,7 @@ if (!is_array($category_id)) {
 //            'title' => 'required|min:2|max:255',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'mobile_image' => 'image|mimes:jpeg,png,jpg|max:2048',
-            'image_attribute' => 'required|min:5',
+            // 'image_attribute' => 'required|min:5',
         ]);
         if ($request->hasFile('image')) {
             Helper::deleteFile($banner, 'desktop_image');
@@ -754,15 +760,19 @@ if (!is_array($category_id)) {
             $banner->desktop_image = Helper::uploadFile($request->image, 'uploads/home/banner/desktop_image/', $request->title);
         }
         //        $banner->title = $request->title;
-        $banner->title = $request->title;
-        $banner->subtitle = $request->sub_title;
-        $banner->button_text = $request->button_text;
-        $banner->description= $request->description;
-        $banner->image_attribute = $validatedData['image_attribute'];
-        $banner->url = $request->url;
+        $banner->title = $request->title ?? null;
+       $banner->mode = $request->banner_type ?? 'home';
+
+
+       $banner->subtitle = $request->sub_title ?? null;
+       $banner->button_text = $request->button_text ?? null;
+       $banner->description = $request->description ?? null;
+       $banner->url = $request->url ?? null;
+        $banner->image_attribute = $request->image_attribute ?? null;
+       
         $banner->updated_at = now();
         if ($banner->save()) {
-            session()->flash('success', "Home Slider image has been updated successfully");
+            session()->flash('success', "Home  image has been updated successfully");
             return redirect(Helper::sitePrefix() . 'home/slider-banner');
         } else {
             return back()->with('error', 'Error while updating the banner');

@@ -390,10 +390,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
         Route::post('delete', [AdvertisementController::class, 'delete_advertisement']);
     });
 
-    Route::prefix('banner')->group(function () {
-        Route::get('/{type}', [BannerController::class, 'banner']);
-        Route::post('{type}', [BannerController::class, 'banner_store']);
-    });
+    // Route::prefix('banner')->group(function () {
+    //     Route::get('/{type}', [BannerController::class, 'banner']);
+    //     Route::post('{type}', [BannerController::class, 'banner_store']);
+    // });
 
     Route::prefix('blog')->group(function () {
         Route::get('/', [BlogController::class, 'blog']);

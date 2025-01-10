@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Home Slider</h1>
+                        <h1><i class="nav-icon fas fa-user-shield"></i> Manage Home Banner</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -82,7 +82,7 @@
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'home/slider-banner/create')}}"
                                    class="btn btn-success pull-right">Add
-                                    Slider <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
+                                    Baneer <i class="fa fa-plus-circle pull-right mt-1 ml-2"></i></a>
                             </div>
                             <div class="card-body">
                                 <table class="table table-bordered table-hover dataTable">
@@ -91,7 +91,8 @@
                                         <th>#</th>
                                         <th>Title</th>
                                         <th>Slider Image</th>
-                                        <th>Sort Order</th>
+                                        <th>Type</th>
+                                        <!-- <th>Sort Order</th> -->
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="not-sortable">Actions</th>
@@ -105,8 +106,11 @@
                                             <td>
                                                 <img src="{{asset($banner->desktop_image)}}" alt="" height="100">
                                             </td>
+
+                                            <td>{{ $banner->mode === 'offer' ? 'Offer Banner' : 'Home Banner' }}</td>
+
                                          
-                                            <td>
+                                            <!-- <td>
                                                @if($banner->banner_type!='video')
                                                 <input type="text" name="banner_order"
                                                        id="banner_order_{{$loop->iteration}}"
@@ -114,7 +118,7 @@
                                                        class="common_sort_order" style="width:25%"
                                                        value="{{$banner->sort_order}}">
                                                 @endif
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
