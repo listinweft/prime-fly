@@ -672,7 +672,7 @@ public function search_booking_lounch_api(Request $request)
                 'destination' => $data['destination'],
                 'flight_number' => $data['flight_number'],
                 'travel_type' => 'departure',
-                'meet_guest' => 1,
+                'meet_guestn' => 1,
             ],
 
         ];
