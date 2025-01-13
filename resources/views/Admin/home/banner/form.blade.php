@@ -59,7 +59,7 @@
     <div class="form-group col-md-12">
         <label for="banner_type">Choose Banner Type:</label>
         <div>
-            <input type="radio" id="home_banner" name="banner_type" value="home" {{ old('mode', !empty($banner) && $banner->mode == 'home' ? 'checked' : '') }}>
+            <input type="radio" id="home_banner" name="banner_type" value="banner" {{ old('mode', !empty($banner) && $banner->mode == 'banner' ? 'checked' : '') }}>
             <label for="home_banner">Home Banner</label>
         </div>
         <div>

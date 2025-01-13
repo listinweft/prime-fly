@@ -704,7 +704,7 @@ if (!is_array($category_id)) {
         }
 
        $banner->title = $request->title ?? null;
-       $banner->mode = $request->banner_type ?? 'home';
+       $banner->mode = $request->banner_type ?? 'banner';
 
 
        $banner->subtitle = $request->sub_title ?? null;
@@ -761,7 +761,7 @@ if (!is_array($category_id)) {
         }
         //        $banner->title = $request->title;
         $banner->title = $request->title ?? null;
-       $banner->mode = $request->banner_type ?? 'home';
+       $banner->mode = $request->banner_type ?? 'banner';
 
 
        $banner->subtitle = $request->sub_title ?? null;

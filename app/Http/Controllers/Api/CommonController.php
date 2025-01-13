@@ -1469,14 +1469,25 @@ public function main_search_api(Request $request)
 public function get_banner(Request $request)
 {
     try {
-        // Fetch all banners
-        $banners = HomeBanner::all();
+        // Fetch the type from the request
+        $type = $request->input('type');
+
+        // Validate the type input
+        if (!in_array($type, ['offer', 'banner'])) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid type specified. Allowed values: offer, banner.',
+            ], 400); // Bad Request
+        }
+
+        // Fetch banners based on the type
+        $banners = HomeBanner::where('mode', $type)->get();
 
         // Check if banners exist
         if ($banners->isEmpty()) {
             return response()->json([
                 'status' => false,
-                'message' => 'No banners available.',
+                'message' => 'No banners available for the specified type.',
                 'data' => []
             ], 404); // Not Found
         }
@@ -1496,6 +1507,7 @@ public function get_banner(Request $request)
         ], 500); // Internal Server Error
     }
 }
+
 
 
 
