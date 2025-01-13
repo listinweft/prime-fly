@@ -947,6 +947,8 @@ public function search_booking_carparking(Request $request)
 
         // Store the result for each product
         $result[] = [
+
+            'product' => $product,
             'product_id' => $product->id,
             'total_amount' => $totalAmount,
             'location_title' => $product->location_title,
@@ -961,7 +963,7 @@ public function search_booking_carparking(Request $request)
             'exit_time' => $data['exit_time'],
             'origin' => $data['origin'],
             'terminal' => $data['terminal'],
-            'totalguest' => $data['count'],
+            'total_guest' => $data['count'],
             'meet_guestn' => 1
             ],
         ];
@@ -1054,7 +1056,7 @@ public function searchBookingPorter(Request $request)
             
            
             'setdate' => $data['entry_date'] ?? null,
-            'totalguest' => $data['count'],
+            'total_guest' => $data['count'],
             'origin' => $data['origin'],
             'destination' => $data['destination'],
             'flight_number' => $data['flight_number'],
