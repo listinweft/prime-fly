@@ -974,6 +974,7 @@ public function search_booking_carparking(Request $request)
         'success' => true,
         'message' => 'Packages found successfully.',
         'data' => $result,
+        'category' => $category->title ?? null
     ]);
 }
 
