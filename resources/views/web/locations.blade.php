@@ -31,7 +31,7 @@
                       <h3>{{ $location->code }}</h3>
               </div>
               <h4>{{ $location->code }}</h4>
-              <p>{{ $location->title }} International Airport</p>
+              <p>{{ $location->title }} {{ $location->travel_sector }}   Airport</p>
                     </a> 
                   </div>
                   @endforeach
