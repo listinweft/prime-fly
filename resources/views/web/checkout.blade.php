@@ -574,37 +574,37 @@ document.querySelectorAll('[id^="auto_fill_"]').forEach(function (checkbox) {
 
         const possibleIndices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-// Function to find the first matching element
-function getElementWithDynamicMiddle(prefix, suffix, indices) {
-    for (let index of indices) {
-        const selector = `#${prefix}_${index}_${suffix}`;
-        const element = document.querySelector(selector);
-        if (element) return element; // Return the first valid element found
-    }
-    return null; // Return null if no element is found
-}
+        // Function to find the first matching element
+        function getElementWithDynamicMiddle(prefix, suffix, indices) {
+            for (let index of indices) {
+                const selector = `#${prefix}_${index}_${suffix}`;
+                const element = document.querySelector(selector);
+                if (element) return element; // Return the first valid element found
+            }
+            return null; // Return null if no element is found
+        }
 
-// Dynamically select fields for the primary passenger
-const firstNameElement = getElementWithDynamicMiddle('name', '0', possibleIndices); // First guest's name
-const firstAgeElement = getElementWithDynamicMiddle('age', '0', possibleIndices);   // First guest's age
-const firstPnrElement = getElementWithDynamicMiddle('pnr', '0', possibleIndices);   // First guest's PNR
-const firstGenderElementMr = getElementWithDynamicMiddle('gender', '0_mr', possibleIndices); // Male gender
-const firstGenderElementMs = getElementWithDynamicMiddle('gender', '0_ms', possibleIndices); // Female gender
+        // Dynamically select fields for the primary passenger
+        const firstNameElement = getElementWithDynamicMiddle('name', '0', possibleIndices); // First guest's name
+        const firstAgeElement = getElementWithDynamicMiddle('age', '0', possibleIndices);   // First guest's age
+        const firstPnrElement = getElementWithDynamicMiddle('pnr', '0', possibleIndices);   // First guest's PNR
+        const firstGenderElementMr = getElementWithDynamicMiddle('gender', '0_mr', possibleIndices); // Male gender
+        const firstGenderElementMs = getElementWithDynamicMiddle('gender', '0_ms', possibleIndices); // Female gender
 
         if (this.checked) {
-            // Iterate over the corresponding passenger form fields based on dynamic index
+            // Auto-fill values based on the primary passenger
             document.querySelectorAll(`#name_${index}`).forEach(function (nameStatic, i) {
                 const ageStatic = document.getElementById(`age_${index}_${i}`);
                 const pnrStatic = document.getElementById(`pnr_${index}_${i}`);
                 const genderStaticMr = document.getElementById(`gender_${index}_${i}_mr`);
                 const genderStaticMs = document.getElementById(`gender_${index}_${i}_ms`);
 
-                // Use the values from the first passenger (index 0) to fill current passenger
+                // Use the values from the first passenger to fill current passenger
                 if (firstNameElement) nameStatic.value = firstNameElement.value;
                 if (firstAgeElement) ageStatic.value = firstAgeElement.value;
                 if (firstPnrElement) pnrStatic.value = firstPnrElement.value;
 
-                // Set gender based on primary gender selection (index 0)
+                // Set gender based on primary gender selection
                 if (firstGenderElementMr && firstGenderElementMr.checked) {
                     genderStaticMr.checked = true;
                     genderStaticMs.checked = false;
@@ -619,36 +619,35 @@ const firstGenderElementMs = getElementWithDynamicMiddle('gender', '0_ms', possi
                 pnrStatic.disabled = true;
                 genderStaticMr.disabled = true;
                 genderStaticMs.disabled = true;
-
-                // Optional: Show alert to debug what’s being filled
-                
             });
         } else {
-            // Reset fields if checkbox is unchecked
+        
+            // Reset fields if the checkbox is unchecked
             document.querySelectorAll(`#name_${index}`).forEach(function (nameStatic, i) {
-                const ageStatic = document.getElementById(`age_${index}_${i}`);
-                const pnrStatic = document.getElementById(`pnr_${index}_${i}`);
-                const genderStaticMr = document.getElementById(`gender_${index}_${i}_mr`);
-                const genderStaticMs = document.getElementById(`gender_${index}_${i}_ms`);
+    const ageStatic = document.getElementById(`age_${index}_${i}`);
+    const pnrStatic = document.getElementById(`pnr_${index}_${i}`);
+    const genderStaticMr = document.getElementById(`gender_${index}_${i}_mr`);
+    const genderStaticMs = document.getElementById(`gender_${index}_${i}_ms`);
 
-                // Reset fields to their original state (make them enabled again and clear values)
-                nameStatic.disabled = false;
-                ageStatic.disabled = false;
-                pnrStatic.disabled = false;
-                genderStaticMr.disabled = false;
-                genderStaticMs.disabled = false;
+    // Re-enable fields (only if they exist)
+    if (nameStatic) nameStatic.disabled = false;
+    if (ageStatic) ageStatic.disabled = false;
+    if (pnrStatic) pnrStatic.disabled = false;
+    if (genderStaticMr) genderStaticMr.disabled = false;
+    if (genderStaticMs) genderStaticMs.disabled = false;
 
-                nameStatic.value = '';
-                ageStatic.value = '';
-                pnrStatic.value = '';
-                genderStaticMr.checked = false;
-                genderStaticMs.checked = false;
+    // Clear values (only if the elements exist)
+    if (nameStatic) nameStatic.value = '';
+    if (ageStatic) ageStatic.value = '';
+    if (pnrStatic) pnrStatic.value = '';
+    if (genderStaticMr) genderStaticMr.checked = false;
+    if (genderStaticMs) genderStaticMs.checked = false;
+});
 
-                
-            });
         }
     });
 });
+
 
 
 
