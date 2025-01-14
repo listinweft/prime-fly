@@ -350,6 +350,8 @@ public function customerorders(Request $request)
                     return [
                         'image' => $product->productData->product_categories->pluck('image_webp')->first() ?? null, // Return first image_webp or null
                         'category' => $product->productData->product_categories->pluck('title')->first() ?? null,  // Return first category title or null
+                        'category_id' => $product->productData->product_categories->pluck('id')->first() ?? null,  // Return first category title or null
+                        'package' => ucfirst($product->productData->title),
                         'package' => ucfirst($product->productData->title),
                         'travel_type' => $product->travel_type ? ucfirst($product->travel_type) : null,
                         'origin' => $product->origin,
