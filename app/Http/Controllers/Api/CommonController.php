@@ -348,6 +348,7 @@ public function customerorders(Request $request)
                 'total' => number_format($order->orderData->orderProducts->sum('total'), 2),
                 'products' => $order->orderData->orderProducts->map(function ($product) {
                     return [
+                        'image' => $product->productData->product_categories->pluck('image_webp'),
                         'category' => $product->productData->product_categories->pluck('title'),
                         'package' => ucfirst($product->productData->title),
                         'travel_type' => $product->travel_type ? ucfirst($product->travel_type) : null,
