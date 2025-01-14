@@ -166,73 +166,59 @@
                @endforeach
                <!-- Static Fields Outside the Loop -->
                @if(array_sum($totalsn) >= 1 && !empty(array_filter($totalsn)))
+    @foreach($totalsn as $index => $guestCount)
+        @php
+            $product = $productDetails[$index]; // Retrieve the product associated with the current index
+            $unipackageid = $packageid[$index];
+            $categorydata = App\Models\Category::where('id', $product->category_id)->first();
+        @endphp
+        @if($categorydata && $categorydata->id != 21) 
+            <div class="price-summery personal-details customer-detail-form mb-3">
+                <h4>{{ ucwords($product->title) }} - {{ $unipackageid }}</h4>
+                <input type="hidden" name="unipackageid[{{ $index }}][]" value="{{ $unipackageid }}">
+                <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
+                    <div class="details-item details-item-option col-12 ps-2 pe-2">
+                        <label for="gender_{{ $index }}">Gender</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender[{{ $index }}]" id="gender_{{ $index }}_mr" value="Mr">
+                            <label class="form-check-label" for="gender_{{ $index }}_mr">Mr.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender[{{ $index }}]" id="gender_{{ $index }}_ms" value="Ms">
+                            <label class="form-check-label" for="gender_{{ $index }}_ms">Ms.</label>
+                        </div>
+                    </div>
+                    <div class="details-item col-lg-4 ps-2 pe-2">
+                        <label for="name_{{ $index }}">Passenger Name*</label>
+                        <input type="text" name="name[{{ $index }}]" id="name_{{ $index }}" placeholder="Enter full name" required value="{{ empty(array_filter($totals)) ? $customer : '' }}">
+                        <span class="error-message" style="display: none;">Name is required.</span>
+                    </div>
+                    <div class="details-item col-lg-4 ps-2 pe-2">
+                        <label for="age_{{ $index }}">Age*</label>
+                        <input type="text" name="age[{{ $index }}]" id="age_{{ $index }}" placeholder="Enter your age" required>
+                        <span class="error-message" style="display: none;">Age is required.</span>
+                    </div>
+                    <input type="hidden" value="normal" name="type[{{ $index }}]" id="type_{{ $index }}">
+                    <div class="details-item col-lg-4 ps-2 pe-2">
+                        <label for="pnr_{{ $index }}">PNR Number</label>
+                        <input type="text" name="pnr[{{ $index }}]" id="pnr_{{ $index }}" placeholder="Enter your PNR">
+                        <span class="error-message" style="display: none;">PNR is required.</span>
+                    </div>
+                    @if(array_sum($totals) > 0)
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" id="auto_fill_{{ $index }}" />
+                        <label class="form-check-label" for="auto_fill_{{ $index }}" style="font-size:14px">
+                            Same as primary Name
+                        </label>
+                        <div id="termsError" class="text-danger"></div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        @endif
+    @endforeach
+@endif
 
-         
-               
-               @foreach($totalsn as $index => $guestCount)
-
-               
-
-               @php
-              
-               $product = $productDetails[$index]; // Retrieve the product associated with the current index
-               $unipackageid = $packageid[$index];
-               $categorydata = App\Models\Category::where('id', $product->category_id)->first();
-               @endphp
-               @if($categorydata && $categorydata->id != 21) 
-               <div class="price-summery personal-details customer-detail-form mb-3">
-               <h4>{{ ucwords($product->title) }} - {{ $unipackageid }}</h4>
-               <input type="hidden" name="unipackageid[{{ $index }}][]" value="{{ $unipackageid }}">
-               <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
-               <div class="details-item details-item-option col-12 ps-2 pe-2">
-               <label for="gender_static">Gender</label><br>
-               <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="gender" id="gender_static_mr" value="Mr">
-               <label class="form-check-label" for="gender_static_mr">Mr.</label>
-               </div>
-               <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="gender" id="gender_static_ms" value="Ms">
-               <label class="form-check-label" for="gender_static_ms">Ms.</label>
-               </div>
-               </div>
-               <div class="details-item col-lg-4 ps-2 pe-2">
-               <label for="name_static">Passenger Name*</label>
-               @if( !empty(array_filter($totals)))
-               <input type="text" name="name[]" id="name_static" placeholder="Enter full name" required>
-               @else
-               <input type="text" name="name[]" id="name_static" placeholder="Enter full name" required value="{{$customer}}">
-               @endif
-               <span class="error-message" style="display: none;">Name is required.</span>
-               </div>
-               <div class="details-item col-lg-4 ps-2 pe-2">
-               <label for="age_static">Age*</label>
-               <input type="text" name="age[]" id="age_static" placeholder="Enter your age" required>
-               <span class="error-message" style="display: none;">Age is required.</span>
-               </div>
-               <input type="hidden" value="normal" name="type[]" id="type_static">
-               <div class="details-item col-lg-4 ps-2 pe-2">
-               <label for="pnr_static">PNR Number</label>
-               <input type="text" name="pnr[]" id="pnr_static" placeholder="Enter your PNR" >
-               <span class="error-message" style="display: none;">PNR is required.</span>
-               </div>
-               @if(array_sum($totals) > 0)
-               <!-- <div class="details-item col-12 ps-2 pe-2">
-                  <input type="checkbox" id="auto_fill_static" />
-                  <label for="auto_fill_static">Set As Default</label>
-                  </div> -->
-               <div class="form-check mt-3">
-               <input class="form-check-input" type="checkbox"  id="auto_fill_static"  >
-               <label class="form-check-label" for="auto_fill_static" style="font-size:14px">
-               Same as primary Name
-               </label>
-               <div id="termsError" class="text-danger"></div>
-               </div>
-               @endif
-               </div>
-               </div>
-               @endif
-               @endforeach
-               @endif
                @if($user->btype == "b2b")
                
                <div class="mt-4">
@@ -580,81 +566,92 @@
    });
    
 </script>
+
 <script>
-   document.getElementById('auto_fill_static').addEventListener('change', function() {
-    const nameStatic = document.getElementById('name_static');
-    const ageStatic = document.getElementById('age_static');
-    const pnrStatic = document.getElementById('pnr_static');
-    const genderStaticMr = document.getElementById('gender_static_mr');
-    const genderStaticMs = document.getElementById('gender_static_ms');
-   
-    // Function to get the first available element by its query selector
-    function getFirstElement(query) {
-        return document.querySelector(query);
+document.querySelectorAll('[id^="auto_fill_"]').forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        const index = this.id.split('_')[2]; // Extract the index for the current passenger
+
+        const possibleIndices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+// Function to find the first matching element
+function getElementWithDynamicMiddle(prefix, suffix, indices) {
+    for (let index of indices) {
+        const selector = `#${prefix}_${index}_${suffix}`;
+        const element = document.querySelector(selector);
+        if (element) return element; // Return the first valid element found
     }
-   
-    if (this.checked) {
-        // Query the elements with general selectors
-        const firstGuestElement = getFirstElement('[id^="name_"]');
-        const firstGenderElementMr = getFirstElement('[id^="inlineRadio1_"]');
-        const firstGenderElementMs = getFirstElement('[id^="inlineRadio2_"]');
-        const firstAgeElement = getFirstElement('[id^="age_"]');
-        const firstPnrElement = getFirstElement('[id^="pnr_"]');
-   
-        // Safely access the values
-        const firstGuest = firstGuestElement ? firstGuestElement.value : '';
-        const firstGender = firstGenderElementMr && firstGenderElementMr.checked ? 'Mr' : (firstGenderElementMs && firstGenderElementMs.checked ? 'Ms' : '');
-        const firstAge = firstAgeElement ? firstAgeElement.value : '';
-        const firstPnr = firstPnrElement ? firstPnrElement.value : '';
-   
-        // Fill in the static fields only if the elements exist and have values
-        nameStatic.value = firstGuest;
-        ageStatic.value = firstAge;
-        pnrStatic.value = firstPnr;
-   
-        // Handle the gender fields safely
-        if (firstGender === 'Mr') {
-            genderStaticMr.checked = true;
-        } else if (firstGender === 'Ms') {
-            genderStaticMs.checked = true;
+    return null; // Return null if no element is found
+}
+
+// Dynamically select fields for the primary passenger
+const firstNameElement = getElementWithDynamicMiddle('name', '0', possibleIndices); // First guest's name
+const firstAgeElement = getElementWithDynamicMiddle('age', '0', possibleIndices);   // First guest's age
+const firstPnrElement = getElementWithDynamicMiddle('pnr', '0', possibleIndices);   // First guest's PNR
+const firstGenderElementMr = getElementWithDynamicMiddle('gender', '0_mr', possibleIndices); // Male gender
+const firstGenderElementMs = getElementWithDynamicMiddle('gender', '0_ms', possibleIndices); // Female gender
+
+        if (this.checked) {
+            // Iterate over the corresponding passenger form fields based on dynamic index
+            document.querySelectorAll(`#name_${index}`).forEach(function (nameStatic, i) {
+                const ageStatic = document.getElementById(`age_${index}_${i}`);
+                const pnrStatic = document.getElementById(`pnr_${index}_${i}`);
+                const genderStaticMr = document.getElementById(`gender_${index}_${i}_mr`);
+                const genderStaticMs = document.getElementById(`gender_${index}_${i}_ms`);
+
+                // Use the values from the first passenger (index 0) to fill current passenger
+                if (firstNameElement) nameStatic.value = firstNameElement.value;
+                if (firstAgeElement) ageStatic.value = firstAgeElement.value;
+                if (firstPnrElement) pnrStatic.value = firstPnrElement.value;
+
+                // Set gender based on primary gender selection (index 0)
+                if (firstGenderElementMr && firstGenderElementMr.checked) {
+                    genderStaticMr.checked = true;
+                    genderStaticMs.checked = false;
+                } else if (firstGenderElementMs && firstGenderElementMs.checked) {
+                    genderStaticMs.checked = true;
+                    genderStaticMr.checked = false;
+                }
+
+                // Disable fields after auto-filling
+                nameStatic.disabled = true;
+                ageStatic.disabled = true;
+                pnrStatic.disabled = true;
+                genderStaticMr.disabled = true;
+                genderStaticMs.disabled = true;
+
+                // Optional: Show alert to debug what’s being filled
+                
+            });
+        } else {
+            // Reset fields if checkbox is unchecked
+            document.querySelectorAll(`#name_${index}`).forEach(function (nameStatic, i) {
+                const ageStatic = document.getElementById(`age_${index}_${i}`);
+                const pnrStatic = document.getElementById(`pnr_${index}_${i}`);
+                const genderStaticMr = document.getElementById(`gender_${index}_${i}_mr`);
+                const genderStaticMs = document.getElementById(`gender_${index}_${i}_ms`);
+
+                // Reset fields to their original state (make them enabled again and clear values)
+                nameStatic.disabled = false;
+                ageStatic.disabled = false;
+                pnrStatic.disabled = false;
+                genderStaticMr.disabled = false;
+                genderStaticMs.disabled = false;
+
+                nameStatic.value = '';
+                ageStatic.value = '';
+                pnrStatic.value = '';
+                genderStaticMr.checked = false;
+                genderStaticMs.checked = false;
+
+                
+            });
         }
-   
-        // Disable editing when auto-filled
-        nameStatic.disabled = true;
-        ageStatic.disabled = true;
-        pnrStatic.disabled = true;
-        genderStaticMr.disabled = true;
-        genderStaticMs.disabled = true;
-    } else {
-        // Clear inputs and enable editing
-        nameStatic.value = '';
-        ageStatic.value = '';
-        pnrStatic.value = '';
-        genderStaticMr.checked = false;
-        genderStaticMs.checked = false;
-   
-        nameStatic.disabled = false;
-        ageStatic.disabled = false;
-        pnrStatic.disabled = false;
-        genderStaticMr.disabled = false;
-        genderStaticMs.disabled = false;
-    }
-   });
-   
-</script>
-<script>
-   document.querySelector('.termsCheckbox').addEventListener('change', function() {
-      var gstFields = document.querySelectorAll('.gstField');
-      gstFields.forEach(function(gstField) {
-         if (this.checked) {
-            gstField.classList.remove('d-none'); // Show the GST field
-            gstField.classList.add('d-block');   // Ensure it's displayed as block
-         } else {
-            gstField.classList.remove('d-block'); // Hide the GST field
-            gstField.classList.add('d-none');     // Ensure it's hidden
-         }
-      }.bind(this));
-   });
+    });
+});
+
+
+
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
