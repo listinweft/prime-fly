@@ -1221,7 +1221,7 @@ public function search_booking_cloakroom_api(Request $request)
             
            // Use the calculated total amount
             'setdate' => $data['entry_date'],
-            'totalguest' => $data['count'],
+            'total_guest' => $data['count'],
             'origin' => $data['origin'],
             'terminal' => $data['terminal'],
             'entry_date' => $data['entry_date'],

@@ -23,7 +23,7 @@
               <div class="col-lg-10 airport_lists">
                 <div class="d-flex flex-wrap">
 
-                @foreach ($locations as $location)
+                @foreach ($locations as $location) 
                   <div class="airport_list_grid text-center aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
                   <a href="{{ url('location/' . @$location->title) }}">
                       <div class="airtport_list_thumb">

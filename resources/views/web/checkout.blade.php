@@ -109,7 +109,9 @@
                @php
                $user = Auth::guard('customer')->user();
                $customer = $user->customer->first_name;
+               $processed_products = [];
                @endphp
+
                @foreach($totals as $index => $guestCount)
                @php
                $product = $productDetails[$index]; // Retrieve the product associated with the current index
@@ -157,10 +159,30 @@
                </div>
                </div>
                @endfor
+               @php
+        // Mark this product as processed
+        $processed_products[] = $index;
+    @endphp
                @endforeach
                <!-- Static Fields Outside the Loop -->
                @if(array_sum($totalsn) >= 1 && !empty(array_filter($totalsn)))
+
+         
+               
+               @foreach($totalsn as $index => $guestCount)
+
+               
+
+               @php
+              
+               $product = $productDetails[$index]; // Retrieve the product associated with the current index
+               $unipackageid = $packageid[$index];
+               $categorydata = App\Models\Category::where('id', $product->category_id)->first();
+               @endphp
+               @if($categorydata && $categorydata->id != 21) 
                <div class="price-summery personal-details customer-detail-form mb-3">
+               <h4>{{ ucwords($product->title) }} - {{ $unipackageid }}</h4>
+               <input type="hidden" name="unipackageid[{{ $index }}][]" value="{{ $unipackageid }}">
                <div class="details-item-wraper d-flex flex-wrap justify-content-between align-items-end">
                <div class="details-item details-item-option col-12 ps-2 pe-2">
                <label for="gender_static">Gender</label><br>
@@ -208,6 +230,8 @@
                @endif
                </div>
                </div>
+               @endif
+               @endforeach
                @endif
                @if($user->btype == "b2b")
                
