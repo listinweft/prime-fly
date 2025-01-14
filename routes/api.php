@@ -40,6 +40,8 @@ Route::get('/profile', [CommonController::class, 'getProfileApi']);
 
 Route::post('/profile/update', [CommonController::class, 'updateProfileApi']);
 Route::get('/getCartlistByuserid', [CommonController::class, 'getCartData']);
+Route::get('/fetch-bussinessaddress', [CommonController::class, 'fetch_bussinessaddress']);
+
 Route::get('/customerorders', [CommonController::class, 'customerorders']);
 Route::post('/search-booking-meet-and-greet', [CommonController::class, 'searchBookingAPI']);
 Route::post('/search-booking-meet-and-greet-transit', [CommonController::class, 'search_booking_transit_api']);

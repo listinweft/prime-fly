@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\BusinessAddress;
 use App\Models\Product;
 use App\Models\Location; // Import the Location model
 use App\Models\Category;
@@ -71,6 +72,28 @@ class CommonController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function fetch_bussinessaddress(Request $request)
+    {
+      
+
+        $user = User::where('id', $request->user_id)->first();
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
+    }
+        //   DB::beginTransaction();
+
+          $customer = $user->customer;
+
+          $businessaddress = BusinessAddress::where('customer_id', $customer->id)->first();
+
+      
+        
+
+        return response()->json($businessaddress);
     }
     /**
      * Method to retrieve active service categories
