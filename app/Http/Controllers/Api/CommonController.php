@@ -355,7 +355,7 @@ public function customerorders(Request $request)
                         'origin' => $product->origin,
                         'destination' => $product->destination,
                         'guest_count' => $product->guest ?? 'Not available',
-                        'date' => $product->created_at ?? 'Not available',
+                        'date' => $product->exit_date ?? 'Not available',
                         'price' => $product->total ?? 'Not available',
                     ];
                 }),
