@@ -348,19 +348,22 @@ public function customerorders(Request $request)
                 'total' => number_format($order->orderData->orderProducts->sum('total'), 2),
                 'products' => $order->orderData->orderProducts->map(function ($product) {
                     return [
-                        'image' => $product->productData->product_categories->pluck('image_webp'),
-                        'category' => $product->productData->product_categories->pluck('title'),
+                        'image' => $product->productData->product_categories->pluck('image_webp')->first() ?? null, // Return first image_webp or null
+                        'category' => $product->productData->product_categories->pluck('title')->first() ?? null,  // Return first category title or null
                         'package' => ucfirst($product->productData->title),
                         'travel_type' => $product->travel_type ? ucfirst($product->travel_type) : null,
                         'origin' => $product->origin,
                         'destination' => $product->destination,
                         'guest_count' => $product->guest ?? 'Not available',
+                        'date' => $product->created_at ?? 'Not available',
+                        'price' => $product->total ?? 'Not available',
                     ];
                 }),
                 'invoice_url' => route('invoice.pdf', ['order_id' => $order->orderData->id]),
             ];
         });
-
+        
+        
         // Return the data in API response
         return response()->json([
             'status' => 'success',
