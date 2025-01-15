@@ -75,26 +75,34 @@ class CommonController extends Controller
     }
 
     public function fetch_bussinessaddress(Request $request)
-    {
-      
-
-        $user = User::where('id', $request->user_id)->first();
+{
+    // Find the user based on the provided user_id
+    $user = User::where('id', $request->user_id)->first();
 
     // Check if the user exists
     if (!$user) {
         return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
     }
-        //   DB::beginTransaction();
 
-          $customer = $user->customer;
+    // Retrieve the related customer
+    $customer = $user->customer;
 
-          $businessaddress = BusinessAddress::where('customer_id', $customer->id)->first();
-
-      
-        
-
-        return response()->json($businessaddress);
+    // Check if the customer exists
+    if (!$customer) {
+        return response()->json(['status' => 'error', 'message' => 'Customer not found'], 404);
     }
+
+    // Retrieve the business address for the customer
+    $businessaddress = BusinessAddress::where('customer_id', $customer->id)->first();
+
+    // Return the response in a structured JSON format
+    return response()->json([
+        'status' => 'success',
+        'email' => $user->email,
+        'business_address' => $businessaddress,
+    ]);
+}
+
     /**
      * Method to retrieve active service categories
      */
@@ -201,7 +209,8 @@ public function getProfileApi(Request $request)
         return response()->json([
             'status' => 'success',
             'message' => 'Customer profile fetched successfully',
-            'data' => $customer
+            'data' => $customer,
+            'user'=> $user
         ], 200);
 
     } catch (\Exception $e) {
@@ -1704,8 +1713,390 @@ public function removeCartItemApi(Request $request)
     ], 400); // Bad Request error
 }
 
+public function submit_order(Request $request)
+{
+
+    $customer = Customer::where('user_id', $request->user_id)->first();
+
+    if (!$customer) {
+        return response()->json(['status' => false, 'message' => 'Customer not found']);
+    }
+
+    // Use the customer's id as the session key
+    $sessionKey = $customer->id;
+
+    // Load the cart session for the user
+    Cart::session($sessionKey);
+
+        if (!Cart::session($sessionKey)->isEmpty()) {
+            $calculation_box = Helper::calculationBox();
+            $siteInformation = SiteInformation::first();
+
+            
 
 
+            // $userorigin = $row->attributes['origin'] ?? '';
+            // $userorigin    = $detail->trans = $row->attributes['trans'] ?? '';
+            // $userorigin = $row->attributes['destination'] ?? '';
+
+            $orderCode = Order::order_code();
+            $order = new Order();
+            $order->order_code = $orderCode;
+            $order->payment_method = $request->payment_method;
+            $order->cod_extra_charge = 0;
+            $order->remarks = "good";
+            $order->tax = $siteInformation->tax;
+         
+            $order->tax_type = $request->selected_kerala_location ?? "Inside";
+
+            $order->tax_amount = 10;
+            $order->shipping_charge = 10;
+            $order->currency = "INR";
+            $order->currency_charge = 25;
+            $order->cod_extra_charge = $request->final_amount;
+           
+
+            if ($order->save()) {
+                if (!empty($request->name)) {
+                    $personalDetailsData = [];
+                    foreach ($request->name as $key => $name) {
+                        $personalDetailsData[] = [
+                            'order_id' => $order->id,
+                            'name' => $request->name[$key] ?? '',
+                            'unique_pckageid' => $request->unipackageid[$key] ?? '',
+                            'type' => $request->type[$key] ?? '',
+                            'age' => $request->age[$key] ?? '',
+                            'address' => $request->address ?? '',
+                            'passport_number' => $request->passport_number ?? '',
+                            'pnr' => $request->pnr[$key] ?? '',
+                            'country' => $request->country ?? '',
+                            'state' => $request->state ?? '',
+                            'city' => $request->city ?? '',
+                            'gender' => $request->gender[$key] ?? '',
+                            'pincode' => $request->pincode ?? '',
+                            'gst_number' => $request->gst_number ?? '',
+                            'phone' => $request->phone ?? ''
+                        ];
+                    }
+                    PersonalDetails::insert($personalDetailsData);
+                }
+                
+                 
+                
+
+                $order_customer = new OrderCustomer();
+                $order_customer->order_id = $order->id;
+                if (Auth::guard('customer')->check()) {
+                    $order_customer->user_type = 'User';
+                    $order_customer->customer_id = $customer->id;
+                    $order_customer->billing_address = "demo";
+                    $order_customer->shipping_address = "demo";
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Please login',
+                        'data' => '/'
+                    ], 200);
+                }
+
+                if ($order_customer->save()) {
+                    $saved = $notSaved = $alreadyExist = $orderSaved = $orderNotSaved = [];
+                    foreach (Cart::session($sessionKey)->getContent() as $row) {
+                        $detail = new OrderProduct();
+                        $detail->order_id = $order->id;
+                        $detail->product_id = $row->id;
+                        $detail->qty = $row->quantity ?? 0;
+                        $detail->cost = $row->price ?? 0;
+                        $detail->total = $row->price ?? 0;
+                        $detail->offer_id = 0;
+                        $detail->offer_amount = 0;
+                        $detail->coupon_value = 0;
+                        $detail->coupon_after_price = 0;
+                        $detail->entry_date = $row->attributes['entry_date'] ?? '';
+
+                        $detail->entry_time = $row->attributes['entry_time'] ?? '';
+
+                        $dateString = $row->attributes['setdate'] ?? ''; // Fetch the date string
+
+                        $entryTime = $row->attributes['entry_time'] ?? ''; // Fetch the entry time if available
+
+
+                        $travelType = $row->attributes['travel_type'];
+
+            if($travelType == 'departure')
+
+            {
+
+             $userorigin = $row->attributes['origin'] ?? '';
+
+
+
+            }
+            elseif($travelType == 'arrival')
+
+            {
+
+                $userorigin = $row->attributes['destination'] ?? '';
+
+
+
+
+
+            }
+
+            elseif($travelType == 'Transit')
+
+            {
+
+                $userorigin = $row->attributes['trans'] ?? '';
+
+
+
+
+
+            }
+            else
+            {
+
+
+                $userorigin = $row->attributes['origin'] ?? '';
+
+
+
+            }
+
+            $location = Location::active()->where('code', $userorigin)->first();
+
+            $users = User::active()
+       ->whereRaw("FIND_IN_SET(?, location_ids)", [$location->id])
+        ->pluck('email'); // Fetch only the email field
+
+// Implode the emails into a comma-separated string
+          $emails = $users->implode(',');
+
+
+          Order::where('id', $order->id)->update(['emails_b' => $emails]);
+
+
+
+
+
+                        
+                        $formattedTimestamp = '';
+                        
+                        if ($dateString) {
+                            // Define possible date formats (including 'd-m-Y')
+                            $possibleDateFormats = ['m/d/Y', 'd-m-Y', 'Y-m-d', 'd/m/Y'];
+                            $possibleDateTimeFormats = [
+                                'm/d/Y H:i:s', 'd-m-Y H:i:s', 'Y-m-d H:i:s', 'd/m/Y H:i:s',
+                                'm/d/Y g:ia', 'd-m-Y g:ia', 'Y-m-d g:ia', 'd/m/Y g:ia'
+                            ];
+                        
+                            // Try parsing the date string with each format
+                            $dateTime = false;
+                            foreach ($possibleDateFormats as $format) {
+                                $dateTime = DateTime::createFromFormat($format, $dateString);
+                                if ($dateTime !== false) {
+                                    break;
+                                }
+                            }
+                        
+                            if ($dateTime) {
+                                // Format the date to 'Y-m-d'
+                                $formattedDate = $dateTime->format('Y-m-d');
+                        
+                                // If entryTime is present, combine it with the date
+                                if ($entryTime) {
+                                    $combinedDateTimeString = $dateString . ' ' . $entryTime;
+                                    foreach ($possibleDateTimeFormats as $format) {
+                                        $dateTime = DateTime::createFromFormat($format, $combinedDateTimeString);
+                                        if ($dateTime !== false) {
+                                            break;
+                                        }
+                                    }
+                                }
+                        
+                                // If only the date part is valid, set the time to '00:00:00'
+                                if ($dateTime) {
+                                    $formattedTimestamp = $dateTime->format('Y-m-d H:i:s');
+                                } else {
+                                    $formattedTimestamp = $formattedDate . ' 00:00:00';
+                                }
+                            } else {
+                                echo "Invalid date format.";
+                            }
+                        }
+                        
+                   
+                        
+                   
+                        // Assign the combined date and time to exit_date
+                        $detail->exit_date = $formattedTimestamp;
+                        $detail->travel_sector = $row->attributes['travel_sector'] ?? '';
+                        $detail->flight_number = $row->attributes['flight_number'] ?? '';
+                        $detail->travel_type = $row->attributes['travel_type'] ?? '';
+                        $detail->origin = $row->attributes['origin'] ?? '';
+                        $detail->trans = $row->attributes['trans'] ?? '';
+                        $detail->destination = $row->attributes['destination'] ?? '';
+                        $detail->guest = $row->attributes['guest'] ?? 0;
+                        $detail->terminal = $row->attributes['terminal'] ?? '';
+                        $detail->bag_count = $row->attributes['bag_count'] ?? 0;
+                        $detail->unique_pckageid = $row->attributes['unique_package_id'] ?? 0;
+                       
+                        $detail->exit_time = $row->attributes['exit_time'] ?? '';
+                        $detail->adults = $row->attributes['adults'] ?? '';
+                        $detail->infants = $row->attributes['infants'] ?? '';
+                        $detail->children = $row->attributes['children'] ?? '';
+                        $detail->porter_count = $row->attributes['guest'] ?? '';
+                        $detail->pnr = $row->attributes['pnr'] ?? '';
+
+                        if ($detail->save()) {
+                            $order_log = new OrderLog();
+                            $order_log->order_product_id = $detail->id;
+                            $order_log->status = 'Pending';
+                            if ($order_log->save()) {
+                                $orderSaved[] = 1;
+                            } else {
+                                $orderNotSaved[] = 1;
+                                $notSaved[] = 1;
+                            }
+                        } else {
+                            $notSaved[] = 1;
+                        }
+                    }
+
+                    if (empty($notSaved) && empty($orderNotSaved)) {
+                        // Clear the cart session after the order is successfully processed
+                        
+                        if ($request->payment_method == 'cod') {
+                            $response = $this->order_success_api($order->id,$customer->id);
+                            return response()->json([
+                                'status' => $response['status'],
+                                'message' => $response['message'],
+                                'data' => $response['data']
+                            ], 200);
+                        } 
+
+                   else {
+                            $response = $this->order_success($order->id,$customer->id);
+                            return response()->json([
+                                'status' => $response['status'],
+                                'message' => $response['message'],
+                                'data' => $response['data']
+                            ], 200);
+                        } 
+
+
+
+                    } else {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Error while placing the order, Please try after some time'
+                        ], 200);
+                    }
+                }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Error while placing the order'
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Cart is empty'
+            ], 200);
+        }
+    
+}
+
+
+public function order_success_api($order_id,$customerid)
+{
+    // Retrieve the order and mark payment as 'Success'
+    $order = Order::find($order_id);
+    if (!$order) {
+        return array(
+            'status' => false,
+            'message' => 'Order not found.',
+        );
+    }
+
+    $order->payment_mode = 'Success';
+    $order->save();
+
+    // Process each order product and update its logs
+    $order_products = OrderProduct::where('order_id', $order_id)->get();
+    $orderSaved = [];
+    $orderNotSaved = [];
+
+    foreach ($order_products as $order_product) {
+        $order_log = OrderLog::where('order_product_id', $order_product->id)->first();
+        if ($order_log) {
+            $order_log->status = 'Processing';
+            if ($order_log->save()) {
+                $orderSaved[] = $order_product->id;
+            } else {
+                $orderNotSaved[] = $order_product->id;
+            }
+        }
+
+        $product = Product::find($order_product->product_id); // Product-related operations can be added if needed.
+    }
+
+    // Clear cart and related sessions
+    $this->clear_order_cart_sessions_api($customerid);
+
+    // Send order placement email
+    if (Helper::sendOrderPlacedMail($order->id, '1')) {
+        // Return successful response
+        return array(
+            'status' => true,
+            'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully',
+            'data' => '/thank-you',
+        );
+    } else {
+        // Email sending failed; notify user
+        return array(
+            'status' => true,
+            'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully, error while sending the email',
+            'data' => '/response/' . $order->id,
+        );
+    }
+}
+
+
+public function clear_order_cart_sessions_api($customerid)
+
+{
+    $sessionKey = $customerid;
+
+// Clear all items in the cart session
+Cart::session($sessionKey)->clear();
+
+    session()->forget('session_key');
+    session()->forget('selected_billing_address');
+    session()->forget('selected_shipping_address');
+    session()->forget('selected_customer_address');
+    session()->forget('order_remarks');
+    session()->forget('shipping_charge');
+    session()->forget('coupons');
+    session()->forget('coupon_value');
+    session()->forget('credit_point');
+    /*** Guest session ****/
+    foreach (['billing', 'shipping'] as $addressType) {
+        session()->forget($addressType . '_first_name');
+        session()->forget($addressType . '_last_name');
+        session()->forget($addressType . '_phone');
+        session()->forget($addressType . '_email');
+        session()->forget($addressType . '_address');
+        session()->forget($addressType . '_zipcode');
+        session()->forget($addressType . '_country_name');
+        session()->forget($addressType . '_state_name');
+        session()->forget($addressType . '_country');
+        session()->forget($addressType . '_state');
+    }
+} 
 
 
 }
