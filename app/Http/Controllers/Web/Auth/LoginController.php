@@ -238,7 +238,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     $currentCartItems = Cart::session($oldSessionKey)->getContent();
 
     // Clear the new cart session
-    Cart::session($newSessionKey)->clear();
+    // Cart::session($newSessionKey)->clear();
 
     // Transfer the cart items to the new session
     foreach ($currentCartItems as $item) {
