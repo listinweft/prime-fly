@@ -136,56 +136,49 @@ class CommonController extends Controller
 
 public function updateProfileApi(Request $request)
 {
-        
     $user = User::where('id', $request->user_id)->first();
 
     // Check if the user exists
     if (!$user) {
         return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
     }
-        //   DB::beginTransaction();
 
-          $customer = $user->customer;
+    $customer = $user->customer;
 
-        try {
-            // Handle profile image upload
-            if ($request->hasFile('profileImage')) {
-                // Delete the existing profile image if it exists
-                if ($user->profile_image && File::exists(public_path($user->profile_image))) {
-                    File::delete(public_path($user->profile_image));
-                }
-
-                // Upload the new profile image
-                $user->profile_image = Helper::uploadFile($request->file('profileImage'), 'uploads/customer/profile_image/', $user->email);
+    try {
+        // Handle profile image upload
+        if ($request->hasFile('profileImage')) {
+            // Delete the existing profile image if it exists
+            if ($user->profile_image && File::exists(public_path($user->profile_image))) {
+                File::delete(public_path($user->profile_image));
             }
 
-            // Update customer information
-            $customer->first_name = $request->input('first_name');
-            $customer->country = $request->input('country');
-            $customer->date_of_birth = $request->input('date_of_birth');
-            $customer->updated_at = now();
-
-            if ($customer->save()) {
-                // Update user information
-                $user->phone = $request->input('phone');
-                $user->updated_at = now();
-
-                if ($user->save()) {
-                    // DB::commit();
-                    return response()->json(['status' => 'success', 'message' => 'Profile has been updated successfully', 'data' => $user], 200);
-                }
-            }
-
-            // DB::rollBack();
-            return response()->json(['status' => 'error', 'message' => 'Error while updating the profile, please try again later'], 500);
-        } catch (\Exception $e) {
-            // DB::rollBack();
-            return response()->json(['status' => 'error', 'message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+            // Upload the new profile image
+            $user->profile_image = Helper::uploadFile($request->file('profileImage'), 'uploads/customer/profile_image/', $user->email);
         }
-    
 
-    
+        // Update customer information conditionally
+        $customer->first_name = $request->input('first_name') ?? $customer->first_name;
+        $customer->country = $request->input('country') ?? $customer->country;
+        $customer->date_of_birth = $request->input('date_of_birth') ?? $customer->date_of_birth;
+        $customer->updated_at = now();
+
+        if ($customer->save()) {
+            // Update user information conditionally
+            $user->phone = $request->input('phone') ?? $user->phone;
+            $user->updated_at = now();
+
+            if ($user->save()) {
+                return response()->json(['status' => 'success', 'message' => 'Profile has been updated successfully', 'data' => $user], 200);
+            }
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Error while updating the profile, please try again later'], 500);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+    }
 }
+
 public function getProfileApi(Request $request)
 {
     try {
@@ -1713,7 +1706,7 @@ public function removeCartItemApi(Request $request)
     ], 400); // Bad Request error
 }
 
-public function submit_order(Request $request)
+public function submit_order_api(Request $request)
 {
 
     $customer = Customer::where('user_id', $request->user_id)->first();
