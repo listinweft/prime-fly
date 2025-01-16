@@ -2129,4 +2129,49 @@ Cart::session($sessionKey)->clear();
 } 
 
 
+
+public function showInvoice_api($order_id)
+{
+    $user = Auth::guard('customer')->user();
+    $customer = $user->customer;
+
+    PDF::setOptions([
+        'dpi' => 150,
+        'defaultFont' => 'sans-serif', // Replace with your custom font if used
+    ]);
+
+    $order = Order::where('id', $order_id)
+        ->where('payment_mode', 'Success')
+        ->with(['orderProducts' => function ($query) {
+            $query->with('productData')
+                ->with('colorData');
+        }])
+        ->firstOrFail();
+
+    // Load the PDF view
+    $pdf = PDF::loadView('web.invoices', compact('order', 'customer', 'user'));
+
+    // Define the storage path
+    $fileName = 'invoice_' . $order->order_code . '.pdf';
+    $folderPath = public_path('invoices'); // Define your invoices folder
+    $filePath = $folderPath . '/' . $fileName;
+
+    // Ensure the directory exists
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0755, true);
+    }
+
+    // Save the PDF file to the folder
+    $pdf->save($filePath);
+
+    // Return JSON response with the file path
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Invoice generated successfully.',
+        'file_path' => url('invoices/' . $fileName) // Return public URL for the file
+    ]);
+}
+
+
+
 }
