@@ -40,6 +40,7 @@ use App\Services\RazorpayService;
 use DateTime;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
+use PDF;
 class CommonController extends Controller
 {
 
@@ -2132,17 +2133,22 @@ Cart::session($sessionKey)->clear();
 
 
 
-public function showInvoice_api($order_id)
+public function showInvoice_api(Request $request)
 {
-    $user = Auth::guard('customer')->user();
-    $customer = $user->customer;
 
+    $user = User::where('id', $request->user_id)->first();
+      $customer = Customer::where('user_id', $request->user_id)->first();
+
+    if (!$customer) {
+        return response()->json(['status' => false, 'message' => 'Customer not found']);
+    }
+    
     PDF::setOptions([
         'dpi' => 150,
         'defaultFont' => 'sans-serif', // Replace with your custom font if used
     ]);
 
-    $order = Order::where('id', $order_id)
+   $order = Order::where('id', $request->order_id)
         ->where('payment_mode', 'Success')
         ->with(['orderProducts' => function ($query) {
             $query->with('productData')

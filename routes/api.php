@@ -63,7 +63,7 @@ Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
 Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
 Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
 Route::post('submit-order', [CommonController::class, 'submit_order_api']);
-Route::get('/showInvoice-customer', [CommonController::class, 'showInvoice_api']);
+Route::post('/showInvoice-customer', [CommonController::class, 'showInvoice_api']);
 
 
 
