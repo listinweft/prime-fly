@@ -1999,8 +1999,10 @@ public function submit_order_api(Request $request)
             return response()->json(['message' => $response['message']], 500);
                  }
 
-               return response()->json($response);
+                 $response['db_order_id'] = $order->id; // Assuming $order contains your database order details
 
+                 // Return the appended response as JSON
+                 return response()->json($response, 200);
 
 
 
