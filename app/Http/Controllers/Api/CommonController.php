@@ -7,13 +7,18 @@ use App\Models\User;
 use App\Models\Customer;
 use App\Models\BusinessAddress;
 use App\Models\Product;
+use App\Models\OrderCoupon;
+use App\Models\OrderCustomer;
+use App\Models\OrderLog;
+use App\Models\OrderProduct;
 use App\Models\Location; // Import the Location model
 use App\Models\Category;
-use App\Models\OrderCustomer;
 use App\Models\Offer;
 use App\Models\ProductPrice;
 use App\Models\LocationGallery;
 use App\Models\Blog;
+use App\Models\PersonalDetails;
+use App\Models\Order;
 use App\Models\HomeBanner;
 use App\Models\Faq;
 use App\Models\CategoryGallery;
@@ -30,6 +35,7 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Models\PasswordReset;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\SiteInformation;
 use App\Services\RazorpayService;
 use DateTime;
 use Illuminate\Validation\Rule;
@@ -1707,9 +1713,13 @@ public function removeCartItemApi(Request $request)
 }
 
 public function submit_order_api(Request $request)
+
 {
 
-    $customer = Customer::where('user_id', $request->user_id)->first();
+
+     $data = $request->json()->all(); 
+
+    $customer = Customer::where('user_id', $data['user_id'])->first();
 
     if (!$customer) {
         return response()->json(['status' => false, 'message' => 'Customer not found']);
@@ -1735,41 +1745,46 @@ public function submit_order_api(Request $request)
             $orderCode = Order::order_code();
             $order = new Order();
             $order->order_code = $orderCode;
-            $order->payment_method = $request->payment_method;
+            $order->payment_method = $data['selected_kerala_location'];
             $order->cod_extra_charge = 0;
             $order->remarks = "good";
             $order->tax = $siteInformation->tax;
          
-            $order->tax_type = $request->selected_kerala_location ?? "Inside";
+            $order->tax_type = $data['selected_kerala_location'] ?? "Inside";
 
             $order->tax_amount = 10;
             $order->shipping_charge = 10;
             $order->currency = "INR";
             $order->currency_charge = 25;
-            $order->cod_extra_charge = $request->final_amount;
+            $order->cod_extra_charge = $data['final_amount']; 
            
 
             if ($order->save()) {
-                if (!empty($request->name)) {
+                if (!empty($request->Package)) {
                     $personalDetailsData = [];
-                    foreach ($request->name as $key => $name) {
-                        $personalDetailsData[] = [
-                            'order_id' => $order->id,
-                            'name' => $request->name[$key] ?? '',
-                            'unique_pckageid' => $request->unipackageid[$key] ?? '',
-                            'type' => $request->type[$key] ?? '',
-                            'age' => $request->age[$key] ?? '',
-                            'address' => $request->address ?? '',
-                            'passport_number' => $request->passport_number ?? '',
-                            'pnr' => $request->pnr[$key] ?? '',
-                            'country' => $request->country ?? '',
-                            'state' => $request->state ?? '',
-                            'city' => $request->city ?? '',
-                            'gender' => $request->gender[$key] ?? '',
-                            'pincode' => $request->pincode ?? '',
-                            'gst_number' => $request->gst_number ?? '',
-                            'phone' => $request->phone ?? ''
-                        ];
+                    foreach ($request->Package as $package) {
+                        $uniquePackageId = $package['unique_package_id'] ?? '';
+                    
+                        // Loop through the guest details within each package
+                        foreach ($package['guest_details'] as $guest) {
+                            $personalDetailsData[] = [
+                                'order_id' => $order->id,
+                                'name' => $guest['name'] ?? '',
+                                'unique_pckageid' => $uniquePackageId,
+                                'type' => $request->type ?? '', // Assuming `type` is not nested within guest details
+                                'age' => $guest['age'] ?? '',
+                                'address' => $request->address ?? '',
+                                'passport_number' => $guest['passport_number'] ?? '', // If provided in the guest details
+                                'pnr' => $guest['pnrNo'] ?? '',
+                                'country' => $request->country ?? '',
+                                'state' => $request->state ?? '',
+                                'city' => $request->city ?? '',
+                                'gender' => $guest['gender'] ?? '',
+                                'pincode' => $request->pinCode ?? '',
+                                'gst_number' => $request->gst_number ?? '',
+                                'phone' => $request->phone ?? ''
+                            ];
+                        }
                     }
                     PersonalDetails::insert($personalDetailsData);
                 }
@@ -1779,7 +1794,7 @@ public function submit_order_api(Request $request)
 
                 $order_customer = new OrderCustomer();
                 $order_customer->order_id = $order->id;
-                if (Auth::guard('customer')->check()) {
+                if ($data['user_id']) {
                     $order_customer->user_type = 'User';
                     $order_customer->customer_id = $customer->id;
                     $order_customer->billing_address = "demo";
@@ -1971,12 +1986,34 @@ public function submit_order_api(Request $request)
                         } 
 
                    else {
-                            $response = $this->order_success($order->id,$customer->id);
-                            return response()->json([
-                                'status' => $response['status'],
-                                'message' => $response['message'],
-                                'data' => $response['data']
-                            ], 200);
+
+                    $receipt = $data['receipt'] ?? 'order_rcptid_11'; // Default to 'order_rcptid_11' if receipt is not provided
+                    $amount = $data['final_amount'] ?? 5;         // Default to 5000 if amount is not provided
+                    $currency = $data['currency'] ?? 'INR';          // Default to 'INR' if currency is not provided
+                    $notes = $data['notes'] ?? [];                   // Default to an empty array if notes are not provided
+                    
+
+           $response = $this->razorpayService->createOrder($receipt, $amount, $currency, $notes);
+
+           if (isset($response['error']) && $response['error']) {
+            return response()->json(['message' => $response['message']], 500);
+                 }
+
+               return response()->json($response);
+
+
+
+
+                    
+                            // $response = $this->order_success($order->id,$customer->id);
+                            // return response()->json([
+                            //     'status' => $response['status'],
+                            //     'message' => $response['message'],
+                            //     'data' => $response['data']
+                            // ], 200);
+
+
+
                         } 
 
 

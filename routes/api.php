@@ -62,5 +62,6 @@ Route::get('/homebanner', [CommonController::class, 'get_banner']);
 Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
 Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
 Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
+Route::post('submit-order', [CommonController::class, 'submit_order_api']);
 
 
