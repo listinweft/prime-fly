@@ -1756,7 +1756,7 @@ public function submit_order_api(Request $request)
             $order->shipping_charge = 10;
             $order->currency = "INR";
             $order->currency_charge = 25;
-            $order->cod_extra_charge = $data['final_amount']; 
+            $order->cod_extra_charge = intval($data['final_amount']); 
            
 
             if ($order->save()) {
@@ -1988,7 +1988,7 @@ public function submit_order_api(Request $request)
                    else {
 
                     $receipt = $data['receipt'] ?? 'order_rcptid_11'; // Default to 'order_rcptid_11' if receipt is not provided
-                    $amount = $data['final_amount'] ?? 5;         // Default to 5000 if amount is not provided
+                    $amount = intval($data['final_amount']) ?? 5;         // Default to 5000 if amount is not provided
                     $currency = $data['currency'] ?? 'INR';          // Default to 'INR' if currency is not provided
                     $notes = $data['notes'] ?? [];                   // Default to an empty array if notes are not provided
                     
