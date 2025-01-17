@@ -2098,6 +2098,68 @@ public function order_success_api($order_id,$customerid)
         );
     }
 }
+public function order_success_api_razorpay(Request $request)
+{
+    // Retrieve the order and mark payment as 'Success'
+    $order = Order::find($request->db_orderid);
+
+    $customer = Customer::where('user_id',$request->user_id)->first();
+
+    
+    if (!$customer) {
+        return response()->json(['status' => false, 'message' => 'Customer not found']);
+    }
+
+
+    if (!$order) {
+        return array(
+            'status' => false,
+            'message' => 'Order not found.',
+        );
+    }
+
+    $order->payment_mode = 'Success';
+    $order->save();
+
+    // Process each order product and update its logs
+    $order_products = OrderProduct::where('order_id', $request->db_orderid)->get();
+    $orderSaved = [];
+    $orderNotSaved = [];
+
+    foreach ($order_products as $order_product) {
+        $order_log = OrderLog::where('order_product_id', $order_product->id)->first();
+        if ($order_log) {
+            $order_log->status = 'Processing';
+            if ($order_log->save()) {
+                $orderSaved[] = $order_product->id;
+            } else {
+                $orderNotSaved[] = $order_product->id;
+            }
+        }
+
+        $product = Product::find($order_product->product_id); // Product-related operations can be added if needed.
+    }
+
+    // Clear cart and related sessions
+    $this->clear_order_cart_sessions_api($customer->id);
+
+    // Send order placement email
+    if (Helper::sendOrderPlacedMail($order->id, '1')) {
+        // Return successful response
+        return array(
+            'status' => true,
+            'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully',
+            'data' => '/thank-you',
+        );
+    } else {
+        // Email sending failed; notify user
+        return array(
+            'status' => true,
+            'message' => 'Order "Primefly#' . $order->order_code . '" has been placed successfully, error while sending the email',
+            'data' => '/response/' . $order->id,
+        );
+    }
+}
 
 
 public function clear_order_cart_sessions_api($customerid)

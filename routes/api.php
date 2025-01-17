@@ -64,6 +64,7 @@ Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
 Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
 Route::post('submit-order', [CommonController::class, 'submit_order_api']);
 Route::post('/showInvoice-customer', [CommonController::class, 'showInvoice_api']);
+Route::post('/payment-success', [CommonController::class, 'order_success_api_razorpay']);
 
 
 
