@@ -1989,10 +1989,11 @@ public function submit_order_api(Request $request)
                    else {
 
                     $receipt = $data['receipt'] ?? 'order_rcptid_11'; // Default to 'order_rcptid_11' if receipt is not provided
-                    $amount = intval($data['final_amount']) ?? 5;         // Default to 5000 if amount is not provided
+                    $oldamount = intval($data['final_amount']) ?? 5;         // Default to 5000 if amount is not provided
                     $currency = $data['currency'] ?? 'INR';          // Default to 'INR' if currency is not provided
                     $notes = $data['notes'] ?? [];                   // Default to an empty array if notes are not provided
-                    
+                    $amount = 100 * $oldamount;
+
 
            $response = $this->razorpayService->createOrder($receipt, $amount, $currency, $notes);
 
