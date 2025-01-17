@@ -779,10 +779,10 @@ public function searchBookingBaggageApi(Request $request)
                 if ($offer) {
                     $totalAmount = $guest * $offer->price; // Use B2B offer price
                 } else {
-                    return response()->json(['status' => 'error', 'message' => 'No packages found']);
+                    return response()->json(['status' => 'error', 'message' => 'No packages found'],404);
                 }
             } else {
-                return response()->json(['status' => 'error', 'message' => 'Invalid user or not eligible for B2B pricing']);
+                return response()->json(['status' => 'error', 'message' => 'Invalid user or not eligible for B2B pricing'],404);
             }
         }
 
@@ -863,7 +863,7 @@ public function search_booking_entry_ticket_api(Request $request)
                 if ($offer) {
                     $ticketPrice = $offer->price; // Use B2B pricing
                 } else {
-                    return response()->json(['status' => 'error', 'message' => 'No packages found']);
+                    return response()->json(['status' => 'error', 'message' => 'No packages found'],404);
                 }
             } else {
                 return response()->json(['status' => 'error', 'message' => 'Invalid user or not eligible for B2B pricing']);
@@ -2118,7 +2118,7 @@ public function order_success_api_razorpay(Request $request)
         );
     }
 
-    $order->payment_mode = 'Success';
+    $order->payment_mode = $request->status;
     $order->save();
 
     // Process each order product and update its logs
