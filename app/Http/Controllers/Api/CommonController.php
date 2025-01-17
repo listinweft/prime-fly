@@ -1992,8 +1992,8 @@ public function submit_order_api(Request $request)
                     $oldamount = intval($data['final_amount']) ?? 5;         // Default to 5000 if amount is not provided
                     $currency = $data['currency'] ?? 'INR';          // Default to 'INR' if currency is not provided
                     $notes = $data['notes'] ?? [];                   // Default to an empty array if notes are not provided
-                    $amount = 100 * $oldamount;
-
+                    $amountnotround = 100 * $oldamount;
+                    $amount = round($amountnotround, 2);
 
            $response = $this->razorpayService->createOrder($receipt, $amount, $currency, $notes);
 
