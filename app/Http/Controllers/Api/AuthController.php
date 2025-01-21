@@ -361,7 +361,9 @@ public function login_normal(Request $request)
                     'message' => 'Successfully logged in',
                     'token' => $token,
                     'user_id'=>$user->id,
-                    'usertype'=>$user->btype
+                    'usertype'=>$user->btype,
+                    'paylater'=>$user->pay_status,
+                    
                    
                 ]);
             } else {
