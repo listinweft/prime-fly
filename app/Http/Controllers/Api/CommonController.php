@@ -371,6 +371,7 @@ public function customerorders(Request $request)
                     ];
                 }),
                 'invoice_url' => route('invoice.pdf', ['order_id' => $order->orderData->id]),
+                'orderid' =>  $order->orderData->id
             ];
         });
         
@@ -2239,7 +2240,7 @@ public function showInvoice_api(Request $request)
     return response()->json([
         'status' => 'success',
         'message' => 'Invoice generated successfully.',
-        'file_path' => url('invoices/' . $fileName) // Return public URL for the file
+        'file_path' => url('public/invoices/' . $fileName) // Return public URL for the file
     ]);
 }
 
