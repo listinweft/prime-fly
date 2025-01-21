@@ -94,7 +94,7 @@
             
          </td>
          <td  style="text-align:right;vertical-align:bottom;">
-            <img style="width:110px;margin-bottom:10px" src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo-blue.png"/>
+            <img style="width:110px;margin-bottom:10px" src="https://demo.wefttechnologies.com/primefly-mobile/public/frontend/img/logo-blue.png"/>
          </td>
       </tr>
       <table>
