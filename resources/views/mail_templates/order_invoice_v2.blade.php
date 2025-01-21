@@ -16,7 +16,7 @@
          <tr>
             <td align="center">
                <a target="_blank" href="#" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#659C35;font-size:16px">
-               <img src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo-blue.png" alt style="display:block;border:0;outline:none;text-decoration:none;margin-bottom: 15px; " width="105">
+               <img src="https://demo.wefttechnologies.com/primefly-mobile/public/frontend/img/logo-blue.png" alt style="display:block;border:0;outline:none;text-decoration:none;margin-bottom: 15px; " width="105">
                </a>
             </td>
          </tr>
@@ -373,7 +373,7 @@
                      <td style="vertical-align: bottom;">
                         <a target="_blank" href="javascript:void(0)"
                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#659C35;font-size:16px"><img
-                           src="https://demo.wefttechnologies.com/primefly/public/frontend/img/logo.png"
+                           src="https://demo.wefttechnologies.com/primefly-mobile/public/frontend/img/logo.png"
                            alt
                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
                            width="85"></a>
