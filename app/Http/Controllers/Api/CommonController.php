@@ -705,7 +705,7 @@ public function search_booking_lounch_api(Request $request)
             'location_title' => $product->location_title,
             'travel_details' => [
                
-                'entry_date' => $data['entry_date'] ?? '',
+                'setdate' => $data['entry_date'] ?? '',
                 'total_guest' => $data['adults'],
                 'origin' => $data['origin'],
                 'destination' => $data['destination'],
