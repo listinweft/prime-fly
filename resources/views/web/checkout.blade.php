@@ -676,4 +676,19 @@ document.querySelectorAll('[id^="auto_fill_"]').forEach(function (checkbox) {
    });
    
 </script>
+
+<script>
+   document.querySelector('.termsCheckbox').addEventListener('change', function() {
+      var gstFields = document.querySelectorAll('.gstField');
+      gstFields.forEach(function(gstField) {
+         if (this.checked) {
+            gstField.classList.remove('d-none'); // Show the GST field
+            gstField.classList.add('d-block');   // Ensure it's displayed as block
+         } else {
+            gstField.classList.remove('d-block'); // Hide the GST field
+            gstField.classList.add('d-none');     // Ensure it's hidden
+         }
+      }.bind(this));
+   });
+</script>
 @endpush
