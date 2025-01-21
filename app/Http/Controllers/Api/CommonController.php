@@ -2102,6 +2102,14 @@ public function order_success_api($order_id,$customerid)
 public function order_success_api_razorpay(Request $request)
 {
     // Retrieve the order and mark payment as 'Success'
+
+    if($request->status == "Failed")
+    {
+
+        return response()->json(['status' => false, 'message' => 'Failed To order']);
+
+    }
+    
     $order = Order::find($request->db_orderid);
 
     $customer = Customer::where('user_id',$request->user_id)->first();
