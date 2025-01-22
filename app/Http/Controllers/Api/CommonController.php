@@ -41,11 +41,13 @@ use DateTime;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Session;
 use PDF;
+use Illuminate\Support\Facades\Http;
+
 class CommonController extends Controller
 {
 
     protected $razorpayService;
-
+ 
     public function __construct(RazorpayService $razorpayService)
     {
         $this->razorpayService = $razorpayService;
@@ -2251,6 +2253,187 @@ public function showInvoice_api(Request $request)
         'file_path' => url('public/invoices/' . $fileName) // Return public URL for the file
     ]);
 }
+
+
+
+public function fetchdomesticAirportData()
+{
+    $apiUrl = 'https://api.flightstats.com/flex/airports/rest/v1/json/countryCode/IN';
+    $appId = '6afbf6ac';
+    $appKey = '6d35112e08773c372901b6ba27a58a25';
+
+    try {
+        $response = Http::get($apiUrl, [
+            'appId' => $appId,
+            'appKey' => $appKey,
+        ]);
+
+        if ($response->successful()) {
+            // Parse the JSON response
+            $data = $response->json();
+
+            // Process or return the data as needed
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
+        } else {
+            // Handle unsuccessful response
+            return response()->json([
+                'status' => 'error',
+                'message' => $response->body(),
+            ], $response->status());
+        }
+    } catch (\Exception $e) {
+        // Handle exceptions
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+}
+
+
+
+
+
+
+public function fetchFlightSchedule(Request $request)
+{
+    // Validate incoming request parameters
+    $request->validate([
+        'serviceType' => 'required|string|in:departure,arrival',
+        'origin' => 'required|string',
+        'destination' => 'required|string',
+        'date' => 'required|date', // Ensure the date is valid
+    ]);
+
+    // Get request parameters
+    $serviceType = $request->input('serviceType');
+    $origin = $request->input('origin');
+    $destination = $request->input('destination');
+    $date = $request->input('date');
+
+    // API credentials
+    $appId = '6afbf6ac';
+    $appKey = '6d35112e08773c372901b6ba27a58a25';
+
+    // Base URL
+    $apiUrl = 'https://api.flightstats.com/flex/schedules/rest/v1/json/';
+
+    // Build API endpoint based on serviceType
+    $apiEndpoint = '';
+    if ($serviceType === 'departure') {
+        $apiEndpoint = "from/{$origin}/to/{$destination}/departing/" . $this->formatDate($date);
+    } elseif ($serviceType === 'arrival') {
+        $apiEndpoint = "from/{$origin}/to/{$destination}/arriving/" . $this->formatDate($date);
+    }
+
+    // Combine URL with parameters
+    $proxyUrl = "{$apiUrl}{$apiEndpoint}?appId={$appId}&appKey={$appKey}";
+
+    try {
+        // Make API request
+        $response = Http::get($proxyUrl);
+
+        if ($response->successful()) {
+            // Return successful response
+            return response()->json([
+                'status' => 'success',
+                'data' => $response->json(),
+            ]);
+        } else {
+            // Handle API error response
+            return response()->json([
+                'status' => 'error',
+                'message' => $response->body(),
+            ], $response->status());
+        }
+    } catch (\Exception $e) {
+        // Handle exception
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+}
+
+
+
+
+public function fetchliveflight(Request $request)
+{
+    // Validate incoming request parameters
+    $request->validate([
+        'serviceType' => 'required|string|in:departure,arrival',
+        'origin' => 'required|string',
+        'destination' => 'required|string',
+        'date' => 'required|date', // Ensure the date is valid
+    ]);
+
+    // Get request parameters
+    $serviceType = $request->input('serviceType');
+    $origin = $request->input('origin');
+    $destination = $request->input('destination');
+    $date = $request->input('date');
+
+    // API credentials
+    $appId = '6afbf6ac';
+    $appKey = '6d35112e08773c372901b6ba27a58a25';
+
+    // Base URL
+    $apiUrl = 'https://api.flightstats.com/flex/schedules/rest/v1/json/';
+
+    // Build API endpoint based on serviceType
+    $apiEndpoint = '';
+    if ($serviceType === 'departure') {
+        $apiEndpoint = "from/{$origin}/to/{$destination}/departing/" . $this->formatDate($date);
+    } elseif ($serviceType === 'arrival') {
+        $apiEndpoint = "from/{$origin}/to/{$destination}/arriving/" . $this->formatDate($date);
+    }
+
+    // Combine URL with parameters
+    $proxyUrl = "{$apiUrl}{$apiEndpoint}?appId={$appId}&appKey={$appKey}";
+
+    try {
+        // Make API request using Http facade
+    return    $response = Http::get($proxyUrl);
+
+        if ($response->successful()) {
+            // Return successful response
+            return response()->json([
+                'status' => 'success',
+                'data' => $response->json(),
+            ]);
+        } else {
+            // Handle API error response
+            return response()->json([
+                'status' => 'error',
+                'message' => $response->body(),
+            ], $response->status());
+        }
+    } catch (\Exception $e) {
+        // Handle exception (e.g., connection issues)
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+}
+
+// Helper function to format date as needed by the API (YYYY/MM/DD)
+private function formatDate($date)
+{
+    try {
+        return \Carbon\Carbon::parse($date)->format('Y/m/d');
+    } catch (\Exception $e) {
+        throw new \InvalidArgumentException('Invalid date format provided: ' . $date);
+    }
+}
+
+
+
+
 
 
 
