@@ -2397,7 +2397,7 @@ public function fetchliveflight(Request $request)
 
     try {
         // Make API request using Http facade
-    return    $response = Http::get($proxyUrl);
+        $response = Http::get($proxyUrl);
 
         if ($response->successful()) {
             // Return successful response
