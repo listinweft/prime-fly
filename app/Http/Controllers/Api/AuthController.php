@@ -350,21 +350,13 @@ public function login_normal(Request $request)
  
     if ($user && Hash::check($request->password, $user->password) && $user->user_type == 'Customer') {
 
-        if($user->btype = 'b2b')
-        {
-            
-        if($user->status = 'Inactive')
-        {
-
+        if ($user->btype == 'b2b' && $user->status == 'Inactive') {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Customer Is Inactive.',
             ], 403);
-
-
         }
-
-        }
+        
         
             $customer = $user->customer;
 
