@@ -27,9 +27,24 @@ Route::get('/getCartByuserid', [AuthController::class, 'getCartByCustomerId']);
 
 
 // Protected route example to get user data for authenticated users
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-}); 
+Route::middleware('auth:sanctum')->group(function () {
+    // Example: Authenticated User Data
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // CommonController routes under sanctum protection
+    Route::get('/customerorders', [CommonController::class, 'customerorders']);
+    Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
+    Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
+    Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
+    Route::post('/profile/update', [CommonController::class, 'updateProfileApi']);
+    Route::get('/getCartlistByuserid', [CommonController::class, 'getCartData']);
+    Route::get('/fetch-bussinessaddress', [CommonController::class, 'fetch_bussinessaddress']);
+    Route::post('submit-order', [CommonController::class, 'submit_order_api']);
+    Route::post('/showInvoice-customer', [CommonController::class, 'showInvoice_api']);
+    Route::post('/payment-success', [CommonController::class, 'order_success_api_razorpay']);
+});
   
 // Add routes for locations and services
 Route::get('/locations', [CommonController::class, 'locations']);
@@ -38,9 +53,9 @@ Route::get('/blogs', [CommonController::class, 'blogs']);
 Route::get('/testimonials', [CommonController::class, 'testimonials']);
 Route::get('/profile', [CommonController::class, 'getProfileApi']);
 
-Route::post('/profile/update', [CommonController::class, 'updateProfileApi']);
-Route::get('/getCartlistByuserid', [CommonController::class, 'getCartData']);
-Route::get('/fetch-bussinessaddress', [CommonController::class, 'fetch_bussinessaddress']);
+
+
+
 
 Route::get('/customerorders', [CommonController::class, 'customerorders']);
 Route::post('/search-booking-meet-and-greet', [CommonController::class, 'searchBookingAPI']);
@@ -59,12 +74,8 @@ Route::get('/faq', [CommonController::class, 'faq_api']);
 Route::get('/main-search', [CommonController::class, 'main_search_api']);
 Route::get('/international-airport-search', [CommonController::class, 'international_search']);
 Route::get('/homebanner', [CommonController::class, 'get_banner']);
-Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
-Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
-Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
-Route::post('submit-order', [CommonController::class, 'submit_order_api']);
-Route::post('/showInvoice-customer', [CommonController::class, 'showInvoice_api']);
-Route::post('/payment-success', [CommonController::class, 'order_success_api_razorpay']);
+
+
 Route::get('/domestic-aiportdata', [CommonController::class, 'fetchdomesticAirportData']);
 Route::get('/flight-schedulelist', [CommonController::class, 'fetchliveflight']);
 
