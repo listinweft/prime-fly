@@ -358,16 +358,41 @@ public function customerorders(Request $request)
                 'date' => $order->orderData->created_at->format('d-m-Y'),
                 'total' => number_format($order->orderData->orderProducts->sum('total'), 2),
                 'products' => $order->orderData->orderProducts->map(function ($product) {
+                    // Fetch personal details for this product
+                    $personalDetails = PersonalDetails::where('order_id', $product->order_id)
+                        
+                        ->get();
+        
+                    // Map each person's details, including all the required fields
+                    $persons = $personalDetails->map(function ($detail) {
+                        return [
+                            'unique_package_id' => $detail->unique_pckageid,
+                            'name' => $detail->name,
+                            'age' => $detail->age,
+                            'address' => $detail->address,
+                            'passport_number' => $detail->passport_number,
+                            'pnr' => $detail->pnr,
+                            'country' => $detail->country,
+                            'state' => $detail->state,
+                            'city' => $detail->city,
+                            'gender' => $detail->gender,
+                            'pincode' => $detail->pincode,
+                            'type' => $detail->type,
+                            'gst_number' => $detail->gst_number,
+                            'phone' => $detail->phone,
+                        ];
+                    });
+        
                     return [
-                        'image' => $product->productData->product_categories->pluck('image_webp')->first() ?? null, // Return first image_webp or null
-                        'category' => $product->productData->product_categories->pluck('title')->first() ?? null,  // Return first category title or null
-                        'category_id' => $product->productData->product_categories->pluck('id')->first() ?? null,  // Return first category title or null
-                        'package' => ucfirst($product->productData->title),
+                        'image' => $product->productData->product_categories->pluck('image_webp')->first() ?? null,
+                        'category' => $product->productData->product_categories->pluck('title')->first() ?? null,
+                        'category_id' => $product->productData->product_categories->pluck('id')->first() ?? null,
                         'package' => ucfirst($product->productData->title),
                         'travel_type' => $product->travel_type ? ucfirst($product->travel_type) : null,
                         'origin' => $product->origin,
                         'destination' => $product->destination,
-                        'guest_count' => $product->guest ?? 'Not available',
+                        'guest_count' => $persons->count(), // Count of persons booked
+                        'persons' => $persons, // Array of persons' details
                         'date' => $product->exit_date ?? 'Not available',
                         'price' => $product->total ?? 'Not available',
                     ];
@@ -376,6 +401,7 @@ public function customerorders(Request $request)
                 'orderid' =>  $order->orderData->id
             ];
         });
+        
         
         
         // Return the data in API response
