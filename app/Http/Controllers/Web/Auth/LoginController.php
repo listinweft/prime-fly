@@ -211,7 +211,7 @@ class LoginController extends Controller
                         $cartContents = Cart::session($sessionKeys)->getContent();
                         // Log::info('Cart contents before clearing:', ['cart' => $cartContents]);
     
-                        Cart::session($sessionKeys)->clear();
+                        // Cart::session($sessionKeys)->clear();
     
                         // Log the cart contents after clearing
                         $cartContentsAfterClear = Cart::session($sessionKeys)->getContent();
