@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // CommonController routes under sanctum protection
     Route::get('/customerorders', [CommonController::class, 'customerorders']);
-    Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
+   
     Route::post('cart-add', [CommonController::class, 'cartAddItems_api']);
     Route::post('remove-cart', [CommonController::class, 'removeCartItemApi']);
     Route::post('/profile/update', [CommonController::class, 'updateProfileApi']);
@@ -74,7 +74,7 @@ Route::get('/faq', [CommonController::class, 'faq_api']);
 Route::get('/main-search', [CommonController::class, 'main_search_api']);
 Route::get('/international-airport-search', [CommonController::class, 'international_search']);
 Route::get('/homebanner', [CommonController::class, 'get_banner']);
-
+Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
 
 Route::get('/domestic-aiportdata', [CommonController::class, 'fetchdomesticAirportData']);
 Route::get('/flight-schedulelist', [CommonController::class, 'fetchliveflight']);
