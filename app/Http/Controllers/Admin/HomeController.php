@@ -692,15 +692,23 @@ if (!is_array($category_id)) {
     public function banner_store(Request $request)
     {
 
+       
+
         $validatedData = $request->validate([
 //            'title' => 'required|min:2|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             // 'image_attribute' => 'required|min:5',
         ]);
         $banner = new HomeBanner;
+
         if ($request->hasFile('image')) {
             $banner->desktop_image_webp = Helper::uploadWebpImage($request->image, 'uploads/home/banner/desktop_image/webp/', $request->title);
             $banner->desktop_image = Helper::uploadFile($request->image, 'uploads/home/banner/desktop_image/', $request->title);
+        }
+
+        if ($request->hasFile('mobile_image')) {
+            $banner->mobile_image_webp = Helper::uploadWebpImage($request->mobile_image, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $banner->mobile_image = Helper::uploadFile($request->mobile_image, 'uploads/home/banner/mobile_image/', $request->title);
         }
 
        $banner->title = $request->title ?? null;
@@ -758,6 +766,11 @@ if (!is_array($category_id)) {
 
             $banner->desktop_image_webp = Helper::uploadWebpImage($request->image, 'uploads/home/banner/desktop_image/webp/', $request->title);
             $banner->desktop_image = Helper::uploadFile($request->image, 'uploads/home/banner/desktop_image/', $request->title);
+        }
+
+        if ($request->hasFile('mobile_image')) {
+            $banner->mobile_image_webp = Helper::uploadWebpImage($request->mobile_image, 'uploads/home/banner/mobile_image/webp/', $request->title);
+            $banner->mobile_image = Helper::uploadFile($request->mobile_image, 'uploads/home/banner/mobile_image/', $request->title);
         }
         //        $banner->title = $request->title;
         $banner->title = $request->title ?? null;

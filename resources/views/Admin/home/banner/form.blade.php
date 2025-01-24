@@ -78,7 +78,18 @@
                               
                             </div>
 </div>
-                           
+                 
+
+<div class="form-group col-md-6">
+                                    <label> Mobile Banner</label>
+                                    <div class="file-loading">
+                                        <input id="mobile_image" name="mobile_image" type="file" accept="image/*">
+                                    </div>
+                                    <span class="caption_note">Note: Image size should be minimum of 960 x 450</span>
+                                    @error('mobile_image')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             
                             
                         </div>
@@ -87,7 +98,7 @@
                                 <div class="form-group col-md-6">
                                     <input type="submit" class="btn btn-primary form_submit_btn submitBtn" value="Submit">
                                    
-                                    <img class="animation__shake loadingImg" src="{{url('backend/dist/img/loading.gif')}}" style="display:none;">
+                                    <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}" style="display:none;">
                                 </div>
                             </div>
                 </form>
@@ -124,6 +135,32 @@
                     caption: "{{ ($banner->desktop_image!=NULL)?$banner->title:''}}",
                     width: "120px",
                     key: "{{'HomeBanner/desktop_image/'.$banner->id.'/desktop_image_webp' }}",
+                }]
+                @endif
+            });
+
+            $("#mobile_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                showRemove: false,
+                minImageWidth: 375,
+                minImageHeight: 310,
+                maxImageWidth: 375,
+                maxImageHeight: 310,
+                maxFileSize: 512,
+                @if(isset($banner) && $banner->mobile_image != NULL)
+                initialPreview: ["{{asset($banner->mobile_image)}}"],
+                initialPreviewConfig: [{
+                    caption: "{{ last(explode('/',$banner->mobile_image))}}",
+                    width: "120px",
+                    key: "{{($banner->mobile_image)}}",
                 }]
                 @endif
             });
