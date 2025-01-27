@@ -78,6 +78,10 @@ public function getCategoryDetails(Request $request)
             $category->icon = Helper::uploadWebpImage($request->image, 'uploads/category/image/webp/', $request->short_url);
             $category->icon_webp = Helper::uploadFile($request->image, 'uploads/category/image/', $request->short_url);
         }
+        if ($request->hasFile('mobile_banner')) {
+            $category->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/category/mobile_banner/webp/', $request->short_url);
+            $category->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/category/mobile_banner/', $request->short_url);
+        }
         if ($request->hasFile('desktop_banner')) {
             if (File::exists(public_path($category->desktop_banner))) {
                 File::delete(public_path($category->desktop_banner));
@@ -166,6 +170,10 @@ public function getCategoryDetails(Request $request)
         if ($request->hasFile('icon')) {
             $category->icon = Helper::uploadWebpImage($request->icon, 'uploads/category/image/webp/', $request->short_url);
             $category->icon_webp = Helper::uploadFile($request->icon, 'uploads/category/image/', $request->short_url);
+        }
+        if ($request->hasFile('mobile_banner')) {
+            $category->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/category/mobile_banner/webp/', $request->short_url);
+            $category->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/category/mobile_banner/', $request->short_url);
         }
         if ($request->hasFile('desktop_banner')) {
             if (File::exists(public_path($category->desktop_banner))) {
