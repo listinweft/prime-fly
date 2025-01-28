@@ -86,7 +86,7 @@
                                                        class="btn btn-success mr-2 tooltips" title="Edit Gallery"><i
                                                             class="fas fa-edit"></i></a>
                                                     <a href="#" class="btn btn-danger mr-2 delete_entry tooltips"
-                                                       title="Delete Gallery" data-url="sub-category/gallery/delete"
+                                                       title="Delete Gallery" data-url="product/sub-category/gallery/delete"
                                                        data-id="{{$gallery->id}}"><i class="fas fa-trash"></i></a>
                                                 </div>
                                             </td>

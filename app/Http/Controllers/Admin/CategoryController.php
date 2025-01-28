@@ -513,6 +513,7 @@ public function getCategoryDetails(Request $request)
                 }
                 $sort_number++;
             }
+            
         } else {
             $product_gallery = new CategoryGallery;
             $gallery_image = $request->image;
@@ -537,6 +538,10 @@ public function getCategoryDetails(Request $request)
     {
         $product_gallery->image_webp = Helper::uploadWebpImage($gallery_image, 'uploads/product/gallery/image/webp/', $product->short_url);
         $product_gallery->image = Helper::uploadFile($gallery_image, 'uploads/product/gallery/image/', $product->short_url,);
+
+        $product_gallery->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/product/gallery/mobile_banner/webp/', $request->short_url);
+        $product_gallery->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/product/gallery/mobile_banner/', $request->short_url);
+
         $product_gallery->media_type = $request->media_type;
         if ($request->media_type == "Video") {
             $product_gallery->video_url = $request->video_url;
@@ -578,6 +583,9 @@ public function getCategoryDetails(Request $request)
             }
             $product_gallery->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/gallery/image/webp/', $product->short_url);
             $product_gallery->image = Helper::uploadFile($request->image, 'uploads/product/gallery/image/', $product->short_url);
+
+            $product_gallery->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/product/gallery/mobile_banner/webp/', $request->short_url);
+            $product_gallery->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/product/gallery/mobile_banner/', $request->short_url);
         }
         $product_gallery->media_type = $request->media_type;
         if ($request->media_type == "Video") {
@@ -600,7 +608,7 @@ public function getCategoryDetails(Request $request)
     {
         if (isset($request->id) && $request->id != null) {
             $product_gallery = CategoryGallery::find($request->id);
-            if ($product_gallery) {
+             if ($product_gallery) {
                 if (File::exists(public_path($product_gallery->image))) {
                     File::delete(public_path($product_gallery->image));
                 }
