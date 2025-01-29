@@ -362,9 +362,8 @@ public function customerorders(Request $request)
                 'products' => $order->orderData->orderProducts->map(function ($product) {
                     // Fetch personal details for this product
                     $personalDetails = PersonalDetails::where('order_id', $product->order_id)
-                        
-                        ->get();
-        
+                    ->where('unique_pckageid', $product->unique_pckageid) // 🔥 Filter by unique_package_id
+                    ->get();
                     // Map each person's details, including all the required fields
                     $persons = $personalDetails->map(function ($detail) {
                         return [
