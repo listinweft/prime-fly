@@ -1806,7 +1806,7 @@ public function submit_order_api(Request $request)
                                 'type' => $request->type ?? '', // Assuming `type` is not nested within guest details
                                 'age' => $guest['age'] ?? '',
                                 'address' => $request->address ?? '',
-                                'passport_number' => $guest['passport_number'] ?? '', // If provided in the guest details
+                                'passport_number' =>  $request->passport_number ?? '', // If provided in the guest details
                                 'pnr' => $guest['pnrNo'] ?? '',
                                 'country' => $request->country ?? '',
                                 'state' => $request->state ?? '',
@@ -2461,58 +2461,55 @@ private function formatDate($date)
 
 
 
-public function get(Request $request)
+public function get_mobile(Request $request)
     {
-        $mobileApp = MobileApp::all();  // Correct way to get all records
-
-        return response()->json($mobileApp, 200);
+        return response()->json(MobileApp::all(), 200);
+       
     }
 
-public function store(Request $request)
+public function store_mobile(Request $request)
     {
-        $mobileApp = new MobileApp();
-        $mobileApp->type = $request->input('type');
-        $mobileApp->ios = $request->input('ios');
-        $mobileApp->android = $request->input('android');
-        $mobileApp->version_date = $request->input('versionDate');
-        $mobileApp->save();
+        $mobileApp = MobileApp::create([
+            'type' => $request->input('type'),
+            'ios' => $request->input('ios'),
+            'android' => $request->input('android'),
+            'version_date' => now()->toDateString(), // Correct syntax
+        ]);
 
         return response()->json($mobileApp, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update_mobile(Request $request)
     {
         // Validate the incoming request
-        $request->validate([
-            'type' => 'required|string',
-            'ios' => 'required|string',
-            'android' => 'required|string',
-            'versionDate' => 'required|date',
-        ]);
-    
-        // Find the record
-        $mobileApp = MobileApp::findOrFail($id);
-    
-        // Update all fields
+
+        $mobileApp = MobileApp::where('id', $request->id)->first();
+       
+
+      
+
         $mobileApp->update([
             'type' => $request->input('type'),
             'ios' => $request->input('ios'),
             'android' => $request->input('android'),
-            'version_date' => $request->input('versionDate'), // Ensure DB column matches
+            'version_date' => now()->toDateString(), // Correct syntax
         ]);
-    
+
         return response()->json($mobileApp, 200);
     }
     
 
-    public function destroy($id)
+    public function delete_mobile(Request $request)
     {
-        $mobileApp = MobileApp::findOrFail($id);
+        \Log::info('Request Method:', ['method' => $request->method()]);
+
+        $mobileApp = MobileApp::where('id', $request->id)->first();
         $mobileApp->delete();
 
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Deleted successfully'], 200);
     }
-
+    
+    
 
 
 

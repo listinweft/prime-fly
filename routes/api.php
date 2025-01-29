@@ -79,13 +79,8 @@ Route::post('/payments/create-order', [CommonController::class, 'createOrder']);
 Route::get('/domestic-aiportdata', [CommonController::class, 'fetchdomesticAirportData']);
 Route::get('/flight-schedulelist', [CommonController::class, 'fetchliveflight']);
 
-Route::post('/mobile-app', [CommonController::class, 'store']);
-Route::put('/mobile-app{id}', [CommonController::class, 'update']);
-Route::delete('/mobile-app{id}', [CommonController::class, 'destroy']);
-Route::get('/mobile-app', [CommonController::class, 'get']);
-
-
-
-
-
+Route::post('/mobile-app', [CommonController::class, 'store_mobile']);
+Route::post('/mobile-app/update', [CommonController::class, 'update_mobile']);
+Route::post('/mobile-app/delete', [CommonController::class, 'delete_mobile']);
+Route::get('/mobile-app', [CommonController::class, 'get_mobile']);
 
