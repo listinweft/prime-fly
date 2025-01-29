@@ -2461,6 +2461,13 @@ private function formatDate($date)
 
 
 
+public function get(Request $request)
+    {
+        $mobileApp = MobileApp::all();  // Correct way to get all records
+
+        return response()->json($mobileApp, 200);
+    }
+
 public function store(Request $request)
     {
         $mobileApp = new MobileApp();

@@ -82,7 +82,7 @@ Route::get('/flight-schedulelist', [CommonController::class, 'fetchliveflight'])
 Route::post('/mobile-app', [CommonController::class, 'store']);
 Route::put('/mobile-app{id}', [CommonController::class, 'update']);
 Route::delete('/mobile-app{id}', [CommonController::class, 'destroy']);
-
+Route::get('/mobile-app', [CommonController::class, 'get']);
 
 
 
