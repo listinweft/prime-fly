@@ -21,6 +21,7 @@ use App\Models\PersonalDetails;
 use App\Models\Order;
 use App\Models\HomeBanner;
 use App\Models\Faq;
+use App\Models\MobileApp;
 use App\Models\CategoryGallery;
 use App\Models\Testimonial; // Import the Testimonial model
 use Illuminate\Support\Facades\File;
@@ -2458,6 +2459,51 @@ private function formatDate($date)
 }
 
 
+
+public function store(Request $request)
+    {
+        $mobileApp = new MobileApp();
+        $mobileApp->type = $request->input('type');
+        $mobileApp->ios = $request->input('ios');
+        $mobileApp->android = $request->input('android');
+        $mobileApp->version_date = $request->input('versionDate');
+        $mobileApp->save();
+
+        return response()->json($mobileApp, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'type' => 'required|string',
+            'ios' => 'required|string',
+            'android' => 'required|string',
+            'versionDate' => 'required|date',
+        ]);
+    
+        // Find the record
+        $mobileApp = MobileApp::findOrFail($id);
+    
+        // Update all fields
+        $mobileApp->update([
+            'type' => $request->input('type'),
+            'ios' => $request->input('ios'),
+            'android' => $request->input('android'),
+            'version_date' => $request->input('versionDate'), // Ensure DB column matches
+        ]);
+    
+        return response()->json($mobileApp, 200);
+    }
+    
+
+    public function destroy($id)
+    {
+        $mobileApp = MobileApp::findOrFail($id);
+        $mobileApp->delete();
+
+        return response()->json(null, 204);
+    }
 
 
 
