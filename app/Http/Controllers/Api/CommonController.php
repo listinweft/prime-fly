@@ -299,6 +299,7 @@ public function getCartData(Request $request)
                     'location_title' => $locationTitle,
                     'guest_count' => $guestCount,
                     'service_type' => $product->service_type,
+                    'travel_sector' => $row->attributes['travel_sector'] ,
                     'set_date' => $row->attributes['setdate'] ?? null,
                     'meet_guest' => $row->attributes['meet_guest'] ?? null,
                     'meet_guestn' => $row->attributes['meet_guestn'] ?? null,
