@@ -25,7 +25,7 @@
       <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png')}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.6/sweetalert2.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-selectbox/0.2.4/jquery.selectbox.css">
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-selectbox/0.2.4/jquery.selectbox.css"> -->
    
   </style>
     @stack('styles')
