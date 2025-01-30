@@ -2543,6 +2543,53 @@ public function privacy_policy_api()
     ]);
 }
 
+
+public function enquiry_storeApi(Request $request)
+{
+
+   
+    $request->validate([
+        'firstname' => 'required|regex:/^[\pL\s]+$/u|min:2|max:60',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|regex:/^([0-9\+]*)$/|min:7|max:20',
+       
+    ]);
+
+    $contact = new Enquiry();
+
+
+    $contact->type = $request->type;
+    $contact->name = $request->firstname;
+    $contact->email = $request->email;
+    $contact->phone = $request->phone;
+   
+    $contact->message = $request->message ?? NULL;
+    $contact->product_type_id = $request->product_type_id ?? NULL;
+    $contact->size_id = $request->size_id ?? NULL;
+    $contact->frame_id = $request->frame_id ?? NULL;
+    $contact->mount = $request->mount ?? NULL;
+  
+    $contact->request_url = url()->previous();
+
+
+   
+        $type = ' Contact request';
+
+    if ($contact->save()) {
+
+        $sendContactMail = Helper::sendContactMail($contact, $type);
+        if ($sendContactMail) {
+
+            return response()->json(['status' => 'success',
+                'message' => "Contact request has been submitted successfully,Can't sent the mail right now"]);
+
+            
+        } 
+    } else {
+        return response()->json(['status' => 'error', 'message' => 'Error : Error while submitting the request']);
+    }
+}
+
     
 
 
