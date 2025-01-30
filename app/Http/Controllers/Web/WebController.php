@@ -1897,7 +1897,11 @@ public function search_booking_lounch(Request $request)
     public function faq()
     {
         $seo_data = $this->seo_content('faq');  
-        $faqs = Faq::active()->latest()->take(10)->get();
+        $faqs = Faq::active()
+    ->where('type', 'location')
+    
+    ->get();
+
 
         
         $field = 'faq';

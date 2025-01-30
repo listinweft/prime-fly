@@ -21,6 +21,7 @@ use App\Models\PersonalDetails;
 use App\Models\Order;
 use App\Models\HomeBanner;
 use App\Models\Faq;
+use App\Models\Enquiry;
 use App\Models\MobileApp;
 use App\Models\CategoryGallery;
 use App\Models\Testimonial; // Import the Testimonial model
