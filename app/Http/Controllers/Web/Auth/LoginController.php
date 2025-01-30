@@ -159,6 +159,20 @@ class LoginController extends Controller
 
             
             if (Auth::guard('customer')->user()->btype == 'public') {
+
+
+                If(Auth::guard('customer')->user()->status == 'Inactive')
+                {
+
+
+                    return response()->json(['status' => 'error', 'message' => 'Account Is inactive']);
+
+
+
+                }
+
+
+
                 $oldSessionKey = session('session_key');
                 $newSessionKey = Auth::guard('customer')->user()->customer->id;
     
@@ -608,7 +622,7 @@ public function register(Request $request)
         $user->user_type = 'Customer';
         $user->username = $request->email;
         $user->email = $request->email;
-        $user->status = 'Inactive';
+        $user->status = 'Active';
         $user->pay_status = 'Inactive';
         $user->phone = $request->phone;
         $user->btype = 'public';

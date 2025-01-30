@@ -48,7 +48,7 @@ class AuthController extends Controller
         $user->user_type = 'Customer';
         $user->username = $request->email;
         $user->email = $request->email;
-        $user->status = 'Inactive';
+        $user->status = 'Active';
         $user->pay_status = 'Inactive';
         $user->phone = $request->phone;
         $user->btype = 'public';
@@ -350,7 +350,7 @@ public function login_normal(Request $request)
  
     if ($user && Hash::check($request->password, $user->password) && $user->user_type == 'Customer') {
 
-        if ($user->btype == 'b2b' && $user->status == 'Inactive') {
+        if ($user->status == 'Inactive') {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Customer Is Inactive.',
