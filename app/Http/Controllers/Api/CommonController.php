@@ -1506,7 +1506,11 @@ public function getCartCategories(Request $request)
 public function faq_api()
 {
     // Fetch active FAQs
-    $faqs = Faq::active()->latest()->take(10)->get();
+    $faqs = Faq::active()
+    ->where('type', 'location')
+    
+    ->get();
+
 
     // Return response in JSON format
     return response()->json([
@@ -2507,7 +2511,38 @@ public function store_mobile(Request $request)
 
         return response()->json(['message' => 'Deleted successfully'], 200);
     }
+
+    public function terms_and_conditions_api()
+{
+  
+
+    $policydata = SiteInformation::first();
+
+    $field = 'terms_and_conditions';
+
+    return response()->json([
+       
+        'policy_data' => $policydata ? $policydata->$field : null,
+        'message' => 'Terms and Conditions data retrieved successfully',
+        'status' => true
+    ]);
+}
+
+public function privacy_policy_api()
+{
+
+    $policydata = SiteInformation::first();
+
+    $field = 'privacy_policy';
     
+    return response()->json([
+        
+        'policy_data' => $policydata ? $policydata->$field : null,
+        'message' => 'Privacy Policy data retrieved successfully',
+        'status' => true
+    ]);
+}
+
     
 
 

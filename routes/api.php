@@ -84,4 +84,6 @@ Route::post('/mobile-app', [CommonController::class, 'store_mobile']);
 Route::post('/mobile-app/update', [CommonController::class, 'update_mobile']);
 Route::post('/mobile-app/delete', [CommonController::class, 'delete_mobile']);
 Route::get('/mobile-app', [CommonController::class, 'get_mobile']);
+Route::get('/terms-and-conditions-api', [CommonController::class, 'terms_and_conditions_api']);
+Route::get('/privacy-policy-api', [CommonController::class, 'privacy_policy_api']);
 
