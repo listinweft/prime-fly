@@ -456,10 +456,11 @@ public function logout(Request $request)
 
 public function delete_account(Request $request)
 { 
-    $user = User::where('id', $request->user_id)->first();
+      $user = User::where('id', $request->user_id)->first();
 
-    if ($user) {
-        $user->update(['status' => 'Inactive']);
+      if ($user) {
+        $user->status = 'Inactive'; 
+        $user->save(); // Explicitly save changes
 
         return response()->json([
             'message' => 'Your account is deleted',
