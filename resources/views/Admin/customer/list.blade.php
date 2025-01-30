@@ -64,8 +64,7 @@
                                              @if ($customer->user->btype=="b2b")<td>B2b</td>@else<td>Public</td>@endif
                                             <td>{{ ($customer->user != null)  ? $customer->user->phone : ''}}</td>
                                             <td>
-                                                @if ($customer->user != null)
-                                                @if( $customer->user->btype == "b2b")
+                                               
                                                 <label class="switch">
                                                     <input type="checkbox" class="status_check"
                                                            data-url="/status-change" data-table="User"
@@ -73,10 +72,7 @@
                                                         {{($customer->user->status=="Active")?'checked':''}}>
                                                     <span class="slider"></span>
                                                 </label>
-                                                @endif
-                                                @else
-                                                    
-                                                @endif
+                                              
                                             </td>
 
                                             <td>

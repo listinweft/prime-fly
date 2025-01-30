@@ -454,5 +454,25 @@ public function logout(Request $request)
 }
 
 
+public function delete_account(Request $request)
+{ 
+    $user = User::where('id', $request->user_id)->first();
+
+    if ($user) {
+        $user->update(['status' => 'Inactive']);
+
+        return response()->json([
+            'message' => 'Your account is deleted',
+            'status' => true
+        ]);
+    }
+
+    return response()->json([
+        'message' => 'User not found',
+        'status' => false
+    ], 404);
+}
+
+
 }
 

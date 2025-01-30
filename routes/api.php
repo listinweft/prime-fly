@@ -22,6 +22,7 @@ Route::post('/registerpublic', [AuthController::class, 'registerpublic']);
 Route::post('/registercorporate', [AuthController::class, 'registercorporate']);
 Route::post('/forgot-password', [AuthController::class, 'forgot_password']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/delete-account', [AuthController::class, 'delete_account']);
 // Route::get('/getCartByCustomerId/{user_id}', [AuthController::class, 'getCartByCustomerId']);
 Route::get('/getCartByuserid', [AuthController::class, 'getCartByCustomerId']);
 
