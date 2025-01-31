@@ -2282,29 +2282,47 @@ $(document).on('click', '#confirm_payment', function (e) {
 
 
     function blogLoadMoreData() {
-        var total_blogs = $('#totalBlogs').val();
-
-        var offset = $('#blog_loading_offset').val();
-        var loading_limit = $('#blog_loading_limit').val();
-
-        var btnHtml = $('.load-more-product').html();
-        $('.load-more-button').html('Please wait..!');
+        var total_blogs = parseInt($('#totalBlogs').val());
+        var offset = parseInt($('#blog_loading_offset').val());
+        var loading_limit = parseInt($('#blog_loading_limit').val());
+    
+        var btnHtml = $('.load-more-button').html();
+        $('.load-more-button').html('Loading...');
+    
         $.ajax({
-            type: 'POST', data: {total_blogs: total_blogs, offset: offset, loading_limit: loading_limit}, headers: {
+            type: 'POST',
+            data: { total_blogs: total_blogs, offset: offset, loading_limit: loading_limit },
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, url: base_url + '/blog-load-more', success: function (response) {
+            },
+            url: base_url + '/blog-load-more',
+            success: function (response) {
                 if (response != 0) {
                     $('.appendHere_' + offset).after(response).remove();
                     $('.more-section-' + offset).remove();
-                    $('.load-more-product').html(btnHtml);
+                    
+                    // Update offset
+                    var newOffset = offset + loading_limit;
+                    $('#blog_loading_offset').val(newOffset);
+    
+                    // Hide the button if all blogs are loaded
+                    if (newOffset >= total_blogs) {
+                        $('.load-more-button').hide();
+                    } else {
+                        $('.load-more-button').html(btnHtml);
+                    }
                 } else {
                     swal.fire({
-                        title: 'Error', text: 'Some error occurred', icon: 'error'
+                        title: 'Error',
+                        text: 'Some error occurred',
+                        icon: 'error'
                     });
+                    $('.load-more-button').html(btnHtml);
                 }
             }
         });
     }
+    
     function journalLoadMoreData() {
         var total_blogs = $('#totaljournals').val();
 

@@ -28,7 +28,7 @@
 
 
 @endif
-<input type="hidden" id="totalBlogs" name="total_blogs" value="{{$totalBlog}}">
+<!-- <input type="hidden" id="totalBlogs" name="total_blogs" value="{{$totalBlog}}">
         <input type="hidden" id="blog_loading_offset" name="blog_loading_offset" value="{{$offset}}">
         <input type="hidden" id="blog_loading_limit" name="blog_loading_limit" value="{{$loading_limit}}">
 
@@ -43,4 +43,18 @@
                 </div>
             </div>
 
+            @endif -->
+
+            <input type="hidden" id="totalBlogs" name="total_blogs" value="{{ $totalBlog }}">
+<input type="hidden" id="blog_loading_offset" name="blog_loading_offset" value="{{ $offset }}">
+<input type="hidden" id="blog_loading_limit" name="blog_loading_limit" value="{{ $loading_limit }}">
+
+@if($totalBlog > $offset)
+    <div class="row">
+        <div class="col-12 text-center mt-3">
+            @if($offset <= 3)
+                <a href="#" class="btn btn-primary load-more-button" onclick="blogLoadMoreData(); return false;">Load More</a>
             @endif
+        </div>
+    </div>
+@endif
