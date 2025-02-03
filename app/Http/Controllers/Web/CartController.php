@@ -312,21 +312,31 @@ class CartController extends Controller
     
         if (!empty($sessionKey)) {
             $cartItems = Cart::session($sessionKey)->getContent();
+
+
+            $categoriesArray = []; // Initialize an empty array to store category data
+
+            foreach (Cart::session($sessionKey)->getContent()->sort() as $row) {
+                $product_id_parts = explode('_', $row->id);
+                $original_product_id = $product_id_parts[0];
+                $product = Product::find($original_product_id);
+            
+                if ($product) {
+                    $category = Category::where('id', $product->category_id)
+                        ->whereNull('parent_id')
+                        ->first();
+            
+                    if ($category) {
+                        $categoriesArray[] = $category->id; // Add the category to the array
+                    }
+                }
+            
+               
+            }
     
             $locationCodes = [];
             $categoryIds = [];
     
-            // Extract location codes from cart items
-            // $cartItems->each(function ($item) use (&$locationCodes) {
-            //     $travelType = $item->attributes['travel_type'] ?? null;
-            //     $locationCode = ($travelType == 'departure' || $travelType == 'Transit' || $travelType === null) 
-            //                      ? $item->attributes['origin'] 
-            //                      : $item->attributes['destination'];
-    
-            //     if ($locationCode) {
-            //         $locationCodes[] = $locationCode;
-            //     }
-            // });
     
 
             $cartItems->each(function ($item) use (&$locationCodes) {
@@ -381,6 +391,7 @@ class CartController extends Controller
             // Fetch unique categories based on the category IDs
             $categories = \App\Models\Category::whereIn('id', $categoryIds)->where('status','Active')
                 ->whereNull('parent_id')
+                ->whereNotIn('id', $categoriesArray)
                 ->get();
     
             // Log data for debugging
