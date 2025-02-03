@@ -13,6 +13,7 @@ use App\Models\State;
 use App\Models\User;
 use App\Models\Offer;
 use App\Models\BusinessAddress;
+use App\Models\CustomNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rules\Password;
+
+
 
 class CustomerController extends Controller
 {
@@ -375,4 +378,101 @@ class CustomerController extends Controller
             return response()->json(['status' => false, 'message' => 'Empty value submitted']);
         }
     }
+
+    
+    public function notification()
+    {
+        $customers = CustomNotification::get();
+        $title = "Notification List " ;
+  
+        return view('Admin.customer_notification.list', compact('customers', 'title',));
+
+    }
+
+    public function notification_create()
+    {
+        
+        $key = "Create";
+        $title = "Create Notification" ;
+        $customers = Customer::get();
+        return view('Admin.customer_notification.form', compact('key', 'title','customers'));
+
+    }
+
+    public function notification_store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'customerid' => 'required',
+            'description' => 'required',
+            
+        ]);
+        $address = new CustomNotification;
+        $address->user_id = $validatedData['customerid'];
+      
+        $address->message = $validatedData['description'];
+        if ($address->save()) {
+            session()->flash('success', "Notification has been added successfully");
+            return redirect(Helper::sitePrefix() . 'customer/notification/');
+        } else {
+            return back()->with('error', 'Error while creating the notification');
+        }
+    }
+
+    public function notification_edit(Request $request, $id)
+    {
+        $key = "Update";
+        $customernotification = CustomNotification::find($id);
+        $title = "Update Notification - " . $customernotification->customer->first_name;
+        $customers = Customer::get();
+        if ($customernotification) {
+           
+           
+            return view('Admin.customer_notification.form', compact('key',  'title', 'customernotification','customers'));
+        } else {
+            return view('Admin.error.404');
+        }
+    }
+
+    public function notification_update(Request $request, $id)
+    {
+        $address = CustomNotification::find($id);
+        $validatedData = $request->validate([
+            'customerid' => 'required',
+            'description' => 'required',
+            
+        ]);
+        $address->user_id = $validatedData['customerid'];
+      
+        $address->message = $validatedData['description'];
+        if ($address->save()) {
+            session()->flash('success', "Customer Notification has been updated successfully");
+            return redirect(Helper::sitePrefix() . 'customer/notification/');
+        } else {
+            return back()->with('error', 'Error while updating the address');
+        }
+    }
+
+  
+    public function delete_notification(Request $request)
+    {
+        if (!isset($request->id) || $request->id == null) {
+            return response()->json(['status' => false, 'message' => 'Empty value submitted']);
+        }
+    
+        $address = CustomNotification::find($request->id);
+    
+        if (!$address) {
+            return response()->json(['status' => false, 'message' => ' not found']);
+        }
+    
+        if ($address->delete()) {
+            return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Some error occurred, please try again later']);
+        }
+    }
+    
+
+
+    
 }

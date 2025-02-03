@@ -547,6 +547,14 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
             Route::post('edit/{id}', [CustomerController::class, 'address_update']);
             Route::post('delete', [CustomerController::class, 'delete_address']);
         });
+        Route::prefix('notification')->group(function () {
+            Route::get('/', [CustomerController::class, 'notification']);
+            Route::get('create', [CustomerController::class, 'notification_create']);
+            Route::post('create', [CustomerController::class, 'notification_store']);
+            Route::get('edit/{id}', [CustomerController::class, 'notification_edit']);
+            Route::post('edit/{id}', [CustomerController::class, 'notification_update']);
+            Route::post('delete', [CustomerController::class, 'delete_notification']);
+        });
     });
 
     Route::prefix('deal')->group(function () {
