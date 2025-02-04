@@ -1773,7 +1773,7 @@ public function submit_order_api(Request $request)
             $order->order_code = $orderCode;
             $order->payment_method = $data['selected_kerala_location'];
             $order->cod_extra_charge = 0;
-            $order->remarks = "good";
+            $order->remarks = "Mobile-api";
             $order->tax = $siteInformation->tax;
          
             $order->tax_type = $data['selected_kerala_location'] ?? "Inside";
