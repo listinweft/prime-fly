@@ -1418,85 +1418,74 @@ public function getCartCategories(Request $request)
 {
     // Retrieve session key from the request
     $customer = Customer::where('user_id', $request->user_id)->first();
+    $categoriesArray = $request->input('categoryIds', []);
 
-    $categoriesArray = $request->categoriesArray ?? [];
+    // Ensure categoriesArray is properly formatted
+    if (is_string($categoriesArray)) {
+        $categoriesArray = json_decode($categoriesArray, true);
+    }
 
-    
-    // Check if customer exists
+    if (!is_array($categoriesArray)) {
+        $categoriesArray = explode(',', trim($categoriesArray, '[]'));
+    }
+
+    // Convert all values to integers
+    $categoriesArray = array_map('intval', $categoriesArray);
+
+    \Log::info('Excluded Category IDs:', ['categoriesArray' => $categoriesArray]);
+
     if (!$customer) {
         return response()->json([
             'status' => 'error',
             'message' => 'Customer not found.',
         ], 404);
     }
+    
     $customerId = $customer->id;
-    // Set session key based on the customer ID
-    $newSessionKey = $customerId;
-    session(['session_key' => $newSessionKey]);
+    session(['session_key' => $customerId]);
 
-    if (!empty($newSessionKey)) {
-        // Get cart items
-        $cartItems = Cart::session($newSessionKey)->getContent();
-
+    if (!empty($customerId)) {
+        $cartItems = Cart::session($customerId)->getContent();
         $locationCodes = [];
-        $categoryIds = [];
 
-        // Extract location codes from cart items
         $cartItems->each(function ($item) use (&$locationCodes) {
             $travelType = $item->attributes['travel_type'] ?? null;
-
-           
             $locationCode = ($travelType === 'departure' || $travelType === 'Transit' || empty($travelType))
                 ? $item->attributes['origin']
                 : $item->attributes['destination'];
 
-          
-
             if ($locationCode) {
-                $locationCodes[] = $locationCode;
+                $locationCodes[] = strtoupper(trim($locationCode));
             }
         });
 
-        // Normalize and remove duplicates
-        $locationCodes = array_map(function ($code) {
-            return strtoupper(trim($code));
-        }, array_unique($locationCodes));
+        $locationCodes = array_unique($locationCodes);
+        $locationIds = Location::whereIn('code', $locationCodes)->pluck('id')->toArray();
 
-      
-        // Fetch location IDs
-        $locationIds = Location::whereIn('code', $locationCodes)
-            ->pluck('id')
-            ->toArray();
-
-      
-
-        // Fetch products and filter by location IDs
         $products = Product::where('status', 'Active')->get()->filter(function ($product) use ($locationIds) {
             $productLocationIds = explode(',', $product->location_id);
             return !empty(array_intersect($productLocationIds, $locationIds));
         });
 
-        // Extract unique category IDs
+        // Get unique category IDs from products
         $categoryIds = $products->pluck('category_id')->unique();
 
-        // Fetch categories
-        $categories = Category::whereIn('id', $categoryIds)
-          ->whereNotIn('id', $categoriesArray)
+        // Remove excluded categories
+        $filteredCategoryIds = $categoryIds->diff($categoriesArray)->values();
+
+        \Log::info('Filtered Category IDs:', ['categoryIds' => $filteredCategoryIds]);
+
+        $categories = Category::whereIn('id', $filteredCategoryIds)
             ->where('status', 'Active')
             ->whereNull('parent_id')
             ->get();
 
-        
-
-        // Return response
         return response()->json([
             'success' => true,
             'categories' => $categories,
         ], 200);
     } else {
-        // If no session key, fetch all active parent categories
         $categories = Category::whereNull('parent_id')->where('status', 'Active')->get();
-
         return response()->json([
             'success' => true,
             'categories' => $categories,
