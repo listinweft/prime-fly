@@ -1481,6 +1481,7 @@ public function getCartCategories(Request $request)
 
         // Fetch categories
         $categories = Category::whereIn('id', $categoryIds)
+          ->whereNotIn('id', $request->categoriesArray)
             ->where('status', 'Active')
             ->whereNull('parent_id')
             ->get();

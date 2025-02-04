@@ -70,7 +70,7 @@ Route::post('/search-booking-cloackroom-api', [CommonController::class, 'search_
 Route::get('/internationa-airports', [CommonController::class, 'getInternationalAirports']);
 Route::get('/single-serviceDetail', [CommonController::class, 'serviceDetailApi']);
 Route::get('/single-locationDetail', [CommonController::class, 'locationDetailApi']);
-Route::get('/getaddons', [CommonController::class, 'getCartCategories']);
+Route::post('/getaddons', [CommonController::class, 'getCartCategories']);
 Route::get('/faq', [CommonController::class, 'faq_api']);
 Route::get('/main-search', [CommonController::class, 'main_search_api']);
 Route::get('/international-airport-search', [CommonController::class, 'international_search']);
