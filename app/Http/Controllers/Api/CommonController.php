@@ -1419,7 +1419,7 @@ public function getCartCategories(Request $request)
     // Retrieve session key from the request
     $customer = Customer::where('user_id', $request->user_id)->first();
 
-
+    $categoriesArray = $request->categoriesArray ?? [];
 
     
     // Check if customer exists
@@ -1481,7 +1481,7 @@ public function getCartCategories(Request $request)
 
         // Fetch categories
         $categories = Category::whereIn('id', $categoryIds)
-          ->whereNotIn('id', $request->categoriesArray)
+          ->whereNotIn('id', $categoriesArray)
             ->where('status', 'Active')
             ->whereNull('parent_id')
             ->get();
