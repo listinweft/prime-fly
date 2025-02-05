@@ -87,6 +87,18 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label> Mobile Banner*</label>
+                                        <div class="file-loading">
+                                            <input id="mobile_banner" name="mobile_banner" type="file" accept="image/*">
+                                        </div>
+                                        <span
+                                            class="caption_note">Note: Image size should be minimum of 960 x 450</span>
+                                        @error('mobile_banner')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <div class="form-group col-md-6">
                                         <label> Image Attribute *</label>
                                         <input type="text" class="form-control required placeholder-cls"
@@ -137,6 +149,33 @@
                 }]
                 @endif
             });
+
+
+            $("#mobile_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+               //  minImageWidth: 960,
+               //  minImageHeight: 450,
+               //  maxImageWidth: 960,
+               //  maxImageHeight: 450,
+                showRemove: false,
+                @if(isset($category) && $category->mobile_banner!=NULL)
+                initialPreview: ["{{asset($category->mobile_banner)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ ($category->mobile_banner!=NULL)?last(explode('/',$category->mobile_banner)):''}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+   
         });
     </script>
 @endsection

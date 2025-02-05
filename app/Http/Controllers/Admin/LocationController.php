@@ -283,6 +283,8 @@ class LocationController extends Controller
     /********************** Sub-category ********************************/
     public function location_gallery_list($product_id)
     {
+
+        
         $product = Location::find($product_id);
         $title = " Gallery List - " . $product->title;
         $productGalleryList = LocationGallery::where('location_id', '=', $product_id)->get();
@@ -292,6 +294,8 @@ class LocationController extends Controller
 
     public function location_gallery_create($product_id)
     {
+
+       
         $product = Location::find($product_id);
         $key = "Create";
         $title = "Create Location Gallery  - " . $product->title;
@@ -301,6 +305,8 @@ class LocationController extends Controller
 
     public function location_gallery_store(Request $request)
     {
+
+       
         $request->validate([
             'image.*' => 'required|image|mimes:jpeg,png,jpg|max:10240',
             'image_attribute' => 'required',
@@ -351,6 +357,10 @@ class LocationController extends Controller
     {
         $product_gallery->image_webp = Helper::uploadWebpImage($gallery_image, 'uploads/product/gallery/image/webp/', $product->short_url);
         $product_gallery->image = Helper::uploadFile($gallery_image, 'uploads/product/gallery/image/', $product->short_url,);
+
+        $product_gallery->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/product/gallery/mobile_banner/webp/', $request->short_url);
+        $product_gallery->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/product/gallery/mobile_banner/', $request->short_url);
+
         $product_gallery->media_type = $request->media_type;
         if ($request->media_type == "Video") {
             $product_gallery->video_url = $request->video_url;
@@ -378,6 +388,7 @@ class LocationController extends Controller
     {
         $product_gallery = LocationGallery::find($id);
         $product = Location::find($request->product_id);
+
         if ($request->hasFile('image')) {
             if (File::exists(public_path($product_gallery->image))) {
                 File::delete(public_path($product_gallery->image));
@@ -388,6 +399,23 @@ class LocationController extends Controller
             $product_gallery->image_webp = Helper::uploadWebpImage($request->image, 'uploads/product/gallery/image/webp/', $product->short_url);
             $product_gallery->image = Helper::uploadFile($request->image, 'uploads/product/gallery/image/', $product->short_url);
         }
+
+        if ($request->hasFile('mobile_banner')) {
+
+            if (File::exists(public_path($product_gallery->mobile_banner))) {
+                File::delete(public_path($product_gallery->mobile_banner));
+            }
+            if (File::exists(public_path($product_gallery->mobile_banner_webp))) {
+                File::delete(public_path($product_gallery->mobile_banner_webp));
+            }
+
+            $product_gallery->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/product/gallery/mobile_banner/webp/', $request->short_url);
+            $product_gallery->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/product/gallery/mobile_banner/', $request->short_url);
+    
+
+
+        }
+
         $product_gallery->media_type = $request->media_type;
         if ($request->media_type == "Video") {
             $product_gallery->video_url = $request->video_url;
