@@ -14,11 +14,6 @@
     <meta name="keywords" content="{!! @$seo_data->meta_keyword !!}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/> 
     <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <meta property="og:title" content="{{ $data->title}}" />
-<meta property="og:type" content="article" />
-<meta property="og:description" content="{{ $data->description}}" />
-<meta property="og:url" content="{{ $data->page_url}}" />
-<meta property="og:image" content="{{ $data->imag_url}}"   />
     <title>{!! @$seo_data->meta_title !!}</title>
       <link href="{{ asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
       <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css')}}">
