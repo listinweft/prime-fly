@@ -343,23 +343,48 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
         }
     }
 
-    public function reset_password($token)
-    {
+    // public function reset_password($token)
+    // {
 
       
-        $title = 'Reset Password';
-        $password_reset = PasswordReset::where('token', $token)->first();
-        if ($password_reset) {
-            if ((now()->diffInMinutes($password_reset->created_at)) > 15) {
-                $link_expired = 'true';
-            } else {
-                $link_expired = 'false';
-            }
-            return view('web.reset_password', compact('title', 'token', 'link_expired'));
-        } else {
-            return view('web.reset_password', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
-        }
+    //     $title = 'Reset Password';
+    //     $password_reset = PasswordReset::where('token', $token)->first();
+    //     if ($password_reset) {
+    //         if ((now()->diffInMinutes($password_reset->created_at)) > 15) {
+    //             $link_expired = 'true';
+    //         } else {
+    //             $link_expired = 'false';
+    //         }
+    //         return view('web.reset_password', compact('title', 'token', 'link_expired'));
+    //     } else {
+    //         return view('web.reset_password', ['status' => 'invalid', 'title' => $title, 'message' => 'Invalid token!']);
+    //     }
+    // }
+    public function reset_password($token)
+{
+    $title = 'Reset Password';
+    $password_reset = PasswordReset::where('token', $token)->first();
+
+    if (!$password_reset) {
+        return view('web.reset_password', [
+            'status' => 'invalid', 
+            'title' => $title, 
+            'message' => 'Invalid token!', 
+            'link_expired' => 'true',
+            'token' => $token // Ensure token is passed to prevent undefined variable
+        ]);
     }
+
+    if (now()->diffInMinutes($password_reset->created_at) > 15) {
+        return view('web.reset_password', compact('title', 'token'))->with([
+            'link_expired' => 'true',
+            'message' => 'This reset link has expired. Please request a new one.'
+        ]);
+    }
+
+    return view('web.reset_password', compact('title', 'token'))->with('link_expired', 'false');
+}
+
     public function email_verification(Request $request,$token)
     {
 
