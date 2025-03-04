@@ -1541,7 +1541,7 @@ $(document).on("click", "#confirm_payment", function (e) {
     //                     razorpay_payment_id: response.razorpay_payment_id,
     //                     razorpay_order_id: response.razorpay_order_id,
     //                     razorpay_signature: response.razorpay_signature,
-    //                     db_orderid:db _orderid
+    //                     db_orderid:db_orderid
     //                 },
     //                 success: function (response) {
     //                     if (response.status == 'success') {
