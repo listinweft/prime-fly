@@ -1241,117 +1241,251 @@ $(document).ready(function () {
 //         }
 //     });
 
-$(document).on('click', '#confirm_payment', function (e) {
-    e.preventDefault(); // Prevent the default form submission
+// $(document).on('click', '#confirm_payment', function (e) {
+//     e.preventDefault(); // Prevent the default form submission
 
-    var payment_method = $('input[name=transfer]:checked').attr('id');
-    var finalAmount = $(this).data('finalamount');
-    var phone_number = $('#phone').val(); // Get phone number value
-    var valid = true;
+//     var payment_method = $('input[name=transfer]:checked').attr('id');
+//     var finalAmount = $(this).data('finalamount');
+//     var phone_number = $('#phone').val(); // Get phone number value
+//     var valid = true;
+
+//     // Initialize error messages
+//     var $paymentMethodError = $('#payment-method-error');
+//     var $requiredFields = $('.details-item input[required], .details-item textarea[required]');
+//     var requiredFieldsEmpty = false;
+
+//     // Reset previous error messages
+//     $paymentMethodError.html('').css({'color': ''});
+//     $requiredFields.removeClass('error');
+//     $('.error-message').hide();
+
+//     // Check if a payment method is selected
+//     if (!payment_method) {
+//         valid = false;
+//         $paymentMethodError.html('Please select a payment method').css({'color': 'red'});
+//     }
+
+//     // Validate required fields
+//     $requiredFields.each(function() {
+//         if ($(this).val().trim() === '') {
+//             valid = false;
+//             requiredFieldsEmpty = true;
+//             $(this).addClass('error');
+//             $(this).next('.error-message').show();
+//         }
+//     });
+
+//     // Phone number validation - check if it's empty
+//     if (phone_number.trim() === '') {
+//         valid = false;
+//         $('#phone').addClass('error');
+//         $('#phone').next('.error-message').show();
+//         $('#phone').next('.error-message').text('Phone is required.');
+//     }
+//     // Phone number validation - check if it only contains digits
+//     else if (/\D/.test(phone_number)) {
+//         valid = false;
+//         $('#phone').addClass('error');
+//         $('#phone').next('.error-message').show();
+//         $('#phone').next('.error-message').text('Phone number must only contain digits.');
+//     }
+
+//     if (valid) {
+//         $(this).text("Please Wait...");
+
+//         $.ajax({
+//             type: 'POST',
+//             dataType: 'json',
+//             headers: {
+//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//             },
+//             url: base_url + '/submit-order',
+//             data: {
+//                 payment_method: payment_method,
+//                 final_amount: finalAmount,
+//                 address: $('#address').val(),
+//                 selected_kerala_location: $('input[name="kerala_location"]:checked').val(),
+//                 passport_number: $('#passport_number').val(),
+//                 pincode: $('#pincode').val(),
+//                 country: $('#country').val(),
+//                 city: $('#city').val(),
+//                 phone: phone_number, // Use phone number variable
+//                 state: $('#state').val(),
+//                 gst_number: $('#gst_number').val(),
+//                 gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
+//                 name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
+//                 unipackageid: $('input[name^="unipackageid["]').map(function() { return $(this).val(); }).get(),
+//                 age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
+//                 pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
+//                 type: $('input[name^="type["]').map(function() { return $(this).val(); }).get(),
+                
+//             },
+//             success: function (response) {
+//                 if (response.status === 'online-payment') {
+//                     initiateRazorpayPayment(response.order_id, response.amount, response.currency, response.key, phone_number, response.db_orderid);
+//                 } else if (response.status === 'COD') {
+//                     swal.fire({
+//                         confirmButtonColor: '#3085d6',
+//                         title: "", text: response.message, type: "success", icon: "success",
+//                     });
+//                     setTimeout(() => {
+//                         $('#submit-loader').hide();
+//                         // window.location.href = base_url + response.data;
+//                         window.location.href = base_url + '/thank-you'; 
+//                     }, 3000);
+//                 } else {
+//                     handleOrderResponse(response);
+//                 }
+//             },
+//             error: function () {
+//                 $('#confirm_payment').text("Confirm Order");
+//                 $('#confirm_payment').removeAttr('disabled');
+//             }
+//         });
+//     } else {
+//         // Notify the user to fill out all required fields and select a payment method
+//         Toast.fire({
+//             icon: 'warning',
+//             title: 'Warning',
+//             text: 'Please fill out all required fields and select a payment method',
+//         });
+//     }
+// });
+
+
+$(document).on("click", "#confirm_payment", function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    let $this = $(this);
+    let paymentMethod = $("input[name=transfer]:checked").attr("id");
+    let finalAmount = $this.data("finalamount");
+    let phoneNumber = $("#phone").val().trim();
+    let valid = true;
+
+    // Regex for detecting special characters
+    let specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
     // Initialize error messages
-    var $paymentMethodError = $('#payment-method-error');
-    var $requiredFields = $('.details-item input[required], .details-item textarea[required]');
-    var requiredFieldsEmpty = false;
+    let $paymentMethodError = $("#payment-method-error");
+    let $requiredFields = $(".details-item input[required], .details-item textarea[required]");
 
     // Reset previous error messages
-    $paymentMethodError.html('').css({'color': ''});
-    $requiredFields.removeClass('error');
-    $('.error-message').hide();
+    $paymentMethodError.html("").css({ color: "" });
+    $requiredFields.removeClass("error");
+    $(".error-message").hide();
 
-    // Check if a payment method is selected
-    if (!payment_method) {
+    // Validate payment method selection
+    if (!paymentMethod) {
         valid = false;
-        $paymentMethodError.html('Please select a payment method').css({'color': 'red'});
+        $paymentMethodError.html("Please select a payment method").css({ color: "red" });
     }
 
-    // Validate required fields
-    $requiredFields.each(function() {
-        if ($(this).val().trim() === '') {
+    // Validate required fields (empty & special character check)
+    $requiredFields.each(function () {
+        let $field = $(this);
+        let fieldValue = $field.val().trim();
+        let $errorMsg = $field.next(".error-message");
+
+        if (fieldValue === "") {
             valid = false;
-            requiredFieldsEmpty = true;
-            $(this).addClass('error');
-            $(this).next('.error-message').show();
+            $field.addClass("error");
+            $errorMsg.show().text("This field is required.");
+        } else if (specialCharRegex.test(fieldValue)) {
+            valid = false;
+            $field.addClass("error");
+            $errorMsg.show().text("Special characters are not allowed.");
         }
     });
 
-    // Phone number validation - check if it's empty
-    if (phone_number.trim() === '') {
+    // Validate phone number (empty, only digits)
+    let phoneError = $("#phone").next(".error-message");
+    if (phoneNumber === "") {
         valid = false;
-        $('#phone').addClass('error');
-        $('#phone').next('.error-message').show();
-        $('#phone').next('.error-message').text('Phone is required.');
-    }
-    // Phone number validation - check if it only contains digits
-    else if (/\D/.test(phone_number)) {
+        $("#phone").addClass("error");
+        phoneError.show().text("Phone is required.");
+    } else if (/\D/.test(phoneNumber)) {
         valid = false;
-        $('#phone').addClass('error');
-        $('#phone').next('.error-message').show();
-        $('#phone').next('.error-message').text('Phone number must only contain digits.');
+        $("#phone").addClass("error");
+        phoneError.show().text("Phone number must only contain digits.");
     }
 
     if (valid) {
-        $(this).text("Please Wait...");
+        $this.text("Please Wait...").prop("disabled", true);
 
         $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: base_url + '/submit-order',
+            type: "POST",
+            dataType: "json",
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+            url: base_url + "/submit-order",
             data: {
-                payment_method: payment_method,
+                payment_method: paymentMethod,
                 final_amount: finalAmount,
-                address: $('#address').val(),
-                selected_kerala_location: $('input[name="kerala_location"]:checked').val(),
-                passport_number: $('#passport_number').val(),
-                pincode: $('#pincode').val(),
-                country: $('#country').val(),
-                city: $('#city').val(),
-                phone: phone_number, // Use phone number variable
-                state: $('#state').val(),
-                gst_number: $('#gst_number').val(),
-                gender: $('input[name^="inlineRadioOptions"]:checked').map(function() { return $(this).val(); }).get(),
-                name: $('input[name^="name["]').map(function() { return $(this).val(); }).get(),
-                unipackageid: $('input[name^="unipackageid["]').map(function() { return $(this).val(); }).get(),
-                age: $('input[name^="age["]').map(function() { return $(this).val(); }).get(),
-                pnr: $('input[name^="pnr["]').map(function() { return $(this).val(); }).get(),
-                type: $('input[name^="type["]').map(function() { return $(this).val(); }).get(),
-                
+                address: $("#address").val(),
+                selected_kerala_location: $("input[name='kerala_location']:checked").val(),
+                passport_number: $("#passport_number").val(),
+                pincode: $("#pincode").val(),
+                country: $("#country").val(),
+                city: $("#city").val(),
+                phone: phoneNumber,
+                state: $("#state").val(),
+                gst_number: $("#gst_number").val(),
+                gender: $("input[name^='inlineRadioOptions']:checked").map(function () {
+                    return $(this).val();
+                }).get(),
+                name: $("input[name^='name[']").map(function () {
+                    return $(this).val();
+                }).get(),
+                unipackageid: $("input[name^='unipackageid[']").map(function () {
+                    return $(this).val();
+                }).get(),
+                age: $("input[name^='age[']").map(function () {
+                    return $(this).val();
+                }).get(),
+                pnr: $("input[name^='pnr[']").map(function () {
+                    return $(this).val();
+                }).get(),
+                type: $("input[name^='type[']").map(function () {
+                    return $(this).val();
+                }).get(),
             },
             success: function (response) {
-                if (response.status === 'online-payment') {
-                    initiateRazorpayPayment(response.order_id, response.amount, response.currency, response.key, phone_number, response.db_orderid);
-                } else if (response.status === 'COD') {
-                    swal.fire({
-                        confirmButtonColor: '#3085d6',
-                        title: "", text: response.message, type: "success", icon: "success",
+                if (response.status === "online-payment") {
+                    initiateRazorpayPayment(
+                        response.order_id,
+                        response.amount,
+                        response.currency,
+                        response.key,
+                        phoneNumber,
+                        response.db_orderid
+                    );
+                } else if (response.status === "COD") {
+                    Swal.fire({
+                        confirmButtonColor: "#3085d6",
+                        title: "",
+                        text: response.message,
+                        icon: "success",
                     });
                     setTimeout(() => {
-                        $('#submit-loader').hide();
-                        // window.location.href = base_url + response.data;
-                        window.location.href = base_url + '/thank-you'; 
+                        $("#submit-loader").hide();
+                        window.location.href = base_url + "/thank-you";
                     }, 3000);
                 } else {
                     handleOrderResponse(response);
                 }
             },
             error: function () {
-                $('#confirm_payment').text("Confirm Order");
-                $('#confirm_payment').removeAttr('disabled');
-            }
+                $this.text("Confirm Order").prop("disabled", false);
+            },
         });
     } else {
-        // Notify the user to fill out all required fields and select a payment method
+        // Notify the user to fill out all required fields
         Toast.fire({
-            icon: 'warning',
-            title: 'Warning',
-            text: 'Please fill out all required fields and select a payment method',
+            icon: "warning",
+            title: "Warning",
+            text: "Please fill out all required fields, avoid special characters, and select a payment method",
         });
     }
 });
-
 
     
     // Clear error message when a payment method is selected
