@@ -62,7 +62,7 @@
                 <div class="g-input-text">Adults</div>
                 <div class="g-input-field">
                     <span class="minus count-btn">-</span>
-                    <input type="text" name="adults" value="1" maxlength="4" />
+                    <input type="text" name="adults" value="1" maxlength="4"  readonly/>
                     <span class="plus count-btn">+</span>
                 </div>
             </div>
