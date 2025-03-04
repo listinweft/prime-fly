@@ -1362,7 +1362,7 @@ $(document).on("click", "#confirm_payment", function (e) {
     let phoneNumber = $("#phone").val().trim();
     let valid = true;
 
-    // Regex for detecting special characters
+    // Regex for detecting special characters (excluding spaces and basic punctuation if needed)
     let specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
     // Initialize error messages
@@ -1408,6 +1408,26 @@ $(document).on("click", "#confirm_payment", function (e) {
         $("#phone").addClass("error");
         phoneError.show().text("Phone number must only contain digits.");
     }
+
+    // Validate address, country, state, and pincode for special characters
+    let fieldsToValidate = ["#address", "#country", "#state", "#pincode"];
+    fieldsToValidate.forEach(function (selector) {
+        let $field = $(selector);
+        let fieldValue = $field.val().trim();
+        let $errorMsg = $field.next(".error-message");
+
+        if (specialCharRegex.test(fieldValue)) {
+            valid = false;
+            $field.addClass("error");
+            if ($errorMsg.length === 0) {
+                $field.after('<span class="error-message" style="color: red;">Special characters are not allowed.</span>');
+            } else {
+                $errorMsg.show().text("Special characters are not allowed.");
+            }
+        } else {
+            $errorMsg.hide();
+        }
+    });
 
     if (valid) {
         $this.text("Please Wait...").prop("disabled", true);
@@ -1482,10 +1502,11 @@ $(document).on("click", "#confirm_payment", function (e) {
         Toast.fire({
             icon: "warning",
             title: "Warning",
-            text: "Please fill out all required fields, avoid special characters, and select a payment method",
+            text: "Please fill out all required fields, and select a payment method",
         });
     }
 });
+
 
     
     // Clear error message when a payment method is selected
