@@ -1623,7 +1623,12 @@ public function search_booking_lounch(Request $request)
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
 
-        $latestThreeBlogs = Blog::active()->take(3)->latest('posted_date')->get();
+        $latestThreeBlogs = Blog::active()
+            ->where('id', '!=', $latestBlog->id) // Exclude the latest blog
+            ->latest('posted_date')
+            ->take(3)
+            ->get();
+        
 
         $totalBlog = Blog::active()->count();
 
