@@ -106,7 +106,7 @@
                </li>
                @else
                <li class="nav-item header-login">
-                  <a href="{{ url('choose/') }}" class="btn btn-default">Login</a>
+                  <a href="{{ url('login-public/public') }}" class="btn btn-default">Login</a>
                </li>
                @endif
             </ul>
