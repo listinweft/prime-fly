@@ -69,7 +69,7 @@
     </div>
     <div class="form-row" id="slider-div">
                                 <div class="form-group col-md-6">
-                                    <label>Image</label>
+                                    <label>Desktop Banner</label>
                                     <div class="file-loading">
                                         <input id="image" name="image" type="file" accept="image/*">
                                     </div>

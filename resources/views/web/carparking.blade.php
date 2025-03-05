@@ -53,7 +53,7 @@
                             <div class="g-input-text">Car Count</div>
                             <div class="g-input-field">
                                 <span class="minus count-btn">-</span>
-                                <input type="text" value="1" name="count" maxlength="4"/>
+                                <input type="text" value="1" name="count" maxlength="4" readonly/>
                                 <span class="plus count-btn">+</span>
                             </div>
                         </div>

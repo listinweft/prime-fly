@@ -90,7 +90,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Title</th>
-                                        <th>Slider Image</th>
+                                        <th>Slider Desktop Image</th>
+                                        <th>Slider Mobile Image</th>
                                         <th>Type</th>
                                         <!-- <th>Sort Order</th> -->
                                         <th>Status</th>
@@ -105,6 +106,10 @@
                                             <td>{{ $banner->title }} {{ $banner->subtitle }}</td>
                                             <td>
                                                 <img src="{{asset($banner->desktop_image)}}" alt="" height="100">
+                                            </td>
+
+                                            <td>
+                                                <img src="{{asset($banner->mobile_image)}}" alt="" height="100">
                                             </td>
 
                                             <td>{{ $banner->mode === 'offer' ? 'Offer Banner' : 'Home Banner' }}</td>

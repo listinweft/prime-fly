@@ -73,7 +73,7 @@
                 <div class="g-input-text">Children</div>
                 <div class="g-input-field">
                     <span class="minusc count-btn">-</span>
-                    <input type="text" name="children" value="0" maxlength="4" />
+                    <input type="text" name="children" value="0" maxlength="4" readonly />
                     <span class="plusc count-btn">+</span>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 <div class="g-input-text">Infants</div>
                 <div class="g-input-field">
                     <span class="minusi count-btn">-</span>
-                    <input type="text" name="infants" value="0" maxlength="4" />
+                    <input type="text" name="infants" value="0" maxlength="4" readonly />
                     <span class="plusi count-btn">+</span>
                 </div>
             </div>
@@ -192,7 +192,7 @@
                 <div class="g-input-text">Adults</div>
                 <div class="g-input-field">
                     <span class="minus count-btn">-</span>
-                    <input type="text" name="adultst" value="1" maxlength="4" />
+                    <input type="text" name="adultst" value="1" maxlength="4"  readonly/>
                     <span class="plus count-btn">+</span>
                 </div>
             </div>
@@ -203,7 +203,7 @@
                 <div class="g-input-text">Children</div>
                 <div class="g-input-field">
                     <span class="minusc count-btn">-</span>
-                    <input type="text" name="childrent" value="0" maxlength="4" />
+                    <input type="text" name="childrent" value="0" maxlength="4"  readonly/>
                     <span class="plusc count-btn">+</span>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                 <div class="g-input-text">Infants</div>
                 <div class="g-input-field">
                     <span class="minusi count-btn">-</span>
-                    <input type="text" name="infantst" value="0" maxlength="4" />
+                    <input type="text" name="infantst" value="0" maxlength="4" readonly />
                     <span class="plusi count-btn">+</span>
                 </div>
             </div>
