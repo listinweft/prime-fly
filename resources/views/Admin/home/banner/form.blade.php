@@ -120,15 +120,12 @@
                 validateInitialCount: true,
                 overwriteInitial: false,
                 autoReplace: true,
-               
-                
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
                 initialPreviewAsData: true,
                 dropZoneEnabled: false,
-                required: false,
-                allowedFileTypes: ['image'],
-                
-                maxFileSize: 512,
-                showRemove: true,
+                required: true,
+                showRemove: false,
                 @if(isset($banner) && $banner->desktop_image!=NULL)
                 initialPreview: ["{{asset($banner->desktop_image)}}",],
                 initialPreviewConfig: [{
