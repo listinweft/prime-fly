@@ -1961,9 +1961,45 @@ $(document).on("click", "#confirm_payment", function (e) {
             if (!$(v).val().length) {
                 errors = true;
                 var error = 'Please enter <strong>' + field_name + '</strong>.';
-                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
-                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"]').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-            } else {
+                var msg = '<div class="error invalidMessage" style="color: red">' + error + '</div>';
+            
+                var inputField = $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]');
+            
+                inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true");
+            
+                // **Handle Password and Confirm Password Separately**
+                if (field_name === "password" ) {
+                    var errorContainer = $(".password-error-container");
+            
+                    // **Remove old error messages inside container**
+                    errorContainer.find(".invalidMessage").remove();
+            
+                    if (errorContainer.length) {
+                        errorContainer.html(msg); // Place error inside the container
+                    } else {
+                        inputField.closest("div").append(msg); // Fallback: Append near input
+                    }
+                }
+                else if (field_name === "passwordconfirmation" ) {
+                    var errorContainer = $(".password-error-containers");
+            
+                    // **Remove old error messages inside container**
+                    errorContainer.find(".invalidMessage").remove();
+            
+                    if (errorContainer.length) {
+                        errorContainer.html(msg); // Place error inside the container
+                    } else {
+                        inputField.closest("div").append(msg); // Fallback: Append near input
+                    }
+                } else {
+                    // **Remove previous error messages before appending new ones**
+                    inputField.siblings(".invalidMessage").remove();
+                    inputField.after(msg);
+                }
+              
+                
+            }
+             else {
                 if (field_name === 'email') {
                     var regex = /^([a-zA-Z0-9_\.\-\+])+@(([a-zA-Z0-9\-])+.)+([a-zA-Z0-9]{2,4})+$/;
                     if (!regex.test($(v).val())) {
@@ -1982,6 +2018,7 @@ $(document).on("click", "#confirm_payment", function (e) {
                         $('#' + form_id).find('input[name="' + field_name + '"]').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
                     }
                 }
+                
             }
         });
     
@@ -2077,14 +2114,31 @@ $(document).on("click", "#confirm_payment", function (e) {
             if (!$(v).val().length) {
                 errors = true;
                 var error = 'Please enter <strong>' + field_name + '</strong>.';
-                var msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="' + field_name + '">' + error + '</span>';
-
-
-                $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]')
-                    .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-
-
-            } else {
+                var msg = '<div class="error  invalidMessage" style="color: red">' + error + '</div>';
+            
+                var inputField = $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]');
+                
+                inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true");
+            
+                if (field_name === "password") {
+                    var errorContainer = $(".password-error-container");
+            
+                    // **Remove old message first** to prevent duplicates
+                    errorContainer.find(".invalidMessage").remove();
+            
+                    if (errorContainer.length) {
+                        errorContainer.html(msg); // Place error inside password error container
+                    } else {
+                        inputField.closest("div").append(msg); // Append error inside the nearest div as fallback
+                    }
+                } else {
+                    // **Remove old messages first** before appending new error
+                    inputField.siblings(".invalidMessage").remove();
+                    inputField.after(msg);
+                }
+            }
+            
+             else {
                 if (field_name === 'email') {
                     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                     if (!regex.test($(v).val())) {
