@@ -193,6 +193,11 @@ a:hover{
     font-size: 15px; 
     width: 100%;
     font-weight: 400;
+    transition:background 0.3s linear;
+}
+.register_form_grid [type=submit]:hover,.profile_form_grid [type=submit]:hover{
+     background:  #338DF2; 
+     color:white;
 }
 .profile_form_grid select{
     border: 1px solid #E1E7EE;

@@ -73,13 +73,15 @@
                                         <div class="recent-blog-item">
                                             <div class="row align-items-center">
                                                 <div class="col-sm-5">
-                                                    <a href="{{ url('blog/'.@$lastthree->short_url) }}"><div class="recent-blog-item-image">{!! Helper::printImage($lastthree, 'image', 'image_webp', '', 'img-fluid') !!}</div></a>
+                                                    <a href="{{ url('blog/'.@$lastthree->short_url) }}">
+                                                        <div class="recent-blog-item-image">{!! Helper::printImage($lastthree, 'image', 'image_webp', '', 'img-fluid') !!}</div>
+                                                    </a>
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    <a href="{{ url('blog/'.@$lastthree->short_url) }}"> 
+                                                    
                                                         <div class="recent-blog-item-content">
-                                                            <h4>{{ $lastthree->title }}</h4>
-                                                           {!! \Illuminate\Support\Str::limit($lastthree->description, 100, '') !!}
+                                                           <a href="{{ url('blog/'.@$lastthree->short_url) }}">  <h4>{{ $lastthree->title }}</h4></a>
+                                                           <!--{!! \Illuminate\Support\Str::limit($lastthree->description, 100, '') !!}-->
 
                                                             <span> {{ date('d-m-Y', strtotime($lastthree->posted_date)) }}</span>
                                                         </div>

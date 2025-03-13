@@ -47,7 +47,11 @@ a:hover {
 }
 
 .btn-primary {
-    background-image: linear-gradient(to right, #7B45F6, #338DF2)
+    background-image: linear-gradient(to right, #7B45F6, #338DF2);
+    transition:all 0.3s ease-in;
+}
+.btn-primary:hover {
+    background-image: linear-gradient(to right, #338DF2,#7B45F6)
 }
 
 .btn-primary-outline {
@@ -136,9 +140,13 @@ a:hover {
 .banner {
     position: relative
 }
-
+.banner-slider.owl-carousel{
+    z-index:0;
+}
 .banner img {
-    width: 100%
+    width: 100%;
+    height:100vh;
+    object-fit:cover;
 }
 
 .banner_content {
@@ -662,10 +670,10 @@ table {
 }
 
 #travel_sect .booking_select:before {
-    width: 15px;
+    width: 22px;
     height: 100%;
     left: 10px;
-    background-image: url(../img/pin.png)
+    background-image: url(../img/suitcase.png)
 }
 
 #destination_select .booking_select:before {
@@ -1542,7 +1550,7 @@ footer {
 }
 
 .airport-section .owl-item.active.center .aiport-content {
-    opacity: 1
+    opacity: 0
 }
 
 .aiport-content h4 {
@@ -4616,8 +4624,9 @@ footer {
         font-size: 13px
     }
     .serviceinner_bannerimg img {
-        width: 50%;
-        height: 600px
+        width: 100%;
+        height: 600px;
+        opacity: 0.2;
     }
     .srvc_bnnr_filter h4 {
         font-size: 16px;

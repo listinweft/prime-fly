@@ -2,9 +2,18 @@
 @section('content')
 
 <section class="col-12 banner d-none d-sm-block">
-            <img src="{{ asset('frontend/img/banner.webp')}}" alt="Banner" />
-
-            <!-- {!! Helper::printImage(@$banners, 'desktop_image', 'desktop_image_webp', '', 'img-fluid') !!} -->
+            <div class="owl-carousel owl-theme banner-slider">
+                  @if (!empty($banners) && $banners->isNotEmpty())
+    @foreach ($banners as $banner)
+                <div class="item">{!! Helper::printImage($banner, 'desktop_image', 'desktop_image_webp', '', 'img-fluid') !!}</div>
+                
+                  @endforeach
+@else
+    <p>No banners available.</p>
+@endif
+                
+            </div>
+           
             <div class="banner_content">
                <div class="container">
                   <div class="d-flex justify-content-center">

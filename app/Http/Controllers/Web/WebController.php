@@ -88,7 +88,7 @@ class WebController extends Controller
 
         $type = 'home'; // Ensure this is a string
         // dd($type); // or Log::info($type);
-        $banners = HomeBanner::where('mode', 'banner')->first();
+        $banners = HomeBanner::where('mode', 'banner')->get();
 
         
         
