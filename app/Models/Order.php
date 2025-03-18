@@ -16,7 +16,7 @@ class Order extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'payment_mode',
+        'payment_mode','razorpay_order_id'
        
     ];
 

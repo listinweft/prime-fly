@@ -2058,6 +2058,15 @@ class CartController extends Controller
             
         $orderId = $request->db_orderid;
 
+
+        $order = Order::find($orderId);
+
+if ($order) {
+    $order->razorpay_order_id = $request->razorpay_order_id;
+    $order->save(); // Save Razorpay Order ID in the database
+    // return response()->json(['message' => 'Order updated successfully'], 200);
+} 
+
         $response = $this->order_success($orderId);
     
             
@@ -2370,4 +2379,6 @@ public function verify(Request $request)
             ), 200, []);
         }
     }
+
+
 }

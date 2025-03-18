@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CommonController; // Add this line for Location and Service
+use App\Http\Controllers\RazorpayWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use App\Http\Controllers\Api\CommonController; // Add this line for Location and
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/razorpay-webhook', [RazorpayWebhookController::class, 'handleWebhook']);
 Route::post('/login', [AuthController::class, 'login_normal']);
 Route::post('/loginpublic', [AuthController::class, 'login_public']);
 Route::post('/logincorporate', [AuthController::class, 'login_corporate']);

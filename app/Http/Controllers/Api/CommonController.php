@@ -2027,6 +2027,12 @@ public function submit_order_api(Request $request)
                  }
 
                  $response['db_order_id'] = $order->id; // Assuming $order contains your database order details
+                 $orderweb = Order::find($order->id);
+
+if ($orderweb && isset($response['id'])) {
+    $orderweb->razorpay_order_id = $response['id']; // Correct key from Razorpay response
+    $orderweb->save(); // Save the order with Razorpay Order ID
+}
 
                  // Return the appended response as JSON
                  return response()->json($response, 200);
@@ -2584,6 +2590,90 @@ public function enquiry_storeApi(Request $request)
     
 
 
+// public function handleWebhook(Request $request)
+// {
+//     // Log request for debugging
+//     Log::info('Razorpay Webhook Data: ', $request->all());
+
+//     // Razorpay secret for webhook verification
+//     $secret = env('RAZORPAY_WEBHOOK_SECRET'); // Set this in .env file
+
+//     // Verify Razorpay signature
+//     $signature = $request->header('X-Razorpay-Signature');
+//     $payload = $request->getContent();
+    
+//     if (!$this->verifySignature($payload, $signature, $secret)) {
+//         return response()->json(['message' => 'Invalid Signature'], 400);
+//     }
+
+//     // Handle events
+//     $event = $request->event;
+
+//     if ($event === 'payment.captured') {
+//         return $this->handlePaymentCaptured($request);
+//     } elseif ($event === 'payment.failed') {
+//         return $this->handlePaymentFailed($request);
+//     }
+
+//     return response()->json(['message' => 'Event not handled'], 200);
+// }
+
+// private function verifySignature($payload, $signature, $secret)
+// {
+//     $expectedSignature = hash_hmac('sha256', $payload, $secret);
+//     return hash_equals($expectedSignature, $signature);
+// }
+
+// private function handlePaymentCaptured($request)
+// {
+//     $paymentId = $request->payload['payment']['entity']['id'];
+//     $orderId = $request->payload['payment']['entity']['order_id'];
+//     $amount = $request->payload['payment']['entity']['amount'] / 100; // Convert to actual amount
+
+//     $order = Order::where('razorpay_order_id', $orderId)->first();
+
+//     if ($order) {
+//         $order->payment_mode = 'Success';
+//         $order->save();
+
+//         // Log the payment
+//         // PaymentLog::create([
+//         //     'order_id' => $order->id,
+//         //     'razorpay_payment_id' => $paymentId,
+//         //     'status' => 'Success',
+//         //     'amount' => $amount,
+//         // ]);
+
+//         return response()->json(['message' => 'Order updated successfully'], 200);
+//     }
+
+//     return response()->json(['message' => 'Order not found'], 404);
+// }
+
+// private function handlePaymentFailed($request)
+// {
+//     $paymentId = $request->payload['payment']['entity']['id'];
+//     $orderId = $request->payload['payment']['entity']['order_id'];
+
+//     $order = Order::where('razorpay_order_id', $orderId)->first();
+
+//     if ($order) {
+//         $order->payment_mode = 'Failed';
+//         $order->save();
+
+//         // Log the failure
+//         PaymentLog::create([
+//             'order_id' => $order->id,
+//             'razorpay_payment_id' => $paymentId,
+//             'status' => 'Failed',
+//             'amount' => 0,
+//         ]);
+
+//         return response()->json(['message' => 'Payment marked as failed'], 200);
+//     }
+
+//     return response()->json(['message' => 'Order not found'], 404);
+// }
 
 
 }
