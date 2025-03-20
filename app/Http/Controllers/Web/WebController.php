@@ -1446,7 +1446,7 @@ public function search_booking_lounch(Request $request)
     
     
 
-    public function service_detail($short_url)
+     public function service_detail($short_url)
     {
         
         $category = Category::active()->shortUrl($short_url)->first();
@@ -1488,12 +1488,10 @@ public function search_booking_lounch(Request $request)
            ->take(5)
            ->get();
        
-           
         return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall','faqs'));
 
         }
     }
-    
     
   
     public function main_search(Request $request)
