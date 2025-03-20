@@ -26,13 +26,13 @@
                             <div class="col-lg-4 address-grid">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/map-pin.png')}}">
-                                    <p>TC 86/2018 KARTHIKA 2nd FLOOR ,AIRPORT ROAD,CHACKAI, TVM . </p>
+                                    <p>{{$banner_image->location}} </p>
                                 </div>
                             </div>
                             <div class="col-lg-4 address-grid">
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/call.png')}}">
-                                    <p>+91 8301920000
+                                    <p>{{$banner_image->phone}}
                                         </p>
                                 </div>
                             </div>
@@ -40,9 +40,8 @@
                                 <div class="d-flex align-items-start">
                                     <img src="{{ asset('frontend/img/mail.png')}}    ">
                                     <div>
-                                    <p>support@primefly.in</p>  
-                                    <p>bookings@primefly.in</p>
-                                    <p>groupbookings@primefly.in</p>
+                                    <p>{{$banner_image->email}}</p>  
+                                    
                                     </div>
                                     
 

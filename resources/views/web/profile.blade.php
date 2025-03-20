@@ -263,9 +263,9 @@
             <div class="col-lg-4 no-booking text-center">
                 <img src="{{ asset('frontend/img/no-booking.png') }}"/>
                 <h4>You haven’t made any bookings</h4>
-                <p>Lorem agtuineo pertiqe debozihri </p>
+                <!-- <p>Lorem agtuineo pertiqe debozihri </p> -->
                 <div class="col-12 text-center mt-3">
-                    <a href="{{ url('/services') }}" class="btn-style-2"><div class="btn-in">View More</div></a>
+                    <a href="{{ url('/services') }}" class="btn-style-2"><div class="btn-in">Explore</div></a>
                 </div>
             </div>
         </div>

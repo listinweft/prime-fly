@@ -6,7 +6,7 @@
 <section class="col-12 locationbanner p-0">
            <div class="d-flex justify-content-end">
               <div class="locinner_bannerimg">
-                <img src="{{ asset('frontend/img/blog-banner.png')}}" class="w-100" alt="Meet and Greet" />
+              {!! Helper::printImage($bannerdata, 'blog_image', 'blog_image_webp', '', 'img-fluid') !!}
                 <div class="loc-text text-start">
                     <div class="container">
                         <h1>BLOG</h1>

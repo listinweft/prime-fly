@@ -628,7 +628,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
 public function register(Request $request)
 {
     $request->validate([
-        'firstname' => 'required|string|min:2|max:255',
+        'name' => 'required|string|min:2|max:255',
         // 'lastname' => 'required|string|min:2|max:255',
         'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
         'phone' => 'required|string|unique:users,phone,NULL,id',
@@ -636,7 +636,7 @@ public function register(Request $request)
 
 
         'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
-        'passwordconfirmation' => 'required_if:password,!=,null|same:password',
+        // 'passwordconfirmation' => 'required_if:password,!=,null|same:password',
     ]);
 
     
@@ -659,7 +659,7 @@ public function register(Request $request)
         }
 
         $customer = new Customer;
-        $customer->first_name = $request['firstname'];
+        $customer->first_name = $request['name'];
         $customer->last_name = " ";
        
         $customer->user_id = $user->id;

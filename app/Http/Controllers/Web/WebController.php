@@ -22,6 +22,7 @@ use App\Models\CurrencyRate;
 use App\Models\History;
 use App\Models\HomeAdvertisement;
 use App\Models\HomeBanner;
+use App\Models\HomeList;
 use App\Models\HomeGetQuote;
 use App\Models\HomeHeading;
 use App\Models\HotDeal;
@@ -42,9 +43,16 @@ use App\Models\SiteInformation;
 use App\Models\Tag;
 use App\Models\Faq;
 use App\Models\Order;
+use App\Models\LocationBanner;
+use App\Models\ServiceBanner;
 use App\Models\Event;
 use App\Models\Journal;
 use App\Models\Testimonial;
+use App\Models\BannerImage;
+use App\Models\BlogBanner;
+use App\Models\TestimonialBanner;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -85,11 +93,13 @@ class WebController extends Controller
         $seo_data = $this->seo_content('Home');
         $locations = Location::active()->get();
         $blogs = Blog::active()->latest()->take(3)->get();
-
+      
         $type = 'home'; // Ensure this is a string
         // dd($type); // or Log::info($type);
         $banners = HomeBanner::where('mode', 'banner')->get();
-
+        $blog = BlogBanner::first();
+        $TestimonialBanner = TestimonialBanner::first();
+        
         
         
 
@@ -98,8 +108,12 @@ class WebController extends Controller
         
         $testimonials = Testimonial::active()->get();
         $locationsall = Location::active()->get();
+        $cms = HomeList::first();
+        $locationbanner = LocationBanner::first();
+        $serviceBanner = ServiceBanner::first();
+        
        
-        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials','locationsall','banners'));
+        return view('web.home', compact('seo_data', 'blogs','locations','categorys','testimonials','locationsall','banners','cms','locationbanner','serviceBanner','blog','TestimonialBanner'));
     }
 
     public function proxy(Request $request)
@@ -144,8 +158,9 @@ class WebController extends Controller
     {
         $locations = Location::active()->get();
         $seo_data = $this->seo_content('Locations');
+        $locationbanner = LocationBanner::first();
 
-        return view('web.locations',compact('locations','seo_data'));
+        return view('web.locations',compact('locations','seo_data','locationbanner'));
     }
 
     public function services()
@@ -154,8 +169,9 @@ class WebController extends Controller
     {
         $seo_data = $this->seo_content('Categories');
         $categorys = Category::active()->whereNull('parent_id')->get();
+        $serviceBanner = ServiceBanner::first();
 
-        return view('web.services',compact('categorys','seo_data'));
+        return view('web.services',compact('categorys','seo_data','serviceBanner'));
     }
 
 
@@ -1472,6 +1488,7 @@ public function search_booking_lounch(Request $request)
            ->take(5)
            ->get();
        
+           
         return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall','faqs'));
 
         }
@@ -1554,7 +1571,9 @@ public function search_booking_lounch(Request $request)
         $contact = SiteInformation::first();
           $contactAddresses = ContactAddress::active()->get();
         $banner = Banner::type('contact')->first();
-        return view('web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses'));
+        $banner_image = BannerImage::first();
+        
+        return view('web.contact', compact('seo_data', 'contact', 'banner', 'contactAddresses','banner_image'));
     }
 
              
@@ -1623,6 +1642,9 @@ public function search_booking_lounch(Request $request)
         $seo_data = $this->seo_content('Blogs');
         $latestBlog = Blog::active()->latest('posted_date')->first();
 
+        $bannerdata = BannerImage::first();
+
+
         $latestThreeBlogs = Blog::active()
             ->where('id', '!=', $latestBlog->id) // Exclude the latest blog
             ->latest('posted_date')
@@ -1638,7 +1660,7 @@ public function search_booking_lounch(Request $request)
         $offset = $blogs->count() + 0;
         $loading_limit = 3;
         return view('web.blogs', compact('seo_data', 'banner', 'latestBlog', 'heading',
-            'blogs', 'totalBlog', 'offset', 'loading_limit','latestThreeBlogs'));
+            'blogs', 'totalBlog', 'offset', 'loading_limit','latestThreeBlogs','bannerdata'));
     }
 
 
@@ -1911,8 +1933,8 @@ public function search_booking_lounch(Request $request)
         
         $field = 'faq';
         $title = 'faq';
-        
-        return view('web.faq', compact( 'seo_data','faqs', 'field', 'title'));
+        $banner_image = BannerImage::first();
+        return view('web.faq', compact( 'seo_data','faqs', 'field', 'title','banner_image'));
     }
      
     

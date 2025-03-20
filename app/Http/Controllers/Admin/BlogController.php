@@ -8,6 +8,7 @@ use App\Models\Blog;
 use App\Models\HomeHeading;
 use App\Models\CustomerPost;
 use App\Models\Customer;
+use App\Models\BlogBanner;
 use App\Models\User;
 use App\Models\SiteInformation;
 use Illuminate\Http\Request;
@@ -23,13 +24,43 @@ class BlogController extends Controller
         return View::share(compact('siteInformation'));
     }
 
+    
+    public function blog_banner_store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|min:2|max:255',
+            'description' => 'required',
+        ]);
+    
+        // Check if any record exists
+        $category = BlogBanner::first();
+    
+        if (!$category) {
+            $category = new BlogBanner; // If no record, create a new one
+        }
+    
+        // Handle image upload
+      
+        // Update fields
+        $category->title = $request->title;
+        $category->description = $request->description;
+    
+        if ($category->save()) {
+            session()->flash('success', 'Blog "' . $request->title . '" has been added successfully');
+            return redirect(Helper::sitePrefix() . 'blog/');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the content");
+        }
+    }
+
     public function blog()
     {
         $title = "Blog List";
         $home_heading = HomeHeading::type('blog')->first();
         $type = 'Blog';
         $blogList = Blog::get();
-        return view('Admin.blog.list', compact('blogList', 'title', 'type', 'home_heading'));
+        $blog = BlogBanner::first();
+        return view('Admin.blog.list', compact('blogList', 'title', 'type', 'home_heading','blog'));
     }
 
     public function show($id)

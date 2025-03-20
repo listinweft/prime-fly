@@ -335,6 +335,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     Route::prefix('location')->group(function () {
         Route::get('/', [LocationController::class, 'category_list']);
+        Route::post('/', [LocationController::class, 'location_banner_store']);
         Route::get('create', [LocationController::class, 'category_create']);
         Route::post('create', [LocationController::class, 'category_store']);
         Route::get('edit/{id}', [LocationController::class, 'category_edit']);
@@ -397,6 +398,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
     Route::prefix('blog')->group(function () {
         Route::get('/', [BlogController::class, 'blog']);
+        Route::post('/', [BlogController::class, 'blog_banner_store']);
     Route::get('/custome-blog', [BlogController::class, 'custome_blog']);
     Route::get('/pdf/{id}', [BlogController::class, 'show'])->name('pdf.show');
         Route::get('create', [BlogController::class, 'blog_create']);
@@ -652,6 +654,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
         Route::prefix('slider-banner')->group(function () {
             Route::get('/', [HomeController::class, 'banner']);
+            Route::post('/', [HomeController::class, 'home_detail_store']);
             Route::get('create', [HomeController::class, 'banner_create']);
             Route::post('create', [HomeController::class, 'banner_store']);
             Route::get('edit/{id}', [HomeController::class, 'banner_edit']);
@@ -672,7 +675,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
 
         Route::prefix('testimonial')->group(function () {
-            Route::get('/', [HomeController::class, 'testimonial']);
+            Route::get('/', [HomeController::class, 'testimonial']); 
+            Route::post('/', [HomeController::class, 'testimonial_banner']); 
             Route::get('create', [HomeController::class, 'testimonial_create']);
             Route::post('create', [HomeController::class, 'testimonial_store']);
             Route::get('edit/{id}', [HomeController::class, 'testimonial_edit']);
@@ -783,6 +787,7 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
 
         Route::prefix('category')->group(function () {
             Route::get('/', [CategoryController::class, 'category_list']);
+            Route::post('/', [CategoryController::class, 'service_banner_store']);
             Route::get('create', [CategoryController::class, 'category_create']);
             Route::post('create', [CategoryController::class, 'category_store']);
             Route::get('edit/{id}', [CategoryController::class, 'category_edit']);
@@ -932,6 +937,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->group(function () {
     Route::group(['prefix' => 'site-information'], function () {
         Route::get('/', [SiteInformationController::class, 'siteInformation']);
         Route::post('/', [SiteInformationController::class, 'siteInformationStore']);
+    });
+    Route::group(['prefix' => 'common-banners'], function () {
+        Route::get('/', [SiteInformationController::class, 'banner']);
+        Route::post('/', [SiteInformationController::class, 'bannerstore']);
     });
 
     Route::group(['prefix' => 'seo'], function () {

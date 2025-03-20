@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\CategoryGallery;
 use App\Models\HomeHeading;
 use App\Models\SiteInformation;
+use App\Models\ServiceBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
@@ -21,6 +22,56 @@ class CategoryController extends Controller
         return View::share(compact('siteInformation'));
     }
 
+
+    public function service_banner_store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|min:2|max:255',
+            'description' => 'required',
+        ]);
+    
+        // Check if any record exists
+        $category = ServiceBanner::first();
+    
+        if (!$category) {
+            $category = new ServiceBanner; // If no record, create a new one
+        }
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            if ($category->image && File::exists(public_path($category->image))) {
+                File::delete(public_path($category->image));
+            }
+            if ($category->image_webp && File::exists(public_path($category->image_webp))) {
+                File::delete(public_path($category->image_webp));
+            }
+            $category->image_webp = Helper::uploadWebpImage($request->image, 'uploads/category/image/webp/', $request->short_url);
+            $category->image = Helper::uploadFile($request->image, 'uploads/category/image/', $request->short_url);
+        }
+    
+        if ($request->hasFile('mobile_banner')) {
+            if ($category->mobile_banner && File::exists(public_path($category->mobile_banner))) {
+                File::delete(public_path($category->mobile_banner));
+            }
+            if ($category->mobile_banner_webp && File::exists(public_path($category->mobile_banner_webp))) {
+                File::delete(public_path($category->mobile_banner_webp));
+            }
+            $category->mobile_banner_webp = Helper::uploadWebpImage($request->mobile_banner, 'uploads/category/mobile_banner/webp/', $request->short_url);
+            $category->mobile_banner = Helper::uploadFile($request->mobile_banner, 'uploads/category/mobile_banner/', $request->short_url);
+        }
+    
+        // Update fields
+        $category->title = $request->title;
+        $category->description = $request->description;
+    
+        if ($category->save()) {
+            session()->flash('message', "Service  '" . $category->title . "' has been added successfully");
+            return redirect(Helper::sitePrefix() . 'product/category');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the content");
+        }
+    }
+    
 
     // In your CategoryController
 public function getCategoryDetails(Request $request)
@@ -44,7 +95,8 @@ public function getCategoryDetails(Request $request)
         $home_heading = HomeHeading::type('category')->first();
         $type = 'Category';
         $urlType = 'category';
-        return view('Admin.product.category.list', compact('categoryList', 'title', 'type', 'urlType', 'home_heading'));
+        $blog = ServiceBanner::first();
+        return view('Admin.product.category.list', compact('categoryList', 'title', 'type', 'urlType', 'home_heading','blog'));
     }
 
     public function category_create()

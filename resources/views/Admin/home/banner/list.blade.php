@@ -79,6 +79,103 @@
 
 
                         <div class="card card-success card-outline">
+                        <form role="form" id="formWizard" class="form--wizard" enctype="multipart/form-data" method="post">
+                    {{csrf_field()}}
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Basic Information</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('success') }}
+                                </div>
+                            @elseif(session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('error') }}
+                                </div>
+                            @endif   -->
+                            <div class="row">
+                                <div class="col-lg-8 content-leftbar">
+                                    <div class="form-row">
+                                    <div class="form-group col-md-12 mb-4">
+                                            <label for="banner_title">Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="banner_title"
+                                                    name="banner_title">{!! isset($blog)?$blog->banner_title:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="banner_title_error"></div>
+                                        </div>
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label> Title*</label>
+                                            <input type="text" name="title" id="title" placeholder="Title"
+                                                class="form-control for_canonical_url required" autocomplete="off"
+                                                value="{{ @$blog->title }}">
+                                            <div class="help-block with-errors" id="title_error"></div>
+                                            @error('title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group col-md-12 mb-4">
+                            <label>Year of Active*</label>
+                            <input type="number" name="year_of_active" id="year_of_active" placeholder="Year of Active"
+                                class="form-control required" autocomplete="off"
+                                value="{{ old('year_of_active', @$blog->year_of_active) }}">
+                            <div class="help-block with-errors" id="year_of_active_error"></div>
+                            @error('year_of_active')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group col-md-12 mb-4">
+                            <label>Number of Customers*</label>
+                            <input type="number" name="number_of_customers" id="number_of_customers" placeholder="Number of Customers"
+                                class="form-control required" autocomplete="off"
+                                value="{{ old('number_of_customers', @$blog->number_of_customers) }}">
+                            <div class="help-block with-errors" id="number_of_customers_error"></div>
+                            @error('number_of_customers')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                                        
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label for="description">Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="description"
+                                                    name="description">{!! isset($blog)?$blog->description:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="description_error"></div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                              
+                                   
+
+                                      
+                                       
+                                
+
+                               
+                            </div>  
+
+                              
+                        </div>
+                                
+                        <div class="card-footer">
+                            <input type="submit" name="btn_save" value="Submit"
+                                   class="btn btn-primary pull-left submitBtn">
+                            <button type="reset" class="btn btn-default">Clear</button>
+                            <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
+                                 style="display:none;">
+                        </div>
+                    </div>
+                </form>
                             <div class="card-header">
                                 <a href="{{url(Helper::sitePrefix().'home/slider-banner/create')}}"
                                    class="btn btn-success pull-right">Add

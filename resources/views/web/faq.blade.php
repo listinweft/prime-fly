@@ -5,7 +5,8 @@
 <section class="col-12 locationbanner p-0">
            <div class="d-flex justify-content-end">
               <div class="locinner_bannerimg w-100">
-                <img src="{{ asset('frontend/img/faq.png')}}" class="w-100" alt="Meet and Greet" />
+                <!-- <img src="{{ asset('frontend/img/faq.png')}}" class="w-100" alt="Meet and Greet" /> -->
+                {!! Helper::printImage($banner_image, 'faq_image', 'faq_image_webp', '', 'img-fluid') !!}
                 <div class="loc-text text-start">
                     <div class="container">
                         <h1>FAQ</h1>

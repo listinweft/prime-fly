@@ -49,10 +49,106 @@
                         <div class="card card-success card-outline">
                             <div class="card-header">
                                 @if($type=="Category")
+
+                                
+                                <form role="form" id="formWizard" class="form--wizard" enctype="multipart/form-data" method="post">
+                    {{csrf_field()}}
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Basic Information</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('success') }}
+                                </div>
+                            @elseif(session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('error') }}
+                                </div>
+                            @endif  
+                            <div class="row">
+                                <div class="col-lg-8 content-leftbar">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label> Title*</label>
+                                            <input type="text" name="title" id="title" placeholder="Title"
+                                                class="form-control for_canonical_url required" autocomplete="off"
+                                                value="{{ @$blog->title }}">
+                                            <div class="help-block with-errors" id="title_error"></div>
+                                            @error('title')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 mb-4">
+                                            <label for="description">Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="description"
+                                                    name="description">{!! isset($blog)?$blog->description:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="description_error"></div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                              
+                                   
+
+                                      
+                                       
+                                <!-- <div class="form-group col-md-12 mb-4">
+                                            <label>Mobile Image*</label>
+                                            <div class="file-loading">
+                                                <input id="mobile_banner" name="mobile_banner" type="file">
+                                            </div>
+                                            <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
+                                            @error('mobile_banner')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                       
+                                        
+                                    </div>
+                                </div> -->
+
+                                <div class="form-group col-md-12 mb-4">
+                                            <label>Desktop  Image*</label>
+                                            <div class="file-loading">
+                                                <input id="image" name="image" type="file">
+                                            </div>
+                                            <span class="caption_note">Note: Image dimension must be 1162 x 505 PX and Size must be less than 512 KB</span>
+                                            @error('image')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                       
+                                        
+                                    </div>
+                                </div>
+                            </div>  
+
+                              
+                        </div>
+                                
+                        <div class="card-footer">
+                            <input type="submit" name="btn_save" value="Submit"
+                                   class="btn btn-primary pull-left submitBtn">
+                            <button type="reset" class="btn btn-default">Clear</button>
+                            <img class="animation__shake loadingImg" src="{{asset('backend/dist/img/loading.gif')}}"
+                                 style="display:none;">
+                        </div>
+                    </div>
+                </form>
                                     <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/create')}}"
                                        class="btn btn-success pull-right">Add Category <i
                                             class="fa fa-plus-circle pull-right mt-1 ml-2"></i>
                                     </a>
+
                                 @elseif($type=="Sub Category")
                                     <a href="{{url(Helper::sitePrefix().'product/'.$urlType.'/create')}}"
                                        class="btn btn-success pull-right">Add How It Works <i
@@ -149,4 +245,136 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 443,
+                // minImageHeight: 271,
+                // // maxImageWidth: 443,
+                // // maxImageHeight: 271,
+                // maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->image!=NULL)
+                initialPreview: ["{{asset($blog->image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$blog->image))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+            $("#author_image").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: true,
+                allowedFileTypes: ['image'],
+                // minImageWidth: 940,
+                // minImageHeight: 430,
+                // maxImageWidth: 940,
+                // maxImageHeight: 430,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->author_image!=NULL)
+                initialPreview: ["{{asset($blog->author_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$blog->author_image))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
+            $("#video_thumbnail").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 940,
+                minImageHeight: 430,
+                // maxImageWidth: 940,
+                // maxImageHeight: 430,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->video_thumbnail_image!=NULL)
+                initialPreview: ["{{asset($blog->video_thumbnail_image)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ last(explode('/',$blog->video_thumbnail_image))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
+            $("#desktop_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                layoutTemplates: {actionDelete: ''},
+                removeLabel: "Remove",
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+                minImageWidth: 1000,
+                minImageHeight: 500,
+                // maxImageWidth: 1920,
+                // maxImageHeight: 500,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->desktop_banner!=NULL)
+                initialPreview: ["{{asset($blog->desktop_banner)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{last(explode('/',$blog->desktop_banner))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+
+
+            $("#mobile_banner").fileinput({
+                'theme': 'explorer-fas',
+                validateInitialCount: true,
+                overwriteInitial: false,
+                autoReplace: true,
+                initialPreviewShowDelete: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false,
+                required: false,
+                allowedFileTypes: ['image'],
+               // minImageWidth: 960,
+               // minImageHeight: 450,
+                // maxImageWidth: 960,
+                // maxImageHeight: 450,
+                maxFileSize: 512,
+                showRemove: true,
+                @if(isset($blog) && $blog->mobile_banner!=NULL)
+                initialPreview: ["{{asset($blog->mobile_banner)}}",],
+                initialPreviewConfig: [{
+                    caption: "{{ last(explode('/',$blog->mobile_banner))}}",
+                    width: "120px"
+                }]
+                @endif
+            });
+        });
+    </script>
 @endsection

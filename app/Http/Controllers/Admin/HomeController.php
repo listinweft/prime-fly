@@ -25,7 +25,9 @@ use App\Models\Latest;
 use App\Models\SiteInformation;
 use App\Models\Testimonial;
 use App\Models\HomeGetQuote;
+use App\Models\TestimonialBanner;
 use App\Models\Homecollection;
+use App\Models\HomeList;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -41,6 +43,8 @@ class HomeController extends Controller
         $siteInformation = SiteInformation::first();
         return View::share(compact('siteInformation'));
     }
+
+    
 
     public function admin_dashboard()
 {
@@ -676,10 +680,46 @@ if (!is_array($category_id)) {
     public function banner()
     {
         $title = "Home banners List";
+
+        $blog = HomeList::first();
         $bannerList = HomeBanner::get();
-        return view('Admin.home.banner.list', compact('bannerList', 'title'));
+        return view('Admin.home.banner.list', compact('bannerList', 'title','blog'));
     }
 
+    
+    public function home_detail_store(Request $request)
+    {
+        // return $request->all();
+        // $request->validate([
+        //     'title' => 'required|min:2|max:255',
+        //     'description' => 'required',
+        // ]);
+    
+        // Check if any record exists
+        $category = HomeList::first();
+    
+        if (!$category) {
+            $category = new HomeList; // If no record, create a new one
+        }
+    
+        // Handle image upload
+      
+    
+        // Update fields
+        $category->title = $request->title;
+        $category->description = $request->description;
+        $category->banner_title = $request->banner_title;
+        $category->year_of_active = $request->year_of_active;
+        $category->number_of_customers = $request->number_of_customers;
+    
+    
+        if ($category->save()) {
+            session()->flash('success', "Home Details has been added successfully");
+            return redirect(Helper::sitePrefix() . 'home/slider-banner');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the content");
+        }
+    }
 
     public function banner_create()
     {
@@ -1094,12 +1134,41 @@ if (!is_array($category_id)) {
     }
 
 
+    public function testimonial_banner(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|min:2|max:255',
+            'description' => 'required',
+        ]);
+    
+        // Check if any record exists
+        $category = TestimonialBanner::first();
+    
+        if (!$category) {
+            $category = new TestimonialBanner; // If no record, create a new one
+        }
+    
+        // Handle image upload
+      
+        // Update fields
+        $category->title = $request->title;
+        $category->description = $request->description;
+    
+        if ($category->save()) {
+            session()->flash('success', 'Testimonial has been added successfully');
+            return redirect(Helper::sitePrefix() . 'home/testimonial');
+        } else {
+            return back()->withInput($request->input())->withErrors("Error while updating the content");
+        }
+    }
+
     /*********************** Testimonial Starts here *******************************/
     public function testimonial()
     {
         $title = "Testimonial List";
+        $blog = TestimonialBanner::first();
         $testimonialList = Testimonial::where('user_type','Admin')->get();
-        return view('Admin.home.testimonial.list', compact('testimonialList', 'title'));
+        return view('Admin.home.testimonial.list', compact('testimonialList', 'title','blog'));
     }
 
     public function testimonial_create()

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\SiteInformation;
+use App\Models\BannerImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
+
 
 class SiteInformationController extends Controller
 {
@@ -63,6 +65,60 @@ class SiteInformationController extends Controller
         if ($siteInformation->save()) {
             session()->flash('success', 'Site Information has been updated successfully');
             return redirect(Helper::sitePrefix() . 'site-information');
+        } else {
+            return back()->with('error', 'Error while updating the site information');
+        }
+    }
+
+
+    public function banner()
+    {
+        $key = "Update";
+        $title = "banners";
+        $siteInformation = BannerImage::first();
+        return view('Admin.common_banner.form', compact('key', 'title', 'siteInformation'));
+    }
+
+    public function bannerstore(Request $request)
+    {
+
+        // return $request->all();
+     
+    $blog = BannerImage::first();
+    
+    if (!$blog) {
+        $blog = new BannerImage; // If no record, create a new one
+    }
+        if ($request->hasFile('image')) {
+            Helper::deleteFile($blog, 'image');
+            Helper::deleteFile($blog, 'image_webp');
+
+            $blog->image_webp = Helper::uploadWebpImage($request->image, 'uploads/blog/webp_image/', $request->title);
+            $blog->image = Helper::uploadFile($request->image, 'uploads/blog/image/', $request->title);
+        }
+        if ($request->hasFile('blog_image')) {
+            Helper::deleteFile($blog, 'blog_image');
+            Helper::deleteFile($blog, 'blog_image_webp');
+
+            $blog->blog_image = Helper::uploadWebpImage($request->blog_image, 'uploads/blog/blog_image/', $request->title);
+            $blog->blog_image_webp = Helper::uploadFile($request->blog_image, 'uploads/blog/blog_image_webp/', $request->title);
+        }
+
+        if ($request->hasFile('faq_image')) {
+            Helper::deleteFile($blog, 'faq_image');
+            Helper::deleteFile($blog, 'faq_image_webp');
+
+            $blog->faq_image = Helper::uploadWebpImage($request->faq_image, 'uploads/blog/faq_image/', $request->title);
+            $blog->faq_image_webp = Helper::uploadFile($request->faq_image, 'uploads/blog/faq_image_webp/', $request->title);
+        }
+
+        $blog->location = $request->location ?? '';
+        $blog->phone = $request->phone ?? '';
+        $blog->email = $request->email ?? '';
+        
+        if ($blog->save()) {
+            session()->flash('success', 'Banner has been updated successfully');
+            return redirect(Helper::sitePrefix() . 'common-banners');
         } else {
             return back()->with('error', 'Error while updating the site information');
         }

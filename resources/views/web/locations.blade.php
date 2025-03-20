@@ -3,7 +3,7 @@
 <section class="col-12 locationbanner p-0">
            <div class="d-flex justify-content-end">
               <div class="locinner_bannerimg w-100">
-                <img src="{{ asset('frontend/img/support.png')}}" class="w-100" alt="Meet and Greet" />
+              {!! Helper::printImage($locationbanner, 'image', 'image_webp', '', 'img-fluid') !!}
                 <div class="loc-text text-center">
                     <div class="container">
                         <h1>LOCATIONS</h1>
@@ -16,9 +16,8 @@
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-5 section-head text-center mb-4" data-aos-duration="600" class="aos-init aos-animate">
-                <h2 data-aos="fade-up" >Our Airports</h2>
-                <p data-aos="fade-up" >We take pride in offering top-notch airport services that 
-                  cater to all scales of airports.</p>
+                <h2 data-aos="fade-up" >{{$locationbanner->title}}</h2>
+                <p data-aos="fade-up" >{!!$locationbanner->description!!}</p>
               </div>
               <div class="col-lg-10 airport_lists">
                 <div class="d-flex flex-wrap">

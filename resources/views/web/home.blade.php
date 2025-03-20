@@ -19,7 +19,8 @@
                   <div class="d-flex justify-content-center">
                      <div class="col-lg-12">
                         <h1 data-aos="fade-up" data-aos-duration="500">
-                           <span>It’s time to</span> Discover  <b>Find and book a great experience</b>
+                        {!!$cms->banner_title !!}
+                           
                         </h1>
                     
 
@@ -477,8 +478,8 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-5 section-head text-center mb-4">
-        <h2 data-aos="fade-up" data-aos-duration="600">Our Airports</h2>
-        <p data-aos="fade-up" data-aos-duration="800">We take pride in offering top-notch airport services that cater to all scales of airports.</p>
+        <h2 data-aos="fade-up" data-aos-duration="600">{{$locationbanner->title}}</h2>
+        <p data-aos="fade-up" data-aos-duration="800">{!!$locationbanner->description!!}</p>
       </div>
       <div class="col-lg-10 airport_lists">
         <div class="d-flex flex-wrap justify-content-center">
@@ -521,9 +522,8 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-7 section-head text-center mb-4">
-                  <h2 data-aos="fade-up" data-aos-duration="600">Our Services</h2>
-                  <p data-aos="fade-up" data-aos-duration="800">Our airport services include Meet-and-greet service, comfortable lounges, protective baggage wrapping, 
-                    excellent luggage assistance, and even viewer gallery tickets for layovers.</p>
+                  <h2 data-aos="fade-up" data-aos-duration="600">{{$serviceBanner->title }}</h2>
+                  <p data-aos="fade-up" data-aos-duration="800">{!!$serviceBanner->description !!}</p>
                 </div>
                 <div class="col-lg-10 service-slider" data-aos="fade-up" data-aos-duration="600">
                   <div class="owl-carousel owl-theme service-carousel">
@@ -549,17 +549,15 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
           <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-7 primefly_feature_content">
-                  <h2 data-aos="fade-up" data-aos-duration="600">Primefly</h2>
-                  <p data-aos="fade-up" data-aos-duration="800">Primefly is an exclusive airport hospitality service provided by Speedwings. They provide services such as meet 
-                    and greet, parking, cloakroom, check-in assistance, and baby/elder sitting within the airport premises. 
-                    They have been operating in most parts of India for the past 25 years and have earned the trust of millions of passengers.. </p>
+                  <h2 data-aos="fade-up" data-aos-duration="600"> {{ $cms->title }}</h2>
+                  <p data-aos="fade-up" data-aos-duration="800"> {!!$cms->description !!} </p>
                 </div>
                 <div class="company-counter" data-aos="fade-up" data-aos-duration="1000">
                   <div class="company-counter-item">
                       <div class="company-counter-item-wraper">
                           <div class="company-counter-item-icon"><img src="{{ asset('frontend/img/trust.webp')}}" alt=""></div>
                           <div class="company-counter-item-content">
-                              <h4 class="count adon" data-count="25" data-adon="+">25+</h4>
+                              <h4 class="count adon" data-count="25" data-adon="+">{{ $cms->year_of_active }}+</h4>
                               <span>Years of Trust</span>
                           </div>
                       </div>
@@ -568,7 +566,7 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
                       <div class="company-counter-item-wraper">
                           <div class="company-counter-item-icon"><img src="{{ asset('frontend/img/happy-customer.webp')}}" alt=""></div>
                           <div class="company-counter-item-content">
-                              <h4 class="count adon" data-count="22" data-adon="+">22+</h4>
+                              <h4 class="count adon" data-count="22" data-adon="+">{{ $cms->number_of_customers }}+</h4>
                               <span>Lakhs Customers</span>
                           </div>
                       </div>
@@ -586,9 +584,8 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-5 section-head text-center mb-4">
-                <h2 data-aos="fade-up" data-aos-duration="600">Blogs</h2>
-                <p data-aos="fade-up" data-aos-duration="800">News, updates, and the most awaited things happening in the 
-                  industry are being discussed here. </p>
+                <h2 data-aos="fade-up" data-aos-duration="600">{{$blog->title}} </h2>
+                <p data-aos="fade-up" data-aos-duration="800">{!! $blog->description !!}</p>
               </div>
               <div class="col-lg-11 home_blog_list">
                 <div class="row">
@@ -622,9 +619,8 @@ $categoryp = App\Models\Category::where('title', 'porter')->where('status','Acti
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-5 section-head text-center mb-4">
-                  <h2 data-aos="fade-up" data-aos-duration="600">Testimonials</h2>
-                  <p data-aos="fade-up" data-aos-duration="800">Listen to our customers as they share where we excelled 
-                    in terms of quality.</p>
+                  <h2 data-aos="fade-up" data-aos-duration="600">{{$TestimonialBanner->title}}</h2>
+                  <p data-aos="fade-up" data-aos-duration="800">{!! $TestimonialBanner->description !!}.</p>
                 </div>
                 <div class="col-lg-10 testimonial_slider" data-aos="fade-up" data-aos-duration="1000">
                     <div class="owl-carousel owl-theme testimonial-carousel" >

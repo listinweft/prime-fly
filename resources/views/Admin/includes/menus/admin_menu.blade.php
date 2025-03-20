@@ -133,6 +133,8 @@
         </p>
     </a>
     
+
+    
        
         
 
@@ -186,6 +188,13 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{url(Helper::sitePrefix().'common-banners')}}"
+       class="nav-link {{ (Request::segment(2)=='common-banners')?'active':''}}">
+        <i class="nav-icon fas fa-cogs"></i>
+        <p>Banners</p>
+    </a>
+</li>
 
 <li class="nav-item">
     <a href="{{url(Helper::sitePrefix().'blog')}}"
