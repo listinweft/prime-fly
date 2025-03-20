@@ -183,9 +183,8 @@
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-5 section-head text-center mb-4">
-                <h2 data-aos="fade-up" data-aos-duration="600">Our Airports</h2>
-                <p data-aos="fade-up" data-aos-duration="800">We take pride in offering top-notch airport services that 
-                  cater to all scales of airports.</p>
+                <h2 data-aos="fade-up" data-aos-duration="600">{{$locationbanner->title}}</h2>
+                <p data-aos="fade-up" data-aos-duration="800">{!!$locationbanner->description!!}</p>
               </div>
               <div class="col-lg-10 airport_lists">
                 <div class="d-flex flex-wrap">

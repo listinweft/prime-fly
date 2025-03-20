@@ -84,8 +84,7 @@
                                 <td style="width:20%; text-align: center;">
                                     <p style="margin: 0; margin-bottom: 8px;">
                                         <a href="tel:+7 (411) 390-51-11"
-                                            style="text-decoration: none;font-size: 13px;color: #ffffff;">+7 (411)
-                                            390-51-11</a>
+                                            style="text-decoration: none;font-size: 13px;color: #ffffff;">+91 7511172225</a>
                                     </p>
                                     <p style="margin: 0;">
                                         <a href="mailto:info@primefly.com"
