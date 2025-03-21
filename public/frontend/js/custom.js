@@ -1960,7 +1960,7 @@ $(document).on("click", "#confirm_payment", function (e) {
     
             if (!$(v).val().length) {
                 errors = true;
-                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var error = 'Please enter <strong>' + field_name + '</strong>';
                 var msg = '<div class="error invalidMessage" style="color: red">' + error + '</div>';
             
                 var inputField = $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]');
@@ -2113,12 +2113,23 @@ $(document).on("click", "#confirm_payment", function (e) {
 
             if (!$(v).val().length) {
                 errors = true;
-                var error = 'Please enter <strong>' + field_name + '</strong>.';
+                var error = 'Please enter <strong>' + field_name + '</strong>';
                 var msg = '<div class="error  invalidMessage" style="color: red">' + error + '</div>';
             
                 var inputField = $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]');
                 
                 inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true");
+
+                if (field_name === 'username') {
+                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!regex.test($(v).val())) {
+                        errors = true;
+                        msg = '<span class="error  invalidMessage" style="color: red" for="email">Please enter Email</span>';
+                        $('#' + form_id).find('input[name="' + field_name + '"]')
+                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                    }
+                }
+                
             
                 if (field_name === "password") {
                     var errorContainer = $(".password-error-container");
