@@ -148,6 +148,7 @@ public function getCategoryDetails(Request $request)
         $category->title = $request->title ?? '';
         $category->short_url = $request->short_url ?? '';
         $category->description = $request->description ?? '';
+        $category->banner_description = $request->banner_description ?? '';
         $category->parent_id = null;
         $category->image_attribute = $request->image_attribute ?? '';
         $category->banner_attribute = $request->banner_attribute ?? '';
@@ -240,6 +241,7 @@ public function getCategoryDetails(Request $request)
         $category->title = $request->title ?? '';
         $category->short_url = $request->short_url ?? '';
         $category->description = $request->description ?? '';
+        $category->banner_description = $request->banner_description ?? '';
         $category->parent_id = null;
         $category->image_attribute = $request->image_attribute ?? '';
         $category->banner_attribute = $request->banner_attribute ?? '';

@@ -1488,8 +1488,9 @@ public function search_booking_lounch(Request $request)
            ->take(5)
            ->get();
            $locationbanner = LocationBanner::first();
+           $TestimonialBanner = TestimonialBanner::first();
        
-        return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall','faqs','locationbanner'));
+        return view('web.service_detail', compact('blogs','seo_data','locations','testimonials','category','subcategories','locationsall','faqs','locationbanner','TestimonialBanner'));
 
         }
     }

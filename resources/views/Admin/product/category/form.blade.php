@@ -109,6 +109,14 @@
                                                                                 @enderror
                                                                             </div>
 
+
+                                                                            <div class="form-group col-md-12 mb-4">
+                                            <label for="description">Banner Description*</label>
+                                            <textarea class="form-control tinyeditor required reset" id="banner_description"
+                                                    name="banner_description">{!! isset($category)?$category->banner_description:'' !!}</textarea>
+                                            <div class="help-block with-errors" id="banner_description_error"></div>
+                                        </div>
+
                   
                                <div class="form-group col-md-12 mb-4">
                                             <label for="description">Description*</label>

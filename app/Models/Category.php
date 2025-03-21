@@ -10,6 +10,12 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'banner_description'
+       
+    ];
+
+
     /**
      * Scope a query to only include active items.
      *

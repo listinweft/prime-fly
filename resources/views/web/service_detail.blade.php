@@ -14,7 +14,7 @@
                   <div class="d-flex flex-wrap justify-content-between">
                     <div class="col-lg-4 srvc_bnnr_text">
                       <h1 data-aos="fade-up" data-aos-duration="500">
-                        <span>It’s time to</span> Discover  <span>Find and book a great experience</span>
+                      {!!$category->banner_description !!}
                      </h1>
                     </div>
                      <div class="col-lg-11"> 
@@ -266,9 +266,8 @@
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-lg-5 section-head text-center mb-4">
-                  <h2 data-aos="fade-up" data-aos-duration="600">Testimonials</h2>
-                  <p data-aos="fade-up" data-aos-duration="800">Listen to our customers as they share where we excelled 
-                    in terms of quality.</p>
+                  <h2 data-aos="fade-up" data-aos-duration="600">{{$TestimonialBanner->title}}</h2>
+                  <p data-aos="fade-up" data-aos-duration="800">{!!$TestimonialBanner->description!!}</p>
                 </div>
                 <div class="col-lg-10 testimonial_slider" data-aos="fade-up" data-aos-duration="1000">
                     <div class="owl-carousel owl-theme testimonial-carousel" >
