@@ -15,6 +15,7 @@ use App\Models\Location; // Import the Location model
 use App\Models\Category;
 use App\Models\Offer;
 use App\Models\ProductPrice;
+use App\Models\BannerImage;
 use App\Models\LocationGallery;
 use App\Models\Blog;
 use App\Models\PersonalDetails;
@@ -2674,6 +2675,28 @@ public function enquiry_storeApi(Request $request)
 
 //     return response()->json(['message' => 'Order not found'], 404);
 // }
+
+
+
+
+
+public function contactdata_api()
+    {
+        $contact = BannerImage::first();
+
+        if ($contact) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Contact data retrieved successfully',
+                'data' => $contact
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'No contact data found'
+        ], 404);
+    }
 
 
 }

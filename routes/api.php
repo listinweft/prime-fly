@@ -89,5 +89,6 @@ Route::get('/mobile-app', [CommonController::class, 'get_mobile']);
 Route::get('/terms-and-conditions-api', [CommonController::class, 'terms_and_conditions_api']);
 Route::get('/privacy-policy-api', [CommonController::class, 'privacy_policy_api']);
 Route::post('/enquiry-store', [CommonController::class, 'enquiry_storeApi']);
+Route::get('/contact-data', [CommonController::class, 'contactdata_api']);
 
 
