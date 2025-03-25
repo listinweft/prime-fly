@@ -11,6 +11,8 @@ use App\Models\BusinessAddress;
 use Illuminate\Support\Facades\Log;
 Use App\Models\Usersverifie;
 use Exception;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +21,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Socialite\Facades\Socialite;
+
 
 class LoginController extends Controller
 {
@@ -552,7 +555,144 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
         
         return view('web.login',compact('type'));
 
+        
     }
+
+    public function login_otp_form(Request $request)
+    {
+
+
+       
+
+        
+        
+        return view('web.otp_form');
+
+    }
+    public function sendOTP(Request $request)
+{
+    // Validate the request (Ensure phone number is provided)
+    // $request->validate([
+    //     'phone' => 'required|numeric|digits:10',
+    // ]);
+
+    // Extract phone number
+   $phone = "91" . $request->phone; // Add country code if required
+
+    // Generate OTP
+     $otp = rand(100000, 999999);
+
+    // Store OTP in session
+    Session::put('otp', $otp);
+    Session::put('phone', $phone);
+    Session::save();
+
+    // API Details
+    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/Vk2D5FKMjJLUQSoELt35/SMSes/';
+    $authKey = 'Vk2D5FKMjJLUQSoELt35';
+    $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
+
+    // Prepare message
+    $message = "Your OTP code is $otp - Primefly";
+    // $message = "User Admin login OTP is 12345 - SMSCNT";
+
+    // Send API request
+    $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+    ])->withBasicAuth($authKey, $authToken)
+      ->post($apiUrl, [
+          'Text' => $message,
+          'Number' => $phone,
+          'SenderId' => 'SMSCNT',
+          'DRNotifyUrl' => 'https://www.domainname.com/notifyurl',
+          'DRNotifyHttpMethod' => 'POST',
+          'Tool' => 'API',
+      ]);
+
+    // Log API response
+    Log::info('SMS API Response:', ['response' => $response->json()]);
+
+    // Check for successful response
+    if ($response->successful()) {
+        $apiResponse = $response->json();
+        
+        // Check if the API response indicates failure
+        if (isset($apiResponse['response']['Success']) && $apiResponse['response']['Success'] == 'False') {
+            Log::error('OTP Sending Failed:', ['error' => $apiResponse['response']['Message']]);
+            return back()->withErrors(['error' => 'Failed to send OTP: ' . $apiResponse['response']['Message']]);
+        }
+
+       return response()->json(['status' => 'verify']);
+
+    } else {
+        Log::error('OTP Sending Failed:', ['error' => $response->body()]);
+        return back()->withErrors(['error' => 'Failed to send OTP.']);
+    }
+}
+    public function showOTPVerifyPage()
+    {
+        return view('web.verify_otp'); // Create this Blade file
+    }
+
+    public function verifyOTP(Request $request)
+    {
+
+  
+        // $validator = Validator::make($request->all(), [
+        //     'otp' => 'required|numeric|digits:6',
+        // ]);
+    
+        // if ($validator->fails()) {
+        //     return back()->withErrors(['otp' => 'Invalid OTP format.']);
+        // }
+    
+        $sessionOtp = Session::get('otp');
+        $phone = Session::get('phone');
+       
+        // if ($sessionOtp == $request->otp) {
+            Session::forget('otp'); // Clear OTP after successful verification
+     
+            $user = User::where('phone', $phone)->first();
+    
+            if (!$user) {
+                // Register a new user with a default password
+                $user = new User();
+                $user->user_type = 'Customer'; 
+                $user->username = $phone;
+                $user->email = 'user_' . $phone . '@dummyemail.com';
+
+                $user->status = 'Active';
+                $user->pay_status = 'Inactive';
+                $user->phone = $phone;
+                $user->btype = 'public';
+                $user->password = Hash::make('12345678@aA'); // Default password
+    
+                if (!$user->save()) {
+                    return back()->withErrors(['otp' => 'Failed to register user. Please try again.']);
+                }
+    
+                // Create Customer entry
+                $customer = new Customer();
+                $customer->first_name = "New"; // Default first name
+                $customer->last_name = "User"; // Default last name
+                $customer->user_id = $user->id;
+    
+                if (!$customer->save()) {
+                    return back()->withErrors(['otp' => 'Failed to create customer entry.']);
+                }
+            }
+    
+            // Log in the user
+            Auth::guard('customer')->login($user);
+    
+            return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+        // }
+        
+        // else {
+        //     return back()->withErrors(['otp' => 'Incorrect OTP. Please try again.']);
+        // }
+    }
+    
     public function login_form_public(Request $request)
     {
 

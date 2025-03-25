@@ -2198,6 +2198,19 @@ $(document).on("click", "#confirm_payment", function (e) {
                         }, 2000);
 
                     }
+                   
+                  else  if (response.status == "verify") {
+
+
+                        // Toast.fire({
+                        //     title: "Success!", text: response.message, icon: "success"
+                        // });
+                        setTimeout(() => {
+                            window.location.href = base_url + "/verify-otp";
+
+                        }, 2000);
+
+                    }
                     else if (response.status == "success-reloadc") {
                         // alert("knbb");
 
@@ -2235,6 +2248,7 @@ $(document).on("click", "#confirm_payment", function (e) {
 
 
                     }
+                    
                     else {
                         Toast.fire({
                             title: "error!", text: response.message, icon: "error"
@@ -2253,6 +2267,72 @@ $(document).on("click", "#confirm_payment", function (e) {
         }
     });
 
+    $(document).on('click', '.otp_submit_btn', function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let buttonText = $this.val();
+        let url = $this.data('url');
+        let form_id = $this.closest("form").attr('id');
+    
+        let formData = new FormData(document.getElementById(form_id));
+        let errors = false;
+    
+        // Remove previous validation messages
+        $('form input, form textarea').removeClass('is-invalid is-valid');
+        $('span.error').remove();
+    
+        // Validate required fields
+        $("#" + form_id + " input[required]").each(function () {
+            let field_name = $(this).attr('name');
+            let inputField = $('#' + form_id).find('input[name="' + field_name + '"]');
+    
+            if (!$(this).val().trim()) {
+                errors = true;
+                let error = 'Please enter <strong>' + field_name + '</strong>';
+                let msg = '<span class="error invalid-feedback" style="color: red">' + error + '</span>';
+    
+                inputField.addClass('is-invalid').after(msg);
+            }
+        });
+    
+        if (!errors) {
+            $this.val('Please Wait..');
+    
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: base_url + url,
+            })
+                .done(function (response) {
+                    console.log(response);
+                    $this.val(buttonText);
+                    $("#" + form_id)[0].reset();
+    
+                    if (response.status == "success-reload") {
+                        Toast.fire({ title: "Success!", text: response.message, icon: "success" });
+                        setTimeout(() => { window.location.href = base_url; }, 2000);
+                    } else {
+                        Toast.fire({ title: "Error!", text: response.message, icon: "error" });
+                    }
+                })
+                .fail(function (response) {
+                    $this.val(buttonText);
+                    $.each(response.responseJSON.errors, function (field_name, error) {
+                        let msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                        $("#" + form_id).find('input[name="' + field_name + '"]')
+                            .addClass('is-invalid').after(msg);
+                    });
+                });
+        }
+    });
+    
     $(document).on('click', '.forgotpasswdform_submit_btn', function (e) {
 
       
