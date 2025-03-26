@@ -306,7 +306,7 @@
                     </div>
                     <div class="col-lg-6 profile_form_grid">
                         <label>Mobile Number</label>
-                        <input id="phone" name="phone" type="tel" value="{{@$customer->user->phone}}" class="required" />
+                        <input id="phone" name="phone"  placeholder="Enter Your Mobile Number" type="tel" value="{{@$customer->user->phone}}" class="required" />
                     </div>
                     <div class="col-lg-6 profile_form_grid">
                         <label>Email</label>
