@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web;
-
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
 use App\Models\Banner;
@@ -100,59 +100,61 @@ class CustomerController extends Controller
 
 
 
-
     public function update_profile(Request $request)
     {
-
-
-      
-       
-       
-
         if (Auth::guard('customer')->check()) {
             $user = Auth::guard('customer')->user();
             $customer = $user->customer;
-       
-            DB::beginTransaction();
-           // Display the profile image
-
-           if ($request->hasFile('profileImage')) {  // Update to 'profileImage' as per request data
-            // Delete the existing profile image if it exists
-            if (File::exists(public_path($user->profile_image))) {
-                File::delete(public_path($user->profile_image));
-            }
-        
-            // Upload the new profile image
-            $user->profile_image = Helper::uploadFile($request->file('profileImage'), 'uploads/customer/profile_image/', $user->email);  // Update to 'profileImage' as per request data
-           
-        }
-        
-           
+    
+            // Check if email or phone already exists for another user
+            $existingUser = User::where(function ($query) use ($request, $user) {
+                $query->where('email', $request->email)
+                      ->orWhere('phone', $request->phone);
+            })->where('id', '!=', $user->id)->first(); // Exclude the current user
+    
+            if ($existingUser) {
             
+                return response()->json(['status' => 'error', 'message' => 'Email Or Phone Number in already Use']);
+              
+            }
+    
+            DB::beginTransaction();
+    
+            // Update Profile Image
+            if ($request->hasFile('profileImage')) {
+                if (File::exists(public_path($user->profile_image))) {
+                    File::delete(public_path($user->profile_image));
+                }
+                $user->profile_image = Helper::uploadFile($request->file('profileImage'), 'uploads/customer/profile_image/', $user->email);
+            }
+    
+            // Update Customer Details
             $customer->first_name = $request->first_name;
             $customer->country = $request->country;
             $customer->date_of_birth = $request->date_of_birth;
-             
             $customer->updated_at = now();
+    
             if ($customer->save()) {
                 $user->phone = $request->phone;
-               
+                $user->email = $request->email;
                 $user->updated_at = now();
+    
                 if ($user->save()) {
                     DB::commit();
                     return response()->json(['status' => 'success', 'message' => 'Profile has been updated successfully']);
                 } else {
                     DB::rollBack();
-                    return response()->json(['status' => 'error', 'message' => "Error while updating the profile, Please try after sometime"]);
+                    return response()->json(['status' => 'error', 'message' => "Error while updating the profile, Please try again later."]);
                 }
             } else {
                 DB::rollBack();
-                return response()->json(['status' => 'error', 'message' => "Error while updating the profile, Please try after sometime"]);
+                return response()->json(['status' => 'error', 'message' => "Error while updating the profile, Please try again later."]);
             }
         } else {
             abort(403, 'You are not authorised');
         }
     }
+    
 
     public function address_form(Request $request)
     {

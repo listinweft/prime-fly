@@ -1939,7 +1939,12 @@ $requiredFields.each(function () {
                        
                         
                     } else {
-                        $(".successModalForm").modal('show');
+                        Toast.fire({
+                            title: "error!", text: response.message, icon: "error"
+                        });
+                        // setTimeout(() => {
+                        //     window.location.href = base_url + '/customer/account';
+                        // }, 2000);
                         
                         // swal.fire({
                         //     title: response.status, text: response.message, icon: response.status
