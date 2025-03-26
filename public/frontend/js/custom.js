@@ -1360,10 +1360,13 @@ $(document).on("click", "#confirm_payment", function (e) {
     let paymentMethod = $("input[name=transfer]:checked").attr("id");
     let finalAmount = $this.data("finalamount");
     let phoneNumber = $("#phone").val().trim();
+    let email = $("#email").val().trim();
     let valid = true;
 
     // Regex for detecting special characters (excluding spaces and basic punctuation if needed)
     let specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email validation
+
 
     // Initialize error messages
     let $paymentMethodError = $("#payment-method-error");
@@ -1381,21 +1384,23 @@ $(document).on("click", "#confirm_payment", function (e) {
     }
 
     // Validate required fields (empty & special character check)
-    $requiredFields.each(function () {
-        let $field = $(this);
-        let fieldValue = $field.val().trim();
-        let $errorMsg = $field.next(".error-message");
+// Validate required fields (empty & special character check)
+$requiredFields.each(function () {
+    let $field = $(this);
+    let fieldValue = $field.val().trim();
+    let $errorMsg = $field.next(".error-message");
 
-        if (fieldValue === "") {
-            valid = false;
-            $field.addClass("error");
-            $errorMsg.show().text("This field is required.");
-        } else if (specialCharRegex.test(fieldValue)) {
-            valid = false;
-            $field.addClass("error");
-            $errorMsg.show().text("Special characters are not allowed.");
-        }
-    });
+    if (fieldValue === "") {
+        valid = false;
+        $field.addClass("error");
+        $errorMsg.show().text("This field is required.");
+    } else if ($field.attr("id") !== "email" && specialCharRegex.test(fieldValue)) { 
+        // Exclude email field from special character validation
+        valid = false;
+        $field.addClass("error");
+        $errorMsg.show().text("Special characters are not allowed.");
+    }
+});
 
     // Validate phone number (empty, only digits)
     let phoneError = $("#phone").next(".error-message");
@@ -1409,6 +1414,16 @@ $(document).on("click", "#confirm_payment", function (e) {
         phoneError.show().text("Phone number must only contain digits.");
     }
 
+    let emailError = $("#email").next(".error-message");
+    if (email === "") {
+        valid = false;
+        $("#email").addClass("error");
+        emailError.show().text("Email is required.");
+    } else if (!emailRegex.test(email)) {
+        valid = false;
+        $("#email").addClass("error");
+        emailError.show().text("Please enter a valid email address.");
+    }
     // Validate address, country, state, and pincode for special characters
     let fieldsToValidate = ["#address", "#country", "#state", "#pincode"];
     fieldsToValidate.forEach(function (selector) {
@@ -1447,6 +1462,7 @@ $(document).on("click", "#confirm_payment", function (e) {
                 country: $("#country").val(),
                 city: $("#city").val(),
                 phone: phoneNumber,
+                email: email,
                 state: $("#state").val(),
                 gst_number: $("#gst_number").val(),
                 gender: $("input[name^='inlineRadioOptions']:checked").map(function () {

@@ -593,8 +593,8 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
 
     // Prepare message
-    $message = "Your OTP code is $otp - Primefly";
-    // $message = "User Admin login OTP is 12345 - SMSCNT";
+    // $message = "Your OTP code is $otp - Primefly";
+    $message = "User Admin login OTP is 12345 - SMSCNT";
 
     // Send API request
     $response = Http::withHeaders([
@@ -659,7 +659,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
                 $user = new User();
                 $user->user_type = 'Customer'; 
                 $user->username = $phone;
-                $user->email = 'user_' . $phone . '@dummyemail.com';
+                $user->email = ' ';
 
                 $user->status = 'Active';
                 $user->pay_status = 'Inactive';
@@ -673,7 +673,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     
                 // Create Customer entry
                 $customer = new Customer();
-                $customer->first_name = "New"; // Default first name
+                $customer->first_name = " "; // Default first name
                 $customer->last_name = "User"; // Default last name
                 $customer->user_id = $user->id;
     
