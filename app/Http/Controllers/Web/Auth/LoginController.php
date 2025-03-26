@@ -659,7 +659,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
                 $user = new User();
                 $user->user_type = 'Customer'; 
                 $user->username = $phone;
-                $user->email = ' ';
+                $user->email = null;
 
                 $user->status = 'Active';
                 $user->pay_status = 'Inactive';
