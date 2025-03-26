@@ -1717,14 +1717,17 @@ class CartController extends Controller
                     PersonalDetails::insert($personalDetailsData);
                 }
 
+               
+
                 $user = User::find(Auth::guard('customer')->user()->id);
 
-if ($user && $request->filled('email')) {
-    if (is_numeric($user->username)) { // Check if the username is a phone number
-        $user->email = $request->email;
-        $user->save();
-    }
-}
+                if ($user && $request->filled('email')) {
+                    if (is_numeric($user->username) && !User::where('email', $request->email)->exists()) {
+                        $user->email = $request->email;
+                        $user->save();
+                    }
+                }
+                
 
                 
                 // if (!empty($request->phone)) {
