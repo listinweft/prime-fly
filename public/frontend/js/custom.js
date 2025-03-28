@@ -1412,7 +1412,15 @@ $requiredFields.each(function () {
         valid = false;
         $("#phone").addClass("error");
         phoneError.show().text("Phone number must only contain digits.");
+    } else if (phoneNumber.length < 10) {
+        valid = false;
+        $("#phone").addClass("error");
+        phoneError.show().text("Phone number must be at least 10 digits.");
+    } else {
+        $("#phone").removeClass("error");
+        phoneError.hide();
     }
+    
 
     let emailError = $("#email").next(".error-message");
     if (email === "") {
