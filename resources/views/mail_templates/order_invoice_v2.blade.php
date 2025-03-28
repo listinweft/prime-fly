@@ -379,7 +379,7 @@
                            width="85"></a>
                      </td>
                      <td style="vertical-align: bottom;" align="center">
-                        <p style="margin-bottom: 0;margin-top: 0;"><a href="tel:+7 (411) 390-51-11" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">+7 (411) 390-51-11</a></p>
+                        <p style="margin-bottom: 0;margin-top: 0;"><a href="tel:+91 7511172225" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">+91 7511172225</a></p>
                         <p style="margin-top:8px; margin-bottom: 0;"><a href="mailto:info@primefly.com" style="font-size: 12px;color: white;text-decoration: none;opacity: 0.7;">info@primefly.com</a></p>
                      </td>
                      <td align="right"
