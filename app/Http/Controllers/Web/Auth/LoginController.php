@@ -593,8 +593,8 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
 
     // Prepare message
-      // $message = "Your OTP for login to Primefly is $otp. It is valid for the next 2 minutes."; 
-    $message = "User Admin login OTP is 12345 - SMSCNT";
+      $message = "Your OTP for login to Primefly is " .$otp. ". It is valid for the next 2 minutes."; 
+    // $message = "User Admin login OTP is 12345 - SMSCNT";
 
     // Send API request
     $response = Http::withHeaders([
@@ -603,7 +603,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
       ->post($apiUrl, [
           'Text' => $message,
           'Number' => $phone,
-          'SenderId' => 'SMSCNT',
+          'SenderId' => 'PRMFLY',
           'DRNotifyUrl' => 'https://www.domainname.com/notifyurl',
           'DRNotifyHttpMethod' => 'POST',
           'Tool' => 'API',
@@ -612,12 +612,15 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     // Log API response
     Log::info('SMS API Response:', ['response' => $response->json()]);
 
+    Log::info($message);
+
     // Check for successful response
     if ($response->successful()) {
         $apiResponse = $response->json();
         
         // Check if the API response indicates failure
         if (isset($apiResponse['response']['Success']) && $apiResponse['response']['Success'] == 'False') {
+           
             Log::error('OTP Sending Failed:', ['error' => $apiResponse['response']['Message']]);
             return back()->withErrors(['error' => 'Failed to send OTP: ' . $apiResponse['response']['Message']]);
         }
