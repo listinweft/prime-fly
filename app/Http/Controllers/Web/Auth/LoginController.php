@@ -593,7 +593,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
 
     // Prepare message
-    // $message = "Your OTP code is $otp - Primefly";
+      // $message = "Your OTP for login to Primefly is $otp. It is valid for the next 2 minutes."; 
     $message = "User Admin login OTP is 12345 - SMSCNT";
 
     // Send API request

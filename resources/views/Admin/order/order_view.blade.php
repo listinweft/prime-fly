@@ -23,6 +23,19 @@
         </section>
         @php
                                     $admintype = Auth::guard('admin')->user()->admin;
+
+                                
+         $personaladdress = App\Models\PersonalDetails::where('order_id', $order->id)->first();
+         $personaladdressfull = App\Models\PersonalDetails::where('order_id', $order->id)
+    ->where('type', 'meet_and_greet')
+    ->get();
+
+         $personaladdressfullboth = App\Models\PersonalDetails::where('order_id', $order->id)->first();
+         $personaladdresnormal = App\Models\PersonalDetails::where('order_id', $order->id)->where('type', 'normal')->get();
+         $personalDetails = App\Models\PersonalDetails::where('order_id', $order->id)->get();
+
+
+         @endphp
                                     @endphp
 
                                     
@@ -54,119 +67,149 @@
 
                             <div class="row">
                                 <div class="col-12 table-responsive">
-                                    <table class="table table-striped order-table">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Service</th>
-                                                <th>Package</th>
-                                                <th>Flight Number</th>
-                                                <th>Origin</th>
-                                                <th>Destination</th>
-                                                <th>Transit</th>
-                                                <th>Travel Type</th>
-                                                <th>Porter count</th>
-                                                <th>Guest</th>
-                                                <th>Bag count</th>
-                                                <th>Adults</th>
-                                                <th>Infants</th>
-                                                <th>Children</th>
-                                                <th>Service Date</th>
-                                                <!-- @if($admintype->role == "Super Admin")
-                                                <th>Cost</th>
-                                                @endif -->
-                                                <th>Status</th>
-                                                @if($admintype->role == "Super Admin")
-                                                <th>Price</th>
-                                                @endif
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $shoppingTotal = [];
-                                                $refundStatus = $refundStatusPrevious = null;
-                                                $orderGrandTotal = 0; // Initialize grand total
-                                            @endphp
-                                            @foreach($order->orderProducts as $product)
-                                                @php
-                                                    $package = App\Models\Product::where('id', $product->product_id)->first();
-                                                    $category = App\Models\Category::where('id', $package->category_id)->first();
-                                                    $product_category = $category->title;
-                                                    
-                                                    $shoppingTotal[] = $product->total;
-                                                    $orderStatus = App\Models\OrderLog::where('order_product_id', '=', $product->id)->orderBy('created_at', 'DESC')->first();
-                                                    $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->orderBy('id', 'DESC')->skip(1)->take(1)->first();
-                                                    if ($orderStatus->status == 'Refunded') {
-                                                        $refundStatus = $orderStatus;
-                                                        $refundStatusPrevious = $orderStatusPrevious;
-                                                    }
-                                                    
-                                                    $orderGrandTotal += $product->total; // Calculate grand total
-                                                @endphp
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $category->title }}</td>
-                                                    <td>{{ $product->productData->title }}</td>
-                                                    <td>{{ $product->flight_number }}</td>
-                                                    <td>{{ $product->origin }}</td>
-                                                    <td>{{ $product->destination }}</td>
-                                                    <td>{{ $product->trans }}</td>
-                                                    <td>{{ $product->travel_type }}</td>
-                                                    @if ($product->porter_count > 0 && $product_category == 'Porter')
-                                                        <td>{{ $product->porter_count }}</td>
-                                                    @else
-                                                        <td></td>
-                                                    @endif
-                                                    @if ($product->guest > 0 && in_array($product_category, ['Meet and Greet', 'Airport Entry', 'Lounge Booking']))
-                                                        <td>{{ $product->guest }}</td>
-                                                    @else
-                                                        <td></td>
-                                                    @endif
-                                                    @if ($product->guest > 0 && in_array($product_category, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
-                                                        <td>{{ $product->guest }}</td>
-                                                    @else
-                                                        <td></td>
-                                                    @endif
-                                                    <td>{{ $product->adults }}</td>
-                                                    <td>{{ $product->infants }}</td>
-                                                    <td>{{ $product->children }}</td>
-                                                    <td>{{ $product->exit_date }}</td>
-                                                    
-                                                    <!-- @if($admintype->role == "Super Admin")
-                                                    <td>{{ $order->currency }} {{ $product->cost }}</td>
-                                                    @endif -->
-                                                    <td>
-                                                        <select name="status" id="orderStatus" class="form-control" style="min-width: 130px;"
-                                                                data-id="{{ $product->id }}" data-order_id="{{ $order->id }}"
-                                                                data-coupon_min="{{ $order->getMaxCouponsMinimumSpend() }}"
-                                                                data-order_total="{{ $orderGrandTotal }}"
-                                                                data-price="{{ $product->total }}"
-                                                                data-all_product_statuses="{{ implode(',', array_unique($order->orderLogs->pluck(['status'])->toArray())) }}">
-                                                            @foreach(['Pending' => 'Pending', 'Processing' => 'Processing', 'On Hold' => 'On Hold', 'Cancelled' => 'Cancelled',  'Completed' => 'Completed', 'Refunded' => 'Refunded', 'Failed' => 'Failed'] as $statusKey => $status)
-                                                                <option value="{{ $statusKey }}"
-                                                                        {{ old("status", @$orderStatus->status) == $statusKey ? "selected" : "" }}>
-                                                                    {{ $status }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    @if($admintype->role == "Super Admin")
-                                                    <td>{{ $order->currency }}
-                                                        @if (count($order->orderProducts) == 1)
-                                                            @if ($order->orderCoupons != null)
-                                                                {{ $product->total - $order->orderCoupons->sum('coupon_value') }}
-                                                            @else
-                                                                {{ $product->total }}
-                                                            @endif
-                                                        @else
-                                                            {{ $product->total }}
-                                                        @endif
-                                                    </td>
-                                                   @endif
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                <table class="table table-striped order-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Service</th>
+            <th>Package</th>
+            <th>Flight Number</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Transit</th>
+            <th>Travel Type</th>
+            <th>Passenger Details</th>
+            <th>Porter Count</th>
+            <th>Guest</th>
+            <th>Bag Count</th>
+            <th>Adults</th>
+            <th>Infants</th>
+            <th>Children</th>
+            <th>Service Date</th>
+            <th>Status</th>
+            @if($admintype->role == "Super Admin")
+                <th>Price</th>
+            @endif
+        </tr>
+    </thead>
+    <tbody>
+        @php
+
+        $personalDetails = App\Models\PersonalDetails::where('order_id', $order->id)->get();
+
+// Group passengers by package_id
+$groupedPersonalDetails = $personalDetails->groupBy('package_id');
+            $shoppingTotal = [];
+            $refundStatus = $refundStatusPrevious = null;
+            $orderGrandTotal = 0;
+        @endphp
+        @foreach($order->orderProducts as $product)
+            @php
+                $package = App\Models\Product::where('id', $product->product_id)->first();
+                $category = App\Models\Category::where('id', $package->category_id)->first();
+                $product_category = $category->title;
+                $uniquePackageId = $package->unique_package_id;
+                
+                $shoppingTotal[] = $product->total;
+                $orderStatus = App\Models\OrderLog::where('order_product_id', '=', $product->id)->orderBy('created_at', 'DESC')->first();
+                $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->orderBy('id', 'DESC')->skip(1)->take(1)->first();
+                if ($orderStatus->status == 'Refunded') {
+                    $refundStatus = $orderStatus;
+                    $refundStatusPrevious = $orderStatusPrevious;
+                }
+                
+                $orderGrandTotal += $product->total;
+            @endphp
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $category->title }}</td>
+                <td>{{ $product->productData->title }}</td>
+                <td>{{ $product->flight_number }}</td>
+                <td>{{ $product->origin }}</td>
+                <td>{{ $product->destination }}</td>
+                <td>{{ $product->trans }}</td>
+                <td>{{ $product->travel_type }}</td>
+
+                <!-- Passenger Details -->
+                <td>
+            @php
+                // Get the passengers for the current package_id
+                $packagePassengers = $groupedPersonalDetails[$product->package_id] ?? [];
+
+                // Filter meet_and_greet and normal passengers for this package
+                $meetAndGreetPassengers = $packagePassengers->where('type', 'meet_and_greet');
+                $normalPassengers = $packagePassengers->where('type', 'normal');
+            @endphp
+
+            @if ($meetAndGreetPassengers->isNotEmpty())
+                @foreach ($meetAndGreetPassengers as $passenger)
+                    Name: {{ $passenger->name }}, Age: {{ $passenger->age }}, Passport: {{ $passenger->passport_number }} <br>
+                @endforeach
+            @endif
+
+            @if ($normalPassengers->isNotEmpty())
+                @foreach ($normalPassengers as $passenger)
+                    Name: {{ $passenger->name }}, Age: {{ $passenger->age }}, Passport: {{ $passenger->passport_number }} <br>
+                @endforeach
+            @endif
+        </td>
+                <!-- Porter Count -->
+                <td>{{ ($product->porter_count > 0 && $product_category == 'Porter') ? $product->porter_count : '' }}</td>
+
+                <!-- Guest Count -->
+                <td>
+                    @if ($product->guest > 0 && in_array($product_category, ['Meet and Greet', 'Airport Entry', 'Lounge Booking']))
+                        {{ $product->guest }}
+                    @endif
+                </td>
+
+                <!-- Bag Count -->
+                <td>
+                    @if ($product->guest > 0 && in_array($product_category, ['Car Parking', 'Cloak Room', 'Baggage Wrapping']))
+                        {{ $product->guest }}
+                    @endif
+                </td>
+
+                <td>{{ $product->adults }}</td>
+                <td>{{ $product->infants }}</td>
+                <td>{{ $product->children }}</td>
+                <td>{{ $product->exit_date }}</td>
+
+                <!-- Status -->
+                <td>
+                    <select name="status" id="orderStatus" class="form-control" style="min-width: 130px;"
+                            data-id="{{ $product->id }}" data-order_id="{{ $order->id }}"
+                            data-coupon_min="{{ $order->getMaxCouponsMinimumSpend() }}"
+                            data-order_total="{{ $orderGrandTotal }}"
+                            data-price="{{ $product->total }}"
+                            data-all_product_statuses="{{ implode(',', array_unique($order->orderLogs->pluck(['status'])->toArray())) }}">
+                        @foreach(['Pending' => 'Pending', 'Processing' => 'Processing', 'On Hold' => 'On Hold', 'Cancelled' => 'Cancelled',  'Completed' => 'Completed', 'Refunded' => 'Refunded', 'Failed' => 'Failed'] as $statusKey => $status)
+                            <option value="{{ $statusKey }}" {{ old("status", @$orderStatus->status) == $statusKey ? "selected" : "" }}>
+                                {{ $status }}
+                            </option>
+                        @endforeach
+                    </select>
+                </td>
+
+                @if($admintype->role == "Super Admin")
+                    <td>
+                        {{ $order->currency }}
+                        @if (count($order->orderProducts) == 1)
+                            @if ($order->orderCoupons != null)
+                                {{ $product->total - $order->orderCoupons->sum('coupon_value') }}
+                            @else
+                                {{ $product->total }}
+                            @endif
+                        @else
+                            {{ $product->total }}
+                        @endif
+                    </td>
+                @endif
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
                                 </div>
                             </div>
 
