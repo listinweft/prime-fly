@@ -132,27 +132,28 @@ $groupedPersonalDetails = $personalDetails->groupBy('package_id');
 
                 <!-- Passenger Details -->
                 <td>
-            @php
-                // Get the passengers for the current package_id
-                $packagePassengers = $groupedPersonalDetails[$product->package_id] ?? [];
+    @php
+        // Get the passengers for the current package_id
+        $packagePassengers = $groupedPersonalDetails[$product->package_id] ?? [];
+        
+        // Only show relevant passengers based on product category
+        $relevantPassengers = [];
+        
+        if ($product_category == 'Meet and Greet') {
+            // For Meet and Greet products, only show meet_and_greet passengers
+            $relevantPassengers = $packagePassengers->where('type', 'meet_and_greet');
+        } else {
+            // For other products, show normal passengers
+            $relevantPassengers = $packagePassengers->where('type', 'normal');
+        }
+    @endphp
 
-                // Filter meet_and_greet and normal passengers for this package
-                $meetAndGreetPassengers = $packagePassengers->where('type', 'meet_and_greet');
-                $normalPassengers = $packagePassengers->where('type', 'normal');
-            @endphp
-
-            @if ($meetAndGreetPassengers->isNotEmpty())
-                @foreach ($meetAndGreetPassengers as $passenger)
-                    Name: {{ $passenger->name }}, Age: {{ $passenger->age }}, Passport: {{ $passenger->passport_number }} <br>
-                @endforeach
-            @endif
-
-            @if ($normalPassengers->isNotEmpty())
-                @foreach ($normalPassengers as $passenger)
-                    Name: {{ $passenger->name }}, Age: {{ $passenger->age }}, Passport: {{ $passenger->passport_number }} <br>
-                @endforeach
-            @endif
-        </td>
+    @if ($relevantPassengers->isNotEmpty())
+        @foreach ($relevantPassengers as $passenger)
+            Name: {{ $passenger->name }}, Age: {{ $passenger->age }}, Passport: {{ $passenger->passport_number }} <br>
+        @endforeach
+    @endif
+</td>
                 <!-- Porter Count -->
                 <td>{{ ($product->porter_count > 0 && $product_category == 'Porter') ? $product->porter_count : '' }}</td>
 
