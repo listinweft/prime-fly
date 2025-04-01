@@ -2347,7 +2347,15 @@ $requiredFields.each(function () {
                     if (response.status == "success-reload") {
                         Toast.fire({ title: "Success!", text: response.message, icon: "success" });
                         setTimeout(() => { window.location.href = base_url; }, 2000);
-                    } else {
+                    }
+                   else if (response.status == "not-success") {
+                    Toast.fire({ title: "Error!", text: response.message, icon: "error" });
+                    } 
+                    
+                    else if (response.status == "incorrect") {
+                        Toast.fire({ title: "Error!", text: response.message, icon: "error" });
+                        }
+                        else {
                         Toast.fire({ title: "Error!", text: response.message, icon: "error" });
                     }
                 })

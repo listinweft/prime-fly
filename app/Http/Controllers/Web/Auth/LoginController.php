@@ -593,7 +593,7 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
 
     // Prepare message
-      $message = "Your OTP for login to Primefly is " .$otp. ". It is valid for the next 2 minutes."; 
+      $message = "Your OTP for login to Primefly is " .$otp. ". It is valid for next 2 minutes."; 
     // $message = "User Admin login OTP is 12345 - SMSCNT";
 
     // Send API request
@@ -636,34 +636,23 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     {
         return view('web.verify_otp'); // Create this Blade file
     }
-
     public function verifyOTP(Request $request)
     {
-
-  
-        // $validator = Validator::make($request->all(), [
-        //     'otp' => 'required|numeric|digits:6',
-        // ]);
-    
-        // if ($validator->fails()) {
-        //     return back()->withErrors(['otp' => 'Invalid OTP format.']);
-        // }
-    
         $sessionOtp = Session::get('otp');
         $phone = Session::get('phone');
-       
-        // if ($sessionOtp == $request->otp) {
+    
+        // If OTP matches the session OTP
+        if ($sessionOtp == $request->otp) {
             Session::forget('otp'); // Clear OTP after successful verification
-     
+    
             $user = User::where('phone', $phone)->first();
     
             if (!$user) {
                 // Register a new user with a default password
                 $user = new User();
-                $user->user_type = 'Customer'; 
+                $user->user_type = 'Customer';
                 $user->username = $phone;
                 $user->email = null;
-
                 $user->status = 'Active';
                 $user->pay_status = 'Inactive';
                 $user->phone = $phone;
@@ -689,12 +678,30 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
             Auth::guard('customer')->login($user);
     
             return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
-        // }
-        
-        // else {
-        //     return back()->withErrors(['otp' => 'Incorrect OTP. Please try again.']);
-        // }
+        } else {
+            // Check the last attempt time to determine if the user has to wait
+            $lastAttemptTime = Session::get('last_attempt_time');
+    
+            if ($lastAttemptTime) {
+                // Check if it's within 1 minute for incorrect OTP message
+               
+    
+                // After 1 minute but less than 2 minutes, reject with "incorrect attempts" message
+                if (now()->diffInMinutes($lastAttemptTime) < 2) {
+                    return response()->json(['error' => 'incorrect', 'message' => 'Incorrect attempts. Please try again later.']);
+                }
+            }
+    
+            // If it's been more than 2 minutes since the last attempt, the user can retry
+            // Store the last attempt time in session
+            Session::put('last_attempt_time', now());
+    
+            // Return incorrect OTP message if the time limit is up
+            return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP']);
+        }
     }
+    
+    
     
     public function login_form_public(Request $request)
     {
