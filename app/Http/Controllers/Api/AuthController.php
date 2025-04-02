@@ -481,11 +481,11 @@ public function delete_account(Request $request)
 
 public function sendOTP(Request $request)
 {
-    $request->validate([
-        'phone' => 'required|numeric|digits:10',
-    ]);
+    // $request->validate([
+    //     'phone' => 'required|numeric|digits:10',
+    // ]);
 
-    $phone = "91" . $request->phone; // Ensure the phone format is consistent
+    $phone = "91" . $request->json('phone'); // Ensure the phone format is consistent
     $otp = rand(100000, 999999);
 
     // Store OTP in cache for 2 minutes
@@ -526,10 +526,10 @@ public function sendOTP(Request $request)
 // Verify OTP
 public function verifyOTP(Request $request)
 {
-    Log::info('verifyOTP Request:', $request->all());
+    Log::info('verifyOTP Request:', $request->json()->all());
 
-    $phone = "91" . $request->phone; // Ensure consistent phone format
-    $otp = $request->otp;
+    $phone = "91" . $request->json('phone'); // Ensure consistent phone format
+    $otp = $request->json('otp');
 
     if (!$phone || !$otp) {
         return response()->json(['error' => 'Phone or OTP missing'], 400);
@@ -543,17 +543,17 @@ public function verifyOTP(Request $request)
         Cache::forget('otp_' . $phone); // Clear OTP after successful verification
 
         // Find user by phone
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('phone', $request->json('phone'))->first();
 
         if (!$user) {
             // Register new user
             $user = new User();
             $user->user_type = 'Customer';
-            $user->username = $request->phone;
+            $user->username = $request->json('phone');
             $user->email = null;
             $user->status = 'Active';
             $user->pay_status = 'Inactive';
-            $user->phone = $request->phone;
+            $user->phone = $request->json('phone');
             $user->btype = 'public';
             $user->password = Hash::make('12345678@aA');
 
@@ -577,7 +577,7 @@ public function verifyOTP(Request $request)
 
         return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in'], 200);
     } else {
-        Log::error('Incorrect OTP Attempt:', ['Phone' => $request->phone, 'Provided OTP' => $otp]);
+        Log::error('Incorrect OTP Attempt:', ['Phone' => $request->json('phone'), 'Provided OTP' => $otp]);
         return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP'], 400);
     }
 }
