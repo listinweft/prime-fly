@@ -575,7 +575,21 @@ public function verifyOTP(Request $request)
         // Log in the user
         Auth::guard('customer')->login($user);
 
-        return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in'], 200);
+        if ($user) {
+            return response()->json([
+                'status' => 'success-reload',
+                'message' => 'Successfully logged in',
+                'user_id' => $user->id ?? null,  // Prevent error if id is missing
+                'usertype' => $user->btype ?? 'public',  // Default value if missing
+                'paylater' => $user->pay_status ?? 'Inactive',  // Default value if missing
+            ], 200);
+        } else {
+            return response()->json([
+                'error' => 'User not found',
+                'message' => 'Something went wrong, please try again'
+            ], 400);
+        }
+        
     } else {
         Log::error('Incorrect OTP Attempt:', ['Phone' => $request->json('phone'), 'Provided OTP' => $otp]);
         return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP'], 400);
