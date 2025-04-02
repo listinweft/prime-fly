@@ -155,6 +155,18 @@ public function updateProfileApi(Request $request)
         return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
     }
 
+    $existingUser = User::where(function ($query) use ($request, $user) {
+        $query->where('email', $request->input('email'))
+              ->orWhere('phone',$request->input('phone'));
+    })->where('id', '!=', $user->id)->first(); // Exclude the current user
+
+    if ($existingUser) {
+    
+        return response()->json(['status' => 'error', 'message' => 'Email Or Phone Number in already Use']);
+      
+    }
+
+
     $customer = $user->customer;
 
     try {
@@ -175,6 +187,7 @@ public function updateProfileApi(Request $request)
         $customer->date_of_birth = $request->input('date_of_birth') ?? $customer->date_of_birth;
         $customer->updated_at = now();
 
+       
         if ($customer->save()) {
             // Update user information conditionally
             $user->phone = $request->input('phone') ?? $user->phone;
