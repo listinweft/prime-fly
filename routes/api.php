@@ -16,6 +16,7 @@ use App\Http\Controllers\RazorpayWebhookController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/verify-email', [CommonController::class, 'email_verify']);
 Route::post('/send-otp', [AuthController::class, 'sendOTP']);
 Route::post('/verify-otp', [AuthController::class, 'verifyOTP']);
 Route::post('/razorpay-webhook', [RazorpayWebhookController::class, 'handleWebhook']);

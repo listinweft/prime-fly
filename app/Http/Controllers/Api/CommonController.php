@@ -2722,4 +2722,35 @@ public function contactdata_api()
     }
 
 
+
+    public function email_verify(Request $request)
+
+    {
+
+
+        $user = User::where('id', $request->user_id)->first();
+
+        // Check if the user exists
+        if (!$user) {
+            return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
+        }
+    
+        $existingUser = User::where(function ($query) use ($request, $user) {
+            $query->where('email', $request->input('email'))
+                  ->orWhere('phone',$request->input('phone'));
+        })->where('id', '!=', $user->id)->first(); // Exclude the current user
+    
+        if ($existingUser) {
+        
+            return response()->json(['status' => 'error', 'message' => 'Email Or Phone Number in already Use'],404);
+          
+        }
+
+
+
+
+    }
+   
+
+
 }
