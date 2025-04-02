@@ -575,6 +575,9 @@ public function verifyOTP(Request $request)
         // Log in the user
         // Auth::guard('customer')->login($user);
 
+        $token = $user->createToken('primefly')->plainTextToken;
+
+
         if ($user) {
             return response()->json([
                 'status' => 'success-reload',
@@ -582,6 +585,8 @@ public function verifyOTP(Request $request)
                 'user_id' => $user->id ?? null,  // Prevent error if id is missing
                 'usertype' => $user->btype ?? 'public',  // Default value if missing
                 'paylater' => $user->pay_status ?? 'Inactive',  // Default value if missing
+                'token' => $token 
+                
             ], 200);
         } else {
             return response()->json([
