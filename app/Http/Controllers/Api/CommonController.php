@@ -1833,8 +1833,8 @@ public function submit_order_api(Request $request)
                 $user = User::find($data['user_id']);
 
                 if ($user && $data['user_id']) {
-                    if (is_numeric($user->username) && !User::where('email', $data['user_id'])->exists()) {
-                        $user->email = $data['user_id'];
+                    if (is_numeric($user->username) && !User::where('email', $data['email'])->exists()) {
+                        $user->email = $data['email'];
                         $user->save();
                     }
                 }
