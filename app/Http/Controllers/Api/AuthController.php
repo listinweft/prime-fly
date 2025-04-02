@@ -573,7 +573,7 @@ public function verifyOTP(Request $request)
         }
 
         // Log in the user
-        Auth::guard('customer')->login($user);
+        // Auth::guard('customer')->login($user);
 
         if ($user) {
             return response()->json([
