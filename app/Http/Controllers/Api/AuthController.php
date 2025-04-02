@@ -18,6 +18,11 @@ use App\Models\PasswordReset;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\BusinessAddress;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+
         
 
 class AuthController extends Controller
@@ -473,6 +478,111 @@ public function delete_account(Request $request)
         'status' => false
     ], 404);
 }
+
+public function sendOTP(Request $request)
+{
+    $request->validate([
+        'phone' => 'required|numeric|digits:10',
+    ]);
+
+    $phone = "91" . $request->phone; // Ensure the phone format is consistent
+    $otp = rand(100000, 999999);
+
+    // Store OTP in cache for 2 minutes
+    Cache::put('otp_' . $phone, $otp, now()->addMinutes(2));
+    Log::info("OTP Generated: $otp for Phone: $phone");
+
+    // API Details
+    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/Vk2D5FKMjJLUQSoELt35/SMSes/';
+    $authKey = 'Vk2D5FKMjJLUQSoELt35';
+    $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
+
+    // Prepare message
+    $message = "Your OTP for login to Primefly is $otp. It is valid for next 2 minutes.";
+
+    // Send OTP via API
+    $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+    ])->withBasicAuth($authKey, $authToken)
+      ->post($apiUrl, [
+          'Text' => $message,
+          'Number' => $phone,
+          'SenderId' => 'PRMFLY',
+          'DRNotifyUrl' => 'https://www.domainname.com/notifyurl',
+          'DRNotifyHttpMethod' => 'POST',
+          'Tool' => 'API',
+      ]);
+
+    Log::info('SMS API Response:', ['response' => $response->json()]);
+
+    if ($response->successful()) {
+        return response()->json(['status' => 'verify'], 200);
+    } else {
+        Log::error('OTP Sending Failed:', ['error' => $response->body()]);
+        return response()->json(['error' => 'Failed to send OTP.'], 500);
+    }
+}
+
+// Verify OTP
+public function verifyOTP(Request $request)
+{
+    Log::info('verifyOTP Request:', $request->all());
+
+    $phone = "91" . $request->phone; // Ensure consistent phone format
+    $otp = $request->otp;
+
+    if (!$phone || !$otp) {
+        return response()->json(['error' => 'Phone or OTP missing'], 400);
+    }
+
+    // Retrieve OTP from cache
+    $cachedOTP = Cache::get('otp_' . $phone);
+    Log::info("Stored OTP: $cachedOTP, Received OTP: $otp");
+
+    if ($cachedOTP && $cachedOTP == $otp) {
+        Cache::forget('otp_' . $phone); // Clear OTP after successful verification
+
+        // Find user by phone
+        $user = User::where('phone', $request->phone)->first();
+
+        if (!$user) {
+            // Register new user
+            $user = new User();
+            $user->user_type = 'Customer';
+            $user->username = $request->phone;
+            $user->email = null;
+            $user->status = 'Active';
+            $user->pay_status = 'Inactive';
+            $user->phone = $request->phone;
+            $user->btype = 'public';
+            $user->password = Hash::make('12345678@aA');
+
+            if (!$user->save()) {
+                return response()->json(['error' => 'Failed to register user'], 500);
+            }
+
+            // Create customer entry
+            $customer = new Customer();
+            $customer->first_name = " ";
+            $customer->last_name = "User";
+            $customer->user_id = $user->id;
+
+            if (!$customer->save()) {
+                return response()->json(['error' => 'Failed to create customer entry'], 500);
+            }
+        }
+
+        // Log in the user
+        Auth::guard('customer')->login($user);
+
+        return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in'], 200);
+    } else {
+        Log::error('Incorrect OTP Attempt:', ['Phone' => $request->phone, 'Provided OTP' => $otp]);
+        return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP'], 400);
+    }
+}
+
+
 
 
 }

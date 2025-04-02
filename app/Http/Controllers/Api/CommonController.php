@@ -1815,6 +1815,16 @@ public function submit_order_api(Request $request)
                     }
                     PersonalDetails::insert($personalDetailsData);
                 }
+
+
+                $user = User::find($data['user_id']);
+
+                if ($user && $data['user_id']) {
+                    if (is_numeric($user->username) && !User::where('email', $data['user_id'])->exists()) {
+                        $user->email = $data['user_id'];
+                        $user->save();
+                    }
+                }
                 
                  
                 
