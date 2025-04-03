@@ -88,7 +88,7 @@
                                     </p>
                                     <p style="margin: 0;">
                                         <a href="mailto:info@primefly.com"
-                                            style="text-decoration: none;font-size: 13px;color: #ffffff;">info@primefly.com</a>
+                                            style="text-decoration: none;font-size: 13px;color: #ffffff;">info@primefly.in</a>
                                     </p>
                                 </td>
                                 <td style="width:40%;text-align: center;">

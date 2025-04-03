@@ -889,6 +889,66 @@ if (!empty($orderemailb->emails_b)) {
     }
 
 
+    public static function numberToWords($num)
+    {
+        $ones = [
+            0 => "Zero", 1 => "One", 2 => "Two", 3 => "Three", 4 => "Four", 5 => "Five",
+            6 => "Six", 7 => "Seven", 8 => "Eight", 9 => "Nine", 10 => "Ten",
+            11 => "Eleven", 12 => "Twelve", 13 => "Thirteen", 14 => "Fourteen", 15 => "Fifteen",
+            16 => "Sixteen", 17 => "Seventeen", 18 => "Eighteen", 19 => "Nineteen"
+        ];
+
+        $tens = [
+            2 => "Twenty", 3 => "Thirty", 4 => "Forty", 5 => "Fifty",
+            6 => "Sixty", 7 => "Seventy", 8 => "Eighty", 9 => "Ninety"
+        ];
+
+        $hundreds = ["", "Thousand", "Lakh", "Crore"];
+
+        if ($num == 0) {
+            return "Zero";
+        }
+
+        $numStr = "";
+        $i = 0;
+
+        while ($num > 0) {
+            $part = $num % 1000;
+
+            if ($part != 0) {
+                $numStr = self::threeDigitToWords($part, $ones, $tens) . " " . ($hundreds[$i] ?? '') . " " . $numStr;
+            }
+
+            $num = floor($num / 1000);
+            $i++;
+        }
+
+        return trim($numStr);
+    }
+
+    private static function threeDigitToWords($num, $ones, $tens)
+    {
+        $str = "";
+
+        if ($num >= 100) {
+            $str .= $ones[floor($num / 100)] . " Hundred ";
+            $num %= 100;
+        }
+
+        if ($num > 0) {
+            if ($num < 20) {
+                $str .= $ones[$num] . " ";
+            } else {
+                $str .= $tens[floor($num / 10)] . " ";
+                if ($num % 10 > 0) {
+                    $str .= $ones[$num % 10] . " ";
+                }
+            }
+        }
+
+        return trim($str);
+    }
+
 
 }
 

@@ -146,7 +146,7 @@ class WebController extends Controller
         }])
         ->firstOrFail();
     
-                        $pdf = PDF::loadView('web.invoices', compact('order', 'customer','user')); // Assuming 'invoice.blade.php' is your PDF view
+                        $pdf = PDF::loadView('web.invoicesnew', compact('order', 'customer','user')); // Assuming 'invoice.blade.php' is your PDF view
 
         return $pdf->download('invoice_'.$order->order_code.'.pdf');
 
