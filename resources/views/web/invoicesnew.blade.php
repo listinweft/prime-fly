@@ -241,8 +241,8 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
 
                
                 <td style="padding: 8px 0;">{{ number_format($quantity, 2) }} UNIT</td>
-                <td style="padding: 8px 0;">₹ {{ number_format($unitPrice - ($unitPrice * 0.09) - ($unitPrice * 0.09), 2) }} + GST 18%</td>
-                <td style="padding: 8px 0;">₹ {{ number_format($unitPrice, 2) }}</td>
+                <td style="padding: 8px 0;">INR {{ number_format($unitPrice - ($unitPrice * 0.09) - ($unitPrice * 0.09), 2) }} + GST 18%</td>
+                <td style="padding: 8px 0;">INR {{ number_format($unitPrice, 2) }}</td>
             </tr>
         @endforeach
     </tbody>
@@ -266,7 +266,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                         <p style="color:#6f6f60">Taxable Amount</p>
                     </td>
                     <td style="width: 50%; text-align: right; padding:3px 0;">
-                        <p>₹ {{ number_format($taxableAmount - ($taxableAmount * 0.09) - ($taxableAmount * 0.09), 2) }}</p>
+                        <p>INR {{ number_format($taxableAmount - ($taxableAmount * 0.09) - ($taxableAmount * 0.09), 2) }}</p>
                     </td>
                 </tr>
                 @if($order->tax_type == "Outside")
@@ -275,7 +275,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                             <p style="color:#6f6f60">IGST (18%)</p>
                         </td>
                         <td style="width: 50%; text-align: right; padding:3px 0;">
-                            <p>₹ {{ number_format($igst, 2) }}</p>
+                            <p>INR {{ number_format($igst, 2) }}</p>
                         </td>
                     </tr>
                 @else
@@ -284,7 +284,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                             <p style="color:#6f6f60">CGST (9%)</p>
                         </td>
                         <td style="width: 50%; text-align: right; padding:3px 0;">
-                            <p>₹ {{ number_format($cgst, 2) }}</p>
+                            <p>INR {{ number_format($cgst, 2) }}</p>
                         </td>
                     </tr>
                     <tr>
@@ -292,7 +292,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                             <p style="color:#6f6f60">SGST (9%)</p>
                         </td>
                         <td style="width: 50%; text-align: right; padding:3px 0;">
-                            <p>₹ {{ number_format($sgst, 2) }}</p>
+                            <p>INR {{ number_format($sgst, 2) }}</p>
                         </td>
                     </tr>
                 @endif
@@ -301,7 +301,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                         <p style="color:#6f6f60">Total</p>
                     </td>
                     <td style="width: 50%; text-align: right; border-top:1px solid #000; padding:3px 0;">
-                        <p>₹ {{ number_format($taxableAmount, 2) }}</p>
+                        <p>INR {{ number_format($taxableAmount, 2) }}</p>
                     </td>
                 </tr>
             </table>
