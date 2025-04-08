@@ -148,10 +148,13 @@
                             {!! Helper::printImage($customer->user, 'profile_image', 'profile_image_webp', '', 'img-fluid') !!}
                             @else
                                
-                                <img class="upload_user_img" src="{{ asset('frontend/img/common-user.png')}}" alt="user">
+                            <a href="#">
+    <img class="upload_user_img" src="{{ asset('frontend/img/common-user.png') }}" alt="user">
+</a>
+
 
                                 @endif
-                                <input type="file" name="myfile"/>
+                                <!-- <input type="file" name="myfile"/> -->
                             </div>
                             <h3>Orders & Bookings</h3>
                         </div>

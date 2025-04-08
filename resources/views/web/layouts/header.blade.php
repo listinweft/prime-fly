@@ -86,9 +86,11 @@
                      </svg>
                   </a> 
                </li>
+               @if(Auth::guard('customer')->check() )
                <li class="nav-item">
                   <a href="{{ url('cart/') }}" class="nav-link head-cart"><img src="{{ asset('frontend/img/cart-white.png')}}" alt="logo"><span class="cart-count">{{ Helper::getCartItemCount()}}</span></a>
                </li>
+               @endif
                @if(Auth::guard('customer')->check())
                @php
                $user = Auth::guard('customer')->user();

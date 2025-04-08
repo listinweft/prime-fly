@@ -878,7 +878,8 @@ public function register_corporate(Request $request)
         $user->email = $request->email;
         $user->status = 'Inactive';
         $user->pay_status = 'Inactive';
-        $user->phone = $request->phone;
+        $user->phone = preg_replace('/\s+/', '', $request->phone);
+
         $user->btype = 'b2b';
         
         $user->password = Hash::make($request->password);
