@@ -321,7 +321,8 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                 <p style="margin-top: 20px;"><strong style="font-weight: 600;">Terms & Conditions</strong></p>
                 <ol>
                     <li style="font-size: 12px;">
-                        Payment under this Invoice Should be made through Electronic Fund Upi
+                    1. Payment under this Invoice Should be made through Electronic Fund
+                    Transfer (NEFT/RTGS):- UPI
                         <!-- Transfer (NEFT/RTGS):- Account No.: 265505001066 IFSC: ICIC0002655. -->
                     </li>
                     <li style="font-size: 12px;">
