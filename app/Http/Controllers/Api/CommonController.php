@@ -2283,7 +2283,7 @@ public function showInvoice_api(Request $request)
         ->firstOrFail();
 
     // Load the PDF view
-    $pdf = PDF::loadView('web.invoices', compact('order', 'customer', 'user'));
+    $pdf = PDF::loadView('web.invoicesnew', compact('order', 'customer', 'user'));
 
     // Define the storage path
     $fileName = 'invoice_' . $order->order_code . '.pdf';
