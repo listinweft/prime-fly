@@ -2303,26 +2303,35 @@ $requiredFields.each(function () {
         let url = $this.data('url');
         let form_id = $this.closest("form").attr('id');
     
+        // Disable the submit button to prevent multiple clicks
+        $this.prop('disabled', true);
+    
         let formData = new FormData(document.getElementById(form_id));
         let errors = false;
     
-        // Remove previous validation messages
+        // Clear previous validation messages
         $('form input, form textarea').removeClass('is-invalid is-valid');
         $('span.error').remove();
+        $('#otp-error-msg').remove(); // Remove OTP-specific error message
     
-        // Validate required fields
-        $("#" + form_id + " input[required]").each(function () {
-            let field_name = $(this).attr('name');
-            let inputField = $('#' + form_id).find('input[name="' + field_name + '"]');
+        // OTP input validation: single message for all fields
+        let otpInputs = $("#" + form_id + " input[name^='otp']");
+        let anyEmpty = false;
     
+        otpInputs.each(function () {
             if (!$(this).val().trim()) {
-                errors = true;
-                let error = 'Please enter <strong>' + field_name + '</strong>';
-                let msg = '<span class="error invalid-feedback" style="color: red">' + error + '</span>';
-    
-                inputField.addClass('is-invalid').after(msg);
+                anyEmpty = true;
+                $(this).addClass('is-invalid');
+            } else {
+                $(this).removeClass('is-invalid').addClass('is-valid');
             }
         });
+    
+        if (anyEmpty) {
+            errors = true;
+            // Show only one error message below the last input field
+            otpInputs.last().after('<span id="otp-error-msg" class="error invalid-feedback d-block mt-2" style="color: red">Please fill in all OTP fields</span>');
+        }
     
         if (!errors) {
             $this.val('Please Wait..');
@@ -2339,36 +2348,36 @@ $requiredFields.each(function () {
                 },
                 url: base_url + url,
             })
-                .done(function (response) {
-                    console.log(response);
-                    $this.val(buttonText);
-                    $("#" + form_id)[0].reset();
+            .done(function (response) {
+                console.log(response);
+                $this.val(buttonText);
+                $("#" + form_id)[0].reset();
     
-                    if (response.status == "success-reload") {
-                        Toast.fire({ title: "Success!", text: response.message, icon: "success" });
-                        setTimeout(() => { window.location.href = base_url; }, 2000);
-                    }
-                   else if (response.status == "not-success") {
+                if (response.status === "success-reload") {
+                    Toast.fire({ title: "Success!", text: response.message, icon: "success" });
+                    setTimeout(() => { window.location.href = base_url; }, 2000);
+                } else {
                     Toast.fire({ title: "Error!", text: response.message, icon: "error" });
-                    } 
-                    
-                    else if (response.status == "incorrect") {
-                        Toast.fire({ title: "Error!", text: response.message, icon: "error" });
-                        }
-                        else {
-                        Toast.fire({ title: "Error!", text: response.message, icon: "error" });
-                    }
-                })
-                .fail(function (response) {
-                    $this.val(buttonText);
-                    $.each(response.responseJSON.errors, function (field_name, error) {
-                        let msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
-                        $("#" + form_id).find('input[name="' + field_name + '"]')
-                            .addClass('is-invalid').after(msg);
-                    });
+                }
+            })
+            .fail(function (response) {
+                $this.val(buttonText);
+                $.each(response.responseJSON.errors, function (field_name, error) {
+                    let msg = '<span class="error invalid-feedback" for="' + field_name + '">' + error + '</span>';
+                    $("#" + form_id).find('input[name="' + field_name + '"]')
+                        .addClass('is-invalid').after(msg);
                 });
+            })
+            .always(function () {
+                // Re-enable the submit button after the request completes
+                $this.prop('disabled', false);
+            });
+        } else {
+            // Re-enable the submit button if there are validation errors
+            $this.prop('disabled', false);
         }
     });
+    
     
     $(document).on('click', '.forgotpasswdform_submit_btn', function (e) {
 

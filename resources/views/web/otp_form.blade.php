@@ -29,44 +29,62 @@
     </script>
    </head>
    <body>
-      <main> 
+ 
+
+<main> 
         <div class="col-12 register-wrap">
             <section class="col-12 BtoB_back">
-            <a href="{{ url('/') }}"> 
+                <a href="{{ url('/login-public') }}"> 
                     <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.0566 0.99227L10.057 0.992678C10.2034 1.14003 10.2856 1.33935 10.2856 1.54712C10.2856 1.75488 10.2034 1.9542 10.057 2.10155L10.0565 2.10203L10.0565 2.10202L2.66266 9.49853L10.0565 16.895C10.0565 16.895 10.0565 16.895 10.0565 16.895C10.1295 16.9681 10.1875 17.0548 10.227 17.1502C10.2665 17.2457 10.2869 17.348 10.2869 17.4513C10.2869 17.5546 10.2665 17.6569 10.227 17.7524C10.1875 17.8478 10.1295 17.9346 10.0565 18.0076L9.88812 17.8393L10.0565 18.0076C9.9834 18.0807 9.89667 18.1386 9.80122 18.1782C9.70577 18.2177 9.60347 18.2381 9.50015 18.2381C9.39683 18.2381 9.29453 18.2177 9.19908 18.1782C9.10362 18.1386 9.0169 18.0807 8.94384 18.0076L0.992518 10.0563L0.992424 10.0562L1.16076 9.88788C1.10977 9.83695 1.06933 9.77647 1.04173 9.7099C1.01413 9.64333 0.999927 9.57197 0.999927 9.4999C0.999927 9.42784 1.01413 9.35648 1.04173 9.28991C1.06933 9.22334 1.10977 9.16286 1.16076 9.11193L10.0566 0.99227ZM10.0566 0.99227C9.98351 0.919149 9.89678 0.861143 9.8013 0.821568C9.70584 0.78199 9.6035 0.76162 9.50015 0.76162C9.3968 0.76162 9.29446 0.78199 9.19899 0.821569C9.10356 0.861126 9.01686 0.919102 8.94384 0.992176C8.94381 0.992207 8.94378 0.992239 8.94375 0.99227L0.992518 8.9435L10.0566 0.99227Z" fill="#969696" stroke="#969696" stroke-width="0.476123"/>
                     </svg>
                     Back
                 </a>   
             </section>
-            <section class="col-12 BtoB_form_wrap">
+            <section class="col-12 otp_wrap">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-4 BtoB_form">
-                            <div class="text-center">
-                                <img src="{{ asset('frontend/img/logo-blue.png')}}" alt="Logo"/>
-                            </div> 
-                            <div class="register_form">
-                                <h4 class="text-center"> Login</h4>
-                                <form action="#0" id="login"> 
-                                <div class="register_form_wrap"> 
-                                    <div class="register_form_grid">
-                                        <label>phone Number</label>
-                                        <input type="phone" placeholder="Enter Your Phone Number" id="phone" name="phone" class="required">
+                        <div class="col-lg-12 otp_toursit text-center">
+                            <img src="{{ asset('frontend/img/wanderlust.png')}}" alt="tourist"/>
+                        </div>
+                        <div class="col-lg-3 otp_grid">
+                        <form action="#0" id="login"> 
+                                <div class="register_form_grid"> 
+                                    <!-- <input type="tel" placeholder="91"> -->
+                                    <input type="phone" placeholder="Enter Your Phone Number" id="phone" name="phone" class="required">
+                                    <!-- <div class="input-phone"></div> -->
+                                </div>
+                                <div class="b2b-check form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        I agree with the <a href="">Terms & Conditions </a> and <a href="">Privacy Policy</a>.
+                                    </label>
+                                  </div>
+                                  <div class="b2b-check form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        I would like to receive the updates and details in 
+                                        <a href="" class="whtsap">
+                                            whatsApp <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                                              </svg>
+                                        </a>      
+                                    </label>
+                                  </div>
+                                  <div class="col-12 otp-content-button text-center mt-4">
+                                    <div class="d-flex justify-content-center">
+                                        <!-- <a href="" class="btn btn-primary-outline me-2">Get OTP</a> -->
+                                        <input type="submit" value="Get OTP"  class=" btn btn-primary-outline me-2 loginform_submit_btn" data-url="/login-otp">
+                                        <a href="{{ url('register/') }}" class="btn btn-primary">Register</a>
                                     </div> 
-
-                                   
-                                    <div class="col-12 register_form_grid text-center mt-3">
-                                    <input type="submit" value="Login"  class="loginform_submit_btn" data-url="/login-otp">
-                                     </div>
-                                     <div class="text-center otp_grid ">
-                                        <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</a> </p>
-                                       
-
-                                        
-                                     </div>
-                                </div> 
-</form>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </section> 
+         </div>
+      </main>
                             </div>
                         </div>
                     </div>
