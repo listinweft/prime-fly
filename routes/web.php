@@ -166,6 +166,9 @@ Route::middleware(['web'])->group(function () {
 
     Route::get('login-otp', [CustomerLoginController::class, 'login_otp_form'])->name('login_otp');
     Route::post('login-otp', [CustomerLoginController::class, 'sendOTP']);
+    Route::get('login-otp-again', [CustomerLoginController::class, 'sendOTP_again'])->name('login.otp.again');
+
+    
     Route::get('/verify-otp', [CustomerLoginController::class, 'showOTPVerifyPage'])->name('otp.verify');
  
    Route::post('/confirm-otp', [CustomerLoginController::class, 'verifyOTP'])->name('otp.check');

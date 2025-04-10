@@ -5,7 +5,7 @@
 <main> 
     <div class="col-12 register-wrap">
         <section class="col-12 BtoB_back">
-            <a href="#"> 
+        <a href="{{ url('/login-otp') }}"> 
                 <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="..." fill="#969696" stroke="#969696" stroke-width="0.476123"/>
                 </svg>
@@ -17,12 +17,15 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-12 otp_toursit text-center">
-                        <img src="{{ asset('img/wanderlust.png') }}" alt="tourist"/>
+                        <img src="{{ asset('frontend/img/wanderlust.png') }}" alt="tourist"/>
                     </div>
 
                     <div class="col-lg-3 otp_grid text-center">
                         <h4>OTP Verification</h4>
-                        <p>Enter the verification code we just sent to your number +233 *******53.</p>
+                        <p>Enter the verification code we just sent to your number 
+    {{ '+91 ' ."*****". substr(session('phone'), -5) }}.
+</p>
+
 
                         {{-- Laravel Flash/Error Messages --}}
                         @if(session('error'))
@@ -61,7 +64,8 @@
                         </form>
 
                         <div class="text-center mt-3">
-                            <p>Didn’t receive code? <a href="">Resend</a></p>
+                        <p>Didn’t receive code? <a href="{{ route('login.otp.again') }}">Resend</a></p>
+
                         </div>
                     </div>
                 </div>

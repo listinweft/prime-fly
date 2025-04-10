@@ -632,6 +632,65 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
         return back()->withErrors(['error' => 'Failed to send OTP.']);
     }
 }
+
+public function sendOTP_again(Request $request)
+{
+    // Retrieve phone number from session
+    $phones = Session::get('phone');
+
+    $phone = "91" . $phones; // Add country code if required
+
+    // If phone is not in session, return error
+    if (!$phone) {
+        return response()->json(['error' => 'Phone number not found in session. Please login again.'], 400);
+    }
+
+    // Generate new OTP
+    $otp = rand(100000, 999999);
+
+    // Store OTP in session
+    Session::put('otp', $otp);
+    Session::save();
+
+    // Prepare SMS details
+    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/Vk2D5FKMjJLUQSoELt35/SMSes/';
+    $authKey = 'Vk2D5FKMjJLUQSoELt35';
+    $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
+
+    $message = "Your OTP for login to Primefly is " . $otp . ". It is valid for next 2 minutes.";
+
+    // Send SMS via API
+    $response = Http::withHeaders([
+        'Content-Type' => 'application/json',
+    ])->withBasicAuth($authKey, $authToken)
+      ->post($apiUrl, [
+          'Text' => $message,
+          'Number' => $phone,
+          'SenderId' => 'PRMFLY',
+          'DRNotifyUrl' => 'https://www.domainname.com/notifyurl',
+          'DRNotifyHttpMethod' => 'POST',
+          'Tool' => 'API',
+      ]);
+
+    // Log API response
+    Log::info('SMS API Response:', ['response' => $response->json()]);
+    Log::info($message);
+
+    if ($response->successful()) {
+        $apiResponse = $response->json();
+
+        if (isset($apiResponse['response']['Success']) && $apiResponse['response']['Success'] == 'False') {
+            Log::error('OTP Sending Failed:', ['error' => $apiResponse['response']['Message']]);
+            return response()->json(['error' => 'Failed to resend OTP: ' . $apiResponse['response']['Message']], 500);
+        }
+
+        return response()->json(['status' => 'otp_resent']);
+    } else {
+        Log::error('OTP Sending Failed:', ['error' => $response->body()]);
+        return response()->json(['error' => 'Failed to resend OTP.'], 500);
+    }
+}
+
     public function showOTPVerifyPage()
     {
         return view('web.verify_otp'); // Create this Blade file
