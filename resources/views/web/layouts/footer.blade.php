@@ -113,6 +113,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script> 
       <script src="{{ asset('frontend/js/custom-datepicker.js')}}"></script>
       <script src="{{ asset('frontend/js/owl.carousel.min.js')}}"></script>
+      <link href="{{ asset('frontend/css/btob.css')}}" rel="stylesheet">
       <script src="{{ asset('frontend/js/aos.js')}}"></script>
       <script  src="{{ asset('frontend/js/custom.js')}}"></script> 
       <script src="{{ asset('frontend/js/jquery.timepicker.js')}} "></script>

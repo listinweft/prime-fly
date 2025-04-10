@@ -4,7 +4,7 @@
 
 <main> 
     <div class="col-12 register-wrap">
-        <section class="col-12 BtoB_back">
+        <section class="col-12 BtoB_back position-relative">
         <a href="{{ url('/login-otp') }}"> 
                 <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="..." fill="#969696" stroke="#969696" stroke-width="0.476123"/>
@@ -46,11 +46,14 @@
                        <form action="#0" id="login"> 
                             @csrf
                             <div class="otp-inputs d-flex justify-content-center gap-2 mt-4">
-                            @for ($i = 0; $i < 6; $i++)
+                                <div>
+                                @for ($i = 0; $i < 6; $i++)
     <input type="text" name="otp[{{ $i }}]" maxlength="1" class="otp-input text-center" required style="width: 40px; height: 40px;" />
     
 
 @endfor
+                                </div>
+                            
 
 
 
@@ -59,7 +62,7 @@
 
 
                             <div class="text-center mt-3">
-                                 <input type="submit" value="Login"  class="otp_submit_btn" data-url="/confirm-otp">
+                                 <input type="submit" value="Login"  class="otp_submit_btn btn btn-primary" data-url="/confirm-otp">
                             </div>
                         </form>
 
