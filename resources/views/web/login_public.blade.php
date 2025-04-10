@@ -80,6 +80,7 @@
                                      </div>
                                      <div class="text-center otp_grid ">
                                         <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</a> </p>
+                                        <p>Login With OTP <a href="{{ url('/login-otp') }}">Login</a> </p>
                                        
 
                                         
