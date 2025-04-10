@@ -638,11 +638,14 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     }
     public function verifyOTP(Request $request)
     {
-        $sessionOtp = Session::get('otp');
+
+        $sessionOtp = Session::get('otp'); // e.g., "123444"
         $phone = Session::get('phone');
     
-        // If OTP matches the session OTP
-        if ($sessionOtp == $request->otp) {
+        // Combine array into a string
+        $submittedOtp = implode('', $request->otp); // "123444"
+    
+        if ($sessionOtp == $submittedOtp) {
             Session::forget('otp'); // Clear OTP after successful verification
     
             $user = User::where('phone', $phone)->first();
