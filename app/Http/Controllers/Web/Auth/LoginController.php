@@ -588,9 +588,9 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
     Session::save();
 
     // API Details
-    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/Vk2D5FKMjJLUQSoELt35/SMSes/';
-    $authKey = 'Vk2D5FKMjJLUQSoELt35';
-    $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
+    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/jc86klSCSSIfmmGCBm3C/SMSes/';
+    $authKey = 'jc86klSCSSIfmmGCBm3C';
+    $authToken = 'CMiO7W5HC5xvC2KV2YuORBNp0yiUSbzj7Id2ktql';
 
     // Prepare message
       $message = "Your OTP for login to Primefly is " .$otp. ". It is valid for next 2 minutes."; 
@@ -653,9 +653,9 @@ public function sendOTP_again(Request $request)
     Session::save();
 
     // Prepare SMS details
-    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/Vk2D5FKMjJLUQSoELt35/SMSes/';
-    $authKey = 'Vk2D5FKMjJLUQSoELt35';
-    $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
+    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/jc86klSCSSIfmmGCBm3C/SMSes/';
+    $authKey = 'jc86klSCSSIfmmGCBm3C';
+    $authToken = 'CMiO7W5HC5xvC2KV2YuORBNp0yiUSbzj7Id2ktql';
 
     $message = "Your OTP for login to Primefly is " . $otp . ". It is valid for next 2 minutes.";
 
