@@ -31,7 +31,7 @@
    <body>
 <main> 
     <div class="col-12 register-wrap">
-        <section class="col-12 BtoB_back position-relative">
+        <section class="col-12 BtoB_back">
         <a href="{{ url('/login-otp') }}"> 
                 <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="..." fill="#969696" stroke="#969696" stroke-width="0.476123"/>
