@@ -72,12 +72,16 @@
                                         </a>       -->
                                     <!-- </label> -->
                                   <!-- </div> -->
+
                                   <div class="col-12 otp-content-button text-center mt-4">
                                     <div class="d-flex justify-content-center">
                                         <!-- <a href="" class="btn btn-primary-outline me-2">Get OTP</a> -->
                                         <input type="submit" value="Get OTP"  class=" btn btn-primary-outline me-2 loginform_submit_btn" data-url="/login-otp">
                                         <!-- <a href="{{ url('register/') }}" class="btn btn-primary">Register</a> -->
                                     </div> 
+
+                                    <p>Don't have an account ? <a href="{{ url('register/') }}">Signup</a> </p>
+                                    <p>Login With Email <a href="{{ url('/login-public/public') }}">Login</a> </p>
                                 </div>
                             </form> 
                         </div>
