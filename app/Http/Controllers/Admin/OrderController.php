@@ -512,7 +512,33 @@ $orderList = Order::when(!empty($locationCodes), function ($query) use ($locatio
 
             if ($orderLog->save()) {
 
-                $orderMail = Helper::sendOrderStatusMail($orderData, $request->status, $produtName);
+                if($request->status == "Cancelled")
+                {
+
+                    $orderMail = Helper::sendOrderStatusMailcancel($orderData, $request->status, $produtName);
+
+
+
+                }
+
+                elseif($request->status == "Completed")
+                {
+
+
+                    $orderMail = Helper::sendOrderStatusMailcomplete($orderData, $request->status, $produtName);
+
+
+                }
+                else
+
+                {
+
+                    $orderMail = Helper::sendOrderStatusMail($orderData, $request->status, $produtName);
+
+
+                }
+
+                
                 
                
               
