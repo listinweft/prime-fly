@@ -492,13 +492,17 @@ public function sendOTP(Request $request)
     Cache::put('otp_' . $phone, $otp, now()->addMinutes(2));
     Log::info("OTP Generated: $otp for Phone: $phone");
 
-    // API Details
-    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/Vk2D5FKMjJLUQSoELt35/SMSes/';
-    $authKey = 'Vk2D5FKMjJLUQSoELt35';
-    $authToken = '0jq7V7sRMutjepLh2RBjztrEvlSM83PLp80lKWXV';
+    $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/jc86klSCSSIfmmGCBm3C/SMSes/';
+    $authKey = 'jc86klSCSSIfmmGCBm3C';
+    $authToken = 'CMiO7W5HC5xvC2KV2YuORBNp0yiUSbzj7Id2ktql';
+
 
     // Prepare message
-    $message = "Your OTP for login to Primefly is $otp. It is valid for next 2 minutes.";
+
+    $var2 = "ab6ecsxDciy";
+    $message = "Your OTP for login to Primefly is $otp. It is valid for next 2 minutes.$var2";
+
+   
 
     // Send OTP via API
     $response = Http::withHeaders([
