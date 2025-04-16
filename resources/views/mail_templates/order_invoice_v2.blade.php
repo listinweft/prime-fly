@@ -154,6 +154,11 @@
         $sgst = $orderTotal * 0.09;
         $igst = $orderTotal * 0.18;
         $finalTotal = $order->tax_type == 'Outside' ? ($orderTotal + $igst) : ($orderTotal + $cgst + $sgst);
+
+
+
+       
+                     $totalIncluding18Percent = $cgst + $sgst + $orderTotal;
     @endphp
 
     <table style="width: 100%;">
@@ -182,7 +187,10 @@
                     @endif
                     <tr style="font-weight: 600;">
                         <td><p>Total:</p></td><td></td>
-                        <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($finalTotal, 2) }}</strong></p></td>
+                        <td style="text-align: right;">
+    <p><strong>{{ $order->currency }} {{ number_format(round($orderTotal), 0, '.', ',') }}.00</strong></p>
+</td>
+
                     </tr>
                 </table>
             </td>

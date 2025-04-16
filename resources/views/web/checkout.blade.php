@@ -368,7 +368,8 @@
                <div class="col-lg-6">
                <div class="details-item">
                <label for="name">Passenger Email*</label>
-               <input type="email" name="email" id="email" placeholder="Email" value="" required> 
+               <input type="email" name="email" id="email" placeholder="Email" value="{{ $user->email ?? '' }}" required>
+
                <span class="error-message" style="display: none;">Email is required.</span>
                </div>
                </div>
