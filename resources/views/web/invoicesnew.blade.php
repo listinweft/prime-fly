@@ -13,8 +13,7 @@
     <title>Invoice</title>
     <style>
         * {
-            font-family: "Montserrat", sans-serif;
-            font-weight: 500;
+            font-family: "lato", sans-serif; 
         }
 
         body {
@@ -24,8 +23,7 @@
         h4 {
             margin: 0;
             line-height: 1.6;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 13px; 
         }
 
         p {
@@ -78,45 +76,69 @@
         .annexure_table td,
         .annexure_table th {
             border: 1px solid #ccc;
+             border-collapse: collapse;
         }
 
         table.annexure_table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
+            width: 100%; 
+            margin-bottom: 20px; 
         }
 
         table.annexure_table td {
             font-size: 11px;
-            padding: 5px;
+            padding: 5px; 
         }
 
         table.annexure_table th {
-            padding: 5px;
-            font-weight: 600;
+            padding: 5px; 
             font-size: 12px;
         }
+        
 
+        /*@page {*/
+        /*    size: A4;*/
+        /*    margin: 2cm;*/
+
+        /*    @top-center {*/
+        /*        content: element(header);*/
+        /*    }*/
+
+        /*    @bottom-center {*/
+        /*        content: element(footer);*/
+        /*    }*/
+        /*}*/
         @page {
             size: A4;
-            margin: 2cm;
-
-            @top-center {
-                content: element(header);
-            }
-
-            @bottom-center {
-                content: element(footer);
-            }
+            margin:190px 0px 120px 0px; /* top, right, bottom, left */
+             padding-top:190px;padding-bottom:120px
         }
-
-        header {
-            position: running(header);
+         header {
+            position: fixed;
+            top: -200px;
+            left: 0px;
+            right: 0px;
+            /*height: 100px;*/
+            text-align: center;
+            line-height: 25px;
         }
 
         footer {
-            position: running(footer);
+            position: fixed;
+            bottom: -120px;
+            left: 0px;
+            right: 0px;
+            /*height: 50px;*/
+            text-align: center;
+            font-size: 12px;
+            line-height: 20px;
         }
+        /*header {*/
+        /*    position: running(header);*/
+        /*}*/
+
+        /*footer {*/
+        /*    position: running(footer);*/
+        /*}*/
     </style>
 </head>
 
@@ -149,13 +171,35 @@
         </table>
     </header>
 
-    
-
+    <footer id="footer">
+        <table
+            style="text-align: center; width: 100%;background-color:#05233d;max-width:720px;margin:auto;padding: 30px;color: #fff;">
+            <tr>
+                <td>
+                    <p style="font-size: 12px;">Registered Address: Primely, TC 86/2018, Airport Road, Chackai ,
+                        Thiruvananthapuram, Kerala -695024, India</p>
+                    <p style="font-size: 12px;">Terms and Conditions of services as provided on www.primefly.in shall
+                        apply.
+                    </p>
+                    <p style="font-size: 12px;">For all booking queries, please feel free to write to us at
+                        bookings@primefly.in.</p>
+                </td>
+            </tr>
+        </table>
+         
+    </footer> 
+<script type="text/php">
+    if (isset($pdf)) {
+        $pdf->page_script(function ($pageNumber, $pageCount, $pdf) {
+            $pdf->text(500, 820, "Page $pageNumber of $pageCount", null, 10);
+        });
+    }
+</script>
    
-    <table style=" width: 100%; background-color: #fff;max-width:720px;margin:auto;font-family: sans-serif;">
+    <table style=" width: 100%; background-color: #fff;max-width:720px;margin:auto;">
 
         <tr>
-            <td style=" padding:30px ;">
+            <td style=" padding:30px 50px ;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
                         <td style="width: 33%;">
@@ -163,9 +207,9 @@
                             <p style="margin-bottom: 20px;">{{ $personaladdress->address }}</p>
                         </td>
                         <td style="width: 33%;"></td>
-                        <td style="width: 33%;">
-                            <p><strong style="font-weight: 600;">Invoice No:</strong> #primefly {{ $order->order_code }}</p>
-                            <p><strong style="font-weight: 600;">Invoice Date:</strong> {{ date('d-m-Y', strtotime($order->created_at)) }}</p>
+                        <td style="width: 33%;text-align:right">
+                            <p><strong style="text-align:right">Invoice No:</strong> #primefly {{ $order->order_code }}</p>
+                            <p><strong style="text-align:right">Invoice Date:</strong> {{ date('d-m-Y', strtotime($order->created_at)) }}</p>
                         </td>
                     </tr>
                     <tr>
@@ -194,7 +238,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                            
                         </td>
                         <td style="width: 33%;"></td>
-                        <td style="width: 33%;">
+                        <td style="width: 33%;text-align:right">
                             <p>Whether the tax is payable on Reverse Charge Basis?: NO</p>
                         </td>
                     </tr>
@@ -210,14 +254,14 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
             @endphp
 @endph
 
-<table style="width:100%">
+<table style="width:100%; padding:0 50px ;">
     <thead>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;font-weight: 500;padding: 5px 0;text-align: left;">Package ID</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;font-weight: 500;padding: 5px 0;">Description</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;font-weight: 500;padding: 5px 0;">HSN/SAC</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;font-weight: 500;padding: 5px 0;">Quantity</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;font-weight: 500;padding: 5px 0;">Unit Price + Taxes</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;font-weight: 500;padding: 5px 0;">Amount</th>
+        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;text-align: left;">Package ID</th>
+        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">Description</th>
+        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">HSN/SAC</th>
+        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">Quantity</th>
+        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">Unit Price + Taxes</th>
+        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;text-align:right">Amount</th>
     </thead>
     <tbody>
         @foreach ($order->orderProducts as $product)
@@ -243,7 +287,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                
                 <td style="padding: 8px 0;">{{ number_format($quantity, 2) }} UNIT</td>
                 <td style="padding: 8px 0;">INR {{ number_format($unitPrice - ($unitPrice * 0.09) - ($unitPrice * 0.09), 2) }} + GST 18%</td>
-                <td style="padding: 8px 0;">INR {{ number_format($unitPrice, 2) }}</td>
+                <td style="padding: 8px 0;text-align:right">INR {{ number_format($unitPrice, 2) }}</td>
             </tr>
         @endforeach
     </tbody>
@@ -256,7 +300,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
     $finalamount = $totalAmount + ($order->tax_type == "Outside" ? $igst : ($cgst + $sgst));
 @endphp
 
-<table style="width: 100%; margin-top: 10px;">
+<table style="width: 100%; margin-top: 10px;  padding:0 50px ;">
     <tr>
         <td style="width: 30%;"></td>
         <td style="width: 30%;"></td>
@@ -314,12 +358,12 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
        
       
         <tr style="width: 100%;">
-            <td style="width: 50%;padding: 30px;">
+            <td style="width: 50%;padding:0 50px;">
                 <h4>Total (In Words): <p>{!! \App\Http\Helpers\Helper::numberToWords(@$taxableAmount) !!} Rupees</p>
               
               
                 </h4>
-                <p style="margin-top: 20px;"><strong style="font-weight: 600;">Terms & Conditions</strong></p>
+                <p style="margin-top: 20px;"><strong style="">Terms & Conditions</strong></p>
                 <ol>
                     <li style="font-size: 12px;">
                      Payment under this Invoice Should be made through Electronic Fund
@@ -334,10 +378,10 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="padding:30px 50px 0;">
             <table class="annexure_table" style="border: 1px solid #ccc;text-align: center;">
     <tr>
-        <td style="font-size: 14px;padding: 8px 0; font-weight: 600;">Annexure 1: Service Details</td>
+        <td style="font-size: 14px;padding: 8px 0; ">Annexure 1: Service Details</td>
     </tr>
     <tr>
         <td style="padding: 0;">
@@ -394,7 +438,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
 
                 <table class="annexure_table" style="border: 1px solid #ccc;text-align: center;">
                     <tr>
-                        <td style="font-size: 14px;padding: 8px 0; font-weight: 600;">Annexure 2: Flight Details </td>
+                        <td style="font-size: 14px;padding: 8px 0; ">Annexure 2: Flight Details </td>
                     </tr>
                     <tr>
                         <td style="padding: 0;">
@@ -447,7 +491,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                 </table>
                 <table class="annexure_table" style="border: 1px solid #ccc; text-align: center;">
     <tr>
-        <td style="font-size: 14px; padding: 8px 0; font-weight: 600;">Annexure 3: Guest Details</td>
+        <td style="font-size: 14px; padding: 8px 0; ">Annexure 3: Guest Details</td>
     </tr>
     <tr>
         <td style="padding: 0;">
@@ -487,22 +531,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
             </td>
         </tr>
     </table>
-    <footer id="footer">
-        <table
-            style="text-align: center; width: 100%;background-color:#05233d;max-width:720px;margin:auto;padding: 30px;color: #fff;">
-            <tr>
-                <td>
-                    <p style="font-size: 12px;">Registered Address: Primely, TC 86/2018, Airport Road, Chackai ,
-                        Thiruvananthapuram, Kerala -695024, India</p>
-                    <p style="font-size: 12px;">Terms and Conditions of services as provided on www.primefly.in shall
-                        apply.
-                    </p>
-                    <p style="font-size: 12px;">For all booking queries, please feel free to write to us at
-                        bookings@primefly.in.</p>
-                </td>
-            </tr>
-        </table>
-    </footer>
+    
 </body>
 
 </html>

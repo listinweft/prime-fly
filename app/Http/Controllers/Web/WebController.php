@@ -136,7 +136,7 @@ class WebController extends Controller
        
         PDF::setOptions([
             'dpi' => 150,
-            'defaultFont' => 'sans-serif', // Replace with your custom font if used
+            'defaultFont' => 'lato', // Replace with your custom font if used
         ]);
         $order = Order::where('id', $order_id)
         ->where('payment_mode', 'Success')
