@@ -149,7 +149,9 @@
             <p style="margin-bottom: 10px; font-size: 12px; text-transform: uppercase;">TICKET AMOUNT</p>
         </td>
     </tr>
+<tr>
 
+<td>
     @php
         $orderTotal = $orderTotal > 0 ? $orderTotal : 0;
         $cgst = $orderTotal * 0.09;
@@ -205,7 +207,7 @@
 
 
     </table>
-
+</td>
     </tr>
         <tr>
             <td>
