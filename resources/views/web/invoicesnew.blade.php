@@ -254,51 +254,48 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
             @endphp
 @endph
 
-<table style="width:100%; padding:0 50px ;">
+<table style="width:100%; padding:0 50px;">
     <thead>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;text-align: left;">Package ID</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">Description</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">HSN/SAC</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">Quantity</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;">Unit Price + Taxes</th>
-        <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;padding: 5px 0;text-align:right">Amount</th>
+        <tr>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0; text-align: left;">Package ID</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">Description</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">HSN/SAC</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">Quantity</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">Unit Price + Taxes</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0; text-align: right;">Amount</th>
+        </tr>
     </thead>
     <tbody>
+        @php $totalAmount = 0; @endphp
         @foreach ($order->orderProducts as $product)
             @php
                 $package = App\Models\Product::find($product->product_id);
-                $quantity = 1; // Assuming quantity is always 1 for now
+                $quantity = 1; // Default quantity
                 $unitPrice = $product->total;
-                $taxableAmount = $unitPrice / 1.18; // Extracting taxable amount
+                $taxableAmount = $unitPrice / 1.18;
                 $igst = $taxableAmount * 0.18;
                 $cgst = $igst / 2;
                 $sgst = $igst / 2;
                 $totalAmount += $unitPrice;
+
+                $displayQuantity = $product->productData->category_id == 35 ? $product->guest : $quantity;
             @endphp
             <tr>
                 <td style="padding: 8px 0;">{{ ucfirst($product->unique_pckageid) }}</td>
                 <td style="padding: 8px 0;">{{ ucfirst($package->title ?? 'N/A') }}</td>
-                
-
-              
-               
                 <td style="padding: 8px 0;">996763</td>
-
+                <td style="padding: 8px 0;">{{ number_format($displayQuantity, 2) }} UNIT</td>
                 <td style="padding: 8px 0;">
-    @if($product->productData->category_id == 35)
-       <td style="padding: 8px 0;">{{ number_format( $product->guest, 2) }} UNIT</td>
-    @else
-    <td style="padding: 8px 0;">{{ number_format($quantity, 2) }} UNIT</td>
-    @endif
-</td>
-
-              
-                <td style="padding: 8px 0;">INR {{ number_format($unitPrice - ($unitPrice * 0.09) - ($unitPrice * 0.09), 2) }} + GST 18%</td>
-                <td style="padding: 8px 0;text-align:right">INR {{ number_format($unitPrice, 2) }}</td>
+                    INR {{ number_format($unitPrice - ($unitPrice * 0.09) - ($unitPrice * 0.09), 2) }} + GST 18%
+                </td>
+                <td style="padding: 8px 0; text-align: right;">
+                    INR {{ number_format($unitPrice, 2) }}
+                </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+
 @php
     $taxableAmount = $totalAmount; // Assuming taxableAmount is same as totalAmount
     $cgst = ($totalAmount * 0.09);
