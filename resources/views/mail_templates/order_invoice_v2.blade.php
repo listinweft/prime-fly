@@ -195,7 +195,99 @@
                 </table>
             </td>
         </tr>
+
+
     </table>
+
+    </tr>
+        <tr>
+            <td>
+                <img style="width:100%;margin-top:30px;" src="https://primefly.in/public/frontend/images/curve-border.png" alt="QR Code" style="width: 100px; height: auto;">
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:15px 0;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="width: 33%;">
+                            <p style="line-height: 1.8;font-size: 10px;">Booking Date </p>
+                            <p style="margin-bottom: 0px;line-height: 1.8;font-size: 12px;font-weight: 600;"> 
+                            {{ \Carbon\Carbon::parse($order->created_at)->format('D, j M, Y') }}
+                            </p>
+                        </td> 
+                        <td style="width: 33%;border-left: 1px solid #ccc;text-align: center; border-right: 1px solid #ccc;">
+                            <p style="line-height: 1.8;font-size: 10px;">Payment Type</p>
+                            <p style="margin-bottom: 0px;line-height: 1.8;font-size: 12px;font-weight: 600;"> 
+                                UPI</p>
+                        </td> 
+                        <td style="width: 33%; padding-left:60px;">
+                            <p style="line-height: 1.8;font-size: 10px;">Confirmation#</p>
+                            <p style="margin-bottom: 0px;line-height: 1.8;font-size: 12px;font-weight: 600;"> 
+                                483211</p>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </td>
+        </tr> 
+        <tr>
+            <td style="padding-bottom: 15px;">
+                <p style="color: #595959;line-height: 1.8;font-size: 12px;">IMPORTANT INSTRUCTIONS</p>
+                <p style="color: #595959;line-height: 1.8;font-size: 12px;">This transaction can be cancelled only as per the cancellation policy.</p>
+                <p style="color: #595959;line-height: 1.8;font-size: 12px;">PAN Based GSTN.320YLPS5894B1ZQ.</p>
+            </td>
+        </tr> 
+        <tr>
+            <td style="padding-top:15px;border-top:1px solid #ccc">
+                <p style="font-size: 12px;margin-bottom: 5px;">Download Mobile App</p>
+                <table style="width: 100%;">
+                    <td style="width: 50%;"> 
+                        <a href=""><img src="https://primefly.in/public/frontend/images/google-play.png" alt="Google Play" style="width:46%; height: auto;"></a>
+                        <a href=""><img src="https://primefly.in/public/frontend/images/app-store.png" alt="App Store" style="width: 46%; height: auto;"></a>
+                    </td>
+                    <td style="width: 50%; padding-left: 60px;" class="social_icon">
+                        <h4 style="margin-bottom: 3px;font-size: 14px;">Follow Us On</h4>
+                        <ul style="margin: 0;">
+                            <li>
+                                <a href="">
+                                    <img src="https://primefly.in/public/frontend/images/facebook-app-symbol.png" alt="Facebook" style="width: 15px; height: auto;">
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="https://primefly.in/public/frontend/images/twitter.png" alt="Facebook" style="width: 15px; height: auto;">
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="https://primefly.in/public/frontend/images/youtube.png" alt="Facebook" style="width: 15px; height: auto;">
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="https://primefly.in/public/frontend/images/instagram.png" alt="Facebook" style="width: 15px; height: auto;">
+                                    
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="https://primefly.in/public/frontend/images/linkedin.png" alt="Facebook" style="width: 15px; height: auto;">
+                                    
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style=" line-height: 1.8;font-size: 12px;margin-bottom: 20px;">For Further Assistance: <a href="">Help centre</a> </p>
+            </td>
+        </tr>
 </table>
 </body>
 </html>

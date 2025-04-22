@@ -635,61 +635,43 @@ protected function preserveCartItems($oldSessionKey, $newSessionKey)
 
 public function sendOTP_again(Request $request)
 {
-    // Retrieve phone number from session
-    $phones = Session::get('phone');
+    // Retrieve phone number from session (already includes country code)
+    $phone = session('phone');
 
-    $phone = "91" . $phones; // Add country code if required
+    // Generate new OTP or use the existing one (depending on your logic)
+    $otp = rand(100000, 999999);  // Or use existing OTP if required
 
-    // If phone is not in session, return error
-    if (!$phone) {
-        return response()->json(['error' => 'Phone number not found in session. Please login again.'], 400);
-    }
-
-    // Generate new OTP
-    $otp = rand(100000, 999999);
-
-    // Store OTP in session
+    // Store new OTP in session (if generating new)
     Session::put('otp', $otp);
     Session::save();
 
-    // Prepare SMS details
+    // Send OTP again via the SMS API (same logic as the first OTP sending)
     $apiUrl = 'https://restapi.smscountry.com/v0.1/Accounts/jc86klSCSSIfmmGCBm3C/SMSes/';
-    $authKey = 'jc86klSCSSIfmmGCBm3C';
-    $authToken = 'CMiO7W5HC5xvC2KV2YuORBNp0yiUSbzj7Id2ktql';
+    $message = "Your OTP for login to Primefly is " . $otp . ". It is valid for next 2 minutes."; 
 
-    $message = "Your OTP for login to Primefly is " . $otp . ". It is valid for next 2 minutes.";
-
-    // Send SMS via API
     $response = Http::withHeaders([
         'Content-Type' => 'application/json',
-    ])->withBasicAuth($authKey, $authToken)
-      ->post($apiUrl, [
-          'Text' => $message,
-          'Number' => $phone,
-          'SenderId' => 'PRMFLY',
-          'DRNotifyUrl' => 'https://www.domainname.com/notifyurl',
-          'DRNotifyHttpMethod' => 'POST',
-          'Tool' => 'API',
-      ]);
+    ])->withBasicAuth('jc86klSCSSIfmmGCBm3C', 'CMiO7W5HC5xvC2KV2YuORBNp0yiUSbzj7Id2ktql')
+        ->post($apiUrl, [
+            'Text' => $message,
+            'Number' => $phone,
+            'SenderId' => 'PRMFLY',
+            'DRNotifyUrl' => 'https://www.domainname.com/notifyurl',
+            'DRNotifyHttpMethod' => 'POST',
+            'Tool' => 'API',
+        ]);
 
-    // Log API response
-    Log::info('SMS API Response:', ['response' => $response->json()]);
-    Log::info($message);
+    // Log response and handle errors if needed
+    Log::info('Resend OTP API Response:', ['response' => $response->json()]);
 
     if ($response->successful()) {
-        $apiResponse = $response->json();
-
-        if (isset($apiResponse['response']['Success']) && $apiResponse['response']['Success'] == 'False') {
-            Log::error('OTP Sending Failed:', ['error' => $apiResponse['response']['Message']]);
-            return response()->json(['error' => 'Failed to resend OTP: ' . $apiResponse['response']['Message']], 500);
-        }
-
-        return response()->json(['status' => 'otp_resent']);
+        return back()->with('success', 'Successfully sent to your phone number.');
     } else {
-        Log::error('OTP Sending Failed:', ['error' => $response->body()]);
-        return response()->json(['error' => 'Failed to resend OTP.'], 500);
+        return back()->withErrors(['error' => 'Failed to resend OTP.']);
     }
 }
+
+
 
     public function showOTPVerifyPage()
     {
