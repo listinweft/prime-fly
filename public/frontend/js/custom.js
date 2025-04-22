@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+  
     var urlLastSegment = window.location.pathname.split("/").pop();
     // $(".my-rating-readonly").starRating({
     //     totalStars: 5,
@@ -52,6 +54,18 @@ $(document).ready(function () {
         window.location.href=base_url+'/'+type+'/'+link;
     });
 
+    $(document).ready(function () {
+        const input = document.querySelector("#phones");
+        const iti = window.intlTelInput(input, {
+            initialCountry: "in",
+            onlyCountries: ["in"],   // ✅ Only show India
+            nationalMode: false,     // ✅ Force full international number with +91
+            separateDialCode: true   // (Optional) shows +91 separately
+        });
+        window.iti = iti;
+    });
+    
+
     $(document).mouseup(function(e)
     {
         var container = $("#product-main-search");
@@ -62,6 +76,12 @@ $(document).ready(function () {
             $('.results').hide();
         }
     });
+
+    
+
+       
+        
+   
 
     $(document).on('keyup','#product-main-search',function(){
         var search_param = $(this).val();

@@ -52,7 +52,7 @@
                         <form action="#0" id="login"> 
                                 <div class="register_form_grid"> 
                                     <!-- <input type="tel" placeholder="91"> -->
-                                    <input type="phone" placeholder="Enter Your Phone Number" id="phone" name="phone" class="required">
+                                    <input type="phone" placeholder="Enter Your Phone Number" id="phones" name="phone" class="required">
                                     <!-- <div class="input-phone"></div> -->
                                 </div>
                                 <div class="b2b-check form-check">
@@ -208,7 +208,8 @@
 
    
 </script>
-      
+
+
    
      
    </body>
