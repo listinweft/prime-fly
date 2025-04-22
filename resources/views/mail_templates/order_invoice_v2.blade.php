@@ -51,6 +51,8 @@
 
     @foreach($order->orderProducts as $product)
         @php
+
+        $count = $loop->iteration; // or use $index + 1
             $orderStatus = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->first();
             $package = App\Models\Product::find($product->product_id);
             $orderStatusPrevious = App\Models\OrderLog::where('order_product_id', $product->id)->latest()->skip(1)->first();
@@ -166,27 +168,32 @@
             <td style="width: 40%;">
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 33%; padding: 3px 0;"><p>Subtotal:</p></td>
+                    <td style="width: 33%; padding: 3px 0;">
+    <p>Subtotal ({{ $count }} items) :</p>
+</td>
                         <td style="width: 33%;"></td>
                         <td style="width: 33%; text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($orderTotal - ($order->tax_type == 'Outside' ? $igst : $cgst + $sgst), 2) }}</strong></p></td>
                     </tr>
                     @if($order->tax_type == 'Outside')
                         <tr>
-                            <td><p>IGST:</p></td><td></td>
+                            <td><p>IGST (18%) :</p></td><td></td>
                             <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($igst, 2) }}</strong></p></td>
                         </tr>
                     @else
                         <tr>
-                            <td><p>CGST:</p></td><td></td>
+                            <td><p> CGST (9%) :</p></td><td></td>
                             <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong></p></td>
                         </tr>
                         <tr>
-                            <td><p>SGST:</p></td><td></td>
+                            <td><p>SGST (9%) :</p></td><td></td>
                             <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong></p></td>
                         </tr>
                     @endif
                     <tr style="font-weight: 600;">
-                        <td><p>Total:</p></td><td></td>
+                    <td style="width: 33%;padding:3px 0;">
+                                        <p style="color:#3a3a3a;font-weight: 500;margin-bottom: 10px;">AMOUNT PAID </p>
+                                    </td>
+                        <td><p> Order Total:</p></td><td></td>
                         <td style="text-align: right;">
     <p><strong>{{ $order->currency }} {{ number_format(round($orderTotal), 0, '.', ',') }}.00</strong></p>
 </td>
