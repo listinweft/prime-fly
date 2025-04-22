@@ -277,7 +277,7 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
             @endphp
             <tr>
                 <td style="padding: 8px 0;">{{ ucfirst($product->unique_pckageid) }}</td>
-                <td style="padding: 8px 0;">{{ ucfirst($package->name ?? 'N/A') }}</td>
+                <td style="padding: 8px 0;">{{ ucfirst($package->title ?? 'N/A') }}</td>
                 
 
               
