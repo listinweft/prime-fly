@@ -291,7 +291,8 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
     <td style="padding: 8px 0;">{{ number_format($quantity, 2) }} UNIT</td>
     @endif
 </td>
-                <td style="padding: 8px 0;">{{ number_format($quantity, 2) }} UNIT</td>
+
+              
                 <td style="padding: 8px 0;">INR {{ number_format($unitPrice - ($unitPrice * 0.09) - ($unitPrice * 0.09), 2) }} + GST 18%</td>
                 <td style="padding: 8px 0;text-align:right">INR {{ number_format($unitPrice, 2) }}</td>
             </tr>

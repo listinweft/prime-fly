@@ -178,25 +178,25 @@
                     </tr>
                     @if($order->tax_type == 'Outside')
                         <tr>
-                            <td><p>IGST (18%) :</p></td><td></td>
-                            <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($igst, 2) }}</strong></p></td>
+                            <td style="width: 33%;"><p>IGST (18%) :</p></td><td style="width: 33%;"></td>
+                            <td style="text-align: right;width: 33%;"><p><strong>{{ $order->currency }} {{ number_format($igst, 2) }}</strong></p></td>
                         </tr>
                     @else
                         <tr>
-                            <td><p> CGST (9%) :</p></td><td></td>
-                            <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong></p></td>
+                            <td style="width: 33%;"><p> CGST (9%) :</p></td><td style="width: 33%;"></td>
+                            <td style="text-align: right;width: 33%;"><p><strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong></p></td>
                         </tr>
                         <tr>
-                            <td><p>SGST (9%) :</p></td><td></td>
-                            <td style="text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong></p></td>
+                            <td style="width: 33%;"><p>SGST (9%) :</p></td><td style="width: 33%;"></td>
+                            <td style="text-align: right;width: 33%;"><p><strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong></p></td>
                         </tr>
                     @endif
                     <tr style="font-weight: 600;">
                     <td style="width: 33%;padding:3px 0;">
                                         <p style="color:#3a3a3a;font-weight: 500;margin-bottom: 10px;">AMOUNT PAID </p>
                                     </td>
-                        <td><p> Order Total:</p></td><td></td>
-                        <td style="text-align: right;">
+                        <td style="width: 33%;padding-left:20px"><p> Order Total:</p></td><td></td>
+                        <td style="text-align: right;width: 33%;">
     <p><strong>{{ $order->currency }} {{ number_format(round($orderTotal), 0, '.', ',') }}.00</strong></p>
 </td>
 
