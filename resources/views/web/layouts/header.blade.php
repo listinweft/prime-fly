@@ -1,3 +1,9 @@
+
+<div id="preloader">
+  <div class="loader">
+       <img src="https://assets-v2.lottiefiles.com/a/a553a5f0-2a6e-11ef-9fef-efb00ac7a7dc/rw7vIzkR62.gif" alt="Logo"/>
+  </div>
+</div>
 <div class="col-12 header{{ Request::is('cart', 'checkout','preview','terms-and-conditions','package','privacy-policy','thankyou', 'package/*') ? ' header-cart' : '' }}">
    <div class="container">
       <header class="d-flex flex-wrap justify-content-center align-items-center py-2">

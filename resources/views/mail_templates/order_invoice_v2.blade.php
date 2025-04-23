@@ -67,7 +67,7 @@
         @foreach($product->productData->product_categories ?? [] as $product_category)
             <tr>
                 <td>
-                    <h3 style="font-size: 20px; font-weight: 600;">{{ $product_category->title }}</h3>
+                    <h3 style="font-size: 20px; font-weight: 600;"> Package: {{ $product_category->title }}-{{ ucfirst($package->title) }}</h3>
                 </td>
             </tr>
 
@@ -76,7 +76,11 @@
                     <table style="width: 100%; border-collapse: collapse;">
                         <tr>
                             <td style="width: 50%;">
-                                <p>{{ ucfirst($package->title) }}</p>
+                                <!-- <p>{{ ucfirst($package->title) }}</p> -->
+
+                                @if(!is_null($product->travel_type) && $product->travel_type !== '')
+                                             <p> {{ ucfirst($product->travel_type) }}</p> 
+                                             @endif
                                 @if(!empty($product->exit_date))
                                     <p>Service Date</p>
                                 @endif
@@ -226,8 +230,14 @@
                         </td> 
                         <td style="width: 33%;border-left: 1px solid #ccc;text-align: center; border-right: 1px solid #ccc;">
                             <p style="line-height: 1.8;font-size: 10px;">Payment Type</p>
+                            @if($order->payment_method == "COD")
                             <p style="margin-bottom: 0px;line-height: 1.8;font-size: 12px;font-weight: 600;"> 
-                                UPI</p>
+                            Pay Later</p>
+                    @else
+                    <p style="margin-bottom: 0px;line-height: 1.8;font-size: 12px;font-weight: 600;"> 
+                    UPI</p>
+                    @endif
+                            
                         </td> 
                         <td style="width: 33%; padding-left:60px;">
                             <p style="line-height: 1.8;font-size: 10px;">Confirmation#</p>

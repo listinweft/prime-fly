@@ -126,6 +126,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-selectbox/0.2.4/jquery.selectbox-0.2.min.js"></script> -->
 
+<script>
+  window.addEventListener("load", function () {
+    const preloader = document.getElementById("preloader");
+    preloader.style.display = "none";
+  });
+</script>
+
       <script>
         $('.head_search a').click(function(){
           $('.head_search').toggleClass('search-expand');

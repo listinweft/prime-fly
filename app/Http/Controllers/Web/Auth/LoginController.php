@@ -677,74 +677,163 @@ public function sendOTP_again(Request $request)
     {
         return view('web.verify_otp'); // Create this Blade file
     }
-    public function verifyOTP(Request $request)
-    {
+    // public function verifyOTP(Request $request)
+    // {
 
-        $sessionOtp = Session::get('otp'); // e.g., "123444"
-        $phone = Session::get('phone');
+    //     $sessionOtp = Session::get('otp'); // e.g., "123444"
+    //     $phone = Session::get('phone');
     
-        // Combine array into a string
-        $submittedOtp = implode('', $request->otp); // "123444"
+    //     // Combine array into a string
+    //     $submittedOtp = implode('', $request->otp); // "123444"
     
-        if ($sessionOtp == $submittedOtp) {
-            Session::forget('otp'); // Clear OTP after successful verification
+    //     if ($sessionOtp == $submittedOtp) {
+    //         Session::forget('otp'); // Clear OTP after successful verification
     
-            $user = User::where('phone', $phone)->first();
+    //         $user = User::where('phone', $phone)->first();
     
-            if (!$user) {
-                // Register a new user with a default password
-                $user = new User();
-                $user->user_type = 'Customer';
-                $user->username = $phone;
-                $user->email = null;
-                $user->status = 'Active';
-                $user->pay_status = 'Inactive';
-                $user->phone = $phone;
-                $user->btype = 'public';
-                $user->password = Hash::make('12345678@aA'); // Default password
+    //         if (!$user) {
+    //             // Register a new user with a default password
+    //             $user = new User();
+    //             $user->user_type = 'Customer';
+    //             $user->username = $phone;
+    //             $user->email = null;
+    //             $user->status = 'Active';
+    //             $user->pay_status = 'Inactive';
+    //             $user->phone = $phone;
+    //             $user->btype = 'public';
+    //             $user->password = Hash::make('12345678@aA'); // Default password
     
-                if (!$user->save()) {
-                    return back()->withErrors(['otp' => 'Failed to register user. Please try again.']);
-                }
+    //             if (!$user->save()) {
+    //                 return back()->withErrors(['otp' => 'Failed to register user. Please try again.']);
+    //             }
     
-                // Create Customer entry
-                $customer = new Customer();
-                $customer->first_name = " "; // Default first name
-                $customer->last_name = "User"; // Default last name
-                $customer->user_id = $user->id;
+    //             // Create Customer entry
+    //             $customer = new Customer();
+    //             $customer->first_name = " "; // Default first name
+    //             $customer->last_name = "User"; // Default last name
+    //             $customer->user_id = $user->id;
     
-                if (!$customer->save()) {
-                    return back()->withErrors(['otp' => 'Failed to create customer entry.']);
-                }
-            }
+    //             if (!$customer->save()) {
+    //                 return back()->withErrors(['otp' => 'Failed to create customer entry.']);
+    //             }
+    //         }
     
-            // Log in the user
-            Auth::guard('customer')->login($user);
+    //         // Log in the user
+    //         Auth::guard('customer')->login($user);
     
-            return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
-        } else {
-            // Check the last attempt time to determine if the user has to wait
-            $lastAttemptTime = Session::get('last_attempt_time');
+    //         return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in']);
+    //     } else {
+    //         // Check the last attempt time to determine if the user has to wait
+    //         $lastAttemptTime = Session::get('last_attempt_time');
     
-            if ($lastAttemptTime) {
-                // Check if it's within 1 minute for incorrect OTP message
+    //         if ($lastAttemptTime) {
+    //             // Check if it's within 1 minute for incorrect OTP message
                
     
-                // After 1 minute but less than 2 minutes, reject with "incorrect attempts" message
-                if (now()->diffInMinutes($lastAttemptTime) < 2) {
-                    return response()->json(['error' => 'incorrect', 'message' => 'Incorrect attempts. Please try again later.']);
-                }
+    //             // After 1 minute but less than 2 minutes, reject with "incorrect attempts" message
+    //             if (now()->diffInMinutes($lastAttemptTime) < 2) {
+    //                 return response()->json(['error' => 'incorrect', 'message' => 'Incorrect attempts. Please try again later.']);
+    //             }
+    //         }
+    
+    //         // If it's been more than 2 minutes since the last attempt, the user can retry
+    //         // Store the last attempt time in session
+    //         Session::put('last_attempt_time', now());
+    
+    //         // Return incorrect OTP message if the time limit is up
+    //         return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP']);
+    //     }
+    // }
+    
+    public function verifyOTP(Request $request)
+{
+    $sessionOtp = Session::get('otp'); // e.g., "123444"
+    $phone      = Session::get('phone');
+
+    // Combine submitted OTP array into a string
+    $submittedOtp = implode('', $request->otp); // e.g., "123444"
+
+    // Check if OTP matches
+    if ($sessionOtp == $submittedOtp) {
+        Session::forget('otp'); // Clear OTP after successful verification
+
+        // Check if user exists
+        $user = User::where('phone', $phone)->first();
+
+        if (!$user) {
+            // Register a new user with default values
+            $user = new User();
+            $user->user_type  = 'Customer';
+            $user->username   = $phone;
+            $user->email      = null;
+            $user->status     = 'Active';
+            $user->pay_status = 'Inactive';
+            $user->phone      = $phone;
+            $user->btype      = 'public';
+            $user->password   = Hash::make('12345678@aA');
+
+            if (!$user->save()) {
+                return back()->withErrors(['otp' => 'Failed to register user. Please try again.']);
             }
-    
-            // If it's been more than 2 minutes since the last attempt, the user can retry
-            // Store the last attempt time in session
-            Session::put('last_attempt_time', now());
-    
-            // Return incorrect OTP message if the time limit is up
-            return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP']);
+
+            // Create corresponding Customer entry
+            $customer = new Customer();
+            $customer->first_name = " ";
+            $customer->last_name  = "User";
+            $customer->user_id    = $user->id;
+
+            if (!$customer->save()) {
+                return back()->withErrors(['otp' => 'Failed to create customer entry.']);
+            }
+        }
+
+        // Log the user in
+        Auth::guard('customer')->login($user);
+
+        // Migrate old session cart to new session (if any)
+        $oldSessionKey = session('session_key');
+        $newSessionKey = Auth::guard('customer')->user()->customer->id;
+
+        if ($oldSessionKey) {
+            try {
+                $this->preserveCartItems($oldSessionKey, $newSessionKey);
+            } catch (\Exception $e) {
+                Log::error('Failed to preserve cart items: ' . $e->getMessage());
+            }
+        }
+
+        // Update session key
+        session(['session_key' => $newSessionKey]);
+
+        try {
+            $cartItems = Cart::session($newSessionKey)->getContent();
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch cart items: ' . $e->getMessage());
+        }
+
+        // Handle post-login redirect based on logged_out flag
+        if (session('logged_out')) {
+            return response()->json(['status' => 'success-reloadc', 'message' => 'Successfully logged in.']);
+        }
+
+        return response()->json(['status' => 'success-reload', 'message' => 'Successfully logged in.']);
+    }
+
+    // OTP did not match — handle attempt timing logic
+    $lastAttemptTime = Session::get('last_attempt_time');
+
+    if ($lastAttemptTime) {
+        // If less than 2 minutes since last attempt, reject
+        if (now()->diffInMinutes($lastAttemptTime) < 2) {
+            return response()->json(['error' => 'incorrect', 'message' => 'Incorrect attempts. Please try again later.']);
         }
     }
-    
+
+    // Update last attempt time and return incorrect message
+    Session::put('last_attempt_time', now());
+    return response()->json(['error' => 'incorrect', 'message' => 'Incorrect OTP']);
+}
+
     
     
     public function login_form_public(Request $request)

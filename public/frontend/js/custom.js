@@ -2376,7 +2376,21 @@ $requiredFields.each(function () {
                 if (response.status === "success-reload") {
                     Toast.fire({ title: "Success!", text: response.message, icon: "success" });
                     setTimeout(() => { window.location.href = base_url; }, 2000);
-                } else {
+                }
+                
+                else if (response.status == "success-reloadc") {
+                    // alert("knbb");
+
+
+                    Toast.fire({
+                        title: "Success!", text: response.message, icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = base_url + '/cart';
+
+                    }, 2000);
+
+                }else {
                     Toast.fire({ title: "Error!", text: response.message, icon: "error" });
                 }
             })

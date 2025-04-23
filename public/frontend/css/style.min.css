@@ -59,7 +59,20 @@ a:hover {
     background-color: #fff;
     border: 1px solid #E1E7EE
 }
-
+#preloader{
+    position: fixed;
+    z-index: 999;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+#preloader img{
+    width: 115px;
+}
 .header {
     position: absolute;
     z-index: 9
@@ -179,13 +192,14 @@ a:hover {
     display: block
 }
 
-.filter_tab_content {
+.filter_tab_content { 
+    min-height: 269px
+}
+.filter_tab_content .tab-pane{
     background-color: #fff;
     padding: 30px 60px;
     border-radius: 20px;
-    min-height: 269px
 }
-
 .banner_filter {
     margin-top: 60px;
     min-height: 320px
@@ -1208,7 +1222,7 @@ table {
 .testimonial-wrap {
     background-color: #fff;
     border-radius: 15px;
-    padding: 50px
+    padding: 25px 20px;
 }
 
 .testimonial-grid {
@@ -1229,7 +1243,13 @@ table {
     text-align: center;
     font-weight: 500;
     line-height: 1.8;
-    padding: 0 0
+    padding: 0 0;
+    text-align:justify;
+    overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 5; /* number of lines to show */
+           line-clamp: 5; 
+   -webkit-box-orient: vertical;
 }
 
 .testimonial-grid p img {
@@ -2824,7 +2844,8 @@ footer {
         font-size: 32px
     }
     .banner_content h1 {
-        font-size: 44px
+        font-size: 38px;
+        line-height: 1.1;
     }
     .banner_content h1 b {
         font-size: 26px
@@ -4204,7 +4225,7 @@ footer {
     .airtport_list_thumb h3 {
         font-size: 28px
     }
-    .filter_tab_content {
+    .filter_tab_content .tab-pane{
         padding: 30px 50px
     }
     .booking_select select {
@@ -4256,11 +4277,11 @@ footer {
 }
 
 @media(max-width:1400px) {
-    .filter_tab_content {
+    .filter_tab_content .tab-pane{
         padding: 20px 25px
     }
     .banner_filter {
-        margin-top: 25px
+        margin-top: 0px
     }
     .header-logo img {
         width: 90px
@@ -4272,7 +4293,7 @@ footer {
 }
 
 @media(max-width:1200px) {
-    .filter_tab_content {
+    .filter_tab_content .tab-pane{
         padding: 15px 10px
     }
     .banner_content h1 span {
@@ -4451,7 +4472,7 @@ footer {
     .banner_filter_pills {
         margin-bottom: 2px
     }
-    .filter_tab_content {
+    .filter_tab_content .tab-pane{
         border-radius: 8px
     }
     .banner_filter_pills .nav-item .nav-link {
@@ -4745,7 +4766,7 @@ footer {
     .banner_filter_pills .nav-item {
         border-radius: 3px
     }
-    .filter_tab_content {
+    .filter_tab_content .tab-pane{
         border-radius: 3px
     }
     .service-carousel .item img {

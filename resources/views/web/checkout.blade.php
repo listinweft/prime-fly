@@ -284,7 +284,8 @@
                <div class="col-lg-6">
                <div class="details-item">
                <label for="name">Passenger Phone Number*</label>
-               <input type="text" name="phone" id="phone" placeholder="Phone" value="" required> 
+               <input type="text" name="phone" id="phone" placeholder="Phone" value="" class="phonec" required type="tel"> 
+               <!-- <input id="phone" name="phone" type="tel" class="required" maxlength="12" pattern="[0-9]{10}" /> -->
                <span class="error-message" style="display: none;">Phone is required.</span>
                </div>
                </div>
@@ -364,7 +365,8 @@
                <div class="col-lg-6">
                <div class="details-item">
                <label for="name">Passenger Phone Number*</label>
-               <input type="text" name="phone" id="phone" placeholder="Phone" value="" required> 
+               <input type="text" name="phone" id="phone" placeholder="Phone" value="" class="phonec" required> 
+               <!-- <input id="phone" name="phone" type="tel" class="required" maxlength="12" pattern="[0-9]{10}" /> -->
                <span class="error-message" style="display: none;">Phone is required.</span>
                </div>
                </div>
@@ -703,4 +705,19 @@ document.querySelectorAll('[id^="auto_fill_"]').forEach(function (checkbox) {
       }.bind(this));
    });
 </script>
+
+<script src="{{ asset('frontend/build/js/intlTelInputWithUtils.js')}}"></script>
+      <script src="{{ asset('frontend/js/b2b.js')}}"></script> 
+      <script>
+         AOS.init(); 
+      </script> 
+       <script>
+        const input = document.querySelector(".phonec");
+        const iti = window.intlTelInput(input, {
+          
+          initialCountry: "in",
+         
+        });
+        window.iti = iti; // useful for testing
+      </script>
 @endpush
