@@ -760,15 +760,20 @@ public function sendOTP_again(Request $request)
         // Check if user exists
         $user = User::where('phone', $phone)->first();
 
+
+        if (Str::startsWith($phone, '91')) {
+            $phones = substr($phone, 2);
+        }
+
         if (!$user) {
             // Register a new user with default values
             $user = new User();
             $user->user_type  = 'Customer';
-            $user->username   = $phone;
+            $user->username   = $phones;
             $user->email      = null;
             $user->status     = 'Active';
             $user->pay_status = 'Inactive';
-            $user->phone      = $phone;
+            $user->phone      = $phones;
             $user->btype      = 'public';
             $user->password   = Hash::make('12345678@aA');
 
