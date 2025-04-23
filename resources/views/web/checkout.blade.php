@@ -284,7 +284,7 @@
                <div class="col-lg-6">
                <div class="details-item">
                <label for="name">Passenger Phone Number*</label>
-               <input type="text" name="phone" id="phone" placeholder="Phone" value="" class="phonec" required type="tel"> 
+               <input type="text" name="phone" id="phone" placeholder="Phone" value=""  required > 
                <!-- <input id="phone" name="phone" type="tel" class="required" maxlength="12" pattern="[0-9]{10}" /> -->
                <span class="error-message" style="display: none;">Phone is required.</span>
                </div>
@@ -365,7 +365,7 @@
                <div class="col-lg-6">
                <div class="details-item">
                <label for="name">Passenger Phone Number*</label>
-               <input type="text" name="phone" id="phone" placeholder="Phone" value="" class="phonec" required> 
+               <input type="text" name="phone" id="phone" placeholder="Phone" value=""  required > 
                <!-- <input id="phone" name="phone" type="tel" class="required" maxlength="12" pattern="[0-9]{10}" /> -->
                <span class="error-message" style="display: none;">Phone is required.</span>
                </div>
@@ -706,7 +706,7 @@ document.querySelectorAll('[id^="auto_fill_"]').forEach(function (checkbox) {
    });
 </script>
 
-<script src="{{ asset('frontend/build/js/intlTelInputWithUtils.js')}}"></script>
+<!-- <script src="{{ asset('frontend/build/js/intlTelInputWithUtils.js')}}"></script>
       <script src="{{ asset('frontend/js/b2b.js')}}"></script> 
       <script>
          AOS.init(); 
@@ -719,5 +719,5 @@ document.querySelectorAll('[id^="auto_fill_"]').forEach(function (checkbox) {
          
         });
         window.iti = iti; // useful for testing
-      </script>
+      </script> -->
 @endpush
