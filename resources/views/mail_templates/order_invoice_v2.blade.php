@@ -10,7 +10,7 @@
         body { font-optical-sizing: auto; }
         h4, h5, p, th, td { line-height: 1.6; margin: 0; }
         h4 { font-size: 13px; font-weight: 600; }
-        p { font-size: 15px; }
+        p { font-size: 14px; }
         img { max-width: 100%; }
         table { width: 100%; border-spacing: 0; }
         table tr td, th { font-size: 13px; vertical-align: top; }
@@ -175,33 +175,36 @@
                 <table style="width: 100%;">
                     <tr>
                     <td style="width: 33%; padding: 3px 0;">
-    <p>Subtotal ({{ $count }} items) :</p>
+    <p style="font-size: 12px;">Subtotal ({{ $count }} items) :</p>
 </td>
-                        <td style="width: 33%;"></td>
-                        <td style="width: 33%; text-align: right;"><p><strong>{{ $order->currency }} {{ number_format($orderTotal - ($order->tax_type == 'Outside' ? $igst : $cgst + $sgst), 2) }}</strong></p></td>
+                        <!-- <td style="width: 33%;"></td> -->
+                        <td style="width: 33%; text-align: right;"><p style="font-size: 12px;"><strong>{{ $order->currency }} {{ number_format($orderTotal - ($order->tax_type == 'Outside' ? $igst : $cgst + $sgst), 2) }}</strong></p></td>
                     </tr>
                     @if($order->tax_type == 'Outside')
                         <tr>
-                            <td style="width: 33%;"><p>IGST (18%) :</p></td><td style="width: 33%;"></td>
-                            <td style="text-align: right;width: 33%;"><p><strong>{{ $order->currency }} {{ number_format($igst, 2) }}</strong></p></td>
+                            <td style="width: 33%;"><p style="font-size: 12px;">IGST (18%) :</p></td>
+                            <!-- <td style="width: 33%;"></td> -->
+                            <td style="text-align: right;width: 33%;"><p style="font-size: 12px;"><strong>{{ $order->currency }} {{ number_format($igst, 2) }}</strong></p></td>
                         </tr>
                     @else
                         <tr>
-                            <td style="width: 33%;"><p> CGST (9%) :</p></td><td style="width: 33%;"></td>
-                            <td style="text-align: right;width: 33%;"><p><strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong></p></td>
+                            <td style="width: 33%;"><p style="font-size: 12px;"> CGST (9%) :</p></td>
+                            <!-- <td style="width: 33%;"></td> -->
+                            <td style="text-align: right;width: 33%;"><p style="font-size: 12px;"><strong>{{ $order->currency }} {{ number_format($cgst, 2) }}</strong></p></td>
                         </tr>
                         <tr>
-                            <td style="width: 33%;"><p>SGST (9%) :</p></td><td style="width: 33%;"></td>
-                            <td style="text-align: right;width: 33%;"><p><strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong></p></td>
+                            <td style="width: 33%;"><p style="font-size: 12px;">SGST (9%) :</p></td>
+                            <!-- <td style="width: 33%;"></td> -->
+                            <td style="text-align: right;width: 33%;"><p style="font-size: 12px;"><strong>{{ $order->currency }} {{ number_format($sgst, 2) }}</strong></p></td>
                         </tr>
                     @endif
                     <tr style="font-weight: 600;">
                     <td style="width: 33%;padding:3px 0;">
-                                        <p style="color:#3a3a3a;font-weight: 500;margin-bottom: 10px;">AMOUNT PAID </p>
+                                        <p style="color:#3a3a3a;font-weight: 500;margin-bottom: 10px;font-size: 12px;">AMOUNT PAID </p>
                                     </td>
-                        <td style="width: 33%;padding-left:20px"><p> Order Total:</p></td><td></td>
-                        <td style="text-align: right;width: 33%;">
-    <p><strong>{{ $order->currency }} {{ number_format(round($orderTotal), 0, '.', ',') }}.00</strong></p>
+                        <!-- <td style="width: 33%;padding-left:20px"><p> </p></td><td></td> -->
+                        <td style="text-align: right;width: 33%;font-size: 12px;">
+    <p style="font-size: 12px;"><span style="font-size: 10px;">Order Total:</span> <strong> {{ $order->currency }} {{ number_format(round($orderTotal), 0, '.', ',') }}.00</strong></p>
 </td>
 
                     </tr>
