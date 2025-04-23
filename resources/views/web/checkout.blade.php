@@ -289,8 +289,12 @@
                <span class="error-message" style="display: none;">Phone is required.</span>
                </div>
                </div>
-
-               <input type="hidden" name="email" id="email" placeholder="Email" value="{{ $user->email ?? '' }}" required>
+               <div class="col-lg-6">
+               <div class="details-item">
+               <label for="name">Email Address*</label>
+               <input type="text" name="email" id="email" placeholder="Email" value="{{ $user->email ?? '' }}" readonly required >
+               </div>
+               </div>
                
                <input type="hidden" name="gst_number" id="gst_number" placeholder="" value="{{ $user->customer->businessAddress->gst_number ?? '' }}" > 
                <div class="col-lg-6">
