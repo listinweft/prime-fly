@@ -724,9 +724,9 @@ if (!empty($orderemailb->emails_b)) {
     // Re-fetch fresh order data for PDF
 
 
-    $customer = $orderData->orderCustomer->CustomerData;
+   
      $user = $orderData->orderCustomer->CustomerData->user;
-                  $customer = $user->customer;
+     $customer = $orderData->orderCustomer->CustomerData;
 
 
                   $ordernew = Order::where('id', $order->id)
