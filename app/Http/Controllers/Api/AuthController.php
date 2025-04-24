@@ -499,7 +499,7 @@ public function sendOTP(Request $request)
 
     // Prepare message
 
-    $var2 = "ab6ecsxDciy";
+    $var2 = "35Vb7wtm/TU";
     $message = "Your OTP for login to Primefly is $otp. It is valid for the next 2 minutes.$var2";
 
    

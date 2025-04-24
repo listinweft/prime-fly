@@ -308,9 +308,20 @@
                         <input type="text" placeholder="Enter Your Name" name="first_name" id="first_name" value="{{@$customer->first_name}}" class="required">
                     </div>
                     <div class="col-lg-6 profile_form_grid">
-                        <label>Mobile Number</label>
-                        <input id="phone" name="phone"  placeholder="Enter Your Mobile Number" type="tel" value="{{@$customer->user->phone}}" class="required" />
-                    </div>
+    <label>Mobile Number</label>
+    <input 
+        id="phone" 
+        name="phone" 
+        placeholder="Enter Your Mobile Number" 
+        type="tel"
+        value="{{ @$customer->user->phone }}" 
+        class="required"
+        {{ ctype_digit(str_replace(' ', '', trim(@$customer->user->username))) ? 'readonly' : '' }}
+    />
+</div>
+
+
+
                     <div class="col-lg-6 profile_form_grid">
                         <label>Email</label>
                         <input type="email" placeholder="Enter Your Email" name="email" id="email" value="{{@$customer->user->email}}" class="required">
