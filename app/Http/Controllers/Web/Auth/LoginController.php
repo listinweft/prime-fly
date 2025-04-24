@@ -758,12 +758,14 @@ public function sendOTP_again(Request $request)
         Session::forget('otp'); // Clear OTP after successful verification
 
         // Check if user exists
-        $user = User::where('phone', $phone)->first();
-
+       
 
         if (Str::startsWith($phone, '91')) {
             $phones = substr($phone, 2);
         }
+
+        $user = User::where('phone', $phones)->first();
+
 
         if (!$user) {
             // Register a new user with default values
