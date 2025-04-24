@@ -723,8 +723,8 @@ if (!empty($orderemailb->emails_b)) {
 
     // Re-fetch fresh order data for PDF
 
-    $user = Auth::guard('customer')->user();
-                  $customer = $user->customer;
+    // $user = Auth::guard('customer')->user();
+    //               $customer = $user->customer;
 
 
                   $ordernew = Order::where('id', $order->id)
