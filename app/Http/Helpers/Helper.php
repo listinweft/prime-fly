@@ -566,40 +566,105 @@ public static function sendOrderStatusMailcomplete($order, $status, $productName
 
 
 
-public static function sendCustomerStatusMail($status, $toName, $to)
-{
-    // Log start of email sending
-    \Illuminate\Support\Facades\Log::info("Starting change");
+// public static function sendCustomerStatusMail($status, $toName, $to)
+// {
+//     // Log start of email sending
+//     \Illuminate\Support\Facades\Log::info("Starting change");
 
-    // Create an instance of BrevoMailService
-    $brevoMailService = new \App\Services\BrevoMailService();
+//     // Create an instance of BrevoMailService
+//     $brevoMailService = new \App\Services\BrevoMailService();
 
-    // Retrieve common site information and active contact address
+//     // Retrieve common site information and active contact address
     
-    $subject = config('app.name') . ' - Status Changed';
+//     $subject = config('app.name') . ' - Status Changed';
 
-    // Generate the email content using a Blade view
-    $htmlContent = view('mail_templates.customer_status_change', [
+//     // Generate the email content using a Blade view
+//     $htmlContent = view('mail_templates.customer_status_change', [
         
-        'name' => $toName,
-        'status' => $status,
+//         'name' => $toName,
+//         'status' => $status,
        
-        'app_name' => config('app.name')
-    ])->render();
+//         'app_name' => config('app.name')
+//     ])->render();
 
-    // Send email to customer
-    try {
-        $brevoMailService->sendEmail($to, $toName, $subject, $htmlContent);
-        \Illuminate\Support\Facades\Log::info("Order status email sent successfully to customer: " . $to);
-    } catch (\Exception $e) {
-        \Illuminate\Support\Facades\Log::error("Failed to send email to customer: " . $e->getMessage());
-    }
+//     // Send email to customer
+//     try {
+//         $brevoMailService->sendEmail($to, $toName, $subject, $htmlContent);
+//         \Illuminate\Support\Facades\Log::info("Order status email sent successfully to customer: " . $to);
+//     } catch (\Exception $e) {
+//         \Illuminate\Support\Facades\Log::error("Failed to send email to customer: " . $e->getMessage());
+//     }
 
-    // Send email to admins
+//     // Send email to admins
    
 
-    return true;
-}
+//     return true;
+// }
+
+// public static function sendOrderPlacedMail($order, $flag)
+// {
+//     $brevoMailService = new \App\Services\BrevoMailService();
+
+//     if ($flag == '1') {
+//         $orderData = Order::find($order);
+//         if ($orderData != NULL) {
+//             if ($orderData->orderCustomer->user_type == "User") {
+//                 $order = Order::with(['orderProducts' => function ($t) {
+//                     $t->with('productData');
+//                 }])->with(['orderCustomer' => function ($c) use ($orderData) {
+//                     $c->with('customerData');
+//                     $c->with('billingAddress');
+//                     $c->where('customer_id', $orderData->orderCustomer->customer_id);
+//                 }])->with('orderCoupons')->find($orderData->id);
+//             } else {
+//                 $order = Order::with(['orderProducts' => function ($t) {
+//                     $t->with('productData');
+//                 }])->with('orderCustomer')->with('orderCoupons')->find($orderData->id);
+//             }
+//         }
+//     }
+
+//     $common = SiteInformation::first();
+//     $contactAddress = ContactAddress::where('status', 'Active')->first();
+//     $customerAddress = $order->orderCustomer->customerData;
+//     $to = $customerAddress->user->email;
+//     $to_name = $customerAddress->first_name;
+//     $link = url('order/' . base64_encode($order->order_code));
+//     $orderGrandTotal = Order::OrderGrandTotal($order->id);
+//     $orderTotal = Order::getProductTotal($order->id);
+
+//     // Fetch the order by its ID
+// $orderemailb = Order::where('id', $order->id)->first();
+
+// // Explode the existing emails from $common->order_emails into an array
+// $emails = explode(',', $common->order_emails);
+
+// // Check if $orderemailb->emails_b exists and is not empty
+// if (!empty($orderemailb->emails_b)) {
+//     // Explode the emails_b field into an array and merge with the $emails array
+//     $emails_b_array = explode(',', $orderemailb->emails_b);
+//     $emails = array_merge($emails, $emails_b_array);
+// } else {
+//     // If emails_b is empty, just use the normal $emails
+//     $emails = explode(',', $common->order_emails);
+// }
+
+// // Now $emails contains the combined email addresses or just the original emails
+
+//     $subject = 'Congratulations, Order Successful!';
+//     $htmlContent = view('mail_templates.order_invoice_v2', compact('order', 'to_name', 'common', 'orderGrandTotal', 'orderTotal', 'link'))->render();
+
+//     // Send mail to customer
+//     $brevoMailService->sendEmail($to, $to_name, $subject, $htmlContent);
+
+//     // Send mail to admin
+//     foreach ($emails as $email) {
+//         $brevoMailService->sendEmail($email, $common->email_recipient, $subject, $htmlContent);
+//     }
+
+//     return true;
+// }
+
 
 public static function sendOrderPlacedMail($order, $flag)
 {
@@ -655,11 +720,34 @@ if (!empty($orderemailb->emails_b)) {
     $htmlContent = view('mail_templates.order_invoice_v2', compact('order', 'to_name', 'common', 'orderGrandTotal', 'orderTotal', 'link'))->render();
 
     // Send mail to customer
-    $brevoMailService->sendEmail($to, $to_name, $subject, $htmlContent);
 
-    // Send mail to admin
+    // Re-fetch fresh order data for PDF
+
+    $user = Auth::guard('customer')->user();
+                  $customer = $user->customer;
+
+
+                  $ordernew = Order::where('id', $order->id)
+                  ->where('payment_mode', 'Success')
+                  ->with(['orderProducts' => function ($query) {
+                      $query->with('productData')
+                          ->with('colorData');
+                  }])
+                  ->firstOrFail();
+
+if ($ordernew) {
+$pdf = \PDF::setOptions(['dpi' => 150, 'defaultFont' => 'lato'])
+    ->loadView('web.invoicenewpdf', compact('ordernew','user','customer'))
+    ->output();
+
+$filename = 'invoice_' . $ordernew->order_code . '.pdf';
+}
+
+    $brevoMailService->sendEmailWithAttachment($to, $to_name, $subject, $htmlContent, $pdf, $filename);
+
+    // Send mail to admin list
     foreach ($emails as $email) {
-        $brevoMailService->sendEmail($email, $common->email_recipient, $subject, $htmlContent);
+        $brevoMailService->sendEmailWithAttachment($email, $common->email_recipient, $subject, $htmlContent, $pdf, $filename);
     }
 
     return true;

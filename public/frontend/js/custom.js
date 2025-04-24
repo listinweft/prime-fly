@@ -2136,82 +2136,68 @@ $requiredFields.each(function () {
     });
     
     $(document).on('click', '.loginform_submit_btn', function (e) {
-       
-
         e.preventDefault();
-
-        $this = $(this);
-        var buttonText = $this.html();
+    
+        var $this = $(this);
         var url = $this.data('url');
         var form_id = $this.closest("form").attr('id');
-
-
-
         var modal_id = $this.closest(".modal").attr('id');
         var formData = new FormData(document.getElementById(form_id));
-
-
-
-
+    
+        // Save original button text/value based on type
+        var buttonText = $this.is('button') ? $this.html() : $this.val();
+    
+        // Change button to loading state
+        if ($this.is('button')) {
+            $this.html('Please Wait..');
+        } else {
+            $this.val('Please Wait..');
+        }
+    
         var errors = false;
+    
+        // Remove old validation states and messages
         $('form input, form textarea').removeClass('is-invalid is-valid');
-        $('span.error').remove();
-        $("#" + form_id + " .required").each(function (k, v) {
-            var field_name = $(v).attr('name');
-
-
-            if (!$(v).val().length) {
+        $('span.error, div.error').remove();
+    
+        // Validate required fields
+        $("#" + form_id + " .required").each(function () {
+            var field_name = $(this).attr('name');
+            var inputField = $('#' + form_id).find('[name="' + field_name + '"]');
+            var value = $(this).val();
+    
+            if (!value.length) {
                 errors = true;
-                var error = 'Please enter <strong>' + field_name + '</strong>';
-                var msg = '<div class="error  invalidMessage" style="color: red">' + error + '</div>';
-            
-                var inputField = $('#' + form_id).find('input[name="' + field_name + '"], textarea[name="' + field_name + '"], select[name="' + field_name + '"]');
-                
+                var errorMsg = 'Please enter <strong>' + field_name + '</strong>';
+                var msg = '<div class="error invalidMessage" style="color: red">' + errorMsg + '</div>';
+    
                 inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true");
-
-                if (field_name === 'username') {
-                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if (!regex.test($(v).val())) {
-                        errors = true;
-                        msg = '<span class="error  invalidMessage" style="color: red" for="email">Please enter Email</span>';
-                        $('#' + form_id).find('input[name="' + field_name + '"]')
-                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
-                    }
-                }
-                
-            
-                if (field_name === "password") {
+    
+                if (field_name === 'password') {
                     var errorContainer = $(".password-error-container");
-            
-                    // **Remove old message first** to prevent duplicates
                     errorContainer.find(".invalidMessage").remove();
-            
                     if (errorContainer.length) {
-                        errorContainer.html(msg); // Place error inside password error container
+                        errorContainer.html(msg);
                     } else {
-                        inputField.closest("div").append(msg); // Append error inside the nearest div as fallback
+                        inputField.closest("div").append(msg);
                     }
                 } else {
-                    // **Remove old messages first** before appending new error
                     inputField.siblings(".invalidMessage").remove();
                     inputField.after(msg);
                 }
-            }
-            
-             else {
+            } else {
                 if (field_name === 'email') {
-                    var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if (!regex.test($(v).val())) {
+                    var emailRegex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if (!emailRegex.test(value)) {
                         errors = true;
-                        msg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
-                        $('#' + form_id).find('input[name="' + field_name + '"]')
-                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                        var emailMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
+                        inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(emailMsg);
                     }
                 }
             }
         });
+    
         if (!errors) {
-            $this.html('Please Wait..');
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -2222,99 +2208,88 @@ $requiredFields.each(function () {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: base_url + url,
-
-
+                url: base_url + url
             })
-                .done(function (response) {
-
-
-                    console.log(response);
+            .done(function (response) {
+                console.log(response);
+    
+                // Reset button text after response
+                if ($this.is('button')) {
                     $this.html(buttonText);
-                    $("#" + form_id)[0].reset();
-                    if (modal_id) {
-                        $("#" + modal_id).modal('hide');
-                    }
-                   
-                    if (response.status == "success-reload") {
-
-
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
-                        setTimeout(() => {
-                            window.location.href = base_url;
-                        }, 2000);
-
-                    }
-                   
-                  else  if (response.status == "verify") {
-
-
-                        // Toast.fire({
-                        //     title: "Success!", text: response.message, icon: "success"
-                        // });
-                        setTimeout(() => {
-                            window.location.href = base_url + "/verify-otp";
-
-                        }, 2000);
-
-                    }
-                    else if (response.status == "success-reloadc") {
-                        // alert("knbb");
-
-
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
-                        setTimeout(() => {
-                            window.location.href = base_url + '/cart';
-
-                        }, 2000);
-
-                    }
-
-                   else  if (response.status == "success-reload2") {
-
-
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
-                        setTimeout(() => {
-                            window.location.href = base_url;
-                        }, 500);
-
-                    }
-
-                    else if (response.status == "success2") {
-
-                        Toast.fire({
-                            title: "Success!", text: response.message, icon: "success"
-                        });
-                        setTimeout(() => {
-                            window.location.href = base_url/customer/account;
-                        }, 500);
-
-
-                    }
-                    
-                    else {
-                        Toast.fire({
-                            title: "error!", text: response.message, icon: "error"
-                        });
-                       
-                    }
-                })
-                .fail(function (response) {
-                    $this.html(buttonText);
-                    $.each(response.responseJSON.errors, function (field_name, error) {
-                        var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
-                        $("#" + form_id).find('input[name="' + field_name + '"], select[name="' + field_name + '"], textarea[name="' + field_name + '"]')
-                            .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                } else {
+                    $this.val(buttonText);
+                }
+    
+                $("#" + form_id)[0].reset();
+    
+                if (modal_id) {
+                    $("#" + modal_id).modal('hide');
+                }
+    
+                if (response.status === "success-reload") {
+                    Toast.fire({
+                        title: "Success!", text: response.message, icon: "success"
                     });
-                })
+                    setTimeout(() => { window.location.href = base_url; }, 2000);
+                }
+                else if (response.status === "verify") {
+                    setTimeout(() => {
+                        window.location.href = base_url + "/verify-otp";
+                    }, 2000);
+                }
+                else if (response.status === "success-reloadc") {
+                    Toast.fire({
+                        title: "Success!", text: response.message, icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = base_url + '/cart';
+                    }, 2000);
+                }
+                else if (response.status === "success-reload2") {
+                    Toast.fire({
+                        title: "Success!", text: response.message, icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = base_url;
+                    }, 500);
+                }
+                else if (response.status === "success2") {
+                    Toast.fire({
+                        title: "Success!", text: response.message, icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = base_url + "/customer/account";
+                    }, 500);
+                }
+                else {
+                    Toast.fire({
+                        title: "Error!", text: response.message, icon: "error"
+                    });
+                }
+            })
+            .fail(function (response) {
+                if ($this.is('button')) {
+                    $this.html(buttonText);
+                } else {
+                    $this.val(buttonText);
+                }
+    
+                $.each(response.responseJSON.errors, function (field_name, error) {
+                    var msg = '<span class="error invalid-feedback invalidMessage" for="' + field_name + '">' + error + '</span>';
+                    $("#" + form_id).find('[name="' + field_name + '"]')
+                        .removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(msg);
+                });
+            });
+        } else {
+            // Revert button text if there are validation errors
+            if ($this.is('button')) {
+                $this.html(buttonText);
+            } else {
+                $this.val(buttonText);
+            }
         }
     });
+    
 
     $(document).on('click', '.otp_submit_btn', function (e) {
         e.preventDefault();
