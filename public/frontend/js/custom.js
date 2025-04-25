@@ -2134,7 +2134,6 @@ $requiredFields.each(function () {
             });
         }
     });
-    
     $(document).on('click', '.loginform_submit_btn', function (e) {
         e.preventDefault();
     
@@ -2185,13 +2184,25 @@ $requiredFields.each(function () {
                     inputField.siblings(".invalidMessage").remove();
                     inputField.after(msg);
                 }
+    
             } else {
+                // Email validation
                 if (field_name === 'email') {
                     var emailRegex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
                     if (!emailRegex.test(value)) {
                         errors = true;
                         var emailMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="email">Please enter a valid email address</span>';
                         inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(emailMsg);
+                    }
+                }
+    
+                // Phone number validation (exactly your request)
+                if (field_name === 'phone') {
+                    var phoneRegex = /^[0-9]{7,15}$/;  // Accepts 7-15 digits
+                    if (!phoneRegex.test(value)) {
+                        errors = true;
+                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid phone number</span>';
+                        inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(phoneMsg);
                     }
                 }
             }
@@ -2289,6 +2300,7 @@ $requiredFields.each(function () {
             }
         }
     });
+    
     
 
     $(document).on('click', '.otp_submit_btn', function (e) {
