@@ -114,7 +114,7 @@
                                 <td style="width:40%;text-align: center;">
                                     <div>
                                         <span style="margin-right: 10px;">
-                                            <a href="https://primefly.in/public/frontend/images/linkedin.png"><img width="25px" src="https://pkbjxh.stripocdn.email/content/assets/img/social-icons/circle-white/facebook-circle-white.png" alt=""></a>
+                                            <a href="https://www.facebook.com/primefly.airportservices"><img width="25px" src="https://pkbjxh.stripocdn.email/content/assets/img/social-icons/circle-white/facebook-circle-white.png" alt=""></a>
                                         </span>
                                         <span style="margin-right: 10px;">
                                             <a href="#"> <img width="25px" src="https://pkbjxh.stripocdn.email/content/assets/img/social-icons/circle-white/twitter-circle-white.png" alt=""></a>
