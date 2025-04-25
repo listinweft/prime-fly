@@ -2198,17 +2198,17 @@ $requiredFields.each(function () {
     
                 // Phone number validation (exactly your request)
                 if (field_name === 'phone') {
-                    // Check for letters first
-                    if (/[a-zA-Z]/.test(value)) {
+                    // Reject if contains anything other than digits and spaces
+                    if (!/^[\d\s]+$/.test(value)) {
                         errors = true;
-                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Phone number must not contain letters</span>';
+                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Phone number must contain only digits</span>';
                         inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(phoneMsg);
                     } else {
-                        // Count digits only
+                        // Count digits (ignore spaces)
                         var digitCount = value.replace(/\D/g, '').length;
                         if (digitCount !== 10) {
                             errors = true;
-                            var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid 10-digit phone number</span>';
+                            var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter exactly 10 digits</span>';
                             inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(phoneMsg);
                         }
                     }
