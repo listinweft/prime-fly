@@ -430,7 +430,7 @@ public static function sendOrderStatusMail($order, $status, $productName)
 
     // Prepare the necessary data for the email template
     $to = $order->orderCustomer->CustomerData->user->email;
-    $toName = $order->orderCustomer->CustomerData->first_name;
+    $toName = "customer";
     $subject = config('app.name') . ' - Order Status Changed';
 
     // Generate the email content using a Blade view
@@ -480,7 +480,7 @@ public static function sendOrderStatusMailcancel($order, $status, $productName)
 
     // Prepare the necessary data for the email template
     $to = $order->orderCustomer->CustomerData->user->email;
-    $toName = $order->orderCustomer->CustomerData->first_name;
+    $toName = "customer";
     $subject = config('app.name') . ' - Order Status Changed';
 
     // Generate the email content using a Blade view
@@ -529,7 +529,7 @@ public static function sendOrderStatusMailcomplete($order, $status, $productName
 
     // Prepare the necessary data for the email template
     $to = $order->orderCustomer->CustomerData->user->email;
-    $toName = $order->orderCustomer->CustomerData->first_name;
+    $toName = "customer";
     $subject = config('app.name') . ' - Order Status Changed';
 
     // Generate the email content using a Blade view
