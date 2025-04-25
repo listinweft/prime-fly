@@ -692,8 +692,8 @@ public static function sendOrderPlacedMail($order, $flag)
     $common = SiteInformation::first();
     $contactAddress = ContactAddress::where('status', 'Active')->first();
     $customerAddress = $order->orderCustomer->customerData;
-    $to = $customerAddress->user->email;
-    $to_name = $customerAddress->first_name;
+    $to = $orderData->orderCustomer->CustomerData->user->email;
+    $to_name = $orderData->orderCustomer->CustomerData->user->user_type;
     $link = url('order/' . base64_encode($order->order_code));
     $orderGrandTotal = Order::OrderGrandTotal($order->id);
     $orderTotal = Order::getProductTotal($order->id);

@@ -764,18 +764,22 @@ public function sendOTP_again(Request $request)
             $phones = substr($phone, 2);
         }
 
-        $user = User::where('phone', $phones)->first();
+       
+
+         $phoness = preg_replace('/\s+/', '', $phones);
+
+        $user = User::where('phone', $phoness)->first();
 
 
         if (!$user) {
             // Register a new user with default values
             $user = new User();
             $user->user_type  = 'Customer';
-            $user->username   = $phones;
+            $user->username   = $phoness;
             $user->email      = null;
             $user->status     = 'Active';
             $user->pay_status = 'Inactive';
-            $user->phone      = $phones;
+            $user->phone      = $phoness;
             $user->btype      = 'public';
             $user->password   = Hash::make('12345678@aA');
 
@@ -939,7 +943,7 @@ public function register(Request $request)
         $user->email = $request->email;
         $user->status = 'Active';
         $user->pay_status = 'Inactive';
-        $user->phone = $request->phone;
+        $user->phone = preg_replace('/\s+/', '', $request->phone);;
         $user->btype = 'public';
         
         $user->password = Hash::make($request->password);

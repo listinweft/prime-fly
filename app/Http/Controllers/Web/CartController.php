@@ -1719,15 +1719,34 @@ class CartController extends Controller
 
                
 
-                $user = User::find(Auth::guard('customer')->user()->id);
+                $user = Auth::guard('customer')->user();
 
-                if ($user && $request->filled('email')) {
-                    if (is_numeric($user->username) && !User::where('email', $request->email)->exists()) {
-                        $user->email = $request->email;
-                        $user->save();
-                    }
-                }
-                
+if ($user) {
+    Log::info('User found.', ['user_id' => $user->id]);
+
+  
+      
+
+        if (is_numeric($user->username)) {
+            Log::info('Username is numeric.', ['username' => $user->username]);
+
+            if (!User::where('email', $request->email)->exists()) {
+                Log::info('Email does not exist in users table, updating.', ['email' => $request->email]);
+
+                $user->email = $request->email;
+                $user->save();
+
+                Log::info('Email updated successfully.', ['new_email' => $user->email]);
+            } else {
+                Log::info('Email already exists, not updating.', ['email' => $request->email]);
+            }
+        } else {
+            Log::info('Username is not numeric.', ['username' => $user->username]);
+        }
+   
+} else {
+    Log::info('User not found.');
+}
 
                 
                 // if (!empty($request->phone)) {
