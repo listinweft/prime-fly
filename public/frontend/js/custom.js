@@ -2198,12 +2198,19 @@ $requiredFields.each(function () {
     
                 // Phone number validation (exactly your request)
                 if (field_name === 'phone') {
-                    // Strip spaces first and count digits only
-                    var digitCount = value.replace(/\D/g, '').length;
-                    if (digitCount !== 10) {
+                    // Check for letters first
+                    if (/[a-zA-Z]/.test(value)) {
                         errors = true;
-                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid 10-digit phone number</span>';
+                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Phone number must not contain letters</span>';
                         inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(phoneMsg);
+                    } else {
+                        // Count digits only
+                        var digitCount = value.replace(/\D/g, '').length;
+                        if (digitCount !== 10) {
+                            errors = true;
+                            var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid 10-digit phone number</span>';
+                            inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(phoneMsg);
+                        }
                     }
                 }
             }
