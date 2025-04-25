@@ -2198,10 +2198,11 @@ $requiredFields.each(function () {
     
                 // Phone number validation (exactly your request)
                 if (field_name === 'phone') {
-                    var phoneRegex = /^[0-9\s]{7,20}$/;  // Accepts 7-15 digits
-                    if (!phoneRegex.test(value)) {
+                    // Strip spaces first and count digits only
+                    var digitCount = value.replace(/\D/g, '').length;
+                    if (digitCount !== 10) {
                         errors = true;
-                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid phone number</span>';
+                        var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid 10-digit phone number</span>';
                         inputField.removeClass('is-valid').addClass('is-invalid').attr("aria-invalid", "true").after(phoneMsg);
                     }
                 }
