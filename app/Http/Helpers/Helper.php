@@ -738,8 +738,14 @@ if (!empty($orderemailb->emails_b)) {
                   ->firstOrFail();
 
 if ($ordernew) {
+
+    $path = "https://primefly.in/public/frontend/images/white-logo.png";
+$type = pathinfo($path, PATHINFO_EXTENSION);
+$data = file_get_contents($path);
+$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
 $pdf = \PDF::setOptions(['dpi' => 150, 'defaultFont' => 'lato'])
-    ->loadView('web.invoicenewpdf', compact('ordernew','user','customer'))
+    ->loadView('web.invoicenewpdf', compact('ordernew','user','customer','base64'))
     ->output();
 
 $filename = 'invoice_' . $ordernew->order_code . '.pdf';

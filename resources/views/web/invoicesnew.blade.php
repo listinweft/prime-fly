@@ -23,12 +23,12 @@
         h4 {
             margin: 0;
             line-height: 1.6;
-            font-size: 13px; 
+            font-size: 9pt; 
         }
 
         p {
             margin: 0;
-            font-size: 13px;
+            font-size: 9pt;
             line-height: 1.6;
         }
 
@@ -43,12 +43,12 @@
 
         table tr td {
             vertical-align: top;
-            font-size: 13px;
+            font-size: 9pt;
             line-height: 1.6;
         }
 
         th {
-            font-size: 13px;
+            font-size: 9pt;
             line-height: 1.6;
         }
 
@@ -85,13 +85,13 @@
         }
 
         table.annexure_table td {
-            font-size: 11px;
+            font-size: 9pt;
             padding: 5px; 
         }
 
         table.annexure_table th {
             padding: 5px; 
-            font-size: 12px;
+            font-size: 8pt;
         }
         
 
@@ -109,12 +109,13 @@
         /*}*/
         @page {
             size: A4;
-            margin:190px 0px 120px 0px; /* top, right, bottom, left */
-             padding-top:190px;padding-bottom:120px
+            margin:160px 0px 100px 0px; /* top, right, bottom, left */
+             padding-top:160px;
+             padding-bottom:100px
         }
          header {
             position: fixed;
-            top: -200px;
+            top: -180px;
             left: 0px;
             right: 0px;
             /*height: 100px;*/
@@ -124,12 +125,12 @@
 
         footer {
             position: fixed;
-            bottom: -120px;
+            bottom: -100px;
             left: 0px;
             right: 0px;
             /*height: 50px;*/
             text-align: center;
-            font-size: 12px;
+            font-size: 8pt;
             line-height: 20px;
         }
         /*header {*/
@@ -152,18 +153,18 @@
             <tr>
                 <td style="width: 30%;vertical-align: middle;">
                     <img src="https://primefly.in/public/frontend/images/white-logo.png" alt="Logo"
-                        style="width: 200px; height: auto; margin-bottom: 0px;">
+                        style="width:150px; height: auto; margin-bottom: 0px;">
                 </td>
                 <td style="width: 25%;"></td>
                 <td style="color: #fff;width: 45%;vertical-align: middle;">
                 @if($order->payment_method == "COD")
-                    <h4 style="font-size: 12px;margin-bottom: 5px;"> PROFORMA INVOICE</h4>
+                    <h4 style="font-size: 8pt;margin-bottom: 5px;"> PROFORMA INVOICE</h4>
                     @else
-                    <h4 style="font-size: 12px;margin-bottom: 5px;">TAX INVOICE</h4>
+                    <h4 style="font-size: 8pt;margin-bottom: 5px;">TAX INVOICE</h4>
                     @endif
                    
-                    <p style="font-size: 12px;font-weight: 400;">PRIMEFLY</p>
-                    <p style="font-size: 12px;font-weight: 400;">TC 86/2018, AIRPORT ROAD, CHACKAI,<br>
+                    <p style="font-size: 8pt;font-weight: 400;">PRIMEFLY</p>
+                    <p style="font-size: 8pt;font-weight: 400;">TC 86/2018, AIRPORT ROAD, CHACKAI,<br>
                         Thiruvananthapuram, Kerala - 695024, India<br>
                         GSTIN: 32OYLPS5894B1ZQ</p>
                 </td>
@@ -173,15 +174,15 @@
 
     <footer id="footer">
         <table
-            style="text-align: center; width: 100%;background-color:#05233d;max-width:720px;margin:auto;padding: 30px;color: #fff;">
+            style="text-align: center; width: 100%;background-color:#05233d;max-width:720px;margin:auto;padding:15px 30px;color: #fff;">
             <tr>
                 <td>
-                    <p style="font-size: 12px;">Registered Address: Primely, TC 86/2018, Airport Road, Chackai ,
+                    <p style="font-size: 8pt;">Registered Address: Primely, TC 86/2018, Airport Road, Chackai ,
                         Thiruvananthapuram, Kerala -695024, India</p>
-                    <p style="font-size: 12px;">Terms and Conditions of services as provided on www.primefly.in shall
+                    <p style="font-size: 8pt;">Terms and Conditions of services as provided on www.primefly.in shall
                         apply.
                     </p>
-                    <p style="font-size: 12px;">For all booking queries, please feel free to write to us at
+                    <p style="font-size: 8pt;">For all booking queries, please feel free to write to us at
                         bookings@primefly.in.</p>
                 </td>
             </tr>
@@ -258,10 +259,10 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
     <thead>
         <tr>
             <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0; text-align: left;">Package ID</th>
-            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">Description</th>
-            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">HSN/SAC</th>
-            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">Quantity</th>
-            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;">Unit Price + Taxes</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;text-align: left;">Description</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;text-align: left;">HSN/SAC</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;text-align: left;">Quantity</th>
+            <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0;text-align: left;">Unit Price + Taxes</th>
             <th style="border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding: 5px 0; text-align: right;">Amount</th>
         </tr>
     </thead>
@@ -369,12 +370,12 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                 </h4>
                 <p style="margin-top: 20px;"><strong style="">Terms & Conditions</strong></p>
                 <ol>
-                    <li style="font-size: 12px;">
+                    <li style="font-size: 8pt;">
                      Payment under this Invoice Should be made through Electronic Fund
                     Transfer (NEFT/RTGS):- UPI
                         <!-- Transfer (NEFT/RTGS):- Account No.: 265505001066 IFSC: ICIC0002655. -->
                     </li>
-                    <li style="font-size: 12px;">
+                    <li style="font-size: 8pt;">
                         For All Payments Effected, kindly forward the following details to: accounts@primefly.in
                         a) Invoice No. b) TDS Deduction c) Any Other Deduction (with reasons) d) Net Amount Paid
                     </li>
@@ -385,21 +386,21 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
             <td style="padding:30px 50px 0;">
             <table class="annexure_table" style="border: 1px solid #ccc;text-align: center;">
     <tr>
-        <td style="font-size: 14px;padding: 8px 0; ">Annexure 1: Service Details</td>
+        <td style="font-size: 14pt;padding: 8px 0; ">Annexure 1: Service Details</td>
     </tr>
     <tr>
         <td style="padding: 0;">
             <table>
                 <thead>
                     <tr>
-                        <th>Package ID</th>
-                        <th>Service Name</th>
-                        <th>Service Date</th>
-                        <th>Booking Date</th>
-                        <th>Service Airport</th>
-                        <th>Sector of Travel</th>
-                        <th>From Airport</th>
-                        <th>To Airport</th>
+                        <th style="text-align: left;">Package ID</th>
+                        <th style="text-align: left;">Service Name</th>
+                        <th style="text-align: left;">Service Date</th>
+                        <th style="text-align: left;">Booking Date</th>
+                        <th style="text-align: left;">Service Airport</th>
+                        <th style="text-align: left;">Sector of Travel</th>
+                        <th style="text-align: left;">From Airport</th>
+                        <th style="text-align: left;">To Airport</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -442,20 +443,20 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
 
                 <table class="annexure_table" style="border: 1px solid #ccc;text-align: center;">
                     <tr>
-                        <td style="font-size: 14px;padding: 8px 0; ">Annexure 2: Flight Details </td>
+                        <td style="font-size: 14pt;padding: 8px 0; ">Annexure 2: Flight Details </td>
                     </tr>
                     <tr>
                         <td style="padding: 0;">
                         <table>
     <thead>
         <tr>
-            <th>Package ID</th>
-            <th>Flight Number</th>
+            <th style="text-align: left;">Package ID</th>
+            <th style="text-align: left;">Flight Number</th>
             @if($order->orderProducts->contains(fn($product) => !empty($product->flight_number)))
-                <th>Flight Date</th>
+                <th style="text-align: left;">Flight Date</th>
             @endif
-            <th>Payment Method</th>
-            <th>Payment Info</th>
+            <th style="text-align: left;">Payment Method</th>
+            <th style="text-align: left;">Payment Info</th>
         </tr>
     </thead>
     <tbody>
@@ -495,18 +496,18 @@ GSTIN:  {{ $personaladdress->gst_number }}</p>
                 </table>
                 <table class="annexure_table" style="border: 1px solid #ccc; text-align: center;">
     <tr>
-        <td style="font-size: 14px; padding: 8px 0; ">Annexure 3: Guest Details</td>
+        <td style="font-size: 14pt; padding: 8px 0; ">Annexure 3: Guest Details</td>
     </tr>
     <tr>
         <td style="padding: 0;">
         <table>
                 <thead>
                     <tr>
-                        <th>Package ID</th>
-                        <th>Sr No</th>
-                        <th>Guest Name</th>
-                        <th>Age</th>
-                        <th>Pnr Number</th>
+                        <th style="text-align: left;">Package ID</th>
+                        <th style="text-align: left;">Sr No</th>
+                        <th style="text-align: left;">Guest Name</th>
+                        <th style="text-align: left;">Age</th>
+                        <th style="text-align: left;">Pnr Number</th>
                     </tr>
                 </thead>
                 <tbody>

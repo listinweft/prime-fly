@@ -2198,7 +2198,7 @@ $requiredFields.each(function () {
     
                 // Phone number validation (exactly your request)
                 if (field_name === 'phone') {
-                    var phoneRegex = /^[0-9]{7,15}$/;  // Accepts 7-15 digits
+                    var phoneRegex = /^[0-9\s]{7,20}$/;  // Accepts 7-15 digits
                     if (!phoneRegex.test(value)) {
                         errors = true;
                         var phoneMsg = '<span class="error invalid-feedback invalidMessage" style="color: red" for="phone">Please enter a valid phone number</span>';
