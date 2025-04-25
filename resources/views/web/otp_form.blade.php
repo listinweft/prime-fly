@@ -58,7 +58,7 @@
                                 <div class="b2b-check form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                                     <label class="form-check-label" for="flexCheckChecked">
-                                        I agree with the <a href="">Terms & Conditions </a> and <a href="">Privacy Policy</a>.
+                                        I agree with the <a href="{{ url('/terms-and-conditions') }}">Terms & Conditions </a> and <a href="{{ url('/privacy-policy') }}">Privacy Policy</a>.
                                     </label>
                                   </div>
                                   
