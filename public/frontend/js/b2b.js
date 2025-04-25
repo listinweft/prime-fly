@@ -1,10 +1,10 @@
 // AOS
-AOS.init(); 
+AOS.init();
 
 
 
 // PASSWORD SHOW
-// $(".eye").click(function() { 
+// $(".eye").click(function() {
 //     var input = $($(this).attr("toggle"));
 //     if (input.attr("type") == "password") {
 //       input.attr("type", "text");
@@ -12,43 +12,63 @@ AOS.init();
 //       input.attr("type", "password");
 //     }
 // });
-// $(".eye-open").click(function() { 
+// $(".eye-open").click(function() {
 //     $(this).css('display','none');
 //     $(".eye-close").css('display','block');
 // });
-// $(".eye-close").click(function() { 
+// $(".eye-close").click(function() {
 //     $(this).css('display','none');
 //     $(".eye-open").css('display','block');
 // });
-
-$("#eye-open-create").on('click', function() {
-  var passwordField = $($(this).attr("toggle"));
-  $("#eye-close-create").show();
-  $(this).hide();
-  passwordField.attr("type", "text");
+$(document).ready(function () {
+    $('#eye-open-create').hide(); // hide open eye (👁)
+    $('#eye-close-create').show();
+    $("#eye-close-confirm").show();
+    $("#eye-open-confirm").hide();
+});
+$("#eye-open-create").on('click', function () {
+    var passwordField = $($(this).attr("toggle"));
+    passwordField.attr("type", "password");
+    $(this).hide();
+    $("#eye-close-create").show();
 });
 
-$("#eye-close-create").on('click', function() {
-  var passwordField = $($(this).attr("toggle"));
-  $("#eye-open-create").show();
-  $(this).hide();
-  passwordField.attr("type", "password");
+// On closed eye click , hide password
+$("#eye-close-create").on('click', function () {
+    var passwordField = $($(this).attr("toggle"));
+    passwordField.attr("type", "text");
+    $(this).hide();
+    $("#eye-open-create").show();
 });
 
 // For Confirm Password field
-$("#eye-open-confirm").on('click', function() {
-  var passwordField = $($(this).attr("toggle"));
-  $("#eye-close-confirm").show();
-  $(this).hide();
-  passwordField.attr("type", "text");
+$("#eye-close-confirm").on('click', function () {
+    var passwordField = $($(this).attr("toggle"));
+    passwordField.attr("type", "text"); // Show password
+    $(this).hide(); // Hide closed eye
+    $("#eye-open-confirm").show(); // Show open eye
 });
 
-$("#eye-close-confirm").on('click', function() {
-  var passwordField = $($(this).attr("toggle"));
-  $("#eye-open-confirm").show();
-  $(this).hide();
-  passwordField.attr("type", "password");
+
+$("#eye-open-confirm").on('click', function () {
+    var passwordField = $($(this).attr("toggle"));
+    passwordField.attr("type", "password"); // Hide password
+    $(this).hide(); // Hide open eye
+    $("#eye-close-confirm").show(); // Show closed eye
 });
+// $("#eye-open-confirm").on('click', function() {
+//   var passwordField = $($(this).attr("toggle"));
+//   $("#eye-close-confirm").show();
+//   $(this).hide();
+//   passwordField.attr("type", "text");
+// });
+
+// $("#eye-close-confirm").on('click', function() {
+//   var passwordField = $($(this).attr("toggle"));
+//   $("#eye-open-confirm").show();
+//   $(this).hide();
+//   passwordField.attr("type", "password");
+// });
 
 // Initially hide the close eye icons
 $("#eye-close-create").hide();
